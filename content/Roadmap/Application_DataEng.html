@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Engineering & Analytics Tools Roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-background-primary: #0d1117;
+      --color-background-secondary: #161b22;
+      --color-text-primary: #c9d1d9;
+      --color-text-secondary: #8b949e;
+      --color-border-secondary: #30363d;
+      --color-border-tertiary: #21262d;
+      --color-background-info: rgba(56, 139, 253, 0.15);
+      --color-text-info: #58a6ff;
+      --color-background-warning: rgba(210, 153, 34, 0.15);
+      --color-text-warning: #d29922;
+      --color-background-success: rgba(46, 160, 67, 0.15);
+      --color-text-success: #3fb950;
+      --color-background-danger: rgba(248, 81, 73, 0.15);
+      --color-text-danger: #f85149;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --border-radius-md: 8px;
+    }
+    body { background-color: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); margin: 0; padding: 0; line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .fBtn { transition: all 0.2s ease; }
+    .fBtn:not(.active):hover { background: var(--color-border-secondary) !important; color: var(--color-text-primary) !important; }
+    #grid > div { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    #grid > div:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    #search:focus { border-color: #58a6ff !important; box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.3); }
+  </style>
+</head>
+<body>
+  <div class="container">
+<h2 class="sr-only">Data Engineering & Analytics Tools — Roadmap Belajar Lengkap</h2>
+<div style="padding: 1rem 0 2rem;">
+
+  <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">
+    <span style="font-size:20px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono)">// data.pipeline</span>
+    <span style="font-size:13px;color:var(--color-text-secondary)">— dari SQL sampai real-time streaming platform</span>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;" id="filters">
+    <button onclick="filter('all')" data-cat="all" class="fBtn active" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:var(--color-text-primary);color:var(--color-background-primary);cursor:pointer;font-family:var(--font-mono)">semua</button>
+    <button onclick="filter('database')" data-cat="database" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ database</button>
+    <button onclick="filter('orchestration')" data-cat="orchestration" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ orchestration</button>
+    <button onclick="filter('transform')" data-cat="transform" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ transform</button>
+    <button onclick="filter('visualization')" data-cat="visualization" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ visualization</button>
+    <button onclick="filter('quality')" data-cat="quality" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ quality</button>
+    <button onclick="filter('streaming')" data-cat="streaming" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⬡ streaming</button>
+    <button onclick="filter('warning')" data-cat="warning" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">⚠ warning zone</button>
+    <button onclick="filter('danger')" data-cat="danger" class="fBtn" style="font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-mono)">☠ danger zone</button>
+  </div>
+
+  <input type="text" id="search" oninput="renderCards()" placeholder="cari tool..." style="width:100%;box-sizing:border-box;margin-bottom:1.5rem;padding:8px 14px;font-family:var(--font-mono);font-size:13px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;">
+
+  <div id="stats" style="display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;"></div>
+  <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;"></div>
+  <div id="empty" style="display:none;text-align:center;padding:3rem 0;color:var(--color-text-secondary);font-family:var(--font-mono);font-size:13px;">// no results found</div>
+
+</div>
+
+<script>
+  const CATS = {
+    database:      { label: "database",      border: "#378ADD", icon: "⬡" },
+    orchestration: { label: "orchestration", border: "#639922", icon: "⬡" },
+    transform:     { label: "transform",     border: "#BA7517", icon: "⬡" },
+    visualization: { label: "visualization", border: "#7F77DD", icon: "⬡" },
+    quality:       { label: "quality",       border: "#888780", icon: "⬡" },
+    streaming:     { label: "streaming",     border: "#D85A30", icon: "⬡" },
+    warning:       { label: "⚠ warning zone", border: "#E24B4A", icon: "⚠" },
+    danger:        { label: "☠ danger zone",  border: "#A32D2D", icon: "☠" },
+  };
+
+  const TAG_STYLE = {
+    "ent→os": "background:var(--color-background-info);color:var(--color-text-info)",
+    "powerful": "background:var(--color-background-warning);color:var(--color-text-warning)",
+    "apache": "background:var(--color-background-success);color:var(--color-text-success)",
+    "faang": "background:var(--color-background-danger);color:var(--color-text-danger)",
+  };
+
+  const tools = [
+    // database
+    { n: "PostgreSQL", cat: "database", d: 2, desc: "Database relasional paling advanced — JSONB, full-text search, extensible, ACID sempurna", tags: ["powerful"] },
+    { n: "DuckDB", cat: "database", d: 1, desc: "Analytical database in-process — query CSV/Parquet langsung, zero server, secepat Spark untuk <10GB", tags: ["powerful"] },
+    { n: "ClickHouse", cat: "database", d: 3, desc: "Columnar OLAP dari Yandex — query miliaran baris dalam detik, kompresi ekstrem", tags: ["ent→os", "powerful"] },
+    { n: "TimescaleDB", cat: "database", d: 2, desc: "Time-series database di atas PostgreSQL — optimal untuk metrics, IoT, financial data", tags: [] },
+    { n: "Redis", cat: "database", d: 1, desc: "In-memory key-value store — caching, pub/sub, rate limiter, session store", tags: [] },
+    { n: "MongoDB", cat: "database", d: 2, desc: "Document database NoSQL — flexible schema, aggregation pipeline, Atlas cloud", tags: ["ent→os"] },
+    { n: "SQLite", cat: "database", d: 1, desc: "Embedded SQL database — single file, zero config, dipakai di setiap smartphone di dunia", tags: ["powerful"] },
+    { n: "MinIO", cat: "database", d: 2, desc: "S3-compatible object storage self-hosted — data lake layer, lifecycle, versioning", tags: ["ent→os"] },
+
+    // orchestration
+    { n: "Apache Airflow", cat: "orchestration", d: 3, desc: "DAG-based workflow orchestration — scheduling, dependency, retry, alerting, standar industri DE", tags: ["apache", "ent→os"] },
+    { n: "Dagster", cat: "orchestration", d: 2, desc: "Modern data orchestrator — software-defined assets, type checking, built-in lineage", tags: ["powerful"] },
+    { n: "Prefect", cat: "orchestration", d: 2, desc: "Workflow automation pythonic — lebih simpel dari Airflow, cloud-native, hybrid execution", tags: [] },
+    { n: "Mage", cat: "orchestration", d: 1, desc: "Data pipeline tool dengan notebook-style UI — ELT, streaming, visual debugging", tags: [] },
+    { n: "Luigi", cat: "orchestration", d: 2, desc: "Task orchestrator dari Spotify — dependency resolution, central scheduler, Python native", tags: ["faang"] },
+    { n: "Kestra", cat: "orchestration", d: 2, desc: "Event-driven orchestration platform — YAML-based, plugin ecosystem, UI visual editor", tags: [] },
+    { n: "n8n", cat: "orchestration", d: 1, desc: "Low-code workflow automation self-hosted — 400+ integrasi, alternatif Zapier gratis", tags: [] },
+
+    // transform
+    { n: "dbt (data build tool)", cat: "transform", d: 2, desc: "SQL-based transformation — testing, documentation, lineage, version control, modular models", tags: ["powerful"] },
+    { n: "Polars", cat: "transform", d: 2, desc: "DataFrame library Rust-powered — 10-100x lebih cepat dari pandas, lazy evaluation, multi-threaded", tags: ["powerful"] },
+    { n: "pandas", cat: "transform", d: 1, desc: "Python DataFrame standar — manipulasi data tabular, 15+ tahun ecosystem, ubiquitous", tags: [] },
+    { n: "SQLMesh", cat: "transform", d: 2, desc: "dbt alternatif dengan virtual data environments — preview perubahan tanpa materializing", tags: [] },
+    { n: "Apache Spark", cat: "transform", d: 3, desc: "Distributed data processing — batch + streaming, DataFrame API, ML pipeline, cluster computing", tags: ["apache", "ent→os"] },
+    { n: "Trino", cat: "transform", d: 3, desc: "Distributed SQL query engine — query lintas datasource (S3, PostgreSQL, Kafka) sekaligus", tags: ["ent→os", "faang"] },
+    { n: "DuckDB + dbt", cat: "transform", d: 2, desc: "Combo transformasi lokal — dbt Core + DuckDB adapter, full warehouse experience tanpa server", tags: [] },
+
+    // visualization
+    { n: "Apache Superset", cat: "visualization", d: 2, desc: "BI platform dari Airbnb — dashboard, SQL lab, chart builder, production-ready", tags: ["apache", "ent→os", "faang"] },
+    { n: "Metabase", cat: "visualization", d: 1, desc: "BI self-hosted paling mudah — auto-detect schema, pertanyaan natural language, embed dashboard", tags: ["ent→os"] },
+    { n: "Grafana", cat: "visualization", d: 2, desc: "Dashboard multi-datasource — metrics, logs, traces visualization, alerting built-in", tags: ["ent→os"] },
+    { n: "Redash", cat: "visualization", d: 2, desc: "Query & visualization tool — multi-database support, scheduled queries, shareable dashboards", tags: ["ent→os"] },
+    { n: "Evidence", cat: "visualization", d: 2, desc: "BI as code — Markdown + SQL = auto-generated reports, Git-versioned, developer-friendly", tags: ["powerful"] },
+    { n: "Streamlit", cat: "visualization", d: 1, desc: "Python framework untuk data apps — dari script ke web app interaktif dalam menit", tags: [] },
+
+    // quality
+    { n: "Great Expectations", cat: "quality", d: 2, desc: "Data quality framework — expectations, validation suites, profiling, auto-docs", tags: ["powerful"] },
+    { n: "Soda", cat: "quality", d: 2, desc: "Data quality checks via SodaCL — scan, alert, integrate dengan pipeline, cloud + OSS", tags: ["ent→os"] },
+    { n: "dbt tests", cat: "quality", d: 1, desc: "Built-in data testing — unique, not_null, relationships, accepted_values + custom SQL test", tags: [] },
+    { n: "DataHub", cat: "quality", d: 3, desc: "Data catalog & governance dari LinkedIn — metadata, lineage, ownership, search, tag", tags: ["faang", "ent→os"] },
+    { n: "Amundsen", cat: "quality", d: 3, desc: "Data discovery dari Lyft — metadata search, table popularity, lineage, owner tracking", tags: ["faang"] },
+    { n: "OpenMetadata", cat: "quality", d: 2, desc: "Unified metadata platform — catalog, lineage, quality, profiler, glossary dalam satu tempat", tags: ["ent→os"] },
+    { n: "Monte Carlo (OSS)", cat: "quality", d: 3, desc: "Data observability — deteksi anomali otomatis, freshness, volume, schema change alerting", tags: ["ent→os"] },
+
+    // streaming
+    { n: "Apache Kafka", cat: "streaming", d: 3, desc: "Distributed event streaming — topic/partition, consumer group, exactly-once, standar industri", tags: ["apache", "ent→os"] },
+    { n: "Redpanda", cat: "streaming", d: 2, desc: "Kafka-compatible tanpa JVM — single binary C++, lebih cepat, butuh 1/5 resource Kafka", tags: ["powerful"] },
+    { n: "Debezium", cat: "streaming", d: 3, desc: "Change Data Capture — stream perubahan database secara realtime ke Kafka/Redpanda", tags: ["ent→os"] },
+    { n: "Apache Flink", cat: "streaming", d: 3, desc: "Stream processing framework — windowing, stateful computation, exactly-once guarantees", tags: ["apache"] },
+    { n: "Kafka Connect", cat: "streaming", d: 2, desc: "Data integration framework — 100+ connectors source/sink, no-code streaming pipeline", tags: ["apache"] },
+    { n: "Benthos / Redpanda Connect", cat: "streaming", d: 2, desc: "Stream processor deklaratif — YAML config, 200+ connectors, transformasi built-in", tags: [] },
+
+    // warning
+    { n: "Apache Spark Cluster", cat: "warning", d: 4, desc: "Multi-node Spark — YARN/K8s resource management, shuffle optimization, memory tuning", tags: ["apache"] },
+    { n: "Delta Lake", cat: "warning", d: 3, desc: "ACID transactions di data lake — time travel, schema enforcement, upsert/merge", tags: ["faang", "powerful"] },
+    { n: "Apache Iceberg", cat: "warning", d: 3, desc: "Open table format — schema evolution, hidden partitioning, snapshot isolation, vendor-neutral", tags: ["apache", "powerful"] },
+    { n: "dbt Mesh", cat: "warning", d: 4, desc: "Multi-project dbt — cross-project references, contracts, governance di skala enterprise", tags: ["powerful"] },
+    { n: "Apache NiFi", cat: "warning", d: 3, desc: "Data flow automation GUI — awalnya dari NSA, visual data routing, back-pressure handling", tags: ["apache", "ent→os"] },
+    { n: "Databricks (OSS)", cat: "warning", d: 4, desc: "Lakehouse platform — unified batch + streaming, Delta Lake, MLflow, notebook-driven", tags: ["faang", "ent→os"] },
+    { n: "Schema Registry", cat: "warning", d: 3, desc: "Schema governance untuk Kafka — Avro/Protobuf/JSON schema, compatibility rules, versioning", tags: [] },
+
+    // danger
+    { n: "Apache Beam", cat: "danger", d: 5, desc: "Unified batch + streaming SDK — write once, run on Spark/Flink/Dataflow, Google-originated", tags: ["apache", "faang"] },
+    { n: "Presto / Trino Cluster", cat: "danger", d: 5, desc: "Multi-node distributed SQL — federated queries, petabyte-scale, ex-Facebook engineering", tags: ["faang"] },
+    { n: "Apache Hudi", cat: "danger", d: 5, desc: "Incremental data lake processing — upsert/delete pada data lake, compaction, timeline metadata", tags: ["apache", "faang"] },
+    { n: "Materialize", cat: "danger", d: 5, desc: "Streaming SQL database — incrementally-maintained materialized views, PostgreSQL-compatible", tags: ["powerful"] },
+    { n: "Apache Druid", cat: "danger", d: 5, desc: "Real-time OLAP database — sub-second query pada miliaran baris, dipakai Airbnb & Netflix", tags: ["apache", "faang"] },
+    { n: "Apache Pinot", cat: "danger", d: 5, desc: "Real-time distributed OLAP dari LinkedIn — user-facing analytics, low-latency ingestion", tags: ["apache", "faang"] },
+  ];
+
+  let activeCat = 'all';
+
+  function diffDots(d) {
+    const colors = ['', '#888780', '#378ADD', '#7F77DD', '#E24B4A', '#A32D2D'];
+    let s = '';
+    for (let i = 1; i <= 5; i++) s += `<span style="color:${i <= d ? colors[Math.min(d, 5)] : 'var(--color-border-secondary)'};">●</span>`;
+    return s;
+  }
+
+  function tagPill(t) {
+    const style = TAG_STYLE[t] || 'background:var(--color-background-secondary);color:var(--color-text-secondary)';
+    return `<span style="${style};font-size:10px;padding:2px 7px;border-radius:10px;font-family:var(--font-mono);white-space:nowrap;">${t}</span>`;
+  }
+
+  function renderCards() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const list = tools.filter(t => {
+      const catMatch = activeCat === 'all' || t.cat === activeCat;
+      const qMatch = !q || t.n.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.tags.some(x => x.includes(q));
+      return catMatch && qMatch;
+    });
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const stats = document.getElementById('stats');
+    if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; stats.innerHTML = ''; return; }
+    empty.style.display = 'none';
+    const catCounts = {};
+    list.forEach(t => catCounts[t.cat] = (catCounts[t.cat] || 0) + 1);
+    stats.innerHTML = `<span style="font-size:12px;color:var(--color-text-secondary);font-family:var(--font-mono)">// ${list.length} tools</span>` +
+      Object.entries(catCounts).map(([c, n]) => `<span style="font-size:11px;padding:2px 8px;border-radius:10px;border:0.5px solid ${CATS[c].border};color:var(--color-text-secondary);font-family:var(--font-mono)">${CATS[c].label} ×${n}</span>`).join('');
+    grid.innerHTML = list.map(t => {
+      const c = CATS[t.cat];
+      const isWarn = t.cat === 'warning' || t.cat === 'danger';
+      return `<div style="border-left:3px solid ${c.border};background:var(--color-background-primary);border-top:0.5px solid var(--color-border-tertiary);border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:12px 14px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px;">
+        <span style="font-weight:500;font-size:14px;color:var(--color-text-primary);font-family:var(--font-mono);${isWarn ? 'color:var(--color-text-danger)' : ''}">${isWarn && t.cat === 'danger' ? '☠ ' : ''}${t.n}</span>
+        <span style="font-size:12px;letter-spacing:1px;white-space:nowrap;">${diffDots(t.d)}</span>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin:0 0 8px;line-height:1.5;">${t.desc}</p>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;">${t.tags.map(tagPill).join('')}</div>
+    </div>`;
+    }).join('');
+  }
+
+  function filter(cat) {
+    activeCat = cat;
+    document.querySelectorAll('.fBtn').forEach(b => {
+      const isActive = b.dataset.cat === cat;
+      b.style.background = isActive ? 'var(--color-text-primary)' : 'transparent';
+      b.style.color = isActive ? 'var(--color-background-primary)' : 'var(--color-text-secondary)';
+      isActive ? b.classList.add('active') : b.classList.remove('active');
+    });
+    renderCards();
+  }
+
+  const legend = `<div style="margin-top:1.5rem;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);display:flex;gap:16px;flex-wrap:wrap;">
+  <span style="font-size:11px;color:var(--color-text-secondary);font-family:var(--font-mono)">● tingkat kesulitan (1–5)</span>
+  <span style="font-size:11px;padding:1px 7px;border-radius:8px;background:var(--color-background-info);color:var(--color-text-info);font-family:var(--font-mono)">ent→os</span><span style="font-size:11px;color:var(--color-text-secondary)">enterprise → opensource</span>
+  <span style="font-size:11px;padding:1px 7px;border-radius:8px;background:var(--color-background-warning);color:var(--color-text-warning);font-family:var(--font-mono)">powerful</span><span style="font-size:11px;color:var(--color-text-secondary)">tidak viral tapi dahsyat</span>
+  <span style="font-size:11px;padding:1px 7px;border-radius:8px;background:var(--color-background-success);color:var(--color-text-success);font-family:var(--font-mono)">apache</span><span style="font-size:11px;color:var(--color-text-secondary)">Apache Software Foundation</span>
+  <span style="font-size:11px;padding:1px 7px;border-radius:8px;background:var(--color-background-danger);color:var(--color-text-danger);font-family:var(--font-mono)">faang</span><span style="font-size:11px;color:var(--color-text-secondary)">lahir dari big tech</span>
+</div>`;
+  document.querySelector('div[style*="padding: 1rem 0"]').insertAdjacentHTML('beforeend', legend);
+  renderCards();
+</script>
+  </div>
+</body>
+</html>
