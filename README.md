@@ -1,17 +1,19 @@
-# Quartz v4
+# 🔐 Security & CS Knowledge Base
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Repositori ini berisi catatan digital (Digital Garden) mengenai Cyber Security, Computer Science, dan Infrastruktur IT yang dibangun menggunakan [Quartz v4](https://quartz.jzhao.xyz/).
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+## 🚀 Live Site
+Situs dapat diakses di: **[https://azhar457.github.io/note/](https://azhar457.github.io/note/)**
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## 📂 Struktur Repositori
+- `content/`: Lokasi semua file Markdown (`.md`). Ini adalah inti dari basis pengetahuan ini.
+- `quartz/static/`: Aset statis seperti gambar dan aplikasi roadmap interaktif.
+- `deploy.bat`: Script otomatis untuk membangun (build) dan menyinkronkan (sync) catatan ke GitHub Pages.
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+## 🛠️ Cara Mengupdate Catatan
+1. Tambahkan atau edit file di dalam folder `content/`.
+2. Jalankan `deploy.bat` untuk memproses perubahan.
+3. Tunggu beberapa menit hingga GitHub Actions selesai melakukan deployment.
 
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+---
+*Dikelola oleh Azhar457*
