@@ -88,9 +88,9 @@ status: active
 
 | Aplikasi | Deskripsi | Link |
 |----------|-----------|------|
-| 🛡️ **Cyber Security App** | Filter kategori & kesulitan | [Buka Aplikasi](/note/Roadmap/Application_Cyber.html) |
-| ☁️ **DevOps App** | Tracking progress interaktif | [Buka Aplikasi](/note/Roadmap/Application_DevOps.html) |
-| 📊 **Data Engineering App** | Visualisasi tech stack | [Buka Aplikasi](/note/Roadmap/Application_DataEng.html) |
+| 🛡️ **Cyber Security App** | Filter kategori & kesulitan | [Buka Aplikasi](/note/static/Roadmap/Application_Cyber.html) |
+| ☁️ **DevOps App** | Tracking progress interaktif | [Buka Aplikasi](/note/static/Roadmap/Application_DevOps.html) |
+| 📊 **Data Engineering App** | Visualisasi tech stack | [Buka Aplikasi](/note/static/Roadmap/Application_DataEng.html) |
 
 ---
 
