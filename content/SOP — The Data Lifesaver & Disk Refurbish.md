@@ -9,6 +9,7 @@ aliases:
   - Data Lifesaver
   - Disk Refurbish SOP
 ---
+
 # 💽 Master SOP — Storage Recovery & Refurbish
 
 > **Environment:** SystemRescue (Linux Bare-Metal / CLI)
@@ -23,21 +24,27 @@ aliases:
 Gunakan langkah ini untuk setiap unit yang masuk sebelum memutuskan apakah akan menyelamatkan data (**ALUR A**) atau melakukan perbaikan partisi (**ALUR B**).
 
 ### 0.1 Monitoring Hardware (Real-time)
+
 Pantau log kernel sebelum dan saat mencolok drive untuk melihat "kesehatan" fisik koneksi.
+
 ```bash
 dmesg -w
 # Pantau error: "I/O Error", "failed to identify", "giving up", atau "reset failed".
 ```
 
 ### 0.2 Verifikasi Deteksi & Identifikasi
+
 Pastikan nomor seri (SN) tercatat agar tidak salah eksekusi pada drive yang salah.
+
 ```bash
 # Lihat daftar drive, model, dan nomor seri
 lsblk -d -o NAME,SIZE,MODEL,SERIAL,ROTA,TRAN
 ```
 
 ### 0.3 Audit Kesehatan SMART
+
 Vonis awal berdasarkan laporan internal firmware drive.
+
 ```bash
 # Cek status kesehatan singkat (PASSED/FAILED)
 smartctl -H /dev/sdX
@@ -53,7 +60,9 @@ smartctl -a /dev/sdX
 **PENTING:** Jika data sangat berharga, **HARAM** melakukan `format`, `wipefs`, atau `mklabel` sebelum data berhasil dievakuasi.
 
 ### FASE A1: Mounting Paksa (Bypass Error)
-Gunakan jika Windows gagal membaca partisi karena *Dirty Bit* atau *Unclean Shutdown*.
+
+Gunakan jika Windows gagal membaca partisi karena _Dirty Bit_ atau _Unclean Shutdown_.
+
 ```bash
 # 1. Buat folder untuk mount point
 mkdir -p /mnt/recovery_data
@@ -68,7 +77,9 @@ ntfs-3g -o ro,force /dev/sdXn /mnt/recovery_data
 ```
 
 ### FASE A2: Evakuasi & Migrasi Data
+
 Gunakan `rsync` untuk pemindahan biasa, atau `ddrescue` jika drive mulai "sekarat" (sering macet).
+
 ```bash
 # Opsi 1: rsync (Data terbaca normal)
 rsync -avP /mnt/recovery_data/ /mnt/external/Backup_Drive/
@@ -79,7 +90,9 @@ ddrescue -f -n /dev/sdXn /mnt/external/partition_backup.img /mnt/external/rescue
 ```
 
 ### FASE A3: Penyelamatan Tabel Partisi (TestDisk)
+
 Gunakan jika partisi terbaca kosong atau RAW, namun fisik drive masih stabil.
+
 ```bash
 testdisk /dev/sdX
 # Urutan: [Analyse] -> [Quick Search] -> Tekan 'P' (List file) -> 'C' (Copy).
@@ -92,7 +105,9 @@ testdisk /dev/sdX
 **WARNING:** Langkah ini bersifat **DESTRUKTIF**. Semua data akan hilang permanen. Gunakan hanya jika unit disiapkan untuk penggunaan ulang atau dijual.
 
 ### FASE B1: Sanitasi & Pembersihan Total
+
 Menghapus semua metadata, tabel partisi, dan mengembalikan performa (khusus SSD).
+
 ```bash
 # 1. HANCURKAN (Destructive)
 sgdisk --zap-all /dev/sdX && wipefs -a /dev/sdX
@@ -105,7 +120,9 @@ dd if=/dev/zero of=/dev/sdX bs=1M count=100
 ```
 
 ### FASE B2: Rekonstruksi Struktur Partisi
+
 Membangun ulang label drive (GPT sangat disarankan untuk modernitas).
+
 ```bash
 # 1. Bangun ulang tabel partisi (GPT)
 parted /dev/sdX mklabel gpt && partprobe /dev/sdX
@@ -116,7 +133,9 @@ fdisk /dev/sdX
 ```
 
 ### FASE B3: Formatting & Final Certification
+
 Memberi label dan memastikan unit layak dijual/dipakai.
+
 ```bash
 # 1. Format ke NTFS (Quick Format)
 mkfs.ntfs -f -L "REFURBISH_DRIVE" /dev/sdX1
@@ -133,18 +152,21 @@ umount /mnt/temp_bench
 ## 💡 Pro-Tips & Reference
 
 ### 1. SSD vs HDD
+
 - **SSD:** Gunakan `blkdiscard` sesering mungkin untuk menjaga kesehatan sel NAND.
-- **HDD:** Jika terdengar suara klik keras (**Click of Death**), langsung cabut! Jangan paksa *spin-up*.
-- **Thermal Management:** Jika saat `ddrescue` atau `rsync` suhu HDD tembus **50°C**, arahkan kipas angin langsung ke unit atau hentikan proses sementara. Panas berlebih mempercepat kematian *head* yang sekarat.
+- **HDD:** Jika terdengar suara klik keras (**Click of Death**), langsung cabut! Jangan paksa _spin-up_.
+- **Thermal Management:** Jika saat `ddrescue` atau `rsync` suhu HDD tembus **50°C**, arahkan kipas angin langsung ke unit atau hentikan proses sementara. Panas berlebih mempercepat kematian _head_ yang sekarat.
 
 ### 2. Penanganan Triage Cepat
-| **Gejala** | **Kategori** | **Tindakan** | **Resiko** |
-| --- | --- | --- | --- |
-| Kapasitas 0 GB | 🟥 **MERAH** | Rongsok / Kanibal | **Total Loss** |
-| I/O Error (Sektor 0) | 🟧 **ORANGE** | Coba `sgdisk` / `ddrescue` | **High Risk** |
-| Invalid GPT Header | 🟩 **HIJAU** | `sgdisk --zap-all` | **Low Risk** |
+
+| **Gejala**           | **Kategori**  | **Tindakan**               | **Resiko**     |
+| -------------------- | ------------- | -------------------------- | -------------- |
+| Kapasitas 0 GB       | 🟥 **MERAH**  | Rongsok / Kanibal          | **Total Loss** |
+| I/O Error (Sektor 0) | 🟧 **ORANGE** | Coba `sgdisk` / `ddrescue` | **High Risk**  |
+| Invalid GPT Header   | 🟩 **HIJAU**  | `sgdisk --zap-all`         | **Low Risk**   |
 
 ### 3. Referensi Perintah Cepat
+
 - **Parkir & Cabut Safe:** `sync && echo 1 > /sys/block/sdX/device/delete`
 - **Lazy Unmount:** `umount -l /mnt/xxx` (Gunakan jika disk macet/hang)
 - **Rescan SATA:** `for scan in /sys/class/scsi_host/host*/scan; do echo "- - -" > $scan; done`

@@ -9,7 +9,7 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       Home: "https://azhar457.github.io/note",
-      github: "https://github.com/azhar457"
+      github: "https://github.com/azhar457",
     },
   }),
 }
@@ -38,12 +38,14 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Navigation",
-      folderClickBehavior: "collapse",
-      folderDefaultState: "collapse",
-      filterFn: (node) => node.name !== "tags",
-    })),
+    Component.DesktopOnly(
+      Component.Explorer({
+        title: "Navigation",
+        folderClickBehavior: "collapse",
+        folderDefaultState: "collapsed",
+        filterFn: (node) => node.name !== "tags",
+      }),
+    ),
   ],
   right: [
     Component.Graph(),
@@ -68,12 +70,14 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Navigation",
-      folderClickBehavior: "collapse",
-      folderDefaultState: "collapse",
-      filterFn: (node) => node.name !== "Lampiran",
-    })),
+    Component.DesktopOnly(
+      Component.Explorer({
+        title: "Navigation",
+        folderClickBehavior: "collapse",
+        folderDefaultState: "collapsed",
+        filterFn: (node) => node.name !== "Lampiran",
+      }),
+    ),
   ],
   right: [],
 }

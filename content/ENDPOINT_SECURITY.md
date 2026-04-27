@@ -68,4 +68,4 @@ Ring 3   │ Ransomware, RAT, Trojan     → Yang 99% orang kenal sebagai "virus
 
 ---
 
-*Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape*
+_Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape_
