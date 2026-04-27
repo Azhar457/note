@@ -10,9 +10,9 @@ layout: list
 ---
 
 ## 📖 Dokumentasi Penting
-- [🚀 Panduan Setup Quartz v4 & GitHub Pages](/note/Quartz-v4-+-GitHub-Pages-Windows)
-- [🛠️ SOP HPA Exorcism]([[SOP_HPA_Exorcism]])
-- [💽 SOP Data Lifesaver]([[SOP — The Data Lifesaver & Disk Refurbish]])
+- [[Quartz v4 + GitHub Pages Windows|🚀 Panduan Setup Quartz v4 & GitHub Pages]]
+- [[SOP_HPA_Exorcism|🛠️ SOP HPA Exorcism]]
+- [[SOP — The Data Lifesaver & Disk Refurbish|💽 SOP Data Lifesaver]]
 
 ---
 

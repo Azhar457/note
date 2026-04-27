@@ -7,21 +7,21 @@ on:
 
 jobs:
   build-preview:
-    if: ${{ github.repository == 'jackyzha0/quartz' }}
+    # Removed repository check to allow workflow to run on forks
     runs-on: ubuntu-latest
     name: Build Preview
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Cache dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -37,7 +37,7 @@ jobs:
         run: npx quartz build -d docs -v
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: preview-build
           path: public

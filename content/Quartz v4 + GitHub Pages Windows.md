@@ -6,7 +6,7 @@ Dokumentasi ini berisi langkah-langkah konkret untuk melakukan setup, kustomisas
 
 ## 🛠️ FASE 0 — Prasyarat Sistem
 Sebelum memulai, pastikan perangkat Anda sudah terinstall:
-- **Node.js (v22.0.0 atau lebih baru)**: `node -v`
+- **Node.js (v24.0.0 atau lebih baru)**: `node -v`
 - **Git**: `git --version`
 - **NPM**: `npm -v`
 
