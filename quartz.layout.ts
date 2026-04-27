@@ -40,10 +40,9 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.DesktopOnly(Component.Explorer({
       title: "Navigation",
-      folderClickBehavior: "collapsed",
-      folderDefaultState: "collapsed",
-      // Jangan tampilkan folder 'Lampiran' atau 'tags' yang tidak perlu
-      filterFn: (node) => node.name !== "Lampiran",
+      folderClickBehavior: "collapse",
+      folderDefaultState: "collapse",
+      filterFn: (node) => node.name !== "tags",
     })),
   ],
   right: [
@@ -71,8 +70,8 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.DesktopOnly(Component.Explorer({
       title: "Navigation",
-      folderClickBehavior: "collapsed",
-      folderDefaultState: "collapsed",
+      folderClickBehavior: "collapse",
+      folderDefaultState: "collapse",
       filterFn: (node) => node.name !== "Lampiran",
     })),
   ],
