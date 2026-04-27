@@ -4,9 +4,9 @@ tags:
   - blue-team
   - red-team
   - rootkit
-  - BYOVD
+  - byovd
   - firmware
-  - CPU-ring
+  - cpu-ring
 aliases:
   - Endpoint Security
   - CPU Ring Hierarchy

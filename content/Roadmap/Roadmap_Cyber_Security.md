@@ -2,10 +2,10 @@
 tags:
   - roadmap
   - blue-team
-  - SOC
+  - soc
   - cyber-security
-  - SIEM
-  - IDS
+  - siem
+  - ids
   - homelab
 aliases:
   - Roadmap Blue Team

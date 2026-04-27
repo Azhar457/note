@@ -2,11 +2,11 @@
 tags:
   - embedded
   - firmware
-  - IoT
+  - iot
   - bare-metal
   - flash-forensics
-  - RTOS
-  - MCU
+  - rtos
+  - mcu
 aliases:
   - Embedded Systems
   - Flash Drive Forensics

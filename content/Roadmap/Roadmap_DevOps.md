@@ -5,8 +5,8 @@ tags:
   - cloud
   - infrastructure
   - kubernetes
-  - CI-CD
-  - IaC
+  - ci-cd
+  - iac
   - homelab
 aliases:
   - Roadmap DevOps

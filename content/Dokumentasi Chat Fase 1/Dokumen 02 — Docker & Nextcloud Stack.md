@@ -1,12 +1,12 @@
 ---
 tags:
-  - Docker
-  - Nextcloud
-  - MariaDB
-  - IaC
-  - Compose
-  - Cloud-Native
-  - Persistence
+  - docker
+  - nextcloud
+  - mariadb
+  - iac
+  - compose
+  - cloud-native
+  - persistence
 aliases:
   - Nextcloud Stack
   - Docker Compose

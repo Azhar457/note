@@ -6,7 +6,7 @@ tags:
   - offensive-security
   - exploit
   - bug-bounty
-  - OSCP
+  - oscp
 aliases:
   - Roadmap Red Team
   - Roadmap Pentester

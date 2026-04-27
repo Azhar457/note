@@ -3,8 +3,8 @@ tags:
   - data-recovery
   - forensics
   - hardware
-  - HDD
-  - SSD
+  - hdd
+  - ssd
   - clean-room
 aliases:
   - Data Recovery

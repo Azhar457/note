@@ -4,9 +4,9 @@ tags:
   - game-security
   - anti-cheat
   - reverse-engineering
-  - BYOVD
+  - byovd
   - kernel-driver
-  - DMA
+  - dma
   - exploit
 aliases:
   - Cheat Engine Hierarchy
@@ -26,6 +26,14 @@ cssclasses:
 > [!tip] Kenapa Ini Penting untuk Security?
 > Ini topik yang sangat menarik dari sisi **reverse engineering & game security** — karena anti-cheat developer harus paham semua level ini untuk membangun pertahanan. Langsung ke tabelnya.
 
+---
+
+### 🌐 Hierarki Pencarian Informasi — Surface sampai Beyond Dark Web
+---
+tags:
+  - network-security
+  - dark-web
+  - osint
 ---
 
 ## Tabel Hierarki — Level 0 sampai Level 6

@@ -1,10 +1,10 @@
 ---
 tags:
-  - AI
-  - Machine-Learning
-  - AGI
-  - ASI
-  - Future-Tech
+  - ai
+  - machine-learning
+  - agi
+  - asi
+  - future-tech
 aliases:
   - Tabel AI Levels
   - AI Hierarchy
