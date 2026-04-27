@@ -1,11 +1,11 @@
 ---
 tags:
-  - Cloudflare
-  - Tunnel
+  - cloudflare
+  - tunnel
   - zero-trust
-  - Networking
-  - Reverse-Proxy
-  - DNS
+  - networking
+  - reverse-proxy
+  - dns
 aliases:
   - Cloudflare Tunnel
   - Zero Trust Routing

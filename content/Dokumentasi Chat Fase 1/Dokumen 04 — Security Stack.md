@@ -1,14 +1,14 @@
 ---
 tags:
-  - Blue-Team
-  - Lynis
-  - Trivy
-  - Crowdsec
-  - WAF
-  - Hardening
-  - CVE
-  - IPS
-  - Firewall
+  - blue-team
+  - lynis
+  - trivy
+  - crowdsec
+  - waf
+  - hardening
+  - cve
+  - ips
+  - firewall
 aliases:
   - Security Check
   - Blue Team Phase 1

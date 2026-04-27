@@ -3,7 +3,7 @@ tags:
   - network-security
   - blue-team
   - red-team
-  - OSI
+  - osi
   - firewall
   - social-engineering
 aliases:

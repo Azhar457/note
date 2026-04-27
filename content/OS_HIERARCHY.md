@@ -1,6 +1,6 @@
 ---
 tags:
-  - OS
+  - os
   - linux
   - security
   - military

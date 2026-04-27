@@ -5,7 +5,7 @@ tags:
   - ubuntu
   - apparmor
   - ssh
-  - Hardening
+  - hardening
 aliases:
   - Proxmox LXC Setup & Host Preparation
 created: 2026-04-24

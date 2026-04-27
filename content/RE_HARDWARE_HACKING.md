@@ -4,7 +4,7 @@ tags:
   - hardware-hacking
   - binary-analysis
   - firmware
-  - IoT
+  - iot
   - security-research
 aliases:
   - RE Hierarchy

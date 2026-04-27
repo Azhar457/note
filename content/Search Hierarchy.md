@@ -1,3 +1,10 @@
+---
+tags:
+  - network-security
+  - dark-web
+  - osint
+---
+
 ### 🌐 Hierarki Pencarian Informasi — Surface sampai Beyond Dark Web
 
 | Level & Ekosistem                                                                          | Cara Akses                                                         | Konten yang Ada                                                                                                                                                                         | ☠️ Risiko & Tembok                                                                                                                                                    | 🔵 Siapa yang Memantau                                                                                                 |

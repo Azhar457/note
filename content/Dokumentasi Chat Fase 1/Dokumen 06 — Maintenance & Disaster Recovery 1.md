@@ -2,11 +2,11 @@
 tags:
   - suricata
   - ids
-  - IPS
+  - ips
   - network-security
   - nsm
   - proxmox
-  - Hardening
+  - hardening
 aliases:
   - Network Monitor
   - Packet Inspection

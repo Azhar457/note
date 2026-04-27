@@ -8,8 +8,8 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      Home: "https://azhar457.github.io/note",
+      github: "https://github.com/azhar457"
     },
   }),
 }
@@ -38,7 +38,13 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "Navigation",
+      folderClickBehavior: "collapsed",
+      folderDefaultState: "collapsed",
+      // Jangan tampilkan folder 'Lampiran' atau 'tags' yang tidak perlu
+      filterFn: (node) => node.name !== "Lampiran",
+    })),
   ],
   right: [
     Component.Graph(),
@@ -60,9 +66,15 @@ export const defaultListPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
+        { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "Navigation",
+      folderClickBehavior: "collapsed",
+      folderDefaultState: "collapsed",
+      filterFn: (node) => node.name !== "Lampiran",
+    })),
   ],
   right: [],
 }

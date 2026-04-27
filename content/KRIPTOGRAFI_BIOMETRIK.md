@@ -4,7 +4,7 @@ tags:
   - biometrik
   - identitas
   - autentikasi
-  - PKI
+  - pki
   - zero-trust
   - cryptography
 aliases:

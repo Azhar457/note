@@ -3,10 +3,10 @@ tags:
   - roadmap
   - data-engineering
   - data-pipeline
-  - ETL
+  - etl
   - analytics
   - big-data
-  - SQL
+  - sql
 aliases:
   - Roadmap Data Engineer
   - Roadmap Data Pipeline

@@ -4,7 +4,7 @@ tags:
   - software-engineering
   - backend
   - fullstack
-  - API
+  - api
   - database
   - architecture
 aliases:

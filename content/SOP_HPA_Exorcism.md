@@ -3,8 +3,9 @@ aliases:
   - HPA
 created: 2026-04-23
 tags:
-  - SOP
-  - HDD/SDD
+  - sop
+  - hdd
+  - sdd
 ---
 # 🔪 SOP — The Safe Exorcist
 

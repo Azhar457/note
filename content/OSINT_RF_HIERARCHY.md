@@ -1,13 +1,13 @@
 ---
 tags:
-  - "#OSINT"
+  - osint
   - kriptografi
-  - SIGINT
-  - SIGNAL
-  - Intelligence
-  - Reconnaissance
-  - OSINT-Hierarchy
-  - RF-SIGNAL-HIERARCHY
+  - sigint
+  - signal
+  - intelligence
+  - reconnaissance
+  - osint-hierarchy
+  - rf-signal-hierarchy
 status: operational
 created: 2026-04-23
 ---

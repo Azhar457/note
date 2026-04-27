@@ -3,7 +3,7 @@ tags:
   - kurikulum
   - learning-path
   - matematika
-  - CS
+  - cs
   - security
   - roadmap
 aliases:

@@ -1,206 +1,154 @@
-# 💽 SOP — The Data Lifesaver & Disk Refurbish
+---
+tags:
+  - data-recovery
+  - linux
+  - sop
+  - hdd
+  - hardware
+aliases:
+  - Data Lifesaver
+  - Disk Refurbish SOP
+---
+# 💽 Master SOP — Storage Recovery & Refurbish
 
-> **Status:** Recovery Mode (SystemRescue / Linux Bare-Metal)
-> 
-> **Target:** Seagate 2TB (Bad Sector / Dirty Bit Case)
-> 
-> **Goal:** Rescue Data → Wipe → Merge Partition → Resell
+> **Environment:** SystemRescue (Linux Bare-Metal / CLI)
+> **Status:** Production Ready
+> **Target:** HDD, SSD, NVMe (Bad Sector, Corrupt Partition, Sanitization)
+> **Goal:** Data Rescue ↔️ Drive Refurbishment ↔️ Prep for Resale
 
 ---
-## 🚦 FASE 0: Inisiasi & Protokol Normal (Standard Operating)
 
-Gunakan langkah ini untuk mengecek kondisi "sehat" sebelum menganggap drive bermasalah.
+## 🚦 FASE 0: Inisiasi, Triage & Audit (Standard Protocol)
 
-### 0.1 Verifikasi Deteksi Hardware
+Gunakan langkah ini untuk setiap unit yang masuk sebelum memutuskan apakah akan menyelamatkan data (**ALUR A**) atau melakukan perbaikan partisi (**ALUR B**).
 
-Pastikan kabel dan daya aman. Cek apakah Linux melihat piringan fisiknya.
-
-Bash
-
-```
-# Menampilkan semua disk fisik secara ringkas
-lsblk -d -o NAME,SIZE,MODEL,SERIAL,ROTA
+### 0.1 Monitoring Hardware (Real-time)
+Pantau log kernel sebelum dan saat mencolok drive untuk melihat "kesehatan" fisik koneksi.
+```bash
+dmesg -w
+# Pantau error: "I/O Error", "failed to identify", "giving up", atau "reset failed".
 ```
 
-### 0.2 Audit Partisi & Sistem Berkas (Tanpa Mount)
-
-Melihat "KTP" setiap partisi tanpa menyentuh isinya.
-
-Bash
-
-```
-# -f untuk melihat FSTYPE (NTFS/FAT32), UUID, dan Label
-lsblk -f /dev/sda
+### 0.2 Verifikasi Deteksi & Identifikasi
+Pastikan nomor seri (SN) tercatat agar tidak salah eksekusi pada drive yang salah.
+```bash
+# Lihat daftar drive, model, dan nomor seri
+lsblk -d -o NAME,SIZE,MODEL,SERIAL,ROTA,TRAN
 ```
 
-### 0.3 Uji Kesehatan Dasar (Pre-flight Check)
+### 0.3 Audit Kesehatan SMART
+Vonis awal berdasarkan laporan internal firmware drive.
+```bash
+# Cek status kesehatan singkat (PASSED/FAILED)
+smartctl -H /dev/sdX
 
-Melihat status kesehatan secara umum tanpa melakukan _stress test_.
-
-Bash
-
-```
-# Cek apakah firmware HDD merasa dirinya sehat atau tidak
-smartctl -H /dev/sda
-```
-
-### 0.4 Percobaan Mounting Normal (Automatis)
-
-Coba lakukan _mount_ tanpa tambahan perintah aneh-aneh. Jika berhasil di sini, kamu beruntung.
-
-Bash
-
-```
-# 1. Buat direktori (jika belum ada)
-mkdir -p /mnt/normal_data
-
-# 2. Coba mount standar (Read/Write)
-mount /dev/sda2 /mnt/normal_data
+# Cek detail (Lihat Reallocated_Sector_Ct & Pending_Sector)
+smartctl -a /dev/sdX
 ```
 
 ---
 
-> [!IMPORTANT] **Kapan Harus Pindah ke FASE 1 (Force)?** Jika pada **Fase 0.4** kamu mendapatkan pesan error seperti:
-> 
-> - `The disk contains an unclean file system`
->     
-> - `Metadata kept in Windows cache, refused to mount`
->     
-> - `I/O Error`
->     
-> - `Structure needs cleaning`
->     
-> 
-> **JANGAN** dipaksa mount ulang secara normal. Segera lepaskan (`umount`) dan lanjut ke **Fase 2 (Force Ro)** atau **Fase 3 (Migration)** di bawah.
-## 🔍 FASE 1: Identifikasi & Audit (Triage)
+## 🛡️ ALUR A: Data Recovery Focus (Prioritas Data)
 
-Langkah pertama setelah boot ulang untuk memastikan nama drive tidak berubah (misal dari `/dev/sda` ke `/dev/sdb`).
+**PENTING:** Jika data sangat berharga, **HARAM** melakukan `format`, `wipefs`, atau `mklabel` sebelum data berhasil dievakuasi.
 
-Bash
-
-```
-# 1. Cek daftar semua drive dan partisi
-lsblk -f
-
-# 2. Cek kesehatan SMART (Lihat Reallocated_Sector_Ct)
-smartctl -a /dev/sda
-
-# 3. Cek kapasitas terpakai di partisi yang masih sehat
-# (Pastikan sudah di-mount dulu ke /mnt/data)
-df -h /mnt/data
-du -sh /mnt/data/*
-```
-
----
-
-## 🛡️ FASE 2: Mounting Paksa (Bypass Windows Error)
-
-Gunakan ini jika Windows/Hiren's gagal membaca partisi atau muncul error `squashfs`.
-
-Bash
-
-```
+### FASE A1: Mounting Paksa (Bypass Error)
+Gunakan jika Windows gagal membaca partisi karena *Dirty Bit* atau *Unclean Shutdown*.
+```bash
 # 1. Buat folder untuk mount point
-mkdir -p /mnt/system
-mkdir -p /mnt/data
+mkdir -p /mnt/recovery_data
 
-# 2. Mount Partisi Data (sda2) - Mode Read-Only (Paling Aman)
-mount -o ro,force /dev/sda2 /mnt/data
+# 2. Mount Partisi - Mode Read-Only (Paling Aman)
+mount -o ro,force /dev/sdXn /mnt/recovery_data
 
-# 3. Mount Partisi Sistem (sda1) - Gunakan Driver ntfs-3g jika lsblk -f kosong
-ntfs-3g -o ro,force /dev/sda1 /mnt/system
+# 3. Jika tetap gagal, gunakan driver ntfs-3g
+ntfs-3g -o ro,force /dev/sdXn /mnt/recovery_data
 
-# 4. Jika tetap gagal mount sda1, intip sektor awal (Cek keberadaan data)
-hexdump -C /dev/sda1 | head -n 20
+# NOTE: Jika partisi terkunci BitLocker, gunakan 'dislocker' sebelum mounting.
+```
+
+### FASE A2: Evakuasi & Migrasi Data
+Gunakan `rsync` untuk pemindahan biasa, atau `ddrescue` jika drive mulai "sekarat" (sering macet).
+```bash
+# Opsi 1: rsync (Data terbaca normal)
+rsync -avP /mnt/recovery_data/ /mnt/external/Backup_Drive/
+
+# Opsi 2: ddrescue (Jika sering I/O Error / Hang)
+# Membuat image dari partisi yang rusak ke drive sehat
+ddrescue -f -n /dev/sdXn /mnt/external/partition_backup.img /mnt/external/rescue.log
+```
+
+### FASE A3: Penyelamatan Tabel Partisi (TestDisk)
+Gunakan jika partisi terbaca kosong atau RAW, namun fisik drive masih stabil.
+```bash
+testdisk /dev/sdX
+# Urutan: [Analyse] -> [Quick Search] -> Tekan 'P' (List file) -> 'C' (Copy).
 ```
 
 ---
 
-## 🚀 FASE 3: Evakuasi Data (The Great Migration)
+## 🧹 ALUR B: Partition Repair & Refurbish (Prioritas Unit)
 
-Gunakan `rsync` untuk pemindahan data besar karena bisa dilanjutkan jika koneksi terputus atau _freeze_.
+**WARNING:** Langkah ini bersifat **DESTRUKTIF**. Semua data akan hilang permanen. Gunakan hanya jika unit disiapkan untuk penggunaan ulang atau dijual.
 
-Bash
+### FASE B1: Sanitasi & Pembersihan Total
+Menghapus semua metadata, tabel partisi, dan mengembalikan performa (khusus SSD).
+```bash
+# 1. HANCURKAN (Destructive)
+sgdisk --zap-all /dev/sdX && wipefs -a /dev/sdX
 
-```
-# Perintah rsync (a=archive, v=verbose, P=progress & partial)
-# Ganti /mnt/external/ dengan mount point HDD cadanganmu
-rsync -avP /mnt/data/ /mnt/external/Backup_Seagate/
-```
+# 2. SSD ONLY: Kembalikan Performa (TRIM)
+blkdiscard -v /dev/sdX
 
-> [!CAUTION] **TEMBOK KEMATIAN LEVEL 4**
-> 
-> Jika `rsync` atau `cp` mendadak berhenti (I/O Error/Hang), segera hentikan! Gunakan `ddrescue` untuk menyedot data secara paksa.
-> 
-> Bash
-> 
-> ```
-> ddrescue -f -n /dev/sda2 /mnt/external/sda2_backup.img /mnt/external/rescue.log
-> ```
-
----
-
-## 🛠️ FASE 4: Penyelamatan Tabel Partisi (Optional)
-
-Gunakan jika partisi terbaca kosong tapi kamu butuh mengais file di dalamnya.
-
-Bash
-
-```
-# Jalankan TestDisk
-testdisk /dev/sda
-
-# Urutan: [Analyse] -> [Quick Search] -> Tekan 'P' untuk list file.
-# Jika ketemu, tekan 'C' untuk copy file/folder yang terpilih.
+# 3. HDD ONLY: Hapus sektor awal (MBR/GPT)
+dd if=/dev/zero of=/dev/sdX bs=1M count=100
 ```
 
----
+### FASE B2: Rekonstruksi Struktur Partisi
+Membangun ulang label drive (GPT sangat disarankan untuk modernitas).
+```bash
+# 1. Bangun ulang tabel partisi (GPT)
+parted /dev/sdX mklabel gpt && partprobe /dev/sdX
 
-## 🧹 FASE 5: Sanitasi & Penggabungan (Persiapan Jual)
-
-**LAKUKAN HANYA JIKA DATA SUDAH AMAN DI HDD LAIN!**
-
-Bash
-
+# 2. Buat Partisi Baru Tunggal (fdisk)
+# Urutan: 'n' (New) -> Enter terus -> 'w' (Write)
+fdisk /dev/sdX
 ```
-# 1. Hapus semua jejak partisi lama
-wipefs -a /dev/sda
 
-# 2. Hapus MBR/GPT Sektor awal
-dd if=/dev/zero of=/dev/sda bs=1M count=100
+### FASE B3: Formatting & Final Certification
+Memberi label dan memastikan unit layak dijual/dipakai.
+```bash
+# 1. Format ke NTFS (Quick Format)
+mkfs.ntfs -f -L "REFURBISH_DRIVE" /dev/sdX1
 
-# 3. Buat Partisi Baru Tunggal (fdisk)
-# Urutan: 'g' (GPT) -> 'n' (New) -> Enter terus -> 'w' (Write)
-fdisk /dev/sda
-
-# 4. Format ke NTFS (Quick Format agar cepat)
-mkfs.ntfs -f -L "SEAGATE_2TB" /dev/sda1
+# 2. Uji Kecepatan Tulis (Simple Benchmark)
+# Pastikan mount dulu agar tidak membakar RAM/System Drive!
+mkdir -p /mnt/temp_bench && mount /dev/sdX1 /mnt/temp_bench
+dd if=/dev/zero of=/mnt/temp_bench/testfile bs=1G count=1 oflag=direct
+umount /mnt/temp_bench
 ```
 
 ---
 
-## 🩺 FASE 6: Sertifikasi Akhir
+## 💡 Pro-Tips & Reference
 
-Pastikan barang yang dijual tidak "busuk" di tangan pembeli.
+### 1. SSD vs HDD
+- **SSD:** Gunakan `blkdiscard` sesering mungkin untuk menjaga kesehatan sel NAND.
+- **HDD:** Jika terdengar suara klik keras (**Click of Death**), langsung cabut! Jangan paksa *spin-up*.
+- **Thermal Management:** Jika saat `ddrescue` atau `rsync` suhu HDD tembus **50°C**, arahkan kipas angin langsung ke unit atau hentikan proses sementara. Panas berlebih mempercepat kematian *head* yang sekarat.
 
-Bash
+### 2. Penanganan Triage Cepat
+| **Gejala** | **Kategori** | **Tindakan** | **Resiko** |
+| --- | --- | --- | --- |
+| Kapasitas 0 GB | 🟥 **MERAH** | Rongsok / Kanibal | **Total Loss** |
+| I/O Error (Sektor 0) | 🟧 **ORANGE** | Coba `sgdisk` / `ddrescue` | **High Risk** |
+| Invalid GPT Header | 🟩 **HIJAU** | `sgdisk --zap-all` | **Low Risk** |
 
-```
-# Cek apakah status SMART masih PASSED
-smartctl -H /dev/sda
-
-# Uji kecepatan tulis sederhana
-dd if=/dev/zero of=/mnt/data/testfile bs=1G count=1 oflag=direct
-```
+### 3. Referensi Perintah Cepat
+- **Parkir & Cabut Safe:** `sync && echo 1 > /sys/block/sdX/device/delete`
+- **Lazy Unmount:** `umount -l /mnt/xxx` (Gunakan jika disk macet/hang)
+- **Rescan SATA:** `for scan in /sys/class/scsi_host/host*/scan; do echo "- - -" > $scan; done`
 
 ---
 
-## 🔗 Referensi Perintah Cepat
-
-| **Perintah**          | **Fungsi**                                          |
-| --------------------- | --------------------------------------------------- |
-| `umount -l /mnt/xxx`  | Lepas mount secara paksa (Lazy unmount)             |
-| `reboot`              | Restart sistem                                      |
-| `poweroff`            | Matikan total                                       |
-| `dmesg \| tail -n 50` | Lihat pesan error kernel terakhir (Jika disk macet) |
-|                       |                                                     |
+> [!CAUTION] **Truth over Comfort:** Drive yang pernah mengeluarkan `I/O Error` di level kernel (`dmesg`) adalah "bom waktu". Gunakan hanya untuk data sekunder (game/temp), jangan pernah untuk OS Utama atau Backup Tunggal.

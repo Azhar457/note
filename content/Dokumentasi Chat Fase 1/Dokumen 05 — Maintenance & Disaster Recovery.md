@@ -1,11 +1,11 @@
 ---
 tags:
-  - Backup
+  - backup
   - proxmox
-  - Disaster-Recorvery
-  - Maintenance
-  - Snapshot
-  - Resize
+  - disaster-recovery
+  - maintenance
+  - snapshot
+  - resize
 aliases:
   - Maintenance
   - Disaster Recorvery
