@@ -9,9 +9,10 @@
 
 ## 🚦 FASE 0: Chain of Custody & Evidence Seizure
 
-**Prinsip Utama:** *"Never work on original evidence. Always create forensic image first."*
+**Prinsip Utama:** _"Never work on original evidence. Always create forensic image first."_
 
 ### 0.1 Pre-Acquisition Triage
+
 Dokumentasikan kondisi fisik dan logis sebelum sentuhan apapun.
 
 ```bash
@@ -26,14 +27,15 @@ Dokumentasikan kondisi fisik dan logis sebelum sentuhan apapun.
 ```
 
 ### 0.2 Write-Blocking & Hardware Protection
+
 **WAJIB** gunakan write-blocker hardware sebelum colok ke workstation.
 
-| Write-Blocker | Interface | Catatan |
-|--------------|-----------|---------|
-| Tableau T35u | SATA/USB 3.0 | Gold standard forensik |
-| WiebeTech USB 3.0 | Multi-interface | Portable, field-ready |
-| CRU Ditto | SAS/SATA/NVMe | Enterprise-grade |
-| Soft Block (Linux) | Emergency only | `blockdev --setro /dev/sdX` |
+| Write-Blocker      | Interface       | Catatan                     |
+| ------------------ | --------------- | --------------------------- |
+| Tableau T35u       | SATA/USB 3.0    | Gold standard forensik      |
+| WiebeTech USB 3.0  | Multi-interface | Portable, field-ready       |
+| CRU Ditto          | SAS/SATA/NVMe   | Enterprise-grade            |
+| Soft Block (Linux) | Emergency only  | `blockdev --setro /dev/sdX` |
 
 ```bash
 # Verifikasi write-block aktif (Soft block emergency)
@@ -45,6 +47,7 @@ blockdev --setro /dev/sdX
 ```
 
 ### 0.3 Evidence Labeling & Hashing Baseline
+
 ```bash
 # Generate hash dari device asli SEBELUM imaging
 sha256sum /dev/sdX > evidence_sha256_original.txt
@@ -62,6 +65,7 @@ md5sum /dev/sdX > evidence_md5_original.txt
 **Tujuan:** Membuat duplikat forensik yang identik 100% dengan original.
 
 ### FASE A1: Imaging Level 1 — Raw Image (.dd / .raw)
+
 Cocok untuk: HDD/SSD kecil, kasus sederhana, tool universal.
 
 ```bash
@@ -79,6 +83,7 @@ dcfldd if=/dev/sdX of=/mnt/evidence/CASE-2026-001/disk_image.dd   bs=512 hash=sh
 ```
 
 ### FASE A2: Imaging Level 2 — Advanced Recovery (Bad Sector Handling)
+
 Cocok untuk: Drive rusak, bad sector, sering hang, clicking sound.
 
 ```bash
@@ -94,6 +99,7 @@ ddrescue -c 4096 -b 512 -f -n /dev/sdX image_part1.dd rescue1.log
 ```
 
 ### FASE A3: Imaging Level 3 — Enterprise & Mobile
+
 Cocok untuk: RAID arrays, Logical Volume, Mobile forensics.
 
 ```bash
@@ -109,6 +115,7 @@ adb backup -apk -shared -all -f /mnt/evidence/CASE-2026-001/mobile_backup.ab
 ```
 
 ### FASE A4: Verification & Integrity Check
+
 ```bash
 # 1. Hash image yang sudah jadi
 sha256sum /mnt/evidence/CASE-2026-001/disk_image.dd > image_sha256.txt
@@ -128,9 +135,10 @@ umount /mnt/verify
 
 ## 🔍 ALUR B: Forensic Analysis (Investigasi Image)
 
-**Prinsip:** *"Analysis dilakukan pada IMAGE, bukan original device."*
+**Prinsip:** _"Analysis dilakukan pada IMAGE, bukan original device."_
 
 ### FASE B1: File System Analysis
+
 ```bash
 # 1. Identifikasi file system & partisi
 file /mnt/evidence/CASE-2026-001/disk_image.dd
@@ -149,16 +157,16 @@ mount -o ro,loop,offset=1048576 /mnt/evidence/CASE-2026-001/disk_image.dd /mnt/a
 
 ### FASE B2: Automated Analysis Tools
 
-| Tool | Fungsi | Use Case |
-|------|--------|----------|
-| **Autopsy** | GUI forensik lengkap | Timeline analysis, keyword search, file carving |
-| **Sleuth Kit (TSK)** | CLI forensik | `fls`, `ils`, `icat` untuk analisis file system |
-| **Volatility** | Memory forensics | Analisis RAM dump: process, network, malware |
-| **Plaso / log2timeline** | Timeline super-detailed | Rekonstruksi aktivitas per-detik |
-| **Bulk Extractor** | Scan cepat | Email, CC, URL, SSN dari seluruh image |
-| **PhotoRec** | File carving | Recovery file tanpa metadata (header/footer) |
-| **Scalpel** | File carving (custom) | Definisi header/footer sendiri |
-| **Foremost** | File carving (predefined) | Recovery file umum: jpg, doc, pdf |
+| Tool                     | Fungsi                    | Use Case                                        |
+| ------------------------ | ------------------------- | ----------------------------------------------- |
+| **Autopsy**              | GUI forensik lengkap      | Timeline analysis, keyword search, file carving |
+| **Sleuth Kit (TSK)**     | CLI forensik              | `fls`, `ils`, `icat` untuk analisis file system |
+| **Volatility**           | Memory forensics          | Analisis RAM dump: process, network, malware    |
+| **Plaso / log2timeline** | Timeline super-detailed   | Rekonstruksi aktivitas per-detik                |
+| **Bulk Extractor**       | Scan cepat                | Email, CC, URL, SSN dari seluruh image          |
+| **PhotoRec**             | File carving              | Recovery file tanpa metadata (header/footer)    |
+| **Scalpel**              | File carving (custom)     | Definisi header/footer sendiri                  |
+| **Foremost**             | File carving (predefined) | Recovery file umum: jpg, doc, pdf               |
 
 ```bash
 # 1. Sleuth Kit — List deleted files
@@ -178,6 +186,7 @@ strings -n 8 /mnt/evidence/CASE-2026-001/disk_image.dd | grep -i "password\|secr
 ```
 
 ### FASE B3: Timeline & Metadata Analysis
+
 ```bash
 # 1. log2timeline — Buat timeline super detailed
 log2timeline.py /mnt/analysis/timeline.plaso /mnt/evidence/CASE-2026-001/disk_image.dd
@@ -193,6 +202,7 @@ analyzeMFT.py -f /mnt/evidence/CASE-2026-001/disk_image.dd -o mft_analysis.csv
 ```
 
 ### FASE B4: Keyword Search & Pattern Matching
+
 ```bash
 # 1. grep dengan regex (case-insensitive)
 grep -rai "password\|passwd\|secret\|token\|api_key" /mnt/analysis/p1/ > keyword_hits.txt
@@ -211,6 +221,7 @@ grep -roE "[0-9]{4}[[:space:]]?[0-9]{4}[[:space:]]?[0-9]{4}[[:space:]]?[0-9]{4}"
 **Catatan:** Recovery dari IMAGE lebih aman. Recovery langsung hanya jika image gagal dibuat.
 
 ### FASE C1: Logical Recovery (File System Intact)
+
 ```bash
 # 1. TestDisk — Recovery partisi & file yang terhapus
 testdisk /mnt/evidence/CASE-2026-001/disk_image.dd
@@ -224,6 +235,7 @@ extundelete /mnt/evidence/CASE-2026-001/disk_image.dd --restore-all
 ```
 
 ### FASE C2: Physical Recovery (Drive Rusak / Firmware Corrupt)
+
 ```bash
 # 1. Jika drive terdeteksi tapi tidak bisa diakses → Firmware issue
 #    Gunakan: PC-3000 (Rusia) atau Dolphin (China) untuk firmware repair
@@ -235,6 +247,7 @@ extundelete /mnt/evidence/CASE-2026-001/disk_image.dd --restore-all
 ```
 
 ### FASE C3: DVR / CCTV Video Recovery
+
 ```bash
 # 1. Dolphin Data Lab — Spesialis recovery video DVR
 #    - Support 99% merek DVR: Hikvision, Dahua, XMeye, dll
@@ -255,6 +268,7 @@ extundelete /mnt/evidence/CASE-2026-001/disk_image.dd --restore-all
 ## 📊 Reporting & Chain of Custody Closure
 
 ### Format Laporan Forensik
+
 ```
 ═══════════════════════════════════════════════════════════════
 FORENSIC ANALYSIS REPORT
@@ -297,20 +311,21 @@ Date: [YYYY-MM-DD]
 
 ## ⚠️ Pro-Tips & Anti-Patterns
 
-| ❌ Jangan | ✅ Lakukan |
-|-----------|-----------|
-| Mount original device RW | Selalu mount read-only atau pakai write-blocker |
-| Skip hashing | Hash sebelum & sesudah imaging WAJIB |
-| Kerja langsung di drive rusak | Always imaging dulu, analysis dari image |
-| Lupa catat Chain of Custody | Dokumentasikan setiap sentuhan |
-| Panik saat I/O error | Gunakan ddrescue, sabar, bisa resume |
-| Recovery tanpa backup image | Image dulu, recovery dari image |
+| ❌ Jangan                     | ✅ Lakukan                                      |
+| ----------------------------- | ----------------------------------------------- |
+| Mount original device RW      | Selalu mount read-only atau pakai write-blocker |
+| Skip hashing                  | Hash sebelum & sesudah imaging WAJIB            |
+| Kerja langsung di drive rusak | Always imaging dulu, analysis dari image        |
+| Lupa catat Chain of Custody   | Dokumentasikan setiap sentuhan                  |
+| Panik saat I/O error          | Gunakan ddrescue, sabar, bisa resume            |
+| Recovery tanpa backup image   | Image dulu, recovery dari image                 |
 
 ### Thermal & Handling
+
 - **Suhu aman HDD saat imaging:** < 45°C
 - **Jika > 50°C:** Hentikan, dinginkan dengan fan, lanjutkan
 - **Click of Death:** STOP! Jangan force spin-up, bawa ke lab
 
 ---
 
-> [!CAUTION] **Forensic Golden Rule:** *"You only get ONE chance with original evidence. Do it right the first time."*
+> [!CAUTION] **Forensic Golden Rule:** _"You only get ONE chance with original evidence. Do it right the first time."_
