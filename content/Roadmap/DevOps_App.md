@@ -1,5 +1,5 @@
 ---
-title: ☁️ DevOps Interactive Roadmap
+title: ☁️ DevOps Interactive App
 layout: page
 ---
 

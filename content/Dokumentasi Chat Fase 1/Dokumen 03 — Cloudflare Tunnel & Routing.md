@@ -208,9 +208,4 @@ Jika halaman login Nextcloud muncul dengan sertifikat HTTPS hijau, seluruh ranta
 > Untuk memasang satpam keamanan aktif di server (Lynis, Trivy, CrowdSec), lanjut ke [[Dokumen 04 — Security Stack|Dokumen 04]].
 > Untuk strategi backup dan maintenance, lanjut ke [[Dokumen 05 — Maintenance & Disaster Recovery|Dokumen 05]].
 
-```
-
 ---
-
-Mau lanjut ke **Dokumen 04** sekarang?
-```

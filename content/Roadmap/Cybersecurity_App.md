@@ -1,5 +1,5 @@
 ---
-title: 🛡️ Cybersecurity Interactive Roadmap
+title: 🛡️ Cybersecurity Interactive App
 layout: page
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 📊 Data Engineering Interactive Roadmap
+title: 📊 Data Engineering Interactive App
 layout: page
 ---
 
