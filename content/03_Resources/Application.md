@@ -20,7 +20,7 @@ Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat unt
 
 ## 🛡️ Cyber Security
 
-<iframe src="https://azhar457.github.io/Application/Application_Cyber.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="https://azhar457.github.io/Application/Application_Cyber_Security.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ---
 
@@ -39,6 +39,12 @@ Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat unt
 ## 🔍 Forensics & Data Recovery
 
 <iframe src="https://azhar457.github.io/Application/Application_Forensics_Recovery.html" width="100%" height="600px" frameborder="0"></iframe>
+
+---
+
+## ⚔️ Cyber Offense
+
+<iframe src="https://azhar457.github.io/Application/Application_Cyber_Offense.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ---
 
