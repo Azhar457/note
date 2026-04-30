@@ -40,7 +40,10 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-        <meta name="google-site-verification" content="4t9PPsvTtPcqoCazyVRTmcZI15xWG8HIN6KS9AxA5KQ" />
+        <meta
+          name="google-site-verification"
+          content="4t9PPsvTtPcqoCazyVRTmcZI15xWG8HIN6KS9AxA5KQ"
+        />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,27 +108,29 @@ export default (() => {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": fileData.slug === "index" ? "WebSite" : "TechArticle",
-              "headline": title,
-              "description": description,
-              "url": socialUrl,
-              "author": {
+              headline: title,
+              description: description,
+              url: socialUrl,
+              author: {
                 "@type": "Person",
-                "name": "Azhar"
+                name: "Azhar",
               },
-              "datePublished": fileData.frontmatter?.created ? new Date(fileData.frontmatter.created as string).toISOString() : undefined,
-              "publisher": {
+              datePublished: fileData.frontmatter?.created
+                ? new Date(fileData.frontmatter.created as string).toISOString()
+                : undefined,
+              publisher: {
                 "@type": "Organization",
-                "name": cfg.pageTitle,
-                "logo": {
+                name: cfg.pageTitle,
+                logo: {
                   "@type": "ImageObject",
-                  "url": ogImageDefaultPath
-                }
+                  url: ogImageDefaultPath,
+                },
               },
-              "mainEntityOfPage": {
+              mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": socialUrl
-              }
-            })
+                "@id": socialUrl,
+              },
+            }),
           }}
         />
       </head>
