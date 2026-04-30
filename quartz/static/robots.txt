@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://azhar457.github.io/note/sitemap.xml
