@@ -58,4 +58,13 @@ status: active
 
 ---
 
-_Last updated: 2026-04-30 | Hybrid Atlas Structure Applied_
+## 🛠️ Interactive Tool Arsenal (Live Maps)
+
+Daftar aplikasi dan tools interaktif yang di-host secara eksternal untuk performa terbaik:
+
+- 🛡️ [Cyber Security Arsenal](https://azhar457.github.io/Application/Application_Cyber.html)
+- ☁️ [DevOps & Infrastructure Arsenal](https://azhar457.github.io/Application/Application_DevOps.html)
+- 📊 [Data Engineering Arsenal](https://azhar457.github.io/Application/Application_DataEng.html)
+- 💾 [Forensics & Data Recovery Arsenal](https://azhar457.github.io/Application/Application_Forensics_Recovery.html)
+
+---

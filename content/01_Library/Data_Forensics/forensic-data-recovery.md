@@ -107,6 +107,12 @@ Atola TaskForce / ddrescue / dc3dd
 
 ---
 
+## 🛠️ Interactive Tool List — Forensics & Data Recovery
+
+<iframe src="https://azhar457.github.io/Application/Application_Forensics_Recovery.html" width="100%" height="600px" frameborder="0"></iframe>
+
+---
+
 ## 🔗 Lihat Juga
 
 - [[MASTER_INDEX]]
