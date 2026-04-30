@@ -10,7 +10,7 @@ created: 2026-04-25
 
 # 👋 Hai, Saya Azhar Muttaqien
 
-> *"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."*
+> _"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."_
 
 ---
 
@@ -21,7 +21,7 @@ Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana mala
 Bukan dari seorang ahli. Tapi penasaran tidak pernah berhenti.
 
 Perjalanan belajarnya dimulai dari pertanyaan sederhana:
-*"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"*
+_"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"_
 
 Dari sana, satu pertanyaan membuka pintu ke pertanyaan berikutnya — sampai akhirnya berujung membangun knowledge base ini.
 
@@ -94,9 +94,9 @@ Scripting : Python, Bash
 
 ---
 
-> *Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir.*
-> *Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out.*
+> _Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir._
+> _Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out._
 
 ---
 
-*Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages*
+_Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages_

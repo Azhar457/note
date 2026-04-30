@@ -50,12 +50,12 @@ Next step: Setup Kali VM + target VM (Metasploitable3 atau HackTheBox VPN)
 > **Goal:** Tanpa fondasi ini, semua tool hanya jadi tombol yang kamu tekan tanpa paham kenapa.
 > **RAM Impact:** Minimal — teks editor dan terminal.
 
-| Skill | Yang Dipelajari | Combo A+B yang Membuktikan |
-|-------|-----------------|---------------------------|
-| **Linux CLI Mastery** | Bash scripting, file permissions, process management, service control | Linux + **bash one-liner untuk automate recon** = kamu bisa bikin tool sendiri |
-| **Networking Deep** | TCP handshake, HTTP methods, DNS resolution, ARP, routing, NAT, firewall bypass | Networking + **Wireshark analysis** = kamu paham apa yang terjadi di wire level |
-| **Python for Hacking** | Socket programming, HTTP requests, parsing, automation, pwntools | Python + **custom exploit script** = kamu bukan script kiddie |
-| **Web Fundamentals** | HTTP/HTTPS, cookies, sessions, CORS, CSP, SOP, OAuth flow | Web + **manual request crafting (curl/Burp)** = kamu paham web attack surface |
+| Skill                  | Yang Dipelajari                                                                 | Combo A+B yang Membuktikan                                                      |
+| ---------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Linux CLI Mastery**  | Bash scripting, file permissions, process management, service control           | Linux + **bash one-liner untuk automate recon** = kamu bisa bikin tool sendiri  |
+| **Networking Deep**    | TCP handshake, HTTP methods, DNS resolution, ARP, routing, NAT, firewall bypass | Networking + **Wireshark analysis** = kamu paham apa yang terjadi di wire level |
+| **Python for Hacking** | Socket programming, HTTP requests, parsing, automation, pwntools                | Python + **custom exploit script** = kamu bukan script kiddie                   |
+| **Web Fundamentals**   | HTTP/HTTPS, cookies, sessions, CORS, CSP, SOP, OAuth flow                       | Web + **manual request crafting (curl/Burp)** = kamu paham web attack surface   |
 
 > [!tip] Jangan Skip Ini
 > 90% orang yang gagal OSCP bukan karena exploit-nya susah — tapi karena fondasi Linux/networking/scripting mereka lemah. Fase 1 menentukan segalanya.
@@ -70,13 +70,13 @@ Next step: Setup Kali VM + target VM (Metasploitable3 atau HackTheBox VPN)
 > **Goal:** Dari target yang tidak dikenal → mendapatkan akses initial. Ini inti pentest.
 > **RAM Impact:** Kali VM ~2GB + Target VM ~1GB = ~3GB.
 
-| Tool/Skill | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
-|------------|-----|-----------------|---------------------------|
-| **Nmap** | ~100MB | Port scanning, service detection, NSE scripts, OS fingerprint | Nmap + **service-specific exploit** = kamu bisa dari scan → shell |
-| **Burp Suite** | ~500MB | Web proxy, interceptor, repeater, intruder, scanner | Burp + **manual finding** = kamu paham web vuln, bukan cuma scan otomatis |
-| **Metasploit** | ~400MB | Exploit framework, meterpreter, post-exploit modules | Metasploit + **manual exploit tanpa Metasploit** = kamu paham exploit mechanics |
-| **SQLMap / Manual SQLi** | ~100MB | SQL injection — union-based, blind, time-based, error-based | SQLMap + **manual injection** = kamu bisa jelaskan kenapa query inject-able |
-| **Gobuster / ffuf** | ~50MB | Directory brute force, vhost enumeration, parameter fuzzing | Gobuster + **custom wordlist** = kamu paham attack surface discovery |
+| Tool/Skill               | RAM    | Yang Dipelajari                                               | Combo A+B yang Membuktikan                                                      |
+| ------------------------ | ------ | ------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Nmap**                 | ~100MB | Port scanning, service detection, NSE scripts, OS fingerprint | Nmap + **service-specific exploit** = kamu bisa dari scan → shell               |
+| **Burp Suite**           | ~500MB | Web proxy, interceptor, repeater, intruder, scanner           | Burp + **manual finding** = kamu paham web vuln, bukan cuma scan otomatis       |
+| **Metasploit**           | ~400MB | Exploit framework, meterpreter, post-exploit modules          | Metasploit + **manual exploit tanpa Metasploit** = kamu paham exploit mechanics |
+| **SQLMap / Manual SQLi** | ~100MB | SQL injection — union-based, blind, time-based, error-based   | SQLMap + **manual injection** = kamu bisa jelaskan kenapa query inject-able     |
+| **Gobuster / ffuf**      | ~50MB  | Directory brute force, vhost enumeration, parameter fuzzing   | Gobuster + **custom wordlist** = kamu paham attack surface discovery            |
 
 > [!warning] Jangan Jadi Script Kiddie
 > **Untuk setiap tool otomatis yang kamu pakai, pastikan kamu bisa melakukan hal yang sama secara manual.** Rekruter PASTI tanya: "oke, Metasploit dapet shell. Sekarang lakukan tanpa Metasploit." Kalau tidak bisa — kamu bukan pentester, kamu operator tool.
@@ -91,13 +91,13 @@ Next step: Setup Kali VM + target VM (Metasploitable3 atau HackTheBox VPN)
 > **Goal:** Dari user shell → domain admin. Ini yang memisahkan pentester dari button clicker.
 > **RAM Impact:** AD lab butuh ~4-5GB (DC + client). Matikan semua service lain.
 
-| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
-|------------|-----|-----------------|---------------------------|
-| **Linux PrivEsc** | — | SUID, cron abuse, path hijack, kernel exploit, capability abuse | PrivEsc + **custom enumeration** = kamu bisa eskalasi tanpa LinPEAS |
-| **Windows PrivEsc** | — | Token impersonation, service misconfig, UAC bypass, potato attacks | PrivEsc + **manual checks** = kamu paham privilege model Windows |
-| **Active Directory** | ~4GB | Kerberoasting, AS-REP Roasting, Pass-the-Hash, DCSync, Golden Ticket | AD + **full attack chain** = kamu paham enterprise environment |
-| **Lateral Movement** | — | SSH pivot, port forwarding, proxychains, chisel, ligolo-ng | Pivot + **multi-hop network** = kamu bisa operasi di segmented network |
-| **Persistence** | — | Scheduled tasks, registry, WMI, SSH keys, web shells | Persistence + **detection evasion** = kamu paham apa yang Blue Team cari |
+| Skill/Tool           | RAM  | Yang Dipelajari                                                      | Combo A+B yang Membuktikan                                               |
+| -------------------- | ---- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Linux PrivEsc**    | —    | SUID, cron abuse, path hijack, kernel exploit, capability abuse      | PrivEsc + **custom enumeration** = kamu bisa eskalasi tanpa LinPEAS      |
+| **Windows PrivEsc**  | —    | Token impersonation, service misconfig, UAC bypass, potato attacks   | PrivEsc + **manual checks** = kamu paham privilege model Windows         |
+| **Active Directory** | ~4GB | Kerberoasting, AS-REP Roasting, Pass-the-Hash, DCSync, Golden Ticket | AD + **full attack chain** = kamu paham enterprise environment           |
+| **Lateral Movement** | —    | SSH pivot, port forwarding, proxychains, chisel, ligolo-ng           | Pivot + **multi-hop network** = kamu bisa operasi di segmented network   |
+| **Persistence**      | —    | Scheduled tasks, registry, WMI, SSH keys, web shells                 | Persistence + **detection evasion** = kamu paham apa yang Blue Team cari |
 
 > [!tip] Lab AD Murah
 > **Proxmox → Windows Server 2019 eval (gratis 180 hari) + Windows 10 eval → setup domain.** Atau pakai **GOAD (Game of Active Directory)** — automated AD lab deployment via Vagrant. Ini lab AD paling lengkap yang gratis.
@@ -111,12 +111,12 @@ Next step: Setup Kali VM + target VM (Metasploitable3 atau HackTheBox VPN)
 
 > **Goal:** Dari hacker → professional pentester. Report writing dan methodology yang membedakan.
 
-| Skill | Yang Dipelajari | Combo A+B yang Membuktikan |
-|-------|-----------------|---------------------------|
-| **Report Writing** | Executive summary, findings, severity rating (CVSS), remediation, evidence | Report + **professional template** = kamu bisa deliver ke klien |
-| **Methodology** | OWASP Testing Guide, PTES, OSSTMM, MITRE ATT&CK mapping | Methodology + **structured approach** = kamu bukan random scanner |
-| **OSCP Lab** | Real pentest lab — 70+ machines, 24-jam exam, report submission | OSCP + **pass** = industry gold standard. Ini membuka pintu |
-| **Bug Bounty** | HackerOne, Bugcrowd — real targets, real money, real experience | Bug bounty + **hall of fame / payout** = proof of skill yang tidak bisa dipalsukan |
+| Skill              | Yang Dipelajari                                                            | Combo A+B yang Membuktikan                                                         |
+| ------------------ | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Report Writing** | Executive summary, findings, severity rating (CVSS), remediation, evidence | Report + **professional template** = kamu bisa deliver ke klien                    |
+| **Methodology**    | OWASP Testing Guide, PTES, OSSTMM, MITRE ATT&CK mapping                    | Methodology + **structured approach** = kamu bukan random scanner                  |
+| **OSCP Lab**       | Real pentest lab — 70+ machines, 24-jam exam, report submission            | OSCP + **pass** = industry gold standard. Ini membuka pintu                        |
+| **Bug Bounty**     | HackerOne, Bugcrowd — real targets, real money, real experience            | Bug bounty + **hall of fame / payout** = proof of skill yang tidak bisa dipalsukan |
 
 **Proyek Portofolio Fase 4:**
 `Professional Penetration Test Report` — full pentest report template: scope, methodology, executive summary, technical findings (dengan screenshot + PoC), risk rating, remediation timeline. **Format yang bisa langsung dipakai untuk klien.**
@@ -143,24 +143,24 @@ Bulan 1-2      Bulan 3-4         Bulan 5-6         Bulan 7-8         Bulan 9
 
 ## Sertifikasi yang Cocok per Fase
 
-| Fase | Sertifikasi | Kenapa |
-|------|-------------|--------|
-| Setelah Fase 1 | **eJPT (eLearnSecurity Junior Pentester)** | Entry-level, murah (~$250), validasi fondasi |
-| Setelah Fase 2-3 | **PNPT (Practical Network Penetration Tester)** | Practical exam + report — lebih realistis dari CEH |
-| Setelah Fase 4 | **OSCP (Offensive Security Certified Professional)** | **THE gold standard.** Setiap job posting minta ini |
-| Jangka panjang | **OSEP / CRTO** | Advanced: evasion, C2 framework — Red Team level |
+| Fase             | Sertifikasi                                          | Kenapa                                              |
+| ---------------- | ---------------------------------------------------- | --------------------------------------------------- |
+| Setelah Fase 1   | **eJPT (eLearnSecurity Junior Pentester)**           | Entry-level, murah (~$250), validasi fondasi        |
+| Setelah Fase 2-3 | **PNPT (Practical Network Penetration Tester)**      | Practical exam + report — lebih realistis dari CEH  |
+| Setelah Fase 4   | **OSCP (Offensive Security Certified Professional)** | **THE gold standard.** Setiap job posting minta ini |
+| Jangka panjang   | **OSEP / CRTO**                                      | Advanced: evasion, C2 framework — Red Team level    |
 
 ---
 
 ## Platform Latihan (Gratis → Berbayar)
 
-| Platform | Tipe | Harga | Cocok Untuk |
-|----------|------|-------|-------------|
-| **TryHackMe** | Guided labs | Gratis (terbatas) / $10/bulan | Pemula — learning path terstruktur |
-| **HackTheBox** | Challenge labs | Gratis (retired) / $14/bulan | Intermediate — real-world simulation |
-| **PentesterLab** | Web exploit | $20/bulan | Web security deep dive |
-| **GOAD Lab** | AD lab | Gratis | Active Directory — self-hosted |
-| **VulnHub** | Downloadable VM | Gratis | Offline practice |
+| Platform         | Tipe            | Harga                         | Cocok Untuk                          |
+| ---------------- | --------------- | ----------------------------- | ------------------------------------ |
+| **TryHackMe**    | Guided labs     | Gratis (terbatas) / $10/bulan | Pemula — learning path terstruktur   |
+| **HackTheBox**   | Challenge labs  | Gratis (retired) / $14/bulan  | Intermediate — real-world simulation |
+| **PentesterLab** | Web exploit     | $20/bulan                     | Web security deep dive               |
+| **GOAD Lab**     | AD lab          | Gratis                        | Active Directory — self-hosted       |
+| **VulnHub**      | Downloadable VM | Gratis                        | Offline practice                     |
 
 ---
 
@@ -175,4 +175,4 @@ Bulan 1-2      Bulan 3-4         Bulan 5-6         Bulan 7-8         Bulan 9
 
 ---
 
-*Roadmap Offensive Security | Fase 1 (Fondasi) → Fase 4 (OSCP) · 9 Bulan*
+_Roadmap Offensive Security | Fase 1 (Fondasi) → Fase 4 (OSCP) · 9 Bulan_
