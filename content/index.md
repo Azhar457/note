@@ -58,13 +58,16 @@ status: active
 
 ---
 
-## 🛠️ Interactive Tool Arsenal (Live Maps)
+## 🛠️ Master Interactive Tool Arsenal
 
-Daftar aplikasi dan tools interaktif yang di-host secara eksternal untuk performa terbaik:
+Akses peta interaktif aplikasi dan tools terlengkap melalui satu halaman pusat:
 
-- 🛡️ [Cyber Security Arsenal](https://azhar457.github.io/Application/Application_Cyber.html)
-- ☁️ [DevOps & Infrastructure Arsenal](https://azhar457.github.io/Application/Application_DevOps.html)
-- 📊 [Data Engineering Arsenal](https://azhar457.github.io/Application/Application_DataEng.html)
-- 💾 [Forensics & Data Recovery Arsenal](https://azhar457.github.io/Application/Application_Forensics_Recovery.html)
+- 🚀 **[[03_Resources/Application|Master Arsenal Page]]** (Gabungan semua kategori)
+
+> [!abstract] Kategori di Dalamnya:
+> - 🛡️ **Cyber Security**
+> - ☁️ **DevOps & Infrastructure**
+> - 📊 **Data Engineering**
+> - 💾 **Forensics & Data Recovery**
 
 ---
