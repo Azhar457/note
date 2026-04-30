@@ -65,6 +65,7 @@ Akses peta interaktif aplikasi dan tools terlengkap melalui satu halaman pusat:
 - 🚀 **[[03_Resources/Application|Master Arsenal Page]]** (Gabungan semua kategori)
 
 > [!abstract] Kategori di Dalamnya:
+>
 > - 🛡️ **Cyber Security**
 > - ☁️ **DevOps & Infrastructure**
 > - 📊 **Data Engineering**
