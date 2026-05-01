@@ -10,6 +10,7 @@ cssclasses:
   - wide-table
 aliases:
 ---
+
 # 🛡️ Mitigasi ARP Spoofing — Defense Against Ettercap & Bettercap
 
 > **Konteks:** Dokumen ini dibuat berdasarkan incident nyata di jaringan kampus (192.168.0.0/24) dengan attacker menggunakan tool ARP spoofing standar (kemungkinan besar Ettercap atau Bettercap). Attack vector: ARP poisoning + ICMP redirect + multicast flood (SSDP/mDNS/IGMP).
@@ -17,18 +18,21 @@ aliases:
 > **Filosofi:** ARP protocol dirancang tahun 1982 tanpa autentikasi. Secara desain, ARP trust-based — siapa pun bisa claim "saya gateway." Mitigasi harus layered: endpoint → switch → router → monitoring.
 
 ---
+
 ## FOTO
+
 ![[Pasted image 20260430215147.png]]
+
 ## 🎯 Attack Anatomy (Apa yang Sebenarnya Terjadi)
 
 ### Timeline Incident
 
-| Fase | Waktu | Kondisi | Internet? | Penjelasan |
-|------|-------|---------|-----------|------------|
-| **1. Recon** | Awal | Attacker scan network | ✅ Normal | Nmap/Bettercap `net.probe on` |
-| **2. ARP Poison** | +0 detik | Attacker claim gateway | ✅ **MASIH JALAN** | Attacker **forward traffic** — MITM aktif tapi "baik" |
-| **3. ICMP Redirect** | +X detik | Routing table diubah | ❌ **PUTUS** | Attacker inject ICMP Type 5 → route ke black hole |
-| **4. Multicast Flood** | Paralel | SSDP/mDNS/IGMP flood | ❌ **LAG + PUTUS** | Bandwidth exhaustion + CPU overload |
+| Fase                   | Waktu    | Kondisi                | Internet?          | Penjelasan                                            |
+| ---------------------- | -------- | ---------------------- | ------------------ | ----------------------------------------------------- |
+| **1. Recon**           | Awal     | Attacker scan network  | ✅ Normal          | Nmap/Bettercap `net.probe on`                         |
+| **2. ARP Poison**      | +0 detik | Attacker claim gateway | ✅ **MASIH JALAN** | Attacker **forward traffic** — MITM aktif tapi "baik" |
+| **3. ICMP Redirect**   | +X detik | Routing table diubah   | ❌ **PUTUS**       | Attacker inject ICMP Type 5 → route ke black hole     |
+| **4. Multicast Flood** | Paralel  | SSDP/mDNS/IGMP flood   | ❌ **LAG + PUTUS** | Bandwidth exhaustion + CPU overload                   |
 
 ### Kenapa Internet "Awalnya Jalan" Tapi Tiba-Tiba Putus?
 
@@ -136,6 +140,7 @@ New-NetFirewallRule -DisplayName "BLOCK_MDNS_FLOOD" `
 #### Step 1.5: Selective Block Attacker (JANGAN Full Block)
 
 **❌ SALAH (yang menyebabkan internet putus):**
+
 ```powershell
 # JANGAN INI — block semua traffic attacker = putus karena dia gateway
 New-NetFirewallRule -DisplayName "BLOCK_ATTACKER_ALL" `
@@ -144,6 +149,7 @@ New-NetFirewallRule -DisplayName "BLOCK_ATTACKER_ALL" `
 ```
 
 **✅ BENAR (selective block, allow routing survive):**
+
 ```powershell
 # Hapus rule lama dulu
 Remove-NetFirewallRule -DisplayName "BLOCK_ATTACKER_IN" -ErrorAction SilentlyContinue
@@ -220,6 +226,7 @@ ip arp inspection validate src-mac dst-mac ip
 ```
 
 **Cara kerja DAI:**
+
 ```
 ARP Packet Arrive
     │
@@ -389,9 +396,9 @@ Yang dicari:
 
 ```yaml
 # Suricata rule — detect ARP spoofing
-alert arp any any -> any any (msg:"ARP SPOOFING DETECTED"; 
-  content:"|00 01 08 00 06 04 00 02|"; 
-  classtype:attempted-admin; sid:1000001; rev:1;)
+alert arp any any -> any any (msg:"ARP SPOOFING DETECTED";
+content:"|00 01 08 00 06 04 00 02|";
+classtype:attempted-admin; sid:1000001; rev:1;)
 ```
 
 ```zeek
@@ -551,7 +558,7 @@ Write-Host "--- ICMP Redirect Status ---" -ForegroundColor Cyan
 netsh interface ipv4 show global | Select-String "redirect"
 Write-Host ""
 Write-Host "--- Firewall Rules ---" -ForegroundColor Cyan
-Get-NetFirewallRule | Where-Object { $_.DisplayName -like "BLOCK*" } | 
+Get-NetFirewallRule | Where-Object { $_.DisplayName -like "BLOCK*" } |
   Select DisplayName, Direction, Action | Format-Table -AutoSize
 Write-Host ""
 Write-Host "=== DEFENSE APPLIED ===" -ForegroundColor Cyan
@@ -563,13 +570,13 @@ ping $GatewayIP -n 4
 
 ## 🧠 Framework Berpikir: Defense in Depth
 
-| Layer | Control | Efektivitas | Butuh Akses Router? |
-|-------|---------|-------------|---------------------|
-| **L1 — Endpoint** | Static ARP, ICMP disable, firewall | ⚠️ Partial | ❌ Tidak |
-| **L2 — Switch** | DAI, DHCP Snooping, Port Security | ✅ High | ✅ Ya |
-| **L3 — Router** | Static ARP, Proxy ARP disable | ✅ Medium | ✅ Ya |
-| **L4 — Monitor** | arpwatch, XArp, Suricata, SIEM | ✅ High | ⚠️ Partial |
-| **L5 — Segment** | Private VLAN, 802.1X, Network Segmentation | ✅ Very High | ✅ Ya |
+| Layer             | Control                                    | Efektivitas  | Butuh Akses Router? |
+| ----------------- | ------------------------------------------ | ------------ | ------------------- |
+| **L1 — Endpoint** | Static ARP, ICMP disable, firewall         | ⚠️ Partial   | ❌ Tidak            |
+| **L2 — Switch**   | DAI, DHCP Snooping, Port Security          | ✅ High      | ✅ Ya               |
+| **L3 — Router**   | Static ARP, Proxy ARP disable              | ✅ Medium    | ✅ Ya               |
+| **L4 — Monitor**  | arpwatch, XArp, Suricata, SIEM             | ✅ High      | ⚠️ Partial          |
+| **L5 — Segment**  | Private VLAN, 802.1X, Network Segmentation | ✅ Very High | ✅ Ya               |
 
 > **Prinsip:** Tanpa kontrol Layer 2 (switch), kamu tidak bisa **menghentikan** ARP spoofing. Tapi kamu bisa **melindungi diri** di Layer 1 (endpoint) dan **mendeteksi** di Layer 4 (monitoring).
 
@@ -584,4 +591,4 @@ ping $GatewayIP -n 4
 
 ---
 
-*Mitigasi ARP Spoofing | Defense Against Ettercap & Bettercap | Layer 1 (Endpoint) → Layer 5 (Segmentation)*
+_Mitigasi ARP Spoofing | Defense Against Ettercap & Bettercap | Layer 1 (Endpoint) → Layer 5 (Segmentation)_
