@@ -90,6 +90,22 @@ export default (() => {
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
 
+        {/* Canonical Tag to prevent duplicate content & scraping issues */}
+        <link rel="canonical" href={socialUrl} />
+
+        {/* General Crawler Instructions */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+        {/* Official & AI Crawlers Allowed explicitly as requested */}
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+        <meta name="chatgpt-user" content="index, follow" />
+        <meta name="perplexitybot" content="index, follow" />
+        <meta name="claudebot" content="index, follow" />
+        <meta name="bytespider" content="index, follow" />
+        <meta name="amazonbot" content="index, follow" />
+        <meta name="facebookbot" content="index, follow" />
+
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js
           .filter((resource) => resource.loadTime === "beforeDOMReady")
