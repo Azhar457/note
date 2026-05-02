@@ -27,7 +27,7 @@ cssclasses:
 
 ## Tabel Recovery — Level 0 sampai Level 7
 
-| Level & Alat                                                                               | Fungsi Utama & Sweet Spot                                                                                                                                  | ☠️ Tembok Kematian                                                                                                                         | 💀 SKIP Jika...                                                                                                                               | 🛠️ Jika Masih Ada Harapan...                                                                                                                                       |
+| Level & Alat                                                                               | Fungsi Utama & Sweet Spot                                                                                                                                  | ☠️ Tembok Kematian                                                                                                                         | 💀 SKIP Jika...                                                                                                                               | 🛠️ Jika Masih Ada Harapan...                                                                                                                                      |
 | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Level 0** — Sensorik Fisik & BIOS _(Mata, Telinga, PC BIOS)_                             | Pemilahan barang lelang super kilat (0–30 detik). Memisahkan bangkai total dari barang potensial.                                                          | Hanya mendeteksi respons listrik dasar. Tidak bisa melihat kesehatan sel memori internal.                                                  | Pin SATA gosong/patah, HDD bunyi klik/menderu kasar (Click of Death), atau BIOS membaca kapasitas aneh (0MB atau `SATAFIRM S11`).             | Jika BIOS membaca nama/kapasitas dengan benar dan suara HDD halus → segera masuk ke **Level 2** (WinPE/Hiren's) untuk cek S.M.A.R.T.                               |
 | **Level 1** — OS-Level Software _(Disk Drill, Recuva di Windows LTSC)_                     | Mengais data dari partisi yang tidak sengaja terformat (RAW) atau file terhapus dari Recycle Bin.                                                          | Sangat bergantung pada izin dan stabilitas Kernel Windows.                                                                                 | Controller HDD mulai membanjiri Windows dengan error → PC freeze, Not Responding, atau BSOD saat di-scan.                                     | Jika OS Windows menyerah → bypass OS dengan booting ke lingkungan ringan. Gunakan **Level 2** (Hiren's BootCD PE).                                                 |
@@ -69,14 +69,14 @@ DRIVE MASUK
 
 ## 🔗 Lihat Juga
 
-- [[MASTER_INDEX]]
-- [[ENDPOINT_SECURITY]] — CPU Ring & Boot Chain Threat
-- [[NETWORK_SECURITY]] — OSI Layer 1–8 Blue/Red Team
-- [[EMBEDDED_SYSTEMS]] — Flash Drive Forensics & NAND Internals
-- [[SOP_HPA_Exorcism]] — SOP destruktif HPA/DCO Reset
+- [[index|Master Index]]
+- [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain Threat
+- [[network-security|Network Security]] — OSI Layer 1–8 Blue/Red Team
+- [[embedded-systems|Embedded Systems]] — Flash Drive Forensics & NAND Internals
+- [[hpa-exorcism|SOP HPA Exorcism]] — SOP destruktif HPA/DCO Reset
 - [[SOP — The Data Lifesaver & Disk Refurbish]] — SOP recovery + refurbish HDD
-- [[KRIPTOGRAFI_BIOMETRIK]] — Enkripsi yang jadi tembok di Level 6–7
+- [[cryptography-biometrics|Kriptografi & Biometrik]] — Enkripsi yang jadi tembok di Level 6–7
 
 ---
 
-_Data Recovery | Level 0 (Sensorik Fisik) sampai Level 7 (Kriptanalisis Kuantum) · Recovery Hierarchy_
+*Data Recovery | Level 0 (Sensorik Fisik) sampai Level 7 (Kriptanalisis Kuantum) · Recovery Hierarchy*

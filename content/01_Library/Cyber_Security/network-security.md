@@ -58,14 +58,14 @@ Layer 8  │ ← MANUSIA DI SINI → Phishing bypass semua layer di atas
 
 ## 🔗 Lihat Juga
 
-- [[MASTER_INDEX]]
-- [[ENDPOINT_SECURITY]] — CPU Ring & Boot Chain Threat
-- [[DATA_RECOVERY]] — Partition & Data Recovery Level 0–7
-- [[OSINT_RF_HIERARCHY]] — OSINT & RF yang melintas di atas jaringan
-- [[INFRASTRUKTUR_CLOUD]] — Cloud networking & Zero Trust
-- [[KRIPTOGRAFI_BIOMETRIK]] — Enkripsi yang melindungi Layer 5–7
-- [[Search Hierarchy]] — Information Access via jaringan
+- [[index|Master Index]]
+- [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain Threat
+- [[forensic-data-recovery|Data Recovery]] — Partition & Data Recovery Level 0–7
+- [[hierarchy-osint-rf|OSINT & RF Hierarchy]] — OSINT & RF yang melintas di atas jaringan
+- [[cloud-infrastructure|Infrastruktur Cloud]] — Cloud networking & Zero Trust
+- [[cryptography-biometrics|Kriptografi & Biometrik]] — Enkripsi yang melindungi Layer 5–7
+- [[hierarchy-search|Search Hierarchy]] — Information Access via jaringan
 
 ---
 
-_Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer_
+*Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer*

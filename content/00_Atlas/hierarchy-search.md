@@ -49,6 +49,6 @@
 
 ### 🔗 Lihat Juga
 
-- [[NETWORK_SECURITY]]
-- [[AI_LEVELS_HIERARCHY]]
-- [[CHEAT]]
+- [[network-security|Network Security]]
+- [[hierarchy-ai-levels|AI Levels Hierarchy]]
+- [[cheatsheet|Cheat Engine]]

@@ -26,7 +26,6 @@ status: active
 ## Tier 1 — 🔴 Langsung Dipakai, Prioritas Tinggi
 
 ### Aljabar Linear
-
 ```
 Kuliah cover : Vektor, matriks, eigenvalue, transformasi linear
 CS/Security  : SEMUA neural network (setiap layer = matrix multiply)
@@ -39,7 +38,6 @@ Aksi         : Sambungkan kuliah dengan implementasi NumPy/PyTorch
 ```
 
 ### Pengantar Teori Bilangan
-
 ```
 Kuliah cover : Divisibilitas, GCD, aritmetika modular, bilangan prima
 CS/Security  : FONDASI LANGSUNG RSA, Diffie-Hellman, ECC
@@ -53,7 +51,6 @@ Aksi         : Implementasi RSA dari scratch pakai Python setelah belajar
 ```
 
 ### Pengantar Statistika + Statistika Pendidikan
-
 ```
 Kuliah cover : Distribusi, uji hipotesis, p-value, regresi, ANOVA
 CS/Security  : Research Methodology (p-value, confidence interval)
@@ -67,7 +64,6 @@ Aksi         : Pelajari perbedaan statistik deskriptif vs inferensial
 ```
 
 ### Pemrograman Komputer 1 & 2
-
 ```
 Kuliah cover : Dasar algoritma, struktur kontrol, fungsi, OOP (kemungkinan)
 CS/Security  : Entry point ke SEMUA yang teknis di vault
@@ -81,7 +77,6 @@ Aksi         : Jangan berhenti di level kuliah
 ```
 
 ### Metode Numerik
-
 ```
 Kuliah cover : Floating point, iterasi Newton-Raphson, interpolasi,
                integrasi numerik, PDE numerik
@@ -99,7 +94,6 @@ Aksi         : Implementasi semua metode di kuliah dengan Python/NumPy
 ## Tier 2 — 🟡 Berguna, Perlu Disambungkan Aktif
 
 ### Kalkulus 1 & 2
-
 ```
 Kuliah cover : Limit, turunan, integral, deret Taylor, multivariabel
 CS/Security  : Gradient descent = turunan (backpropagation di DL)
@@ -113,7 +107,6 @@ Aksi         : Setiap konsep kalkulus → cari "ini dipakai di ML bagaimana"
 ```
 
 ### Pengantar Analisis Real 1 & 2
-
 ```
 Kuliah cover : Epsilon-delta, konvergensi, kontinuitas, deret,
                metrik space, teorema nilai rata-rata
@@ -128,7 +121,6 @@ Nilai        : Bukan kontennya yang langsung terpakai, tapi
 ```
 
 ### Pengantar Struktur Aljabar
-
 ```
 Kuliah cover : Group, ring, field, homomorphism, isomorphism
 CS/Security  : Group theory → FONDASI kriptografi kurva eliptik (ECC)
@@ -142,7 +134,6 @@ Aksi         : Saat belajar grup, langsung tanyakan:
 ```
 
 ### Pengantar Dasar Matematika
-
 ```
 Kuliah cover : Logika proposisional, himpunan, relasi, fungsi, induksi
 CS/Security  : Logika → fondasi AI Level 0 (IF-THEN), SAT solver
@@ -153,7 +144,6 @@ Masuk ke     : MATEMATIKA_ALGORITMA.md → Sheet Matematika Diskrit
 ```
 
 ### Fungsi Kompleks
-
 ```
 Kuliah cover : Bilangan kompleks, fungsi analitik, transformasi konformal,
                integral kontur, deret Laurent, residu
@@ -168,7 +158,6 @@ Nilai        : Jarang dibutuhkan langsung, tapi buka pintu ke
 ```
 
 ### Geometri Dasar & Geometri Transformasi
-
 ```
 Kuliah cover : Euclid, transformasi (rotasi, refleksi, translasi, dilatasi),
                geometri koordinat, vektor geometri
@@ -185,7 +174,6 @@ Masuk ke     : MATEMATIKA_ALGORITMA.md → Linear Algebra (transformasi)
 ## Tier 3 — 🟢 Nilai Tidak Langsung, Konteks Riset
 
 ### Metode Survey
-
 ```
 Kuliah cover : Desain kuesioner, sampling, analisis data survei
 CS/Security  : User study dalam research (usability, security UX)
@@ -195,7 +183,6 @@ Masuk ke     : RESEARCH_METHODOLOGY.md → Sheet Tipe Penelitian
 ```
 
 ### Metodologi Pembelajaran Matematika + Kapita Selekta
-
 ```
 Kuliah cover : Pendekatan penelitian, desain pembelajaran, analisis kritis
 CS/Security  : Research methodology mindset yang overlap
@@ -204,7 +191,6 @@ Masuk ke     : RESEARCH_METHODOLOGY.md
 ```
 
 ### Pengantar Analisis Real (aspek proof)
-
 ```
 Nilai tidak langsung : Kemampuan membaca dan menulis mathematical proof
                        → diperlukan untuk membaca paper kriptografi
@@ -216,13 +202,13 @@ Nilai tidak langsung : Kemampuan membaca dan menulis mathematical proof
 
 ## Tier 4 — ⚪ Konteks Jurusan, Tidak Masuk Vault CS
 
-| Mata Kuliah                             | Catatan                                                                                                                      |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Problematika Pendidikan Matematika**  | Domain pendidikan murni                                                                                                      |
-| **Media Pembelajaran**                  | Relevan jika kamu buat security awareness training suatu hari                                                                |
-| **Kurikulum & Pembelajaran**            | Domain pendidikan murni                                                                                                      |
-| **Micro Teaching**                      | Tapi: kemampuan mengajar kompleks = kemampuan jelaskan teknis ke non-teknis. Berguna di security awareness, presentasi riset |
-| **Perencanaan Pembelajaran Matematika** | Domain pendidikan murni                                                                                                      |
+| Mata Kuliah | Catatan |
+|---|---|
+| **Problematika Pendidikan Matematika** | Domain pendidikan murni |
+| **Media Pembelajaran** | Relevan jika kamu buat security awareness training suatu hari |
+| **Kurikulum & Pembelajaran** | Domain pendidikan murni |
+| **Micro Teaching** | Tapi: kemampuan mengajar kompleks = kemampuan jelaskan teknis ke non-teknis. Berguna di security awareness, presentasi riset |
+| **Perencanaan Pembelajaran Matematika** | Domain pendidikan murni |
 
 > [!info] Catatan Tier 4
 > Jangan buang skill ini sepenuhnya. Kemampuan **menjelaskan konsep kompleks secara sederhana** (Feynman Technique) yang dilatih di mata kuliah pendidikan adalah skill yang sangat langka di kalangan engineer dan peneliti.
@@ -233,13 +219,13 @@ Nilai tidak langsung : Kemampuan membaca dan menulis mathematical proof
 
 Ini gap yang harus ditutup sendiri karena tidak ada di kurikulum Pendidikan Matematika:
 
-| Topik                         | Kenapa Wajib                       | Resource                                           | Target Waktu         |
-| ----------------------------- | ---------------------------------- | -------------------------------------------------- | -------------------- |
-| **Algoritma & Struktur Data** | Fondasi semua engineering          | CLRS (buku) + LeetCode (praktik)                   | Semester ini paralel |
-| **Jaringan Komputer**         | Fondasi Network Security           | Tanenbaum "Computer Networks" + Wireshark langsung | Semester depan       |
-| **OS Fundamentals**           | Fondasi semua yang low-level       | xv6 MIT (baca + run)                               | Semester depan       |
-| **Linux Command Line**        | Tool utama semua security research | `man` pages + OverTheWire Bandit (wargame)         | Bulan ini            |
-| **Git & Version Control**     | Wajib untuk semua proyek           | Pro Git (gratis online)                            | Minggu ini           |
+| Topik | Kenapa Wajib | Resource | Target Waktu |
+|---|---|---|---|
+| **Algoritma & Struktur Data** | Fondasi semua engineering | CLRS (buku) + LeetCode (praktik) | Semester ini paralel |
+| **Jaringan Komputer** | Fondasi Network Security | Tanenbaum "Computer Networks" + Wireshark langsung | Semester depan |
+| **OS Fundamentals** | Fondasi semua yang low-level | xv6 MIT (baca + run) | Semester depan |
+| **Linux Command Line** | Tool utama semua security research | `man` pages + OverTheWire Bandit (wargame) | Bulan ini |
+| **Git & Version Control** | Wajib untuk semua proyek | Pro Git (gratis online) | Minggu ini |
 
 ---
 
@@ -285,7 +271,7 @@ JANGKA PANJANG
 ## Satu Insight Penting
 
 > [!warning] Jebakan yang Perlu Dihindari
-> Banyak mahasiswa Pendidikan Matematika yang jago math tapi tidak pernah sambungkan ke implementasi nyata. Dan banyak mahasiswa CS yang bisa coding tapi tidak punya fondasi formal untuk memahami _mengapa_ sesuatu bekerja atau _membuktikan_ bahwa sesuatu aman.
+> Banyak mahasiswa Pendidikan Matematika yang jago math tapi tidak pernah sambungkan ke implementasi nyata. Dan banyak mahasiswa CS yang bisa coding tapi tidak punya fondasi formal untuk memahami *mengapa* sesuatu bekerja atau *membuktikan* bahwa sesuatu aman.
 >
 > Kamu punya kesempatan untuk tidak jatuh di salah satu jebakan ini.
 > **Setiap konsep math yang dipelajari di kuliah → cari implementasinya dalam kode.**
@@ -296,12 +282,12 @@ JANGKA PANJANG
 
 ## 🔗 Lihat Juga
 
-- [[MASTER_INDEX]]
-- [[MATEMATIKA_ALGORITMA]] — destinasi utama sebagian besar mata kuliah
-- [[KRIPTOGRAFI_BIOMETRIK]] — aplikasi Teori Bilangan + Struktur Aljabar
-- [[RESEARCH_METHODOLOGY]] — aplikasi Statistika + Metode Survey
-- [[FONDASI_CS]] — jembatan dari Pemrograman ke systems
+- [[index|Master Index]]
+- [[math-and-algorithms|Matematika & Algoritma]] — destinasi utama sebagian besar mata kuliah
+- [[cryptography-biometrics|Kriptografi & Biometrik]] — aplikasi Teori Bilangan + Struktur Aljabar
+- [[research-methodology|Research Methodology]] — aplikasi Statistika + Metode Survey
+- [[computer-science-foundations|Computer Science Foundations]] — jembatan dari Pemrograman ke systems
 
 ---
 
-_Kurikulum Mapping | Pendidikan Matematika → CS/Security Learning Path_
+*Kurikulum Mapping | Pendidikan Matematika → CS/Security Learning Path*

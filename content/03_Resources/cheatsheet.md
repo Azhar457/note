@@ -29,7 +29,7 @@ cssclasses:
 
 ## Tabel Hierarki — Level 0 sampai Level 6
 
-| 🔧 Level & Alat                                                                                                           | ⚡ Cara Kerja & Sweet Spot                                                                                                                                                                                                                                                                    | ☠️ Tembok Kematian                                                                                                                                                                        | 🔵 Anti-Cheat yang Menangkal                                                                                                                                                                     | 🔴 Contoh di Alam Liar                                                                                                   |
+| 🔧 Level & Alat                                                                                                           | ⚡ Cara Kerja & Sweet Spot                                                                                                                                                                                                                                                                     | ☠️ Tembok Kematian                                                                                                                                                                        | 🔵 Anti-Cheat yang Menangkal                                                                                                                                                                     | 🔴 Contoh di Alam Liar                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | **Level 0** — Macro & Script _(AutoHotKey, Logitech GHub Script, Razer Synapse Macro)_                                    | Bukan cheat sejati. Simulasi input keyboard/mouse di level HID device. Recoil control, auto-click, bunny hop otomatis. Beroperasi sepenuhnya di User Space, tidak menyentuh memori game sama sekali.                                                                                          | Deteksi timing. Input manusia memiliki jitter alami — macro menghasilkan interval presisi 1ms yang tidak manusiawi. Mudah dideteksi secara statistik.                                     | Battleye timing analysis, EAC input pattern detection, server-side behavior analysis                                                                                                             | Macro recoil Valorant, AutoHotKey bunny hop CS2, Logitech "no recoil" script                                             |
 | **Level 1** — Memory Editor _(Cheat Engine, ArtMoney, GameConqueror Linux)_                                               | Scan & patch nilai di memori proses game (Ring 3 ReadProcessMemory/WriteProcessMemory API). Cari nilai HP=100, freeze, ubah. SpeedHack via timeGetTime() hook.                                                                                                                                | Anti-cheat memantau siapa yang memanggil `OpenProcess` + `ReadProcessMemory` ke PID game. Signature scan DLL Cheat Engine sangat dikenal.                                                 | Easy Anti-Cheat handle scanner, BattlEye process list blacklist, Riot Vanguard Ring 0                                                                                                            | Cheat Engine di game offline/singleplayer, ArtMoney untuk RPG lama                                                       |
@@ -61,7 +61,7 @@ Level 6  │ AI + Hardware      ├── Server-side behavior only ← tembok t
 
 > [!info] Dua Sisi Mata Pedang
 > Semua teknik di Level 3–6 adalah **teknik yang sama** digunakan oleh:
->
+> 
 > - **Cheat developer** → untuk bypass anti-cheat
 > - **Anti-cheat engineer** (Riot, BattlEye, VAC) → untuk memahami apa yang harus dilawan
 > - **Security researcher** → BYOVD di Level 3 adalah **teknik APT nyata** yang digunakan malware seperti BlackByte ransomware dan Lazarus Group untuk bypass EDR
@@ -72,14 +72,14 @@ Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[DATA_RECOVERY
 
 ## 🔗 Lihat Juga
 
-- [[MASTER_INDEX]]
-- [[ENDPOINT_SECURITY]] — BYOVD overlap di Ring 0
-- [[NETWORK_SECURITY]] — OSI Layer & defense
-- [[DATA_RECOVERY]] — DMA / PC-3000 konsep serupa
-- [[AI_LEVELS_HIERARCHY]] — AI Vision di Level 6
-- [[RE_HARDWARE_HACKING]] — Teknik RE untuk firmware analysis
-- [[UNDERGROUND_KNOWLEDGE]] — Konsolidasi Cheat + Dark Web
+- [[index|Master Index]]
+- [[endpoint-security|Endpoint Security]] — BYOVD overlap di Ring 0
+- [[network-security|Network Security]] — OSI Layer & defense
+- [[forensic-data-recovery|Data Recovery]] — DMA / PC-3000 konsep serupa
+- [[hierarchy-ai-levels|AI Levels Hierarchy]] — AI Vision di Level 6
+- [[hardware-hacking-re|Hardware Hacking]] — Teknik RE untuk firmware analysis
+- [[underground-knowledge|Underground Knowledge]] — Konsolidasi Cheat + Dark Web
 
 ---
 
-_Game Security | Cheat Engine Level 0 (Macro) → Level 6 (AI Vision Hardware) · Anti-Cheat Landscape_
+*Game Security | Cheat Engine Level 0 (Macro) → Level 6 (AI Vision Hardware) · Anti-Cheat Landscape*

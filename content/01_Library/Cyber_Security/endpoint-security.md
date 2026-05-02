@@ -59,13 +59,13 @@ Ring 3   │ Ransomware, RAT, Trojan     → Yang 99% orang kenal sebagai "virus
 
 ## 🔗 Lihat Juga
 
-- [[MASTER_INDEX]]
-- [[NETWORK_SECURITY]] — OSI Layer 1–8 Blue/Red Team
-- [[DATA_RECOVERY]] — Partition & Data Recovery Level 0–7
-- [[FONDASI_CS]] — OS Internals (Kernel Module, Hypervisor)
-- [[UNDERGROUND_KNOWLEDGE]] — BYOVD overlap di Cheat Engine Level 3
-- [[RE_HARDWARE_HACKING]] — Firmware RE sebagai vektor analisis
+- [[index|Master Index]]
+- [[network-security|Network Security]] — OSI Layer 1–8 Blue/Red Team
+- [[forensic-data-recovery|Data Recovery]] — Partition & Data Recovery Level 0–7
+- [[computer-science-foundations|Computer Science Foundations]] — OS Internals (Kernel Module, Hypervisor)
+- [[underground-knowledge|Underground Knowledge]] — BYOVD overlap di Cheat Engine Level 3
+- [[hardware-hacking-re|Hardware Hacking]] — Firmware RE sebagai vektor analisis
 
 ---
 
-_Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape_
+*Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape*
