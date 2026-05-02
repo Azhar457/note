@@ -94,7 +94,10 @@ export default (() => {
         <link rel="canonical" href={socialUrl} />
 
         {/* General Crawler Instructions */}
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
 
         {/* Official & AI Crawlers Allowed explicitly as requested */}
         <meta name="googlebot" content="index, follow" />
