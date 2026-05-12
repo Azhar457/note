@@ -1,4 +1,4 @@
-# 🔐 Security & CS Knowledge Base
+# Knowledge Base
 
 Repositori ini berisi catatan digital (Digital Garden) mengenai Cyber Security, Computer Science, dan Infrastruktur IT yang dibangun menggunakan [Quartz v4](https://quartz.jzhao.xyz/).
 

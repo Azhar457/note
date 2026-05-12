@@ -73,7 +73,7 @@ typescript
 ```typescript
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🔐 Security & CS Knowledge Base", // ← ganti
+    pageTitle: "Knowledge Base", // ← ganti
     enableSPA: true,
     enablePopovers: true,
     analytics: null,
