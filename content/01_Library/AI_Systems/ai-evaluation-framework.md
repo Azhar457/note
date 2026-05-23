@@ -1,4 +1,6 @@
 ---
+title: "🧠 AI EVALUATION FRAMEWORK — Tes Kecerdasan LLM"
+description: "Tes AI yang bagus **bukan soal sulit** — tapi soal yang **memaksa model berpikir benar**."
 tags:
   - AI
   - evaluation

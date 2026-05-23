@@ -1,4 +1,6 @@
 ---
+title: "Dokumen 04 — Blue Team Phase 1 (Audit & IPS)"
+description: "Lynis mengecek konfigurasi sistem operasi Ubuntu 24.04, mencari celah yang bisa dieksploitasi sebelum penyerang menyentuh aplikasi."
 tags:
   - Blue-Team
   - Lynis

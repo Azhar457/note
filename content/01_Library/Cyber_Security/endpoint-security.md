@@ -1,4 +1,6 @@
 ---
+title: "🦠 ENDPOINT SECURITY — CPU Ring & Boot Chain"
+description: "```"
 tags:
   - endpoint-security
   - blue-team

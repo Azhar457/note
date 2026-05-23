@@ -1,4 +1,6 @@
 ---
+title: "Printer Maintenance & Reset — Complete Technician Guide"
+description: 'Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste Ink Pad** (busa penampung) di bagian bawah printer. Setelah batas tertentu...'
 tags:
   - Printer
   - Maintenance

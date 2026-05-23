@@ -1,4 +1,6 @@
 ---
+title: "🔬 Reverse Engineering & Hardware Hacking — Hierarki Lengkap"
+description: "```"
 tags:
   - reverse-engineering
   - hardware-hacking

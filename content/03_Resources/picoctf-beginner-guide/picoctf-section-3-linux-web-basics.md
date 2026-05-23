@@ -1,4 +1,6 @@
 ---
+title: "🛠️ PICOCTF SECTION 3 — Linux & Web Basics"
+description: "Saat Anda mengunduh file biner yang tidak bisa dibaca manusia, gunakan alat ini:"
 tags:
   - CTF
   - Linux

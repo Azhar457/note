@@ -1,4 +1,6 @@
 ---
+title: "🛡️ ARSITEKTUR & KONSEP — Simulasi Keamanan Siber"
+description: "Mengapa kita membedakan pendekatan keamanan pada kedua VM ini? Dan mengapa alat forensik dasar seperti `tcpdump`, `AIDE`, dan `auditd` **tidak** diutamakan d..."
 tags:
   - cyber-security
   - blue-team

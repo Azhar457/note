@@ -1,4 +1,6 @@
 ---
+title: "🖥️ Roadmap IT Systems Engineer / Infrastructure Administrator — Bare-Metal On-Prem"
+description: '&gt; **Filosofi:** Jangan hanya "install" — kamu harus bisa "operate." Bedanya besar: install Proxmox itu 30 menit, tapi operate 4-node cluster dengan ZF...'
 tags:
   - roadmap
   - systems-engineer

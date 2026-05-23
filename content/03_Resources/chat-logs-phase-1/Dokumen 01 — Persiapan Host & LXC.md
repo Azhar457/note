@@ -1,4 +1,6 @@
 ---
+title: "Dokumen 01 — Persiapan Host & LXC"
+description: "Secara default Proxmox mengunci repositori berbayar. Alihkan ke repositori gratis agar pembaruan sistem berjalan."
 tags:
   - proxmox
   - lxc

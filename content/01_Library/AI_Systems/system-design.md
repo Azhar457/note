@@ -1,4 +1,6 @@
 ---
+title: "🏗️ SYSTEM DESIGN — Database Internals & Software Architecture"
+description: "```"
 tags:
   - database
   - software-architecture

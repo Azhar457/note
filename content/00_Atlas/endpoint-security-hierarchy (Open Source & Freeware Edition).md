@@ -1,4 +1,6 @@
 ---
+title: "🛡️ Endpoint Security Hierarchy — Open Source & Freeware Edition"
+description: "[TANPA WINDOWS DEFENDER]"
 tags:
   - Security
   - endpoint

@@ -1,4 +1,6 @@
 ---
+title: "💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide"
+description: "```"
 tags:
   - Laptop
   - QC

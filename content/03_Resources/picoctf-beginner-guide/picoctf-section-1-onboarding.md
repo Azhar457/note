@@ -1,4 +1,6 @@
 ---
+title: "🚀 PICOCTF SECTION 1 — Onboarding & Connection"
+description: "Flag adalah string teks unik yang membuktikan Anda telah memecahkan tantangan."
 tags:
   - CTF
   - Onboarding

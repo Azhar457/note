@@ -1,4 +1,6 @@
 ---
+title: "🐍 PICOCTF SECTION 4 — Python Automation"
+description: "Banyak tantangan memberikan file `.py` yang harus dijalankan untuk mendapatkan flag."
 tags:
   - CTF
   - Python

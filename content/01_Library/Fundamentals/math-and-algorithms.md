@@ -1,4 +1,6 @@
 ---
+title: "🧮 MATEMATIKA & ALGORITMA — Fondasi Semua CS"
+description: "```"
 tags:
   - algoritma
   - struktur-data

@@ -1,4 +1,6 @@
 ---
+title: "🗺️ ACTIVE CONTEXT — Session Handoff"
+description: "```"
 tags:
   - active-context
   - session

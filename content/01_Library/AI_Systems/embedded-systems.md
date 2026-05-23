@@ -1,4 +1,6 @@
 ---
+title: "🔌 EMBEDDED SYSTEMS & FLASH FORENSICS — Bare-Metal World"
+description: "```"
 tags:
   - embedded
   - firmware

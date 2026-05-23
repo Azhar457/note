@@ -1,4 +1,6 @@
 ---
+title: "🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security"
+description: "```"
 tags:
   - kurikulum
   - learning-path

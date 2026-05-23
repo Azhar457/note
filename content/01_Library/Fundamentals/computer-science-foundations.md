@@ -1,4 +1,6 @@
 ---
+title: "🖥️ FONDASI CS — OS Internals & Computer Architecture"
+description: "```"
 tags:
   - os-internals
   - computer-architecture

@@ -1,4 +1,6 @@
 ---
+title: "🌐 NETWORK SECURITY — OSI Layer 1–8"
+description: "```"
 tags:
   - network-security
   - blue-team

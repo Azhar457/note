@@ -1,4 +1,6 @@
 ---
+title: "🔍 PICOCTF SECTION 5 — Forensics & Filesystem"
+description: "SVG (Scalable Vector Graphics) adalah file berbasis **XML/Teks**. Seringkali flag disembunyikan di dalam tag visual yang sangat kecil."
 tags:
   - CTF
   - Forensics

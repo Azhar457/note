@@ -1,4 +1,6 @@
 ---
+title: "🛡️ Mitigasi ARP Spoofing — Defense Against Ettercap & Bettercap"
+description: "```"
 created: 2026-04-30
 tags:
   - mitigation

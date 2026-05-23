@@ -1,4 +1,6 @@
 ---
+title: "📋 INCIDENT REPORT ADDENDUM — ARP Spoofing 2026-04-30"
+description: "Pada 2026-04-30, terjadi serangan ARP Spoofing di jaringan kampus (192.168.0.0/24) sebagai bagian dari latihan offensive-defensive antara dua pihak yang dike..."
 tags:
   - incident-report
   - arp-spoofing

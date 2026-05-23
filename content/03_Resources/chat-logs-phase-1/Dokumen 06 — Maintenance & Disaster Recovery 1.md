@@ -1,4 +1,6 @@
 ---
+title: "Jalankan di Host Proxmox"
+description: "Dalam lingkungan Proxmox dengan RAM 8GB, pemilihan lokasi instalasi sangat menentukan nasib homelab Anda."
 tags:
   - suricata
   - ids

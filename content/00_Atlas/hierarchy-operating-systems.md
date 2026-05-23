@@ -1,4 +1,6 @@
 ---
+title: "🖥️ HIERARKI OS — Dari Consumer sampai Military/Intelligence"
+description: "```"
 tags:
   - OS
   - linux

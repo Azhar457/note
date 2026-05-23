@@ -1,4 +1,6 @@
 ---
+title: "👋 Hai, Saya Azhar Muttaqien"
+description: "Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana malah jatuh tertarik ke dunia CS, security research, dan low-level systems."
 tags:
   - about
   - profile

@@ -1,4 +1,6 @@
 ---
+title: "☠️ Hierarchy Offensive Security — Level 0 sampai APT Simulator"
+description: "&gt; Hierarki skill progression untuk offensive security practitioner. Dari tool runner sampai custom implant developer. Setiap level punya cara kerja, tembo..."
 tags:
   - hierarchy
   - offensive-security

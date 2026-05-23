@@ -1,4 +1,5 @@
 ---
+description: "Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat untuk memudahkan pencarian lintas disiplin."
 title: 🛠️ Master Interactive Tool Arsenal
 tags:
   - arsenal

@@ -1,4 +1,6 @@
 ---
+title: "🤖 HIERARKI AI — Dari Rule-Based sampai Beyond Physics"
+description: "_(Matrioshka Brain Tier — Dyson Sphere Computing)_"
 tags:
   - AI
   - Machine-Learning

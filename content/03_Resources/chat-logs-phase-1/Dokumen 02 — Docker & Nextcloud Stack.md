@@ -1,4 +1,6 @@
 ---
+title: "Dokumen 02 — Infrastruktur Docker & Persistence Storage"
+description: "Versi Python `docker-compose` lawas sudah tidak kompatibel dengan Ubuntu 24.04 (modul `distutils` dihapus). Hapus total sebelum instalasi resmi."
 tags:
   - Docker
   - Nextcloud

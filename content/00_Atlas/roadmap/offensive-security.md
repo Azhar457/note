@@ -1,4 +1,6 @@
 ---
+title: "🗡️ Roadmap Offensive Security — Red Team / Penetration Tester"
+description: "```"
 tags:
   - roadmap
   - red-team

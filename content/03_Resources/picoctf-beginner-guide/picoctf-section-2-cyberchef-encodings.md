@@ -1,4 +1,6 @@
 ---
+title: "🧩 PICOCTF SECTION 2 — Encodings & CyberChef"
+description: "Gunakan tabel ini untuk menebak jenis encoding hanya dalam sekali lirik:"
 tags:
   - CTF
   - Cryptography

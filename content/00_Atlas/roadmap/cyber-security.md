@@ -1,4 +1,6 @@
 ---
+title: "🛡️ Roadmap Cyber Security — Blue Team / SOC Analyst"
+description: "```"
 tags:
   - roadmap
   - blue-team

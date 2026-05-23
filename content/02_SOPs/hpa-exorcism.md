@@ -1,4 +1,6 @@
 ---
+title: "🔪 SOP — The Safe Exorcist"
+description: "`ROTA=1` → HDD | `ROTA=0` → SSD/NVMe"
 aliases:
   - HPA
 created: 2026-04-23

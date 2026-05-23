@@ -1,4 +1,6 @@
 ---
+title: "⚙️ PICOCTF SECTION 5 — Reverse Engineering"
+description: "Tantangan di mana password disembunyikan langsung di dalam fungsi `checkPassword`."
 tags:
   - CTF
   - Reverse-Engineering

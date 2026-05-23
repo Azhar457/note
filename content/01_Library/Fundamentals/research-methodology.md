@@ -1,4 +1,6 @@
 ---
+title: "🔭 Research Methodology — Hierarki Lengkap"
+description: "1. [[#Sheet 1 — Hierarki Research: Dari Observasi sampai Paradigm Shift]]"
 tags:
   - research
   - methodology
