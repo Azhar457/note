@@ -1,6 +1,4 @@
 ---
-title: "🚩 PICOCTF BEGINNER — Master Index & Roadmap"
-description: "```"
 tags:
   - CTF
   - Learning-Path
@@ -59,4 +57,4 @@ START: CTF ONBOARDING
 
 ---
 
-_PicoCTF Beginner Series | Roadmap & Index | Full Edition_
+*PicoCTF Beginner Series | Roadmap & Index | Full Edition*

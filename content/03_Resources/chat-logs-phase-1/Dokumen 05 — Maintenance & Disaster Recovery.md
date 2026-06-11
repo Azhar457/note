@@ -1,6 +1,4 @@
 ---
-title: "Dokumen 05 — Disaster Recovery & Operasional"
-description: "Aturan emas industri untuk data yang tidak boleh hilang:"
 tags:
   - Backup
   - proxmox
@@ -15,10 +13,9 @@ aliases:
 created: 2026-04-24
 status: operational
 ---
-
 # Dokumen 05 — Disaster Recovery & Operasional
 
-> [!info] Strategi kelangsungan hidup homelab berbasis aturan **3-2-1**: 3 salinan data, 2 media berbeda, 1 di luar lokasi. Semua operasi backup dilakukan dari Web UI Proxmox tanpa menyentuh LXC.
+ > [!info] Strategi kelangsungan hidup homelab berbasis aturan **3-2-1**: 3 salinan data, 2 media berbeda, 1 di luar lokasi. Semua operasi backup dilakukan dari Web UI Proxmox tanpa menyentuh LXC.
 
 ---
 
@@ -26,11 +23,11 @@ status: operational
 
 Aturan emas industri untuk data yang tidak boleh hilang:
 
-| Lapis | Nama     | Lokasi                                   | Kegunaan                                                |
-| ----- | -------- | ---------------------------------------- | ------------------------------------------------------- |
-| **1** | Snapshot | SSD Proxmox (storage `local`)            | Rollback cepat jika konfigurasi salah atau update gagal |
-| **2** | Archive  | HDD eksternal / TrueNAS / NAS            | Cadangan jika SSD mati atau Proxmox corrupt             |
-| **3** | Offsite  | Cloud (Google Drive / S3 / Backblaze B2) | Tahan bencana fisik (banjir, kebakaran, pencurian)      |
+| Lapis | Nama | Lokasi | Kegunaan |
+|---|---|---|---|
+| **1** | Snapshot | SSD Proxmox (storage `local`) | Rollback cepat jika konfigurasi salah atau update gagal |
+| **2** | Archive | HDD eksternal / TrueNAS / NAS | Cadangan jika SSD mati atau Proxmox corrupt |
+| **3** | Offsite | Cloud (Google Drive / S3 / Backblaze B2) | Tahan bencana fisik (banjir, kebakaran, pencurian) |
 
 > [!info]
 > Dokumen ini membahas **Lapis 1** secara otomatis dan **Lapis 2** secara manual. **Lapis 3** dapat diimplementasikan dengan `rclone` atau Proxmox Backup Server di kemudian hari.
@@ -39,7 +36,7 @@ Aturan emas industri untuk data yang tidak boleh hilang:
 
 ## 2. Otomatisasi Backup Proxmox (Snapshot Mode)
 
-Proxmox dapat mem-backup LXC secara _live_ (tanpa shutdown) menggunakan teknologi snapshot. Prosesnya memakan waktu 1–3 menit untuk LXC 50 GB.
+Proxmox dapat mem-backup LXC secara *live* (tanpa shutdown) menggunakan teknologi snapshot. Prosesnya memakan waktu 1–3 menit untuk LXC 50 GB.
 
 ### 2.1 Membuat Jadwal Backup
 
@@ -50,23 +47,23 @@ Proxmox dapat mem-backup LXC secara _live_ (tanpa shutdown) menggunakan teknolog
 
 Isi parameter berikut:
 
-| Parameter          | Nilai                         | Keterangan                                                   |
-| ------------------ | ----------------------------- | ------------------------------------------------------------ |
-| **Node**           | `pve`                         | Node Proxmox Anda                                            |
-| **Storage**        | `local`                       | Tempat file backup disimpan (bisa diganti ke storage khusus) |
-| **Schedule**       | `02:00`                       | Setiap hari jam 2 pagi — saat traffic homelab minimal        |
-| **Selection mode** | `Include selected VMs`        | Hanya backup yang dipilih                                    |
-| **VMs/CTs**        | Centang `100` (Docker-Server) | LXC Nextcloud + Docker + CrowdSec                            |
-| **Mode**           | `Snapshot`                    | Backup live tanpa mematikan LXC                              |
-| **Compression**    | `ZSTD (fast and good)`        | Kompresi cepat dengan rasio tinggi                           |
+| Parameter | Nilai | Keterangan |
+|---|---|---|
+| **Node** | `pve` | Node Proxmox Anda |
+| **Storage** | `local` | Tempat file backup disimpan (bisa diganti ke storage khusus) |
+| **Schedule** | `02:00` | Setiap hari jam 2 pagi — saat traffic homelab minimal |
+| **Selection mode** | `Include selected VMs` | Hanya backup yang dipilih |
+| **VMs/CTs** | Centang `100` (Docker-Server) | LXC Nextcloud + Docker + CrowdSec |
+| **Mode** | `Snapshot` | Backup live tanpa mematikan LXC |
+| **Compression** | `ZSTD (fast and good)` | Kompresi cepat dengan rasio tinggi |
 
 ### 2.2 Retention Policy (Pencegahan Disk Penuh)
 
 Pindah ke tab **Retention** sebelum menyimpan:
 
-| Parameter     | Nilai | Arti                              |
-| ------------- | ----- | --------------------------------- |
-| **Keep Last** | `3`   | Simpan 3 backup terakhir (3 hari) |
+| Parameter | Nilai | Arti |
+|---|---|---|
+| **Keep Last** | `3` | Simpan 3 backup terakhir (3 hari) |
 
 > [!tip]
 > Dengan retensi 3 hari, Proxmox otomatis menghapus backup tertua saat backup keempat dibuat. SSD tidak akan penuh karena file backup tidak terus-menerus menumpuk.
@@ -156,17 +153,17 @@ Output akan menunjukkan filesystem `/` sudah bertambah ukurannya.
 
 ## 6. Cheat Sheet Operasional Harian
 
-| Tugas                        | Perintah / Lokasi                                       |
-| ---------------------------- | ------------------------------------------------------- |
-| Cek status container         | `sudo docker ps`                                        |
-| Cek log Nextcloud real-time  | `sudo docker logs -f nextcloud-app-1`                   |
-| Cek log CrowdSec             | `sudo tail -f /var/log/crowdsec.log`                    |
-| Restart stack                | `cd /opt/nextcloud && sudo docker compose restart`      |
-| Update image & redeploy      | `sudo docker compose pull && sudo docker compose up -d` |
-| Cek ruang disk LXC           | `df -h`                                                 |
-| Cek backup otomatis          | Proxmox UI → LXC `100` → **Backup**                     |
-| Backup manual sebelum update | Proxmox UI → LXC `100` → **Backup** → **Backup now**    |
-| Resize disk                  | Proxmox UI → LXC `100` → **Resources** → **Resize**     |
+| Tugas | Perintah / Lokasi |
+|---|---|
+| Cek status container | `sudo docker ps` |
+| Cek log Nextcloud real-time | `sudo docker logs -f nextcloud-app-1` |
+| Cek log CrowdSec | `sudo tail -f /var/log/crowdsec.log` |
+| Restart stack | `cd /opt/nextcloud && sudo docker compose restart` |
+| Update image & redeploy | `sudo docker compose pull && sudo docker compose up -d` |
+| Cek ruang disk LXC | `df -h` |
+| Cek backup otomatis | Proxmox UI → LXC `100` → **Backup** |
+| Backup manual sebelum update | Proxmox UI → LXC `100` → **Backup** → **Backup now** |
+| Resize disk | Proxmox UI → LXC `100` → **Resources** → **Resize** |
 
 ---
 
@@ -187,7 +184,6 @@ Sebelum melakukan upgrade besar (Proxmox kernel, Docker major version, Nextcloud
 
 > [!info]
 > Seluruh 5 dokumen homelab telah lengkap. Arsitektur Anda sekarang memiliki:
->
 > - **Virtualisasi:** Proxmox + LXC (Dokumen 01)
 > - **Aplikasi:** Nextcloud + MariaDB via Docker IaC (Dokumen 02)
 > - **Jaringan:** Cloudflare Tunnel Zero Trust (Dokumen 03)

@@ -1,6 +1,4 @@
 ---
-title: "🦠 ENDPOINT SECURITY — CPU Ring & Boot Chain"
-description: "```"
 tags:
   - endpoint-security
   - blue-team
@@ -70,4 +68,4 @@ Ring 3   │ Ransomware, RAT, Trojan     → Yang 99% orang kenal sebagai "virus
 
 ---
 
-_Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape_
+*Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape*

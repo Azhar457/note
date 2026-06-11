@@ -1,6 +1,4 @@
 ---
-title: "Dokumen 02 — Infrastruktur Docker & Persistence Storage"
-description: "Versi Python `docker-compose` lawas sudah tidak kompatibel dengan Ubuntu 24.04 (modul `distutils` dihapus). Hapus total sebelum instalasi resmi."
 tags:
   - Docker
   - Nextcloud
@@ -16,7 +14,6 @@ aliases:
 status: operational
 created: 2026-04-24
 ---
-
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage
 
 > Implementasi Infrastructure as Code (IaC) dengan Docker Compose V2 untuk Nextcloud + MariaDB. Semua data diikat ke host LXC via bind mount agar tahan reboot, mati listrik, dan anti-reset.
@@ -158,7 +155,7 @@ cd /opt/nextcloud
 sudo docker compose up -d
 ```
 
-Perintah ini akan menarik (_pull_) image MariaDB, Nextcloud, dan Cloudflared dari Docker Hub, lalu menyalakannya di background sebagai daemon.
+Perintah ini akan menarik (*pull*) image MariaDB, Nextcloud, dan Cloudflared dari Docker Hub, lalu menyalakannya di background sebagai daemon.
 
 Verifikasi status:
 

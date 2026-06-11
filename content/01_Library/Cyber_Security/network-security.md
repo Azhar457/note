@@ -1,6 +1,4 @@
 ---
-title: "🌐 NETWORK SECURITY — OSI Layer 1–8"
-description: "```"
 tags:
   - network-security
   - blue-team
@@ -70,4 +68,4 @@ Layer 8  │ ← MANUSIA DI SINI → Phishing bypass semua layer di atas
 
 ---
 
-_Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer_
+*Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer*

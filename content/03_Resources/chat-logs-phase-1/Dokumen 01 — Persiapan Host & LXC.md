@@ -1,6 +1,4 @@
 ---
-title: "Dokumen 01 — Persiapan Host & LXC"
-description: "Secara default Proxmox mengunci repositori berbayar. Alihkan ke repositori gratis agar pembaruan sistem berjalan."
 tags:
   - proxmox
   - lxc
@@ -13,7 +11,6 @@ aliases:
 created: 2026-04-24
 status: Final
 ---
-
 # Dokumen 01 — Persiapan Host & LXC
 
 > Panduan pembangunan fondasi virtualisasi menggunakan Proxmox VE dan LXC (Linux Container). Semua perintah dieksekusi dari Web UI Proxmox atau Shell host Proxmox, kecuali dinyatakan lain.
@@ -51,19 +48,19 @@ apt update && apt dist-upgrade -y
 
 Klik tombol **Create CT** dan isi parameter berikut:
 
-| Tab          | Parameter              | Nilai                                   |
-| ------------ | ---------------------- | --------------------------------------- |
-| **General**  | Hostname               | `Docker-Server`                         |
-|              | Password               | `<PASSWORD_KUAT>`                       |
-|              | Unprivileged container | **Uncentang** (dibutuhkan untuk Docker) |
-| **Template** | Template               | `ubuntu-24.04-standard`                 |
-| **Disks**    | Storage                | `local-lvm`                             |
-|              | Disk size              | `50 GB` (bisa diekspansi nanti)         |
-| **CPU**      | Cores                  | `2`                                     |
-| **Memory**   | Memory                 | `2048` (2 GB, elastis)                  |
-| **Network**  | IPv4                   | **Static**                              |
-|              | CIDR                   | `192.168.1.51/24`                       |
-|              | Gateway                | `192.168.1.1`                           |
+| Tab | Parameter | Nilai |
+|---|---|---|
+| **General** | Hostname | `Docker-Server` |
+| | Password | `<PASSWORD_KUAT>` |
+| | Unprivileged container | **Uncentang** (dibutuhkan untuk Docker) |
+| **Template** | Template | `ubuntu-24.04-standard` |
+| **Disks** | Storage | `local-lvm` |
+| | Disk size | `50 GB` (bisa diekspansi nanti) |
+| **CPU** | Cores | `2` |
+| **Memory** | Memory | `2048` (2 GB, elastis) |
+| **Network** | IPv4 | **Static** |
+| | CIDR | `192.168.1.51/24` |
+| | Gateway | `192.168.1.1` |
 
 > [!warning]
 > Jangan nyalakan LXC terlebih dahulu. Lakukan modifikasi fitur di langkah berikutnya.
@@ -72,7 +69,7 @@ Klik tombol **Create CT** dan isi parameter berikut:
 
 ## 4. Modifikasi Fitur LXC (Wajib untuk Docker)
 
-Docker membutuhkan izin _nesting_ dan _keyctl_ agar dapat berjalan di dalam LXC.
+Docker membutuhkan izin *nesting* dan *keyctl* agar dapat berjalan di dalam LXC.
 
 1. Klik LXC `100` (Docker-Server).
 2. Pergi ke menu **Options** → klik ganda **Features**.

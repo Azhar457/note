@@ -1,6 +1,4 @@
 ---
-title: "🔍 PICOCTF SECTION 5 — Forensics & Filesystem"
-description: "SVG (Scalable Vector Graphics) adalah file berbasis **XML/Teks**. Seringkali flag disembunyikan di dalam tag visual yang sangat kecil."
 tags:
   - CTF
   - Forensics
@@ -29,7 +27,6 @@ status: operational
 SVG (Scalable Vector Graphics) adalah file berbasis **XML/Teks**. Seringkali flag disembunyikan di dalam tag visual yang sangat kecil.
 
 ### 1.1 Identifikasi Awal
-
 ```bash
 # Cek metadata biner (Kadang flag ada di Title/Creator)
 exiftool drawing.flag.svg
@@ -39,7 +36,6 @@ cat drawing.flag.svg | grep "picoCTF"
 ```
 
 ### 1.2 Penanganan Fragmented Tags
-
 Jika flag dipotong-potong ke dalam banyak tag `<tspan>`, gunakan **PCRE Grep** untuk menyatukannya:
 
 ```bash
@@ -54,17 +50,16 @@ grep -Po '(?<=>)[^<]+(?=</tspan>)' drawing.flag.svg | tr -d '\n '
 Tantangan "Needle in the Haystack" di mana flag berada di salah satu dari ribuan file di dalam ratusan folder.
 
 ### 2.1 Grep Mode "Terminator"
-
 ```bash
 # Cari teks "picoCTF{" di direktori saat ini dan semua subdirektorinya
 grep -r "picoCTF{" .
 ```
 
-| Flag | Fungsi                                                     |
-| ---- | ---------------------------------------------------------- |
-| `-r` | **Recursive**. Menyelam ke semua folder dan subfolder.     |
-| `.`  | Titik melambangkan direktori saat ini sebagai titik mulai. |
-| `-h` | (Opsional) Sembunyikan nama file, tampilkan isinya saja.   |
+| Flag | Fungsi |
+|---|---|
+| `-r` | **Recursive**. Menyelam ke semua folder dan subfolder. |
+| `.` | Titik melambangkan direktori saat ini sebagai titik mulai. |
+| `-h` | (Opsional) Sembunyikan nama file, tampilkan isinya saja. |
 
 ---
 
@@ -96,11 +91,11 @@ tr -d '\n '                            # Hapus newline & spasi
 
 ## Anti-Pattern — Jangan Lakukan Ini
 
-| ❌ Salah                            | ✅ Benar                                    |
-| ----------------------------------- | ------------------------------------------- |
-| Buka satu-satu ribuan folder        | Gunakan `grep -r`                           |
-| Menyerah saat `exiftool` kosong     | Cek konten teks dengan `cat` atau `strings` |
-| Menganggap file gambar = biner saja | SVG adalah file teks (XML)                  |
+| ❌ Salah | ✅ Benar |
+|---|---|
+| Buka satu-satu ribuan folder | Gunakan `grep -r` |
+| Menyerah saat `exiftool` kosong | Cek konten teks dengan `cat` atau `strings` |
+| Menganggap file gambar = biner saja | SVG adalah file teks (XML) |
 
 ---
 
@@ -112,4 +107,4 @@ tr -d '\n '                            # Hapus newline & spasi
 
 ---
 
-_PicoCTF Modul 1 | Forensics · Grep · SVG · Filesystem_
+*PicoCTF Modul 1 | Forensics · Grep · SVG · Filesystem*

@@ -1,18 +1,15 @@
 ---
-title: "👋 Hai, Saya Azhar Muttaqien"
-description: "Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana malah jatuh tertarik ke dunia CS, security research, dan low-level systems."
 tags:
   - about
   - profile
 aliases:
   - About
   - Tentang
-created: 2026-04-25
+created: 2026-06-04
 ---
-
 # 👋 Hai, Saya Azhar Muttaqien
 
-> _"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."_
+> *"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."*
 
 ---
 
@@ -23,7 +20,7 @@ Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana mala
 Bukan dari seorang ahli. Tapi penasaran tidak pernah berhenti.
 
 Perjalanan belajarnya dimulai dari pertanyaan sederhana:
-_"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"_
+*"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"*
 
 Dari sana, satu pertanyaan membuka pintu ke pertanyaan berikutnya — sampai akhirnya berujung membangun knowledge base ini.
 
@@ -52,7 +49,8 @@ Semua yang terdokumentasi di vault ini hanya gambaran besar, dan aku baru sebagi
 
 ## Cara Aku Belajar
 
-Selalu **top-down** — peta besar dulu, detail belakangan.
+**top-down** — peta besar dulu, detail belakangan.
+hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya. 
 
 Tidak pernah puas dengan jawaban permukaan. Kalau ada sesuatu yang "dianggap rahasia" atau disembunyikan di balik konsensus — itu yang justru paling menarik untuk digali.
 
@@ -62,24 +60,26 @@ Matematika formal ketemu systems security? Di situ kemungkinan besar ada sesuatu
 
 ---
 
-## Tools & Stack Harian
+## Tools & Stack Yang Pernah Di Coba
 
 ```
-OS        : Linux Mint Cinnamon (HDD warrior 😄)
-Editor    : VSCode + Obsidian
-Security  : Kali Linux (VM), Wireshark, Burp Suite
-Hardware  : ESP32, RTL-SDR dongle
+OS        : Windows, Ubuntu, Kali Linux, Rocky Linux, Ubuntu Server
+IDE       : VSCode, Antigravity
+Security  : Kali Linux (VM), Wireshark, Crowdsec, Safeline
+Hardware  : ESP32, ESP2886
 Vault     : Obsidian + Quartz + GitHub Pages
 Scripting : Python, Bash
+Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudflared+ Nextcloud+Uptime Kuma Semua di dalam Docker Container 
+
 ```
 
 ---
 
 ## Saat Ini
 
-- 📚 Mendalami **kriptografi** dari sisi matematika formal (Teori Bilangan → RSA → Post-Quantum)
-- 🔬 Eksplorasi **RF & SIGINT** dengan RTL-SDR
-- 🛠️ Bereksperimen dengan **ESP32** untuk security tooling
+- 🛠️ Bereksperimen dengan berbagai macam Hardsisk dan SSD Untuk Recorvery atau Repair
+- 🛠️ Mencoba menggunakan Ansible untuk automasi dalam pengaturan berbagai VM
+- 🛠️ Membaca, Memahami berbagai macam seputar tech terutama dibidang DevOps
 - 📝 Membangun vault ini sebagai knowledge base publik
 
 ---
@@ -96,9 +96,9 @@ Scripting : Python, Bash
 
 ---
 
-> _Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir._
-> _Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out._
+> *Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir.*
+> *Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out.*
 
 ---
 
-_Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages_
+*Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages*
