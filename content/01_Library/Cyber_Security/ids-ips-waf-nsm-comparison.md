@@ -266,7 +266,7 @@ Upgrade:
 - [[purple-team-osi-killchain|Purple Team Kill-Chain]] — context bagaimana tools ini dipakai dalam full attack chain
 - [[01_Library/AI_Systems/cloud-infrastructure|Cloud Infrastructure]] — deployment tools ini di cloud environment
 - [[endpoint-security|Endpoint Security]] — Wazuh sebagai HIDS, sisi host
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 
 ---
 

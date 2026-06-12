@@ -161,7 +161,7 @@ Bulan 1      Bulan 2      Bulan 3      Bulan 4      Bulan 5      Bulan 6
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — CPU Ring & threat landscape yang dideteksi tools ini
 - [[network-security|Network Security]] — OSI Layer defense yang dipantau Suricata
 - [[cheatsheet|Cheat Engine]] — Anti-cheat = blue team di gaming industry

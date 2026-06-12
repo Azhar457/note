@@ -149,7 +149,7 @@ Level 8  │ Nation-State SIGINT → Backbone-level, no escape
 
 ## 🔗 Lihat Juga
 
-- [[index]]
+- [[🗺️Master-Index]]
 - [[hierarchy-osint-rf]] — OSINT sebagai komplemen pencarian info
 - [[hardware-hacking-re]] — teknik yang overlap dengan Level 3–5 cheat
 - [[cyber-security]] — Blue Team vs Red Team (anti-cheat = blue team gaming)

@@ -420,7 +420,7 @@ char LICENSE[] SEC("license") = "GPL";
 - [[01_Library/Cyber_Security/purple-team-osi-killchain|Purple Team Kill-Chain]] — eBPF sebagai detection layer
 - [[01_Library/Cyber_Security/cryptography-biometrics|Kriptografi Post-Quantum]] — ML-DSA untuk future eBPF signing
 - [[01_Library/AI_Systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 
 ---
 

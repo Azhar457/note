@@ -18,7 +18,7 @@ cssclasses:
 # 🌐 DISTRIBUTED SYSTEMS — Koordinasi Skala Besar
 
 > Distributed Systems adalah kumpulan komputer independen yang berkomunikasi lewat jaringan untuk terlihat seperti satu sistem terpadu.  
-> Inti masalahnya bukan cuma “jalan”, tapi bagaimana sistem tetap konsisten, scalable, dan tahan gagal saat komponen tersebar di banyak mesin [web:41][web:43].
+> Inti masalahnya bukan cuma “jalan”, tapi bagaimana sistem tetap konsisten, scalable, dan tahan gagal saat komponen tersebar di banyak mesin.
 
 ---
 
@@ -53,7 +53,7 @@ cssclasses:
 
 ## Definisi Inti
 
-Distributed systems adalah sistem yang terdiri dari banyak mesin atau node yang bekerja sama lewat jaringan dan bertindak seolah-olah satu kesatuan [web:41][web:43].  
+Distributed systems adalah sistem yang terdiri dari banyak mesin atau node yang bekerja sama lewat jaringan dan bertindak seolah-olah satu kesatuan.  
 Yang membuatnya menarik adalah kenyataan bahwa failure itu normal, bukan anomali.  
 Karena itu, desainnya harus siap menghadapi latensi, packet loss, node mati, dan state yang tidak selalu sinkron.
 
@@ -70,7 +70,7 @@ Akibatnya, debug, recovery, dan reasoning jadi jauh lebih sulit.
 ### Network Partition
 
 Jaringan bisa terputus atau melambat tanpa warning.  
-Saat itu sistem harus memilih: tetap melayani request, atau menahan operasi demi menjaga konsistensi [web:43].  
+Saat itu sistem harus memilih: tetap melayani request, atau menahan operasi demi menjaga konsistensi.  
 Inilah alasan distributed systems selalu penuh trade-off, bukan jawaban absolut.
 
 ### Time Is Hard
@@ -108,7 +108,7 @@ Di sinilah muncul model konsistensi yang berbeda-beda, dari strong consistency s
 | Availability        | Sistem tetap merespons request            | Data bisa belum paling baru                    |
 | Partition tolerance | Sistem tetap jalan saat jaringan terpisah | Trade-off harus dipilih saat partition terjadi |
 
-CAP theorem menyatakan bahwa sistem terdistribusi tidak bisa memaksimalkan consistency, availability, dan partition tolerance sekaligus dalam kondisi partition [web:43].  
+CAP theorem menyatakan bahwa sistem terdistribusi tidak bisa memaksimalkan consistency, availability, dan partition tolerance sekaligus dalam kondisi partition.  
 Karena partition itu pasti bisa terjadi, keputusan arsitektur biasanya berputar di sekitar consistency vs availability.
 
 ---
@@ -128,7 +128,7 @@ Ini penting untuk scaling, tapi query lintas shard jadi lebih rumit.
 ### Consensus
 
 Node-node harus sepakat tentang satu nilai atau urutan tindakan.  
-Consensus muncul di replicated state machine dan sistem yang butuh keputusan tunggal yang benar [web:41].
+Consensus muncul di replicated state machine dan sistem yang butuh keputusan tunggal yang benar.
 
 ### Leader Election
 
@@ -139,9 +139,9 @@ Kalau leader mati, sistem harus cepat memilih pengganti.
 
 ## Protocol Yang Perlu Tahu
 
-- **Raft**: dirancang supaya mudah dipahami dan dipakai di sistem nyata [web:41][web:38].
-- **Paxos**: klasik, kuat, tapi terkenal sulit dipahami [web:38].
-- **PBFT**: dipakai saat ada kemungkinan node berperilaku jahat atau tidak dapat dipercaya [web:38].
+- **Raft**: dirancang supaya mudah dipahami dan dipakai di sistem nyata.
+- **Paxos**: klasik, kuat, tapi terkenal sulit dipahami.
+- **PBFT**: dipakai saat ada kemungkinan node berperilaku jahat atau tidak dapat dipercaya.
 
 ### Perbandingan Singkat
 

@@ -266,7 +266,7 @@ Bulan 1-2      Bulan 3-4         Bulan 5-6         Bulan 7-8         Bulan 9    
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain Threat
 - [[cheatsheet|Cheat Engine]] — Game hacking = offensive security dalam konteks gaming
 - [[hardware-hacking-re|Hardware Hacking]] — Binary exploitation & firmware RE

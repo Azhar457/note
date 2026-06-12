@@ -491,7 +491,7 @@ Status: sangat early, sangat menarik, hampir tidak ada orang di sini
 - [[01_Library/Fundamentals/computer-science-foundations|OS Internals]] — kernel, Ring 0, syscall sebagai fondasi
 - [[01_Library/AI_Systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
 - [[00_Atlas/hierarchy-ai-levels|AI Levels]] — eBPF untuk GPU/ML infrastructure
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 
 ---
 

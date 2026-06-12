@@ -176,7 +176,7 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[system-design|System Design]] — Database Internals & Architecture patterns
 - [[math-and-algorithms|Matematika & Algoritma]] — Linear Algebra untuk ML pipeline
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung distributed systems

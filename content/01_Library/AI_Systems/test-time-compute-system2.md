@@ -105,7 +105,7 @@ Process Reward Model Level 5
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[00_Atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 (IF-THEN) sampai Level 11 (Omega Point)
 - [[00_Atlas/roadmap/agentic-ai-mcp-roadmap|Agentic AI & MCP]] — ReAct loop, tool use, dan multi-agent orchestration
 - [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Prompt injection, jailbreak, dan alignment bypass

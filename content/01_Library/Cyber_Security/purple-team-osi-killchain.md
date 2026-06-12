@@ -213,7 +213,7 @@ dan dirancang untuk bertahan lama tanpa terdeteksi
 - [[underground-knowledge|Underground Knowledge]] — BYOVD detail, Cheat Engine kernel
 - [[hardware-hacking-re|Hardware Hacking]] — UEFI implant, firmware attack
 - [[01_Library/AI_Systems/llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Layer baru di atas Layer 7 untuk AI system
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 
 ---
 

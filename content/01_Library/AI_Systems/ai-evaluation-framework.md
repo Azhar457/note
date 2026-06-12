@@ -514,7 +514,7 @@ print("\nDone. Results saved to results/output.json")
 - [[hierarchy-ai-levels|AI Levels Hierarchy]] — konteks posisi LLM di hierarki AI
 - [[research-methodology|Research Methodology]] — cara desain evaluasi yang valid
 - [[math-and-algorithms|Matematika & Algoritma]] — statistik untuk interpretasi skor
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 
 ---
 

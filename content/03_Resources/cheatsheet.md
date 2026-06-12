@@ -72,7 +72,7 @@ Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[01_Library/Da
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — BYOVD overlap di Ring 0
 - [[network-security|Network Security]] — OSI Layer & defense
 - [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — DMA / PC-3000 konsep serupa

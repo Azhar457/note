@@ -8,14 +8,12 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Knowledge Base",
+    pageTitle: "Azhar's Notes",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
-    locale: "en-US",
+    analytics: null,
+    locale: "id-ID",
     baseUrl: "azhar457.github.io/note",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",

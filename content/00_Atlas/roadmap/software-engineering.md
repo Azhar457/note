@@ -174,7 +174,7 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[system-design|System Design]] — Database Internals + Software Architecture hierarchy
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals & Computer Architecture fondasi
 - [[math-and-algorithms|Matematika & Algoritma]] — DSA & Discrete Math untuk interview

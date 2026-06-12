@@ -296,7 +296,7 @@ JANGKA PANJANG
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[math-and-algorithms|Matematika & Algoritma]] — destinasi utama sebagian besar mata kuliah
 - [[cryptography-biometrics|Kriptografi & Biometrik]] — aplikasi Teori Bilangan + Struktur Aljabar
 - [[research-methodology|Research Methodology]] — aplikasi Statistika + Metode Survey

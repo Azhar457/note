@@ -95,7 +95,7 @@ FLASH FORENSICS
 
 ## 🔗 Lihat Juga
 
-- [[index|Master Index]]
+- [[🗺️Master-Index|Master Index]]
 - [[hardware-hacking-re|Hardware Hacking]] — RE firmware + hardware debug interface
 - [[computer-science-foundations|Computer Science Foundations]] — Computer Architecture sebagai fondasi MCU
 - [[hierarchy-osint-rf|OSINT & RF Hierarchy]] — RF protocol yang berjalan di atas embedded
