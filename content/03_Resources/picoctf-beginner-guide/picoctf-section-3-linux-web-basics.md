@@ -24,14 +24,18 @@ status: operational
 Saat Anda mengunduh file biner yang tidak bisa dibaca manusia, gunakan alat ini:
 
 ### 1.1 Command `strings`
+
 Menampilkan semua urutan karakter yang dapat dicetak dalam file.
+
 ```bash
 # Mencari flag di dalam file biner
 strings strings_it | grep "picoCTF"
 ```
 
 ### 1.2 Command `file`
+
 Mengetahui jenis file sebenarnya (ekstensi bisa menipu).
+
 ```bash
 file target_file
 ```
@@ -43,12 +47,15 @@ file target_file
 `grep` adalah sahabat terbaik Anda untuk menyaring ribuan baris teks.
 
 ### 2.1 Mencari Flag Pertama
+
 ```bash
 grep "picoCTF" file.txt
 ```
 
 ### 2.2 Case Insensitive
+
 Jika tidak yakin huruf besar/kecil:
+
 ```bash
 grep -i "picoctf" file.txt
 ```
@@ -60,13 +67,17 @@ grep -i "picoctf" file.txt
 Tantangan seperti `Insp3ct0r` melatih Anda melihat ke balik tampilan website.
 
 ### 3.1 Inspect Element (Ctrl + Shift + I)
+
 Flag sering dipecah menjadi beberapa bagian di lokasi berbeda:
-*   **HTML**: Cek komentar `<!-- ... -->`.
-*   **CSS**: Cek file `.css` untuk komentar.
-*   **JavaScript**: Cek file `.js`.
+
+- **HTML**: Cek komentar `<!-- ... -->`.
+- **CSS**: Cek file `.css` untuk komentar.
+- **JavaScript**: Cek file `.js`.
 
 ### 3.2 File `robots.txt`
+
 File standar yang memberi tahu bot pencari mana yang tidak boleh diindeks. Seringkali berisi folder rahasia.
+
 ```bash
 # Akses via browser
 https://jupiter.challenges.picoctf.org/problem/XXXXX/robots.txt
@@ -92,11 +103,11 @@ view-source:[URL]                      # Lihat source code HTML
 
 ## Anti-Pattern — Jangan Lakukan Ini
 
-| ❌ Salah | ✅ Benar |
-|---|---|
+| ❌ Salah                                | ✅ Benar                                    |
+| --------------------------------------- | ------------------------------------------- |
 | Mencoba membaca file biner dengan `cat` | Gunakan `strings` agar terminal tidak rusak |
-| Hanya mengecek HTML | Cek juga file CSS dan JS pendukung |
-| Mengabaikan hint "inspect" | Gunakan Browser Developer Tools |
+| Hanya mengecek HTML                     | Cek juga file CSS dan JS pendukung          |
+| Mengabaikan hint "inspect"              | Gunakan Browser Developer Tools             |
 
 ---
 
@@ -108,4 +119,4 @@ view-source:[URL]                      # Lihat source code HTML
 
 ---
 
-*PicoCTF Section 3 | strings · grep · robots.txt · Insp3ct0r*
+_PicoCTF Section 3 | strings · grep · robots.txt · Insp3ct0r_

@@ -23,13 +23,13 @@ status: operational
 
 Gunakan tabel ini untuk menebak jenis encoding hanya dalam sekali lirik:
 
-| Jenis | Contoh Visual | Kunci Identitas |
-|---|---|---|
-| **Base64** | `YXpoYXI=` | Campur A-Z, a-z, 0-9. Sering ada `=` di akhir. |
-| **Hex (B16)** | `61 7a 68 61 72` | Hanya `0-9` dan `A-F`. Awalan `0x`. |
-| **Base32** | `MFRGGZJA` | Full CAPS. Angka hanya `2-7`. Tanpa 0, 1, 8, 9. |
-| **Binary** | `01100001` | Hanya berisi angka `0` dan `1`. |
-| **ROT13** | `cvpbPGS` | Terlihat seperti kata normal tapi berantakan. |
+| Jenis         | Contoh Visual    | Kunci Identitas                                 |
+| ------------- | ---------------- | ----------------------------------------------- |
+| **Base64**    | `YXpoYXI=`       | Campur A-Z, a-z, 0-9. Sering ada `=` di akhir.  |
+| **Hex (B16)** | `61 7a 68 61 72` | Hanya `0-9` dan `A-F`. Awalan `0x`.             |
+| **Base32**    | `MFRGGZJA`       | Full CAPS. Angka hanya `2-7`. Tanpa 0, 1, 8, 9. |
+| **Binary**    | `01100001`       | Hanya berisi angka `0` dan `1`.                 |
+| **ROT13**     | `cvpbPGS`        | Terlihat seperti kata normal tapi berantakan.   |
 
 ---
 
@@ -38,11 +38,13 @@ Gunakan tabel ini untuk menebak jenis encoding hanya dalam sekali lirik:
 Seringkali lebih cepat menggunakan terminal daripada membuka browser.
 
 ### 2.1 Base64 Decoding
+
 ```bash
 echo "bDNhcm5fdGgzX3IwcDM1" | base64 -d
 ```
 
 ### 2.2 ROT13 (Translate command)
+
 ```bash
 # Me-rotate karakter A-Z dan a-z sebanyak 13 langkah
 echo "cvpbPGS" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
@@ -55,10 +57,13 @@ echo "cvpbPGS" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 Untuk tantangan yang lebih kompleks, gunakan **CyberChef**.
 
 ### 3.1 Fitur "Magic"
+
 Jika Anda menaruh input di CyberChef, klik ikon **Magic Wand** (tongkat sihir). Alat ini akan menebak jenis encoding secara otomatis.
 
 ### 3.2 Pemetaan "Base" ke Nama Umum
+
 > [!tip] Kamus CyberChef
+>
 > - **Base 16** ➔ From Hex
 > - **Base 64** ➔ From Base64
 > - **Base 2** ➔ From Binary
@@ -68,8 +73,9 @@ Jika Anda menaruh input di CyberChef, klik ikon **Magic Wand** (tongkat sihir). 
 ## FASE 4 — Jebakan Padding & Binary
 
 Saat mengonversi angka ke biner (misal: 42 ke biner):
-*   **Manual**: `101010` (6 bit).
-*   **8-bit Format**: `00101010` (8 bit).
+
+- **Manual**: `101010` (6 bit).
+- **8-bit Format**: `00101010` (8 bit).
 
 > [!danger] Warning: Leading Zeros
 > Di PicoCTF, jangan menambah `0` di depan (padding) kecuali instruksi memintanya. `picoCTF{101010}` ≠ `picoCTF{00101010}`.
@@ -93,11 +99,11 @@ echo "[STRING]" | xxd -r -p            # Decode Hex (Plain)
 
 ## Anti-Pattern — Jangan Lakukan Ini
 
-| ❌ Salah | ✅ Benar |
-|---|---|
-| Brute Force menebak manual | Gunakan tabel pola atau fitur "Magic" |
-| Menambah `0` di depan biner | Masukkan biner murni tanpa padding |
-| Bingung mencari "Base 16" | Cari kata kunci "Hexadecimal" |
+| ❌ Salah                    | ✅ Benar                              |
+| --------------------------- | ------------------------------------- |
+| Brute Force menebak manual  | Gunakan tabel pola atau fitur "Magic" |
+| Menambah `0` di depan biner | Masukkan biner murni tanpa padding    |
+| Bingung mencari "Base 16"   | Cari kata kunci "Hexadecimal"         |
 
 ---
 
@@ -109,4 +115,4 @@ echo "[STRING]" | xxd -r -p            # Decode Hex (Plain)
 
 ---
 
-*PicoCTF Section 2 | Base64 · Hex · ROT13 · CyberChef*
+_PicoCTF Section 2 | Base64 · Hex · ROT13 · CyberChef_

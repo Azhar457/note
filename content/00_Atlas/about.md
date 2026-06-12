@@ -7,9 +7,10 @@ aliases:
   - Tentang
 created: 2026-06-04
 ---
+
 # 👋 Hai, Saya Azhar Muttaqien
 
-> *"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."*
+> _"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."_
 
 ---
 
@@ -20,7 +21,7 @@ Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana mala
 Bukan dari seorang ahli. Tapi penasaran tidak pernah berhenti.
 
 Perjalanan belajarnya dimulai dari pertanyaan sederhana:
-*"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"*
+_"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"_
 
 Dari sana, satu pertanyaan membuka pintu ke pertanyaan berikutnya — sampai akhirnya berujung membangun knowledge base ini.
 
@@ -50,7 +51,7 @@ Semua yang terdokumentasi di vault ini hanya gambaran besar, dan aku baru sebagi
 ## Cara Aku Belajar
 
 **top-down** — peta besar dulu, detail belakangan.
-hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya. 
+hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya.
 
 Tidak pernah puas dengan jawaban permukaan. Kalau ada sesuatu yang "dianggap rahasia" atau disembunyikan di balik konsensus — itu yang justru paling menarik untuk digali.
 
@@ -69,7 +70,7 @@ Security  : Kali Linux (VM), Wireshark, Crowdsec, Safeline
 Hardware  : ESP32, ESP2886
 Vault     : Obsidian + Quartz + GitHub Pages
 Scripting : Python, Bash
-Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudflared+ Nextcloud+Uptime Kuma Semua di dalam Docker Container 
+Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudflared+ Nextcloud+Uptime Kuma Semua di dalam Docker Container
 
 ```
 
@@ -96,9 +97,9 @@ Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudfla
 
 ---
 
-> *Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir.*
-> *Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out.*
+> _Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir._
+> _Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out._
 
 ---
 
-*Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages*
+_Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages_

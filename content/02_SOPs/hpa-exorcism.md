@@ -6,6 +6,7 @@ tags:
   - SOP
   - HDD/SDD
 ---
+
 # 🔪 SOP — The Safe Exorcist
 
 > **HPA Unlock › DCO Reset › MBR Wipe › Zero-Fill Total**
@@ -16,11 +17,11 @@ tags:
 
 ## ⚙️ Prasyarat & Persiapan
 
-|Item|Detail|
-|---|---|
-|**OS**|SystemRescue Live USB _(boot terpisah, bukan dari disk target)_|
-|**Tools wajib**|`hdparm` `dd` `lsblk` `blockdev`|
-|**Koneksi drive**|USB-to-SATA adapter — **JANGAN** colok langsung ke SATA motherboard|
+| Item              | Detail                                                              |
+| ----------------- | ------------------------------------------------------------------- |
+| **OS**            | SystemRescue Live USB _(boot terpisah, bukan dari disk target)_     |
+| **Tools wajib**   | `hdparm` `dd` `lsblk` `blockdev`                                    |
+| **Koneksi drive** | USB-to-SATA adapter — **JANGAN** colok langsung ke SATA motherboard |
 
 > [!info] Rocky Linux? Jalankan dulu: `sudo dnf install hdparm util-linux coreutils` Pastikan boot dari **Live USB**, bukan dari installed OS.
 
@@ -131,21 +132,21 @@ lsblk -d -o NAME,SIZE,MODEL,SERIAL /dev/sdX
 dd if=/dev/zero of=/dev/sdX bs=4M conv=noerror,sync status=progress
 ```
 
-|Parameter|Fungsi|
-|---|---|
-|`bs=4M`|Chunk besar → kecepatan optimal|
-|`conv=noerror`|Lanjut meski ada bad sector _(kritis untuk HDD rusak)_|
-|`conv=sync`|Isi bad sector dengan nol, bukan dilewati|
-|`status=progress`|Tampilkan progress real-time|
+| Parameter         | Fungsi                                                 |
+| ----------------- | ------------------------------------------------------ |
+| `bs=4M`           | Chunk besar → kecepatan optimal                        |
+| `conv=noerror`    | Lanjut meski ada bad sector _(kritis untuk HDD rusak)_ |
+| `conv=sync`       | Isi bad sector dengan nol, bukan dilewati              |
+| `status=progress` | Tampilkan progress real-time                           |
 
 **Estimasi waktu:**
 
-|Drive|Ukuran|Estimasi|
-|---|---|---|
-|HDD|250 GB|~20–30 menit|
-|HDD|500 GB|~40–60 menit|
-|HDD|1 TB|~90–120 menit|
-|SSD|250 GB|~5–15 menit|
+| Drive | Ukuran | Estimasi      |
+| ----- | ------ | ------------- |
+| HDD   | 250 GB | ~20–30 menit  |
+| HDD   | 500 GB | ~40–60 menit  |
+| HDD   | 1 TB   | ~90–120 menit |
+| SSD   | 250 GB | ~5–15 menit   |
 
 ---
 
