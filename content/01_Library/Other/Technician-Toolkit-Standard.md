@@ -406,7 +406,7 @@ Semua tools di bawah ini muat dalam **satu flashdisk 128GB** dengan partisi:
 - [[Printer-Maintenance-Reset]] — Servis printer inkjet (Epson, Canon, Brother, HP)
 - [[endpoint-security-hierarchy (Open Source & Freeware Edition)]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
-- [[TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
+- [[02_SOPs/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
 - [[Application]] — 🛠️ Master Interactive Tool Arsenal (GitHub Pages)
   - [Forensics & Data Recovery](https://azhar457.github.io/Application/Application_Forensics_Recovery.html) — 49 tools
   - [Cyber Security](https://azhar457.github.io/Application/Application_Cyber_Security.html) — 62 tools

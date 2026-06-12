@@ -310,7 +310,7 @@ istat /mnt/evidence/CASE-001/disk.dd [INODE_NUMBER]
 hexdump -C /mnt/evidence/CASE-001/disk.dd | grep "00 00 00 01" | head -20
 
 # Atau pakai strings untuk cari metadata
-strings /mnt/evidence/CASE-001/disk.dd | grep -i "hikvision\|dahua\|xmeye\|dvr\|nvr" | head -20
+strings /mnt/evidence/CASE-001/disk.dd | grep -i "hikvision|dahua|xmeye|dvr|nvr" | head -20
 ```
 
 ### 2B.2 Scalpel — Custom Config untuk Video DVR
@@ -514,7 +514,7 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 
 ## 🔗 Lihat Juga
 
-- [[forensic-data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
+- [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
 - [[hpa-exorcism|SOP HPA Exorcism]] — prosedur HPA/DCO sebelum imaging
 - [[Application|Tools Penting]] — hierarki data recovery Level 0–7
 - [[embedded-systems|Embedded Systems]] — flash forensics NAND level

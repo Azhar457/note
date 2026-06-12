@@ -182,7 +182,7 @@ photorec /d /mnt/analysis/recovered_files /mnt/evidence/CASE-2026-001/disk_image
 foremost -t jpg,pdf,doc,zip -i /mnt/evidence/CASE-2026-001/disk_image.dd   -o /mnt/analysis/foremost_out/
 
 # 5. Strings analysis (untuk data mentah)
-strings -n 8 /mnt/evidence/CASE-2026-001/disk_image.dd | grep -i "password\|secret\|key" > strings_analysis.txt
+strings -n 8 /mnt/evidence/CASE-2026-001/disk_image.dd | grep -i "password|secret|key" > strings_analysis.txt
 ```
 
 ### FASE B3: Timeline & Metadata Analysis
@@ -205,7 +205,7 @@ analyzeMFT.py -f /mnt/evidence/CASE-2026-001/disk_image.dd -o mft_analysis.csv
 
 ```bash
 # 1. grep dengan regex (case-insensitive)
-grep -rai "password\|passwd\|secret\|token\|api_key" /mnt/analysis/p1/ > keyword_hits.txt
+grep -rai "password|passwd|secret|token|api_key" /mnt/analysis/p1/ > keyword_hits.txt
 
 # 2. YARA — Pattern matching malware/IOC
 yara -r /rules/malware_rules.yar /mnt/analysis/p1/ > yara_hits.txt

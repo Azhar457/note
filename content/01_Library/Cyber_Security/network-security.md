@@ -60,7 +60,7 @@ Layer 8  │ ← MANUSIA DI SINI → Phishing bypass semua layer di atas
 
 - [[index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain Threat
-- [[forensic-data-recovery|Data Recovery]] — Partition & Data Recovery Level 0–7
+- [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — Partition & Data Recovery Level 0–7
 - [[hierarchy-osint-rf|OSINT & RF Hierarchy]] — OSINT & RF yang melintas di atas jaringan
 - [[cloud-infrastructure|Infrastruktur Cloud]] — Cloud networking & Zero Trust
 - [[cryptography-biometrics|Kriptografi & Biometrik]] — Enkripsi yang melindungi Layer 5–7

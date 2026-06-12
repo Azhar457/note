@@ -327,7 +327,7 @@ Dokumen ini mengikuti framework berikut (disederhanakan untuk konteks latihan):
 
 - [[arp-spoofing-mitigation]] — dokumen teknis mitigasi lengkap
 - [[Application|Tools Penting]] — hierarki network security threat landscape
-- [[web-hacking|Web Hacking]] — multi-layer attack mindset yang overlap
+- [[01_Library/Cyber_Security/web-hacking-exploitation|Web Hacking]] — multi-layer attack mindset yang overlap
 - [[underground-knowledge|Underground Knowledge]] — tool offensive (Bettercap/Ettercap context)
 
 ---

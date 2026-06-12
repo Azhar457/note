@@ -20,7 +20,7 @@ cssclasses:
 
 # 🤖 Roadmap Agentic AI & MCP — From Script to Autonomous Swarm
 
-> **Filosofi:** Jangan hanya "prompt" — kamu harus bisa "orchestrate." Bedanya besar: chat dengan ChatGPT itu 5 menit, tapi membangun agent yang bisa sense → plan → act → observe secara loop, dengan tool use, memory, dan self-correction, itu skill yang ditanya waktu interview. Rekruter akan tanya: "Oke, agent-mu stuck di infinite loop saat tool call gagal — apa yang terjadi?" Kalau kamu jawab: "Agent punya max_iterations guard, fallback strategy ke human-in-the-loop, dan observability log setiap reasoning step via Langfuse" — itu yang menutup pertanyaan.
+> [!tip] **Filosofi:** Jangan hanya "prompt" — kamu harus bisa "orchestrate." Bedanya besar: chat dengan ChatGPT itu 5 menit, tapi membangun agent yang bisa sense → plan → act → observe secara loop, dengan tool use, memory, dan self-correction, itu skill yang ditanya waktu interview. Rekruter akan tanya: "Oke, agent-mu stuck di infinite loop saat tool call gagal — apa yang terjadi?" Kalau kamu jawab: "Agent punya max_iterations guard, fallback strategy ke human-in-the-loop, dan observability log setiap reasoning step via Langfuse" — itu yang menutup pertanyaan.
 
 ---
 
@@ -220,8 +220,8 @@ cssclasses:
 - [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Infrastructure yang men-support agent deployment
 - [[endpoint-security|Endpoint Security]] — Security mindset untuk agent yang punya akses ke sistem
 - [[underground-knowledge|Underground Knowledge]] — BYOVD & low-level thinking yang transferable ke agent architecture
-- [[ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
-- [[software-architecture|Software Architecture]] — Design pattern untuk scalable agent systems
+- [[00_Atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
+- [[01_Library/AI_Systems/system-design|Software Architecture]] — Design pattern untuk scalable agent systems
 
 ---
 

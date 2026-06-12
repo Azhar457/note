@@ -181,7 +181,7 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 - [[math-and-algorithms|Matematika & Algoritma]] — Linear Algebra untuk ML pipeline
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung distributed systems
 - [[devops|DevOps Roadmap]] — CI/CD dan container orchestration overlap
-- [[Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
+- [[00_Atlas/roadmap/software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
 
 ---
 

@@ -10,20 +10,12 @@ created: 2026-06-04
 
 # 👋 Hai, Saya Azhar Muttaqien
 
-> _"Ilmu pengetahuan adalah manusia yang mencoba membaca tulisan yang sudah ada di alam semesta — tinggal belum semua halaman terbuka."_
-
----
-
-## Siapa Aku
-
 Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana malah jatuh tertarik ke dunia CS, security research, dan low-level systems.
 
-Bukan dari seorang ahli. Tapi penasaran tidak pernah berhenti.
+Bukan dari seorang ahli. Tapi dari rasa penasaran yang tidak berhenti.
 
-Perjalanan belajarnya dimulai dari pertanyaan sederhana:
-_"Kenapa hard disk bisa kelihatan memperbaiki dirinya sendiri?"_
-
-Dari sana, satu pertanyaan membuka pintu ke pertanyaan berikutnya — sampai akhirnya berujung membangun knowledge base ini.
+Perjalanan belajarnya dimulai dari pertanyaan:
+_"Apa sih software paling bagus buat recorvery data?, atau jangan2 ada pendekatan lain?"_
 
 ---
 
@@ -55,10 +47,6 @@ hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya.
 
 Tidak pernah puas dengan jawaban permukaan. Kalau ada sesuatu yang "dianggap rahasia" atau disembunyikan di balik konsensus — itu yang justru paling menarik untuk digali.
 
-Dan percaya bahwa **titik temu dua bidang yang belum pernah bertemu** adalah tempat paling subur untuk penemuan baru.
-
-Matematika formal ketemu systems security? Di situ kemungkinan besar ada sesuatu yang belum ada orangnya.
-
 ---
 
 ## Tools & Stack Yang Pernah Di Coba
@@ -85,7 +73,7 @@ Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudfla
 
 ---
 
-## Kontak & Temukan Aku
+## Kontak
 
 | Platform         | Link                                                                               |
 | ---------------- | ---------------------------------------------------------------------------------- |

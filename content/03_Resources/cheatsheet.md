@@ -66,7 +66,7 @@ Level 6  │ AI + Hardware      ├── Server-side behavior only ← tembok t
 > - **Anti-cheat engineer** (Riot, BattlEye, VAC) → untuk memahami apa yang harus dilawan
 > - **Security researcher** → BYOVD di Level 3 adalah **teknik APT nyata** yang digunakan malware seperti BlackByte ransomware dan Lazarus Group untuk bypass EDR
 
-Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[DATA_RECOVERY|PC-3000]] mengakses firmware drive — bedanya cuma targetnya RAM, bukan storage. Konsepnya identik: bypass semua software dengan akses hardware langsung.
+Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[01_Library/Data_Forensics/data-recovery|PC-3000]] mengakses firmware drive — bedanya cuma targetnya RAM, bukan storage. Konsepnya identik: bypass semua software dengan akses hardware langsung.
 
 ---
 
@@ -75,7 +75,7 @@ Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[DATA_RECOVERY
 - [[index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — BYOVD overlap di Ring 0
 - [[network-security|Network Security]] — OSI Layer & defense
-- [[forensic-data-recovery|Data Recovery]] — DMA / PC-3000 konsep serupa
+- [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — DMA / PC-3000 konsep serupa
 - [[hierarchy-ai-levels|AI Levels Hierarchy]] — AI Vision di Level 6
 - [[hardware-hacking-re|Hardware Hacking]] — Teknik RE untuk firmware analysis
 - [[underground-knowledge|Underground Knowledge]] — Konsolidasi Cheat + Dark Web

@@ -101,7 +101,7 @@ Tabel berikut menjelaskan fungsionalitas setiap alat keamanan yang diinstal di l
 
 ## 🔗 Lihat Juga
 
-- [[SOP-Setup-Lingkungan-Simulasi|Master SOP Setup Lingkungan]]
+- [[01_Library/Other/Arsitektur-dan-Konsep-Simulasi|Master SOP Setup Lingkungan]]
 - [[network-security|Dasar Keamanan Jaringan (OSI Layer)]]
 
 ---

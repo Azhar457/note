@@ -19,7 +19,7 @@ cssclasses:
 
 # 🛡️ Roadmap Cyber Security — Blue Team / SOC Analyst
 
-> **Filosofi:** Pelajari A+B, bukan A sendiri. Kalau kamu cuma install Wazuh, itu artinya kamu bisa setup SIEM. Tapi kalau kamu bisa deploy Wazuh + alert rules custom + incident response workflow di TheHive, itu artinya kamu mengerti SOC pipeline end-to-end — dan itu yang ditanya waktu interview. Rekruter akan tanya "oke, ada alert, terus prosesnya gimana?" Kalau kamu jawab "alert masuk Wazuh → trigger case di TheHive → saya triage berdasarkan MITRE ATT&CK mapping → eskalasi ke playbook yang saya tulis sendiri" — itu yang menutup pertanyaan.
+> [!warning] **Filosofi:** Pelajari A+B, bukan A sendiri. Kalau kamu cuma install Wazuh, itu artinya kamu bisa setup SIEM. Tapi kalau kamu bisa deploy Wazuh + alert rules custom + incident response workflow di TheHive, itu artinya kamu mengerti SOC pipeline end-to-end — dan itu yang ditanya waktu interview. Rekruter akan tanya "oke, ada alert, terus prosesnya gimana?" Kalau kamu jawab "alert masuk Wazuh → trigger case di TheHive → saya triage berdasarkan MITRE ATT&CK mapping → eskalasi ke playbook yang saya tulis sendiri" — itu yang menutup pertanyaan.
 
 ---
 

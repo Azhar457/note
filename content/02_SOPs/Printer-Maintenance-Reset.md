@@ -512,8 +512,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 ## Connected Notes
 
 - [[endpoint-security-hierarchy (Open Source & Freeware Edition)]] — Referensi arsitektur keamanan endpoint
-- [[TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
-- [[TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
+- [[01_Library/Other/Technician-Toolkit-Standard|TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
+- [[02_SOPs/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
 - [[SOP-001-Windows-Browser-Hardening]] — Keamanan browser & mitigasi infostealer
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
 
