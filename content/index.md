@@ -1,5 +1,4 @@
 ---
-title: "Azhar's Notes"
 tags:
   - master-index
   - roadmap
