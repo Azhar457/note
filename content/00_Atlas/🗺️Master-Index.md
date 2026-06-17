@@ -43,6 +43,12 @@ status: active
 | 🛡️ **Blue Team Playbook**    | Blue Playbook — Melawan Enterprise C2 Infrastructure                                                 | [[blueteam-vs-enterprise-c2]]                                         |
 | ⚔️ **Purple Team OSI**        | Full Kill-Chain: Attack & Defense per OSI Layer                                                      | [[purple-team-osi-killchain]]                                         |
 | 🍎 **Security Tools Layer**   | Perbandingan Kategori, Layer, dan Fungsi Keamanan Jaringan                                           | [[ids-ips-waf-nsm-comparison]]                                        |
+| 🗺️ **IT Domain Hierarchy**   | Peta besar domain IT dari Software Dev, Cyber Security, Cloud, Data, sampai AI                       | [[IT_DOMAIN_HIERARCHY]]                                               |
+| 📋 **Aegis PRD**             | Product Requirement Document (PRD) untuk sistem pertahanan jaringan Aegis                           | [[AegisPRD]]                                                          |
+| 📱 **Mobile Forensics**      | Ekstraksi & analisis forensik perangkat mobile (Android & iOS) menggunakan Cellebrite/MOBILedit      | [[MOBILE_FORENSICS]]                                                   |
+| 📡 **Military SIGINT**       | Deep dive intelijen sinyal militer, perang elektronik (EW), spektrum radio (FHSS), & RTL-SDR          | [[MILITARY_SIGINT_DEEPDIVE]]                                          |
+| 💻 **Platform Technologies** | Tren teknologi platform berkinerja tinggi: io_uring, WebAssembly (WASM), CXL, DPU, & RISC-V          | [[PLATFORM_TECHNOLOGIES_OVERVIEW]]                                    |
+
 
 ---
 
