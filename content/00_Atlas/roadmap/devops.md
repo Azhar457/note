@@ -20,7 +20,7 @@ cssclasses:
 
 # ☁️ Roadmap DevOps & Cloud Infrastructure
 
-> [!danger] **Filosofi:** Kalau kamu cuma install Kubernetes, itu artinya kamu bisa setup cluster. Tapi kalau kamu bisa deploy cluster + monitoring + provisioning via IaC, itu artinya kamu mengerti ekosistemnya — dan itu yang ditanya waktu interview. Rekruter akan tanya "oke, cluster kamu running, terus gimana kamu tau kalau ada yang error?" Kalau kamu jawab "ada Prometheus + Grafana dengan alert rules yang saya tulis sendiri" — itu yang menutup pertanyaan.
+>[!danger] **Filosofi:** Kalau kamu cuma install Kubernetes, itu artinya kamu bisa setup cluster. Tapi kalau kamu bisa deploy cluster + monitoring + provisioning via IaC, itu artinya kamu mengerti ekosistemnya — dan itu yang ditanya waktu interview. Rekruter akan tanya "oke, cluster kamu running, terus gimana kamu tau kalau ada yang error?" Kalau kamu jawab "ada Prometheus + Grafana dengan alert rules yang saya tulis sendiri" — itu yang menutup pertanyaan.
 
 > [!important] Jalur Paling Banyak Lowongan
 > DevOps adalah yang **paling banyak lowongan di Indonesia sekarang**. Demand sangat tinggi karena setiap perusahaan tech butuh orang yang bisa manage deployment pipeline. Salary range: 8–25 juta/bulan untuk junior–mid di Jakarta.
@@ -51,12 +51,12 @@ Next step: Setup 2 VM di Proxmox — 1 control node, 1 worker node
 > **Goal:** Kuasai fondasi yang 100% akan ditanya di setiap interview DevOps.
 > **RAM Impact:** Docker ringan. Total <2GB.
 
-| Skill/Tool         | RAM    | Yang Dipelajari                                                                   | Combo A+B yang Membuktikan                                                                   |
-| ------------------ | ------ | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **Linux Sysadmin** | —      | systemd, journalctl, cron, user/group, permissions, firewall (ufw/iptables)       | Linux + **troubleshooting log** = kamu bisa debug production server tanpa panik              |
-| **Networking**     | —      | TCP/IP, DNS, DHCP, NAT, subnetting, iptables, tcpdump                             | Networking + **Wireshark capture** = kamu paham kenapa "service unreachable"                 |
-| **Docker**         | ~200MB | Container lifecycle, Dockerfile best practice, multi-stage build, volume, network | Docker + **multi-stage build** = kamu paham container optimization, bukan cuma `docker run`  |
-| **Docker Compose** | ~50MB  | Multi-container orchestration, service dependencies, env management               | Compose + **full-stack app deployment** = kamu bisa deploy app + DB + cache dalam 1 perintah |
+| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------------|-----|-----------------|---------------------------|
+| **Linux Sysadmin** | — | systemd, journalctl, cron, user/group, permissions, firewall (ufw/iptables) | Linux + **troubleshooting log** = kamu bisa debug production server tanpa panik |
+| **Networking** | — | TCP/IP, DNS, DHCP, NAT, subnetting, iptables, tcpdump | Networking + **Wireshark capture** = kamu paham kenapa "service unreachable" |
+| **Docker** | ~200MB | Container lifecycle, Dockerfile best practice, multi-stage build, volume, network | Docker + **multi-stage build** = kamu paham container optimization, bukan cuma `docker run` |
+| **Docker Compose** | ~50MB | Multi-container orchestration, service dependencies, env management | Compose + **full-stack app deployment** = kamu bisa deploy app + DB + cache dalam 1 perintah |
 
 > [!tip] Yang Bisa Diselamatkan dari Pengalaman Sekarang
 > **Ubuntu Server dan Docker** dari pengalaman homelab kamu adalah yang paling berguna. Immich dan CasaOS tidak ada nilainya di CV — tapi pengalaman Docker dan Linux-nya yang bisa diselamatkan. Rebuild dari situ.
@@ -91,11 +91,11 @@ Next step: Setup 2 VM di Proxmox — 1 control node, 1 worker node
 > **Goal:** Dari Docker Compose ke Kubernetes. Ini yang memisahkan junior dari mid-level.
 > **RAM Impact:** K3s (lightweight K8s) butuh ~512MB per node. Minimal 2 VM.
 
-| Skill/Tool    | RAM         | Yang Dipelajari                                                 | Combo A+B yang Membuktikan                                               |
-| ------------- | ----------- | --------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------------|-----|-----------------|---------------------------|
 | **K3s / K8s** | ~512MB/node | Pod, Deployment, Service, Ingress, ConfigMap, Secret, Namespace | K8s + **multi-service deployment** = kamu bisa orchestrate microservices |
-| **Helm**      | ~50MB       | Package manager untuk K8s — templating, versioning, rollback    | Helm + **custom chart** = kamu bisa package dan distribute deployment    |
-| **ArgoCD**    | ~300MB      | GitOps — deklaratif deployment dari Git repo                    | ArgoCD + **auto-sync** = kamu punya GitOps pipeline end-to-end           |
+| **Helm** | ~50MB | Package manager untuk K8s — templating, versioning, rollback | Helm + **custom chart** = kamu bisa package dan distribute deployment |
+| **ArgoCD** | ~300MB | GitOps — deklaratif deployment dari Git repo | ArgoCD + **auto-sync** = kamu punya GitOps pipeline end-to-end |
 
 > [!tip] K3s vs K8s untuk Homelab
 > **Pakai K3s** (Rancher). Ini Kubernetes yang dioptimasi untuk resource rendah — cocok untuk 8GB RAM. Fitur sama, overhead jauh lebih kecil. K3s di homelab = K8s di production. Rekruter tidak peduli.
@@ -110,12 +110,12 @@ Next step: Setup 2 VM di Proxmox — 1 control node, 1 worker node
 > **Goal:** Jawaban untuk "gimana kamu tau kalau ada yang error?" — pertanyaan interview paling penting.
 > **RAM Impact:** Stack ini agak berat. Total ~2-3GB. Turunkan retention/scrape interval.
 
-| Skill/Tool       | RAM    | Yang Dipelajari                                        | Combo A+B yang Membuktikan                                                       |
-| ---------------- | ------ | ------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| **Prometheus**   | ~500MB | Metrics collection — scrape, PromQL, recording rules   | Prometheus + **custom metrics** = kamu bisa monitor apa saja, bukan cuma CPU/RAM |
-| **Grafana**      | ~200MB | Visualization — dashboard, alerting, data source       | Grafana + **dashboard custom + alert** = kamu punya single pane of glass         |
-| **Loki**         | ~300MB | Log aggregation — lightweight alternative ke ELK stack | Loki + **Promtail** = kamu punya log pipeline tanpa overhead Elasticsearch       |
-| **AlertManager** | ~50MB  | Alert routing — escalation, silencing, grouping        | AlertManager + **Slack/Discord notification** = kamu punya on-call workflow      |
+| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------------|-----|-----------------|---------------------------|
+| **Prometheus** | ~500MB | Metrics collection — scrape, PromQL, recording rules | Prometheus + **custom metrics** = kamu bisa monitor apa saja, bukan cuma CPU/RAM |
+| **Grafana** | ~200MB | Visualization — dashboard, alerting, data source | Grafana + **dashboard custom + alert** = kamu punya single pane of glass |
+| **Loki** | ~300MB | Log aggregation — lightweight alternative ke ELK stack | Loki + **Promtail** = kamu punya log pipeline tanpa overhead Elasticsearch |
+| **AlertManager** | ~50MB | Alert routing — escalation, silencing, grouping | AlertManager + **Slack/Discord notification** = kamu punya on-call workflow |
 
 **Proyek Portofolio Fase 4:**
 `Full Observability Stack` — Prometheus + Grafana + Loki + AlertManager monitoring semua service di K3s cluster. Dashboard custom untuk setiap service, alert rules untuk uptime/latency/error rate, notifikasi ke Discord. **Ini jawaban definitif untuk "gimana kamu monitor production?"**
@@ -144,11 +144,11 @@ Bulan 1-2         Bulan 3-4         Bulan 5-6         Bulan 7-8
 
 ## Sertifikasi yang Cocok per Fase
 
-| Fase           | Sertifikasi                                            | Kenapa                                                  |
-| -------------- | ------------------------------------------------------ | ------------------------------------------------------- |
-| Setelah Fase 1 | **LFCS (Linux Foundation Certified Sysadmin)**         | Validasi skill Linux — fondasi semua DevOps             |
-| Setelah Fase 2 | **HashiCorp Terraform Associate**                      | Murah, diakui industri, langsung relevan                |
-| Setelah Fase 3 | **CKA (Certified Kubernetes Administrator)**           | Gold standard K8s — sangat dihargai rekruter            |
+| Fase | Sertifikasi | Kenapa |
+|------|-------------|--------|
+| Setelah Fase 1 | **LFCS (Linux Foundation Certified Sysadmin)** | Validasi skill Linux — fondasi semua DevOps |
+| Setelah Fase 2 | **HashiCorp Terraform Associate** | Murah, diakui industri, langsung relevan |
+| Setelah Fase 3 | **CKA (Certified Kubernetes Administrator)** | Gold standard K8s — sangat dihargai rekruter |
 | Setelah Fase 4 | **AWS Solutions Architect Associate** atau **GCP ACE** | Transisi ke cloud provider setelah fondasi on-prem kuat |
 
 ---
@@ -156,7 +156,6 @@ Bulan 1-2         Bulan 3-4         Bulan 5-6         Bulan 7-8
 ## Yang TIDAK Perlu Dipelajari Sekarang
 
 > [!warning] Jangan Buang Waktu
->
 > - ~~CasaOS / Immich / Nextcloud~~ — self-hosted apps bukan DevOps skill. Docker-nya yang berharga, bukan tool-nya
 > - ~~AWS/GCP/Azure langsung~~ — kuasai on-prem dulu, cloud cuma abstraksi di atasnya
 > - ~~Puppet/Chef~~ — sudah digantikan Ansible di mayoritas perusahaan
@@ -174,4 +173,4 @@ Bulan 1-2         Bulan 3-4         Bulan 5-6         Bulan 7-8
 
 ---
 
-_Roadmap DevOps & Cloud Infrastructure | Fase 1 (Docker) → Fase 4 (Observability) · 8 Bulan Homelab_
+*Roadmap DevOps & Cloud Infrastructure | Fase 1 (Docker) → Fase 4 (Observability) · 8 Bulan Homelab*

@@ -13,9 +13,8 @@ aliases:
 created: 2026-04-24
 status: Reference
 ---
-
 > [!info]
->
+> 
 > **Suricata** adalah mesin Network Threat Detection yang mampu melakukan _Deep Packet Inspection_ (DPI). Jika CrowdSec adalah satpam yang melihat buku tamu (Log), Suricata adalah detektif yang membongkar setiap paket kiriman (Packet) yang masuk ke gedung untuk mencari selundupan senjata atau narkoba digital.
 
 ---
@@ -29,23 +28,29 @@ Dalam lingkungan Proxmox dengan RAM 8GB, pemilihan lokasi instalasi sangat menen
 Suricata diinstal langsung pada sistem operasi induk (Proxmox).
 
 - **Mekanisme:** Mendengarkan lalu lintas pada jembatan virtual `vmbr0`.
+    
 - **Keunggulan:** Tidak ada _overhead_ RAM tambahan untuk VM baru.
+    
 - **Kelemahan:** Mengotori host Proxmox dengan _third-party packages_.
+    
 
 ### 1.2 Opsi B: Dedicated VM/LXC (Network Tap)
 
 Membuat satu VM khusus yang menerima _mirroring traffic_ dari host.
 
 - **Mekanisme:** Menggunakan _Open vSwitch_ atau _Port Mirroring_.
+    
 - **Keunggulan:** Isolasi total. Jika Suricata memakan 100% CPU, Nextcloud Anda tetap aman.
+    
 - **Kelemahan:** Boros RAM (Membutuhkan minimal 2-4GB dedicated).
+    
 
 ---
 
 ## 2. Persiapan Sistem (Hardware Tuning)
 
 > [!warning] **Masalah HDD & RAM**
->
+> 
 > Suricata memakan banyak memori untuk menyimpan tabel aliran (_flow tables_). Pada HDD, penulisan log `eve.json` bisa menjadi _bottleneck_. Disarankan untuk membatasi penulisan log hanya pada kejadian yang sangat kritis jika tetap menggunakan HDD.
 
 ### 2.1 Cek Kapabilitas Interface
@@ -90,29 +95,37 @@ sudo nano /etc/suricata/suricata.yaml
 **Parameter yang wajib diubah:**
 
 - **HOME_NET:** Tentukan jaringan lokal Anda.
-  `HOME_NET: "[192.168.1.0/24]"`
+    
+    `HOME_NET: "[192.168.1.0/24]"`
+    
 - **Interface:** Pastikan mengarah ke bridge utama.
-  `interface: vmbr0`
+    
+    `interface: vmbr0`
+    
 - **Tuning untuk HDD (PENTING):**
-  Kurangi frekuensi penulisan log untuk menjaga umur HDD.
-  YAML
-  ```
-  outputs:
-    - eve-log:
-        enabled: yes
-        filetype: regular
-        filename: eve.json
-        types:
-          - alert:
-              payload: yes             # Simpan isi serangan
-              payload-buffer-size: 4kb
-              packet: yes
-              http: yes
-          - http:
-              enabled: no              # Matikan logging HTTP biasa (terlalu berisik untuk HDD)
-          - dns:
-              enabled: no              # Matikan logging DNS biasa (boros IO)
-  ```
+    
+    Kurangi frekuensi penulisan log untuk menjaga umur HDD.
+    
+    YAML
+    
+    ```
+    outputs:
+      - eve-log:
+          enabled: yes
+          filetype: regular
+          filename: eve.json
+          types:
+            - alert:
+                payload: yes             # Simpan isi serangan
+                payload-buffer-size: 4kb 
+                packet: yes
+                http: yes
+            - http:
+                enabled: no              # Matikan logging HTTP biasa (terlalu berisik untuk HDD)
+            - dns:
+                enabled: no              # Matikan logging DNS biasa (boros IO)
+    ```
+    
 
 ---
 
@@ -205,33 +218,34 @@ Suricata hebat dalam **Melihat**, tapi CrowdSec hebat dalam **Menendang**.
 Kita bisa mengajari CrowdSec untuk membaca log Suricata (`eve.json`). Jika Suricata melihat serangan jaringan yang parah, CrowdSec akan langsung memblokir IP tersebut di _Firewall_.
 
 1. Instal koleksi Suricata untuk CrowdSec:
-
-   Bash
-
-   ```
-   sudo cscli collections install crowdsecurity/suricata
-   ```
-
+    
+    Bash
+    
+    ```
+    sudo cscli collections install crowdsecurity/suricata
+    ```
+    
 2. Beritahu CrowdSec lokasi log Suricata:
-
-   Edit `/etc/crowdsec/acquis.yaml`:
-
-   YAML
-
-   ```
-   filenames:
-     - /var/log/suricata/eve.json
-   labels:
-     type: suricata
-   ```
-
+    
+    Edit `/etc/crowdsec/acquis.yaml`:
+    
+    YAML
+    
+    ```
+    filenames:
+      - /var/log/suricata/eve.json
+    labels:
+      type: suricata
+    ```
+    
 3. Restart CrowdSec:
-
-   Bash
-
-   ```
-   sudo systemctl restart crowdsec
-   ```
+    
+    Bash
+    
+    ```
+    sudo systemctl restart crowdsec
+    ```
+    
 
 ---
 
@@ -264,11 +278,17 @@ sudo ethtool -K vmbr0 tx off rx off sg off gso off gro off
 ## 9. Troubleshooting & FAQ
 
 - **Q: Suricata memakan 100% CPU!**
-  - **A:** Kurangi jumlah _rules_ yang aktif atau gunakan fitur `bypass` untuk lalu lintas lokal yang terpercaya (seperti backup Proxmox).
+    
+    - **A:** Kurangi jumlah _rules_ yang aktif atau gunakan fitur `bypass` untuk lalu lintas lokal yang terpercaya (seperti backup Proxmox).
+        
 - **Q: Tidak ada log yang muncul di eve.json.**
-  - **A:** Cek apakah `HOME_NET` sudah benar dan interface `vmbr0` dalam keadaan UP.
+    
+    - **A:** Cek apakah `HOME_NET` sudah benar dan interface `vmbr0` dalam keadaan UP.
+        
 - **Q: Kenapa tidak langsung pakai mode IPS (Block)?**
-  - **A:** Mode IPS berisiko memutus koneksi internet Anda sendiri jika terjadi _false positive_. Selalu mulai dengan IDS (Monitor) selama minimal 1-2 minggu.
+    
+    - **A:** Mode IPS berisiko memutus koneksi internet Anda sendiri jika terjadi _false positive_. Selalu mulai dengan IDS (Monitor) selama minimal 1-2 minggu.
+        
 
 ---
 
@@ -277,13 +297,16 @@ sudo ethtool -K vmbr0 tx off rx off sg off gso off gro off
 Sebelum mengaktifkan dokumen ini secara nyata, pastikan Anda telah:
 
 - [ ] Meng-upgrade RAM minimal menjadi 16GB (Direkomendasikan).
+    
 - [ ] Mengganti HDD utama menjadi SSD/NVMe untuk menampung _write-intensive logs_.
+    
 - [ ] Memahami cara memulihkan jaringan jika Suricata menyebabkan _kernel panic_ (via Console Proxmox).
+    
 
 ---
 
 > [!tip]
->
+> 
 > Dokumentasi ini adalah "investasi" ilmu. Walaupun hari ini hardware-mu belum memadai, kamu sudah punya peta jalan seorang _Security Engineer_ profesional.
 
 ---

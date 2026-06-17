@@ -6,7 +6,7 @@
 
 ```
 Buka PowerShell / Command Prompt, ketik:
-node --version    → harus v18+
+node --version    → harus v18+ 
 git --version     → harus ada
 ```
 

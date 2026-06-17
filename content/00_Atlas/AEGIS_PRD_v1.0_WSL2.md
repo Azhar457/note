@@ -1,7 +1,5 @@
 # 📋 AEGIS v1.0 — Product Requirement Document (Revised)
-
 ## Network Defense Core for Linux Server
-
 ## WSL2-Compatible Development | Agent-Manager Architecture
 
 ---
@@ -64,14 +62,14 @@ node --version       # v20.12.0
 
 ### 2.2 WSL2 Limitations & Workarounds
 
-| Feature         | WSL2 Status       | Workaround                       | Production         |
-| --------------- | ----------------- | -------------------------------- | ------------------ |
-| **XDP**         | ❌ Not supported  | Use TC (Traffic Control) for dev | XDP on real server |
-| **TC eBPF**     | ✅ Supported      | Primary dev mode                 | Also works         |
-| **Tracepoints** | ✅ Supported      | Full functionality               | Same               |
-| **Kprobes**     | ✅ Supported      | Full functionality               | Same               |
-| **Real NIC**    | ❌ Virtual switch | Test on VPS                      | Real NIC           |
-| **Performance** | ⚠️ Slower         | Acceptable for dev               | Native speed       |
+| Feature | WSL2 Status | Workaround | Production |
+|---------|-------------|------------|----------|
+| **XDP** | ❌ Not supported | Use TC (Traffic Control) for dev | XDP on real server |
+| **TC eBPF** | ✅ Supported | Primary dev mode | Also works |
+| **Tracepoints** | ✅ Supported | Full functionality | Same |
+| **Kprobes** | ✅ Supported | Full functionality | Same |
+| **Real NIC** | ❌ Virtual switch | Test on VPS | Real NIC |
+| **Performance** | ⚠️ Slower | Acceptable for dev | Native speed |
 
 ### 2.3 VPS Setup (Testing/Production)
 
@@ -340,17 +338,17 @@ char _license[] SEC("license") = "GPL";
 
 #### Features
 
-| Feature                  | Priority | XDP  | TC    | Description                               |
-| ------------------------ | -------- | ---- | ----- | ----------------------------------------- |
-| **Packet Filter**        | P0       | ✅   | ✅    | Block/allow by src IP, dst port, protocol |
-| **Rate Limiting**        | P0       | ✅   | ✅    | Token bucket per IP                       |
-| **GeoIP Block**          | P0       | ✅   | ✅    | MaxMind DB lookup                         |
-| **Port Scan Detection**  | P0       | ✅   | ⚠️    | SYN flood, port sweep (TC limited)        |
-| **Connection Tracking**  | P0       | ⚠️   | ✅    | TC better for stateful tracking           |
-| **DNS Tunnel Detection** | P1       | ✅   | ✅    | Heuristic analysis                        |
-| **DDoS Mitigation**      | P1       | ✅   | ⚠️    | SYN cookie (XDP only)                     |
-| **Auto-restart Service** | P0       | N/A  | N/A   | Userspace watchdog                        |
-| **Performance**          | —        | ~1μs | ~10μs | XDP faster                                |
+| Feature | Priority | XDP | TC | Description |
+|---------|----------|-----|-----|-------------|
+| **Packet Filter** | P0 | ✅ | ✅ | Block/allow by src IP, dst port, protocol |
+| **Rate Limiting** | P0 | ✅ | ✅ | Token bucket per IP |
+| **GeoIP Block** | P0 | ✅ | ✅ | MaxMind DB lookup |
+| **Port Scan Detection** | P0 | ✅ | ⚠️ | SYN flood, port sweep (TC limited) |
+| **Connection Tracking** | P0 | ⚠️ | ✅ | TC better for stateful tracking |
+| **DNS Tunnel Detection** | P1 | ✅ | ✅ | Heuristic analysis |
+| **DDoS Mitigation** | P1 | ✅ | ⚠️ | SYN cookie (XDP only) |
+| **Auto-restart Service** | P0 | N/A | N/A | Userspace watchdog |
+| **Performance** | — | ~1μs | ~10μs | XDP faster |
 
 ---
 
@@ -1611,62 +1609,62 @@ echo "Dashboard:      https://$(hostname -I | awk '{print $1}'):8443"
 
 ## 9. Threat Defense Matrix
 
-| Threat                   | Defense Layer | Mechanism                        | Status  |
-| ------------------------ | ------------- | -------------------------------- | ------- |
-| **Port Scan**            | eBPF XDP/TC   | SYN flood detection, port sweep  | ✅ v1.0 |
-| **SQL Injection**        | WAF           | Regex pattern matching           | ✅ v1.0 |
-| **XSS**                  | WAF           | Script tag, event handler filter | ✅ v1.0 |
-| **LFI/RFI**              | WAF           | Path traversal patterns          | ✅ v1.0 |
-| **RCE**                  | WAF           | Command injection patterns       | ✅ v1.0 |
-| **SSRF**                 | WAF           | Internal IP block                | ✅ v1.0 |
-| **DDoS Volumetric**      | eBPF XDP      | Rate limit, SYN cookie           | ✅ v1.0 |
-| **DDoS Application**     | WAF           | Per-path rate limit              | ✅ v1.0 |
-| **DNS Tunneling**        | eBPF          | Query length, entropy heuristic  | ✅ v1.0 |
-| **Brute Force**          | WAF + eBPF    | Progressive delay, IP block      | ✅ v1.0 |
-| **Bad Bot**              | WAF           | User-Agent filter                | ✅ v1.0 |
-| **Direct IP Access**     | Tunnel        | Origin protection                | ✅ v1.0 |
-| **Service Crash**        | Watchdog      | Auto-restart                     | ✅ v1.0 |
-| **GeoIP Block**          | eBPF          | Country-based filtering          | ✅ v1.0 |
-| **IP Reputation**        | Shared        | Blocklist sync                   | ✅ v1.0 |
-| **File Integrity**       | Agent         | FIM module                       | 🔄 v1.1 |
-| **Container Security**   | Agent         | Docker/Podman monitor            | 🔄 v1.2 |
-| **AI Anomaly Detection** | Manager       | ML-based detection               | 🔄 v1.3 |
-| **Purple Team**          | Manager       | Self-attack simulation           | 🔄 v1.4 |
-| **WireGuard VPN**        | Tunnel        | Admin access VPN                 | 🔄 v1.5 |
+| Threat | Defense Layer | Mechanism | Status |
+|--------|--------------|-----------|--------|
+| **Port Scan** | eBPF XDP/TC | SYN flood detection, port sweep | ✅ v1.0 |
+| **SQL Injection** | WAF | Regex pattern matching | ✅ v1.0 |
+| **XSS** | WAF | Script tag, event handler filter | ✅ v1.0 |
+| **LFI/RFI** | WAF | Path traversal patterns | ✅ v1.0 |
+| **RCE** | WAF | Command injection patterns | ✅ v1.0 |
+| **SSRF** | WAF | Internal IP block | ✅ v1.0 |
+| **DDoS Volumetric** | eBPF XDP | Rate limit, SYN cookie | ✅ v1.0 |
+| **DDoS Application** | WAF | Per-path rate limit | ✅ v1.0 |
+| **DNS Tunneling** | eBPF | Query length, entropy heuristic | ✅ v1.0 |
+| **Brute Force** | WAF + eBPF | Progressive delay, IP block | ✅ v1.0 |
+| **Bad Bot** | WAF | User-Agent filter | ✅ v1.0 |
+| **Direct IP Access** | Tunnel | Origin protection | ✅ v1.0 |
+| **Service Crash** | Watchdog | Auto-restart | ✅ v1.0 |
+| **GeoIP Block** | eBPF | Country-based filtering | ✅ v1.0 |
+| **IP Reputation** | Shared | Blocklist sync | ✅ v1.0 |
+| **File Integrity** | Agent | FIM module | 🔄 v1.1 |
+| **Container Security** | Agent | Docker/Podman monitor | 🔄 v1.2 |
+| **AI Anomaly Detection** | Manager | ML-based detection | 🔄 v1.3 |
+| **Purple Team** | Manager | Self-attack simulation | 🔄 v1.4 |
+| **WireGuard VPN** | Tunnel | Admin access VPN | 🔄 v1.5 |
 
 ---
 
 ## 10. Success Metrics
 
-| Metric             | Target          | Measurement            |
-| ------------------ | --------------- | ---------------------- |
-| **Install Time**   | < 5 minutes     | Fresh Ubuntu 22.04 VM  |
-| **First Block**    | < 2 minutes     | Default rules active   |
-| **XDP Latency**    | < 1μs           | `bpftool prog profile` |
-| **TC Latency**     | < 10μs          | `bpftool prog profile` |
-| **WAF Latency**    | < 5ms           | `wrk` benchmark        |
-| **Throughput**     | 10K req/sec     | `wrk -t4 -c1000`       |
-| **Uptime**         | > 99%           | 30-day test            |
-| **Memory**         | < 200MB total   | `ps aux`               |
-| **CPU Idle**       | < 5%            | `htop`                 |
-| **Dashboard Load** | < 3 seconds     | Browser dev tools      |
-| **GitHub Stars**   | 100+ (3 months) | GitHub metrics         |
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| **Install Time** | < 5 minutes | Fresh Ubuntu 22.04 VM |
+| **First Block** | < 2 minutes | Default rules active |
+| **XDP Latency** | < 1μs | `bpftool prog profile` |
+| **TC Latency** | < 10μs | `bpftool prog profile` |
+| **WAF Latency** | < 5ms | `wrk` benchmark |
+| **Throughput** | 10K req/sec | `wrk -t4 -c1000` |
+| **Uptime** | > 99% | 30-day test |
+| **Memory** | < 200MB total | `ps aux` |
+| **CPU Idle** | < 5% | `htop` |
+| **Dashboard Load** | < 3 seconds | Browser dev tools |
+| **GitHub Stars** | 100+ (3 months) | GitHub metrics |
 
 ---
 
 ## 11. Future Roadmap
 
-| Version | Feature                                                  | ETA        |
-| ------- | -------------------------------------------------------- | ---------- |
-| v1.0    | Network Defense Core (XDP/TC + WAF + Tunnel + Dashboard) | Month 3    |
-| v1.1    | File Integrity Monitoring (FIM)                          | +1 month   |
-| v1.2    | Container Security (Docker/Podman)                       | +2 months  |
-| v1.3    | AI Anomaly Detection (Python ML service)                 | +3 months  |
-| v1.4    | Purple Team Module (self-attack simulation)              | +4 months  |
-| v1.5    | Multi-Agent + WireGuard VPN                              | +5 months  |
-| v2.0    | Windows Agent (ETW)                                      | +8 months  |
-| v2.1    | macOS Agent (DTrace)                                     | +10 months |
-| v2.2    | Enterprise Features (RBAC, SSO, SIEM integration)        | +12 months |
+| Version | Feature | ETA |
+|---------|---------|-----|
+| v1.0 | Network Defense Core (XDP/TC + WAF + Tunnel + Dashboard) | Month 3 |
+| v1.1 | File Integrity Monitoring (FIM) | +1 month |
+| v1.2 | Container Security (Docker/Podman) | +2 months |
+| v1.3 | AI Anomaly Detection (Python ML service) | +3 months |
+| v1.4 | Purple Team Module (self-attack simulation) | +4 months |
+| v1.5 | Multi-Agent + WireGuard VPN | +5 months |
+| v2.0 | Windows Agent (ETW) | +8 months |
+| v2.1 | macOS Agent (DTrace) | +10 months |
+| v2.2 | Enterprise Features (RBAC, SSO, SIEM integration) | +12 months |
 
 ---
 
@@ -1690,12 +1688,12 @@ cd WSL2-Linux-Kernel
 
 ### B. VPS Recommendations
 
-| Provider         | Instance      | Price    | Specs           | Best For             |
-| ---------------- | ------------- | -------- | --------------- | -------------------- |
-| **Hetzner**      | CX21          | €5.35/mo | 2 vCPU, 4GB RAM | Development, testing |
-| **DigitalOcean** | Basic Droplet | $6/mo    | 1 vCPU, 1GB RAM | Minimal testing      |
-| **AWS**          | t3.small      | ~$15/mo  | 2 vCPU, 2GB RAM | Production-like      |
-| **Linode**       | Nanode 1GB    | $5/mo    | 1 vCPU, 1GB RAM | Budget testing       |
+| Provider | Instance | Price | Specs | Best For |
+|----------|----------|-------|-------|----------|
+| **Hetzner** | CX21 | €5.35/mo | 2 vCPU, 4GB RAM | Development, testing |
+| **DigitalOcean** | Basic Droplet | $6/mo | 1 vCPU, 1GB RAM | Minimal testing |
+| **AWS** | t3.small | ~$15/mo | 2 vCPU, 2GB RAM | Production-like |
+| **Linode** | Nanode 1GB | $5/mo | 1 vCPU, 1GB RAM | Budget testing |
 
 ### C. Useful Commands
 
@@ -1733,7 +1731,7 @@ docker-compose -f docker-compose.test.yml up --abort-on-container-exit
 
 ---
 
-_Document Version: 1.0-WSL2_  
-_Last Updated: 2026-06-16_  
-_Author: Aegis Team_  
-_Status: Final — Ready for Implementation_
+*Document Version: 1.0-WSL2*  
+*Last Updated: 2026-06-16*  
+*Author: Aegis Team*  
+*Status: Final — Ready for Implementation*

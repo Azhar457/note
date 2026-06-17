@@ -7,7 +7,6 @@ aliases:
   - Tentang
 created: 2026-06-04
 ---
-
 # 👋 Hai, Saya Azhar Muttaqien
 
 Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana malah jatuh tertarik ke dunia CS, security research, dan low-level systems.
@@ -15,7 +14,7 @@ Mahasiswa **INFORMATIKA** di **Pasundan**, Bandung — yang entah bagaimana mala
 Bukan dari seorang ahli. Tapi dari rasa penasaran yang tidak berhenti.
 
 Perjalanan belajarnya dimulai dari pertanyaan:
-_"Apa sih software paling bagus buat recorvery data?, atau jangan2 ada pendekatan lain?"_
+*"Apa sih software paling bagus buat recorvery data?, atau jangan2 ada pendekatan lain?"*
 
 ---
 
@@ -43,7 +42,7 @@ Semua yang terdokumentasi di vault ini hanya gambaran besar, dan aku baru sebagi
 ## Cara Aku Belajar
 
 **top-down** — peta besar dulu, detail belakangan.
-hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya.
+hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya. 
 
 Tidak pernah puas dengan jawaban permukaan. Kalau ada sesuatu yang "dianggap rahasia" atau disembunyikan di balik konsensus — itu yang justru paling menarik untuk digali.
 
@@ -58,7 +57,7 @@ Security  : Kali Linux (VM), Wireshark, Crowdsec, Safeline
 Hardware  : ESP32, ESP2886
 Vault     : Obsidian + Quartz + GitHub Pages
 Scripting : Python, Bash
-Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudflared+ Nextcloud+Uptime Kuma Semua di dalam Docker Container
+Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudflared+ Nextcloud+Uptime Kuma Semua di dalam Docker Container 
 
 ```
 
@@ -85,9 +84,9 @@ Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudfla
 
 ---
 
-> _Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir._
-> _Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out._
+> *Vault ini adalah catatan perjalanan belajar yang sedang berjalan — bukan hasil akhir.*
+> *Kalau ada yang salah, ada yang lebih dalam, atau ada yang mau didiskusikan — reach out.*
 
 ---
 
-_Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages_
+*Built with [Quartz v4](https://quartz.jzhao.xyz/) · Hosted on GitHub Pages*

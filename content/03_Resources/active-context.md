@@ -15,8 +15,8 @@ status: active
 # 🗺️ ACTIVE CONTEXT — Session Handoff
 
 > Paste file ini di awal conversation baru sebagai briefing Claude.
-> Instruksi ke Claude: _"Baca ACTIVE_CONTEXT ini. Fokus pada bagian
-> yang ditandai ⚡. Tanya jika ada yang kurang jelas sebelum lanjut."_
+> Instruksi ke Claude: *"Baca ACTIVE_CONTEXT ini. Fokus pada bagian
+> yang ditandai ⚡. Tanya jika ada yang kurang jelas sebelum lanjut."*
 
 ---
 
@@ -59,10 +59,10 @@ Mood/energy    : [opsional tapi berguna: fresh / tired / deep focus]
 > File/artefak yang sudah dibuat di conversation sebelumnya.
 > Claude tidak perlu buat ulang kecuali diminta eksplisit.
 
-| File             | Isi Singkat         | Status          |
-| ---------------- | ------------------- | --------------- |
-| `[nama-file.md]` | [deskripsi 1 baris] | ✅ Selesai      |
-| `[nama-file.md]` | [deskripsi 1 baris] | ⚠️ Draft        |
+| File | Isi Singkat | Status |
+|---|---|---|
+| `[nama-file.md]` | [deskripsi 1 baris] | ✅ Selesai |
+| `[nama-file.md]` | [deskripsi 1 baris] | ⚠️ Draft |
 | `[nama-file.md]` | [deskripsi 1 baris] | 🔄 Perlu update |
 
 ---
@@ -97,7 +97,6 @@ Jangan          : Disclaimer panjang, basa-basi berlebihan, menebak-nebak
 > Isi jika relevan untuk conversation ini. Kosongkan jika tidak perlu.
 
 ### Kendala / Batasan Saat Ini
-
 ```
 Hardware  : [contoh: HDD 256GB, RAM 4GB — tidak bisa jalankan VM berat]
 Software  : [contoh: Linux Mint, tidak ada akses admin router kampus]
@@ -105,7 +104,6 @@ Waktu     : [contoh: malam, butuh jawaban cepat]
 ```
 
 ### Referensi yang Relevan
-
 ```
 - [Link atau nama file yang berkaitan dengan topik saat ini]
 - [contoh: "Lihat TOOLS_PENTING.md untuk hierarki recovery"]
@@ -121,7 +119,6 @@ Waktu     : [contoh: malam, butuh jawaban cepat]
 - [contoh: "Pertanyaan soal SCP Foundation sudah dijawab wkwkwk"]
 
 ---
-
 ---
 
 # 📋 CONTOH ISI — Kasus Nyata
@@ -172,31 +169,31 @@ Mood/energy    : Fresh, tapi token hampir habis wkwkwk
 
 ## ⚡ OUTPUT YANG SUDAH ADA
 
-| File                                | Isi Singkat                        | Status                   |
-| ----------------------------------- | ---------------------------------- | ------------------------ |
-| `MASTER_INDEX.md`                   | Index semua topik + roadmap        | ✅ Di vault              |
-| `TOOLS_PENTING.md`                  | Data Recovery + Endpoint + Network | ✅ Di vault              |
-| `AI_LEVELS_HIERARCHY.md`            | AI Level 0–11                      | ✅ Di vault              |
-| `OS_HIERARCHY.md`                   | OS consumer sampai military        | ✅ Di vault              |
-| `KRIPTOGRAFI_BIOMETRIK.md`          | Crypto + Auth stack                | ✅ Di vault              |
-| `INFRASTRUKTUR_CLOUD.md`            | Shared hosting → Zero Trust        | ✅ Di vault              |
-| `RE_HARDWARE_HACKING.md`            | RE + hardware layer                | ✅ Di vault              |
-| `OSINT_RF_HIERARCHY.md`             | OSINT + SIGINT                     | ✅ Di vault              |
-| `FONDASI_CS.md`                     | OS Internals + Computer Arch       | ✅ Di vault              |
-| `MATEMATIKA_ALGORITMA.md`           | Algo + Diskrit + LinAlg            | ✅ Di vault              |
-| `SYSTEM_DESIGN.md`                  | DB Internals + Software Arch       | ✅ Di vault              |
-| `EMBEDDED_SYSTEMS.md`               | Embedded + Flash Forensics         | ✅ Di vault              |
-| `UNDERGROUND_KNOWLEDGE.md`          | Cheat Engine + Dark Web            | ✅ Di vault              |
-| `RESEARCH_METHODOLOGY.md`           | Riset Level 0–8                    | ✅ Di vault              |
-| `KURIKULUM_MAPPING.md`              | Mata kuliah → CS/Security path     | ✅ Di vault              |
-| `DATA_RECOVERY_FORENSIK.md`         | Tools comparison + workflow        | ✅ Di vault              |
-| `SOP_HPA_Exorcism.md`               | HPA/DCO/MBR wipe SOP               | ✅ Di vault              |
-| `SOP_OpenSource_Recovery.md`        | ddrescue + DVR recovery            | ✅ Di vault              |
-| `WEB_HACKING.md`                    | CTF web playbook                   | ✅ Di vault              |
-| `AI_EVALUATION_FRAMEWORK.md`        | LLM testing framework              | ✅ Di vault              |
-| `arp-spoofing-mitigation.md`        | ARP defense + PowerShell script    | ✅ Di vault              |
-| `arp-spoofing-incident-addendum.md` | IR report professional             | ✅ Di vault              |
-| `about.md`                          | Profile page untuk Quartz          | ⚠️ Perlu isi placeholder |
+| File | Isi Singkat | Status |
+|---|---|---|
+| `MASTER_INDEX.md` | Index semua topik + roadmap | ✅ Di vault |
+| `TOOLS_PENTING.md` | Data Recovery + Endpoint + Network | ✅ Di vault |
+| `AI_LEVELS_HIERARCHY.md` | AI Level 0–11 | ✅ Di vault |
+| `OS_HIERARCHY.md` | OS consumer sampai military | ✅ Di vault |
+| `KRIPTOGRAFI_BIOMETRIK.md` | Crypto + Auth stack | ✅ Di vault |
+| `INFRASTRUKTUR_CLOUD.md` | Shared hosting → Zero Trust | ✅ Di vault |
+| `RE_HARDWARE_HACKING.md` | RE + hardware layer | ✅ Di vault |
+| `OSINT_RF_HIERARCHY.md` | OSINT + SIGINT | ✅ Di vault |
+| `FONDASI_CS.md` | OS Internals + Computer Arch | ✅ Di vault |
+| `MATEMATIKA_ALGORITMA.md` | Algo + Diskrit + LinAlg | ✅ Di vault |
+| `SYSTEM_DESIGN.md` | DB Internals + Software Arch | ✅ Di vault |
+| `EMBEDDED_SYSTEMS.md` | Embedded + Flash Forensics | ✅ Di vault |
+| `UNDERGROUND_KNOWLEDGE.md` | Cheat Engine + Dark Web | ✅ Di vault |
+| `RESEARCH_METHODOLOGY.md` | Riset Level 0–8 | ✅ Di vault |
+| `KURIKULUM_MAPPING.md` | Mata kuliah → CS/Security path | ✅ Di vault |
+| `DATA_RECOVERY_FORENSIK.md` | Tools comparison + workflow | ✅ Di vault |
+| `SOP_HPA_Exorcism.md` | HPA/DCO/MBR wipe SOP | ✅ Di vault |
+| `SOP_OpenSource_Recovery.md` | ddrescue + DVR recovery | ✅ Di vault |
+| `WEB_HACKING.md` | CTF web playbook | ✅ Di vault |
+| `AI_EVALUATION_FRAMEWORK.md` | LLM testing framework | ✅ Di vault |
+| `arp-spoofing-mitigation.md` | ARP defense + PowerShell script | ✅ Di vault |
+| `arp-spoofing-incident-addendum.md` | IR report professional | ✅ Di vault |
+| `about.md` | Profile page untuk Quartz | ⚠️ Perlu isi placeholder |
 
 ---
 
@@ -237,7 +234,6 @@ Jangan          : Disclaimer panjang, menebak-nebak, terlalu lembut
 ## KONTEKS TAMBAHAN
 
 ### Kendala Saat Ini
-
 ```
 Hardware  : HDD (bukan SSD) — hindari rekomendasi yang butuh SSD
             RAM 4GB — VM berat tidak feasible saat ini
@@ -246,7 +242,6 @@ ESP32     : Classic N4 (bukan S3) — Bruce firmware tidak support
 ```
 
 ### Referensi Relevan Saat Ini
-
 ```
 - Vault publik: azhar457.github.io/note
 - Repo GitHub: github.com/Azhar457/note
@@ -264,4 +259,4 @@ ESP32     : Classic N4 (bukan S3) — Bruce firmware tidak support
 
 ---
 
-_ACTIVE_CONTEXT | Template + Contoh | Update setiap pindah conversation_
+*ACTIVE_CONTEXT | Template + Contoh | Update setiap pindah conversation*

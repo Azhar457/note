@@ -125,13 +125,13 @@ Efek di RTL-SDR:
 
 ### Teknologi Militer Spesifik
 
-| Teknologi      | Dipakai Di                    | Cara Kerja                                  | Bisa RTL-SDR?                          |
-| -------------- | ----------------------------- | ------------------------------------------- | -------------------------------------- |
-| **SINCGARS**   | Radio taktis infanteri AS     | FHSS 2-8 hop/detik, AES-256                 | Detect keberadaan, tidak bisa decode   |
-| **Have Quick** | Komunikasi aviasi militer     | FHSS di UHF (225-400 MHz)                   | Detect sesekali, tidak bisa follow     |
-| **Link 16**    | Data link taktis NATO         | TDMA + FHSS + enkripsi NSA                  | Sinyal terdeteksi, konten = impossible |
-| **MILSATCOM**  | Satelit militer (X-band, EHF) | Uplink frekuensi sangat tinggi, terenkripsi | RTL-SDR tidak cukup frekuensi range    |
-| **JTIDS/MIDS** | Joint Tactical Information    | FHSS 51 frekuensi, pseudo-random            | Hanya metadata timing bisa dianalisis  |
+| Teknologi | Dipakai Di | Cara Kerja | Bisa RTL-SDR? |
+|---|---|---|---|
+| **SINCGARS** | Radio taktis infanteri AS | FHSS 2-8 hop/detik, AES-256 | Detect keberadaan, tidak bisa decode |
+| **Have Quick** | Komunikasi aviasi militer | FHSS di UHF (225-400 MHz) | Detect sesekali, tidak bisa follow |
+| **Link 16** | Data link taktis NATO | TDMA + FHSS + enkripsi NSA | Sinyal terdeteksi, konten = impossible |
+| **MILSATCOM** | Satelit militer (X-band, EHF) | Uplink frekuensi sangat tinggi, terenkripsi | RTL-SDR tidak cukup frekuensi range |
+| **JTIDS/MIDS** | Joint Tactical Information | FHSS 51 frekuensi, pseudo-random | Hanya metadata timing bisa dianalisis |
 
 ---
 
@@ -462,17 +462,17 @@ Deteksi:
 
 ### Perbandingan Lengkap
 
-| Aspek                           | RF Intercept (RTL-SDR)              | Endpoint Compromise (Pegasus)      |
-| ------------------------------- | ----------------------------------- | ---------------------------------- |
-| **Target**                      | Sinyal di udara                     | Perangkat fisik                    |
-| **Enkripsi bypassed?**          | Tidak                               | Ya (baca sebelum/sesudah enkripsi) |
-| **Real-time content**           | Hanya jika sinyal tidak terenkripsi | Ya, penuh                          |
-| **Geolocation**                 | Ya (dengan multiple sensor)         | Ya (GPS langsung)                  |
-| **Legal (di banyak negara)**    | Tergantung frekuensi                | Ilegal tanpa otoritas              |
-| **Biaya**                       | $15 (RTL-SDR)                       | $7-8 juta+ (Pegasus lisensi)       |
-| **Detectable?**                 | Tidak (passive)                     | Kadang (dengan forensik MVT)       |
-| **Butuh kedekatan fisik?**      | Ya (untuk sinyal lemah)             | Tidak (via internet)               |
-| **Terhadap sinyal terenkripsi** | Tidak efektif                       | Sangat efektif                     |
+| Aspek | RF Intercept (RTL-SDR) | Endpoint Compromise (Pegasus) |
+|---|---|---|
+| **Target** | Sinyal di udara | Perangkat fisik |
+| **Enkripsi bypassed?** | Tidak | Ya (baca sebelum/sesudah enkripsi) |
+| **Real-time content** | Hanya jika sinyal tidak terenkripsi | Ya, penuh |
+| **Geolocation** | Ya (dengan multiple sensor) | Ya (GPS langsung) |
+| **Legal (di banyak negara)** | Tergantung frekuensi | Ilegal tanpa otoritas |
+| **Biaya** | $15 (RTL-SDR) | $7-8 juta+ (Pegasus lisensi) |
+| **Detectable?** | Tidak (passive) | Kadang (dengan forensik MVT) |
+| **Butuh kedekatan fisik?** | Ya (untuk sinyal lemah) | Tidak (via internet) |
+| **Terhadap sinyal terenkripsi** | Tidak efektif | Sangat efektif |
 
 ---
 
@@ -652,17 +652,17 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 
 ---
 
-> [!tip] Bottom Line yang Jujur
-> Konten TikTok yang beredar **valid** — RTL-SDR memang tidak bisa tembus enkripsi militer. Tapi framing "tidak berguna" adalah salah. RTL-SDR adalah **tool observasi spektrum** yang luar biasa untuk: belajar RF, tracking pesawat/kapal sipil, cuaca satelit, analisis pola aktivitas (tanpa konten), dan direction finding kasar.
+>[!tip] Bottom Line yang Jujur
+>Konten TikTok yang beredar **valid** — RTL-SDR memang tidak bisa tembus enkripsi militer. Tapi framing "tidak berguna" adalah salah. RTL-SDR adalah **tool observasi spektrum** yang luar biasa untuk: belajar RF, tracking pesawat/kapal sipil, cuaca satelit, analisis pola aktivitas (tanpa konten), dan direction finding kasar.
 >
-> Untuk komunikasi militer terenkripsi: paradigma yang relevan adalah **endpoint compromise** (Pegasus-style), bukan intercept RF. Enkripsi modern terlalu kuat untuk diserang dari sisi RF — serang dari sisi manusia atau perangkatnya.
+>Untuk komunikasi militer terenkripsi: paradigma yang relevan adalah **endpoint compromise** (Pegasus-style), bukan intercept RF. Enkripsi modern terlalu kuat untuk diserang dari sisi RF — serang dari sisi manusia atau perangkatnya.
 
-> [!warning] Legal Context Indonesia
-> Intercept komunikasi tanpa izin = pelanggaran UU Telekomunikasi dan UU ITE.
-> Frekuensi militer/pemerintah = dilarang dimonitor kecuali untuk keperluan resmi.
-> RTL-SDR untuk frekuensi publik (ADS-B, cuaca, FM) = legal.
-> Direction finding terhadap instalasi militer = bisa dikategorikan spionase.
-> [Keyakinan tinggi] bahwa batas ini berlaku di Indonesia.
+>[!warning] Legal Context Indonesia
+>Intercept komunikasi tanpa izin = pelanggaran UU Telekomunikasi dan UU ITE.
+>Frekuensi militer/pemerintah = dilarang dimonitor kecuali untuk keperluan resmi.
+>RTL-SDR untuk frekuensi publik (ADS-B, cuaca, FM) = legal.
+>Direction finding terhadap instalasi militer = bisa dikategorikan spionase.
+>[Keyakinan tinggi] bahwa batas ini berlaku di Indonesia.
 
 ---
 
@@ -677,4 +677,4 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 
 ---
 
-_Military SIGINT Deep Dive | RTL-SDR Limits · FHSS · Type 1 Encryption · TDOA/AOA/FDOA · Pegasus vs RF · EW Triad · NSA Infrastructure_
+*Military SIGINT Deep Dive | RTL-SDR Limits · FHSS · Type 1 Encryption · TDOA/AOA/FDOA · Pegasus vs RF · EW Triad · NSA Infrastructure*

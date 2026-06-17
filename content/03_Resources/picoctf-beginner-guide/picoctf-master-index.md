@@ -57,4 +57,4 @@ START: CTF ONBOARDING
 
 ---
 
-_PicoCTF Beginner Series | Roadmap & Index | Full Edition_
+*PicoCTF Beginner Series | Roadmap & Index | Full Edition*
