@@ -24,12 +24,15 @@ status: operational
 Banyak tantangan memberikan file `.py` yang harus dijalankan untuk mendapatkan flag.
 
 ### 1.1 Eksekusi Dasar
+
 ```bash
 python3 script.py
 ```
 
 ### 1.2 Menangani Argumen
+
 Seringkali script membutuhkan file tambahan sebagai argumen (misal: data terenkripsi).
+
 ```bash
 # Contoh: menjalankan script dengan file data pendukung
 python3 script.py -d data.en.txt
@@ -42,12 +45,15 @@ python3 script.py -d data.en.txt
 Tantangan series `PW Crack` mengajarkan cara menebak password yang ditaruh di dalam kode.
 
 ### 2.1 Hardcoded Password
+
 Buka file `.py` menggunakan editor atau `cat`. Cari variabel seperti `pos_pw_list` atau `correct_pw`.
+
 ```bash
 cat level1.py | grep "password"
 ```
 
 ### 2.2 Brute Force Sederhana
+
 Jika password ada di dalam list (array), script biasanya akan mencocokkan input Anda dengan list tersebut.
 
 ---
@@ -80,11 +86,11 @@ ls -l *.py                             # Lihat daftar script di folder
 
 ## Anti-Pattern — Jangan Lakukan Ini
 
-| ❌ Salah | ✅ Benar |
-|---|---|
-| Mencoba menebak password secara manual | Baca source code scriptnya |
-| Mengabaikan file `.txt` pendukung | Cek apakah script butuh argumen file `-d` |
-| Menggunakan Python 2 | Selalu gunakan `python3` |
+| ❌ Salah                               | ✅ Benar                                  |
+| -------------------------------------- | ----------------------------------------- |
+| Mencoba menebak password secara manual | Baca source code scriptnya                |
+| Mengabaikan file `.txt` pendukung      | Cek apakah script butuh argumen file `-d` |
+| Menggunakan Python 2                   | Selalu gunakan `python3`                  |
 
 ---
 
@@ -96,4 +102,4 @@ ls -l *.py                             # Lihat daftar script di folder
 
 ---
 
-*PicoCTF Section 4 | Python Wrangling · PW Crack · Automation*
+_PicoCTF Section 4 | Python Wrangling · PW Crack · Automation_

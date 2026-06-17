@@ -7,6 +7,7 @@
 ## Level 0 — Basic C2 (Script Kiddie / PoC)
 
 ### Karakteristik Attacker
+
 - Single VPS, framework publik (Sliver, Empire, Havoc, Covenant)
 - Reverse TCP/HTTP biasa, plain atau TLS sederhana
 - Persistence basic: registry Run key, cron job
@@ -15,11 +16,13 @@
 ### Deteksi — Relatif Mudah
 
 **Yang harus dicari:**
+
 - Koneksi keluar ke VPS asing di port non-standard (4444, 8080, 8443)
 - Proses yang spawn reverse shell (cmd.exe/bash sebagai child dari proses aneh)
 - Registry Run key baru dari path non-standard
 
 **Sigma Rule — Reverse Shell**
+
 ```yaml
 title: Suspicious Reverse Shell Spawned
 logsource:
@@ -44,10 +47,12 @@ tags:
 ```
 
 **Firewall Rule:**
+
 - Block outbound ke IP/ASN yang bukan whitelist
 - Alert pada port non-standard (selain 80, 443, 53)
 
 ### IR Response Level 0
+
 1. Isolate host via EDR
 2. Kill proses implant
 3. Hapus persistence (Run key / cron)
@@ -59,6 +64,7 @@ tags:
 ## Level 1 — Stealth C2 (Operational)
 
 ### Karakteristik Attacker
+
 - Domain fronting via Cloudflare/Fastly
 - TLS encryption + malleable C2 profile
 - Multiple redirectors di cloud provider berbeda
@@ -68,11 +74,13 @@ tags:
 ### Deteksi — Butuh SSL Inspection
 
 **Yang harus dicari:**
+
 - Domain baru yang resolve ke Cloudflare/CDN tapi tidak dikenal
 - JA3 fingerprint anomali (bukan browser/OS standard)
 - Proses inject ke proses lain (OpenProcess + WriteProcessMemory)
 
 **Zeek JA3 Monitoring**
+
 ```zeek
 event ssl_client_hello(c: connection, version: count, record_version: count,
                        possible_ts: time, client_random: string, session_id: string,
@@ -85,6 +93,7 @@ event ssl_client_hello(c: connection, version: count, record_version: count,
 ```
 
 **Sigma Rule — Process Injection**
+
 ```yaml
 title: Suspicious Process Memory Write (Potential Injection)
 logsource:
@@ -94,9 +103,9 @@ detection:
   selection:
     EventID: 10
     GrantedAccess|contains:
-      - '0x1F0FFF'
-      - '0x1F1FFF'
-      - '0x40'
+      - "0x1F0FFF"
+      - "0x1F1FFF"
+      - "0x40"
     TargetImage|endswith:
       - '\svchost.exe'
       - '\explorer.exe'
@@ -109,11 +118,13 @@ tags:
 ```
 
 **Hardening:**
+
 - Enable **PPL (Protected Process Light)** untuk LSASS
 - Deploy **Credential Guard**
 - SSL Inspection wajib di semua proxy egress
 
 ### IR Response Level 1
+
 1. Dump memory sebelum isolasi
 2. Analisis JA3 fingerprint dari C2 — cari host lain yang connect ke fingerprint sama
 3. Trace domain fronting: cari tahu domain asli via passive DNS
@@ -124,6 +135,7 @@ tags:
 ## Level 2 — Resilient C2 (Red Team Professional)
 
 ### Karakteristik Attacker
+
 - 3-tier architecture: redirector → staging → master C2
 - Domain rotation tiap 24 jam, auto Let's Encrypt
 - DNS over HTTPS (DoH) / DNS over TLS (DoT) sebagai fallback
@@ -134,12 +146,14 @@ tags:
 ### Deteksi — Butuh Kernel Visibility
 
 **Yang harus dicari:**
+
 - DoH traffic ke resolver non-corporate (1.1.1.1, 8.8.8.8 via port 443)
 - Domain yang sering rotate (TTL rendah, IP berubah setiap hari)
 - Anomali di MBR/boot sector
 - Driver yang baru di-load tanpa software deployment
 
 **Block DoH di Luar Corporate Resolver**
+
 ```bash
 # Firewall rule — block DoH ke non-corporate resolver
 iptables -A OUTPUT -p tcp --dport 443 -d 1.1.1.1 -j DROP
@@ -149,6 +163,7 @@ iptables -A OUTPUT -p udp --dport 53 ! -d 10.0.0.53 -j REDIRECT --to-port 53
 ```
 
 **MBR Integrity Monitoring**
+
 ```powershell
 # Baseline MBR hash
 $mbr = (New-Object System.IO.BinaryReader([System.IO.File]::Open('\\.\PhysicalDrive0',
@@ -162,6 +177,7 @@ Write-Output "MBR Hash: $hash"
 ```
 
 **Sigma Rule — Suspicious Driver Load**
+
 ```yaml
 title: Unsigned or Rare Driver Loaded
 logsource:
@@ -171,13 +187,13 @@ detection:
   selection:
     EventID: 6
   filter_signed:
-    SignatureStatus: 'Valid'
-    Signed: 'true'
+    SignatureStatus: "Valid"
+    Signed: "true"
     Company|startswith:
-      - 'Microsoft'
-      - 'Intel'
-      - 'NVIDIA'
-      - 'AMD'
+      - "Microsoft"
+      - "Intel"
+      - "NVIDIA"
+      - "AMD"
   condition: selection and not filter_signed
 level: high
 tags:
@@ -186,12 +202,14 @@ tags:
 ```
 
 **Hardening:**
+
 - Enable **Secure Boot** di BIOS
 - Enable **HVCI** (Hypervisor-Protected Code Integrity)
 - Deploy **TPM 2.0** untuk boot integrity measurement
 - Gunakan **EDR dengan kernel-level visibility**
 
 ### IR Response Level 2
+
 1. Jangan boot ulang host yang suspect bootkit — preserve state
 2. Gunakan forensic bootable USB untuk image disk
 3. Check boot sector integrity (hash MBR/VBR vs baseline)
@@ -203,6 +221,7 @@ tags:
 ## Level 3 — Enterprise C2 (APT Grade)
 
 ### Karakteristik Attacker
+
 - Full multi-platform implant (Windows, Linux, macOS, Android)
 - RAG Poisoning via SharePoint/Confluence
 - LLM exfiltration via internal AI tools
@@ -213,12 +232,14 @@ tags:
 ### Deteksi — Butuh Behavioral Analysis
 
 **Yang harus dicari:**
+
 - LOLBin abuse: certutil, mshta, regsvr32, rundll32 dengan argumen aneh
 - Upload dokumen ke SharePoint dari endpoint yang tidak biasa
 - LLM agent internal mengeluarkan response yang anomali
 - Log gaps (indikasi log wipe)
 
 **Sigma Rule — LOLBin Abuse**
+
 ```yaml
 title: Suspicious Certutil Usage for Download
 logsource:
@@ -228,10 +249,10 @@ detection:
   selection:
     Image|endswith: '\certutil.exe'
     CommandLine|contains:
-      - '-urlcache'
-      - '-decode'
-      - '-encode'
-      - 'http'
+      - "-urlcache"
+      - "-decode"
+      - "-encode"
+      - "http"
   condition: selection
 level: high
 tags:
@@ -240,6 +261,7 @@ tags:
 ```
 
 **Sigma Rule — Timestomping**
+
 ```yaml
 title: File Timestomp via PowerShell or Touch
 logsource:
@@ -248,7 +270,7 @@ logsource:
 detection:
   selection_ps:
     Image|endswith: '\powershell.exe'
-    CommandLine|contains: 'LastWriteTime'
+    CommandLine|contains: "LastWriteTime"
   selection_touch:
     Image|endswith: '\touch.exe'
   condition: selection_ps or selection_touch
@@ -259,6 +281,7 @@ tags:
 ```
 
 **RAG Poisoning Detection**
+
 ```python
 # Pattern matching untuk dokumen yang di-upload ke SharePoint
 SUSPICIOUS_PATTERNS = [
@@ -280,6 +303,7 @@ def scan_document(content: str) -> bool:
 ```
 
 **Log Integrity Monitoring**
+
 ```bash
 # Detect log gaps (indikasi wipe)
 # Expected: log setiap 5 menit
@@ -293,11 +317,13 @@ EOF
 ```
 
 **Hardening:**
+
 - **Forward semua log ke SIEM external** segera setelah dibuat — attacker tidak bisa hapus yang sudah di-forward
 - Immutable logging (WORM storage)
 - AI pipeline: sanitize semua dokumen sebelum masuk RAG
 
 ### IR Response Level 3
+
 1. Prioritas: identifikasi semua asset yang terekspos ke RAG yang terpoisoned
 2. Purge dan rebuild vector database dari dokumen yang sudah diverifikasi bersih
 3. Audit semua LLM agent response dalam window kompromi
@@ -309,6 +335,7 @@ EOF
 ## Level 4 — Nation-State C2
 
 ### Karakteristik Attacker
+
 - Supply chain compromise (update pipeline)
 - SMM Rootkit / Intel ME implant / UEFI persistent
 - Polymorphic implant (signature berubah tiap eksekusi)
@@ -318,12 +345,15 @@ EOF
 - Automated blue team deception (fake logs, honey tokens)
 
 ### Realita Deteksi Level Ini
+
 Level ini **tidak bisa dicegah 100%** di endpoint. Fokus bergeser ke:
+
 - **Assume breach posture** — assume attacker sudah di dalam
 - **Blast radius reduction** — batasi dampak kalau sudah masuk
 - **Detection via anomaly** — bukan signature
 
 **Deteksi SaaS C2 (GitHub/Notion/Discord)**
+
 ```yaml
 title: Suspicious Process Communicating with SaaS C2
 logsource:
@@ -331,23 +361,24 @@ logsource:
 detection:
   selection:
     cs-host|contains:
-      - 'api.github.com'
-      - 'api.notion.so'
-      - 'discord.com/api'
+      - "api.github.com"
+      - "api.notion.so"
+      - "discord.com/api"
   filter_legit:
     cs-username|contains:
-      - 'developer'
-      - 'devops'
+      - "developer"
+      - "devops"
   suspicious_process:
     cs-user-agent|contains:
-      - 'Go-http-client'
-      - 'python-requests'
-      - 'curl'
+      - "Go-http-client"
+      - "python-requests"
+      - "curl"
   condition: selection and suspicious_process and not filter_legit
 level: high
 ```
 
 **Kerberos Golden/Silver Ticket Detection**
+
 ```yaml
 title: Kerberos Ticket with Abnormal Lifetime
 logsource:
@@ -356,9 +387,9 @@ logsource:
 detection:
   selection:
     EventID: 4769
-    TicketEncryptionType: '0x17'  # RC4 — legacy, sering dipakai attacker
+    TicketEncryptionType: "0x17" # RC4 — legacy, sering dipakai attacker
   filter_normal:
-    ServiceName|endswith: '$'
+    ServiceName|endswith: "$"
   condition: selection and not filter_normal
 level: high
 tags:
@@ -367,6 +398,7 @@ tags:
 ```
 
 **Honey Token Strategy**
+
 ```powershell
 # Deploy fake credentials di registry — alert kalau ada yang akses
 $regPath = "HKLM:\SOFTWARE\FakeCredentials"
@@ -377,17 +409,20 @@ auditpol /set /subcategory:"Registry" /success:enable /failure:enable
 ```
 
 **Firmware Integrity**
+
 - Enroll ke **Microsoft UEFI CA** dan aktifkan Secure Boot enforcement
 - Monitor **Intel ME firmware version** — alert jika berubah di luar patch cycle
 - Deploy **platform attestation** via TPM (Azure Attestation, AWS Nitro)
 
 **Supply Chain Defense**
+
 - **Software bill of materials (SBOM)** untuk semua software internal
 - Verifikasi signature semua update sebelum deploy
 - Isolated update staging environment — test dulu sebelum production
 - Monitor network traffic dari update server (volume, destination, timing)
 
 ### IR Response Level 4
+
 1. **Activate full incident response retainer** — ini bukan kerjaan SOC biasa
 2. Engage external IR firm (Mandiant, CrowdStrike Services, dll)
 3. Asumsi seluruh Active Directory compromised — Kerberos ticket reset (krbtgt password 2x)
@@ -399,13 +434,13 @@ auditpol /set /subcategory:"Registry" /success:enable /failure:enable
 
 ## Summary Matrix
 
-| Level | Nama | Tool Deteksi Utama | Kesulitan Deteksi | Waktu Respons |
-|---|---|---|---|---|
-| 0 | Basic C2 | Firewall + basic EDR | Mudah | < 1 jam |
-| 1 | Stealth C2 | SSL Inspection + JA3 | Sedang | 1–4 jam |
-| 2 | Resilient C2 | Kernel EDR + MBR monitor | Tinggi | 4–24 jam |
-| 3 | Enterprise C2 | SIEM + Behavioral + RAG scan | Sangat Tinggi | 1–7 hari |
-| 4 | Nation-State | Assume breach + Attestion | Ekstrem | Minggu–bulan |
+| Level | Nama          | Tool Deteksi Utama           | Kesulitan Deteksi | Waktu Respons |
+| ----- | ------------- | ---------------------------- | ----------------- | ------------- |
+| 0     | Basic C2      | Firewall + basic EDR         | Mudah             | < 1 jam       |
+| 1     | Stealth C2    | SSL Inspection + JA3         | Sedang            | 1–4 jam       |
+| 2     | Resilient C2  | Kernel EDR + MBR monitor     | Tinggi            | 4–24 jam      |
+| 3     | Enterprise C2 | SIEM + Behavioral + RAG scan | Sangat Tinggi     | 1–7 hari      |
+| 4     | Nation-State  | Assume breach + Attestion    | Ekstrem           | Minggu–bulan  |
 
 ---
 
@@ -421,13 +456,13 @@ auditpol /set /subcategory:"Registry" /success:enable /failure:enable
 
 ## Tool Stack per Level
 
-| Level | Prevention | Detection | Response |
-|---|---|---|---|
-| 0–1 | AppLocker, Firewall | Sysmon, Basic SIEM | EDR Isolate |
-| 2 | HVCI, Secure Boot | Kernel EDR, MBR Monitor | Forensic Boot |
-| 3 | Immutable Logging, RAG Sanitizer | Behavioral Analytics, Canary Tokens | Full IR |
-| 4 | Platform Attestation, SBOM | Anomaly Detection, Honey Tokens | Retainer + LE |
+| Level | Prevention                       | Detection                           | Response      |
+| ----- | -------------------------------- | ----------------------------------- | ------------- |
+| 0–1   | AppLocker, Firewall              | Sysmon, Basic SIEM                  | EDR Isolate   |
+| 2     | HVCI, Secure Boot                | Kernel EDR, MBR Monitor             | Forensic Boot |
+| 3     | Immutable Logging, RAG Sanitizer | Behavioral Analytics, Canary Tokens | Full IR       |
+| 4     | Platform Attestation, SBOM       | Anomaly Detection, Honey Tokens     | Retainer + LE |
 
 ---
 
-*Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026*
+_Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026_

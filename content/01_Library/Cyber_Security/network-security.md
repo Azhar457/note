@@ -68,4 +68,4 @@ Layer 8  │ ← MANUSIA DI SINI → Phishing bypass semua layer di atas
 
 ---
 
-*Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer*
+_Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer_

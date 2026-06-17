@@ -1,4 +1,5 @@
 # 📋 AEGIS v1.0 — Product Requirement Document
+
 ## Network Defense Core for Linux Homelab & Server
 
 ---
@@ -16,12 +17,12 @@ Aegis adalah platform defense yang menggabungkan eBPF kernel-level packet filter
 
 ## 2. Target User
 
-| Persona | Description | Pain Point |
-|---------|-------------|------------|
+| Persona                | Description                                             | Pain Point                          |
+| ---------------------- | ------------------------------------------------------- | ----------------------------------- |
 | **Homelab Enthusiast** | Run services di VPS/homelab (Nextcloud, Jellyfin, blog) | Ingin proteksi tanpa setup kompleks |
-| **Small Server Admin** | Manage 1-5 Linux servers | Butuh visibility + basic protection |
-| **Security Learner** | Belajar cybersecurity hands-on | Butuh platform untuk eksperimen |
-| **DevOps Junior** | Deploy app ke cloud VPS | Butuh WAF + monitoring sederhana |
+| **Small Server Admin** | Manage 1-5 Linux servers                                | Butuh visibility + basic protection |
+| **Security Learner**   | Belajar cybersecurity hands-on                          | Butuh platform untuk eksperimen     |
+| **DevOps Junior**      | Deploy app ke cloud VPS                                 | Butuh WAF + monitoring sederhana    |
 
 **NOT Target:** Enterprise (100+ servers), Windows/macOS users, compliance-heavy orgs
 
@@ -31,14 +32,14 @@ Aegis adalah platform defense yang menggabungkan eBPF kernel-level packet filter
 
 > **"CrowdStrike untuk homelab Anda — tapi open source, lightweight, dan tanpa cloud dependency."**
 
-| Feature | Aegis | CrowdStrike | Cloudflare |
-|---------|-------|-------------|------------|
-| Cost | Free (open source) | $$$$ | $$-$$$ |
-| On-prem | ✅ Native | ⚠️ Limited | ❌ Cloud-only |
-| eBPF | ✅ Native Rust | ✅ (closed) | ❌ |
-| WAF | ✅ Built-in | ❌ Separate | ✅ |
-| Dashboard | ✅ Tauri desktop | Web only | Web only |
-| Offline | ✅ Full | ⚠️ Partial | ❌ |
+| Feature   | Aegis              | CrowdStrike | Cloudflare    |
+| --------- | ------------------ | ----------- | ------------- |
+| Cost      | Free (open source) | $$$$        | $$-$$$        |
+| On-prem   | ✅ Native          | ⚠️ Limited  | ❌ Cloud-only |
+| eBPF      | ✅ Native Rust     | ✅ (closed) | ❌            |
+| WAF       | ✅ Built-in        | ❌ Separate | ✅            |
+| Dashboard | ✅ Tauri desktop   | Web only    | Web only      |
+| Offline   | ✅ Full            | ⚠️ Partial  | ❌            |
 
 ### 3.1 Cybersecurity Domain Positioning
 
@@ -146,17 +147,17 @@ SOC Integration (Aegis as data source)
 
 #### Features
 
-| Feature | Priority | Description |
-|---------|----------|-------------|
-| **Packet Filter** | P0 | Block/allow berdasarkan: src IP, dst port, protocol |
-| **Rate Limiting** | P0 | Per-IP: X packets/sec, burst Y. Block jika exceed. |
-| **GeoIP Block** | P0 | Block/allow berdasarkan country code (MaxMind DB) |
-| **Port Scan Detection** | P0 | Detect SYN flood, port sweep, vertical/horizontal scan |
-| **Connection Tracking** | P0 | Track state: NEW, ESTABLISHED, CLOSED |
-| **Auto-restart Service** | P0 | Watchdog: monitor WAF process, restart if down |
-| **DNS Tunnel Detection** | P1 | Heuristic: query length, frequency, entropy |
-| **DDoS Mitigation** | P1 | SYN cookie, rate limit per IP subnet |
-| **Logging** | P0 | SQLite + ring buffer, export ke Go API |
+| Feature                  | Priority | Description                                            |
+| ------------------------ | -------- | ------------------------------------------------------ |
+| **Packet Filter**        | P0       | Block/allow berdasarkan: src IP, dst port, protocol    |
+| **Rate Limiting**        | P0       | Per-IP: X packets/sec, burst Y. Block jika exceed.     |
+| **GeoIP Block**          | P0       | Block/allow berdasarkan country code (MaxMind DB)      |
+| **Port Scan Detection**  | P0       | Detect SYN flood, port sweep, vertical/horizontal scan |
+| **Connection Tracking**  | P0       | Track state: NEW, ESTABLISHED, CLOSED                  |
+| **Auto-restart Service** | P0       | Watchdog: monitor WAF process, restart if down         |
+| **DNS Tunnel Detection** | P1       | Heuristic: query length, frequency, entropy            |
+| **DDoS Mitigation**      | P1       | SYN cookie, rate limit per IP subnet                   |
+| **Logging**              | P0       | SQLite + ring buffer, export ke Go API                 |
 
 #### eBPF Program Types
 
@@ -210,17 +211,17 @@ NIC Driver → [XDP Program] → Decision (DROP/PASS) → Kernel Network Stack
 
 #### Features
 
-| Feature | Priority | Description |
-|---------|----------|-------------|
-| **Reverse Proxy** | P0 | Forward ke backend: HTTP/HTTPS, WebSocket support |
-| **Virtual Host** | P0 | Route berdasarkan Host header + SNI |
-| **Custom Rules** | P0 | Regex-based: SQLi, XSS, LFI, RCE, SSRF |
-| **Rate Limiting** | P0 | Per-IP, per-path, per-virtual-host |
-| **IP Reputation** | P0 | Sync blocklist dengan eBPF firewall |
-| **Request/Response Logging** | P0 | Full HTTP log ke SQLite |
-| **ModSecurity CRS** | P1 | Optional: load CRS rules |
-| **Bot Detection** | P2 | Challenge-response untuk suspicious UA |
-| **Caching** | P2 | Static asset cache dengan TTL |
+| Feature                      | Priority | Description                                       |
+| ---------------------------- | -------- | ------------------------------------------------- |
+| **Reverse Proxy**            | P0       | Forward ke backend: HTTP/HTTPS, WebSocket support |
+| **Virtual Host**             | P0       | Route berdasarkan Host header + SNI               |
+| **Custom Rules**             | P0       | Regex-based: SQLi, XSS, LFI, RCE, SSRF            |
+| **Rate Limiting**            | P0       | Per-IP, per-path, per-virtual-host                |
+| **IP Reputation**            | P0       | Sync blocklist dengan eBPF firewall               |
+| **Request/Response Logging** | P0       | Full HTTP log ke SQLite                           |
+| **ModSecurity CRS**          | P1       | Optional: load CRS rules                          |
+| **Bot Detection**            | P2       | Challenge-response untuk suspicious UA            |
+| **Caching**                  | P2       | Static asset cache dengan TTL                     |
 
 #### Rule Engine
 
@@ -309,13 +310,13 @@ block_duration = 300
 
 #### Features
 
-| Feature | Priority | Description |
-|---------|----------|-------------|
-| **Cloudflare Tunnel** | P0 | cloudflared integration, config sync |
-| **Tunnel Status** | P0 | Health check, auto-reconnect |
-| **Origin IP Protection** | P0 | Block direct IP access (only via tunnel) |
-| **Multiple Tunnels** | P1 | Support multiple tunnel per domain |
-| **Metrics** | P1 | Bandwidth, latency, error rate |
+| Feature                  | Priority | Description                              |
+| ------------------------ | -------- | ---------------------------------------- |
+| **Cloudflare Tunnel**    | P0       | cloudflared integration, config sync     |
+| **Tunnel Status**        | P0       | Health check, auto-reconnect             |
+| **Origin IP Protection** | P0       | Block direct IP access (only via tunnel) |
+| **Multiple Tunnels**     | P1       | Support multiple tunnel per domain       |
+| **Metrics**              | P1       | Bandwidth, latency, error rate           |
 
 #### Cloudflare Tunnel Integration
 
@@ -337,7 +338,7 @@ impl TunnelManager {
         // 4. Start health check loop (every 30s)
         // 5. Auto-reconnect on failure
     }
-    
+
     pub fn get_status(&self) -> TunnelStatus {
         // Healthy | Connecting | Error | Disabled
     }
@@ -361,14 +362,14 @@ impl TunnelManager {
 
 #### Pages
 
-| Page | Description |
-|------|-------------|
-| **Dashboard** | Overview: blocked today, active connections, top threats |
-| **Firewall** | eBPF rules, blocklist, rate limit config, live packet log |
-| **WAF** | Virtual hosts, rules editor, request log, block stats |
-| **Tunnel** | Tunnel status, config, bandwidth graph |
-| **Logs** | Searchable event log, filter by time/type/severity |
-| **Settings** | Config editor, backup/restore, update check |
+| Page          | Description                                               |
+| ------------- | --------------------------------------------------------- |
+| **Dashboard** | Overview: blocked today, active connections, top threats  |
+| **Firewall**  | eBPF rules, blocklist, rate limit config, live packet log |
+| **WAF**       | Virtual hosts, rules editor, request log, block stats     |
+| **Tunnel**    | Tunnel status, config, bandwidth graph                    |
+| **Logs**      | Searchable event log, filter by time/type/severity        |
+| **Settings**  | Config editor, backup/restore, update check               |
 
 #### UI Mockup (Text)
 
@@ -656,39 +657,40 @@ CREATE TABLE tunnel_status (
 
 ## 9. Threat Defense Matrix
 
-| Threat | Defense Layer | Mechanism |
-|--------|--------------|-----------|
-| **Port Scan** | eBPF XDP | Detect SYN flood, port sweep pattern |
-| **SQL Injection** | WAF | Regex pattern matching di request body |
-| **XSS** | WAF | Regex script tag, event handler, javascript: |
-| **DDoS (Volumetric)** | eBPF XDP | Rate limit, SYN cookie, GeoIP block |
-| **DDoS (Application)** | WAF | Rate limit per IP, per path, challenge |
-| **DNS Tunneling** | eBPF XDP | Query length, frequency, entropy heuristic |
-| **Brute Force** | WAF + eBPF | Rate limit login endpoints, progressive delay |
-| **Bad Bot** | WAF | User-Agent filter, behavior analysis |
-| **Direct IP Access** | Tunnel Manager | Block non-tunnel traffic |
-| **Service Crash** | Watchdog | Auto-restart WAF/Tunnel dalam 5 detik |
-| **Config Tampering** | File Integrity | Monitor /etc/aegis/ changes |
+| Threat                 | Defense Layer  | Mechanism                                     |
+| ---------------------- | -------------- | --------------------------------------------- |
+| **Port Scan**          | eBPF XDP       | Detect SYN flood, port sweep pattern          |
+| **SQL Injection**      | WAF            | Regex pattern matching di request body        |
+| **XSS**                | WAF            | Regex script tag, event handler, javascript:  |
+| **DDoS (Volumetric)**  | eBPF XDP       | Rate limit, SYN cookie, GeoIP block           |
+| **DDoS (Application)** | WAF            | Rate limit per IP, per path, challenge        |
+| **DNS Tunneling**      | eBPF XDP       | Query length, frequency, entropy heuristic    |
+| **Brute Force**        | WAF + eBPF     | Rate limit login endpoints, progressive delay |
+| **Bad Bot**            | WAF            | User-Agent filter, behavior analysis          |
+| **Direct IP Access**   | Tunnel Manager | Block non-tunnel traffic                      |
+| **Service Crash**      | Watchdog       | Auto-restart WAF/Tunnel dalam 5 detik         |
+| **Config Tampering**   | File Integrity | Monitor /etc/aegis/ changes                   |
 
 ---
 
 ## 10. Non-Functional Requirements
 
-| Requirement | Target |
-|-------------|--------|
-| **Performance** | < 1ms latency (eBPF), < 5ms (WAF), 10K req/sec |
-| **Reliability** | 99.9% uptime, auto-restart on failure |
-| **Security** | Rust memory safety, least privilege, encrypted config |
-| **Scalability** | Single server (v1.0), multi-server (v2.0) |
-| **Usability** | Install: 1 command, setup: < 5 menit |
-| **Maintainability** | Modular, hot reload, clear logging |
-| **Portability** | Linux x86_64 + ARM64 (v1.0), more OS (v2.0) |
+| Requirement         | Target                                                |
+| ------------------- | ----------------------------------------------------- |
+| **Performance**     | < 1ms latency (eBPF), < 5ms (WAF), 10K req/sec        |
+| **Reliability**     | 99.9% uptime, auto-restart on failure                 |
+| **Security**        | Rust memory safety, least privilege, encrypted config |
+| **Scalability**     | Single server (v1.0), multi-server (v2.0)             |
+| **Usability**       | Install: 1 command, setup: < 5 menit                  |
+| **Maintainability** | Modular, hot reload, clear logging                    |
+| **Portability**     | Linux x86_64 + ARM64 (v1.0), more OS (v2.0)           |
 
 ---
 
 ## 11. Development Roadmap (Weekly Task List)
 
 ### WEEK 1-2: FOUNDATION
+
 ├── [ ] Setup WSL2 development environment
 ├── [ ] Install Rust + Aya + Go + Node.js
 ├── [ ] Create GitHub repo: aegis-security
@@ -700,6 +702,7 @@ CREATE TABLE tunnel_status (
 └── [ ] Create docker-compose.dev.yml
 
 ### WEEK 3-4: eBPF FIREWALL (TC mode for WSL2)
+
 ├── [ ] Write eBPF TC program (C)
 ├── [ ] Compile with Aya
 ├── [ ] Userspace Rust daemon
@@ -711,6 +714,7 @@ CREATE TABLE tunnel_status (
 └── [ ] Document: TC vs XDP differences
 
 ### WEEK 5-6: WAF ENGINE
+
 ├── [ ] Axum HTTP server
 ├── [ ] Reverse proxy logic
 ├── [ ] Virtual Host routing (Host header + SNI)
@@ -722,6 +726,7 @@ CREATE TABLE tunnel_status (
 └── [ ] Test: block SQL injection payload
 
 ### WEEK 7-8: MANAGER API
+
 ├── [ ] Gin REST API server
 ├── [ ] SQLite schema + GORM
 ├── [ ] Endpoints: firewall, waf, logs, config
@@ -732,6 +737,7 @@ CREATE TABLE tunnel_status (
 └── [ ] Test: full API flow
 
 ### WEEK 9-10: DASHBOARD
+
 ├── [ ] React layout + sidebar navigation
 ├── [ ] Dashboard overview page
 ├── [ ] Firewall rules editor
@@ -743,6 +749,7 @@ CREATE TABLE tunnel_status (
 └── [ ] Test: end-to-end UI flow
 
 ### WEEK 11-12: INTEGRATION & POLISH
+
 ├── [ ] Docker Compose production
 ├── [ ] Systemd service files
 ├── [ ] Install script (install.sh)
@@ -861,72 +868,72 @@ aegis/
 
 ## 13. Success Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Install Time** | < 5 menit | Fresh VM, run install script |
-| **First Block** | < 2 menit setelah install | Default rules active |
-| **Latency Impact** | < 1ms (eBPF), < 5ms (WAF) | wrk/benchmark |
-| **Uptime** | > 99% | 30-day test |
-| **Memory** | < 200MB total | htop monitoring |
-| **CPU** | < 5% idle | htop monitoring |
-| **GitHub Stars** | 100+ (3 bulan) | GitHub metrics |
-| **Issues Resolved** | 90%+ | GitHub issues |
+| Metric              | Target                    | Measurement                  |
+| ------------------- | ------------------------- | ---------------------------- |
+| **Install Time**    | < 5 menit                 | Fresh VM, run install script |
+| **First Block**     | < 2 menit setelah install | Default rules active         |
+| **Latency Impact**  | < 1ms (eBPF), < 5ms (WAF) | wrk/benchmark                |
+| **Uptime**          | > 99%                     | 30-day test                  |
+| **Memory**          | < 200MB total             | htop monitoring              |
+| **CPU**             | < 5% idle                 | htop monitoring              |
+| **GitHub Stars**    | 100+ (3 bulan)            | GitHub metrics               |
+| **Issues Resolved** | 90%+                      | GitHub issues                |
 
 ---
 
 ## 14. Future Roadmap (v1.1+)
 
-| Version | Feature | ETA |
-|---------|---------|-----|
-| v1.1 | File Integrity Monitoring (FIM) | +1 month |
-| v1.2 | Container Security (Docker/Podman) | +2 months |
-| v1.3 | AI Anomaly Detection (Python ML) | +3 months |
-| v1.4 | Purple Team Module (self-attack) | +4 months |
-| v1.5 | WireGuard VPN for admin | +5 months |
-| v2.0 | Multi-server federation | +6 months |
-| v2.1 | Windows support (ETW) | +8 months |
-| v2.2 | macOS support (DTrace) | +10 months |
+| Version | Feature                            | ETA        |
+| ------- | ---------------------------------- | ---------- |
+| v1.1    | File Integrity Monitoring (FIM)    | +1 month   |
+| v1.2    | Container Security (Docker/Podman) | +2 months  |
+| v1.3    | AI Anomaly Detection (Python ML)   | +3 months  |
+| v1.4    | Purple Team Module (self-attack)   | +4 months  |
+| v1.5    | WireGuard VPN for admin            | +5 months  |
+| v2.0    | Multi-server federation            | +6 months  |
+| v2.1    | Windows support (ETW)              | +8 months  |
+| v2.2    | macOS support (DTrace)             | +10 months |
 
 ### 14.1 Version Mapping to Cybersecurity Domains, Roles, and Skills
 
 Below is the strategic domain alignment, targeting role profiles, and skill sets needed for each phase of the expansion roadmap:
 
-* **v1.0 — Network Defense Core**
-  * **Domain:** Blue Team → Network Security + Application Security
-  * **Role:** Security Engineer (tool builder)
-  * **Skill:** Rust, eBPF, Go, Linux kernel
-* **v1.1 — File Integrity Monitoring (FIM)**
-  * **Domain:** Blue Team → Endpoint Security
-  * **Role:** Detection Engineer
-  * **Skill:** eBPF tracepoints, file system hooks
-* **v1.2 — Container Security**
-  * **Domain:** Blue Team → Cloud Security
-  * **Role:** DevSecOps Engineer
-  * **Skill:** Docker, Kubernetes, OPA
-* **v1.3 — AI Anomaly Detection**
-  * **Domain:** SOC → Threat Hunting + UEBA
-  * **Role:** Detection Engineer / Data Scientist
-  * **Skill:** Python, ML, statistical analysis
-* **v1.4 — Purple Team Module**
-  * **Domain:** Red Team + Blue Team (Purple Team)
-  * **Role:** Purple Team Operator
-  * **Skill:** Attack simulation, detection validation
-* **v1.5 — Multi-Agent + WireGuard**
-  * **Domain:** Security Architecture
-  * **Role:** Security Architect
-  * **Skill:** Distributed systems, network design
-* **v2.0 — Windows + macOS Agent**
-  * **Domain:** Endpoint Security (cross-platform EDR)
-  * **Role:** EDR Developer
-  * **Skill:** Windows internals (ETW), macOS internals (DTrace, Endpoint Security Framework)
-* **v2.1 — SIEM Integration**
-  * **Domain:** SOC → SIEM Engineering
-  * **Role:** SIEM Engineer
-  * **Skill:** Splunk, Elastic, QRadar APIs
-* **v2.2 — Enterprise Features**
-  * **Domain:** GRC + Security Architecture
-  * **Role:** Security Consultant
-  * **Skill:** Compliance frameworks, risk assessment
+- **v1.0 — Network Defense Core**
+  - **Domain:** Blue Team → Network Security + Application Security
+  - **Role:** Security Engineer (tool builder)
+  - **Skill:** Rust, eBPF, Go, Linux kernel
+- **v1.1 — File Integrity Monitoring (FIM)**
+  - **Domain:** Blue Team → Endpoint Security
+  - **Role:** Detection Engineer
+  - **Skill:** eBPF tracepoints, file system hooks
+- **v1.2 — Container Security**
+  - **Domain:** Blue Team → Cloud Security
+  - **Role:** DevSecOps Engineer
+  - **Skill:** Docker, Kubernetes, OPA
+- **v1.3 — AI Anomaly Detection**
+  - **Domain:** SOC → Threat Hunting + UEBA
+  - **Role:** Detection Engineer / Data Scientist
+  - **Skill:** Python, ML, statistical analysis
+- **v1.4 — Purple Team Module**
+  - **Domain:** Red Team + Blue Team (Purple Team)
+  - **Role:** Purple Team Operator
+  - **Skill:** Attack simulation, detection validation
+- **v1.5 — Multi-Agent + WireGuard**
+  - **Domain:** Security Architecture
+  - **Role:** Security Architect
+  - **Skill:** Distributed systems, network design
+- **v2.0 — Windows + macOS Agent**
+  - **Domain:** Endpoint Security (cross-platform EDR)
+  - **Role:** EDR Developer
+  - **Skill:** Windows internals (ETW), macOS internals (DTrace, Endpoint Security Framework)
+- **v2.1 — SIEM Integration**
+  - **Domain:** SOC → SIEM Engineering
+  - **Role:** SIEM Engineer
+  - **Skill:** Splunk, Elastic, QRadar APIs
+- **v2.2 — Enterprise Features**
+  - **Domain:** GRC + Security Architecture
+  - **Role:** Security Consultant
+  - **Skill:** Compliance frameworks, risk assessment
 
 ---
 
@@ -934,14 +941,14 @@ Below is the strategic domain alignment, targeting role profiles, and skill sets
 
 ### A. System Requirements
 
-| Requirement | Minimum | Recommended |
-|-------------|---------|-------------|
-| OS | Linux 5.10+ (Ubuntu 22.04, Debian 12) | Linux 6.1+ |
-| CPU | x86_64, 1 core | x86_64, 2+ cores |
-| RAM | 512MB | 2GB |
-| Disk | 100MB | 1GB (for logs) |
-| Kernel | CONFIG_BPF=y, CONFIG_XDP=y | Full eBPF support |
-| Privileges | root (for eBPF) | root + CAP_BPF |
+| Requirement | Minimum                               | Recommended       |
+| ----------- | ------------------------------------- | ----------------- |
+| OS          | Linux 5.10+ (Ubuntu 22.04, Debian 12) | Linux 6.1+        |
+| CPU         | x86_64, 1 core                        | x86_64, 2+ cores  |
+| RAM         | 512MB                                 | 2GB               |
+| Disk        | 100MB                                 | 1GB (for logs)    |
+| Kernel      | CONFIG_BPF=y, CONFIG_XDP=y            | Full eBPF support |
+| Privileges  | root (for eBPF)                       | root + CAP_BPF    |
 
 ### B. Dependencies
 
@@ -963,19 +970,19 @@ sudo dpkg -i cloudflared-linux-amd64.deb
 
 ### C. Glossary
 
-| Term | Definition |
-|------|------------|
-| **eBPF** | Extended Berkeley Packet Filter — run sandboxed programs in kernel |
-| **XDP** | Express Data Path — eBPF hook at network driver level |
-| **TC** | Traffic Control — eBPF hook in kernel network stack (after XDP) |
-| **WAF** | Web Application Firewall — filter HTTP traffic |
-| **GeoIP** | IP-to-country mapping database |
-| **SYN Cookie** | DDoS mitigation: stateless SYN flood protection |
-| **Tauri** | Rust-based desktop app framework (Electron alternative) |
+| Term           | Definition                                                         |
+| -------------- | ------------------------------------------------------------------ |
+| **eBPF**       | Extended Berkeley Packet Filter — run sandboxed programs in kernel |
+| **XDP**        | Express Data Path — eBPF hook at network driver level              |
+| **TC**         | Traffic Control — eBPF hook in kernel network stack (after XDP)    |
+| **WAF**        | Web Application Firewall — filter HTTP traffic                     |
+| **GeoIP**      | IP-to-country mapping database                                     |
+| **SYN Cookie** | DDoS mitigation: stateless SYN flood protection                    |
+| **Tauri**      | Rust-based desktop app framework (Electron alternative)            |
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: 2026-06-16*  
-*Author: Aegis Team*  
-*Status: Draft — Ready for Review*
+_Document Version: 1.0_  
+_Last Updated: 2026-06-16_  
+_Author: Aegis Team_  
+_Status: Draft — Ready for Review_

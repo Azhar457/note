@@ -84,14 +84,17 @@ Makanya distributed systems sering lebih percaya pada message order dan log dari
 ## Tiga Pilar
 
 ### Scalability
+
 Sistem harus bisa tumbuh dari puluhan ke ribuan node tanpa desain ulang total.  
 Skalabilitas bukan cuma soal menambah server, tapi juga soal membagi kerja secara efisien.
 
 ### Fault Tolerance
+
 Kalau satu node mati, sistem tetap harus berfungsi.  
 Biasanya dicapai lewat replication, failover, retry, dan quorum.
 
 ### Consistency
+
 Semua node perlu punya aturan yang jelas tentang kapan data dianggap valid dan kapan belum.  
 Di sinilah muncul model konsistensi yang berbeda-beda, dari strong consistency sampai eventual consistency.
 
@@ -99,10 +102,10 @@ Di sinilah muncul model konsistensi yang berbeda-beda, dari strong consistency s
 
 ## CAP Dan Trade-off
 
-| Aspek | Arti | Implikasi |
-|---|---|---|
-| Consistency | Semua client melihat state yang sama | Update bisa lebih lambat |
-| Availability | Sistem tetap merespons request | Data bisa belum paling baru |
+| Aspek               | Arti                                      | Implikasi                                      |
+| ------------------- | ----------------------------------------- | ---------------------------------------------- |
+| Consistency         | Semua client melihat state yang sama      | Update bisa lebih lambat                       |
+| Availability        | Sistem tetap merespons request            | Data bisa belum paling baru                    |
 | Partition tolerance | Sistem tetap jalan saat jaringan terpisah | Trade-off harus dipilih saat partition terjadi |
 
 CAP theorem menyatakan bahwa sistem terdistribusi tidak bisa memaksimalkan consistency, availability, dan partition tolerance sekaligus dalam kondisi partition.  
@@ -113,18 +116,22 @@ Karena partition itu pasti bisa terjadi, keputusan arsitektur biasanya berputar 
 ## Mekanisme Penting
 
 ### Replication
+
 Data disalin ke beberapa node agar tahan gagal dan lebih cepat diakses.  
 Replication membantu availability, tapi juga menambah kompleksitas sinkronisasi.
 
 ### Sharding
+
 Data dibagi ke beberapa node supaya beban tidak menumpuk di satu mesin.  
 Ini penting untuk scaling, tapi query lintas shard jadi lebih rumit.
 
 ### Consensus
+
 Node-node harus sepakat tentang satu nilai atau urutan tindakan.  
 Consensus muncul di replicated state machine dan sistem yang butuh keputusan tunggal yang benar.
 
 ### Leader Election
+
 Satu node dipilih sebagai pemimpin untuk mengatur log atau koordinasi.  
 Kalau leader mati, sistem harus cepat memilih pengganti.
 
@@ -138,11 +145,11 @@ Kalau leader mati, sistem harus cepat memilih pengganti.
 
 ### Perbandingan Singkat
 
-| Protocol | Fokus | Kelebihan | Kekurangan |
-|---|---|---|---|
-| Raft | Consensus praktis | Lebih mudah dipahami | Tetap kompleks saat diimplementasikan |
-| Paxos | Consensus teoritis | Sangat kuat secara teori | Sulit dipelajari |
-| PBFT | Byzantine tolerance | Tahan node berbahaya | Lebih berat dan kompleks |
+| Protocol | Fokus               | Kelebihan                | Kekurangan                            |
+| -------- | ------------------- | ------------------------ | ------------------------------------- |
+| Raft     | Consensus praktis   | Lebih mudah dipahami     | Tetap kompleks saat diimplementasikan |
+| Paxos    | Consensus teoritis  | Sangat kuat secara teori | Sulit dipelajari                      |
+| PBFT     | Byzantine tolerance | Tahan node berbahaya     | Lebih berat dan kompleks              |
 
 ---
 
@@ -164,14 +171,17 @@ Kalau leader mati, sistem harus cepat memilih pengganti.
 ## Hubungan Ke Topik Lain
 
 ### Database Internals
+
 Distributed systems menjadi fondasi replication, partitioning, dan query distribution.  
 Banyak database modern sebenarnya adalah distributed system dengan storage semantics yang lebih ketat.
 
 ### Cloud Infrastructure
+
 Kubernetes, service mesh, dan control plane modern sangat bergantung pada koordinasi terdistribusi.  
 Tanpa konsep distributed systems, cloud tidak akan stabil di skala besar.
 
 ### Observability
+
 Tracing, logs, dan metrics dipakai untuk memahami perilaku sistem yang tersebar di banyak node.  
 Semakin terdistribusi sistem, semakin penting observability.
 
@@ -180,6 +190,7 @@ Semakin terdistribusi sistem, semakin penting observability.
 ## Real World Shape
 
 Contoh sistem yang sangat dekat dengan distributed systems:
+
 - Kubernetes.
 - Kafka.
 - etcd.
@@ -211,4 +222,4 @@ Kalau kamu paham ini, banyak topik lain jadi terasa nyambung, dari database samp
 
 ---
 
-*Distributed Systems | Scalability · Consistency · Fault Tolerance · Consensus · Cloud Native*
+_Distributed Systems | Scalability · Consistency · Fault Tolerance · Consensus · Cloud Native_

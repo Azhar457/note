@@ -11,21 +11,25 @@ cssclasses:
 ---
 
 # Catatan
+
 > [!tip] Kenapa Ini Penting untuk Security?
 > Ubuntu-Host (Ansible Control): x.x.x.128 ubuntu-host ubuntu-host
 > Rocky Linux (Managed Nodes): x.x.x.129 rocky My-VM2-@234@9090
 
 ### Hardening
->[!warning] Requirement
+
+> [!warning] Requirement
 >
-EPEl RELEASE, etc ...
+> EPEl RELEASE, etc ...
 
 Installation and Check Basic
+
 ```
 1. `sudo dnf/apt/etc install lynis -y`
-    
+
 2. `sudo lynis audit system --quick`
 ```
+
 ![[Pasted image 20260606200451.png]]
 Lynis Suggestion
 
@@ -34,8 +38,11 @@ sudo grep "Suggestion" /var/log/lynis.log | head -n 30
 # Atau baca report dat
 sudo cat /var/log/lynis-report.dat | grep "suggestion" | head -n 20
 ```
+
 ![[Pasted image 20260606200536.png]]
+
 ###  SSH Lockdown
+
 ```
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.$(date +%F)
 
@@ -54,7 +61,7 @@ ClientAliveInterval 300
 ClientAliveCountMax 2
 LoginGraceTime 60
 AllowUsers rocky # GANTI 'rocky' dengan user KALIAN. Ini WHITELIST.
-				 # Kalau ada user lain, tambah: AllowUsers rocky 
+				 # Kalau ada user lain, tambah: AllowUsers rocky
 ```
 
 ```
@@ -64,7 +71,9 @@ sudo systemctl restart sshd
 ssh rocky@192.168.130.129
 # Harus masih bisa. Kalau gagal = kamu lock diri sendiri.
 ```
+
 ### Install Fail2ban
+
 ```
 sudo dnf install fail2ban -y
 
@@ -94,6 +103,7 @@ sudo fail2ban-client status sshd
 ```
 
 PAM Password Policy
+
 ```
 # Cek profile aktif
 sudo authselect current
@@ -107,25 +117,33 @@ sudo authselect apply-changes
 # Edit faillock config
 sudo nano /etc/security/faillock.conf
 ```
+
 Edit agar sesuai
+
 ```
 deny = 5
 fail_interval = 900
 unlock_time = 600
 even_deny_root = true
 ```
+
 Password Quality
+
 ```
 sudo nano /etc/security/pwquality.conf
 ```
+
 Edit
+
 ```
 minlen = 12
 minclass = 3
 maxrepeat = 2
 gecoscheck = 1
 ```
+
 2026-06-06: Day 1 Hardening
+
 - SSH: PermitRootLogin no, Password no, AllowUsers rocky, MaxAuthTries 3
 - fail2ban: installed, sshd jail enabled, ban 1 hour after 3 fails
 - PAM: authselect with-faillock, pwquality minlen=12
