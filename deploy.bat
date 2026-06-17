@@ -3,8 +3,17 @@ echo ========================================
 echo   Quartz 4 Deployment Script
 echo ========================================
 echo.
-echo [1/2] Building Quartz site...
-npx quartz build
+echo [1/3] Formatting files...
+call npm run format
+if %errorlevel% neq 0 (
+    echo.
+    echo ERROR: Formatting failed!
+    pause
+    exit /b %errorlevel%
+)
+echo.
+echo [2/3] Building Quartz site...
+call npx quartz build
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: Build failed!
@@ -12,8 +21,8 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 echo.
-echo [2/2] Syncing to GitHub Pages...
-npx quartz sync
+echo [3/3] Syncing to GitHub Pages...
+call npx quartz sync
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: Sync failed!
