@@ -564,7 +564,7 @@ ZERO-DAY EXPLOIT
 ZERO-WIDTH CHARACTERS
       │
       └── Steganography → lihat [[hardware-hacking-re|RE & Stegano]]
-            └── Prompt injection → lihat [[llm_security_red_teaming|LLM Security]]
+            └── Prompt injection → lihat [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]]
 
 ZERO TRUST
       └── Implementasi → lihat [[cloud-infrastructure|Cloud Infrastructure]]
@@ -614,7 +614,7 @@ ZERO-KNOWLEDGE PROOF
 - [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Zero-Width sebagai prompt injection vector
 - [[purple-team-osi-killchain|Purple Team Kill-Chain]] — Supply chain attack
 - [[hardware-hacking-re|Hardware Hacking RE]] — Steganography analysis
-- [[index|Master Index]]
+- [[master-index|Master Index]]
 
 ---
 

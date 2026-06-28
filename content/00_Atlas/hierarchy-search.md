@@ -52,3 +52,5 @@
 - [[network-security|Network Security]]
 - [[hierarchy-ai-levels|AI Levels Hierarchy]]
 - [[cheatsheet|Cheat Engine]]
+- [[01_Library/military-and-intelligence-tools/military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]]
+- [[01_Library/military-and-intelligence-tools/military-intelligence-tools-hierarchy|military-and-intelligence-tools Hierarchy]]

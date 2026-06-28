@@ -126,6 +126,8 @@ Level 0 │ Script Kiddie → Tool runner, copy-paste Level 1 │ Tool Operator 
 - [[network-security|Network Security]] — OSI Layer threat landscape
 - [[underground-knowledge|Underground Knowledge]] — Cheat Engine & Dark Web hierarchy
 - [[01_library/cyber_security/endpoint-security|Endpoint_Security]] — CPU Ring & boot chain
+- [[01_Library/military-and-intelligence-tools/military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]] — Peta alat Shadow Arsenal Level 0–6
+- [[01_Library/military-and-intelligence-tools/military-intelligence-tools-hierarchy|military-and-intelligence-tools Hierarchy]] — Deep dive cara kerja & deteksi alat militer/intelijen
 
 ---
 

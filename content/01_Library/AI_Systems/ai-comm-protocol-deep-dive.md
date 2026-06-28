@@ -25,7 +25,7 @@ status: operational
 
 # 🤖 AI COMMUNICATION PROTOCOL — DEEP DIVE & IMPLEMENTATION
 
-> Dokumen ini adalah lanjutan dari [[AI_COMM_PROTOCOL_HIERARCHY|AI Communication Protocol Hierarchy]]. Jika hierarki menjelaskan _"apa"_ dan _"di mana"_, dokumen ini menjelaskan _"bagaimana"_, _"mengapa"_, dan _"apa yang bisa salah"_.
+> Dokumen ini adalah lanjutan dari **AI Communication Protocol Hierarchy**. Jika hierarki menjelaskan _"apa"_ dan _"di mana"_, dokumen ini menjelaskan _"bagaimana"_, _"mengapa"_, dan _"apa yang bisa salah"_.
 
 > [!warning] Scope
 > Fokus utama: **Level 4 (MCP/A2A) → Level 0 (State Transfer)**. Level 8-5 dianggap sudah mature dan dokumentasinya melimpah di luar vault ini.
@@ -581,7 +581,7 @@ Penghematan: ~50% untuk data dengan banyak small integer.
 ```
 
 > [!info] Reference
-> Lihat [[PROTOCOL_BUFFERS_INTERNALS]] untuk detail varint dan wire format protobuf.
+> Lihat **Protocol Buffers Internals** untuk detail varint dan wire format protobuf.
 
 ### Level 0: Direct State Transfer (Theoretical)
 
@@ -1012,13 +1012,13 @@ decoded = ggwave.decode(audio_buffer)
 
 ## 🔗 Lihat Juga
 
-- [[AI_COMM_PROTOCOL_HIERARCHY|AI Communication Protocol Hierarchy]] — peta hierarki level 8-0
+- **AI Communication Protocol Hierarchy** — peta hierarki level 8-0
 - [[agentic-ai-mcp-roadmap|Roadmap Agentic AI & MCP]] — konteks bisnis dan arsitektur
 - [[api-protocols-deepdive|API Protocols]] — Level 5-6 detail
-- [[LLM_SECURITY_RED_TEAMING|LLM Security]] — threat model dan defense
-- [[EBPF_BEYOND_SECURITY|eBPF Beyond Security]] — kernel-level monitoring untuk Level 1-0
-- [[ZERO_TAXONOMY_SECURITY|Zero Taxonomy Security]] — human oversight problem di protocol rendah
-- [[index|Master Index]]
+- [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — threat model dan defense
+- [[ebpf-beyond-security|eBPF Beyond Security]] — kernel-level monitoring untuk Level 1-0
+- [[zero-taxonomy-security|Zero Taxonomy Security]] — human oversight problem di protocol rendah
+- [[master-index|Master Index]]
 
 ---
 

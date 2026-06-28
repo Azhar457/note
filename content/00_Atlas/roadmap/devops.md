@@ -171,6 +171,9 @@ Bulan 1-2         Bulan 3-4         Bulan 5-6         Bulan 7-8
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung Linux sysadmin
 - [[cyber-security|Cyber Security Roadmap]] — Blue Team overlap di Fase 4 monitoring
 - [[data-engineering|Data Engineering Roadmap]] — Pipeline skill overlap dengan CI/CD
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering
 
 ---
 

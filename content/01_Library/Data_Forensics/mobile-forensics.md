@@ -23,7 +23,7 @@ cssclasses:
 > **Prinsip utama:** Yang menentukan "level" forensik bukan toolnya — tapi **metode akuisisi** yang dipakai. Tool mahal seperti Cellebrite UFED bisa operate di Level 1 (logical biasa) atau Level 4 (exploit-based), tergantung kondisi device. Tool yang sama, output yang sangat berbeda.
 
 > [!info] Hubungan ke Vault
-> Ini adalah ekstensi dari [[forensic-data-recovery|Data Recovery Forensik]] dan [[data_recovery_forensik|Tools Comparison]] — tapi mobile punya attack surface, filesystem, dan acquisition method yang sama sekali berbeda dari storage tradisional (HDD/SSD).
+> Ini adalah ekstensi dari **Data Recovery Forensik** dan **Tools Comparison** — tapi mobile punya attack surface, filesystem, dan acquisition method yang sama sekali berbeda dari storage tradisional (HDD/SSD).
 
 ---
 
@@ -318,11 +318,11 @@ Tools yang tepat      : Coba backup dulu via ADB blind
 ## 🔗 Lihat Juga
 
 - [[data-recovery|Data Recovery & Forensics]] — PC/HDD forensics sebagai pembanding
-- [[data_recovery_forensik|Tools Comparison]] — tools recovery general
+- **Tools Comparison** — tools recovery general
 - [[endpoint-security|Endpoint Security]] — Secure Enclave dan hardware security
-- [[kriptografi_biometrik|Kriptografi]] — enkripsi yang bikin mobile forensics susah
-- [[embedded_systems|Embedded Systems]] — JTAG dan chip-off connection
-- [[index|Master Index]]
+- [[cryptography-biometrics|Kriptografi]] — enkripsi yang bikin mobile forensics susah
+- [[embedded-systems|Embedded Systems]] — JTAG dan chip-off connection
+- [[master-index|Master Index]]
 
 ---
 

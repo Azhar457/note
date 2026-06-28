@@ -467,14 +467,20 @@ Someone who deeply understands Ansible can learn Terraform, Pulumi, or whatever 
 ---
 
 _Last updated: June 2026_  
-_Part of [[00_atlas/roadmap]] — Infrastructure Administrator path_
+_Part of **Roadmaps** — Infrastructure Administrator path_
 
 ## 🔗 Lihat Juga
 
+- [[master-index|Master Index]]
 - [[cyber-security|Cyber Security Blue Team Roadmap]] — Wazuh, OpenVAS, dan SOC operations lebih detail
 - [[devops|DevOps Roadmap]] — CI/CD, Docker, dan automation practices
 - [[network-security|Network Security]] — Deep dive pfSense, VLAN design, dan IDS/IPS
 - [[endpoint-security|Endpoint Security]] — CIS hardening, auditd, AppArmor internals
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[offensive-security|Offensive Security Roadmap]] — Jalur Red Team (lawannya Blue Team)
+- [[software-engineering|Software Engineering Roadmap]] — Jalur karir software development
+- [[data-engineering|Data Engineering Roadmap]] — Jalur karir data engineering
 
 ---
 

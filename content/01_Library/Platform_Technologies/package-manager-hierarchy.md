@@ -902,10 +902,10 @@ go get: cukup cepat (binary download, tidak compile deps)
 ## 🔗 Lihat Juga
 
 - [[note/01_library/devops/cicd-shiftleft-shiftright|CI/CD Deep Dive]] — caching package manager di pipeline
-- [[programming-language-hierarchy|Bahasa Pemrograman]] — konteks Zig (Bun) dan Rust (uv)
+- [[hierarchy-programming-language|Bahasa Pemrograman]] — konteks Zig (Bun) dan Rust (uv)
 - [[note/01_library/platform_technologies/api-protocols-deepdive|API Protocols]] — runtime yang di-serve oleh Bun
 - [[platform-technologies-overview|Platform Technologies]] — WebAssembly target dari Bun
-- [[index|Master Index]]
+- [[master-index|Master Index]]
 
 ---
 

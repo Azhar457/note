@@ -167,6 +167,9 @@ Bulan 1      Bulan 2      Bulan 3      Bulan 4      Bulan 5      Bulan 6
 - [[cheatsheet|Cheat Engine]] — Anti-cheat = blue team di gaming industry
 - [[devops|DevOps Roadmap]] — Jalur karir alternatif paling banyak lowongan
 - [[offensive-security|Offensive Security Roadmap]] — Jalur Red Team (lawannya Blue Team)
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering
 
 ---
 

@@ -180,6 +180,9 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 - [[math-and-algorithms|Matematika & Algoritma]] — DSA & Discrete Math untuk interview
 - [[devops|DevOps Roadmap]] — CI/CD & deploy skill overlap besar
 - [[data-engineering|Data Engineering Roadmap]] — Backend → Data pipeline natural transition
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering
 
 ---
 

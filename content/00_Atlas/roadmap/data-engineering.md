@@ -182,6 +182,9 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung distributed systems
 - [[devops|DevOps Roadmap]] — CI/CD dan container orchestration overlap
 - [[00_atlas/roadmap/software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering
 
 ---
 

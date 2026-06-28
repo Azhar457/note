@@ -669,8 +669,8 @@ OS Hierarchy [[hierarchy-operating-systems]]:
 - [[cryptography-biometrics|Kriptografi & Biometrik]] — enkripsi untuk protect konten komunikasi
 - [[hierarchy-operating-systems|Hierarki OS]] — Tails, Whonix, Qubes untuk OS privacy
 - [[note/01_library/cyber_security/zero-taxonomy-security|Zero Taxonomy]] — Zero-Day yang bisa compromise semua privacy kamu
-- [[llm_security_red_teaming|LLM Security]] — Zero-Width sebagai tracking vector baru
-- [[index|Master Index]]
+- [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Zero-Width sebagai tracking vector baru
+- [[master-index|Master Index]]
 
 ---
 

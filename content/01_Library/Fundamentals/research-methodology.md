@@ -140,6 +140,6 @@ graph TD
 
 **Metadata**
 
-- **Tags:** [[research]] [[methodology]] [[informatics]] [[security]] [[academic]]
-- **Related:** [[hierarchy-osint-rf|OSINT & RF Hierarchy]], [[malware_analysis_research]]
+- **Tags:** **research** **methodology** **informatics** **security** **academic**
+- **Related:** [[hierarchy-osint-rf|OSINT & RF Hierarchy]], **malware_analysis_research**
 - **Last Updated:** 2026-04-23

@@ -26,7 +26,7 @@ cssclasses:
 > Konten TikTok yang beredar valid secara teknis — tapi hanya menyentuh permukaan. Dokumen ini membedah **setiap lapisan perlindungan sinyal militer** secara teknis, menjelaskan **apa yang sebenarnya bisa dan tidak bisa** dilakukan RTL-SDR, dan bagaimana **operasi SIGINT militer nyata** bekerja di luar kemampuan siapapun dengan dongle $15.
 
 > [!info] Hubungan ke Vault
-> Ini adalah deep dive lanjutan dari [[osint_rf_hierarchy|RF & SIGINT Hierarchy]] (Level 0–8). Di sana sudah ada peta besarnya — di sini kita bedah mekanismenya layer per layer.
+> Ini adalah deep dive lanjutan dari [[hierarchy-osint-rf|RF & SIGINT Hierarchy]] (Level 0–8). Di sana sudah ada peta besarnya — di sini kita bedah mekanismenya layer per layer.
 
 ---
 
@@ -629,7 +629,7 @@ Dan bahkan jika bisa capture raw bits:
 ## Koneksi ke Hierarki RF/SIGINT di Vault
 
 ```
-[[osint_rf_hierarchy]] Level mapping:
+[[hierarchy-osint-rf]] Level mapping:
 
 Level 0 (RTL-SDR dongle)   → Bisa: ADS-B, cuaca, FM radio
                               Tidak bisa: semua komms militer
@@ -668,12 +668,12 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 
 ## 🔗 Lihat Juga
 
-- [[osint_rf_hierarchy|RF & SIGINT Hierarchy]] — peta Level 0–8 RF intelligence
-- [[purple_team_osi_killchain|Purple Team Kill-Chain]] — Pegasus sebagai endpoint attack
-- [[kriptografi_biometrik|Kriptografi]] — enkripsi yang bikin RF intercept tidak efektif
-- [[ebpf_beyond_security|eBPF Beyond Security]] — modern alternative untuk observability
-- [[underground_knowledge|Underground Knowledge]] — dark web dan information access hierarchy
-- [[index|Master Index]]
+- [[hierarchy-osint-rf|RF & SIGINT Hierarchy]] — peta Level 0–8 RF intelligence
+- [[purple-team-osi-killchain|Purple Team Kill-Chain]] — Pegasus sebagai endpoint attack
+- [[cryptography-biometrics|Kriptografi]] — enkripsi yang bikin RF intercept tidak efektif
+- [[ebpf-beyond-security|eBPF Beyond Security]] — modern alternative untuk observability
+- [[underground-knowledge|Underground Knowledge]] — dark web dan information access hierarchy
+- [[master-index|Master Index]]
 
 ---
 

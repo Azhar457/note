@@ -218,7 +218,7 @@ powercfg /batteryreport                 # Report Baterai (HTML)
 ## 🔗 Lihat Juga
 
 - [[technician-toolkit-standard]] — Flashdisk toolkit teknisi (Ventoy, Strelec)
-- [[endpoint-security-hierarchy-open-source-freeware-edition]] — Keamanan endpoint
+- [[hierarchy-endpoint-security-freeware]] — Keamanan endpoint
 - [[storage-refurbishing]] — Refurbishing HDD/SSD
 - [[application]] — 🛠️ Master Interactive Tool Arsenal
   - [Cyber Security](https://azhar457.github.io/application/Application_Cyber_Security.html)

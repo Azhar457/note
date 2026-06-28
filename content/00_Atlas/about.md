@@ -34,6 +34,8 @@ Bukan kurikulum formal. Lebih ke **peta besar yang dibangun sendiri** — dari n
 ☁️ Cloud Infrastructure   → dari shared hosting sampai Zero Trust
 🖥️ OS & Architecture      → dari transistor sampai kernel exploit
 🕵️ OSINT                  → dari Google sampai Palantir Gotham
+☠️ Shadow Arsenal         → dari OSINT Level 0 sampai Nation-State SIGINT
+🤖 Agentic AI & MLOps     → dari function calling sampai autonomous swarm
 ```
 
 Semua yang terdokumentasi di vault ini hanya gambaran besar, dan aku baru sebagian mencobanya yah setidaknya karena menulis adalah cara belajar terbaik yang aku temukan.
@@ -44,7 +46,6 @@ Semua yang terdokumentasi di vault ini hanya gambaran besar, dan aku baru sebagi
 
 **top-down** — peta besar dulu, detail belakangan.
 hal yang ingin dipelajari harus dipahami dulu beberapa enviromentnya.
-
 Tidak pernah puas dengan jawaban permukaan. Kalau ada sesuatu yang "dianggap rahasia" atau disembunyikan di balik konsensus — itu yang justru paling menarik untuk digali.
 
 ---
@@ -69,6 +70,8 @@ Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudfla
 - 🛠️ Bereksperimen dengan berbagai macam Hardsisk dan SSD Untuk Recorvery atau Repair
 - 🛠️ Mencoba menggunakan Ansible untuk automasi dalam pengaturan berbagai VM
 - 🛠️ Membaca, Memahami berbagai macam seputar tech terutama dibidang DevOps
+- 🛠️ Memahami AI Engineering, Agentic AI stack (MCP, tool use), dan LLM Red Teaming
+- 🛠️ Mengeksplorasi hierarki alat militer & intelijen (Shadow Arsenal) dalam konteks defensive
 - 📝 Membangun vault ini sebagai knowledge base publik
 
 ---
@@ -81,7 +84,7 @@ Homelab   : Proxmox VM (Rocky Linux) +Safeline + Nginx Proxmy Manager + Cloudfla
 | 💼 **LinkedIn**  | [linkedin.com/in/Azhar457](https://www.linkedin.com/in/azhar-muttaqien-a74a69237/) |
 | 📧 **Email**     | [azharsss457@gmail.com](mailto:azharsss457@gmail.com)                              |
 | 🌐 **Portfolio** | [azharmtq.my.id](https://azharmtq.my.id)                                           |
-| 📸 **Instagram** | [@azharmtq](https://www.instagram.com/azharmtq/))                                  |
+| 📸 **Instagram** | [@azharmtq](https://www.instagram.com/azharmtq/)                                   |
 
 ---
 

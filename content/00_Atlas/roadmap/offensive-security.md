@@ -274,6 +274,9 @@ Bulan 1-2      Bulan 3-4         Bulan 5-6         Bulan 7-8         Bulan 9    
 - [[cyber-security|Cyber Security Roadmap]] — Lawannya: Blue Team defense
 - [[application|Master Arsenal]] — HTML arsenal tool reference
 - [[hierarchy-offensive|Offensive Security Hierarchy]] — Level 0–6 offensive hierarchy (terpisah)
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
+- [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
+- [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering
 
 ---
 
