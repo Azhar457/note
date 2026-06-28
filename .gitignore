@@ -11,3 +11,4 @@ private/
 replit.nix
 *.bat
 .agents
+scratch/*.py
