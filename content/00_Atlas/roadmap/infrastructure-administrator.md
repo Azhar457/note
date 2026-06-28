@@ -467,7 +467,7 @@ Someone who deeply understands Ansible can learn Terraform, Pulumi, or whatever 
 ---
 
 _Last updated: June 2026_  
-_Part of [[00_Atlas/roadmap]] — Infrastructure Administrator path_
+_Part of [[00_atlas/roadmap]] — Infrastructure Administrator path_
 
 ## 🔗 Lihat Juga
 

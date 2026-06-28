@@ -514,9 +514,9 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 
 ## 🔗 Lihat Juga
 
-- [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
+- [[01_library/data_forensics/data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
 - [[hpa-exorcism|SOP HPA Exorcism]] — prosedur HPA/DCO sebelum imaging
-- [[Application|Tools Penting]] — hierarki data recovery Level 0–7
+- [[application|Tools Penting]] — hierarki data recovery Level 0–7
 - [[embedded-systems|Embedded Systems]] — flash forensics NAND level
 
 ---

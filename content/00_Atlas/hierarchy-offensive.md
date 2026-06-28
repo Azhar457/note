@@ -121,11 +121,11 @@ Level 0 │ Script Kiddie → Tool runner, copy-paste Level 1 │ Tool Operator 
 
 ## 🔗 Lihat Juga
 
-- [[Application|Master Arsenal]] — HTML arsenal tool reference
+- [[application|Master Arsenal]] — HTML arsenal tool reference
 - [[offensive-security|Offensive Security Roadmap]] — Learning path 10 bulan
 - [[network-security|Network Security]] — OSI Layer threat landscape
 - [[underground-knowledge|Underground Knowledge]] — Cheat Engine & Dark Web hierarchy
-- [[01_Library/Cyber_Security/endpoint-security|Endpoint_Security]] — CPU Ring & boot chain
+- [[01_library/cyber_security/endpoint-security|Endpoint_Security]] — CPU Ring & boot chain
 
 ---
 

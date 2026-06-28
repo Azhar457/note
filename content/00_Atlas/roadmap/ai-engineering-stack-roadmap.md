@@ -212,7 +212,7 @@ cssclasses:
 
 - [[llm-security-red-teaming-attack-surface-ai-layer]] — LLM Attack Surface, Prompt Injection, Red Teaming, Guardrails
 - [[infrastructure-administrator]] — Bare-metal foundation, observability, HA, compliance
-- [[01_Library/Cyber_Security/network-security]] — API gateway, rate limiting, supply chain validation
+- [[01_library/cyber_security/network-security]] — API gateway, rate limiting, supply chain validation
 - [[endpoint-security]] → BYOVD → BYOM (Bring Your Own Model) security pattern overlap
 
 _Roadmap AI Engineering | Fase 1 (Serving) → Fase 6 (Scale & Compliance) · 6 Bulan Homelab · Bare-Metal On-Prem Focus_

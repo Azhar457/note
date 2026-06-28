@@ -109,7 +109,7 @@ LINEAR ALGEBRA
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[computer-science-foundations|Computer Science Foundations]] — OS & Architecture
 - [[cryptography-biometrics|Kriptografi & Biometrik]] — aplikasi teori bilangan
 - [[hierarchy-ai-levels|AI Levels Hierarchy]] — aplikasi linear algebra

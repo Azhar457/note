@@ -24,7 +24,7 @@ cssclasses:
 > eBPF bukan hanya tools security. Dia adalah **programmable kernel platform** — seperti JavaScript untuk browser, tapi untuk kernel Linux. Hampir setiap domain computing sedang di-disrupt oleh eBPF.
 
 > [!info] Konteks
-> Baca [[01_Library/Cyber_Security/ebpf-kernel-security|eBPF Security]] dulu untuk fondasi arsitektur. Dokumen ini fokus ke domain di luar security yang jarang dibahas tapi sama revolusionernya.
+> Baca [[01_library/cyber_security/ebpf-kernel-security|eBPF Security]] dulu untuk fondasi arsitektur. Dokumen ini fokus ke domain di luar security yang jarang dibahas tapi sama revolusionernya.
 
 ---
 
@@ -485,13 +485,13 @@ Status: sangat early, sangat menarik, hampir tidak ada orang di sini
 
 ## 🔗 Lihat Juga
 
-- [[01_Library/Cyber_Security/ebpf-kernel-security|eBPF Security]] — fondasi arsitektur + security use case
-- [[01_Library/Cyber_Security/ids-ips-waf-nsm-comparison|IDS/IPS/WAF]] — Falco dan Cilium dalam konteks stack
-- [[01_Library/AI_Systems/cloud-infrastructure|Cloud Infrastructure]] — Kubernetes + service mesh
-- [[01_Library/Fundamentals/computer-science-foundations|OS Internals]] — kernel, Ring 0, syscall sebagai fondasi
-- [[01_Library/AI_Systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
-- [[00_Atlas/hierarchy-ai-levels|AI Levels]] — eBPF untuk GPU/ML infrastructure
-- [[🗺️Master-Index|Master Index]]
+- [[01_library/cyber_security/ebpf-kernel-security|eBPF Security]] — fondasi arsitektur + security use case
+- [[01_library/cyber_security/ids-ips-waf-nsm-comparison|IDS/IPS/WAF]] — Falco dan Cilium dalam konteks stack
+- [[01_library/ai_systems/cloud-infrastructure|Cloud Infrastructure]] — Kubernetes + service mesh
+- [[01_library/fundamentals/computer-science-foundations|OS Internals]] — kernel, Ring 0, syscall sebagai fondasi
+- [[01_library/ai_systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
+- [[00_atlas/hierarchy-ai-levels|AI Levels]] — eBPF untuk GPU/ML infrastructure
+- [[master-index|Master Index]]
 
 ---
 

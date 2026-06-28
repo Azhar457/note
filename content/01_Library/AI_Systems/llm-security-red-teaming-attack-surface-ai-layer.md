@@ -557,7 +557,7 @@ Bedanya: target bukan binary tapi model behavior via API
 - [[hierarchy-ai-levels|AI Levels]] — konteks posisi LLM di hierarki AI
 - [[ai-evaluation-framework|AI Evaluation Framework]] — cara test model sebelum deploy
 - [[research-methodology|Research Methodology]] — cara dokumentasi finding secara proper
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 
 ---
 

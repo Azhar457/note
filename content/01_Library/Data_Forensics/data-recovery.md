@@ -164,6 +164,6 @@ Atola TaskForce / ddrescue / dc3dd
 
 ## 🔗 Lihat Juga
 
-- [[02_SOPs/storage-refurbishing|SOP Storage Recovery / Data Lifesaver]]
-- [[02_SOPs/forensic-imaging-analysis|SOP Forensic Imaging]]
-- [[🗺️Master-Index|Master Index]]
+- [[02_sops/storage-refurbishing|SOP Storage Recovery / Data Lifesaver]]
+- [[02_sops/forensic-imaging-analysis|SOP Forensic Imaging]]
+- [[master-index|Master Index]]

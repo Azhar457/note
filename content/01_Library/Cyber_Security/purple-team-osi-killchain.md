@@ -212,8 +212,8 @@ dan dirancang untuk bertahan lama tanpa terdeteksi
 - [[network-security|Network Security]] — OSI Layer 1–8 threat table
 - [[underground-knowledge|Underground Knowledge]] — BYOVD detail, Cheat Engine kernel
 - [[hardware-hacking-re|Hardware Hacking]] — UEFI implant, firmware attack
-- [[01_Library/AI_Systems/llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Layer baru di atas Layer 7 untuk AI system
-- [[🗺️Master-Index|Master Index]]
+- [[01_library/ai_systems/llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Layer baru di atas Layer 7 untuk AI system
+- [[master-index|Master Index]]
 
 ---
 

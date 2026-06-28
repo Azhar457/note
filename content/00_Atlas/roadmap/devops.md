@@ -166,7 +166,7 @@ Bulan 1-2         Bulan 3-4         Bulan 5-6         Bulan 7-8
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[cloud-infrastructure|Infrastruktur Cloud]] — Level 0–8 cloud infrastructure hierarchy
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung Linux sysadmin
 - [[cyber-security|Cyber Security Roadmap]] — Blue Team overlap di Fase 4 monitoring

@@ -403,14 +403,14 @@ Semua tools di bawah ini muat dalam **satu flashdisk 128GB** dengan partisi:
 
 ## Connected Notes
 
-- [[Printer-Maintenance-Reset]] — Servis printer inkjet (Epson, Canon, Brother, HP)
-- [[endpoint-security-hierarchy (Open Source & Freeware Edition)]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
+- [[printer-maintenance-reset]] — Servis printer inkjet (Epson, Canon, Brother, HP)
+- [[endpoint-security-hierarchy-open-source-freeware-edition]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
-- [[02_SOPs/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
-- [[Application]] — 🛠️ Master Interactive Tool Arsenal (GitHub Pages)
-  - [Forensics & Data Recovery](https://azhar457.github.io/Application/Application_Forensics_Recovery.html) — 49 tools
-  - [Cyber Security](https://azhar457.github.io/Application/Application_Cyber_Security.html) — 62 tools
-  - [Cyber Offense](https://azhar457.github.io/Application/Application_Cyber_Offense.html) — 68 tools
+- [[02_sops/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
+- [[application]] — 🛠️ Master Interactive Tool Arsenal (GitHub Pages)
+  - [Forensics & Data Recovery](https://azhar457.github.io/application/Application_Forensics_Recovery.html) — 49 tools
+  - [Cyber Security](https://azhar457.github.io/application/Application_Cyber_Security.html) — 62 tools
+  - [Cyber Offense](https://azhar457.github.io/application/Application_Cyber_Offense.html) — 68 tools
 
 ---
 

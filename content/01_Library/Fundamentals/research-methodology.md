@@ -116,7 +116,7 @@ graph TD
 
 ---
 
-![[Gemini_Generated_Image_.png|350]]
+![[gemini-generated-image-png|350]]
 
 ## 💡 Strategi & Jebakan
 
@@ -141,5 +141,5 @@ graph TD
 **Metadata**
 
 - **Tags:** [[research]] [[methodology]] [[informatics]] [[security]] [[academic]]
-- **Related:** [[hierarchy-osint-rf|OSINT & RF Hierarchy]], [[Malware_Analysis_Research]]
+- **Related:** [[hierarchy-osint-rf|OSINT & RF Hierarchy]], [[malware_analysis_research]]
 - **Last Updated:** 2026-04-23

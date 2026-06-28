@@ -101,7 +101,7 @@ Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste
 - Printer menolak mencetak meski tinta masih penuh
 - Pesan di PC: "Service Required" atau "Parts inside printer have reached end of service life"
 
-![[GAMBAR]]
+![[gambar]]
 
 > _Gambar 1: Contoh indikator lampu berkedip pada Epson L3110 (kiri: normal, kanan: error waste ink)_
 
@@ -149,7 +149,7 @@ Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste
 5. **Lepas tombol POWER**
 6. Printer akan masuk mode siaga (lampu diam, tidak kedap-kedip)
 
-![[placeholder-service-mode-epson.png]]
+![[placeholder-service-mode-epson-png]]
 
 > _Gambar 2: Posisi tombol STOP dan POWER pada Epson L3110_
 
@@ -250,7 +250,7 @@ Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste
 6. **Lepas kedua tombol bersamaan**
 7. **Indikator sukses:** Lampu hijau **DIAM** (tidak kedap-kedip) + PC mendeteksi "Found New Hardware"
 
-![[placeholder-service-mode-canon.png]]
+![[placeholder-service-mode-canon-png]]
 
 > _Gambar 3: Urutan tekan tombol Canon untuk masuk Service Mode_
 
@@ -285,7 +285,7 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 | **Keuntungan**   | Tidak perlu software, tidak perlu ritual tombol, tidak ada risiko brick |
 | **Ketersediaan** | Tersedia di marketplace & toko sparepart resmi                          |
 
-![[placeholder-maintenance-cartridge.png]]
+![[placeholder-maintenance-cartridge-png]]
 
 > _Gambar 4: Maintenance Cartridge MC-G02 Canon (kiri: penuh, kanan: baru)_
 
@@ -511,10 +511,10 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 
 ## Connected Notes
 
-- [[endpoint-security-hierarchy (Open Source & Freeware Edition)]] — Referensi arsitektur keamanan endpoint
-- [[01_Library/Other/Technician-Toolkit-Standard|TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
-- [[02_SOPs/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
-- [[SOP-001-Windows-Browser-Hardening]] — Keamanan browser & mitigasi infostealer
+- [[endpoint-security-hierarchy-open-source-freeware-edition]] — Referensi arsitektur keamanan endpoint
+- [[01_library/other/technician-toolkit-standard|TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
+- [[02_sops/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
+- [[sop-001-windows-browser-hardening]] — Keamanan browser & mitigasi infostealer
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
 
 ---

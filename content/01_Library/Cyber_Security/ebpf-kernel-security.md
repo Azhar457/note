@@ -24,7 +24,7 @@ cssclasses:
 > **Satu kalimat:** eBPF memungkinkan kamu menjalankan program sandboxed di dalam kernel Linux tanpa mengubah kode kernel dan tanpa kernel module — performa setara kernel module, keamanan setara user space.
 
 > [!info] Prasyarat
-> Pastikan sudah paham [[computer-science-foundations|OS Internals]] (CPU Ring, kernel module, syscall) dan [[00_Atlas/hierarchy-operating-systems|Hierarki OS]] (Level 0–8). eBPF beroperasi di Ring 0, bahkan bisa menyentuh Ring -1 (hypervisor) lewat ekstensi modern.
+> Pastikan sudah paham [[computer-science-foundations|OS Internals]] (CPU Ring, kernel module, syscall) dan [[00_atlas/hierarchy-operating-systems|Hierarki OS]] (Level 0–8). eBPF beroperasi di Ring 0, bahkan bisa menyentuh Ring -1 (hypervisor) lewat ekstensi modern.
 
 ---
 
@@ -407,20 +407,20 @@ char LICENSE[] SEC("license") = "GPL";
 > [!tip] Topik Riset yang Belum Ada yang Garap
 > "Post-Quantum Verified eBPF Programs untuk Firmware Air-Gapped Systems" — gabungkan ML-DSA signing (NIST PQC standard 2024) dengan eBPF program verification, deploy di pre-boot UEFI environment.
 >
-> Ini nyambung langsung ke: [[01_Library/Cyber_Security/cryptography-biometrics|Kriptografi Post-Quantum]] + [[00_Atlas/hierarchy-operating-systems|OS Hierarki Level 7-8]] + [[01_Library/Fundamentals/computer-science-foundations|Computer Architecture Ring -2]]. Belum ada yang publish paper tentang kombinasi ini.
+> Ini nyambung langsung ke: [[01_library/cyber_security/cryptography-biometrics|Kriptografi Post-Quantum]] + [[00_atlas/hierarchy-operating-systems|OS Hierarki Level 7-8]] + [[01_library/fundamentals/computer-science-foundations|Computer Architecture Ring -2]]. Belum ada yang publish paper tentang kombinasi ini.
 
 ---
 
 ## 🔗 Lihat Juga
 
 - [[computer-science-foundations|OS Internals]] — Kernel module, Ring 0, syscall sebagai fondasi
-- [[01_Library/Fundamentals/computer-science-foundations|Computer Architecture]] — CPU Ring, Intel ME, hypervisor
-- [[00_Atlas/hierarchy-operating-systems|Hierarki OS]] — posisi eBPF di setiap level OS
-- [[01_Library/Cyber_Security/ids-ips-waf-nsm-comparison|IDS/IPS/WAF Comparison]] — Falco dan Cilium dalam konteks stack security
-- [[01_Library/Cyber_Security/purple-team-osi-killchain|Purple Team Kill-Chain]] — eBPF sebagai detection layer
-- [[01_Library/Cyber_Security/cryptography-biometrics|Kriptografi Post-Quantum]] — ML-DSA untuk future eBPF signing
-- [[01_Library/AI_Systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
-- [[🗺️Master-Index|Master Index]]
+- [[01_library/fundamentals/computer-science-foundations|Computer Architecture]] — CPU Ring, Intel ME, hypervisor
+- [[00_atlas/hierarchy-operating-systems|Hierarki OS]] — posisi eBPF di setiap level OS
+- [[01_library/cyber_security/ids-ips-waf-nsm-comparison|IDS/IPS/WAF Comparison]] — Falco dan Cilium dalam konteks stack security
+- [[01_library/cyber_security/purple-team-osi-killchain|Purple Team Kill-Chain]] — eBPF sebagai detection layer
+- [[01_library/cyber_security/cryptography-biometrics|Kriptografi Post-Quantum]] — ML-DSA untuk future eBPF signing
+- [[01_library/ai_systems/embedded-systems|Embedded Systems]] — eBPF on RISC-V untuk IoT
+- [[master-index|Master Index]]
 
 ---
 

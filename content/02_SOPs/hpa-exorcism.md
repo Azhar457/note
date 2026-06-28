@@ -210,7 +210,7 @@ dd if=/dev/zero of=/dev/sdX bs=4M conv=noerror,sync status=progress
 ## 🔗 Lihat Juga
 
 - [Script Exorcist](D:\Documents\Obsidian Vault\REPAIR\Exorcist.sh)
-- [[01_Library/Data_Forensics/data-recovery|Data Recovery]] — Recovery Level 0–7
+- [[01_library/data_forensics/data-recovery|Data Recovery]] — Recovery Level 0–7
 - [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain
 - [[network-security|Network Security]] — OSI Layer 1–8
 

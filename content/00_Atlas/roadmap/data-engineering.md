@@ -176,12 +176,12 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[system-design|System Design]] — Database Internals & Architecture patterns
 - [[math-and-algorithms|Matematika & Algoritma]] — Linear Algebra untuk ML pipeline
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung distributed systems
 - [[devops|DevOps Roadmap]] — CI/CD dan container orchestration overlap
-- [[00_Atlas/roadmap/software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
+- [[00_atlas/roadmap/software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
 
 ---
 

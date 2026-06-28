@@ -91,7 +91,7 @@ Berapa user? Seberapa kompleks domain?
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[computer-science-foundations|Computer Science Foundations]] — OS & memory sebagai fondasi database
 - [[math-and-algorithms|Matematika & Algoritma]] — B-tree, hash table sebagai fondasi index
 - [[cloud-infrastructure|Infrastruktur Cloud]] — deployment dari arsitektur ini

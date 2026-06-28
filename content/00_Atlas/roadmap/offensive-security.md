@@ -266,13 +266,13 @@ Bulan 1-2      Bulan 3-4         Bulan 5-6         Bulan 7-8         Bulan 9    
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain Threat
 - [[cheatsheet|Cheat Engine]] — Game hacking = offensive security dalam konteks gaming
 - [[hardware-hacking-re|Hardware Hacking]] — Binary exploitation & firmware RE
 - [[underground-knowledge|Underground Knowledge]] — Dual-use technique landscape
 - [[cyber-security|Cyber Security Roadmap]] — Lawannya: Blue Team defense
-- [[Application|Master Arsenal]] — HTML arsenal tool reference
+- [[application|Master Arsenal]] — HTML arsenal tool reference
 - [[hierarchy-offensive|Offensive Security Hierarchy]] — Level 0–6 offensive hierarchy (terpisah)
 
 ---

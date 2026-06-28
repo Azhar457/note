@@ -114,6 +114,9 @@ cssclasses:
 
 ## Fase 4 — Model Context Protocol (MCP) (Minggu 13–16)
 
+> [!info] Integrasi Sistem Lokal
+> Anda dapat melihat dokumentasi konfigurasi, skrip server, dan manajemen skill MCP lokal pada sistem Anda di [[agent/mcp-integration-guide|MCP Local Integration Guide]].
+
 > **Goal:** MCP adalah "USB-C untuk AI tools." Standardize bagaimana agent discover, call, dan manage tools dari berbagai sumber.
 > **RAM Impact:** Ollama 7B ~4-6GB, MCP servers ~512MB each, client ~256MB. Total ~8-10GB.
 
@@ -220,8 +223,8 @@ cssclasses:
 - [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Infrastructure yang men-support agent deployment
 - [[endpoint-security|Endpoint Security]] — Security mindset untuk agent yang punya akses ke sistem
 - [[underground-knowledge|Underground Knowledge]] — BYOVD & low-level thinking yang transferable ke agent architecture
-- [[00_Atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
-- [[01_Library/AI_Systems/system-design|Software Architecture]] — Design pattern untuk scalable agent systems
+- [[00_atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
+- [[01_library/ai_systems/system-design|Software Architecture]] — Design pattern untuk scalable agent systems
 
 ---
 

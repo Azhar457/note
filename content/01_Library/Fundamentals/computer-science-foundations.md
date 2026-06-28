@@ -88,7 +88,7 @@ USER SPACE (Ring 3)
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[network-security|Network Security]]
 - [[hardware-hacking-re|Hardware Hacking]]
 - [[cloud-infrastructure|Infrastruktur Cloud]]

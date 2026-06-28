@@ -52,8 +52,8 @@ START: CTF ONBOARDING
 ## 🔗 Referensi Pendukung
 
 - [[curriculum-mapping]] — Peta kurikulum keamanan siber global
-- [[Technician-Toolkit-Standard]] — Tools dasar teknisi & CTF
-- [[endpoint-security-hierarchy (Open Source & Freeware Edition)]] — Keamanan endpoint
+- [[technician-toolkit-standard]] — Tools dasar teknisi & CTF
+- [[endpoint-security-hierarchy-open-source-freeware-edition]] — Keamanan endpoint
 
 ---
 

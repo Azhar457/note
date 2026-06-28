@@ -171,7 +171,7 @@ Swap di HDD:
 
 ## 🔗 Lihat Juga
 
-- [[🗺️Master-Index|Master Index]]
+- [[master-index|Master Index]]
 - [[underground-knowledge|Underground Knowledge]] — Tor dan dark web yang bawa kamu ke Whonix
 - [[cloud-infrastructure|Infrastruktur Cloud]] — Linux sebagai fondasi semua cloud
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals sebagai fondasi memahami perbedaan ini

@@ -21,7 +21,7 @@ aliases:
 
 ## FOTO
 
-![[Pasted image 20260430215147.png]]
+![[pasted-image-20260430215147-png]]
 
 ## 🎯 Attack Anatomy (Apa yang Sebenarnya Terjadi)
 
@@ -586,7 +586,7 @@ ping $GatewayIP -n 4
 
 - [[network-security|Network Security]] — OSI Layer 1–8 threat landscape
 - [[cyber-security|Cyber Security Roadmap]] — Blue Team defense roadmap
-- [[Application|Master Arsenal]] — Defensive tools arsenal
+- [[application|Master Arsenal]] — Defensive tools arsenal
 - [[underground-knowledge|Underground Knowledge]] — Cheat Engine & Dark Web hierarchy (dual-use mindset)
 
 ---
