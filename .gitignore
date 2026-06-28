@@ -10,5 +10,10 @@ private/
 .replit
 replit.nix
 *.bat
+*.py
+*.sh
+*.ps1
 .agents
 scratch/*.py
+scratch/
+scratch
