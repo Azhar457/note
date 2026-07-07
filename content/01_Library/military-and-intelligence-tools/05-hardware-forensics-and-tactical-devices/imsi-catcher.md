@@ -1,22 +1,15 @@
 ---
+title: "Imsi Catcher"
 tags:
-  - imsi-catcher
-  - stingray
-  - cellular-interception
-  - surveillance
-  - sigint
-  - dual-use
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Stingray
-  - IMSI Catcher
-  - Cell Site Simulator
-  - BTS Palsu
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Imsi Catcher
+  - "imsi-catcher"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

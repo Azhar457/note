@@ -1,8 +1,10 @@
 ---
-title: Content Remote Using Webrtc
+title: "Content Remote Using Webrtc"
 tags:
-  - 01-library
+  - library
   - platform-technologies
+aliases:
+  - "content-remote-using-webrtc"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

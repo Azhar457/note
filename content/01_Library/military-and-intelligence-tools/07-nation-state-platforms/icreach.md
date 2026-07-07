@@ -1,21 +1,15 @@
 ---
+title: "Icreach"
 tags:
-  - icreach
-  - nsa
-  - sigint
-  - metadata
-  - mass-surveillance
-  - snowden
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - ICREACH
-  - NSA ICREACH
-  - telephony metadata
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Icreach
+  - "icreach"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal  

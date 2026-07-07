@@ -1,26 +1,15 @@
 ---
+title: "Software Supply Chain Security Deepdive"
 tags:
-  - supply-chain
-  - SBOM
-  - SLSA
-  - SSDF
-  - dependency-confusion
-  - typosquatting
-  - CI/CD
-  - devsecops
-  - software-security
+  - cyber-security
+  - library
+  - supply-chain-security
 aliases:
-  - Supply Chain Security Deep Dive
-  - Software Supply Chain
-  - SSCS
-  - SBOM Framework
-  - SLSA Framework
-created: 2026-07-02
-status: operational
-cssclasses:
-  - wide-table
-title: Software Supply Chain Security Deepdive
+  - "software-supply-chain-security-deepdive"
+created: "2026-07-02"
 updated: "2026-07-02"
+status: operational
+cssclasses: ""
 ---
 
 # 🔗 SOFTWARE SUPPLY CHAIN — Deep Dive: Dari `npm install` sampai State-Sponsored Backdoor

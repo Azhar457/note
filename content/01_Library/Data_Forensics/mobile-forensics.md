@@ -1,23 +1,14 @@
 ---
+title: "Mobile Forensics"
 tags:
-  - mobile-forensics
-  - forensics
-  - android
-  - iOS
-  - acquisition
-  - cellebrite
-  - MOBILedit
-  - blue-team
+  - data-forensics
+  - library
 aliases:
-  - Mobile Forensics
-  - Mobile Acquisition Hierarchy
-  - UFED vs MOBILedit
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Mobile Forensics
+  - "mobile-forensics"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 📱 MOBILE FORENSICS — Hierarki Akuisisi & Tools

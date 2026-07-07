@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Section 2 Cyberchef Encodings"
 tags:
-  - CTF
-  - Cryptography
-  - Encoding
-  - CyberChef
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Section 2
-  - Pattern Recognition for Encodings
-created: 2026-05-12
-status: operational
-title: Picoctf Section 2 Cyberchef Encodings
+  - "picoctf-section-2-cyberchef-encodings"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🧩 PICOCTF SECTION 2 — Encodings & CyberChef

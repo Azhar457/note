@@ -1,27 +1,14 @@
 ---
+title: "Test Time Compute System2"
 tags:
-  - test-time-compute
-  - system-2
-  - reasoning
-  - chain-of-thought
-  - tree-of-thought
-  - inference-time
-  - alignment
-  - jailbreak
-  - o1
-  - process-reward-model
+  - ai-systems
+  - library
 aliases:
-  - Test-Time Compute
-  - System 2 Thinking
-  - Inference-Time Scaling
-  - Reasoning Hierarchy
-  - Hidden Chain of Thought
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Test Time Compute System2
+  - "test-time-compute-system2"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # ⚡ TEST-TIME COMPUTE / SYSTEM 2 — Reasoning Hierarchy & Inference-Time Scaling

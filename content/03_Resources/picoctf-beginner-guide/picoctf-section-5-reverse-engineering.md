@@ -1,17 +1,13 @@
 ---
+title: "Picoctf Section 5 Reverse Engineering"
 tags:
-  - CTF
-  - Reverse-Engineering
-  - Java
-  - Python
-  - Hashing
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF RevEng
-  - SHA256 Indexing Guide
-created: 2026-05-12
-status: operational
-title: Picoctf Section 5 Reverse Engineering
+  - "picoctf-section-5-reverse-engineering"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # ⚙️ PICOCTF SECTION 5 — Reverse Engineering

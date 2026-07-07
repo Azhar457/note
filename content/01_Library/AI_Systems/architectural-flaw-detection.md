@@ -1,21 +1,13 @@
 ---
+title: "Architectural Flaw Detection"
 tags:
-  - software-architecture
-  - flaw-detection
-  - anti-patterns
-  - distributed-systems
-  - system-thinking
-  - threat-modeling
-  - chaos-engineering
+  - ai-systems
+  - library
 aliases:
-  - Architectural Flaw Detection
-  - System Defect Analysis
-  - Architecture Radar
-  - Logical Defect Detection
-created: 2026-06-18
-title: Architectural Flaw Detection
-status: active
+  - "architectural-flaw-detection"
+created: "2026-06-18"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🔍 ARCHITECTURAL FLAW DETECTION — Mental Models, Taxonomy, and Methodologies

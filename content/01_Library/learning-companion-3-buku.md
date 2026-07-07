@@ -1,3 +1,14 @@
+---
+title: "📚 Learning Companion: Tiga Buku Teknologi"
+tags:
+  - library
+aliases:
+  - "learning-companion-3-buku"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: active
+---
+
 # 📚 Learning Companion: Tiga Buku Teknologi
 
 ## Panduan Belajar Komprehensif — AI, Kualitas Perangkat Lunak & Internet Offline

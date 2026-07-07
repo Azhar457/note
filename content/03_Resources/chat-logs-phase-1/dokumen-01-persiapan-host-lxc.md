@@ -1,17 +1,13 @@
 ---
+title: "Dokumen 01 Persiapan Host Lxc"
 tags:
-  - proxmox
-  - lxc
-  - ubuntu
-  - apparmor
-  - ssh
-  - Hardening
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Proxmox LXC Setup & Host Preparation
-created: 2026-04-24
-status: Final
-title: Dokumen 01 Persiapan Host Lxc
+  - "dokumen-01-persiapan-host-lxc"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: Final
 ---
 
 # Dokumen 01 — Persiapan Host & LXC

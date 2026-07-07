@@ -1,15 +1,12 @@
 ---
 title: "Systems Design Interview — Alex Xu"
 tags:
-  - system-design
-  - interview
-  - architecture
-  - scalability
+  - library
+  - systems-architecture
 aliases:
-  - "System Design Interview Alex Xu"
-  - "Alex Xu"
-created: 2026-07-05
-updated: 2026-07-05
+  - "systems-design-interview-alex-xu"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

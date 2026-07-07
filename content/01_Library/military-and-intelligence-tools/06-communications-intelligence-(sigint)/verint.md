@@ -1,20 +1,15 @@
 ---
+title: "Verint"
 tags:
-  - verint
-  - sigint
-  - communications-intelligence
-  - interception
-  - surveillance
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Verint Systems
-  - Verint COMINT
-  - Verint SIGNIT
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Verint
+  - "verint"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

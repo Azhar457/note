@@ -1,17 +1,11 @@
 ---
 title: "Bonus Books — Refactoring, Legacy Code, Soft Skills, YDKJS, TAoCP"
 tags:
-  - bonus
-  - refactoring
-  - legacy-code
-  - soft-skills
-  - javascript
-  - knuth
+  - library
 aliases:
-  - "Bonus Books"
-  - "Fowler, Feathers, Sonmez, Simpson, Knuth"
-created: 2026-07-05
-updated: 2026-07-05
+  - "bonus-books-refactoring-legacy-ydkjs-knuth"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

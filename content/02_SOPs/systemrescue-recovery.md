@@ -1,21 +1,12 @@
 ---
+title: "Systemrescue Recovery"
 tags:
-  - data-recovery
-  - forensik
-  - open-source
-  - systemrescue
-  - DVR
-  - CCTV
-  - imaging
-  - bash
+  - sops
 aliases:
-  - SOP Open Source Recovery
-  - SystemRescue Recovery
-  - Open Source Forensik
-created: 2026-04-25
-status: operational
-title: Systemrescue Recovery
+  - "systemrescue-recovery"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🔬 SOP RECOVERY — Open Source Only (SystemRescue / Kali Live)

@@ -1,24 +1,15 @@
 ---
+title: "Ebpf Kernel Security"
 tags:
-  - eBPF
-  - kernel
-  - observability
-  - security
-  - networking
-  - linux
-  - future-tech
-  - RISC-V
-  - post-quantum
+  - cyber-security
+  - endpoint-detection
+  - library
 aliases:
-  - eBPF
-  - Extended Berkeley Packet Filter
-  - eBPF Security
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Ebpf Kernel Security
+  - "ebpf-kernel-security"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🔬 eBPF — Revolusi Observability & Security dari Dalam Kernel

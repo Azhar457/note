@@ -1,19 +1,15 @@
 ---
 title: "Unified MCP Server — 10 Services in One"
 tags:
-  - mcp
-  - project
-  - unified-mcp
-  - hermes
-  - automation
+  - cyber-security
+  - library
+  - web-security
 aliases:
-  - Unified MCP Server
-  - unified-mcp
-created: 2026-07-02
-updated: 2026-07-02
+  - "unified-mcp-server"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🧩 Unified MCP Server – Dokumentasi Lengkap

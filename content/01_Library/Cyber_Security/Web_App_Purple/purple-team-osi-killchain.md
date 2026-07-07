@@ -1,22 +1,15 @@
 ---
+title: "Purple Team Osi Killchain"
 tags:
-  - purple-team
-  - red-team
-  - blue-team
-  - OSI
-  - kill-chain
-  - network-security
-  - APT
+  - cyber-security
+  - library
+  - web-app-purple
 aliases:
-  - Purple Team OSI
-  - Kill Chain Attack Defense
-  - OSI Attack Defense
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Purple Team Osi Killchain
+  - "purple-team-osi-killchain"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # ⚔️ PURPLE TEAM — Full Kill-Chain: Attack & Defense per OSI Layer

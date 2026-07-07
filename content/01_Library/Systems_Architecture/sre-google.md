@@ -1,19 +1,12 @@
 ---
 title: "Site Reliability Engineering — Google SRE"
 tags:
-  - SRE
-  - reliability
-  - devops
-  - monitoring
-  - SLI
-  - SLO
-  - error-budget
+  - library
+  - systems-architecture
 aliases:
-  - "SRE Book"
-  - "Google SRE"
-  - "Beyer, Jones, Petoff, Murphy"
-created: 2026-07-05
-updated: 2026-07-05
+  - "sre-google"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

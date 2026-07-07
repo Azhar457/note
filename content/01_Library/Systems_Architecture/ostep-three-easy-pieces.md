@@ -1,17 +1,12 @@
 ---
 title: "Operating Systems: Three Easy Pieces (OSTEP)"
 tags:
-  - operating-systems
-  - virtualization
-  - concurrency
-  - persistence
-  - file-systems
+  - library
+  - systems-architecture
 aliases:
-  - "OSTEP"
-  - "Three Easy Pieces"
-  - "Arpaci-Dusseau"
-created: 2026-07-05
-updated: 2026-07-05
+  - "ostep-three-easy-pieces"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

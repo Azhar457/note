@@ -1,20 +1,15 @@
 ---
+title: "Graykey"
 tags:
-  - graykey
-  - mobile-forensics
-  - passcode-bypass
-  - dual-use
-  - forensic-tools
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - GrayKey
-  - Grayshift GrayKey
-  - iPhone brute force
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Graykey
+  - "graykey"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

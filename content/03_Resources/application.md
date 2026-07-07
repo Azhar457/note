@@ -1,13 +1,12 @@
 ---
-title: 🛠️ Master Interactive Tool Arsenal
+title: "🛠️ Master Interactive Tool Arsenal"
 tags:
-  - arsenal
-  - tools
-  - software
-  - map
-created: 2026-04-30
-status: active
+  - resources
+aliases:
+  - "application"
+created: "2026-04-30"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🛠️ Master Interactive Tool Arsenal

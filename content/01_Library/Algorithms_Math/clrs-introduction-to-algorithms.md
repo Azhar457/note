@@ -1,17 +1,12 @@
 ---
 title: "Introduction to Algorithms (CLRS)"
 tags:
-  - algorithms
-  - data-structures
-  - computer-science
-  - DSA
-  - mit
+  - algorithms-math
+  - library
 aliases:
-  - "CLRS"
-  - "Cormen"
-  - "Introduction to Algorithms"
-created: 2026-07-05
-updated: 2026-07-05
+  - "clrs-introduction-to-algorithms"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

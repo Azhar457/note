@@ -1,14 +1,12 @@
 ---
 title: "Bonus Books – Refactoring Legacy Code, YDKJS & Knuth"
 tags:
-  - refactoring
-  - legacy-code
-  - javascript
-  - you-dont-know-js
-  - computer-science
-  - knuth
-created: 2026-07-05
-updated: 2026-07-05
+  - library
+  - software-engineering
+aliases:
+  - "bonus-books-refactoring-legacy-ydkjs-knuth"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

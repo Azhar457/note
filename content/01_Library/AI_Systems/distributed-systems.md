@@ -1,20 +1,14 @@
 ---
+title: "Distributed Systems"
 tags:
-  - distributed-systems
-  - system-design
-  - cloud-native
-  - scalability
-  - consistency
+  - ai-systems
+  - library
 aliases:
-  - Distributed Systems
-  - Sistem Terdistribusi
-  - Distributed Computing
-created: 2026-06-11
-status: draft
-cssclasses:
-  - wide-table
-title: Distributed Systems
+  - "distributed-systems"
+created: "2026-06-11"
 updated: "2026-07-01"
+status: draft
+cssclasses: ""
 ---
 
 # 🌐 DISTRIBUTED SYSTEMS — Koordinasi Skala Besar

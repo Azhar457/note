@@ -1,26 +1,14 @@
 ---
+title: "Package Manager Hierarchy"
 tags:
-  - package-manager
-  - npm
-  - bun
-  - uv
-  - pnpm
-  - poetry
-  - python
-  - nodejs
-  - rust
-  - DevOps
+  - library
+  - platform-technologies
 aliases:
-  - Package Manager Hierarchy
-  - Bun vs npm
-  - uv vs pip
-  - Modern Package Managers
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Package Manager Hierarchy
+  - "package-manager-hierarchy"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 📦 PACKAGE MANAGER HIERARCHY — Dari npm sampai Bun, pip sampai uv

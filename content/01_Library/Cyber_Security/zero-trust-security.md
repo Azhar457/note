@@ -1,17 +1,14 @@
 ---
 title: "Zero Trust Security — Deep Dive: Prinsip, Arsitektur, dan Implementasi"
 tags:
-  - zero-trust
-  - security-architecture
-  - networking
+  - cyber-security
+  - library
 aliases:
-  - Zero Trust
-  - ZT
-created: 2026-07-02
-updated: 2026-07-02
+  - "zero-trust-security"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🔐 Zero Trust Security — Deep Dive: Prinsip, Arsitektur, dan Implementasi

@@ -1,8 +1,11 @@
 ---
-title: Blueteam Vs Enterprise C2
+title: "Blueteam Vs Enterprise C2"
 tags:
-  - 01-library
   - cyber-security
+  - endpoint-detection
+  - library
+aliases:
+  - "blueteam-vs-enterprise-c2"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

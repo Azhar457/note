@@ -1,7 +1,9 @@
 ---
-title: It Domain Hierarchy
+title: "It Domain Hierarchy"
 tags:
-  - 00-atlas
+  - atlas
+aliases:
+  - "it-domain-hierarchy"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

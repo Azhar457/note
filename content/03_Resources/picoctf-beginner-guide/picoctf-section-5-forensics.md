@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Section 5 Forensics"
 tags:
-  - CTF
-  - Forensics
-  - Grep
-  - Linux
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Forensics
-  - Grep Mastery for CTF
-created: 2026-05-12
-status: operational
-title: Picoctf Section 5 Forensics
+  - "picoctf-section-5-forensics"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🔍 PICOCTF SECTION 5 — Forensics & Filesystem

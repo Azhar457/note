@@ -1,25 +1,15 @@
 ---
+title: "Chinese Apt Toolchain"
 tags:
-  - apt
-  - china
-  - mss
-  - pla
-  - tibetanfox
-  - redleaves
-  - plugx
-  - winnti
-  - nation-state
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Chinese APT Ecosystem
-  - PLA Unit 61398
-  - PLA Unit 61486
-  - Chinese Ministry of State Security Tools
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Chinese Apt Toolchain
+  - "chinese-apt-toolchain"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

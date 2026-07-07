@@ -1,24 +1,15 @@
 ---
+title: "Ebpf Beyond Security"
 tags:
-  - eBPF
-  - networking
-  - observability
-  - performance
-  - kubernetes
-  - cloud-native
-  - android
-  - windows
-  - future-tech
+  - cyber-security
+  - endpoint-detection
+  - library
 aliases:
-  - eBPF Beyond Security
-  - eBPF Use Cases
-  - eBPF Revolution
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Ebpf Beyond Security
+  - "ebpf-beyond-security"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🌐 eBPF BEYOND SECURITY — Revolusi di Semua Layer

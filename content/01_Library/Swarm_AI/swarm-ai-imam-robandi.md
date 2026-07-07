@@ -1,22 +1,12 @@
 ---
 title: "Swarm Intelligence & Algoritma Optimasi — Imam Robandi"
 tags:
-  - ai
-  - swarm-intelligence
-  - optimization
-  - PSO
-  - GA
-  - ACO
-  - ABC
-  - FA
-  - BA
-  - neural-network
-  - fuzzy-logic
+  - library
+  - swarm-ai
 aliases:
-  - "Book 1 AI"
-  - "Robandi"
-created: 2026-07-05
-updated: 2026-07-05
+  - "swarm-ai-imam-robandi"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

@@ -1,7 +1,9 @@
 ---
-title: Storage Refurbishing
+title: "Storage Refurbishing"
 tags:
-  - 02-sops
+  - sops
+aliases:
+  - "storage-refurbishing"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

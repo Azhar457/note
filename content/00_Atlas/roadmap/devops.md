@@ -1,23 +1,14 @@
 ---
+title: "Devops"
 tags:
+  - atlas
   - roadmap
-  - devops
-  - cloud
-  - infrastructure
-  - kubernetes
-  - CI-CD
-  - IaC
-  - homelab
 aliases:
-  - Roadmap DevOps
-  - Roadmap Cloud Engineer
-  - Jalur Karir DevOps
-created: 2026-04-25
-status: active
-cssclasses:
-  - wide-table
-title: Devops
+  - "devops"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # ☁️ Roadmap DevOps & Cloud Infrastructure

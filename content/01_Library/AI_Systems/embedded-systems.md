@@ -1,20 +1,13 @@
 ---
+title: "Embedded Systems"
 tags:
-  - embedded
-  - firmware
-  - IoT
-  - bare-metal
-  - flash-forensics
-  - RTOS
-  - MCU
+  - ai-systems
+  - library
 aliases:
-  - Embedded Systems
-  - Flash Drive Forensics
-  - Bare Metal
-created: 2026-04-25
-title: Embedded Systems
-status: active
+  - "embedded-systems"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🔌 EMBEDDED SYSTEMS & FLASH FORENSICS — Bare-Metal World

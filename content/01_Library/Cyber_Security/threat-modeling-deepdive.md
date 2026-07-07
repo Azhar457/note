@@ -1,16 +1,14 @@
 ---
+title: "🛡️ Threat Modeling — Deep Dive: Metodologi dan Praktik Identifikasi Ancaman Sistem"
 tags:
-  - threat-modeling
-  - methodology
-  - security
+  - cyber-security
+  - library
 aliases:
-  - Threat Modeling
-  - TM
-created: 2026-07-02
-updated: 2026-07-02
+  - "threat-modeling-deepdive"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🛡️ Threat Modeling — Deep Dive: Metodologi dan Praktik Identifikasi Ancaman Sistem

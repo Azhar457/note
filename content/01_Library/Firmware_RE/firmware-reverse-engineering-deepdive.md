@@ -1,31 +1,14 @@
 ---
+title: "Firmware Reverse Engineering Deepdive"
 tags:
-  - firmware
-  - reverse-engineering
-  - embedded
-  - IoT
-  - exploitation
-  - UEFI
-  - JTAG
-  - SPI-flash
-  - hardware-hacking
-  - Ghidra
-  - binwalk
-  - QEMU
-  - bootrom
-  - trusted-execution
+  - firmware-re
+  - library
 aliases:
-  - Firmware Reverse Engineering Deep Dive
-  - Firmware RE
-  - Embedded Exploitation
-  - Firmware Analysis
-  - IoT Hacking
-created: 2026-07-02
-status: operational
-cssclasses:
-  - wide-table
-title: Firmware Reverse Engineering Deepdive
+  - "firmware-reverse-engineering-deepdive"
+created: "2026-07-02"
 updated: "2026-07-02"
+status: operational
+cssclasses: ""
 ---
 
 # 🔧 FIRMWARE REVERSE ENGINEERING — Deep Dive: Dari Dump Flash Sampai Remote Code Execution

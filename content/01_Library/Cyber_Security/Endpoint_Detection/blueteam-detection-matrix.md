@@ -1,8 +1,11 @@
 ---
-title: Blueteam Detection Matrix
+title: "Blueteam Detection Matrix"
 tags:
-  - 01-library
   - cyber-security
+  - endpoint-detection
+  - library
+aliases:
+  - "blueteam-detection-matrix"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

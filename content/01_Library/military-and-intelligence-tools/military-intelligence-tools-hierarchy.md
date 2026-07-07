@@ -1,25 +1,13 @@
 ---
+title: "Military Intelligence Tools Hierarchy"
 tags:
-  - military-tools
-  - intelligence
-  - surveillance
-  - sigint
-  - pentest
-  - forensics
-  - osint
-  - dual-use
-  - apt
-  - c2
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - military-and-intelligence-tools Hierarchy
-  - Shadow Arsenal
-  - SIGINT & Surveillance Stack
-  - Red Team / Blue Team Weapons
-  - Commercial Surveillance Ecosystem
-created: 2026-06-27
-title: Military Intelligence Tools Hierarchy
-status: active
+  - "military-intelligence-tools-hierarchy"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: active
 ---
 
 # ☠️ MILITARY & INTELLIGENCE TOOLS — The Shadow Arsenal Hierarchy

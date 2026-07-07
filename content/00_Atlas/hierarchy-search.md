@@ -1,7 +1,9 @@
 ---
-title: Hierarchy Search
+title: "Hierarchy Search"
 tags:
-  - 00-atlas
+  - atlas
+aliases:
+  - "hierarchy-search"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

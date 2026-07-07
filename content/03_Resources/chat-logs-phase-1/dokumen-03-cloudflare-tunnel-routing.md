@@ -1,18 +1,13 @@
 ---
+title: "Dokumen 03 Cloudflare Tunnel Routing"
 tags:
-  - Cloudflare
-  - Tunnel
-  - zero-trust
-  - Networking
-  - Reverse-Proxy
-  - DNS
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Cloudflare Tunnel
-  - Zero Trust Routing
-created: 2026-04-24
-status: operational
-title: Dokumen 03 Cloudflare Tunnel Routing
+  - "dokumen-03-cloudflare-tunnel-routing"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: operational
 ---
 
 # Dokumen 03 — Cloudflare Tunnel & Routing

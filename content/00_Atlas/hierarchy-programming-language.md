@@ -1,24 +1,13 @@
 ---
+title: "Hierarchy Programming Language"
 tags:
-  - programming-language
-  - assembly
-  - C
-  - rust
-  - golang
-  - python
-  - systems-programming
-  - hierarchy
-  - computer-science
+  - atlas
 aliases:
-  - Programming Language Hierarchy
-  - Bahasa Pemrograman Tingkatan
-  - Language Level
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Hierarchy Programming Language
+  - "hierarchy-programming-language"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 💻 HIERARKI BAHASA PEMROGRAMAN — Dari Silicon sampai Cloud

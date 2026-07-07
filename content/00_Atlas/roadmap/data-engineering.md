@@ -1,22 +1,14 @@
 ---
+title: "Data Engineering"
 tags:
+  - atlas
   - roadmap
-  - data-engineering
-  - data-pipeline
-  - ETL
-  - analytics
-  - big-data
-  - SQL
 aliases:
-  - Roadmap Data Engineer
-  - Roadmap Data Pipeline
-  - Jalur Karir Data Engineering
-created: 2026-04-25
-status: active
-cssclasses:
-  - wide-table
-title: Data Engineering
+  - "data-engineering"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 📊 Roadmap Data Engineering

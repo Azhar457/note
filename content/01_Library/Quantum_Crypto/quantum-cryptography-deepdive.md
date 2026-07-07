@@ -1,31 +1,17 @@
 ---
-created: 2026-07-02
+title: "🔬 Quantum Computing & Cryptography — Deep Dive"
 tags:
-  - quantum-computing
-  - cryptography
-  - post-quantum
-  - qkd
-  - shor-algorithm
-  - grover-algorithm
-  - nist-pqc
-  - error-correction
-  - quantum-gates
-  - qubit
+  - library
+  - quantum-crypto
 aliases:
-  - Quantum Crypto Deep Dive
-  - QKD
-  - PQC
-source: comprehensive-research
+  - "quantum-cryptography-deepdive"
+created: "2026-07-02"
+updated: "2026-07-06"
 status: evergreen
-confidence: high
-难度: advanced
-topics:
-  - Quantum Computing Fundamentals
-  - Post-Quantum Cryptography
-  - Quantum Key Distribution
-  - Quantum Error Correction
-  - Quantum Hardware
-  - Crypto Agility
+source: "comprehensive-research"
+confidence: "high"
+难度: "advanced"
+topics: ""
 ---
 
 # 🔬 Quantum Computing & Cryptography — Deep Dive

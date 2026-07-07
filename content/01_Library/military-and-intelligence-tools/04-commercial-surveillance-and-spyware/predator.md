@@ -1,21 +1,15 @@
 ---
+title: "Predator"
 tags:
-  - predator
-  - intellexa
-  - spyware
-  - surveillance
-  - commercial-spyware
-  - dual-use
+  - 04-commercial-surveillance-and-spyware
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Predator spyware
-  - Intellexa Alliance
-  - Cytrox Predator
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Predator
+  - "predator"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

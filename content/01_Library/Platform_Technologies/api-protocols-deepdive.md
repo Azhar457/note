@@ -1,24 +1,14 @@
 ---
+title: "Api Protocols Deepdive"
 tags:
-  - API
-  - REST
-  - gRPC
-  - WebSocket
-  - GraphQL
-  - protocol
-  - backend
-  - web-development
-  - performance
+  - library
+  - platform-technologies
 aliases:
-  - API Protocols Deep Dive
-  - REST vs gRPC vs WebSocket vs GraphQL
-  - API Best Practices
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Api Protocols Deepdive
+  - "api-protocols-deepdive"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🔌 API PROTOCOLS — Deep Dive: REST, gRPC, WebSocket, GraphQL

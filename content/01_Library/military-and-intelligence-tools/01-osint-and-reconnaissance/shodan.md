@@ -1,21 +1,15 @@
 ---
+title: "Shodan"
 tags:
-  - shodan
-  - osint
-  - reconnaissance
-  - iot
-  - internet-scanning
-  - dual-use
+  - 01-osint-and-reconnaissance
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Shodan.io
-  - IoT Search Engine
-  - Internet Census
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Shodan
+  - "shodan"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

@@ -1,23 +1,15 @@
 ---
+title: "Upstream and Tempora"
 tags:
-  - upstream
-  - tempora
-  - nsa
-  - gchq
-  - sigint
-  - mass-surveillance
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - UPSTREAM program
-  - TEMPORA program
-  - NSA UPSTREAM
-  - GCHQ TEMPORA
-  - backbone interception
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Upstream and Tempora
+  - "upstream-and-tempora"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

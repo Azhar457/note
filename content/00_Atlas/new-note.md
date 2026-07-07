@@ -1,7 +1,9 @@
 ---
-title: New Note
+title: "New Note"
 tags:
-  - 00-atlas
+  - atlas
+aliases:
+  - "new-note"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

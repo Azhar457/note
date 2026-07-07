@@ -1,21 +1,15 @@
 ---
 title: "How Context7 MCP Works and Makes AI Better"
 tags:
-  - context7
-  - mcp
-  - upstash
-  - ai-optimization
-  - documentation
-  - deep-dive
+  - cyber-security
+  - library
+  - web-security
 aliases:
-  - Context7 Deep Dive
-  - Context7 MCP How It Works
-  - How Context7 Makes AI Better
-created: 2026-07-03
-updated: 2026-07-03
+  - "how-context7-works"
+created: "2026-07-03"
+updated: "2026-07-03"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 <think>

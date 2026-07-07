@@ -1,17 +1,12 @@
 ---
-created: 2026-07-02
+title: "📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee"
 tags:
-  - wireless
-  - security
-  - wifi
-  - bluetooth
-  - zigbee
-  - sdr
-  - pentest
-  - deepdive
+  - library
+  - wireless-security
 aliases:
-  - Wireless Security Deep Dive
-  - Keamanan Nirkabel
+  - "wireless-security-deepdive"
+created: "2026-07-02"
+updated: "2026-07-06"
 status: complete
 ---
 

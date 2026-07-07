@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Section 4 Python Automation"
 tags:
-  - CTF
-  - Python
-  - Automation
-  - Password-Cracking
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Section 4
-  - Python for CTF Basics
-created: 2026-05-12
-status: operational
-title: Picoctf Section 4 Python Automation
+  - "picoctf-section-4-python-automation"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🐍 PICOCTF SECTION 4 — Python Automation

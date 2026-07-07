@@ -1,20 +1,15 @@
 ---
+title: "Prism"
 tags:
-  - prism
-  - nsa
-  - sigint
-  - mass-surveillance
-  - snowden
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - PRISM program
-  - NSA PRISM
-  - US-984XN
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Prism
+  - "prism"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

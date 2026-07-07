@@ -1,28 +1,15 @@
 ---
+title: "Ids Ips Waf Nsm Comparison"
 tags:
-  - IDS
-  - IPS
-  - WAF
-  - NSM
-  - network-security
-  - blue-team
-  - tools
-  - devops
-  - snort
-  - suricata
-  - zeek
-  - crowdsec
-  - safeline
+  - cyber-security
+  - library
+  - network-threats
 aliases:
-  - IDS IPS WAF Comparison
-  - Security Tools Layer
-  - Snort vs Suricata vs Zeek
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Ids Ips Waf Nsm Comparison
+  - "ids-ips-waf-nsm-comparison"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🍎🍅 SECURITY TOOLS — Bukan Apple vs Apple, Ini Apple vs Tomat

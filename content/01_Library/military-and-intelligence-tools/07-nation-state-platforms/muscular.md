@@ -1,21 +1,15 @@
 ---
+title: "Muscular"
 tags:
-  - muscular
-  - nsa
-  - gchq
-  - sigint
-  - data-center
-  - nation-state
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - MUSCULAR program
-  - NSA MUSCULAR
-  - GCHQ MUSCULAR
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Muscular
+  - "muscular"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

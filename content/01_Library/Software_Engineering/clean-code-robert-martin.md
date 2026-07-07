@@ -1,18 +1,12 @@
 ---
 title: "Clean Code — Robert C. Martin"
 tags:
-  - clean-code
-  - software-craftsmanship
-  - refactoring
-  - naming
-  - best-practices
-  - tdd
-  - testing
+  - library
+  - software-engineering
 aliases:
-  - "Clean Code"
-  - "Uncle Bob"
-created: 2026-07-05
-updated: 2026-07-05
+  - "clean-code-robert-martin"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

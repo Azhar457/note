@@ -1,21 +1,15 @@
 ---
+title: "Victoria Hdd"
 tags:
-  - victoria
-  - hdd
-  - ssd
-  - data-recovery
-  - hardware-forensics
-  - dual-use
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Victoria HDD/SSD
-  - Victoria for Windows
-  - Victoria Diagnostic Tool
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Victoria Hdd
+  - "victoria-hdd"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal  

@@ -1,22 +1,15 @@
 ---
+title: "Quantum Insert and Blackpearl"
 tags:
-  - quantum-insert
-  - blackpearl
-  - unit-8200
-  - israel
-  - nation-state
-  - network-attack
-  - sigint
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Quantum Insert
-  - Blackpearl
-  - Unit 8200 toolkit
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Quantum Insert and Blackpearl
+  - "quantum-insert-and-blackpearl"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

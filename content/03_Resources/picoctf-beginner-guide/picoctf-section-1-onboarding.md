@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Section 1 Onboarding"
 tags:
-  - CTF
-  - Onboarding
-  - SSH
-  - Netcat
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Section 1
-  - SSH and NC Basics
-created: 2026-05-12
-status: operational
-title: Picoctf Section 1 Onboarding
+  - "picoctf-section-1-onboarding"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🚀 PICOCTF SECTION 1 — Onboarding & Connection

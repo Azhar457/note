@@ -1,18 +1,14 @@
 ---
+title: "Dual Use Spectrum and Ethical Framework"
 tags:
-  - dual-use
-  - ethics
-  - framework
-  - military-tools
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Dual-Use Framework
-  - Ethical Framework
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Dual Use Spectrum and Ethical Framework
+  - "dual-use-spectrum-and-ethical-framework"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!abstract] Dokumen ini adalah sintesis etis.

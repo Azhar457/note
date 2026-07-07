@@ -1,20 +1,15 @@
 ---
+title: "Ant Catalog"
 tags:
-  - ant-catalog
-  - nsa
-  - hardware-implant
-  - tailored-access
-  - nation-state
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - ANT Catalog
-  - NSA ANT
-  - Advanced Network Technology
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Ant Catalog
+  - "ant-catalog"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

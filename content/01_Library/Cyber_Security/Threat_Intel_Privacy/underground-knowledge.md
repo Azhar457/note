@@ -1,21 +1,14 @@
 ---
+title: "Underground Knowledge"
 tags:
-  - cheat-engine
-  - dark-web
-  - tor
-  - underground
-  - shadow-knowledge
-  - anti-cheat
-  - SIGINT
+  - cyber-security
+  - library
+  - threat-intel-privacy
 aliases:
-  - Underground Knowledge
-  - Shadow Hierarchy
-  - Cheat Engine Levels
-  - Dark Web Levels
-created: 2026-04-25
-title: Underground Knowledge
-status: active
+  - "underground-knowledge"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # ☠️ UNDERGROUND KNOWLEDGE — Cheat Engine & Dark Web Hierarchy

@@ -1,3 +1,12 @@
+---
+title: "📦 Portfolio & Public Output"
+aliases:
+  - "output"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: active
+---
+
 # 📦 Portfolio & Public Output
 
 > Daftar project, tools, artikel, dan publikasi yang dihasilkan dari pembelajaran di vault ini.

@@ -1,14 +1,12 @@
 ---
+title: "About"
 tags:
-  - about
-  - profile
+  - atlas
 aliases:
-  - About
-  - Tentang
-created: 2026-06-04
-title: About
-status: active
+  - "about"
+created: "2026-06-04"
 updated: "2026-07-01"
+status: active
 ---
 
 # 👋 Hai, Saya Azhar Muttaqien

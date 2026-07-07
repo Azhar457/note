@@ -1,18 +1,12 @@
 ---
 title: "Design Patterns — GoF (Gamma, Helm, Johnson, Vlissides)"
 tags:
-  - design-patterns
-  - OOP
-  - software-architecture
-  - GoF
-  - creational
-  - structural
-  - behavioral
+  - library
+  - software-engineering
 aliases:
-  - "Gang of Four"
-  - "Design Patterns Book"
-created: 2026-07-05
-updated: 2026-07-05
+  - "design-patterns-gof"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

@@ -1,30 +1,15 @@
 ---
+title: "Web Application Firewall & Reverse Proxy Deepdive"
 tags:
-  - WAF
-  - reverse-proxy
-  - modsecurity
-  - CRS
-  - nginx
-  - pingora
-  - haproxy
-  - envoy
-  - api-gateway
-  - rate-limiting
-  - load-balancing
-  - TLS
-  - web-security
+  - cyber-security
+  - library
+  - waf-reverse-proxy
 aliases:
-  - WAF Deep Dive
-  - Reverse Proxy Architecture
-  - Web Application Firewall
-  - API Gateway
-  - Layer 7 Proxy
-created: 2026-07-02
-status: operational
-cssclasses:
-  - wide-table
-title: Web Application Firewall & Reverse Proxy Deepdive
+  - "waf-reverse-proxy-deepdive"
+created: "2026-07-02"
 updated: "2026-07-02"
+status: operational
+cssclasses: ""
 ---
 
 # 🛡️ WEB APPLICATION FIREWALL & REVERSE PROXY — Deep Dive: Dari ModSecurity sampai Pingora

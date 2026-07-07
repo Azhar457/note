@@ -1,23 +1,15 @@
 ---
+title: "CGNAT & IP Attribution Deep Dive"
 tags:
-  - CGNAT
-  - IP-attribution
-  - network-forensics
-  - threat-hunting
-  - carrier-grade-nat
-  - ISP-logging
-  - compliance
+  - cyber-security
+  - library
+  - network-threats
 aliases:
-  - Carrier-Grade NAT Deep Dive
-  - CGNAT Attribution Analysis
-  - IP Sharing Forensics
-  - NAT444
-created: 2025-07-02
+  - "cgnat-attribution-deepdive"
+created: "2025-07-02"
 updated: "2025-07-02"
 status: operational
-cssclasses:
-  - wide-table
-title: CGNAT & IP Attribution Deep Dive
+cssclasses: ""
 ---
 
 # 🕸️ CGNAT & IP Attribution — Carrier-Grade NAT, Logging, dan Dampaknya terhadap Forensik Jaringan

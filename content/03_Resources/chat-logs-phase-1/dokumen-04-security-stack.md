@@ -1,22 +1,13 @@
 ---
+title: "Dokumen 04 Security Stack"
 tags:
-  - Blue-Team
-  - Lynis
-  - Trivy
-  - Crowdsec
-  - WAF
-  - Hardening
-  - CVE
-  - IPS
-  - Firewall
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Security Check
-  - Blue Team Phase 1
-  - Audit & IPS
-created: 2026-04-24
-status: operational
-title: Dokumen 04 Security Stack
+  - "dokumen-04-security-stack"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: operational
 ---
 
 # Dokumen 04 — Blue Team Phase 1 (Audit & IPS)

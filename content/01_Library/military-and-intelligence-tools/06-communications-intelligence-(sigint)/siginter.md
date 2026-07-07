@@ -1,20 +1,15 @@
 ---
+title: "Siginter"
 tags:
-  - siginter
-  - elbit
-  - sigint
-  - israel
-  - electronic-warfare
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - SIGINTer
-  - Elbit SIGINTer
-  - Elbit Systems SIGINT
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Siginter
+  - "siginter"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

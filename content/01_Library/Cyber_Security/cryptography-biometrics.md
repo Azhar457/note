@@ -1,20 +1,13 @@
 ---
+title: "Cryptography Biometrics"
 tags:
-  - kriptografi
-  - biometrik
-  - identitas
-  - autentikasi
-  - PKI
-  - zero-trust
-  - cryptography
+  - cyber-security
+  - library
 aliases:
-  - Crypto Hierarchy
-  - Biometrik Levels
-  - Auth Stack
-created: 2026-04-23
-status: operational
-title: Cryptography Biometrics
+  - "cryptography-biometrics"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🔐 Kriptografi & Biometrik — Hierarki Lengkap

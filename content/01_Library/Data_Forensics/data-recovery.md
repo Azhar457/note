@@ -1,16 +1,13 @@
 ---
+title: "Data Recovery"
 tags:
-  - data-recovery
-  - forensics
-  - hardware
-  - disk-refurbishing
+  - data-forensics
+  - library
 aliases:
-  - Data Recovery & Forensics
-  - Pemulihan Data
-created: 2026-06-12
-status: operational
-title: Data Recovery
+  - "data-recovery"
+created: "2026-06-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 💾 DATA RECOVERY & FORENSIK — Panduan Komprehensif

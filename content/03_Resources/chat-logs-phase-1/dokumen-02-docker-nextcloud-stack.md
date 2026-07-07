@@ -1,20 +1,13 @@
 ---
+title: "Dokumen 02 Docker Nextcloud Stack"
 tags:
-  - Docker
-  - Nextcloud
-  - MariaDB
-  - IaC
-  - Compose
-  - Cloud-Native
-  - Persistence
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Nextcloud Stack
-  - Docker Compose
-  - Infrastructure as Code
-status: operational
-created: 2026-04-24
-title: Dokumen 02 Docker Nextcloud Stack
+  - "dokumen-02-docker-nextcloud-stack"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: operational
 ---
 
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage

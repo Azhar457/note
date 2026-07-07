@@ -1,26 +1,14 @@
 ---
+title: "Offensive Security"
 tags:
+  - atlas
   - roadmap
-  - red-team
-  - pentesting
-  - offensive-security
-  - exploit
-  - bug-bounty
-  - OSCP
-  - C2
-  - active-directory
 aliases:
-  - Roadmap Red Team
-  - Roadmap Pentester
-  - Jalur Karir Offensive Security
-  - C2 Operator Track
-  - AD Attack Chain
-created: 2026-04-25
+  - "offensive-security"
+created: "2026-04-25"
 updated: "2026-07-01"
 status: active
-cssclasses:
-  - wide-table
-title: Offensive Security
+cssclasses: ""
 ---
 
 # 🗡️ Roadmap Offensive Security — Red Team / Penetration Tester

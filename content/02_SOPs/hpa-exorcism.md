@@ -1,13 +1,12 @@
 ---
-aliases:
-  - HPA
-created: 2026-04-23
+title: "Hpa Exorcism"
 tags:
-  - SOP
-  - HDD/SDD
-title: Hpa Exorcism
-status: active
+  - sops
+aliases:
+  - "hpa-exorcism"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🔪 SOP — The Safe Exorcist

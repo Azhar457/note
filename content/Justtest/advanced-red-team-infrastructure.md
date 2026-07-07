@@ -1,10 +1,9 @@
 ---
-title: Advanced Red Team Infrastructure
+title: "Advanced Red Team Infrastructure"
 tags:
-  - red-team
-  - c2
-  - infrastructure
-  - opsec
+  - justtest
+aliases:
+  - "advanced-red-team-infrastructure"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

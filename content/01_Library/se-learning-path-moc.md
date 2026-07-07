@@ -1,16 +1,11 @@
 ---
 title: "MOC — Software Engineering & CS Learning Path"
 tags:
-  - MOC
-  - learning-path
-  - software-engineering
-  - algorithms
-  - systems
+  - library
 aliases:
-  - "SE Learning Path"
-  - "All Books MOC"
-created: 2026-07-05
-updated: 2026-07-05
+  - "se-learning-path-moc"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

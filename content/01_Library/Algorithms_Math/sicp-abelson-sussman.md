@@ -1,16 +1,12 @@
 ---
 title: "Structure and Interpretation of Computer Programs (SICP)"
 tags:
-  - functional-programming
-  - abstraction
-  - mit
-  - programming-language
-  - metacircular-evaluator
+  - algorithms-math
+  - library
 aliases:
-  - "SICP"
-  - "Wizard Book"
-created: 2026-07-05
-updated: 2026-07-05
+  - "sicp-abelson-sussman"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

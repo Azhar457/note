@@ -1,19 +1,14 @@
 ---
+title: "Countermeasure Stack"
 tags:
-  - countermeasure
-  - defense
-  - hardening
-  - security
-  - military-tools
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Defense Stack
-  - Countermeasure Hierarchy
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Countermeasure Stack
+  - "countermeasure-stack"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!abstract] Dari Pasif ke Proaktif

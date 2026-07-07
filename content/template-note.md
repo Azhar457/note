@@ -1,12 +1,9 @@
 ---
 title: "Judul Note"
-tags:
-  - tag-1
-  - tag-2
 aliases:
-  - "Nama Alternatif"
-created: { { date } }
-updated: { { date } }
+  - "template-note"
+created: "2026-07-06"
+updated: "2026-07-06"
 status: active
 ---
 

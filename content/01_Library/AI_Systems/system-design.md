@@ -1,18 +1,13 @@
 ---
+title: "System Design"
 tags:
-  - database
-  - software-architecture
-  - system-design
-  - distributed-systems
-  - design-patterns
+  - ai-systems
+  - library
 aliases:
-  - System Design
-  - Database Internals
-  - Software Architecture
-created: 2026-04-25
-title: System Design
-status: active
+  - "system-design"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🏗️ SYSTEM DESIGN — Database Internals & Software Architecture

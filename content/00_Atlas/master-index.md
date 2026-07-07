@@ -1,12 +1,12 @@
 ---
+title: "Master Index"
 tags:
-  - master-index
-  - roadmap
-  - meta
-created: 2026-04-25
-status: active
-title: Master Index
+  - atlas
+aliases:
+  - "master-index"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 ## Tabel Rancangan

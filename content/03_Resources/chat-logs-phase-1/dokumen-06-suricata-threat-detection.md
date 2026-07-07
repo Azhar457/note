@@ -1,19 +1,13 @@
 ---
+title: "Dokumen 06 Suricata Threat Detection"
 tags:
-  - suricata
-  - ids
-  - IPS
-  - network-security
-  - nsm
-  - proxmox
-  - Hardening
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Network Monitor
-  - Packet Inspection
-created: 2026-04-24
-status: Reference
-title: Dokumen 06 Suricata Threat Detection
+  - "dokumen-06-suricata-threat-detection"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: Reference
 ---
 
 > [!info]

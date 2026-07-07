@@ -1,19 +1,15 @@
 ---
+title: "Drfm"
 tags:
-  - drfm
-  - electronic-warfare
-  - jamming
-  - radar
-  - sigint
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Digital RF Memory
-  - DRFM Jamming
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Drfm
+  - "drfm"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

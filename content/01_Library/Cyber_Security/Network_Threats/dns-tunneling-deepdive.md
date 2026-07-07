@@ -1,20 +1,15 @@
 ---
-title: DNS Tunneling — Deep Dive
+title: "DNS Tunneling — Deep Dive"
 tags:
-  - dns-tunneling
-  - c2-communication
-  - data-exfiltration
+  - cyber-security
+  - library
   - network-threats
-  - blue-team
 aliases:
-  - DNS Tunnel
-  - DNS C2 Channel
-  - DNS Exfiltration
-created: 2026-07-02
-updated: 2026-07-02
+  - "dns-tunneling-deepdive"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🕸️ DNS TUNNELING — Deep Dive: Eksploitasi DNS untuk C2 & Exfiltrasi Data

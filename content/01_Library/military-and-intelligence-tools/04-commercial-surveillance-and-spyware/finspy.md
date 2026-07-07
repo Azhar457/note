@@ -1,21 +1,15 @@
 ---
+title: "Finspy"
 tags:
-  - finspy
-  - finfisher
-  - spyware
-  - surveillance
-  - commercial-spyware
-  - dual-use
+  - 04-commercial-surveillance-and-spyware
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - FinFisher
-  - FinSpy
-  - FinFisher Suite
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Finspy
+  - "finspy"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

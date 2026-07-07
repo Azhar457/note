@@ -1,21 +1,15 @@
 ---
+title: "Great Cannon"
 tags:
-  - great-cannon
-  - gfw
-  - china
-  - ddos
-  - injection
-  - nation-state
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Great Cannon
-  - GFW Arsenal
-  - Great Firewall Offensive
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Great Cannon
+  - "great-cannon"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

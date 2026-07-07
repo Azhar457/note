@@ -1,26 +1,15 @@
 ---
+title: "Digital Privacy Anonymity"
 tags:
-  - privacy
-  - anonymity
-  - OPSEC
-  - digital-footprint
-  - threat-model
-  - data-broker
-  - identity-compartmentalization
-  - pi-hole
-  - VPN
-  - Tor
+  - cyber-security
+  - library
+  - threat-intel-privacy
 aliases:
-  - Digital Privacy
-  - Anonymity Framework
-  - Digital Footprint Elimination
-  - OPSEC Personal
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Digital Privacy Anonymity
+  - "digital-privacy-anonymity"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🕵️ DIGITAL PRIVACY & ANONYMITY — Dari Ad Blocker sampai Ghost Mode

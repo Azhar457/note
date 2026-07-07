@@ -1,15 +1,11 @@
 ---
 title: "Learning Path — 3 Buku Teknologi (MOC)"
 tags:
-  - MOC
-  - learning-path
-  - ai
-  - software-quality
-  - internet-offline
+  - library
 aliases:
-  - "Learning Companion Tiga Buku"
-created: 2026-07-05
-updated: 2026-07-05
+  - "learning-path-3-buku"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

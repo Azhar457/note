@@ -1,15 +1,13 @@
 ---
-created: 2026-04-30
+title: "Arp Spoofing Mitigation"
 tags:
-  - mitigation
-  - arp-spoofing
-  - network-security
-  - incident-response
-status: active
-cssclasses:
-  - wide-table
-title: Arp Spoofing Mitigation
+  - sops
+aliases:
+  - "arp-spoofing-mitigation"
+created: "2026-04-30"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 🛡️ Mitigasi ARP Spoofing — Defense Against Ettercap & Bettercap

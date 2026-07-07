@@ -1,20 +1,12 @@
 ---
+title: "Curriculum Mapping"
 tags:
-  - kurikulum
-  - learning-path
-  - matematika
-  - CS
-  - security
-  - roadmap
-  - progress
+  - atlas
 aliases:
-  - Kurikulum Mapping
-  - Learning Path
-  - Mata Kuliah CS Bridge
-created: 2026-04-25
-status: active
-title: Curriculum Mapping
+  - "curriculum-mapping"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security

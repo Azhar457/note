@@ -1,26 +1,14 @@
 ---
+title: "Platform Technologies Overview"
 tags:
-  - io_uring
-  - WebAssembly
-  - WASM
-  - CXL
-  - confidential-computing
-  - DPU
-  - SmartNIC
-  - P4
-  - RISC-V
-  - future-tech
-  - platform
+  - library
+  - platform-technologies
 aliases:
-  - Emerging Platform Technologies
-  - Game Changer Technologies
-  - Beyond eBPF
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Platform Technologies Overview
+  - "platform-technologies-overview"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # ⚡ PLATFORM TECHNOLOGIES — Yang Sama "OP"-nya dengan eBPF

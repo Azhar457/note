@@ -1,22 +1,14 @@
 ---
+title: "Software Engineering"
 tags:
+  - atlas
   - roadmap
-  - software-engineering
-  - backend
-  - fullstack
-  - API
-  - database
-  - architecture
 aliases:
-  - Roadmap Software Engineer
-  - Roadmap Backend Developer
-  - Jalur Karir Backend
-created: 2026-04-25
-status: active
-cssclasses:
-  - wide-table
-title: Software Engineering
+  - "software-engineering"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 💻 Roadmap Software Engineering — Backend Developer

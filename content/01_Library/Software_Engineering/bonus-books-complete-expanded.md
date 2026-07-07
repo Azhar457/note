@@ -1,16 +1,12 @@
 ---
 title: "Bonus Books – Refactoring Warisan, YDKJS & Knuth (Rekompletsasi Utuh)"
 tags:
-  - refactoring
-  - legacy-code
-  - javascript
-  - you-dont-know-js
-  - computer-science
-  - knuth
-  - software-architecture
-  - knowledge-portfolio
-created: 2026-07-05
-updated: 2026-07-05
+  - library
+  - software-engineering
+aliases:
+  - "bonus-books-complete-expanded"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

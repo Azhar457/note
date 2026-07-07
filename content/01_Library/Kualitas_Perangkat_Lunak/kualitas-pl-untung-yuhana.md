@@ -1,18 +1,12 @@
 ---
 title: "Kualitas Perangkat Lunak — Untung Yuhana (ITS)"
 tags:
-  - software-quality
-  - SQA
-  - VV
-  - CMMI
-  - SQAP
-  - testing
-  - risk-management
+  - kualitas-perangkat-lunak
+  - library
 aliases:
-  - "Book 2 Kualitas PL"
-  - "Yuhana"
-created: 2026-07-05
-updated: 2026-07-05
+  - "kualitas-pl-untung-yuhana"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

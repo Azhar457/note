@@ -1,18 +1,12 @@
 ---
+title: "Hierarchy Offensive"
 tags:
-  - hierarchy
-  - offensive-security
-  - skill-progression
-  - red-team
-  - apt
+  - atlas
 aliases:
-  - Offensive Hierarchy
-  - Red Team Levels
-  - Skill Progression Matrix
-created: 2026-04-30
-title: Hierarchy Offensive
-status: active
+  - "hierarchy-offensive"
+created: "2026-04-30"
 updated: "2026-07-01"
+status: active
 ---
 
 # ☠️ Hierarchy Offensive Security — Level 0 sampai APT Simulator

@@ -1,14 +1,13 @@
 ---
+title: "Day 1"
 tags:
-  - Self-Experiment
+  - original
 aliases:
-  - Self-Experiment
-created: 2026-06-06
+  - "day-1"
+created: "2026-06-06"
 updated: "2026-07-01"
 status: Ongoing
-cssclasses:
-  - wide-table
-title: Day 1
+cssclasses: ""
 ---
 
 # Catatan

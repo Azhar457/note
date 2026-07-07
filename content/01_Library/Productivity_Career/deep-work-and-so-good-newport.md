@@ -1,15 +1,12 @@
 ---
 title: "Deep Work — Cal Newport"
 tags:
-  - productivity
-  - focus
-  - deep-work
-  - career
+  - library
+  - productivity-career
 aliases:
-  - "Deep Work"
-  - "Cal Newport"
-created: 2026-07-05
-updated: 2026-07-05
+  - "deep-work-and-so-good-newport"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

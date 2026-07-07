@@ -1,16 +1,12 @@
 ---
 title: "The Pragmatic Programmer — Hunt & Thomas"
 tags:
-  - pragmatism
-  - software-craftsmanship
-  - career
-  - DRY
-  - TDD
+  - library
+  - software-engineering
 aliases:
-  - "Pragmatic Programmer"
-  - "Hunt & Thomas"
-created: 2026-07-05
-updated: 2026-07-05
+  - "the-pragmatic-programmer"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

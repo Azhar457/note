@@ -1,19 +1,13 @@
 ---
+title: "Math and Algorithms"
 tags:
-  - algoritma
-  - struktur-data
-  - matematika-diskrit
-  - linear-algebra
-  - fondasi
-  - kriptografi-math
+  - fundamentals
+  - library
 aliases:
-  - Matematika Algoritma
-  - CS Math Foundation
-  - Algoritma & DS
-created: 2026-04-25
-title: Math and Algorithms
-status: active
+  - "math-and-algorithms"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🧮 MATEMATIKA & ALGORITMA — Fondasi Semua CS

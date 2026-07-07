@@ -1,20 +1,15 @@
 ---
+title: "Palantir Gotham"
 tags:
-  - palantir
-  - gotham
-  - data-fusion
-  - intelligence
-  - analytics
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Palantir Gotham
-  - Palantir Technologies
-  - Palantir Platform
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Palantir Gotham
+  - "palantir-gotham"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

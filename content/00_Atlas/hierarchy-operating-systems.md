@@ -1,20 +1,12 @@
 ---
+title: "Hierarchy Operating Systems"
 tags:
-  - OS
-  - linux
-  - security
-  - military
-  - intelligence
-  - privacy
-  - hierarchy
+  - atlas
 aliases:
-  - OS Hierarchy
-  - Operating System Levels
-  - OS Security Levels
-created: 2026-04-26
-status: operational
-title: Hierarchy Operating Systems
+  - "hierarchy-operating-systems"
+created: "2026-04-26"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🖥️ HIERARKI OS — Dari Consumer sampai Military/Intelligence

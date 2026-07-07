@@ -1,23 +1,15 @@
 ---
 title: "Cloudflare Ruleset Engine — Phase Architecture"
 tags:
-  - cloudflare
-  - waf
-  - ruleset-engine
-  - phases
-  - ddos
-  - networking
-  - firewall
-  - reverse-proxy
+  - cyber-security
+  - library
+  - web-security
 aliases:
-  - Cloudflare Ruleset Engine
-  - CF Phase
-  - Ruleset Engine Phases
-created: 2026-07-02
-updated: 2026-07-02
+  - "cloudflare-ruleset-engine-phases"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # ☁️ Cloudflare Ruleset Engine — Phase Architecture

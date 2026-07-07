@@ -1,31 +1,14 @@
 ---
 title: "Container & Kubernetes Security Deep Dive"
-aliases:
-  - container-kubernetes-security
-  - CKS
-  - container-security
-  - k8s-security-deepdive
 tags:
-  - container-security
-  - kubernetes-security
-  - runtime-security
-  - supply-chain-security
-  - devsecops
-  - ebpf
-  - cilium
-  - falco
-  - opa-gatekeeper
-  - kyverno
-  - image-security
-  - network-security
-  - secrets-management
-  - admission-control
-  - reference/library
-created: 2026-07-02
-updated: 2026-07-02
+  - container-k8s-security
+  - library
+aliases:
+  - "container-kubernetes-security-deepdive"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🐳 Container & Kubernetes Security Deep Dive

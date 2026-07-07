@@ -1,21 +1,15 @@
 ---
+title: "Network Security"
 tags:
-  - network-security
-  - blue-team
-  - red-team
-  - OSI
-  - firewall
-  - social-engineering
+  - cyber-security
+  - library
+  - network-threats
 aliases:
-  - Network Security
-  - OSI Layer Hierarchy
-  - Network OSI
-created: 2026-04-25
-status: operational
-cssclasses:
-  - wide-table
-title: Network Security
+  - "network-security"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 <think>

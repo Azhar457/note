@@ -1,22 +1,15 @@
 ---
 title: "Identity & Access Management (IAM)"
 tags:
+  - cyber-security
   - iam
-  - identity
-  - authentication
-  - authorization
-  - mfa
-  - sso
-  - pam
+  - library
 aliases:
-  - IAM
-  - Identity and Access Management
-  - Access Control
-created: 2026-07-02
-updated: 2026-07-02
+  - "identity-and-access-management"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🪪 Identity & Access Management (IAM)

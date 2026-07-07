@@ -1,19 +1,13 @@
 ---
+title: "Computer Science Foundations"
 tags:
-  - os-internals
-  - computer-architecture
-  - kernel
-  - cpu
-  - memory
-  - fondasi
+  - fundamentals
+  - library
 aliases:
-  - Fondasi CS
-  - OS Internals
-  - Computer Architecture
-created: 2026-04-25
-title: Computer Science Foundations
-status: active
+  - "computer-science-foundations"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🖥️ FONDASI CS — OS Internals & Computer Architecture

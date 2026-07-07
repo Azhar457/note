@@ -1,22 +1,15 @@
 ---
+title: "Endpoint Security"
 tags:
-  - endpoint-security
-  - blue-team
-  - red-team
-  - rootkit
-  - BYOVD
-  - firmware
-  - CPU-ring
+  - cyber-security
+  - endpoint-detection
+  - library
 aliases:
-  - Endpoint Security
-  - CPU Ring Hierarchy
-  - Virus Endpoint
-created: 2026-04-25
-status: operational
-cssclasses:
-  - wide-table
-title: Endpoint Security
+  - "endpoint-security"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 <think>

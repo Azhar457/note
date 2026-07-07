@@ -1,21 +1,15 @@
 ---
 title: "Context7 MCP & Custom MCP Server Development"
 tags:
-  - context7
-  - mcp
-  - model-context-protocol
-  - digital-garden
-  - obsidian
-  - svelte
-  - react-bits
+  - cyber-security
+  - library
+  - web-security
 aliases:
-  - Context7 MCP Deep Dive
-  - Custom MCP Server
-created: 2026-07-03
-updated: 2026-07-03
+  - "context7-mcp-deepdive"
+created: "2026-07-03"
+updated: "2026-07-03"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🧠 Context7 MCP & Custom Server Development — Deep Dive

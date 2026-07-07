@@ -1,20 +1,15 @@
 ---
+title: "Google Dorks"
 tags:
-  - google-dorks
-  - osint
-  - reconnaissance
-  - search-operators
-  - passive-recon
+  - 01-osint-and-reconnaissance
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Google Hacking
-  - Google Dorking
-  - Advanced Google Search
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Google Dorks
+  - "google-dorks"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

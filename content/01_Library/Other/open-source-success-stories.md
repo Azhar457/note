@@ -1,8 +1,10 @@
 ---
-title: Open Source Success Stories
+title: "Open Source Success Stories"
 tags:
-  - 01-library
+  - library
   - other
+aliases:
+  - "open-source-success-stories"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

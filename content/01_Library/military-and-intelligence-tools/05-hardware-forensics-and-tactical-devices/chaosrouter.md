@@ -1,20 +1,15 @@
 ---
+title: "Chaosrouter"
 tags:
-  - chaosrouter
-  - cellular-interception
-  - imsi-catcher
-  - sigint
-  - israel
-  - tactical
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Chaosrouter
-  - Shadow-Tech Chaosrouter
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Chaosrouter
+  - "chaosrouter"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

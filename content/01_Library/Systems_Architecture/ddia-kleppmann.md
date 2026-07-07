@@ -1,18 +1,12 @@
 ---
 title: "Designing Data-Intensive Applications (DDIA)"
 tags:
-  - distributed-systems
-  - databases
-  - architecture
-  - scalability
-  - replication
-  - consistency
+  - library
+  - systems-architecture
 aliases:
-  - "DDIA"
-  - "Kleppmann"
-  - "designing-data-intensive-applications"
-created: 2026-07-05
-updated: 2026-07-05
+  - "ddia-kleppmann"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

@@ -1,18 +1,15 @@
 ---
 title: "Endpoint Detection Playbook"
 tags:
+  - cyber-security
   - endpoint-detection
-  - edr
-  - incident-response
-  - sigma-rules
+  - library
 aliases:
-  - EDR Playbook
-  - Endpoint Detection & Response
-created: 2026-07-02
-updated: 2026-07-02
+  - "endpoint-detection-playbook"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 # 🦠 Endpoint Detection Playbook — Workflow & Tactical Playbook

@@ -1,25 +1,14 @@
 ---
+title: "Infrastructure Administrator"
 tags:
+  - atlas
   - roadmap
-  - systems-engineer
-  - infrastructure
-  - bare-metal
-  - on-prem
-  - proxmox
-  - pfsense
-  - pki
-  - vault
-  - blue-team
 aliases:
-  - Roadmap IT Systems Engineer
-  - Roadmap Infrastructure Administrator
-  - Roadmap On-Prem Infrastructure
-created: 2026-05-18
-status: active
-cssclasses:
-  - wide-table
-title: Infrastructure Administrator
+  - "infrastructure-administrator"
+created: "2026-05-18"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 > [!warning] **Filosofi:** Jangan hanya "install" — kamu harus bisa "operate." Bedanya besar: install Proxmox itu 30 menit, tapi operate 4-node cluster dengan ZFS, Corosync quorum, dan PBS restore verification itu skill yang ditanya waktu interview. Rekruter akan tanya: "Oke, node 3 down, apa yang terjadi dengan VM di node 1 dan 2?" Kalau kamu jawab: "Corosync tetap quorum karena 3 dari 4 node hidup, VM HA failover ke node healthy berdasarkan resource score, dan PBS restore saya verifikasi mingguan dengan automated test restore ke isolated VM" — itu yang menutup pertanyaan.

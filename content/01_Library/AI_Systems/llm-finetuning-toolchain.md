@@ -1,8 +1,20 @@
 ---
-created: 2026-07-05
-tags: [ai, fine-tuning, ollama, 9router, pipeline, spek-kentang]
-author: Hermes Agent → Azhar
+title: "LLM Fine-Tuning Toolchain"
+tags:
+  - 9router
+  - ai
+  - ai-systems
+  - fine-tuning
+  - library
+  - ollama
+  - pipeline
+  - spek-kentang
+aliases:
+  - "llm-finetuning-toolchain"
+created: "2026-07-05"
+updated: "2026-07-06"
 status: evergreen
+author: "Hermes Agent → Azhar"
 ---
 
 # LLM Fine-Tuning Toolchain
@@ -335,7 +347,7 @@ providers:
 
 Total fine-tune 7B sekali training: **~$0.20–1.00**. Serve unlimited via Ollama + 9Router: **$0**.
 
-## Hubungan Antar Tools (TL;DR)
+## Hubungan Antar Tools
 
 | Tool              | Level     | Fungsi                                |
 | ----------------- | --------- | ------------------------------------- |

@@ -1,20 +1,13 @@
 ---
+title: "Printer Maintenance Reset"
 tags:
-  - Printer
-  - Maintenance
-  - Resetter
-  - Epson
-  - Canon
-  - Hardware
-  - Technician-Guide
-status: operational
-created: 2026-05-11
-source:
-  - Internal Knowledge Base
-  - RAW Chat Export — Printer Servis
-  - Field Experience Nesabamedia/iLoadZone
-title: Printer Maintenance Reset
+  - sops
+aliases:
+  - "printer-maintenance-reset"
+created: "2026-05-11"
 updated: "2026-07-01"
+status: operational
+source: ""
 ---
 
 # Printer Maintenance & Reset — Complete Technician Guide

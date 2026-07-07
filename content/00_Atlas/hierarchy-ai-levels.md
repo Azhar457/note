@@ -1,17 +1,12 @@
 ---
+title: "Hierarchy Ai Levels"
 tags:
-  - AI
-  - Machine-Learning
-  - AGI
-  - ASI
-  - Future-Tech
+  - atlas
 aliases:
-  - Tabel AI Levels
-  - AI Hierarchy
-created: 2026-04-23
-title: Hierarchy Ai Levels
-status: active
+  - "hierarchy-ai-levels"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: active
 ---
 
 # 🤖 HIERARKI AI — Dari Rule-Based sampai Beyond Physics

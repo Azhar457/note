@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Section 3 Linux Web Basics"
 tags:
-  - CTF
-  - Linux
-  - Web-Exploitation
-  - CLI
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Section 3
-  - Linux CLI Basics
-created: 2026-05-12
-status: operational
-title: Picoctf Section 3 Linux Web Basics
+  - "picoctf-section-3-linux-web-basics"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🛠️ PICOCTF SECTION 3 — Linux & Web Basics

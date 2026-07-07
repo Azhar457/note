@@ -1,21 +1,15 @@
 ---
+title: "Foxacid"
 tags:
-  - foxacid
-  - nsa
-  - exploit-delivery
-  - network-injection
-  - sigint
-  - quantum
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - FOXACID
-  - NSA FOXACID
-  - Exploit Orchestra
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Foxacid
+  - "foxacid"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

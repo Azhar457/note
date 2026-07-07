@@ -1,22 +1,15 @@
 ---
+title: "Oscor"
 tags:
-  - oscor
-  - andre
-  - tscm
-  - bug-detection
-  - counter-surveillance
-  - physical-security
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Oscor
-  - ANDRE
-  - TSCM Equipment
-  - Bug Sweeper
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Oscor
+  - "oscor"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

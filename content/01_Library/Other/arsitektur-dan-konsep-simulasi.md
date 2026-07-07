@@ -1,21 +1,14 @@
 ---
+title: "Arsitektur Dan Konsep Simulasi"
 tags:
-  - cyber-security
-  - blue-team
-  - simulation
-  - virtual-lab
-  - forensic
-  - hardening
-  - defense-in-depth
+  - library
+  - other
 aliases:
-  - Cyber Security Simulation Architecture
-  - Defender vs Attacker Concept
-created: 2026-05-16
-status: operational
-cssclasses:
-  - wide-table
-title: Arsitektur Dan Konsep Simulasi
+  - "arsitektur-dan-konsep-simulasi"
+created: "2026-05-16"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🛡️ ARSITEKTUR & KONSEP — Simulasi Keamanan Siber

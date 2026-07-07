@@ -1,7 +1,9 @@
 ---
-title: Quartz Setup Windows
+title: "Quartz Setup Windows"
 tags:
-  - 02-sops
+  - sops
+aliases:
+  - "quartz-setup-windows"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

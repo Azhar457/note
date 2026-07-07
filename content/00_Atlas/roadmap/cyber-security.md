@@ -1,22 +1,14 @@
 ---
+title: "Cyber Security"
 tags:
+  - atlas
   - roadmap
-  - blue-team
-  - SOC
-  - cyber-security
-  - SIEM
-  - IDS
-  - homelab
 aliases:
-  - Roadmap Blue Team
-  - Roadmap SOC Analyst
-  - Jalur Karir Cyber Security Defensive
-created: 2026-04-25
-status: active
-cssclasses:
-  - wide-table
-title: Cyber Security
+  - "cyber-security"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 🛡️ Roadmap Cyber Security — Blue Team / SOC Analyst

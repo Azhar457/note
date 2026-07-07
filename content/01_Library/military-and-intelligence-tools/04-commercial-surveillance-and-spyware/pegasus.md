@@ -1,23 +1,15 @@
 ---
+title: "Pegasus"
 tags:
-  - pegasus
-  - nso-group
-  - spyware
-  - zero-click
-  - mobile-surveillance
-  - apt
+  - 04-commercial-surveillance-and-spyware
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - FORCEDENTRY
-  - KISMET
-  - Trident
-  - iPhone 0-click
-  - Pegasus spyware
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Pegasus
+  - "pegasus"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] KONTEKS ETIS & LEGAL

@@ -1,22 +1,14 @@
 ---
+title: "Technician Toolkit Standard"
 tags:
-  - Technician
-  - Toolkit
-  - Hardware
-  - Recovery
-  - Windows
-  - Bootable
-  - Field-Guide
-status: operational
-created: 2026-05-11
-source:
-  - Internal Knowledge Base
-  - RAW Chat Export — Technician Tools
-  - Field Experience Bandung/BEC
-  - "Arsenal: Forensics & Recovery"
-  - "Arsenal: Cyber Security"
-title: Technician Toolkit Standard
+  - library
+  - other
+aliases:
+  - "technician-toolkit-standard"
+created: "2026-05-11"
 updated: "2026-07-01"
+status: operational
+source: ""
 ---
 
 # Technician Toolkit Standard — Field Service Arsenal

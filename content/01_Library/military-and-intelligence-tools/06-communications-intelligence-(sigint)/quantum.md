@@ -1,20 +1,15 @@
 ---
+title: "Quantum"
 tags:
-  - quantum
-  - nsa
-  - bgp-hijack
-  - network-attack
-  - sigint
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - NSA QUANTUM
-  - QUANTUM program
-  - BGP injection
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Quantum
+  - "quantum"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

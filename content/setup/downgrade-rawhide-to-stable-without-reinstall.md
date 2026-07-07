@@ -1,3 +1,14 @@
+---
+title: "Turun dari Fedora Rawhide → Stable Tanpa Reinstall"
+tags:
+  - setup
+aliases:
+  - "downgrade-rawhide-to-stable-without-reinstall"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: active
+---
+
 # Turun dari Fedora Rawhide → Stable Tanpa Reinstall
 
 **Host:** Ryzen 5 4500U / 14GB RAM  

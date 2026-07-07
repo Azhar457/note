@@ -1,19 +1,14 @@
 ---
+title: "Research Methodology"
 tags:
-  - research
-  - methodology
-  - akademis
-  - publish
-  - penemuan
+  - fundamentals
+  - library
 aliases:
-  - Research Methodology
-  - Cara Riset
-created: 2026-04-23
-status: operational
-cssclasses:
-  - image-grid
-title: Research Methodology
+  - "research-methodology"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 ---

@@ -1,19 +1,13 @@
 ---
+title: "Dokumen 05 Maintenance Disaster Recovery"
 tags:
-  - Backup
-  - proxmox
-  - Disaster-Recorvery
-  - Maintenance
-  - Snapshot
-  - Resize
+  - chat-logs-phase-1
+  - resources
 aliases:
-  - Maintenance
-  - Disaster Recorvery
-  - DR Strategy
-created: 2026-04-24
-status: operational
-title: Dokumen 05 Maintenance Disaster Recovery
+  - "dokumen-05-maintenance-disaster-recovery"
+created: "2026-04-24"
 updated: "2026-07-01"
+status: operational
 ---
 
 # Dokumen 05 — Disaster Recovery & Operasional

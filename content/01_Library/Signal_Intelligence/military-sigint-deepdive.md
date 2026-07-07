@@ -1,26 +1,14 @@
 ---
+title: "Military Sigint Deepdive"
 tags:
-  - SIGINT
-  - military
-  - RTL-SDR
-  - frequency-hopping
-  - FHSS
-  - encryption
-  - electronic-warfare
-  - RDF
-  - geolocation
-  - Pegasus
+  - library
+  - signal-intelligence
 aliases:
-  - Military SIGINT
-  - RF Military Deep Dive
-  - FHSS Encryption
-  - Electronic Warfare
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Military Sigint Deepdive
+  - "military-sigint-deepdive"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 📡 MILITARY SIGINT — Deep Dive: Dari RTL-SDR sampai Ekhelon

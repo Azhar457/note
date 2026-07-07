@@ -1,17 +1,14 @@
 ---
-title: Comprehensive Threat Directory — Deep Dive: Taksonomi Ancaman, Teknik Eksploitasi, dan Profil Threat Actor
+title: "Comprehensive Threat Directory — Deep Dive Taksonomi Ancaman, Teknik Eksploitasi, dan Profil Threat Actor"
 tags:
-  - threat-directory
-  - threat-intelligence
-  - taxonomy
+  - cyber-security
+  - library
 aliases:
-  - Comprehensive Threat Directory
-  - Threat Encyclopedia
-created: 2026-07-02
-updated: 2026-07-02
+  - "comprehensive-threat-directory"
+created: "2026-07-02"
+updated: "2026-07-02"
 status: operational
-cssclasses:
-  - wide-table
+cssclasses: ""
 ---
 
 <think>

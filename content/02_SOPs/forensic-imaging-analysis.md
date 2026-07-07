@@ -1,7 +1,9 @@
 ---
-title: Forensic Imaging Analysis
+title: "Forensic Imaging Analysis"
 tags:
-  - 02-sops
+  - sops
+aliases:
+  - "forensic-imaging-analysis"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

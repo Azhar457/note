@@ -1,27 +1,14 @@
 ---
+title: "Military and Intelligence Tools Hub"
 tags:
-  - military-tools
-  - intelligence
-  - surveillance
-  - sigint
-  - pentest
-  - forensics
-  - osint
-  - dual-use
-  - apt
-  - c2
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - military-and-intelligence-tools Hierarchy
-  - Shadow Arsenal
-  - SIGINT & Surveillance Stack
-  - Red Team / Blue Team Weapons
-  - Commercial Surveillance Ecosystem
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Military and Intelligence Tools Hub
+  - "military-and-intelligence-tools-hub"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 ## Military and Intelligence Tools Hub

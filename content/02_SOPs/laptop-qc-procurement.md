@@ -1,20 +1,12 @@
 ---
+title: "Laptop Qc Procurement"
 tags:
-  - Laptop
-  - QC
-  - Procurement
-  - Hardware
-  - Windows
-  - Technician
-  - Shopping-Guide
+  - sops
 aliases:
-  - Panduan QC Laptop
-  - Laptop Procurement Guide
-  - Field Technician Buying Guide
-created: 2026-05-11
-status: operational
-title: Laptop Qc Procurement
+  - "laptop-qc-procurement"
+created: "2026-05-11"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide

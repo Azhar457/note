@@ -1,22 +1,15 @@
 ---
+title: "Cellebrite Ufed"
 tags:
-  - cellebrite
-  - ufed
-  - mobile-forensics
-  - data-extraction
-  - dual-use
-  - forensic-tools
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Cellebrite Universal Forensic Extraction Device
-  - UFED
-  - Cellebrite Physical Analyzer
-  - Cellebrite Premium
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Cellebrite Ufed
+  - "cellebrite-ufed"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

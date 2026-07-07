@@ -15,7 +15,7 @@ const config: QuartzConfig = {
     analytics: null,
     locale: "id-ID",
     baseUrl: "azhar457.github.io/note",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "template-note.md"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",

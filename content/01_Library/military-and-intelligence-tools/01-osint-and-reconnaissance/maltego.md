@@ -1,22 +1,15 @@
 ---
+title: "Maltego"
 tags:
-  - maltego
-  - osint
-  - link-analysis
-  - reconnaissance
-  - dual-use
-  - graph
+  - 01-osint-and-reconnaissance
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Maltego
-  - OSINT graph
-  - entity correlation
-  - Maltego Transforms
-created: 2026-06-27
-status: operational
-cssclasses:
-  - wide-table
-title: Maltego
+  - "maltego"
+created: "2026-06-27"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

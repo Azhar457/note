@@ -1,10 +1,9 @@
 ---
-title: C2 Server
+title: "C2 Server"
 tags:
-  - red-team
-  - c2
-  - infrastructure
-  - enterprise
+  - justtest
+aliases:
+  - "c2-server"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

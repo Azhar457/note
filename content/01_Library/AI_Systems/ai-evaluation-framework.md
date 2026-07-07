@@ -1,20 +1,13 @@
 ---
+title: "Ai Evaluation Framework"
 tags:
-  - AI
-  - evaluation
-  - LLM
-  - benchmarking
-  - promptfoo
-  - testing
-  - project
+  - ai-systems
+  - library
 aliases:
-  - AI Evaluation Framework
-  - LLM Testing
-  - Tes Kecerdasan AI
-created: 2026-04-25
-status: draft — belum diimplementasi
-title: Ai Evaluation Framework
+  - "ai-evaluation-framework"
+created: "2026-04-25"
 updated: "2026-07-01"
+status: draft — belum diimplementasi
 ---
 
 # 🧠 AI EVALUATION FRAMEWORK — Tes Kecerdasan LLM

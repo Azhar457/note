@@ -1,18 +1,13 @@
 ---
+title: "Hardware Hacking Re"
 tags:
-  - reverse-engineering
-  - hardware-hacking
-  - binary-analysis
-  - firmware
-  - IoT
-  - security-research
+  - cyber-security
+  - library
 aliases:
-  - RE Hierarchy
-  - Hardware Hacking Levels
-created: 2026-04-23
-status: operational
-title: Hardware Hacking Re
+  - "hardware-hacking-re"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🔬 Reverse Engineering & Hardware Hacking — Hierarki Lengkap

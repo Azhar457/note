@@ -1,23 +1,14 @@
 ---
+title: "Agentic Ai Mcp Roadmap"
 tags:
+  - atlas
   - roadmap
-  - agentic-ai
-  - mcp
-  - ai-agents
-  - llm-tool-use
-  - multi-agent
-  - autonomous-systems
 aliases:
-  - Roadmap Agentic AI & MCP
-  - Roadmap AI Agent Engineering
-  - Roadmap Model Context Protocol
-  - Roadmap Autonomous AI Systems
-created: 2026-05-29
-status: active
-cssclasses:
-  - wide-table
-title: Agentic Ai Mcp Roadmap
+  - "agentic-ai-mcp-roadmap"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 🤖 Roadmap Agentic AI & MCP — From Script to Autonomous Swarm

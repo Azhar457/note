@@ -1,20 +1,13 @@
 ---
+title: "Cloud Infrastructure"
 tags:
-  - cloud
-  - infrastructure
-  - kubernetes
-  - devops
-  - devsecops
-  - zero-trust
-  - service-mesh
+  - ai-systems
+  - library
 aliases:
-  - Cloud Hierarchy
-  - Infrastructure Levels
-  - DevSecOps Stack
-created: 2026-04-23
-status: operational
-title: Cloud Infrastructure
+  - "cloud-infrastructure"
+created: "2026-04-23"
 updated: "2026-07-01"
+status: operational
 ---
 
 # ☁️ Infrastruktur Cloud — Hierarki Lengkap

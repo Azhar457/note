@@ -1,22 +1,15 @@
 ---
+title: "Hack5 Suite"
 tags:
-  - hak5
-  - bash-bunny
-  - wifi-pineapple
-  - omg-cable
-  - rubber-ducky
-  - red-team
-  - physical-security
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
 aliases:
-  - Hak5 Devices
-  - Hak5 Tactical Suite
-  - Physical Red Team Tools
-created: 2026-06-28
-status: operational
-cssclasses:
-  - wide-table
-title: Hack5 Suite
+  - "hack5-suite"
+created: "2026-06-28"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal

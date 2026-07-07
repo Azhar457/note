@@ -1,8 +1,11 @@
 ---
-title: Comprehensive Threat Directory
+title: "Comprehensive Threat Directory"
 tags:
-  - 01-library
   - cyber-security
+  - library
+  - threat-intel-privacy
+aliases:
+  - "comprehensive-threat-directory"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

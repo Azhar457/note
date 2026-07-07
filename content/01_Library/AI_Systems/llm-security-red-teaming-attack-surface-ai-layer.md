@@ -1,22 +1,14 @@
 ---
+title: "Llm Security Red Teaming Attack Surface Ai Layer"
 tags:
-  - LLM-security
-  - red-team
-  - prompt-injection
-  - jailbreak
-  - AI-security
-  - blue-team
-  - attack-surface
+  - ai-systems
+  - library
 aliases:
-  - LLM Security
-  - AI Red Teaming
-  - Prompt Injection
-created: 2026-05-29
-status: active
-cssclasses:
-  - wide-table
-title: Llm Security Red Teaming Attack Surface Ai Layer
+  - "llm-security-red-teaming-attack-surface-ai-layer"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 🛡️ LLM SECURITY & RED TEAMING — Attack Surface AI Layer

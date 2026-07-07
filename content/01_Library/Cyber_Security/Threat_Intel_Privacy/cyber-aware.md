@@ -1,8 +1,11 @@
 ---
-title: Cyber Aware
+title: "Cyber Aware"
 tags:
-  - 01-library
   - cyber-security
+  - library
+  - threat-intel-privacy
+aliases:
+  - "cyber-aware"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

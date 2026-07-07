@@ -1,26 +1,14 @@
 ---
+title: "Zero Taxonomy Security"
 tags:
-  - zero-day
-  - zero-click
-  - exploit
-  - vulnerability
-  - CVE
-  - Pegasus
-  - zero-trust
-  - zero-knowledge
-  - steganography
-  - security
+  - cyber-security
+  - library
 aliases:
-  - Zero Family Security
-  - Zero Day Exploit
-  - Zero Click Exploit
-  - Macam Zero Security
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Zero Taxonomy Security
+  - "zero-taxonomy-security"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # 🎯 ZERO TAXONOMY — Semua "Zero" dalam Security

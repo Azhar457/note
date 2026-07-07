@@ -1,25 +1,14 @@
 ---
+title: "Ai Engineering Stack Roadmap"
 tags:
-  - ai-engineering
-  - mlops
-  - llm-ops
-  - on-prem
-  - bare-metal
-  - homelab
+  - atlas
   - roadmap
-  - model-serving
-  - rag
-  - evaluation
 aliases:
-  - Roadmap AI Engineer
-  - Roadmap MLOps / LLMOps
-  - Roadmap On-Prem AI Stack
-created: 2026-05-29
-status: active
-cssclasses:
-  - wide-table
-title: Ai Engineering Stack Roadmap
+  - "ai-engineering-stack-roadmap"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: active
+cssclasses: ""
 ---
 
 # 🧠 Roadmap AI Engineering Stack — Bare-Metal On-Prem & Homelab

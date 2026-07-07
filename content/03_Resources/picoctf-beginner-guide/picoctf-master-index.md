@@ -1,16 +1,13 @@
 ---
+title: "Picoctf Master Index"
 tags:
-  - CTF
-  - Learning-Path
-  - Cyber-Security
-  - Roadmap
+  - picoctf-beginner-guide
+  - resources
 aliases:
-  - PicoCTF Roadmap
-  - Beginner CTF Index
-created: 2026-05-12
-status: operational
-title: Picoctf Master Index
+  - "picoctf-master-index"
+created: "2026-05-12"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🚩 PICOCTF BEGINNER — Master Index & Roadmap

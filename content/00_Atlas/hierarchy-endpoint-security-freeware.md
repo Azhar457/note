@@ -1,16 +1,12 @@
 ---
+title: "Hierarchy Endpoint Security Freeware"
 tags:
-  - Security
-  - endpoint
-  - hierarchy
-  - open-source
-  - freeware
-  - ring-architecture
-  - blue-team
-status: operational
-created: 2026-05-01
-title: Hierarchy Endpoint Security Freeware
+  - atlas
+aliases:
+  - "hierarchy-endpoint-security-freeware"
+created: "2026-05-01"
 updated: "2026-07-01"
+status: operational
 ---
 
 # 🛡️ Endpoint Security Hierarchy — Open Source & Freeware Edition

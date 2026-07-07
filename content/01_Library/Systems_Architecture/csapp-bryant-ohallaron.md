@@ -1,17 +1,12 @@
 ---
 title: "Computer Systems: A Programmer's Perspective (CS:APP)"
 tags:
-  - computer-systems
-  - assembly
-  - memory-hierarchy
-  - architecture
-  - performance
+  - library
+  - systems-architecture
 aliases:
-  - "CS:APP"
-  - "Bryant & O'Hallaron"
-  - "Computer Systems"
-created: 2026-07-05
-updated: 2026-07-05
+  - "csapp-bryant-ohallaron"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

@@ -1,26 +1,14 @@
 ---
+title: "Cicd Shiftleft Shiftright"
 tags:
-  - CI-CD
-  - DevOps
-  - DevSecOps
-  - shift-left
-  - shift-right
-  - pipeline
-  - testing
-  - SAST
-  - DAST
-  - continuous-integration
-  - continuous-deployment
+  - devops
+  - library
 aliases:
-  - CI/CD Deep Dive
-  - Shift Left Shift Right
-  - DevOps Pipeline
-created: 2026-05-29
-status: operational
-cssclasses:
-  - wide-table
-title: Cicd Shiftleft Shiftright
+  - "cicd-shiftleft-shiftright"
+created: "2026-05-29"
 updated: "2026-07-01"
+status: operational
+cssclasses: ""
 ---
 
 # ⚙️ CI/CD — Deep Dive: Shift Left ↔ Shift Right

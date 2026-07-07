@@ -1,18 +1,14 @@
 ---
+title: "Arp Spoofing Incident Addendum"
 tags:
-  - incident-report
-  - arp-spoofing
-  - forensik
-  - evidence
-  - network-security
-  - blue-team
-created: 2026-04-30
-status: active
+  - cyber-security
+  - library
+  - network-threats
 aliases:
-  - ARP Spoofing Incident Addendum
-  - IR Addendum 2026-04-30
-title: Arp Spoofing Incident Addendum
+  - "arp-spoofing-incident-addendum"
+created: "2026-04-30"
 updated: "2026-07-01"
+status: active
 ---
 
 # 📋 INCIDENT REPORT ADDENDUM — ARP Spoofing 2026-04-30

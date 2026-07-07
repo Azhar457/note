@@ -1,8 +1,10 @@
 ---
-title: Cicd Guide
+title: "Cicd Guide"
 tags:
-  - 01-library
   - devops
+  - library
+aliases:
+  - "cicd-guide"
 created: "2026-07-01"
 updated: "2026-07-01"
 status: active

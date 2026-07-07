@@ -2,18 +2,11 @@
 title: "Internet Offline — Onno W. Purbo"
 tags:
   - internet-offline
-  - networking
-  - server
-  - moodle
-  - raspberry-pi
-  - wireless
-  - PLTS
-  - e-learning
+  - library
 aliases:
-  - "Book 3 Internet Offline"
-  - "Onno Purbo"
-created: 2026-07-05
-updated: 2026-07-05
+  - "internet-offline-onno-purbo"
+created: "2026-07-05"
+updated: "2026-07-05"
 status: active
 ---
 

@@ -1,22 +1,13 @@
 ---
+title: "Cheatsheet"
 tags:
-  - game-security
-  - anti-cheat
-  - reverse-engineering
-  - BYOVD
-  - kernel-driver
-  - DMA
-  - exploit
+  - resources
 aliases:
-  - Cheat Engine Hierarchy
-  - Game Security Hierarchy
-  - Anti-Cheat Bypass Levels
-created: 2026-04-23
+  - "cheatsheet"
+created: "2026-04-23"
 updated: "2026-07-01"
 status: operational
-cssclasses:
-  - wide-table
-title: Cheatsheet
+cssclasses: ""
 ---
 
 # 🎮 GAME SECURITY — Cheat Engine Hierarchy & Anti-Cheat Landscape
