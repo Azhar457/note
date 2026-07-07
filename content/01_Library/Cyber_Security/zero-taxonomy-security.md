@@ -19,6 +19,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Zero Taxonomy Security
+updated: "2026-07-01"
 ---
 
 # 🎯 ZERO TAXONOMY — Semua "Zero" dalam Security

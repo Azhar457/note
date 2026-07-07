@@ -14,6 +14,8 @@ created: 2026-05-16
 status: operational
 cssclasses:
   - wide-table
+title: Arsitektur Dan Konsep Simulasi
+updated: "2026-07-01"
 ---
 
 # 🛡️ ARSITEKTUR & KONSEP — Simulasi Keamanan Siber
@@ -101,7 +103,7 @@ Tabel berikut menjelaskan fungsionalitas setiap alat keamanan yang diinstal di l
 
 ## 🔗 Lihat Juga
 
-- [[01_library/other/arsitektur-dan-konsep-simulasi|Master SOP Setup Lingkungan]]
+- [[arsitektur-dan-konsep-simulasi|Master SOP Setup Lingkungan]]
 - [[network-security|Dasar Keamanan Jaringan (OSI Layer)]]
 
 ---

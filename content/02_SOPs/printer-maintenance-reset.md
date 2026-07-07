@@ -10,9 +10,11 @@ tags:
 status: operational
 created: 2026-05-11
 source:
-  - "Internal Knowledge Base"
-  - "RAW Chat Export — Printer Servis"
-  - "Field Experience Nesabamedia/iLoadZone"
+  - Internal Knowledge Base
+  - RAW Chat Export — Printer Servis
+  - Field Experience Nesabamedia/iLoadZone
+title: Printer Maintenance Reset
+updated: "2026-07-01"
 ---
 
 # Printer Maintenance & Reset — Complete Technician Guide
@@ -512,8 +514,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 ## Connected Notes
 
 - [[hierarchy-endpoint-security-freeware]] — Referensi arsitektur keamanan endpoint
-- [[01_library/other/technician-toolkit-standard|TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
-- [[02_sops/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
+- [[technician-toolkit-standard|TEMA-B-Technician-Toolkit-Standard]] — Flashdisk servis lengkap (Ventoy, Strelec, recovery tools)
+- [[laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & perangkat elektronik lain
 - [[sop-001-windows-browser-hardening]] — Keamanan browser & mitigasi infostealer
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
 

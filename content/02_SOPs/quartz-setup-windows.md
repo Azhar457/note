@@ -1,3 +1,12 @@
+---
+title: Quartz Setup Windows
+tags:
+  - 02-sops
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 ### SOP: Quartz v4 + GitHub Pages (Windows)
 
 #### FASE 0 — Install Prasyarat (5 menit)

@@ -13,6 +13,8 @@ aliases:
   - Infrastructure as Code
 status: operational
 created: 2026-04-24
+title: Dokumen 02 Docker Nextcloud Stack
+updated: "2026-07-01"
 ---
 
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage

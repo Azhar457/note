@@ -1,3 +1,13 @@
+---
+title: Content Remote Using Webrtc
+tags:
+  - 01-library
+  - platform-technologies
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 ```html
 <!-- USER SIDE: target.html -->
 <!DOCTYPE html>

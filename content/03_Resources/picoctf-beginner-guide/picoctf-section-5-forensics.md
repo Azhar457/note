@@ -9,6 +9,8 @@ aliases:
   - Grep Mastery for CTF
 created: 2026-05-12
 status: operational
+title: Picoctf Section 5 Forensics
+updated: "2026-07-01"
 ---
 
 # 🔍 PICOCTF SECTION 5 — Forensics & Filesystem

@@ -8,7 +8,8 @@ tags:
 status: active
 cssclasses:
   - wide-table
-aliases:
+title: Arp Spoofing Mitigation
+updated: "2026-07-01"
 ---
 
 # 🛡️ Mitigasi ARP Spoofing — Defense Against Ettercap & Bettercap

@@ -9,6 +9,8 @@ aliases:
   - Linux CLI Basics
 created: 2026-05-12
 status: operational
+title: Picoctf Section 3 Linux Web Basics
+updated: "2026-07-01"
 ---
 
 # 🛠️ PICOCTF SECTION 3 — Linux & Web Basics

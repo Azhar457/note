@@ -11,6 +11,9 @@ aliases:
   - OS Internals
   - Computer Architecture
 created: 2026-04-25
+title: Computer Science Foundations
+status: active
+updated: "2026-07-01"
 ---
 
 # 🖥️ FONDASI CS — OS Internals & Computer Architecture

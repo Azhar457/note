@@ -12,6 +12,9 @@ aliases:
   - Flash Drive Forensics
   - Bare Metal
 created: 2026-04-25
+title: Embedded Systems
+status: active
+updated: "2026-07-01"
 ---
 
 # 🔌 EMBEDDED SYSTEMS & FLASH FORENSICS — Bare-Metal World

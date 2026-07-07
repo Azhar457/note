@@ -17,6 +17,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Hierarchy Programming Language
+updated: "2026-07-01"
 ---
 
 # 💻 HIERARKI BAHASA PEMROGRAMAN — Dari Silicon sampai Cloud

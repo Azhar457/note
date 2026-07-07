@@ -1,3 +1,15 @@
+---
+title: C2 Server
+tags:
+  - red-team
+  - c2
+  - infrastructure
+  - enterprise
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # 🕸️ Enterprise C2 Infrastructure — Technical Build Guide (Level 3-5)
 
 > [!tip] **Filosofi:** Enterprise C2 bukan tool publik. Ini infrastruktur operasi yang dirancang untuk survive EDR tingkat tinggi, SIEM korporat, dan IR team profesional. Fokus pada stealth, scalability, multi-tier, dan integration dengan teknik modern (RAG poisoning, firmware persistence).

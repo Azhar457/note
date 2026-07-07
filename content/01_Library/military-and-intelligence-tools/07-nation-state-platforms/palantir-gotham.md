@@ -13,6 +13,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Palantir Gotham
+updated: "2026-07-01"
 ---
 
 > [!warning] Konteks Etis & Legal

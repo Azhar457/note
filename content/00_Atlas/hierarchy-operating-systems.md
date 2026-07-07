@@ -13,6 +13,8 @@ aliases:
   - OS Security Levels
 created: 2026-04-26
 status: operational
+title: Hierarchy Operating Systems
+updated: "2026-07-01"
 ---
 
 # 🖥️ HIERARKI OS — Dari Consumer sampai Military/Intelligence

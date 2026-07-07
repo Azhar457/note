@@ -13,6 +13,8 @@ aliases:
   - Field Technician Buying Guide
 created: 2026-05-11
 status: operational
+title: Laptop Qc Procurement
+updated: "2026-07-01"
 ---
 
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide

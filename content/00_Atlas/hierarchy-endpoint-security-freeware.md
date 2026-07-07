@@ -9,6 +9,8 @@ tags:
   - blue-team
 status: operational
 created: 2026-05-01
+title: Hierarchy Endpoint Security Freeware
+updated: "2026-07-01"
 ---
 
 # 🛡️ Endpoint Security Hierarchy — Open Source & Freeware Edition

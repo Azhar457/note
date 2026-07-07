@@ -9,6 +9,8 @@ aliases:
   - Pemulihan Data
 created: 2026-06-12
 status: operational
+title: Data Recovery
+updated: "2026-07-01"
 ---
 
 # 💾 DATA RECOVERY & FORENSIK — Panduan Komprehensif
@@ -164,6 +166,6 @@ Atola TaskForce / ddrescue / dc3dd
 
 ## 🔗 Lihat Juga
 
-- [[02_sops/storage-refurbishing|SOP Storage Recovery / Data Lifesaver]]
-- [[02_sops/forensic-imaging-analysis|SOP Forensic Imaging]]
+- [[storage-refurbishing|SOP Storage Recovery / Data Lifesaver]]
+- [[forensic-imaging-analysis|SOP Forensic Imaging]]
 - [[master-index|Master Index]]

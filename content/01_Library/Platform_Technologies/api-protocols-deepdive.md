@@ -17,6 +17,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Api Protocols Deepdive
+updated: "2026-07-01"
 ---
 
 # 🔌 API PROTOCOLS — Deep Dive: REST, gRPC, WebSocket, GraphQL

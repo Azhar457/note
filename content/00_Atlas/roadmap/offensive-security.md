@@ -16,10 +16,11 @@ aliases:
   - C2 Operator Track
   - AD Attack Chain
 created: 2026-04-25
-updated: 2026-04-30
+updated: "2026-07-01"
 status: active
 cssclasses:
   - wide-table
+title: Offensive Security
 ---
 
 # 🗡️ Roadmap Offensive Security — Red Team / Penetration Tester

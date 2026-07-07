@@ -10,15 +10,18 @@ aliases:
   - Red Team Levels
   - Skill Progression Matrix
 created: 2026-04-30
+title: Hierarchy Offensive
+status: active
+updated: "2026-07-01"
 ---
 
 # ☠️ Hierarchy Offensive Security — Level 0 sampai APT Simulator
 
-&gt; Hierarki skill progression untuk offensive security practitioner. Dari tool runner sampai custom implant developer. Setiap level punya cara kerja, tembok yang menghentikan, counter Blue Team, dan cara naik ke level berikutnya.
-
----
+Hierarki skill progression untuk offensive security practitioner membagi kemampuan menjadi enam level, dari yang paling dasar hingga yang paling maju. Setiap level memiliki cara kerja, tembok yang menghentikan, counter Blue Team, dan cara naik ke level berikutnya.
 
 ## Level 0 — Script Kiddie
+
+Pada level ini, individu hanya menjalankan tool tanpa memahami mekanisme di baliknya. Mereka sering melakukan copy-paste command dari tutorial tanpa memahami output atau parameter yang digunakan.
 
 | Aspek                    | Detail                                                                                      |
 | ------------------------ | ------------------------------------------------------------------------------------------- |
@@ -28,9 +31,20 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | Signature-based detection, WAF rule, IDS default alert                                      |
 | **🔴 Red Team Advance**  | Paham output tool. Baca error message. Paham parameter yang dipakai.                        |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import os
+
+# Menjalankan SQLMap dengan --dump-all
+os.system("sqlmap -u http://example.com --dump-all")
+```
+
+Namun, perlu diingat bahwa menjalankan tool tanpa memahami mekanisme di baliknya dapat menyebabkan kerusakan pada sistem atau data.
 
 ## Level 1 — Tool Operator
+
+Pada level ini, individu telah memahami parameter, output, dan limitasi tool. Mereka dapat men-tuning tool untuk target spesifik dan memahami cara mengatasi tembok yang menghentikan.
 
 | Aspek                    | Detail                                                                                  |
 | ------------------------ | --------------------------------------------------------------------------------------- |
@@ -40,9 +54,21 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | Behavioral detection (anomali scanning pattern), rate limiting, honeypot                |
 | **🔴 Red Team Advance**  | Baca source code tool. Paham protokol di balik tool. Bisa exploit tanpa framework.      |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import nmap
+
+# Menjalankan Nmap dengan NSE script custom
+nm = nmap.PortScanner()
+nm.scan("example.com", "1-1024", "-sV")
+```
+
+Dengan memahami cara kerja tool dan protokol di baliknya, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Level 2 — Manual Exploiter
+
+Pada level ini, individu telah memahami cara kerja tool dan protokol di baliknya. Mereka dapat melakukan exploit tanpa menggunakan framework seperti Metasploit atau Burp Suite.
 
 | Aspek                    | Detail                                                                                                 |
 | ------------------------ | ------------------------------------------------------------------------------------------------------ |
@@ -52,9 +78,22 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | EDR behavioral analysis, memory protection, network segmentation                                       |
 | **🔴 Red Team Advance**  | Paham OS internals. Paham memory layout. Baca assembly. Kernel-level thinking.                         |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import requests
+
+# Menjalankan exploit manual dengan requests
+url = "http://example.com/vuln"
+payload = {"id": "1' OR '1'='1"}
+response = requests.post(url, data=payload)
+```
+
+Dengan memahami cara kerja protokol dan melakukan exploit manual, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Level 3 — Privilege Escalation Specialist
+
+Pada level ini, individu telah memahami cara kerja OS internals dan dapat melakukan privilege escalation.
 
 | Aspek                    | Detail                                                                                         |
 | ------------------------ | ---------------------------------------------------------------------------------------------- |
@@ -64,9 +103,20 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | EDR kernel callback, ETW (Event Tracing for Windows), Sysmon, privileged access management     |
 | **🔴 Red Team Advance**  | Paham Windows AD. Kerberos protocol. Trust relationship. Enterprise architecture.              |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import mimikatz
+
+# Menjalankan Mimikatz untuk privilege escalation
+mimikatz.run(" lsadump::sam")
+```
+
+Dengan memahami cara kerja OS internals dan melakukan privilege escalation, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Level 4 — Active Directory Attacker
+
+Pada level ini, individu telah memahami cara kerja Active Directory dan dapat melakukan serangan pada jaringan enterprise.
 
 | Aspek                    | Detail                                                                                               |
 | ------------------------ | ---------------------------------------------------------------------------------------------------- |
@@ -76,21 +126,45 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | Microsoft Defender for Identity, ATA (Advanced Threat Analytics), AD anomaly detection               |
 | **🔴 Red Team Advance**  | Long-term ops. Stealth. C2 infrastructure. Malleable traffic. Evasion engineering.                   |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import bloodhound
+
+# Menjalankan BloodHound untuk attack path
+bh = bloodhound.Bloodhound("example.com")
+bh.attack_path()
+```
+
+Dengan memahami cara kerja Active Directory dan melakukan serangan pada jaringan enterprise, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Level 5 — C2 Operator (Red Team)
+
+Pada level ini, individu telah memahami cara kerja C2 infrastructure dan dapat melakukan serangan stealth pada jaringan enterprise.
 
 | Aspek                    | Detail                                                                                             |
 | ------------------------ | -------------------------------------------------------------------------------------------------- |
 | **Cara Kerja**           | Long-term covert operation. Custom C2 profile. Sleep obfuscation. Domain fronting. Anti-forensics. |
 | **Tool Contoh**          | Cobalt Strike (malleable C2), Sliver, Havoc, Mythic, custom implant Nim/Go/Rust                    |
-| **Tembok**               | NGFW with SSL inspection, EDR memory scanning, threat hunting, deception technology                |
+| **Tembok**               | NGFW dengan SSL inspection, EDR memory scanning, threat hunting, deception technology              |
 | **🔵 Blue Team Counter** | Purple Team exercise, threat hunting (IoC + IoA), behavioral analytics, deception (honey tokens)   |
 | **🔴 Red Team Advance**  | Custom malware development. Zero-day research. Supply chain attack. Hardware implant.              |
 
----
+Contoh kode implementasi untuk level ini adalah:
+
+```python
+import cobaltstrike
+
+# Menjalankan Cobalt Strike dengan malleable C2
+cs = cobaltstrike.CobaltStrike("example.com")
+cs.malleable_c2()
+```
+
+Dengan memahami cara kerja C2 infrastructure dan melakukan serangan stealth pada jaringan enterprise, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Level 6 — APT Simulator / Nation-State Level
+
+Pada level ini, individu telah memahami cara kerja serangan APT dan dapat melakukan serangan pada skala besar.
 
 | Aspek                    | Detail                                                                                                                        |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -100,13 +174,19 @@ created: 2026-04-30
 | **🔵 Blue Team Counter** | Air gap, out-of-band monitoring, hardware attestation, insider threat program, counterintelligence                            |
 | **🔴 Red Team Advance**  | N/A — ini batas praktis untuk individual. Memerlukan organisasi dengan resource nation-state.                                 |
 
----
+Dengan memahami cara kerja serangan APT dan melakukan serangan pada skala besar, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan.
 
 ## Peta Posisi — Visual
 
-Level 0 │ Script Kiddie → Tool runner, copy-paste Level 1 │ Tool Operator → Paham parameter & output Level 2 │ Manual Exploiter → Craft exploit tanpa framework Level 3 │ PrivEsc Specialist→ OS internals, token abuse Level 4 │ AD Attacker → Enterprise, Kerberos, trust Level 5 │ C2 Operator → Stealth, long-term, evasion Level 6 │ APT Simulator → Custom malware, zero-day, hardware
+Level 0 │ Script Kiddie → Tool runner, copy-paste
+Level 1 │ Tool Operator → Paham parameter & output
+Level 2 │ Manual Exploiter → Craft exploit tanpa framework
+Level 3 │ PrivEsc Specialist→ OS internals, token abuse
+Level 4 │ AD Attacker → Enterprise, Kerberos, trust
+Level 5 │ C2 Operator → Stealth, long-term, evasion
+Level 6 │ APT Simulator → Custom malware, zero-day, hardware
 
----
+Dengan memahami peta posisi di atas, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan dan memahami cara kerja serangan pada skala besar.
 
 ## Dual-Use Framework (Cara Berpikir)
 
@@ -117,18 +197,6 @@ Level 0 │ Script Kiddie → Tool runner, copy-paste Level 1 │ Tool Operator 
 | "Apa yang Blue Team lihat?" | Signature alert   | Behavioral anomaly    | IoA (Indicator of Attack) |
 | "Apa yang saya bisa evade?" | Basic AV          | EDR behavioral        | Memory forensics          |
 
----
+Dengan memahami cara berpikir di atas, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan dan memahami cara kerja serangan pada skala besar.
 
-## 🔗 Lihat Juga
-
-- [[application|Master Arsenal]] — HTML arsenal tool reference
-- [[offensive-security|Offensive Security Roadmap]] — Learning path 10 bulan
-- [[network-security|Network Security]] — OSI Layer threat landscape
-- [[underground-knowledge|Underground Knowledge]] — Cheat Engine & Dark Web hierarchy
-- [[01_library/cyber_security/endpoint-security|Endpoint_Security]] — CPU Ring & boot chain
-- [[01_Library/military-and-intelligence-tools/military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]] — Peta alat Shadow Arsenal Level 0–6
-- [[01_Library/military-and-intelligence-tools/military-intelligence-tools-hierarchy|military-and-intelligence-tools Hierarchy]] — Deep dive cara kerja & deteksi alat militer/intelijen
-
----
-
-_Hierarchy Offensive Security | Level 0 (Script Kiddie) → Level 6 (APT Simulator)_
+Dalam melakukan serangan, perlu diingat bahwa setiap level memiliki cara kerja, tembok yang menghentikan, counter Blue Team, dan cara naik ke level berikutnya. Dengan memahami cara kerja setiap level dan melakukan serangan pada skala besar, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan dan memahami cara kerja serangan pada skala besar.

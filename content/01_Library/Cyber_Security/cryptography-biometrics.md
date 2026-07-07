@@ -13,6 +13,8 @@ aliases:
   - Auth Stack
 created: 2026-04-23
 status: operational
+title: Cryptography Biometrics
+updated: "2026-07-01"
 ---
 
 # 🔐 Kriptografi & Biometrik — Hierarki Lengkap

@@ -12,6 +12,8 @@ created: 2026-04-23
 status: operational
 cssclasses:
   - image-grid
+title: Research Methodology
+updated: "2026-07-01"
 ---
 
 ---
@@ -25,10 +27,10 @@ cssclasses:
 
 ## 📑 Daftar Isi
 
-1. [[#Sheet 1 — Hierarki Research: Dari Observasi sampai Paradigm Shift]]
+1. [[#Sheet 1 — Hierarki Research]]
 2. [[#Sheet 2 — Tipe Penelitian dan Kapan Dipakai]]
-3. [[#Sheet 3 — Dari Ide ke Publikasi: Alur Lengkap]]
-4. [[#Sheet 4 — Research untuk Insinyur IT: Bedanya dengan Sains Murni]]
+3. [[#Sheet 3 — Dari Ide ke Publikasi]]
+4. [[#Sheet 4 — Research untuk Insinyur IT]]
 
 ---
 

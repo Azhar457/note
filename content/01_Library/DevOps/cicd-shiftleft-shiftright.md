@@ -19,6 +19,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Cicd Shiftleft Shiftright
+updated: "2026-07-01"
 ---
 
 # ⚙️ CI/CD — Deep Dive: Shift Left ↔ Shift Right
@@ -778,7 +780,7 @@ CI/CD adalah IMPLEMENTATION dari konsep yang sudah ada di vault:
 [[system-design]] — Software Architecture patterns
 → Canary, Blue-Green adalah architectural decision
 
-[[note/01_library/cyber_security/zero-taxonomy-security]] — Zero-Day dalam CI/CD
+[[zero-taxonomy-security]] — Zero-Day dalam CI/CD
 → Supply chain attack (SolarWinds) menyerang CI/CD pipeline
 → CI/CD security = shift left untuk keamanan supply chain
 
@@ -818,7 +820,7 @@ CI/CD adalah IMPLEMENTATION dari konsep yang sudah ada di vault:
 
 - [[cloud-infrastructure|Cloud Infrastructure]] — Kubernetes sebagai deployment target
 - [[system-design|System Design]] — Architectural patterns (microservices, event-driven)
-- [[note/01_library/cyber_security/zero-taxonomy-security|Zero Taxonomy]] — Supply chain attack via CI/CD pipeline
+- [[zero-taxonomy-security|Zero Taxonomy]] — Supply chain attack via CI/CD pipeline
 - [[ids-ips-waf-nsm-comparison|Security Tools]] — SIEM sebagai shift right technique
 - [[ebpf-kernel-security|eBPF]] — Runtime observability (shift right foundation)
 - [[master-index|Master Index]]

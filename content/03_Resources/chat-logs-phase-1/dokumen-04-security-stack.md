@@ -15,6 +15,8 @@ aliases:
   - Audit & IPS
 created: 2026-04-24
 status: operational
+title: Dokumen 04 Security Stack
+updated: "2026-07-01"
 ---
 
 # Dokumen 04 — Blue Team Phase 1 (Audit & IPS)

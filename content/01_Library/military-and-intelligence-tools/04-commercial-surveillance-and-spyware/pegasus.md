@@ -16,6 +16,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Pegasus
+updated: "2026-07-01"
 ---
 
 > [!warning] KONTEKS ETIS & LEGAL

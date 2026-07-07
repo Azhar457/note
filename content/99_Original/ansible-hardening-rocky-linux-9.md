@@ -1,8 +1,14 @@
 ---
-tags: [ansible, hardening, rocky-linux, security, homelab]
+tags:
+  - ansible
+  - hardening
+  - rocky-linux
+  - security
+  - homelab
 created: 2026-06-07
-updated: 2026-06-07
+updated: "2026-07-01"
 status: Complete
+title: Ansible Hardening Rocky Linux 9
 ---
 
 # Ansible Hardening — Rocky Linux 9

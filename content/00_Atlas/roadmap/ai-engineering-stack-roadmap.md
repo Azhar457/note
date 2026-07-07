@@ -18,6 +18,8 @@ created: 2026-05-29
 status: active
 cssclasses:
   - wide-table
+title: Ai Engineering Stack Roadmap
+updated: "2026-07-01"
 ---
 
 # 🧠 Roadmap AI Engineering Stack — Bare-Metal On-Prem & Homelab
@@ -213,7 +215,7 @@ cssclasses:
 - [[master-index|Master Index]]
 - [[llm-security-red-teaming-attack-surface-ai-layer]] — LLM Attack Surface, Prompt Injection, Red Teaming, Guardrails
 - [[infrastructure-administrator]] — Bare-metal foundation, observability, HA, compliance
-- [[01_library/cyber_security/network-security]] — API gateway, rate limiting, supply chain validation
+- [[network-security]] — API gateway, rate limiting, supply chain validation
 - [[endpoint-security]] → BYOVD → BYOM (Bring Your Own Model) security pattern overlap
 - [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
 - [[cyber-security|Cyber Security Blue Team Roadmap]] — Jalur karir Blue Team / SOC Analyst

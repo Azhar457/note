@@ -17,6 +17,9 @@ aliases:
   - Red Team / Blue Team Weapons
   - Commercial Surveillance Ecosystem
 created: 2026-06-27
+title: Military Intelligence Tools Hierarchy
+status: active
+updated: "2026-07-01"
 ---
 
 # ☠️ MILITARY & INTELLIGENCE TOOLS — The Shadow Arsenal Hierarchy

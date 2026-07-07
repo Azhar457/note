@@ -11,6 +11,9 @@ aliases:
   - CS Math Foundation
   - Algoritma & DS
 created: 2026-04-25
+title: Math and Algorithms
+status: active
+updated: "2026-07-01"
 ---
 
 # 🧮 MATEMATIKA & ALGORITMA — Fondasi Semua CS

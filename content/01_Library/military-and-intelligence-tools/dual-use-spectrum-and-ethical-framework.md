@@ -11,6 +11,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Dual Use Spectrum and Ethical Framework
+updated: "2026-07-01"
 ---
 
 > [!abstract] Dokumen ini adalah sintesis etis.

@@ -19,6 +19,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Package Manager Hierarchy
+updated: "2026-07-01"
 ---
 
 # 📦 PACKAGE MANAGER HIERARCHY — Dari npm sampai Bun, pip sampai uv
@@ -901,9 +903,9 @@ go get: cukup cepat (binary download, tidak compile deps)
 
 ## 🔗 Lihat Juga
 
-- [[note/01_library/devops/cicd-shiftleft-shiftright|CI/CD Deep Dive]] — caching package manager di pipeline
+- [[cicd-shiftleft-shiftright|CI/CD Deep Dive]] — caching package manager di pipeline
 - [[hierarchy-programming-language|Bahasa Pemrograman]] — konteks Zig (Bun) dan Rust (uv)
-- [[note/01_library/platform_technologies/api-protocols-deepdive|API Protocols]] — runtime yang di-serve oleh Bun
+- [[api-protocols-deepdive|API Protocols]] — runtime yang di-serve oleh Bun
 - [[platform-technologies-overview|Platform Technologies]] — WebAssembly target dari Bun
 - [[master-index|Master Index]]
 

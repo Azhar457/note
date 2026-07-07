@@ -11,6 +11,8 @@ aliases:
   - Hardware Hacking Levels
 created: 2026-04-23
 status: operational
+title: Hardware Hacking Re
+updated: "2026-07-01"
 ---
 
 # 🔬 Reverse Engineering & Hardware Hacking — Hierarki Lengkap

@@ -1,3 +1,12 @@
+---
+title: Forensic Imaging Analysis
+tags:
+  - 02-sops
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # 🔬 Master SOP — Digital Forensics Workflow: Imaging → Analysis → Recovery
 
 > **Environment:** Bare-Metal / Live USB (SystemRescue, Kali Linux, Paladin)

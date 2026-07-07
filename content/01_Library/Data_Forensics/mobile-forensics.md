@@ -16,6 +16,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Mobile Forensics
+updated: "2026-07-01"
 ---
 
 # 📱 MOBILE FORENSICS — Hierarki Akuisisi & Tools

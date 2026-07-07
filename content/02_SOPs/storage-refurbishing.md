@@ -1,3 +1,12 @@
+---
+title: Storage Refurbishing
+tags:
+  - 02-sops
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # 💽 Master SOP — Storage Recovery & Refurbish
 
 > **Environment:** SystemRescue (Linux Bare-Metal / CLI)

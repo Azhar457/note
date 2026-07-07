@@ -10,6 +10,8 @@ aliases:
   - SHA256 Indexing Guide
 created: 2026-05-12
 status: operational
+title: Picoctf Section 5 Reverse Engineering
+updated: "2026-07-01"
 ---
 
 # ⚙️ PICOCTF SECTION 5 — Reverse Engineering

@@ -10,6 +10,8 @@ aliases:
   - Proxmox LXC Setup & Host Preparation
 created: 2026-04-24
 status: Final
+title: Dokumen 01 Persiapan Host Lxc
+updated: "2026-07-01"
 ---
 
 # Dokumen 01 — Persiapan Host & LXC

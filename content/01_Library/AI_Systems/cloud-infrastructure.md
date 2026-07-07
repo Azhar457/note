@@ -13,6 +13,8 @@ aliases:
   - DevSecOps Stack
 created: 2026-04-23
 status: operational
+title: Cloud Infrastructure
+updated: "2026-07-01"
 ---
 
 # ☁️ Infrastruktur Cloud — Hierarki Lengkap

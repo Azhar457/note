@@ -1,3 +1,13 @@
+---
+title: Cicd Guide
+tags:
+  - 01-library
+  - devops
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # CI/CD Pipeline Guide
 
 > [!tip] Stack: Express + NestJS · Runner: Self-hosted (Ubuntu) · Container: Podman · DB: PostgreSQL/MySQL → Podman

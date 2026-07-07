@@ -12,6 +12,8 @@ aliases:
   - Packet Inspection
 created: 2026-04-24
 status: Reference
+title: Dokumen 06 Suricata Threat Detection
+updated: "2026-07-01"
 ---
 
 > [!info]

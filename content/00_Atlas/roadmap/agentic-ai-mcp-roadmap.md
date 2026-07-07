@@ -16,6 +16,8 @@ created: 2026-05-29
 status: active
 cssclasses:
   - wide-table
+title: Agentic Ai Mcp Roadmap
+updated: "2026-07-01"
 ---
 
 # 🤖 Roadmap Agentic AI & MCP — From Script to Autonomous Swarm
@@ -224,8 +226,8 @@ cssclasses:
 - [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Infrastructure yang men-support agent deployment
 - [[endpoint-security|Endpoint Security]] — Security mindset untuk agent yang punya akses ke sistem
 - [[underground-knowledge|Underground Knowledge]] — BYOVD & low-level thinking yang transferable ke agent architecture
-- [[00_atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
-- [[01_library/ai_systems/system-design|Software Architecture]] — Design pattern untuk scalable agent systems
+- [[hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 sampai Level 11 (Omega Point)
+- [[system-design|Software Architecture]] — Design pattern untuk scalable agent systems
 - [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
 - [[cyber-security|Cyber Security Blue Team Roadmap]] — Jalur karir Blue Team / SOC Analyst
 - [[devops|DevOps Roadmap]] — Jalur karir DevOps / SRE

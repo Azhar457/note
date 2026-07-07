@@ -10,6 +10,9 @@ aliases:
   - Database Internals
   - Software Architecture
 created: 2026-04-25
+title: System Design
+status: active
+updated: "2026-07-01"
 ---
 
 # 🏗️ SYSTEM DESIGN — Database Internals & Software Architecture

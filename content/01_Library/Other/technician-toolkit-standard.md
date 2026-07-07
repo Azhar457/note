@@ -10,11 +10,13 @@ tags:
 status: operational
 created: 2026-05-11
 source:
-  - "Internal Knowledge Base"
-  - "RAW Chat Export — Technician Tools"
-  - "Field Experience Bandung/BEC"
+  - Internal Knowledge Base
+  - RAW Chat Export — Technician Tools
+  - Field Experience Bandung/BEC
   - "Arsenal: Forensics & Recovery"
   - "Arsenal: Cyber Security"
+title: Technician Toolkit Standard
+updated: "2026-07-01"
 ---
 
 # Technician Toolkit Standard — Field Service Arsenal
@@ -406,7 +408,7 @@ Semua tools di bawah ini muat dalam **satu flashdisk 128GB** dengan partisi:
 - [[printer-maintenance-reset]] — Servis printer inkjet (Epson, Canon, Brother, HP)
 - [[hierarchy-endpoint-security-freeware]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
-- [[02_sops/laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
+- [[laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
 - [[application]] — 🛠️ Master Interactive Tool Arsenal (GitHub Pages)
   - [Forensics & Data Recovery](https://azhar457.github.io/application/Application_Forensics_Recovery.html) — 49 tools
   - [Cyber Security](https://azhar457.github.io/application/Application_Cyber_Security.html) — 62 tools

@@ -15,6 +15,8 @@ created: 2026-04-25
 status: active
 cssclasses:
   - wide-table
+title: Cyber Security
+updated: "2026-07-01"
 ---
 
 # 🛡️ Roadmap Cyber Security — Blue Team / SOC Analyst

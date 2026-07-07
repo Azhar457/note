@@ -9,6 +9,9 @@ aliases:
   - Tabel AI Levels
   - AI Hierarchy
 created: 2026-04-23
+title: Hierarchy Ai Levels
+status: active
+updated: "2026-07-01"
 ---
 
 # 🤖 HIERARKI AI — Dari Rule-Based sampai Beyond Physics
@@ -120,7 +123,7 @@ Level 11  │ Omega Point             → Infinit di akhir waktu (jika Big Crunc
 
 - [[endpoint-security|Endpoint Security]] — CPU Ring & Blue Team vs Red Team
 - [[network-security|Network Security]] — OSI Layer Blue Team vs Red Team
-- [[01_library/data_forensics/data-recovery|Data Recovery]] — Recovery Level 0–7
+- [[data-recovery|Data Recovery]] — Recovery Level 0–7
 - [[hpa-exorcism|SOP HPA Exorcism]]
 
 ---

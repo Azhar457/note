@@ -12,6 +12,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Countermeasure Stack
+updated: "2026-07-01"
 ---
 
 > [!abstract] Dari Pasif ke Proaktif

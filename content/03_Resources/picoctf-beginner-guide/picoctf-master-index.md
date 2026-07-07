@@ -9,6 +9,8 @@ aliases:
   - Beginner CTF Index
 created: 2026-05-12
 status: operational
+title: Picoctf Master Index
+updated: "2026-07-01"
 ---
 
 # 🚩 PICOCTF BEGINNER — Master Index & Roadmap

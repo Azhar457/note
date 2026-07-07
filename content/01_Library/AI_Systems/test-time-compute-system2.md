@@ -20,16 +20,16 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Test Time Compute System2
+updated: "2026-07-01"
 ---
 
 # ⚡ TEST-TIME COMPUTE / SYSTEM 2 — Reasoning Hierarchy & Inference-Time Scaling
 
-> System 1 bereaksi. System 2 berpikir. Tapi System 2 bisa diserang saat sedang berpikir — dan serangan itu terjadi di dalam pikiran itu sendiri.
+System 1 bereaksi. System 2 berpikir. Tapi System 2 bisa diserang saat sedang berpikir — dan serangan itu terjadi di dalam pikiran itu sendiri.
 
 > [!info] Cara Baca
 > Level = Kedalaman reasoning. Kolom Blue Team = mekanisme kontrol dan alignment. Kolom Red Team = cara mengeksploitasi atau memanipulasi reasoning tersebut. Baca dari bawah (System 1 / Direct) ke atas (Meta-Cognitive) untuk memahami eskalasi kompleksitas kognitif.
-
----
 
 ## Tabel Reasoning per Level & Compute Stage
 
@@ -44,9 +44,26 @@ cssclasses:
 | **Chain-of-Thought (CoT)**       | Level **1** _(Linear reasoning, single path)_                 | Step-by-step token generation, "Let's think step by step", intermediate reasoning tokens, arithmetic decomposition                 | CoT monitoring, step-wise alignment, reasoning trace audit, thought sanitization, step-level refusal training             | CoT injection ("Ignore previous steps..."), reasoning hijacking, step-wise manipulation, distraction injection mid-reasoning, "suddenly the answer is..."               |
 | **System 1 / Direct Inference**  | Level **0** _(Instant response, zero reasoning)_              | Pattern matching, cached response, next-token prediction, zero-shot completion, reflexive answer                                   | Input filtering, prompt moderation, output classifier, refusal training, blocklist, embedding guardrails                  | Direct injection, character-level bypass, base64/rot13 encoding, translation attacks, prompt smuggling, suffix attacks (GCG)                                            |
 
----
+### Contoh Implementasi dan Penjelasan
 
-## Peta Posisi Reasoning — Test-Time Compute
+Pada setiap level, ada contoh implementasi yang dapat membantu memahami konsep tersebut. Misalnya, pada level **Meta-Cognitive Architecture**, kita dapat menggunakan router model untuk mengarahkan aliran pemikiran antara System 1 dan System 2. Berikut adalah contoh kode Python sederhana untuk menggambarkan router model:
+
+```python
+class RouterModel:
+    def __init__(self, system1, system2):
+        self.system1 = system1
+        self.system2 = system2
+
+    def route(self, input_data):
+        if input_data["complexity"] > 5:
+            return self.system2.process(input_data)
+        else:
+            return self.system1.process(input_data)
+```
+
+Pada contoh di atas, `RouterModel` memutuskan apakah input data harus diproses oleh System 1 atau System 2 berdasarkan tingkat kompleksitasnya.
+
+### Peta Posisi Reasoning — Test-Time Compute
 
 ```
 Level 7  │ Meta-Cognitive Architecture  → Router + arbitrator + recursive oversight
@@ -59,10 +76,7 @@ Level 1  │ Chain-of-Thought (CoT)     │ Linear step-by-step reasoning
 Level 0  │ System 1 / Direct          → Instant pattern matching, zero deliberation
 ```
 
-> [!warning] Hidden Chain Extraction
-> Model seperti o1/o3 dan DeepSeek R1 menyembunyikan reasoning chain. Tapi side-channel masih mungkin: token count yang tidak wajar, latency pattern, atau output yang mengindikasikan reasoning tertentu. Lebih berbahaya: **reasoning-aware jailbreak** yang memanipulasi hidden thought sebelum output final dibuat — defender tidak bisa melihat apa yang sedang dipikirkan.
-
----
+Setiap level memiliki karakteristik dan kelemahan yang unik, sehingga memahami posisi reasoning dalam hierarki ini sangat penting untuk membangun sistem yang kuat dan aman.
 
 ## Koneksi: System 2 ↔ AI Levels ↔ Agentic AI
 
@@ -88,30 +102,21 @@ Process Reward Model Level 5
                               ← PRM adalah senjata ganda: alignment tool dan attack surface
 ```
 
-> [!tip] Framework Berpikir: Dual-Use Reasoning
-> Hampir semua teknik Test-Time Compute adalah dual-use:
->
-> - **CoT monitoring** bisa dipakai untuk audit, tapi juga untuk extraction of hidden IP / secrets
-> - **Self-consistency** meningkatkan accuracy, tapi juga bisa dipakai untuk generate multiple attack variants
-> - **Reflection** memperbaiki jawaban, tapi juga bisa direkayasa untuk "meyakinkan diri sendiri" akan jawaban yang salah
->
-> Pertanyaan sebelum deploy reasoning model:
->
-> - Apakah reasoning trace bisa diakses attacker (via prompt injection atau side-channel)?
-> - Apakah compute budget bisa di-exhaust via adversarial input (DoS reasoning)?
-> - Apakah self-correction bisa di-hijack untuk meyakinkan model akan harmful output?
+Koneksi antara Test-Time Compute, AI Levels, dan Agentic AI menunjukkan bahwa reasoning hierarchy ini tidak hanya penting untuk memahami bagaimana sistem berpikir, tetapi juga bagaimana sistem dapat dipakai untuk tujuan yang lebih luas, seperti pengembangan agen cerdas dan sistem yang lebih aman.
 
----
+### Tips dan Peringatan
+
+- Sebelum deploy reasoning model, pastikan untuk memeriksa apakah reasoning trace dapat diakses oleh attacker dan apakah compute budget dapat di-exhaust via input adversarial.
+- Jangan lupa untuk mempertimbangkan keamanan dan privasi data pengguna dalam pengembangan sistem yang menggunakan Test-Time Compute.
+- Perlu diingat bahwa teknik Test-Time Compute dapat digunakan untuk tujuan yang baik (seperti alignment dan pengembangan agen cerdas) atau tujuan yang buruk (seperti serangan cyber dan manipulasi).
 
 ## 🔗 Lihat Juga
 
 - [[master-index|Master Index]]
-- [[00_atlas/hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 (IF-THEN) sampai Level 11 (Omega Point)
-- [[00_atlas/roadmap/agentic-ai-mcp-roadmap|Agentic AI & MCP]] — ReAct loop, tool use, dan multi-agent orchestration
+- [[hierarchy-ai-levels|AI Levels]] — Hierarki AI dari Level 0 (IF-THEN) sampai Level 11 (Omega Point)
+- [[agentic-ai-mcp-roadmap|Agentic AI & MCP]] — ReAct loop, tool use, dan multi-agent orchestration
 - [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Prompt injection, jailbreak, dan alignment bypass
 - [[cyber-security|Cyber Security]] — Blue Team vs Red Team mindset yang transferable
 - [[underground-knowledge|Underground Knowledge]] — Dual-use knowledge framework
 
----
-
-_Test-Time Compute / System 2 | Level 0 (Direct) → Level 7 (Meta-Cognitive) · Reasoning Hierarchy · Inference-Time Scaling_
+Dengan memahami konsep Test-Time Compute dan reasoning hierarchy, kita dapat mengembangkan sistem yang lebih cerdas, aman, dan efisien. Namun, perlu diingat bahwa keamanan dan privasi data pengguna harus menjadi prioritas utama dalam pengembangan sistem ini.

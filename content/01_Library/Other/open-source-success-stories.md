@@ -1,3 +1,13 @@
+---
+title: Open Source Success Stories
+tags:
+  - 01-library
+  - other
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # 🚀 SUCCESS STORIES: Dari Open Source ke Karir Sukses
 
 ## "Kalau Mereka Bisa, Kenapa Kamu Tidak?"
@@ -118,33 +128,33 @@
 ### 3. Leonardo Di Donato — Dari Open Source ke Sysdig
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  LEONARDO DI DONATO — kubectl trace → Sysdig → Falco         │
-├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  BACKGROUND:                                                 │
-│  • Kerja di startup (Kubernetes 1.3 era) — startup gagal    │
-│  • Move ke InfluxData — kerja dengan eBPF daily              │
-│  • Open source: kubectl trace (eBPF tracing untuk K8s)       │
-│                                                               │
-│  HOW HE GOT HIRED BY SYSDIG:                                 │
-│  1. Build kubectl trace (open source, GitHub)               │
-│  2. Sysdig lihat project-nya ("cool things with eBPF")    │
-│  3. Sysdig reach out — mau hire untuk commercial product     │
-│  4. Leonardo: "Saya cuma mau kerja open source"             │
-│  5. Sysdig: "OK, kami punya open source project (Falco)"  │
+┌────────────────────────────────────────────────────────────────┐
+│  LEONARDO DI DONATO — kubectl trace → Sysdig → Falco           │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  BACKGROUND:                                                   │
+│  • Kerja di startup (Kubernetes 1.3 era) — startup gagal       │
+│  • Move ke InfluxData — kerja dengan eBPF daily                │
+│  • Open source: kubectl trace (eBPF tracing untuk K8s)         │
+│                                                                │
+│  HOW HE GOT HIRED BY SYSDIG:                                   │
+│  1. Build kubectl trace (open source, GitHub)                  │
+│  2. Sysdig lihat project-nya ("cool things with eBPF")         │
+│  3. Sysdig reach out — mau hire untuk commercial product       │
+│  4. Leonardo: "Saya cuma mau kerja open source"                │
+│  5. Sysdig: "OK, kami punya open source project (Falco)"       │
 │  6. Hired sebagai core maintainer Falco + creator kubectl trace│
-│                                                               │
-│  KEY QUOTE:                                                   │
-│  "I was in love with eBPF. And I've always been in love    │
-│   with open-source. I just want to do open-source and do    │
-│   cutting-edge things with eBPF."                           │
-│  — Leonardo Di Donato                                        │
-│                                                               │
+│                                                                │
+│  KEY QUOTE:                                                    │
+│  "I was in love with eBPF. And I've always been in love        │
+│   with open-source. I just want to do open-source and do       │
+│   cutting-edge things with eBPF."                              │
+│  — Leonardo Di Donato                                          │
+│                                                                │
 │  LESSON: Build project yang Anda passionate, publish ke        │
-│          GitHub, company akan datang ke Anda (bukan Anda      │
-│          apply ke company).                                  │
-└─────────────────────────────────────────────────────────────┘
+│          GitHub, company akan datang ke Anda (bukan Anda       │
+│          apply ke company).                                    │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 **Relevansi untuk Anda:**

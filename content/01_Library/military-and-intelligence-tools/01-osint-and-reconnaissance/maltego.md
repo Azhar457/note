@@ -15,6 +15,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Maltego
+updated: "2026-07-01"
 ---
 
 > [!warning] Konteks Etis & Legal

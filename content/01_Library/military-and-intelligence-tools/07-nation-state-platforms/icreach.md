@@ -14,6 +14,8 @@ created: 2026-06-27
 status: operational
 cssclasses:
   - wide-table
+title: Icreach
+updated: "2026-07-01"
 ---
 
 > [!warning] Konteks Etis & Legal  
@@ -187,11 +189,11 @@ Kritikus berpendapat bahwa metadata **sangat mengungkapkan**:
 
 ## 📚 Referensi
 
-- Gallagher, R. (2014). *The Surveillance Engine: How the NSA Built Its Own Secret Google*. The Intercept.
-- Snowden, E. (2019). *Permanent Record*. Metropolitan Books.
+- Gallagher, R. (2014). _The Surveillance Engine: How the NSA Built Its Own Secret Google_. The Intercept.
+- Snowden, E. (2019). _Permanent Record_. Metropolitan Books.
 - Smith v. Maryland, 442 U.S. 735 (1979).
 - USA FREEDOM Act (2015).
-- EFF. *Metadata: How Your Phone Data Reveals Everything*.
+- EFF. _Metadata: How Your Phone Data Reveals Everything_.
 
 ---
 

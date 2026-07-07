@@ -14,6 +14,8 @@ aliases:
   - Open Source Forensik
 created: 2026-04-25
 status: operational
+title: Systemrescue Recovery
+updated: "2026-07-01"
 ---
 
 # 🔬 SOP RECOVERY — Open Source Only (SystemRescue / Kali Live)
@@ -514,7 +516,7 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 
 ## 🔗 Lihat Juga
 
-- [[01_library/data_forensics/data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
+- [[data-recovery|Data Recovery]] — perbandingan tools commercial vs open source
 - [[hpa-exorcism|SOP HPA Exorcism]] — prosedur HPA/DCO sebelum imaging
 - [[application|Tools Penting]] — hierarki data recovery Level 0–7
 - [[embedded-systems|Embedded Systems]] — flash forensics NAND level

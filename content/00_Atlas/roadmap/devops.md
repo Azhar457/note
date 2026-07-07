@@ -16,6 +16,8 @@ created: 2026-04-25
 status: active
 cssclasses:
   - wide-table
+title: Devops
+updated: "2026-07-01"
 ---
 
 # ☁️ Roadmap DevOps & Cloud Infrastructure

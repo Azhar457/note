@@ -19,6 +19,8 @@ created: 2026-05-29
 status: operational
 cssclasses:
   - wide-table
+title: Military Sigint Deepdive
+updated: "2026-07-01"
 ---
 
 # 📡 MILITARY SIGINT — Deep Dive: Dari RTL-SDR sampai Ekhelon

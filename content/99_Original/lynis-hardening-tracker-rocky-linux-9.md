@@ -1,8 +1,14 @@
 ---
-tags: [security, hardening, lynis, rocky-linux, homelab]
+tags:
+  - security
+  - hardening
+  - lynis
+  - rocky-linux
+  - homelab
 created: 2026-06-06
-updated: 2026-06-07
+updated: "2026-07-01"
 status: Ongoing — Day 2 Complete
+title: Lynis Hardening Tracker Rocky Linux 9
 ---
 
 # 🔒 Lynis Hardening Tracker — Rocky Linux 9

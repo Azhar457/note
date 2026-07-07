@@ -15,6 +15,8 @@ created: 2026-04-25
 status: active
 cssclasses:
   - wide-table
+title: Data Engineering
+updated: "2026-07-01"
 ---
 
 # 📊 Roadmap Data Engineering
@@ -181,7 +183,7 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 - [[math-and-algorithms|Matematika & Algoritma]] — Linear Algebra untuk ML pipeline
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals yang mendukung distributed systems
 - [[devops|DevOps Roadmap]] — CI/CD dan container orchestration overlap
-- [[00_atlas/roadmap/software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
+- [[software-engineering|Roadmap_Software_Engineering]] — Backend skill = fondasi Data Engineering
 - [[agentic-ai-mcp-roadmap|Agentic AI & MCP Roadmap]] — Jalur karir engineering AI agents
 - [[ai-engineering-stack-roadmap|AI Engineering Stack Roadmap]] — Jalur karir MLOps / LLMOps
 - [[infrastructure-administrator|IT Systems Engineer Roadmap]] — Jalur karir systems & infrastructure engineering

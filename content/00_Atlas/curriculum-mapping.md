@@ -6,20 +6,54 @@ tags:
   - CS
   - security
   - roadmap
+  - progress
 aliases:
   - Kurikulum Mapping
   - Learning Path
   - Mata Kuliah CS Bridge
 created: 2026-04-25
 status: active
+title: Curriculum Mapping
+updated: "2026-07-01"
 ---
 
 # 🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security
 
-> Peta jembatan antara kurikulum resmi jurusan dan vault CS/Security yang sudah dibangun. Posisi ini langka: matematika formal yang dalam + minat systems/security = kombinasi yang tidak dimiliki mayoritas engineer.
+> Peta jembatan antara kurikulum resmi jurusan dan vault CS/Security yang sudah dibangun.
 
-> [!tip] Keunggulan Posisi Ini
-> Mayoritas anak CS lemah di math formal (Teori Bilangan, Analisis Real, Struktur Aljabar). Mayoritas anak Math tidak tahu cara kerja sistem komputer. Kamu berada di **titik temu** — lokasi paling subur untuk penemuan baru dan karir yang tidak biasa.
+---
+
+## 📊 Progress Tracker
+
+### Tier 1 — 🔴 Langsung Dipakai
+
+- [ ] **Aljabar Linear** — NumPy implementasi
+- [ ] **Teori Bilangan** — RSA dari scratch
+- [ ] **Statistika** — ML evaluation metrics
+- [ ] **Pemrograman 1 & 2** — Python + C
+- [ ] **Metode Numerik** — NumPy implementasi
+
+### Tier 2 — 🟡 Perlu Disambungkan
+
+- [ ] **Kalkulus 1 & 2** — Gradient descent konteks ML
+- [ ] **Analisis Real 1 & 2** — Formal proof skill
+- [ ] **Struktur Aljabar** — ECC deep dive
+- [ ] **Dasar Matematika** — Logika → SAT solver
+- [ ] **Fungsi Kompleks** — FFT → signal processing
+- [ ] **Geometri** — Computer graphics transformasi
+
+### Tier 3 — 🟢 Riset
+
+- [ ] **Metode Survey** — Security UX research
+- [ ] **Metodologi Pembelajaran** — Literature review
+
+### Self-Study Wajib
+
+- [ ] **Algoritma & Struktur Data** — CLRS + LeetCode
+- [ ] **Jaringan Komputer** — Tanenbaum + Wireshark
+- [ ] **OS Fundamentals** — xv6 MIT
+- [ ] **Linux CLI** — OverTheWire Bandit
+- [ ] **Git & Version Control**
 
 ---
 

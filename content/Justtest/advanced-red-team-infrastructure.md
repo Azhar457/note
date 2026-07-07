@@ -1,3 +1,15 @@
+---
+title: Advanced Red Team Infrastructure
+tags:
+  - red-team
+  - c2
+  - infrastructure
+  - opsec
+created: "2026-07-01"
+updated: "2026-07-01"
+status: active
+---
+
 # 🕸️ Roadmap To Enterprise C2 — Advanced Red Team Infrastructure
 
 > **Filosofi:** Enterprise C2 bukan sekadar RAT biasa. Ini adalah infrastruktur serangan yang resilient, stealthy, scalable, dan survive incident response profesional. Dari single implant sampai ribuan beacon yang terdistribusi, dengan C2 yang punya multiple tiers, domain rotation, MBR/UEFI persistence, dan RAG poisoning untuk lateral movement via LLM internal.

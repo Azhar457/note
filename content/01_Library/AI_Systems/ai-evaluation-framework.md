@@ -13,6 +13,8 @@ aliases:
   - Tes Kecerdasan AI
 created: 2026-04-25
 status: draft — belum diimplementasi
+title: Ai Evaluation Framework
+updated: "2026-07-01"
 ---
 
 # 🧠 AI EVALUATION FRAMEWORK — Tes Kecerdasan LLM
