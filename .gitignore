@@ -15,5 +15,5 @@ replit.nix
 *.ps1
 .agents
 scratch/*.py
-scratch/
 scratch
+scratch/*
