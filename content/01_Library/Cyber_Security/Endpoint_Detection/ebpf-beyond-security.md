@@ -101,8 +101,8 @@ Cilium tanpa kube-proxy:
 → Isovalent (Cilium company) diakuisisi Cisco 2024
 ```
 
->[!tip] Plot Twist Industri
->Google telah menggunakan eBPF untuk menggantikan iptables di seluruh infrastruktur internal mereka sejak 2016 — jauh sebelum Cilium populer. Mereka membangun sistem internal bernama **Katran** yang kini open-source dan dipakai Meta untuk load balancing Facebook/Instagram.
+> [!tip] Plot Twist Industri
+> Google telah menggunakan eBPF untuk menggantikan iptables di seluruh infrastruktur internal mereka sejak 2016 — jauh sebelum Cilium populer. Mereka membangun sistem internal bernama **Katran** yang kini open-source dan dipakai Meta untuk load balancing Facebook/Instagram.
 
 ---
 
@@ -110,13 +110,13 @@ Cilium tanpa kube-proxy:
 
 ### Yang Digantikan eBPF
 
-| Tools Lama | Masalah | Pengganti eBPF | Keuntungan |
-|---|---|---|---|
-| **strace** | Overhead 300-600% — memperlambat proses yang di-trace drastis | bpftrace + kprobe | < 1% overhead, bisa trace production tanpa dampak |
-| **tcpdump / Wireshark** | Semua paket di-copy ke user space — overhead besar, tidak scalable | eBPF socket filter + XDP | Hanya copy paket yang relevan, filter di kernel |
-| **perf + gprof** | Sampling-based — kehilangan event singkat, tidak bisa trace cross-language | BPF profiler (Parca, Pyroscope) | Continuous profiling, per-event, cross-language |
-| **OpenTelemetry SDK** | Harus instrumentasi kode manual — semua service perlu diubah | Pixie, Odigos | Zero-code instrumentation via uprobe |
-| **netstat / ss** | Snapshot — tidak bisa lihat yang sudah lewat | bpftrace tcp probes | Real-time + historical, setiap koneksi tercatat |
+| Tools Lama              | Masalah                                                                    | Pengganti eBPF                  | Keuntungan                                        |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------- |
+| **strace**              | Overhead 300-600% — memperlambat proses yang di-trace drastis              | bpftrace + kprobe               | < 1% overhead, bisa trace production tanpa dampak |
+| **tcpdump / Wireshark** | Semua paket di-copy ke user space — overhead besar, tidak scalable         | eBPF socket filter + XDP        | Hanya copy paket yang relevan, filter di kernel   |
+| **perf + gprof**        | Sampling-based — kehilangan event singkat, tidak bisa trace cross-language | BPF profiler (Parca, Pyroscope) | Continuous profiling, per-event, cross-language   |
+| **OpenTelemetry SDK**   | Harus instrumentasi kode manual — semua service perlu diubah               | Pixie, Odigos                   | Zero-code instrumentation via uprobe              |
+| **netstat / ss**        | Snapshot — tidak bisa lihat yang sudah lewat                               | bpftrace tcp probes             | Real-time + historical, setiap koneksi tercatat   |
 
 ### Distributed Tracing Tanpa Mengubah Kode
 
@@ -423,17 +423,17 @@ Status: sangat early, sangat menarik, hampir tidak ada orang di sini
 
 ## Ringkasan — eBPF vs Tradisional per Domain
 
-| Domain | Tradisional | eBPF | Improvement |
-|---|---|---|---|
-| **Firewall/NAT** | iptables (1998) | XDP + eBPF maps | 10x throughput, O(1) updates |
-| **Load Balancing** | IPVS, Nginx | Katran, Cilium | Sub-microsecond latency |
-| **Service Mesh** | Sidecar (Envoy) | Sidecar-less eBPF | ~90% resource savings |
-| **Distributed Tracing** | SDK instrumentation | uprobe auto-trace | Zero code change |
-| **CPU Profiling** | perf sampling | eBPF continuous | Per-event, < 1% overhead |
-| **Security Monitoring** | auditd, kernel module | Falco eBPF probe | 10x lebih efisien, zero crash risk |
-| **Network Stats (Android)** | Polling + proc/net | eBPF netd hooks | Real-time, akurat per-app |
-| **Windows EDR** | Kernel callbacks | eBPF for Windows | Portable, sandboxed |
-| **Chaos Engineering** | Service kill | eBPF fault injection | Surgical precision |
+| Domain                      | Tradisional           | eBPF                 | Improvement                        |
+| --------------------------- | --------------------- | -------------------- | ---------------------------------- |
+| **Firewall/NAT**            | iptables (1998)       | XDP + eBPF maps      | 10x throughput, O(1) updates       |
+| **Load Balancing**          | IPVS, Nginx           | Katran, Cilium       | Sub-microsecond latency            |
+| **Service Mesh**            | Sidecar (Envoy)       | Sidecar-less eBPF    | ~90% resource savings              |
+| **Distributed Tracing**     | SDK instrumentation   | uprobe auto-trace    | Zero code change                   |
+| **CPU Profiling**           | perf sampling         | eBPF continuous      | Per-event, < 1% overhead           |
+| **Security Monitoring**     | auditd, kernel module | Falco eBPF probe     | 10x lebih efisien, zero crash risk |
+| **Network Stats (Android)** | Polling + proc/net    | eBPF netd hooks      | Real-time, akurat per-app          |
+| **Windows EDR**             | Kernel callbacks      | eBPF for Windows     | Portable, sandboxed                |
+| **Chaos Engineering**       | Service kill          | eBPF fault injection | Surgical precision                 |
 
 ---
 
@@ -464,14 +464,15 @@ Status: sangat early, sangat menarik, hampir tidak ada orang di sini
 
 ---
 
->[!warning] Satu Hal yang eBPF TIDAK Bisa Lakukan
->eBPF tidak bisa gantikan semua hal:
->- **RTOS** (VxWorks, Green Hills) — tidak support, mungkin tidak akan pernah
->- **Bare-metal microcontroller** (Arduino, STM32 tanpa Linux) — tidak relevant
->- **Truly air-gapped system** — eBPF butuh kernel Linux yang update
->- **Firmware sebelum kernel boot** — eBPF for UEFI masih eksperimental
+> [!warning] Satu Hal yang eBPF TIDAK Bisa Lakukan
+> eBPF tidak bisa gantikan semua hal:
 >
->Untuk 99% sistem Linux modern dari smartphone sampai data center: eBPF adalah masa kini dan masa depan.
+> - **RTOS** (VxWorks, Green Hills) — tidak support, mungkin tidak akan pernah
+> - **Bare-metal microcontroller** (Arduino, STM32 tanpa Linux) — tidak relevant
+> - **Truly air-gapped system** — eBPF butuh kernel Linux yang update
+> - **Firmware sebelum kernel boot** — eBPF for UEFI masih eksperimental
+>
+> Untuk 99% sistem Linux modern dari smartphone sampai data center: eBPF adalah masa kini dan masa depan.
 
 ---
 
@@ -487,4 +488,4 @@ Status: sangat early, sangat menarik, hampir tidak ada orang di sini
 
 ---
 
-*eBPF Beyond Security | Networking · Observability · Performance · Android · Windows · AI/ML · Peluang Riset*
+_eBPF Beyond Security | Networking · Observability · Performance · Android · Windows · AI/ML · Peluang Riset_

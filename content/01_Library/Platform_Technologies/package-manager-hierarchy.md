@@ -397,7 +397,7 @@ TIGA ALASAN TEKNIS:
    bun: bun.lockb (binary format)
    → Baca lockfile = baca binary, jauh lebih cepat
    → Tapi: tidak human-readable (butuh bun convert)
-   
+
    bun bun.lockb  # Lihat isi lockfile dalam format readable
 
 4. NATIVE IMPLEMENTATION:
@@ -413,35 +413,35 @@ TIGA ALASAN TEKNIS:
 // TypeScript native, tidak perlu ts-node atau tsc
 
 // Bun-specific APIs (tidak ada di Node.js):
-const file = Bun.file("./data.json");
-const json = await file.json();     // ← built-in JSON file reader
+const file = Bun.file("./data.json")
+const json = await file.json() // ← built-in JSON file reader
 
 // Bun.serve — HTTP server built-in
 const server = Bun.serve({
   port: 3000,
   fetch(request: Request): Response {
-    const url = new URL(request.url);
-    
+    const url = new URL(request.url)
+
     if (url.pathname === "/") {
-      return new Response("Hello World");
+      return new Response("Hello World")
     }
-    
-    return new Response("Not Found", { status: 404 });
+
+    return new Response("Not Found", { status: 404 })
   },
-});
+})
 
 // Bun Shell — run shell commands dari TypeScript
-import { $ } from "bun";
+import { $ } from "bun"
 
-const output = await $`ls -la`;
-console.log(output.text());
+const output = await $`ls -la`
+console.log(output.text())
 
 // Built-in SQLite
-import { Database } from "bun:sqlite";
+import { Database } from "bun:sqlite"
 
-const db = new Database("mydb.sqlite");
-const query = db.query("SELECT * FROM users WHERE id = $id");
-const user = query.get({ $id: 1 });
+const db = new Database("mydb.sqlite")
+const query = db.query("SELECT * FROM users WHERE id = $id")
+const user = query.get({ $id: 1 })
 ```
 
 ### Bun: Compatibility dan Gotchas
@@ -809,17 +809,17 @@ go get: cukup cepat (binary download, tidak compile deps)
 
 ### Pro/Con Summary Table
 
-| Manager | Speed | Reliability | DX | Compatibility | Maturity |
-|---|---|---|---|---|---|
-| **npm** | 🔴 Lambat | ✅ Stabil | ✅ Familiar | ✅ Universal | ✅ 15 tahun |
-| **pnpm** | 🟡 Cepat | ✅ Stabil | ✅ Baik | ✅ Baik | ✅ 7 tahun |
-| **yarn berry** | 🟡 Cepat | ⚠️ Kadang issues | ⚠️ Beda mindset | ⚠️ Perlu check | 🟡 6 tahun |
-| **Bun** | 🟢 Sangat cepat | ⚠️ Masih muda | ✅ All-in-one | ✅ 99%+ | ⚠️ 2 tahun |
-| **pip** | 🔴 Lambat | ✅ Stabil | 🔴 Manual setup | ✅ Universal | ✅ 15+ tahun |
-| **poetry** | 🟡 OK | ✅ Stabil | ✅ Baik | ✅ Baik | ✅ 6 tahun |
-| **uv** | 🟢 Sangat cepat | ✅ Stabil | ✅ All-in-one | ✅ pip-compat | 🟡 1.5 tahun |
-| **cargo** | 🟢 Cepat | ✅ Excellent | ✅ Best-in-class | ✅ Native | ✅ 11 tahun |
-| **go mod** | 🟢 Cepat | ✅ Stabil | ✅ Simple | ✅ Native | ✅ 6 tahun |
+| Manager        | Speed           | Reliability      | DX               | Compatibility  | Maturity     |
+| -------------- | --------------- | ---------------- | ---------------- | -------------- | ------------ |
+| **npm**        | 🔴 Lambat       | ✅ Stabil        | ✅ Familiar      | ✅ Universal   | ✅ 15 tahun  |
+| **pnpm**       | 🟡 Cepat        | ✅ Stabil        | ✅ Baik          | ✅ Baik        | ✅ 7 tahun   |
+| **yarn berry** | 🟡 Cepat        | ⚠️ Kadang issues | ⚠️ Beda mindset  | ⚠️ Perlu check | 🟡 6 tahun   |
+| **Bun**        | 🟢 Sangat cepat | ⚠️ Masih muda    | ✅ All-in-one    | ✅ 99%+        | ⚠️ 2 tahun   |
+| **pip**        | 🔴 Lambat       | ✅ Stabil        | 🔴 Manual setup  | ✅ Universal   | ✅ 15+ tahun |
+| **poetry**     | 🟡 OK           | ✅ Stabil        | ✅ Baik          | ✅ Baik        | ✅ 6 tahun   |
+| **uv**         | 🟢 Sangat cepat | ✅ Stabil        | ✅ All-in-one    | ✅ pip-compat  | 🟡 1.5 tahun |
+| **cargo**      | 🟢 Cepat        | ✅ Excellent     | ✅ Best-in-class | ✅ Native      | ✅ 11 tahun  |
+| **go mod**     | 🟢 Cepat        | ✅ Stabil        | ✅ Simple        | ✅ Native      | ✅ 6 tahun   |
 
 ---
 
@@ -842,7 +842,7 @@ go get: cukup cepat (binary download, tidak compile deps)
     restore-keys: pnpm-
 
 - name: Install dependencies
-  run: pnpm install --frozen-lockfile  # Equivalent npm ci
+  run: pnpm install --frozen-lockfile # Equivalent npm ci
 
 # NODE.JS dengan Bun (fastest CI)
 - name: Setup Bun
@@ -863,13 +863,13 @@ go get: cukup cepat (binary download, tidak compile deps)
 - name: Install uv
   uses: astral-sh/setup-uv@v3
   with:
-    enable-cache: true  # Otomatis cache ~/.cache/uv
+    enable-cache: true # Otomatis cache ~/.cache/uv
 
 - name: Install Python
   run: uv python install 3.12
 
 - name: Install dependencies
-  run: uv sync --frozen  # Equivalent pip-sync dari lockfile
+  run: uv sync --frozen # Equivalent pip-sync dari lockfile
 
 - name: Run tests
   run: uv run pytest
@@ -877,15 +877,15 @@ go get: cukup cepat (binary download, tidak compile deps)
 
 ---
 
->[!tip] Rekomendasi Konkret 2026
->**Node.js:** Mulai project baru → **Bun**. Existing project → **pnpm** untuk migration yang aman.
+> [!tip] Rekomendasi Konkret 2026
+> **Node.js:** Mulai project baru → **Bun**. Existing project → **pnpm** untuk migration yang aman.
 >
->**Python:** Apapun project barunya → **uv**. Tidak ada alasan untuk tidak migrasi kecuali conda/GPU dependency.
+> **Python:** Apapun project barunya → **uv**. Tidak ada alasan untuk tidak migrasi kecuali conda/GPU dependency.
 >
->Untuk portfolio kamu: ganti `npm install` di CI dengan Bun atau pnpm → CI time bisa turun 5-10 menit untuk project Next.js.
+> Untuk portfolio kamu: ganti `npm install` di CI dengan Bun atau pnpm → CI time bisa turun 5-10 menit untuk project Next.js.
 
->[!warning] Jangan Over-Engineer
->Memilih package manager bukan architectural decision terbesar. Yang lebih penting: **lockfile selalu di-commit ke git** (reproducibility) dan **CI pakai `--frozen-lockfile` / `--locked`** (jangan biarkan CI update deps sendiri). Dua hal ini lebih penting dari pilihan antara npm, pnpm, atau Bun.
+> [!warning] Jangan Over-Engineer
+> Memilih package manager bukan architectural decision terbesar. Yang lebih penting: **lockfile selalu di-commit ke git** (reproducibility) dan **CI pakai `--frozen-lockfile` / `--locked`** (jangan biarkan CI update deps sendiri). Dua hal ini lebih penting dari pilihan antara npm, pnpm, atau Bun.
 
 ---
 
@@ -899,4 +899,4 @@ go get: cukup cepat (binary download, tidak compile deps)
 
 ---
 
-*Package Manager Hierarchy | npm → pnpm → Bun · pip → poetry → uv · Cargo · Go Modules · PubGrub · Content-Addressable Storage · CI Caching*
+_Package Manager Hierarchy | npm → pnpm → Bun · pip → poetry → uv · Cargo · Go Modules · PubGrub · Content-Addressable Storage · CI Caching_

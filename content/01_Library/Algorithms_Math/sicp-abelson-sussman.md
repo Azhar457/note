@@ -30,34 +30,38 @@ Also, ensuring that all code examples are formatted correctly in markdown with e
 Finally, a summary section that ties all the key points together, emphasizing the importance of mastering SICP for a deep understanding of computer science concepts. Maybe include a list of real-world applications where the principles from SICP are applied.
 </think>
 
-# 🔬 Struktur dan Interpretasi Program Komputer (SICP)  
-> Harold Abelson & Gerald Jay Sussman (MIT) — 1985  
+# 🔬 Struktur dan Interpretasi Program Komputer (SICP)
 
-**Tesis:** Programming bukan soal syntax — tentang **abstraksi, komposisi, dan metamorfosis data/tugas**.  
+> Harold Abelson & Gerald Jay Sussman (MIT) — 1985
 
----
-
-## 📌 Kenapa Penting  
-1. **Landasan Pemikiran CS**: Buku ini bukan panduan "cara pakai X", tetapi fokus pada *fondasi komputasi*.  
-   - Memahami konsep abstraksi memungkinkan desain sistem yang modular dan mudah dipelihara.  
-   - Metacircular evaluator (evaluator Lisp dalam Lisp) mengajarkan interpretasi bahasa program dari dalam, memberi wawasan tentang evaluasi dan lingkungan.  
-
-2. **Perubahan Mindset**:  
-   - Sebelum membaca, pengembang biasanya berpikir dalam skala *function* atau *class*. SICP memaksa pembaca berpikir dalam skala *meta*: bagaimana bahasa itu sendiri dibangun.  
-   - Misalnya, stream (data tak terhingga) mengajarkan konsep evaluasi malas (laziness) dan manipulasi data tak terbatas sebagai abstraksi.  
-
-3. **Pengaruh pada Industri**:  
-   - Prinsip abstraksi dalam SICP menjadi dasar untuk *design pattern* seperti Factory, Strategy, dan Functional Programming.  
-   - Konsep *closure* dan *lexical scoping* dari SICP diterapkan di JavaScript, Python, dan bahasa modern lainnya.  
+**Tesis:** Programming bukan soal syntax — tentang **abstraksi, komposisi, dan metamorfosis data/tugas**.
 
 ---
 
-## 🎯 5 Prinsip Utama SICP  
+## 📌 Kenapa Penting
 
-### 1. **Abstraksi Fungsi (Higher-Order Procedures)**  
-Fungsi sebagai *first-class citizens* memungkinkan abstraksi algoritma. Misalnya, `map` dan `filter` menggeneralisasi operasi iterasi.  
+1. **Landasan Pemikiran CS**: Buku ini bukan panduan "cara pakai X", tetapi fokus pada _fondasi komputasi_.
+   - Memahami konsep abstraksi memungkinkan desain sistem yang modular dan mudah dipelihara.
+   - Metacircular evaluator (evaluator Lisp dalam Lisp) mengajarkan interpretasi bahasa program dari dalam, memberi wawasan tentang evaluasi dan lingkungan.
 
-**Contoh Kode**:  
+2. **Perubahan Mindset**:
+   - Sebelum membaca, pengembang biasanya berpikir dalam skala _function_ atau _class_. SICP memaksa pembaca berpikir dalam skala _meta_: bagaimana bahasa itu sendiri dibangun.
+   - Misalnya, stream (data tak terhingga) mengajarkan konsep evaluasi malas (laziness) dan manipulasi data tak terbatas sebagai abstraksi.
+
+3. **Pengaruh pada Industri**:
+   - Prinsip abstraksi dalam SICP menjadi dasar untuk _design pattern_ seperti Factory, Strategy, dan Functional Programming.
+   - Konsep _closure_ dan _lexical scoping_ dari SICP diterapkan di JavaScript, Python, dan bahasa modern lainnya.
+
+---
+
+## 🎯 5 Prinsip Utama SICP
+
+### 1. **Abstraksi Fungsi (Higher-Order Procedures)**
+
+Fungsi sebagai _first-class citizens_ memungkinkan abstraksi algoritma. Misalnya, `map` dan `filter` menggeneralisasi operasi iterasi.
+
+**Contoh Kode**:
+
 ```scheme
 (define (sum-integers a b)
   (if (> a b)
@@ -71,44 +75,51 @@ Fungsi sebagai *first-class citizens* memungkinkan abstraksi algoritma. Misalnya
 
 (define (sum-cubes a b)
   (sum (lambda (x) (* x x x)) a (lambda (x) (+ x 1)) b))
-```  
-- `sum` menjadi abstraksi umum yang dapat digunakan untuk berbagai `term` dan `next`.  
+```
+
+- `sum` menjadi abstraksi umum yang dapat digunakan untuk berbagai `term` dan `next`.
 
 ---
 
-### 2. **Abstraksi Data**  
-Data tidak ada; semua adalah *prosedur dengan kontrak*. Prinsip ini muncul dalam berbagai bentuk:  
-- **Representasi Aksioma**: Data dirancang tanpa mengungkap implementasi (enkapsulasi).  
-- **Tagged Data**:  
+### 2. **Abstraksi Data**
+
+Data tidak ada; semua adalah _prosedur dengan kontrak_. Prinsip ini muncul dalam berbagai bentuk:
+
+- **Representasi Aksioma**: Data dirancang tanpa mengungkap implementasi (enkapsulasi).
+- **Tagged Data**:
   ```scheme
   (define (attach-tag type-tag contents)
     (cons type-tag contents))
   (define (type-tag datum) (car datum))
   (define (contents datum) (cdr datum))
-  ```  
-  *Polimorfisme* diimplementasikan melalui dispatch berdasarkan tag.  
+  ```
+  _Polimorfisme_ diimplementasikan melalui dispatch berdasarkan tag.
 
 ---
 
-### 3. **Modularitas dan State**  
-- **Kompromi antara `set!` dan Streams**:  
-  - `set!`: Memberikan kekuatan, tapi mengorbankan *referential transparency*.  
-  - **Stream**: Data tak terhingga yang dievaluasi secara *lazy*.  
+### 3. **Modularitas dan State**
+
+- **Kompromi antara `set!` dan Streams**:
+  - `set!`: Memberikan kekuatan, tapi mengorbankan _referential transparency_.
+  - **Stream**: Data tak terhingga yang dievaluasi secara _lazy_.
     ```scheme
     (define (stream-map proc s)
       (cons-stream (proc (stream-car s))
                    (stream-map proc (stream-cdr s))))
-    ```  
-    Konsep ini menjadi dasar reaktif programming seperti RxJS.  
+    ```
+    Konsep ini menjadi dasar reaktif programming seperti RxJS.
 
 ---
 
-### 4. **Metacircular Evaluator**  
-Evaluator Lisp dalam Lisp menunjukkan:  
-- **Cycle Eval-Appli**: Proses evaluasi dan aplikasi fungsi.  
-- **Model Lingkungan**: Representasi variabel dalam ruang skop.  
+### 4. **Metacircular Evaluator**
 
-**Contoh Implementasi**:  
+Evaluator Lisp dalam Lisp menunjukkan:
+
+- **Cycle Eval-Appli**: Proses evaluasi dan aplikasi fungsi.
+- **Model Lingkungan**: Representasi variabel dalam ruang skop.
+
+**Contoh Implementasi**:
+
 ```scheme
 (define (eval exp env)
   (cond ((self-evaluating? exp) exp)
@@ -127,15 +138,17 @@ Evaluator Lisp dalam Lisp menunjukkan:
                                           arguments
                                           (procedure-environment procedure))))
         ...))
-```  
-- **Kasus Khusus**: `if`, `lambda`, `begin` ditangani secara explisit karena bersifat *special form*.  
+```
+
+- **Kasus Khusus**: `if`, `lambda`, `begin` ditangani secara explisit karena bersifat _special form_.
 
 ---
 
-### 5. **Register Machine**: Full-Stack Compilation  
-- **Level Abstraksi ke Mesin**:  
-  - SICP bab 5 menunjukkan kompilasi Lisp ke mesin register, menetapkan logika program ke instruksi biner.  
-  - Contoh:  
+### 5. **Register Machine**: Full-Stack Compilation
+
+- **Level Abstraksi ke Mesin**:
+  - SICP bab 5 menunjukkan kompilasi Lisp ke mesin register, menetapkan logika program ke instruksi biner.
+  - Contoh:
     ```scheme
     (controller
       (assign continue (label fact-done))
@@ -151,28 +164,32 @@ Evaluator Lisp dalam Lisp menunjukkan:
       (assign val (const 1))
       (goto (reg continue))
       fact-done)
-    ```  
-    Meski sederhana, kode ini mirip struktur *assembly*.  
+    ```
+    Meski sederhana, kode ini mirip struktur _assembly_.
 
 ---
 
-## 📖 Bab Penting & Detail Teknis  
+## 📖 Bab Penting & Detail Teknis
 
-| Bab | Fokus | Contoh Implementasi |  
-|-----|-------|---------------------|  
-| **1** | Rekursi vs Iterasi |  
-  ```scheme
-  (define (factorial n)
-    (if (= n 1)
-        1
-        (* n (factorial (- n 1))) )) ; Rekursif  
-  (define (factorial-iter product counter max-count)
-    (if (> counter max-count)
-        product
-        (factorial-iter (* product counter)
-                        (+ counter 1)
-                        max-count)))  
-  ```  
-| **2** | Aritmatika Simbolis |  
-  ```scheme
-  (add '(+ x 3) '(+ y 4)) → '(+ (+ x 3)
+| Bab   | Fokus              | Contoh Implementasi |
+| ----- | ------------------ | ------------------- |
+| **1** | Rekursi vs Iterasi |
+
+```scheme
+(define (factorial n)
+  (if (= n 1)
+      1
+      (* n (factorial (- n 1))) )) ; Rekursif
+(define (factorial-iter product counter max-count)
+  (if (> counter max-count)
+      product
+      (factorial-iter (* product counter)
+                      (+ counter 1)
+                      max-count)))
+```
+
+| **2** | Aritmatika Simbolis |
+
+```scheme
+(add '(+ x 3) '(+ y 4)) → '(+ (+ x 3)
+```

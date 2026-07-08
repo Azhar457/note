@@ -51,16 +51,17 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
 ## CPU Ring Architecture Deep Dive
 
 ### Ring -3: Intel Management Engine (ME)
-* **Mechanics**: Prosesor terpisah dengan OS yang berjalan firmware khusus, mempertahankan komunikasi TCP/IP melalui Intel Active Management Technology (AMT), bahkan ketika perangkat mati.
-* **Exploit Vectors**:
+
+- **Mechanics**: Prosesor terpisah dengan OS yang berjalan firmware khusus, mempertahankan komunikasi TCP/IP melalui Intel Active Management Technology (AMT), bahkan ketika perangkat mati.
+- **Exploit Vectors**:
   ```bash
   # Scanning ME services (via ECX command access):
   nmap -sU --port=623 <target> -p 16992
   ```
-* **Threat Examples**:
+- **Threat Examples**:
   - **IRATEMONK**: Mengubah ME firmware untuk memantau semua komunikasi jaringan
   - **COTTONMOUTH**: Menanamkan malware ke chip pabrikan yang survive firmware update
-* **Countermeasures**:
+- **Countermeasures**:
   ```python
   # Contoh code untuk verifikasi firmware signature
   def verify_me_firmware(me_firmware):
@@ -69,8 +70,9 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
   ```
 
 ### Ring -2: SMM (System Management Mode)
-* **Mechanics**: Mode CPU yang diakses melalui System Management Interrupt (SMI) untuk hardware protection. Tidak bisa diakses oleh OS.
-* **Exploit Pattern**:
+
+- **Mechanics**: Mode CPU yang diakses melalui System Management Interrupt (SMI) untuk hardware protection. Tidak bisa diakses oleh OS.
+- **Exploit Pattern**:
   ```c
   // Contoh SMM hook (sederhana)
   void* original_smm_handler = NULL;
@@ -82,10 +84,11 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
       orig_smm_handler();
   }
   ```
-* **Historical Case**: LoJax (APT28) mengubah SMM handler untuk inject rootkit ke RAM di sektor "secure" BIOS.
+- **Historical Case**: LoJax (APT28) mengubah SMM handler untuk inject rootkit ke RAM di sektor "secure" BIOS.
 
 ### Ring -1: VMM (Virtual Machine Monitor)
-* **Attack Surface**:
+
+- **Attack Surface**:
   - **VM Escape**:
     ```python
     def detect_vm_escape_attempts():
@@ -98,7 +101,8 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
 ## Boot Process Vulnerabilities
 
 ### Pre-Boot Stage
-* **UEFI Secure Boot Chain**:
+
+- **UEFI Secure Boot Chain**:
   ```mermaid
   graph TD
     A[UEFI BIOS] --> B[Measured Secure Boot]
@@ -108,7 +112,8 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
   ```
 
 ### Bootloader Manipulation
-* **MBR/GRUB Bootkit Infection**:
+
+- **MBR/GRUB Bootkit Infection**:
   ```bash
   # Contoh perintah untuk recover MBR dari Windows PE:
   bootrec /fixmbr
@@ -119,7 +124,8 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
 ## Kernel Level Security
 
 ### BYOVD Exploitation
-* **Proof of Concept Vulnerability**:
+
+- **Proof of Concept Vulnerability**:
   ```c
   // Driver signature bypass (PoC)
   BOOLEAN Hooked_IOCTL() {
@@ -131,7 +137,8 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
   ```
 
 ### PatchGuard Bypass
-* **Windows Kernel Patch Protection**:
+
+- **Windows Kernel Patch Protection**:
   ```c
   // Contoh EDR self-defence mechanism
   void WindowsPatchGuard() {
@@ -144,6 +151,7 @@ Endpoint security adalah pertempuran antara hak akses CPU Ring dan boot chain. S
 ## User Space Security
 
 ### Modern Ransomware Taktik
+
 ```python
 # Contoh fileless encryption attack pattern
 def execute_ransomware():
@@ -153,18 +161,21 @@ def execute_ransomware():
 ```
 
 ### Defense Stack Comparison
-| Teknologi | Layer | Detect MBR Rootkit | Survive Hardware Rebuild |
-|-----------|-------|---------------------|--------------------------|
-| BitLocker | Pre-OS | ❌ | ❌ |
-| Windows TPM Attestation | Pre-OS | ✅ | ❌ |
-| UEFI Secure Boot | Pre-Boot | ✅ | ✅ |
-|CHIPSEC | Firmware | ✅ | ❌ |
-|Intel Boot Guard | Pre-UEFI | ✅ | ✅ |
+
+| Teknologi               | Layer    | Detect MBR Rootkit | Survive Hardware Rebuild |
+| ----------------------- | -------- | ------------------ | ------------------------ |
+| BitLocker               | Pre-OS   | ❌                 | ❌                       |
+| Windows TPM Attestation | Pre-OS   | ✅                 | ❌                       |
+| UEFI Secure Boot        | Pre-Boot | ✅                 | ✅                       |
+| CHIPSEC                 | Firmware | ✅                 | ❌                       |
+| Intel Boot Guard        | Pre-UEFI | ✅                 | ✅                       |
 
 ## Mitigasi Multi-Layer
 
 ### Hardware Root of Trust
+
 1. **Intel Platform Trust Technology**:
+
    ```bash
    # Contoh verifikasi firmware signature
    tpmutility.exe --hash --filename firmware.rom > hash.bin
@@ -179,12 +190,13 @@ def execute_ransomware():
    ```
 
 ### Firmware Protection
+
 ```python
 # Contoh firmware attestation framework
 class FirmwareAttestation:
     def __init__(self):
         self.tpm_pcr_values = self.read_all_pcrs()
-        
+
     def verify_firmware(self):
         expected_hash = get_signature_from_trusted_source()
         if expected_hash in self.tpm_pcr_values:

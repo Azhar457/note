@@ -46,14 +46,14 @@ DNS adalah protokol tertua di internet (standarisasi 1983, RFC 1034/1035). Sifat
 
 ### Faktor-Faktor Kerentanan
 
-| Faktor | Penjelasan | Implikasi Keamanan |
-|--------|-----------|-------------------|
-| **Allow by default** | Firewall hampir selalu mengizinkan UDP/53 keluar | DNS tunnel bisa bypass firewall tanpa perlu port alternatif |
-| **DNS resolver chain** | Query diteruskan dari resolver ke resolver sampai authoritative | Traffic sulit dilacak ke sumber asli |
-| **Packet kecil** | DNS query biasanya < 100 byte | Cocok untuk beaconing chunk data kecil |
-| **Encoded payload** | Data disembunyikan di field subdomain, TXT, CNAME | IDS/IPS standar tidak membaca isi DNS |
-| **Tidak ada state koneksi** | DNS UDP tidak memiliki session seperti TCP | Tidak ada handshake |
-| **Rate limit jarang** | Banyak network tidak batasi DNS query/detik | Attacker pumping data tanpa throttling |
+| Faktor                      | Penjelasan                                                      | Implikasi Keamanan                                          |
+| --------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Allow by default**        | Firewall hampir selalu mengizinkan UDP/53 keluar                | DNS tunnel bisa bypass firewall tanpa perlu port alternatif |
+| **DNS resolver chain**      | Query diteruskan dari resolver ke resolver sampai authoritative | Traffic sulit dilacak ke sumber asli                        |
+| **Packet kecil**            | DNS query biasanya < 100 byte                                   | Cocok untuk beaconing chunk data kecil                      |
+| **Encoded payload**         | Data disembunyikan di field subdomain, TXT, CNAME               | IDS/IPS standar tidak membaca isi DNS                       |
+| **Tidak ada state koneksi** | DNS UDP tidak memiliki session seperti TCP                      | Tidak ada handshake                                         |
+| **Rate limit jarang**       | Banyak network tidak batasi DNS query/detik                     | Attacker pumping data tanpa throttling                      |
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -101,26 +101,26 @@ DNS Message Format:
 
 ### Field yang Paling Sering Dieksploitasi
 
-| Field | Kapasitas | Digunakan Untuk | Contoh Penggunaan |
-|-------|-----------|----------------|-------------------|
-| **QNAME (subdomain)** | 255 bytes per query | Outbound data | `ZmxhZ3Q=.tunnel.evil.com` |
-| **TXT record response** | 65,535 bytes | Inbound data | Command, payload |
-| **CNAME record** | 255 bytes | Redirect signal | Petunjuk channel |
-| **MX record** | variable | Alternatif TXT | Exchange impersonation |
-| **NULL record** | 65,535 bytes | Raw binary | Iodine mode NULL |
-| **EDNS0 (OPT RR)** | 65,535 bytes | Fragmentasi | Extend UDP size |
+| Field                   | Kapasitas           | Digunakan Untuk | Contoh Penggunaan          |
+| ----------------------- | ------------------- | --------------- | -------------------------- |
+| **QNAME (subdomain)**   | 255 bytes per query | Outbound data   | `ZmxhZ3Q=.tunnel.evil.com` |
+| **TXT record response** | 65,535 bytes        | Inbound data    | Command, payload           |
+| **CNAME record**        | 255 bytes           | Redirect signal | Petunjuk channel           |
+| **MX record**           | variable            | Alternatif TXT  | Exchange impersonation     |
+| **NULL record**         | 65,535 bytes        | Raw binary      | Iodine mode NULL           |
+| **EDNS0 (OPT RR)**      | 65,535 bytes        | Fragmentasi     | Extend UDP size            |
 
 ### Query Types yang Biasa Disalahgunakan
 
-| Record Type | Default Function | Tunneling Use Case |
-|-------------|-----------------|-------------------|
-| **A** | Resolve hostname ke IPv4 | Baseline — data di subdomain |
-| **AAAA** | Resolve hostname ke IPv6 | Dual-stack evasion |
-| **TXT** | Text metadata domain | Primary payload delivery |
-| **MX** | Mail exchange record | Alternatif TXT |
-| **CNAME** | Canonical name alias | Redirect signal, C2 staging |
-| **SVCB/HTTPS** | Service binding | Tunnel via DoH |
-| **NULL** | Raw experimental | Iodine direct binary |
+| Record Type    | Default Function         | Tunneling Use Case           |
+| -------------- | ------------------------ | ---------------------------- |
+| **A**          | Resolve hostname ke IPv4 | Baseline — data di subdomain |
+| **AAAA**       | Resolve hostname ke IPv6 | Dual-stack evasion           |
+| **TXT**        | Text metadata domain     | Primary payload delivery     |
+| **MX**         | Mail exchange record     | Alternatif TXT               |
+| **CNAME**      | Canonical name alias     | Redirect signal, C2 staging  |
+| **SVCB/HTTPS** | Service binding          | Tunnel via DoH               |
+| **NULL**       | Raw experimental         | Iodine direct binary         |
 
 ---
 
@@ -130,14 +130,14 @@ Data biner harus di-encode agar bisa lewat DNS (hanya alfanumerik + hyphen + dot
 
 ### Perbandingan Encoding Scheme
 
-| Encoding | Alphabet | Efisiensi | Karakter | Contoh Tools |
-|----------|----------|-----------|----------|-------------|
-| **Base32** | A-Z, 2-7, = | ~64% | Aman | iodine (default) |
-| **Base64** | A-Z, a-z, 0-9, +, /, = | ~75% | + dan / bermasalah | dnscat2 (opsional) |
-| **Base64 URL** | A-Z, a-z, 0-9, -, _ | ~75% | Aman | Cobalt Strike, Heyoka |
-| **Base36** | 0-9, A-Z | ~59% | Paling aman | OzymanDNS (old) |
-| **Hex** | 0-9, a-f | ~50% | Mudah dibaca | dnscat2 fallback |
-| **Custom charset** | Variable | 80%+ | Berisiko | Heyoka custom |
+| Encoding           | Alphabet               | Efisiensi | Karakter           | Contoh Tools          |
+| ------------------ | ---------------------- | --------- | ------------------ | --------------------- |
+| **Base32**         | A-Z, 2-7, =            | ~64%      | Aman               | iodine (default)      |
+| **Base64**         | A-Z, a-z, 0-9, +, /, = | ~75%      | + dan / bermasalah | dnscat2 (opsional)    |
+| **Base64 URL**     | A-Z, a-z, 0-9, -, _    | ~75%      | Aman               | Cobalt Strike, Heyoka |
+| **Base36**         | 0-9, A-Z               | ~59%      | Paling aman        | OzymanDNS (old)       |
+| **Hex**            | 0-9, a-f               | ~50%      | Mudah dibaca       | dnscat2 fallback      |
+| **Custom charset** | Variable               | 80%+      | Berisiko           | Heyoka custom         |
 
 ### Ilustrasi Encoding Flow
 
@@ -173,44 +173,44 @@ Query: "RkxBR3tleGZpbHRy.YXRlX21lfQo=.tunnel.evil.com"
 
 ### Berdasarkan Arah Data
 
-| Jenis | Deskripsi | Contoh Tools |
-|-------|-----------|-------------|
-| **Unidirectional (exfil only)** | Data hanya dari client ke server | DNSteal, python scripts |
-| **Bidirectional (C2)** | Client-Server full duplex | dnscat2, Cobalt Strike, iodine |
-| **Tunnel (full IP)** | Layer 3 — semua protokol IP | iodine, heyoka |
+| Jenis                           | Deskripsi                        | Contoh Tools                   |
+| ------------------------------- | -------------------------------- | ------------------------------ |
+| **Unidirectional (exfil only)** | Data hanya dari client ke server | DNSteal, python scripts        |
+| **Bidirectional (C2)**          | Client-Server full duplex        | dnscat2, Cobalt Strike, iodine |
+| **Tunnel (full IP)**            | Layer 3 — semua protokol IP      | iodine, heyoka                 |
 
 ### Berdasarkan Metadata
 
-| Type | Cara Kerja | Kecepatan | Detectability |
-|------|-----------|-----------|---------------|
-| **Direct (raw UDP/53)** | Langsung ke server authoritative | Sangat cepat | Mudah |
-| **Resolver-based (relayed)** | Lewat resolver lokal | Lambat (70-150ms per hop) | Sulit |
-| **Hybrid** | Resolver + fallback direct | Moderate | Medium |
+| Type                         | Cara Kerja                       | Kecepatan                 | Detectability |
+| ---------------------------- | -------------------------------- | ------------------------- | ------------- |
+| **Direct (raw UDP/53)**      | Langsung ke server authoritative | Sangat cepat              | Mudah         |
+| **Resolver-based (relayed)** | Lewat resolver lokal             | Lambat (70-150ms per hop) | Sulit         |
+| **Hybrid**                   | Resolver + fallback direct       | Moderate                  | Medium        |
 
 ### Berdasarkan Kapasitas
 
-| Level | Throughput Khas | Tools | Use Case |
-|-------|----------------|-------|----------|
-| **Low** | 1-10 bps | DNSteal, custom | Exfil file kecil, keylogging |
-| **Medium** | 100-500 bps | dnscat2, CS DNS beacon | C2 shell, tasking |
-| **High** | 1-30 kbps | iodine, heyoka | SSH, RDP, HTTP tunnel |
-| **Extreme** | 100+ kbps | iodine + EDNS0 | Video streaming (noisy) |
+| Level       | Throughput Khas | Tools                  | Use Case                     |
+| ----------- | --------------- | ---------------------- | ---------------------------- |
+| **Low**     | 1-10 bps        | DNSteal, custom        | Exfil file kecil, keylogging |
+| **Medium**  | 100-500 bps     | dnscat2, CS DNS beacon | C2 shell, tasking            |
+| **High**    | 1-30 kbps       | iodine, heyoka         | SSH, RDP, HTTP tunnel        |
+| **Extreme** | 100+ kbps       | iodine + EDNS0         | Video streaming (noisy)      |
 
 ---
 
 ## Tools — Perbandingan dan Analisis
 
-| Tool | Fungsi | Arsitektur | Enkripsi | Encoding | Throughput | Platform | Status |
-|------|--------|-----------|----------|----------|-----------|----------|--------|
-| **iodine** | IP tunnel (L3) | C, client-server | None | gzip + Base32 | 1-30 kbps | Linux, macOS, Win | Active |
-| **dnscat2** | C2 channel (L7) | C client + Ruby server | Salsa20/AES | Base64 / hex | 100-500 bps | Cross-platform | Active |
-| **Cobalt Strike** | C2 framework | Java Malleable | AES-256 | Base64 custom | 100-500 bps | Win + Linux | Active |
-| **Heyoka** | IP tunnel (multi) | C++ | XOR | Custom binary | 10-100 kbps | Linux | Dead (2007) |
-| **DNSteal** | File exfil | Python | None | Base32 | 1-50 bps | Cross-platform | Active |
-| **OzymanDNS** | TCP tunnel | Perl | None | Base32/36 | 10-100 bps | Unix | Dead (2004) |
-| **DNS2TCP** | TCP tunnel | C | None | Base32 | 1-10 kbps | Linux | Inactive |
-| **NSTX** | IP tunnel | C | None | Hex/Base64 | 1-5 kbps | Linux | Dead (2006) |
-| **tuns** | TCP tunnel | Go | TLS | Binary | 1-20 kbps | Cross-platform | Active |
+| Tool              | Fungsi            | Arsitektur             | Enkripsi    | Encoding      | Throughput  | Platform          | Status      |
+| ----------------- | ----------------- | ---------------------- | ----------- | ------------- | ----------- | ----------------- | ----------- |
+| **iodine**        | IP tunnel (L3)    | C, client-server       | None        | gzip + Base32 | 1-30 kbps   | Linux, macOS, Win | Active      |
+| **dnscat2**       | C2 channel (L7)   | C client + Ruby server | Salsa20/AES | Base64 / hex  | 100-500 bps | Cross-platform    | Active      |
+| **Cobalt Strike** | C2 framework      | Java Malleable         | AES-256     | Base64 custom | 100-500 bps | Win + Linux       | Active      |
+| **Heyoka**        | IP tunnel (multi) | C++                    | XOR         | Custom binary | 10-100 kbps | Linux             | Dead (2007) |
+| **DNSteal**       | File exfil        | Python                 | None        | Base32        | 1-50 bps    | Cross-platform    | Active      |
+| **OzymanDNS**     | TCP tunnel        | Perl                   | None        | Base32/36     | 10-100 bps  | Unix              | Dead (2004) |
+| **DNS2TCP**       | TCP tunnel        | C                      | None        | Base32        | 1-10 kbps   | Linux             | Inactive    |
+| **NSTX**          | IP tunnel         | C                      | None        | Hex/Base64    | 1-5 kbps    | Linux             | Dead (2006) |
+| **tuns**          | TCP tunnel        | Go                     | TLS         | Binary        | 1-20 kbps   | Cross-platform    | Active      |
 
 ### Detail Tools Utama
 
@@ -282,13 +282,13 @@ python dnsteal.py 192.168.1.100 -z -v secret.docx
 
 ### Volume Analysis
 
-| Metric | Normal | Suspicious | Keterangan |
-|--------|--------|-----------|-----------|
-| DNS queries/min/host | 1-20 | 50+ | Terutama TXT, MX, CNAME |
-| QNAME length | 15-40 chars | > 60 chars | Subdomain panjang |
-| TXT record ratio | < 1% DNS | > 10% DNS | TXT jarang dipakai |
-| Unique subdomain/domain | 10-100/hari | Ratusan/menit | Random generation |
-| NXDOMAIN rate | 1-5% | 10%+ | Brute-force setup |
+| Metric                  | Normal      | Suspicious    | Keterangan              |
+| ----------------------- | ----------- | ------------- | ----------------------- |
+| DNS queries/min/host    | 1-20        | 50+           | Terutama TXT, MX, CNAME |
+| QNAME length            | 15-40 chars | > 60 chars    | Subdomain panjang       |
+| TXT record ratio        | < 1% DNS    | > 10% DNS     | TXT jarang dipakai      |
+| Unique subdomain/domain | 10-100/hari | Ratusan/menit | Random generation       |
+| NXDOMAIN rate           | 1-5%        | 10%+          | Brute-force setup       |
 
 ### Entropy Analysis — Metrik Paling Kuat
 
@@ -314,14 +314,14 @@ Threshold: **Entropy > 3.5** = suspicious. **> 4.2** = highly likely tunnel.
 
 ### Deep Packet Inspection
 
-| Signature | Device | Detection Method |
-|-----------|--------|-----------------|
-| TXT terlalu besar | NGFW | TXT > 200 bytes |
-| Query rate tinggi | IPS | > 30 qpm ke 1 domain |
-| Entropy > threshold | Custom | Hitung per query |
-| Rare record type | DNS firewall | TXT, MX, SRV, NULL |
-| EDNS0 > 1232 bytes | NGFW | Fragmentasi tunnel |
-| No resolver caching | DNS logs | Random subdomain |
+| Signature           | Device       | Detection Method     |
+| ------------------- | ------------ | -------------------- |
+| TXT terlalu besar   | NGFW         | TXT > 200 bytes      |
+| Query rate tinggi   | IPS          | > 30 qpm ke 1 domain |
+| Entropy > threshold | Custom       | Hitung per query     |
+| Rare record type    | DNS firewall | TXT, MX, SRV, NULL   |
+| EDNS0 > 1232 bytes  | NGFW         | Fragmentasi tunnel   |
+| No resolver caching | DNS logs     | Random subdomain     |
 
 ### Time-Based Analysis
 
@@ -514,17 +514,17 @@ if __name__ == "__main__":
 
 ### Case 1: Flame Malware (2012) — Nation-State DNS C2
 
-| Aspek | Detail |
-|-------|--------|
-| **Aktor** | Nation-state (Stuxnet-related) |
-| **Target** | Iran — energi, minyak, industri |
-| **Metode** | DNS tunneling via subdomain untuk C2 + exfil |
-| **Payload** | Screenshot, keylog, dokumen — chunk kecil |
-| **Tool** | Custom internal module |
-| **Volume** | Ratusan query/jam, 30-60 bytes/query |
-| **Durasi** | ~2 tahun (2010-2012) |
-| **Dampak** | Ribuan host, jutaan dokumen |
-| **Detection** | Kaspersky Lab 2012 |
+| Aspek         | Detail                                       |
+| ------------- | -------------------------------------------- |
+| **Aktor**     | Nation-state (Stuxnet-related)               |
+| **Target**    | Iran — energi, minyak, industri              |
+| **Metode**    | DNS tunneling via subdomain untuk C2 + exfil |
+| **Payload**   | Screenshot, keylog, dokumen — chunk kecil    |
+| **Tool**      | Custom internal module                       |
+| **Volume**    | Ratusan query/jam, 30-60 bytes/query         |
+| **Durasi**    | ~2 tahun (2010-2012)                         |
+| **Dampak**    | Ribuan host, jutaan dokumen                  |
+| **Detection** | Kaspersky Lab 2012                           |
 
 Flame menggunakan DNS sebagai **secondary C2 channel**. Primary lewat HTTP/HTTPS. Jika primary diblokir, fallback ke DNS. Data di DNS: command singkat, heartbeat, konfirmasi eksekusi.
 
@@ -538,37 +538,37 @@ Flame menggunakan DNS sebagai **secondary C2 channel**. Primary lewat HTTP/HTTPS
 
 ### Case 2: DNSMessenger (2017) — PowerShell DNS RAT
 
-| Aspek | Detail |
-|-------|--------|
-| **Aktor** | Cyber-espionage (suspected APT) |
-| **Target** | Financial services |
-| **Metode** | PowerShell + DNS TXT queries untuk command |
-| **Payload** | PS code di TXT record -> decode -> invoke |
-| **Tool** | Pure PowerShell (LOL) |
-| **Detection** | Cisco Talos |
+| Aspek         | Detail                                     |
+| ------------- | ------------------------------------------ |
+| **Aktor**     | Cyber-espionage (suspected APT)            |
+| **Target**    | Financial services                         |
+| **Metode**    | PowerShell + DNS TXT queries untuk command |
+| **Payload**   | PS code di TXT record -> decode -> invoke  |
+| **Tool**      | Pure PowerShell (LOL)                      |
+| **Detection** | Cisco Talos                                |
 
 DNSMessenger = **fileless DNS tunneling**. Tidak ada binary tambahan. PowerShell ambil TXT record berisi kode terenkripsi.
 
 ### Case 3: OilRig (2016-2019) — DNS C2 untuk Espionage
 
-| Aspek | Detail |
-|-------|--------|
-| **Aktor** | OilRig (APT34) — Iran |
-| **Target** | Energi, minyak, gas Timur Tengah |
-| **Metode** | Custom DNS tunnel via subdomain |
-| **Tool** | Helminth backdoor + DNSExfiltrator |
-| **Detection** | Palo Alto Unit 42 |
+| Aspek         | Detail                             |
+| ------------- | ---------------------------------- |
+| **Aktor**     | OilRig (APT34) — Iran              |
+| **Target**    | Energi, minyak, gas Timur Tengah   |
+| **Metode**    | Custom DNS tunnel via subdomain    |
+| **Tool**      | Helminth backdoor + DNSExfiltrator |
+| **Detection** | Palo Alto Unit 42                  |
 
 OilRig menggunakan DNS sebagai **stealth channel utama**. Helminth kirim data per chunk kecil, sulit dideteksi signature-based IDS.
 
 ### Case 4: Chimera Group — Cobalt Strike Over DNS (2021)
 
-| Aspek | Detail |
-|-------|--------|
-| **Aktor** | Cybercrime/espionage |
-| **Target** | European organizations |
-| **Metode** | CS DNS beacon, DNS tasking + HTTPS data |
-| **Durasi** | 3+ months |
+| Aspek         | Detail                                              |
+| ------------- | --------------------------------------------------- |
+| **Aktor**     | Cybercrime/espionage                                |
+| **Target**    | European organizations                              |
+| **Metode**    | CS DNS beacon, DNS tasking + HTTPS data             |
+| **Durasi**    | 3+ months                                           |
 | **Indicator** | TXT query tiap 60s, jitter 15%, subdomain ~44 chars |
 
 Chimera: DNS hanya untuk task check (45-75 detik). Task di-download via HTTPS. Sulit dideteksi volume-based alert.
@@ -601,15 +601,15 @@ $ORIGIN rpz.local.
 
 ### 2. Traffic Anomaly Thresholds
 
-| Metric | Action Threshold | Notes |
-|--------|-----------------|-------|
-| DNS queries/min/host > 50 | Alert | Kecuali known (DC, mail) |
-| TXT record > 10% DNS | Alert | Normal hanya SPF, DMARC |
-| Entropy subdomain > 3.8 | Review | Whitelist CDN |
-| Subdomain length > 45 chars | Review | Whitelist CDN |
-| NXDOMAIN > 10% | Alert | Bruteforce |
-| Newly registered domain (< 30 days) | Alert | Domain tunnel baru |
-| EDNS0 > 1232 bytes | Review | Fragmentasi |
+| Metric                              | Action Threshold | Notes                    |
+| ----------------------------------- | ---------------- | ------------------------ |
+| DNS queries/min/host > 50           | Alert            | Kecuali known (DC, mail) |
+| TXT record > 10% DNS                | Alert            | Normal hanya SPF, DMARC  |
+| Entropy subdomain > 3.8             | Review           | Whitelist CDN            |
+| Subdomain length > 45 chars         | Review           | Whitelist CDN            |
+| NXDOMAIN > 10%                      | Alert            | Bruteforce               |
+| Newly registered domain (< 30 days) | Alert            | Domain tunnel baru       |
+| EDNS0 > 1232 bytes                  | Review           | Fragmentasi              |
 
 ### 3. Endpoint Prevention
 
@@ -620,13 +620,14 @@ $ORIGIN rpz.local.
 
 ### 4. DNS over HTTPS (DoH)
 
-| Sisi | Dampak |
-|------|--------|
-| (+) Defender yang manage | Centralize logging + enforce policy |
-| (-) Attacker | Sembunyikan DNS dari NGFW |
-| Trade-off | Jika tidak bisa inspect DoH, attacker pindah ke DoH eksternal |
+| Sisi                     | Dampak                                                        |
+| ------------------------ | ------------------------------------------------------------- |
+| (+) Defender yang manage | Centralize logging + enforce policy                           |
+| (-) Attacker             | Sembunyikan DNS dari NGFW                                     |
+| Trade-off                | Jika tidak bisa inspect DoH, attacker pindah ke DoH eksternal |
 
 Rekomendasi:
+
 - Enterprise DoH resolver internal (Windows Server 2022+, NextDNS, Cloudflare Gateway)
 - Blokir DoH ke resolver publik (1.1.1.1, 8.8.8.8, 9.9.9.9)
 - SSL/TLS Inspection untuk decrypt DoH
@@ -642,13 +643,13 @@ Rekomendasi:
 
 ### 6. Threat Intelligence Integration
 
-| Intel Feed | Function | Integration |
-|-----------|----------|-------------|
-| Passive DNS | Domain -> IP history | Elasticsearch, Splunk |
-| URLhaus / abuse.ch | Known malicious | DNS firewall auto-block |
-| Emerging Threats | DNS rules | Suricata, Snort |
-| MISP / OpenCTI | Custom intel | Alert enrichment |
-| AlienVault OTX | DNS pulses | Correlation |
+| Intel Feed         | Function             | Integration             |
+| ------------------ | -------------------- | ----------------------- |
+| Passive DNS        | Domain -> IP history | Elasticsearch, Splunk   |
+| URLhaus / abuse.ch | Known malicious      | DNS firewall auto-block |
+| Emerging Threats   | DNS rules            | Suricata, Snort         |
+| MISP / OpenCTI     | Custom intel         | Alert enrichment        |
+| AlienVault OTX     | DNS pulses           | Correlation             |
 
 ---
 
@@ -745,20 +746,20 @@ Line  Source IP         Entropy  Len    Status
 
 ## DNS Tunnel vs Legitimate Traffic
 
-| Karakteristik | Legitimate DNS | DNS Tunneling |
-|---------------|---------------|---------------|
-| **Query interval** | Random, request-driven | Periodik, mechanical |
-| **Subdomain length** | 10-30 chars | > 45 chars |
-| **Entropy per label** | < 3.0 | > 3.8 |
-| **Distinct domains/host** | 5-50/hari | 1-3/hari |
-| **TXT record ratio** | < 1% | > 10% |
-| **TXT response size** | < 200 bytes | Bisa > 1000 bytes |
-| **Query type distribution** | A/AAAA dominan | TXT, MX, CNAME tinggi |
-| **EDNS0 usage** | < 512 bytes | Sering > 4096 bytes |
-| **Time of day** | Business hours | Datar 24 jam |
-| **NXDOMAIN rate** | < 5% | Bisa > 20% |
-| **Cache behavior** | Cache-friendly | Cache-unfriendly |
-| **Correlation user activity** | Tinggi | Rendah |
+| Karakteristik                 | Legitimate DNS         | DNS Tunneling         |
+| ----------------------------- | ---------------------- | --------------------- |
+| **Query interval**            | Random, request-driven | Periodik, mechanical  |
+| **Subdomain length**          | 10-30 chars            | > 45 chars            |
+| **Entropy per label**         | < 3.0                  | > 3.8                 |
+| **Distinct domains/host**     | 5-50/hari              | 1-3/hari              |
+| **TXT record ratio**          | < 1%                   | > 10%                 |
+| **TXT response size**         | < 200 bytes            | Bisa > 1000 bytes     |
+| **Query type distribution**   | A/AAAA dominan         | TXT, MX, CNAME tinggi |
+| **EDNS0 usage**               | < 512 bytes            | Sering > 4096 bytes   |
+| **Time of day**               | Business hours         | Datar 24 jam          |
+| **NXDOMAIN rate**             | < 5%                   | Bisa > 20%            |
+| **Cache behavior**            | Cache-friendly         | Cache-unfriendly      |
+| **Correlation user activity** | Tinggi                 | Rendah                |
 
 ---
 
@@ -772,6 +773,7 @@ Line  Source IP         Entropy  Len    Status
 - [[digital-privacy-anonymity]] — DoH trade-off privacy vs security
 
 **Planned notes:**
+
 - [[covert-channel-encyclopedia]] — Semua jenis covert channel
 - [[apt-c2-infrastructure]] — Enterprise C2 infrastructure
 

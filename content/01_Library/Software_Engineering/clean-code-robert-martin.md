@@ -11,26 +11,27 @@ status: active
 ---
 
 # 🚀 Clean Code
+
 > Robert C. Martin ("Uncle Bob") — 2008
 
-**Tesis:** Kode yang bersih bukan soal estetika — soal **survival** proyek. Kode kotor bikin tim lambat, utang teknikal numpuk, akhirnya rewrite. Kode bersih *reads like well-written prose* — kode yang orang lain baca dan langsung ngerti tanpa mikir.
+**Tesis:** Kode yang bersih bukan soal estetika — soal **survival** proyek. Kode kotor bikin tim lambat, utang teknikal numpuk, akhirnya rewrite. Kode bersih _reads like well-written prose_ — kode yang orang lain baca dan langsung ngerti tanpa mikir.
 
 ---
 
 ## 📌 Kenapa Penting
 
-- **Kode dibaca ~10x lebih sering daripada ditulis.** Waktu luang developer 60% buat baca kode, cuma 20% nulis. Jadi *readability* bukan opsional.
+- **Kode dibaca ~10x lebih sering daripada ditulis.** Waktu luang developer 60% buat baca kode, cuma 20% nulis. Jadi _readability_ bukan opsional.
 - **Efek kumulatif.** Kode kotor dikit per hari, setahun jadi utang yang bikin kecepatan tim turun drastis. Tim kompeten di kode kotor bisa lebih lambat dari tim baru di kode bersih.
-- **Boy Scout Rule:** *Leave the campground cleaner than you found it*. Setiap sentuh file, tinggalkan lebih rapi — walau cuma rename 1 variabel jelek.
+- **Boy Scout Rule:** _Leave the campground cleaner than you found it_. Setiap sentuh file, tinggalkan lebih rapi — walau cuma rename 1 variabel jelek.
 - **Kualitas kode = tanggung jawab setiap developer**, bukan cuma tech lead. Tech lead bikin standar, developer jaga disiplin.
 
->[!tip] **Analogi:** Kode kotor itu kayak kamar kost yang setiap hari ditambah barang baru tanpa beresin. Minggu pertama masih rapi. Minggu ketiga cari kunci motor butuh 10 menit. Bulan ketiga — pindah kost.
+> [!tip] **Analogi:** Kode kotor itu kayak kamar kost yang setiap hari ditambah barang baru tanpa beresin. Minggu pertama masih rapi. Minggu ketiga cari kunci motor butuh 10 menit. Bulan ketiga — pindah kost.
 
 ---
 
-## 🎯  Meaningful Names — Paling Fundamental
+## 🎯 Meaningful Names — Paling Fundamental
 
-### Nama Harus *Reveal Intent*
+### Nama Harus _Reveal Intent_
 
 ```python
 # Buruk — butuh komentar karena namanya gak jelas
@@ -59,13 +60,13 @@ user_accounts = set()
 
 ### Konvensi
 
-| Elemen | Aturan | Contoh |
-|--------|--------|--------|
-| Class | Noun | `Customer`, `PaymentProcessor` |
-| Method | Verb atau verb phrase | `pay()`, `validateEmail()` |
-| Variable | Noun atau short phrase | `total_price`, `is_ready` |
-| Constant | UPPER_SNAKE_CASE | `MAX_FILE_SIZE` |
-| Boolean | `is`, `has`, `can` prefix | `isActive`, `hasPermission`, `canEdit` |
+| Elemen   | Aturan                    | Contoh                                 |
+| -------- | ------------------------- | -------------------------------------- |
+| Class    | Noun                      | `Customer`, `PaymentProcessor`         |
+| Method   | Verb atau verb phrase     | `pay()`, `validateEmail()`             |
+| Variable | Noun atau short phrase    | `total_price`, `is_ready`              |
+| Constant | UPPER_SNAKE_CASE          | `MAX_FILE_SIZE`                        |
+| Boolean  | `is`, `has`, `can` prefix | `isActive`, `hasPermission`, `canEdit` |
 
 ### Peringatan Tambahan
 
@@ -75,7 +76,7 @@ user_accounts = set()
 
 ---
 
-## 🎯  Functions — Aturan Emas
+## 🎯 Functions — Aturan Emas
 
 ### 1. Harus Kecil
 
@@ -165,9 +166,9 @@ Duplikasi = 2 tempat harus diubah kalo requirement berubah. 1 lupa = bug.
 
 ---
 
-## 🎯  Comments — Makin Sedikit Makin Baik
+## 🎯 Comments — Makin Sedikit Makin Baik
 
-### Comment yang *Tidak* Boleh
+### Comment yang _Tidak_ Boleh
 
 ```python
 # Buruk: komentar basi yang jelas dari kode
@@ -198,11 +199,11 @@ def get_count():  # ⚠️ namanya get_count tapi komentar bilang price
 # TODO: ganti hardcode 100 dengan config — sebelum deploy v2
 ```
 
-### Prinsip: Kode yang baik adalah self-documenting. Kalo butuh komentar buat jelasin *apa* yang dilakukan — berarti kodenya jelek. Komentar cuma buat jelasin *kenapa*.
+### Prinsip: Kode yang baik adalah self-documenting. Kalo butuh komentar buat jelasin _apa_ yang dilakukan — berarti kodenya jelek. Komentar cuma buat jelasin _kenapa_.
 
 ---
 
-## 🎯  Error Handling
+## 🎯 Error Handling
 
 ### Pakai Exceptions, Jangan Return Codes
 
@@ -275,13 +276,13 @@ def find_user(id):
 
 ---
 
-## 🎯  TDD — Red-Green-Refactor (Detail)
+## 🎯 TDD — Red-Green-Refactor (Detail)
 
 Ini siklus inti Test-Driven Development. Bukan cuma "test dulu baru coding" — ada makna di tiap langkah.
 
 ### 🔴 RED — Tulis Test yang Gagal
 
-1. Sebelum nulis *satu baris kode produksi*, tulis test dulu.
+1. Sebelum nulis _satu baris kode produksi_, tulis test dulu.
 2. Test harus spesifik — apa yang diharapkan dari kode yang BELUM ditulis.
 3. Test harus **gagal** (red). Kalo test lulus saat belum ada implementasi, testnya salah.
 
@@ -302,9 +303,10 @@ def test_make_itinerary_simple():
 ```
 
 **Kenapa harus gagal?**
+
 - Bukti bahwa test benar-benar nguji sesuatu yang belum ada.
 - Kalau test lulus tanpa implementasi, test mungkin gak ngecek apa-apa (false positive).
-- Test yang gagal juga nge-verifikasi *interface* — kamu liat dari error apakah parameter/return type sudah cocok.
+- Test yang gagal juga nge-verifikasi _interface_ — kamu liat dari error apakah parameter/return type sudah cocok.
 
 ### 🟢 GREEN — Bikin Test Lulus Secepat Mungkin
 
@@ -340,13 +342,13 @@ def make_itinerary(flights, hotel):
 
 ### Kenapa TDD Kuat?
 
-| Manfaat | Penjelasan |
-|---------|------------|
-| **Design feedback** | Test yang susah ditulis = pertanda kode terlalu kompleks |
-| **Regression safety** | Refactor takut rusak sesuatu? Tinggal jalanin test |
-| **Zero debugging time** | Kalau test gagal, tahu persis bagian mana yang salah |
+| Manfaat                 | Penjelasan                                                        |
+| ----------------------- | ----------------------------------------------------------------- |
+| **Design feedback**     | Test yang susah ditulis = pertanda kode terlalu kompleks          |
+| **Regression safety**   | Refactor takut rusak sesuatu? Tinggal jalanin test                |
+| **Zero debugging time** | Kalau test gagal, tahu persis bagian mana yang salah              |
 | **Documentation hidup** | Test = dokumentasi yang selalu sinkron — kalo berubah, test merah |
-| **Courage** | Berani refactor tanpa takut — safety net-nya test |
+| **Courage**             | Berani refactor tanpa takut — safety net-nya test                 |
 
 ### Satu Assert Per Test
 
@@ -377,14 +379,14 @@ Satu assert per test = tiap test punya 1 alasan untuk gagal. Kalau test dengan 3
 | **I**ndependent     | Mandiri          | Test A gak boleh bergantung test B. Jalankan urutan apa aja hasilnya sama. |
 | **R**epeatable      | Bisa diulang     | Jalanin 10x hasilnya sama. Gak boleh tergantung waktu/network/file system. |
 | **S**elf-Validating | Validasi sendiri | Output: lulus/gagal. Gak perlu manual cek file log.                        |
-| **T**imely          | Tepat waktu      | Test ditulis *tepat sebelum* kode produksi (sesuai TDD).                   |
+| **T**imely          | Tepat waktu      | Test ditulis _tepat sebelum_ kode produksi (sesuai TDD).                   |
 
 **Contoh Test yang Gak FIRST:**
 
 ```python
 # ❌ Gak INDEPENDENT: butuh database nyata
 def test_create_user():
-    db = connect_to_production_db()  # ❌ 
+    db = connect_to_production_db()  # ❌
     db.delete_all_users()
     create_user("test")
     count = db.count_users()
@@ -398,7 +400,7 @@ def test_payment():
 
 ---
 
-## 🎯  Classes — SRP & Cohesion
+## 🎯 Classes — SRP & Cohesion
 
 ### Single Responsibility Principle (SRP)
 
@@ -435,7 +437,7 @@ God class = class yang > 1000 baris dan ngatur semuanya. Mimpi buruk maintenance
 
 ---
 
-## 🎯  Boundaries — Batas Antara Kode Kita & Pihak Ketiga
+## 🎯 Boundaries — Batas Antara Kode Kita & Pihak Ketiga
 
 Third-party library: kamu gak punya kontrol. API bisa berubah, bisa deprecated, bisa ganti lisensi.
 
@@ -464,36 +466,36 @@ def process_checkout(order, payment_token):
 
 ---
 
-## 📖  Bab Penting & Porsi Bacaan
+## 📖 Bab Penting & Porsi Bacaan
 
-| Bab | Judul | Prioritas | Waktu baca |
-|-----|-------|-----------|------------|
-| 2 | Meaningful Names | ✅ Wajib | ~20 menit |
-| 3 | Functions | ✅ Wajib | ~30 menit |
-| 5 | Formatting | ⭐ Rekomendasi | ~15 menit |
-| 6 | Objects and Data Structures | ⭐ Rekomendasi | ~20 menit |
-| 7 | Error Handling | ✅ Wajib | ~20 menit |
-| 10 | Classes | ✅ Wajib | ~15 menit |
-| 15 | JUnit Internals | 🔧 Case study | ~30 menit |
-| 11 | Systems | 🔧 Lanjutan | ~15 menit |
-| Lainnya | — | 📖 Pelengkap | Skip dulu |
+| Bab     | Judul                       | Prioritas      | Waktu baca |
+| ------- | --------------------------- | -------------- | ---------- |
+| 2       | Meaningful Names            | ✅ Wajib       | ~20 menit  |
+| 3       | Functions                   | ✅ Wajib       | ~30 menit  |
+| 5       | Formatting                  | ⭐ Rekomendasi | ~15 menit  |
+| 6       | Objects and Data Structures | ⭐ Rekomendasi | ~20 menit  |
+| 7       | Error Handling              | ✅ Wajib       | ~20 menit  |
+| 10      | Classes                     | ✅ Wajib       | ~15 menit  |
+| 15      | JUnit Internals             | 🔧 Case study  | ~30 menit  |
+| 11      | Systems                     | 🔧 Lanjutan    | ~15 menit  |
+| Lainnya | —                           | 📖 Pelengkap   | Skip dulu  |
 
 ---
 
-## ⚠️  Kritik & Konteks — Jangan Ditelan Mentah-mentah
+## ⚠️ Kritik & Konteks — Jangan Ditelan Mentah-mentah
 
-| Kritik | Penjelasan | Kapan Diabaikan |
-|--------|------------|-----------------|
-| Terlalu dogmatis | "Functions must be < 20 lines" kadang butuh > 20 | Saat readability justru lebih baik dengan fungsi agak panjang |
-| Java-oriented (2008) | Contoh pake Java tanpa lambda/stream | Prinsip tetap valid, adaptasi syntax ke bahasa lu |
-| Over-SRP | Terlalu kecil bikin file 100 file | SRP yang wajar: 1 class ~100-200 baris |
-| TDD mahal | Nulis 2x (test + kode) butuh waktu | Di proyek kompleks TDD ngirit waktu debug 5x lipat |
+| Kritik               | Penjelasan                                       | Kapan Diabaikan                                               |
+| -------------------- | ------------------------------------------------ | ------------------------------------------------------------- |
+| Terlalu dogmatis     | "Functions must be < 20 lines" kadang butuh > 20 | Saat readability justru lebih baik dengan fungsi agak panjang |
+| Java-oriented (2008) | Contoh pake Java tanpa lambda/stream             | Prinsip tetap valid, adaptasi syntax ke bahasa lu             |
+| Over-SRP             | Terlalu kecil bikin file 100 file                | SRP yang wajar: 1 class ~100-200 baris                        |
+| TDD mahal            | Nulis 2x (test + kode) butuh waktu               | Di proyek kompleks TDD ngirit waktu debug 5x lipat            |
 
 **Prinsip sehat:** Ambil esensinya — naming, SRP, testability, error handling. Adaptasi sisanya sesuai bahasa, framework, dan tim.
 
 ---
 
-## 🔗  Koneksi ke Vault Lain
+## 🔗 Koneksi ke Vault Lain
 
 - [[the-pragmatic-programmer]] — mindset overlap: DRY, TDD, knowledge portfolio, broken window theory
 - [[design-patterns-gof]] — banyak design pattern yang jawab "gimana bikin kode bersih" (adapter, strategy, factory)
@@ -503,7 +505,7 @@ def process_checkout(order, payment_token):
 
 ---
 
-## ✅  Checklist Praktik
+## ✅ Checklist Praktik
 
 - [ ] Baca kode lama tiap hari — cari 1 pelanggaran naming, refactor langsung
 - [ ] Terapkan TDD di 1 fitur kecil per sprint — rasain feedback loop-nya

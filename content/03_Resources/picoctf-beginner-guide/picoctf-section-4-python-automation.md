@@ -13,9 +13,9 @@ status: operational
 <think>
 Okay, I need to expand the given PicoCTF Section 4 Python Automation document to at least 1200 words. Let me start by analyzing the original content to see where I can add more depth.
 
-The original document has four main phases: Running scripts and parsing arguments, automating password cracking, automating network tasks, and using one-liners. Each section has examples and code snippets. 
+The original document has four main phases: Running scripts and parsing arguments, automating password cracking, automating network tasks, and using one-liners. Each section has examples and code snippets.
 
-First, I'll look at the first phase. The user mentioned using sys.argv and argparse. I can add more examples of both methods. Maybe compare how sys.argv works versus argparse, showing different command-line option handling. Also, perhaps include best practices for error handling when parsing arguments. 
+First, I'll look at the first phase. The user mentioned using sys.argv and argparse. I can add more examples of both methods. Maybe compare how sys.argv works versus argparse, showing different command-line option handling. Also, perhaps include best practices for error handling when parsing arguments.
 
 The debugging section uses pdb. I can elaborate on other debugging tools like ipdb or adding print statements strategically. Maybe explain when to use each. Also, mention linters or static analysis tools for catching issues early.
 
@@ -44,30 +44,35 @@ Let me start by expanding each phase with more code examples, detailed explanati
 
 > **Environment:** Python 3  
 > **Filosofi:** Jangan kerjakan secara manual apa yang bisa dikerjakan oleh script.  
-> **Target:** `.py` scripts, Password Cracking, & Data Wrangling.  
+> **Target:** `.py` scripts, Password Cracking, & Data Wrangling.
 
 ---
 
 ## 🎯 Mengapa Python untuk Keamanan Siber & CTF?
 
-Python adalah pilihan utama untuk keamanan informasi dan CTF karena:  
-1. **Sintaksis sederhana**: Cocok untuk prototyping cepat.  
-2. **Ketersediaan library**: Python memiliki pustaka kriptografi (PyCrypto), network (requests, Scapy), dan reverse engineering (pwntools).  
-3. **Portabilitas**: Script Python berjalan di Linux, Windows, dan macOS tanpa modifikasi besar.  
+Python adalah pilihan utama untuk keamanan informasi dan CTF karena:
 
-Contoh ekosistem tooling:  
-- **pwntools**: Eksploitasi biner.  
-- **cryptography**: Enkripsi/dekripsi.  
-- **paramiko**: SSH automation.  
-- **mitmproxy**: Penetration testing.  
+1. **Sintaksis sederhana**: Cocok untuk prototyping cepat.
+2. **Ketersediaan library**: Python memiliki pustaka kriptografi (PyCrypto), network (requests, Scapy), dan reverse engineering (pwntools).
+3. **Portabilitas**: Script Python berjalan di Linux, Windows, dan macOS tanpa modifikasi besar.
+
+Contoh ekosistem tooling:
+
+- **pwntools**: Eksploitasi biner.
+- **cryptography**: Enkripsi/dekripsi.
+- **paramiko**: SSH automation.
+- **mitmproxy**: Penetration testing.
 
 ---
 
 ## FASE 1 — Menjalankan Script & Parsing Argumen
 
-### 1.1 Cara Eksekusi & Membaca Argumen  
-#### Menggunakan `sys.argv`  
-Contoh skrip yang menerima 3 argumen:  
+### 1.1 Cara Eksekusi & Membaca Argumen
+
+#### Menggunakan `sys.argv`
+
+Contoh skrip yang menerima 3 argumen:
+
 ```python
 import sys
 
@@ -83,13 +88,17 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-Eksekusi:  
+
+Eksekusi:
+
 ```bash
 python3 script.py encrypted.txt de decrypt abc123
 ```
 
-#### Menggunakan `argparse`  
-Contoh dengan flag dan nilai opsional:  
+#### Menggunakan `argparse`
+
+Contoh dengan flag dan nilai opsional:
+
 ```python
 import argparse
 
@@ -110,20 +119,24 @@ if __name__ == "__main__":
 
 ---
 
-### 1.2 Debugging Skrip Python  
-#### Alternatif PDB:  
-- `ipdb`: Debugger interaktif dengan Python Prompt Style.  
-- Strategi debugging cepat:  
+### 1.2 Debugging Skrip Python
+
+#### Alternatif PDB:
+
+- `ipdb`: Debugger interaktif dengan Python Prompt Style.
+- Strategi debugging cepat:
   ```python
   # Di akhir skrip
   import ipdb; ipdb.set_trace()
   ```
-#### Optimisasi Debugging:  
-1. Tambahkan `timeout` di server connection:  
+
+#### Optimisasi Debugging:
+
+1. Tambahkan `timeout` di server connection:
    ```python
    s.settimeout(5)  # 5 detik
    ```
-2. Gunakan `print()` strategis:  
+2. Gunakan `print()` strategis:
    ```python
    print(f"Data received: {data[:100]}...")  # Hanya tampilkan 100 karakter pertama
    ```
@@ -132,20 +145,26 @@ if __name__ == "__main__":
 
 ## FASE 2 — Otomasi Password Cracking & Brute Force
 
-### 2.1 Analisis Hardcoded Password  
-#### Regex untuk pencarian kompleks:  
+### 2.1 Analisis Hardcoded Password
+
+#### Regex untuk pencarian kompleks:
+
 ```bash
 grep -r -n "(?=.*password)(?=.*=)[^;]*" *.py
 ```
-Contoh pola yang dicari:  
+
+Contoh pola yang dicari:
+
 - `password = "admin123"`
 - `correct_pw = "s3cr3t"`
 - `auth_token = b"\x01\x02\x03"`
 
 ---
 
-### 2.2 Skrip Brute Force Lanjutan  
-#### Implementasi multi-threading:  
+### 2.2 Skrip Brute Force Lanjutan
+
+#### Implementasi multi-threading:
+
 ```python
 import concurrent.futures
 
@@ -161,14 +180,17 @@ def parallel_brute_force(wordlists, target_hash):
         results = list(executor.map(thread_brute_force, args))
     return [r for r in results if r]
 ```
+
 > **Performa**: Menggunakan CPU full-core meningkatkan kecepatan 40-60% dibandingkan sequential.
 
 ---
 
 ## FASE 3 — Otomasi Jaringan Menggunakan Sockets
 
-### 3.1 Contoh Skrip Lengkap Server Interaksi  
-#### Handle Timeout dan Pemulihan:  
+### 3.1 Contoh Skrip Lengkap Server Interaksi
+
+#### Handle Timeout dan Pemulihan:
+
 ```python
 import socket
 import re
@@ -197,7 +219,8 @@ def solve_math_challenge():
 
 ## FASE 4 — Python CLI One-Liners (Kalkulasi Instan)
 
-### 4.1 Ekosistem Base64 & Hex  
+### 4.1 Ekosistem Base64 & Hex
+
 ```bash
 # Konversi Base64 ke Hex
 python3 -c "import base64; print(base64.b64encode(b'Hello').hex())"  # Output: 48656c6c6f
@@ -206,5 +229,8 @@ python3 -c "import base64; print(base64.b64encode(b'Hello').hex())"  # Output: 4
 python3 -c "print(bytes.fromhex('48656c6c6f').decode('ascii'))"  # Output: Hello
 ```
 
-### 4.2 One-Liner untuk XOR Operation  
+### 4.2 One-Liner untuk XOR Operation
+
 ```bash
+
+```

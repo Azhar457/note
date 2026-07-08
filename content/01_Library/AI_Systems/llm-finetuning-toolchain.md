@@ -36,6 +36,7 @@ Ada 4 layer dalam toolchain fine-tuning — masing-masing beda fungsi, gak salin
 **Apa:** Library HuggingFace. Berisi implementasi LoRA, QLoRA, IA³, AdaLoRA, Prefix Tuning.
 
 **Cara kerja:**
+
 - Bekukan 99%+ bobot model asli (fp16/bf16)
 - Sisipkan adapter `A × B` kecil di layer attention
 - Training cuma update adapter itu — parameter jauh lebih sedikit
@@ -44,12 +45,12 @@ Ada 4 layer dalam toolchain fine-tuning — masing-masing beda fungsi, gak salin
 
 **LoRA rank (r):**
 
-| r | Parameter baru | VRAM tambahan (7B) | Kapan |
-|---|---------------|-------------------|-------|
-| 8 | ~0.25% | ~200MB | Task sederhana, klasifikasi |
-| 16 | ~0.5% | ~400MB | **Default** — most tasks |
-| 32 | ~1% | ~800MB | Creative, coding, nuanced |
-| 64 | ~2% | ~1.6GB | Full task adaptation |
+| r   | Parameter baru | VRAM tambahan (7B) | Kapan                       |
+| --- | -------------- | ------------------ | --------------------------- |
+| 8   | ~0.25%         | ~200MB             | Task sederhana, klasifikasi |
+| 16  | ~0.5%          | ~400MB             | **Default** — most tasks    |
+| 32  | ~1%            | ~800MB             | Creative, coding, nuanced   |
+| 64  | ~2%            | ~1.6GB             | Full task adaptation        |
 
 **QLoRA:** LoRA + 4-bit NormalFloat quantization. Load model di 4-bit, adapter tetap fp16. Hemat VRAM ~4x.
 
@@ -58,6 +59,7 @@ pip install peft bitsandbytes transformers accelerate
 ```
 
 Contoh implementasi PEFT:
+
 ```python
 from peft import PeftModel, PeftConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -84,6 +86,7 @@ peft_model = PeftModel.from_pretrained(model, peft_config)
 **Apa:** Tulis ulang operasi CUDA pake kernel Triton custom untuk LoRA/QLoRA. **2x lebih cepat, 50% lebih hemat VRAM.**
 
 **Yang dioptimasi:**
+
 - Linear layer tanpa materialisasi weight untuk LoRA
 - Attention kernel lebih efisien
 - 4-bit NF4 quantization-aware loading
@@ -103,6 +106,7 @@ model.save_pretrained_gguf("my-model-gguf", tokenizer, quantization_method="q4_k
 ```
 
 Contoh implementasi Unsloth:
+
 ```python
 import torch
 
@@ -120,11 +124,11 @@ model.to(device)
 
 **Apa:** Engine training dari Microsoft. Optimasi memori multi-GPU via ZeRO.
 
-| ZeRO | Simpan | Hemat VRAM | Minimal GPU |
-|:----:|--------|:----------:|:----------:|
-| 1 | Optimizer state terbagi | ~4x | 2 |
-| 2 | + Gradien terbagi | ~8x | 2 |
-| 3 | + Bobot terbagi | ~16x+ | 2 |
+| ZeRO | Simpan                  | Hemat VRAM | Minimal GPU |
+| :--: | ----------------------- | :--------: | :---------: |
+|  1   | Optimizer state terbagi |    ~4x     |      2      |
+|  2   | + Gradien terbagi       |    ~8x     |      2      |
+|  3   | + Bobot terbagi         |   ~16x+    |      2      |
 
 **ZeRO-Offload:** Pindahin state ke CPU RAM → VRAM gratis, throughput turun.
 
@@ -133,6 +137,7 @@ deepspeed --num_gpus=4 train.py --deepspeed ds_z3.json
 ```
 
 Contoh implementasi DeepSpeed:
+
 ```python
 import deepspeed
 
@@ -165,6 +170,7 @@ llamafactory-cli train --trainer deepspeed --deepspeed ds_z3.json --method lora
 ```
 
 **Install:**
+
 ```bash
 git clone https://github.com/hiyouga/LLaMA-Factory.git
 cd LLaMA-Factory && pip install -e ".[torch,metrics]"
@@ -175,12 +181,12 @@ cd LLaMA-Factory && pip install -e ".[torch,metrics]"
 Batas real di tiap VRAM (QLoRA + gradient checkpoint):
 
 | VRAM | Maks model | Waktu training (7B, 1k samples, 1 epoch) |
-|:----:|:----------:|:---------------------------------------:|
-| 4GB | 1-3B | — |
-| 6GB | 7B | ~2 jam |
-| 8GB | 7-14B | ~1 jam |
-| 12GB | 14-32B | ~45 menit |
-| 24GB | 70B+ | ~20 menit |
+| :--: | :--------: | :--------------------------------------: |
+| 4GB  |    1-3B    |                    —                     |
+| 6GB  |     7B     |                  ~2 jam                  |
+| 8GB  |   7-14B    |                  ~1 jam                  |
+| 12GB |   14-32B   |                ~45 menit                 |
+| 24GB |    70B+    |                ~20 menit                 |
 
 ### Pipeline Kentang (6-8GB VRAM + 16GB RAM)
 
@@ -209,12 +215,12 @@ ollama run kentang-model
 
 ### Tips Kentang
 
-| Masalah | Solusi |
-|---------|--------|
+| Masalah             | Solusi                                               |
+| ------------------- | ---------------------------------------------------- |
 | OOM (out of memory) | Turunin `r` ke 8, matiin flash-attention, pake QLoRA |
-| Training lambat | Batch size = 1, gradient accumulation = 4 |
-| RAM penuh | Swap file 32GB+, atau DeepSpeed ZeRO-3 offload |
-| Storage | Simpan cuma GGUF final, hapus checkpoint tengah |
+| Training lambat     | Batch size = 1, gradient accumulation = 4            |
+| RAM penuh           | Swap file 32GB+, atau DeepSpeed ZeRO-3 offload       |
+| Storage             | Simpan cuma GGUF final, hapus checkpoint tengah      |
 
 ## 3. Export + Serve Ollama
 
@@ -226,13 +232,13 @@ model.save_pretrained_gguf("output-dir", tokenizer, "q4_k_m")
 
 Level kuantisasi GGUF:
 
-| Level | Ukuran (7B) | Kualitas |
-|:-----:|:----------:|:--------:|
-| q2_k | ~2.5GB | Lumayan |
-| q3_k_m | ~3.5GB | OK |
-| **q4_k_m** | **~4.5GB** | **Default** |
-| q5_k_m | ~5.5GB | Bagus |
-| q6_k | ~6.5GB | Original (±) |
+|   Level    | Ukuran (7B) |   Kualitas   |
+| :--------: | :---------: | :----------: |
+|    q2_k    |   ~2.5GB    |   Lumayan    |
+|   q3_k_m   |   ~3.5GB    |      OK      |
+| **q4_k_m** | **~4.5GB**  | **Default**  |
+|   q5_k_m   |   ~5.5GB    |    Bagus     |
+|    q6_k    |   ~6.5GB    | Original (±) |
 
 ### Ollama serve
 
@@ -326,27 +332,28 @@ providers:
 
 ## 6. Anatomi Biaya (Spek Kentang)
 
-| Komponen | Biaya |
-|----------|-------|
+| Komponen               | Biaya                    |
+| ---------------------- | ------------------------ |
 | GPU Cloud (6GB, 1 jam) | ~$0.20 (RunPod, Vast.ai) |
-| Colab Pro (T4, 4 jam) | $10/bulan |
-| Lokal (listrik, 8 jam) | ~$0.50 |
-| Ollama + 9Router | Gratis |
+| Colab Pro (T4, 4 jam)  | $10/bulan                |
+| Lokal (listrik, 8 jam) | ~$0.50                   |
+| Ollama + 9Router       | Gratis                   |
 
 Total fine-tune 7B sekali training: **~$0.20–1.00**. Serve unlimited via Ollama + 9Router: **$0**.
 
 ## Hubungan Antar Tools (TL;DR)
 
-| Tool | Level | Fungsi |
-|------|-------|--------|
-| **PEFT** | Method | Fine-tuning ringan lewat LoRA |
-| **Unsloth** | Kernel | Bikin LoRA/QLoRA 2x lebih cepat |
-| **DeepSpeed** | Engine | Multi-GPU, ZeRO hemat VRAM |
-| **LLaMA-Factory** | Framework | Wrapper all-in-one |
-| **Ollama** | Server | Serve model lokal via API |
-| **9Router** | Proxy | Routing + autofallback + load balance |
+| Tool              | Level     | Fungsi                                |
+| ----------------- | --------- | ------------------------------------- |
+| **PEFT**          | Method    | Fine-tuning ringan lewat LoRA         |
+| **Unsloth**       | Kernel    | Bikin LoRA/QLoRA 2x lebih cepat       |
+| **DeepSpeed**     | Engine    | Multi-GPU, ZeRO hemat VRAM            |
+| **LLaMA-Factory** | Framework | Wrapper all-in-one                    |
+| **Ollama**        | Server    | Serve model lokal via API             |
+| **9Router**       | Proxy     | Routing + autofallback + load balance |
 
 Quest yang paling stabil buat spek kentang:
+
 ```
 LLaMA-Factory + Unsloth → GGUF → Ollama → 9Router → Hermes/Claude Code
 ```

@@ -28,33 +28,39 @@ I need to ensure that each section is fleshed out with code, practical troublesh
 I should also check for the word count as I go, making sure each addition contributes meaningfully without being redundant. Let me start restructuring each section with these points in mind, adding subsections where necessary and expanding explanations. Each code example should be practical and demonstrate the concept clearly. For troubleshooting, present a problem, show the solution with code, and explain why it works. The goal is to make the document a comprehensive guide suitable for someone learning about encodings for the first time, with enough depth for experienced users as well.
 </think>
 
-# 🧩 PICOCTF SECTION 2 — Encodings & CyberChef  
+# 🧩 PICOCTF SECTION 2 — Encodings & CyberChef
+
 Dokumen ini adalah panduan praktis dan teoretis untuk memahami encoding, decoding, dan alat pendukung seperti CyberChef. Penjelasan meliputi struktur algoritma, skenario real-world, dan implementasi kode nyata.
 
 ---
 
-## 1. Teknologi & Alat Utama  
-**Alat yang digunakan**:  
-- `base64`: Alat terminal untuk encoding/decoding Base64.  
-- `tr`: Perintah terminal untuk transposisi karakter (ROT13, ROT47).  
-- **CyberChef**: Web-based decoder dengan fitur "Magic Wand" untuk otomatisasi pola.  
-- **Python**: Untuk skrip otomatisasi dan decoding manual.  
+## 1. Teknologi & Alat Utama
+
+**Alat yang digunakan**:
+
+- `base64`: Alat terminal untuk encoding/decoding Base64.
+- `tr`: Perintah terminal untuk transposisi karakter (ROT13, ROT47).
+- **CyberChef**: Web-based decoder dengan fitur "Magic Wand" untuk otomatisasi pola.
+- **Python**: Untuk skrip otomatisasi dan decoding manual.
 
 ---
 
-## 2. FASE 1 — Pattern Recognition (Pengenalan Pola)  
-Encoding adalah proses konversi data ke format yang tidak terbaca. Setiap encoding memiliki ciri visual unik yang mempermudah identifikasi.  
+## 2. FASE 1 — Pattern Recognition (Pengenalan Pola)
 
-### 2.1 Tabel Identifikasi Encoding  
-| **Jenis**      | **Contoh**       | **Ciri Visual dan Teknis**                            | **Algoritma Dasar**                              |  
-|----------------|------------------|------------------------------------------------------|--------------------------------------------------|  
-| **Base64**     | `YXpoYXI=`        | Hanya 64 karakter (A-Z, a-z, 0-9, `+/`), padding `=` | Enkripsi 3 byte ke 4 unit 6-bit                  |  
-| **Hex (Base16)**| `617A686172`      | Hanya hexadecimals (0-9, A-F)                        | Setiap pair 4-bit mewakili 1 byte                |  
-| **Base32**     | `MFRGGZJA`        | CAPSLET + angka 2-7, tanpa 0/1/8/9                   | 5-bit per karakter, padding `=`                  |  
-| **Binary**     | `01100001`        | Hanya `0` dan `1`                                     | Setiap 8 bit mewakili 1 byte                     |  
-| **ROT13**      | `cvpbPGS`         | Substitusi Caesar dengan offset 13                   | Simetri: ROT13 x 2 mengembalikan string asli     |  
+Encoding adalah proses konversi data ke format yang tidak terbaca. Setiap encoding memiliki ciri visual unik yang mempermudah identifikasi.
 
-### 2.2 Kode Implementasi Identifikasi  
+### 2.1 Tabel Identifikasi Encoding
+
+| **Jenis**        | **Contoh**   | **Ciri Visual dan Teknis**                           | **Algoritma Dasar**                          |
+| ---------------- | ------------ | ---------------------------------------------------- | -------------------------------------------- |
+| **Base64**       | `YXpoYXI=`   | Hanya 64 karakter (A-Z, a-z, 0-9, `+/`), padding `=` | Enkripsi 3 byte ke 4 unit 6-bit              |
+| **Hex (Base16)** | `617A686172` | Hanya hexadecimals (0-9, A-F)                        | Setiap pair 4-bit mewakili 1 byte            |
+| **Base32**       | `MFRGGZJA`   | CAPSLET + angka 2-7, tanpa 0/1/8/9                   | 5-bit per karakter, padding `=`              |
+| **Binary**       | `01100001`   | Hanya `0` dan `1`                                    | Setiap 8 bit mewakili 1 byte                 |
+| **ROT13**        | `cvpbPGS`    | Substitusi Caesar dengan offset 13                   | Simetri: ROT13 x 2 mengembalikan string asli |
+
+### 2.2 Kode Implementasi Identifikasi
+
 ```python
 import base64
 
@@ -72,10 +78,12 @@ print(is_base64("YXpoYXI="))  # Output: True
 
 ---
 
-## 3. FASE 2 — Manipulasi Data di Terminal  
-Menggunakan CLI (Command Line Interface) memberikan keunggulan dalam kecepatan dan automation.  
+## 3. FASE 2 — Manipulasi Data di Terminal
 
-### 3.1 Base64 Decoding  
+Menggunakan CLI (Command Line Interface) memberikan keunggulan dalam kecepatan dan automation.
+
+### 3.1 Base64 Decoding
+
 ```bash
 # Decode Base64 tanpa padding ekstra
 echo "bDNhcm5fdGgzX3IwcDM1" | base64 -d -i -
@@ -83,7 +91,8 @@ echo "bDNhcm5fdGgzX3IwcDM1" | base64 -d -i -
 # Output: lDNhr3_rp53
 ```
 
-### 3.2 ROT13 dengan `tr`  
+### 3.2 ROT13 dengan `tr`
+
 ```bash
 # ROT13 adalah substitusi simetris: A->N, B->O, ..., Z->M
 echo "cvpbPGS" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
@@ -91,13 +100,15 @@ echo "cvpbPGS" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 # Hasil decoding: picoCTF
 ```
 
-### 3.3 Kasus Gagal: Padding Salah  
+### 3.3 Kasus Gagal: Padding Salah
+
 ```bash
 # Padding yang tidak lengkap mengakibatakan error
 echo "YXpoYXI" | base64 -d  # Error: Invalid padding
 ```
 
-**Solusi**:  
+**Solusi**:
+
 ```bash
 # Tambahkan padding manual sesuai panjang string
 echo "YXpoYXI==" | base64 -d  # Output: azhar
@@ -105,15 +116,19 @@ echo "YXpoYXI==" | base64 -d  # Output: azhar
 
 ---
 
-## 4. FASE 3 — CyberChef (The Magic Stick)  
-CyberChef adalah alat multi-purpose untuk analisis dan manipulasi data.  
+## 4. FASE 3 — CyberChef (The Magic Stick)
 
-### 4.1 Arsitektur CyberChef  
-CyberChef menggunakan **Node.js** untuk backend dan **JavaScript** untuk frontend. Fitur utamanya termasuk:  
-- **Magic Wand**: Analisis pola menggunakan regex dan dictionary.  
-- **Recipe Engine**: Sequencing operasi decoding/encoding.  
+CyberChef adalah alat multi-purpose untuk analisis dan manipulasi data.
 
-### 4.2 Skrip Python untuk Akses API  
+### 4.1 Arsitektur CyberChef
+
+CyberChef menggunakan **Node.js** untuk backend dan **JavaScript** untuk frontend. Fitur utamanya termasuk:
+
+- **Magic Wand**: Analisis pola menggunakan regex dan dictionary.
+- **Recipe Engine**: Sequencing operasi decoding/encoding.
+
+### 4.2 Skrip Python untuk Akses API
+
 ```python
 import requests
 
@@ -133,23 +148,27 @@ print(cyberchef_magic("YXpoYXI="))  # Output: azhar
 
 ---
 
-## 5. FASE 4 — Jebakan Padding & Binary  
-Padding adalah penambahan karakter untuk memenuhi alignment.  
+## 5. FASE 4 — Jebakan Padding & Binary
 
-### 5.1 Perbandingan Padding  
-| **Format**     | **Padding Contoh** | **Ketentuan**                          |  
-|----------------|--------------------|----------------------------------------|  
-| **Base64**     | 1-2 karakter `=`     | Padding di akhir string untuk 4N+2     |  
-| **Binary (8-bit)** | `00101010`         | Pastikan panjang multiple of 8         |  
+Padding adalah penambahan karakter untuk memenuhi alignment.
 
-### 5.2 Skenario Error Padding  
+### 5.1 Perbandingan Padding
+
+| **Format**         | **Padding Contoh** | **Ketentuan**                      |
+| ------------------ | ------------------ | ---------------------------------- |
+| **Base64**         | 1-2 karakter `=`   | Padding di akhir string untuk 4N+2 |
+| **Binary (8-bit)** | `00101010`         | Pastikan panjang multiple of 8     |
+
+### 5.2 Skenario Error Padding
+
 ```plaintext
 # Error: Base64 string panjang = 13 (tidak habis dibagi 4)
 Input:  "YXpoYXI"
 Output: Error dari base64 -d
 ```
 
-**Solusi**:  
+**Solusi**:
+
 ```bash
 # Tambahkan padding sesuai panjang string
 input_base64="YXpoYXI=="
@@ -158,12 +177,14 @@ echo "$input_base64" | base64 -d  # Output: azhar
 
 ---
 
-## 6. Cheat Sheet Ekspansi  
-```bash
-# Terminal Encoding/Decoding  
-echo "azhar" | base64    # Encode Base64  
-echo "azhar" | xxd -p    # Hex (Base16)  
-echo "azhar" | tr 'A-Za-z' 'N-ZA-Mn-za-m'  # ROT13  
+## 6. Cheat Sheet Ekspansi
 
-# Validasi Padding  
+```bash
+# Terminal Encoding/Decoding
+echo "azhar" | base64    # Encode Base64
+echo "azhar" | xxd -p    # Hex (Base16)
+echo "azhar" | tr 'A-Za-z' 'N-ZA-Mn-za-m'  # ROT13
+
+# Validasi Padding
 pad_len=$(( (${#input} % 4) ?
+```

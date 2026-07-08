@@ -11,9 +11,9 @@ status: operational
 ---
 
 <think>
-Okay, I need to expand the given Docker Nextcloud stack document to at least 1200 words. Let me look at the original content and see where I can add more details. 
+Okay, I need to expand the given Docker Nextcloud stack document to at least 1200 words. Let me look at the original content and see where I can add more details.
 
-First, the original has sections on cleaning old Docker installations, installing Docker Engine V2, AppArmor removal, preparing persistent storage, the docker-compose.yml file, deployment, anti-reset principles, and access verification. 
+First, the original has sections on cleaning old Docker installations, installing Docker Engine V2, AppArmor removal, preparing persistent storage, the docker-compose.yml file, deployment, anti-reset principles, and access verification.
 
 Each section is pretty concise. To expand, I can add more technical details in each step. For example, in the installation part, explain why using the official repository is better than the Ubuntu one. Also, maybe include some background on why AppArmor is disabled in LXC environments.
 
@@ -50,7 +50,9 @@ sudo apt autoremove -y
 ```
 
 ### Verifikasi Penghapusan
+
 Pastikan semua artefak lama hilang:
+
 ```bash
 dpkg -l | grep -E 'docker|compose'
 ```
@@ -85,10 +87,13 @@ sudo systemctl enable docker
 ```
 
 ### Verifikasi Instalasi
+
 Cek versi untuk memastikan Golang-based Compose Plugin aktif:
+
 ```bash
 docker compose version
 ```
+
 Output yang valid menunjukkan `docker compose` (spasi, bukan `docker-compose`).
 
 ---
@@ -108,7 +113,9 @@ sudo systemctl restart docker
 > Langkah ini wajib dilakukan setelah bypass AppArmor di host Proxmox. Jika dilewatkan, container Docker akan gagal start dengan error `exit status 243`.
 
 ### Alternatif Keamanan
+
 Gantikan AppArmor dan SELinux dengan:
+
 1. **SELinux dihost**: Jika Proxmox konfigurasi ulang.
 2. **Firewalld**: Batasi akses jaringan ke container via port.
 3. **Cap-shelve**: Batasi capability container (e.g., `--cap-drop=NET_RAW`).
@@ -125,6 +132,7 @@ chcon -t container_file_t /opt/nextcloud/ -R  # Untuk kompatibilitas SELinux di 
 ```
 
 ### Struktur Folder
+
 - `/opt/nextcloud/app`: File Nextcloud (termasuk `config.php`).
 - `/opt/nextcloud/data`: Upload file pengguna.
 - `/opt/nextcloud/db`: Data MariaDB (termasuk basis SQL).
@@ -137,6 +145,7 @@ chcon -t container_file_t /opt/nextcloud/ -R  # Untuk kompatibilitas SELinux di 
 ## 5. Penulisan File IaC (`docker-compose.yml`)
 
 File ini adalah core dari konfigurasi. Fokus pada 3 poin kritis:
+
 1. Tag spesifik untuk database (hindari `:latest`).
 2. Jaringan internal Docker untuk komunikasi container.
 3. Kunci keamanan minimalis.
@@ -188,6 +197,7 @@ services:
 ```
 
 ### Tips Keamanan
+
 - Gunakan `Secrets` Docker untuk parameter sensitif (ganti `MYSQL_ROOT_PASSWORD` dengan `environment_files`).
 - Aktifkan SSL di Nextcloud via HTTPS reverse proxy (lihat [[dokumen-05-ssl-and-reverse-proxy|Dokumen 05]]).
 
@@ -198,3 +208,4 @@ services:
 ```bash
 cd /opt/nextcloud
 sudo docker compose up -
+```

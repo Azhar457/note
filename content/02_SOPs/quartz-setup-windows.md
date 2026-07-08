@@ -29,19 +29,22 @@ For the deployment part, add a GitHub Actions workflow example and explain how i
 Finally, ensure all added sections are well-explained with code examples and tables to enhance clarity. Check that the content flows logically and meets the word requirement.
 </think>
 
-### SOP: Quartz v4 + GitHub Pages (Windows)  
+### SOP: Quartz v4 + GitHub Pages (Windows)
+
 Quartz adalah generator **statis** berbasis **TypeScript/Markdown** yang dirancang untuk skalabilitas konten, personalisasi tema, dan integrasi cloud. Dokumen ini membahas arsitektur teknis, implementasi multi-level, dan troubleshooting spesifik Windows.
 
 ---
 
 #### ⚙️ FASE 0 — Install Prasyarat (5 menit + 7 poin validasi)
 
-**Persyaratan Sistem Minimal**  
-- Windows 10 64-bit (versi build ≥19041)  
-- Node.js v18.17.1+ (npm ≥8.19.0)  
-- Git (v2.39.2+) dengan path `C:\Program Files\Git\bin` di `PATH`  
+**Persyaratan Sistem Minimal**
 
-**Validasi Instalasi (via PowerShell):**  
+- Windows 10 64-bit (versi build ≥19041)
+- Node.js v18.17.1+ (npm ≥8.19.0)
+- Git (v2.39.2+) dengan path `C:\Program Files\Git\bin` di `PATH`
+
+**Validasi Instalasi (via PowerShell):**
+
 ```powershell
 # Node.js versi <18 tidak didukung
 node --version | ForEach-Object {
@@ -54,7 +57,8 @@ git --exec-path | ForEach-Object {
 }
 ```
 
-**Install via WSL (Jika Error di Native Windows):**  
+**Install via WSL (Jika Error di Native Windows):**
+
 ```bash
 wsl --install
 sudo apt update && sudo apt install nodejs npm
@@ -62,7 +66,7 @@ sudo apt update && sudo apt install nodejs npm
 
 ---
 
-#### 🧭 FASE 1 — Fork & Clone: Arsitektur Folder Detil  
+#### 🧭 FASE 1 — Fork & Clone: Arsitektur Folder Detil
 
 ```
 quartz-repo/
@@ -78,24 +82,26 @@ quartz-repo/
 └── .gitignore            ← Penyaring file ekspor
 ```
 
-**Contoh Pengelolaan Tag dengan Skrip Validasi:**  
+**Contoh Pengelolaan Tag dengan Skrip Validasi:**
+
 ```ts
 // quartz.config.ts
 export const config: QuartzConfig = {
   configuration: {
-    ignorePatterns:[
-      "**/private/**",   // Folder konten sensitif
-      "**/drafts/**/*.md" // Artikel dalam proses
-    ]
-  }
+    ignorePatterns: [
+      "**/private/**", // Folder konten sensitif
+      "**/drafts/**/*.md", // Artikel dalam proses
+    ],
+  },
 }
 ```
 
 ---
 
-#### 📁 FASE 2 — Copy Vault: Alur Validasi Konten  
+#### 📁 FASE 2 — Copy Vault: Alur Validasi Konten
 
-**Strategi Transfer Konten Terprogram:**  
+**Strategi Transfer Konten Terprogram:**
+
 ```bash
 # Skrip bash dengan ekstensi `.ps1` untuk Windows
 $ErrorActionPreference = "Stop"
@@ -110,11 +116,11 @@ Copy-Item .\local-vault\*.md content/ -Recurse -ErrorAction SilentlyContinue
 
 ---
 
-#### ⚙️ FASE 3 — Konfigurasi Maxis: Contoh Implementasi Penuh  
+#### ⚙️ FASE 3 — Konfigurasi Maxis: Contoh Implementasi Penuh
 
 ```ts
 // quartz.config.ts
-import { QuartzConfig, defaultConfig } from "@quartz/stem";
+import { QuartzConfig, defaultConfig } from "@quartz/stem"
 
 export const config: QuartzConfig = {
   ...defaultConfig,
@@ -128,11 +134,11 @@ export const config: QuartzConfig = {
               let highlight = true; 
               if (highlight) document.body.style.color = "red";
             </script>
-          `;
+          `
         }
-        return "";
-      }
-    }
+        return ""
+      },
+    },
   ],
   configuration: {
     theme: {
@@ -142,28 +148,30 @@ export const config: QuartzConfig = {
         },
       },
     },
-    enablePopovers: true,  // Toggle info hover
-    enableSPA: true,         // Navigasi single-page
-  }
-};
+    enablePopovers: true, // Toggle info hover
+    enableSPA: true, // Navigasi single-page
+  },
+}
 ```
 
-| Properti Konfigurasi | Fungsi | Nilai Default |
-|----------------------|--------|----------------|
-| `enableSPA`          | Navigasi instan (AJAX-based) | `true` |
-| `ignorePatterns`     | Penyaring file ekspor | `[]` |
-| `theme`              | Tema situs web | `default` |
+| Properti Konfigurasi | Fungsi                       | Nilai Default |
+| -------------------- | ---------------------------- | ------------- |
+| `enableSPA`          | Navigasi instan (AJAX-based) | `true`        |
+| `ignorePatterns`     | Penyaring file ekspor        | `[]`          |
+| `theme`              | Tema situs web               | `default`     |
 
 ---
 
-#### 🔍 FASE 4 — Test Lokal: Debugging Level Lanjut  
+#### 🔍 FASE 4 — Test Lokal: Debugging Level Lanjut
 
-**Perintah dengan Logging Debug (via PowerShell):**  
+**Perintah dengan Logging Debug (via PowerShell):**
+
 ```powershell
 QUARTZ_LOG_LEVEL=debug npx quartz build --serve
 ```
 
-**Contoh Output Debug:**  
+**Contoh Output Debug:**
+
 ```
 [2023-04-12 14:30:04] Parsing: content/roadmap.md
 [2023-04-12 14:30:04] Injecting custom header for layout: roadmap
@@ -172,9 +180,10 @@ QUARTZ_LOG_LEVEL=debug npx quartz build --serve
 
 ---
 
-#### 🚀 FASE 5 — Deploy ke GitHub Pages  
+#### 🚀 FASE 5 — Deploy ke GitHub Pages
 
-**File `.github/workflows/build-deploy.yml`:**  
+**File `.github/workflows/build-deploy.yml`:**
+
 ```yaml
 on:
   push:
@@ -189,7 +198,7 @@ jobs:
       - name: Setup Node.js v18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: "18.x"
       - run: npm install
       - run: npx quartz build --public-folder public
       - name: Deploy to GitHub Pages
@@ -201,25 +210,27 @@ jobs:
 
 ---
 
-#### 🧠 FASE 6 — Roadmap Embedding: HTML + TypeScript  
+#### 🧠 FASE 6 — Roadmap Embedding: HTML + TypeScript
 
-**Contoh File `roadmap.html`:**  
+**Contoh File `roadmap.html`:**
+
 ```html
 <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="120" cy="100" r="20" fill="red"/>
-  <circle cx="200" cy="100" r="20" fill="green"/>
-  <circle cx="140" cy="180" r="20" fill="orange"/>
+  <circle cx="120" cy="100" r="20" fill="red" />
+  <circle cx="200" cy="100" r="20" fill="green" />
+  <circle cx="140" cy="180" r="20" fill="orange" />
   <text x="110" y="125" font-family="Arial" font-size="12">Dev</text>
   <text x="190" y="125" font-family="Arial" font-size="12">Prod</text>
   <text x="130" y="205" font-family="Arial" font-size="12">QA</text>
 </svg>
 ```
 
-**Embedding di `tutorial.md`:**  
+**Embedding di `tutorial.md`:**
+
 ```markdown
 <div class="graphviz">
   ![Roadmap](/roadmap.html)
-</div> 
+</div>
 ```
 
 ---

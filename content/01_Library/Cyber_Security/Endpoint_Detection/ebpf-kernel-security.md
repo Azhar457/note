@@ -92,12 +92,12 @@ eBPF = drone kecil yang bisa terbang di dalam ruangan
 
 ### 4 Komponen Kunci
 
-| Komponen | Fungsi | Kenapa Penting |
-|---|---|---|
-| **Verifier** | Pastikan program tidak infinite loop, tidak akses memori sembarangan, selalu terminate | Ini yang membuat eBPF aman — program yang tidak lolos verifier tidak akan pernah jalan di kernel |
-| **JIT Compiler** | Ubah bytecode eBPF ke instruksi mesin native | Performa mendekati kode kernel asli, jauh lebih cepat dari interpreter |
-| **Hooks** | Titik di kernel tempat eBPF dipasang — syscall, fungsi jaringan, scheduler, dll | Fleksibilitas penuh: bisa observe hampir semua yang terjadi di kernel |
-| **Maps** | Struktur data bersama kernel ↔ user space (hash map, array, ring buffer, dsb) | Cara eBPF program "bicara" ke luar — kirim data ke user space tanpa overhead besar |
+| Komponen         | Fungsi                                                                                 | Kenapa Penting                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| **Verifier**     | Pastikan program tidak infinite loop, tidak akses memori sembarangan, selalu terminate | Ini yang membuat eBPF aman — program yang tidak lolos verifier tidak akan pernah jalan di kernel |
+| **JIT Compiler** | Ubah bytecode eBPF ke instruksi mesin native                                           | Performa mendekati kode kernel asli, jauh lebih cepat dari interpreter                           |
+| **Hooks**        | Titik di kernel tempat eBPF dipasang — syscall, fungsi jaringan, scheduler, dll        | Fleksibilitas penuh: bisa observe hampir semua yang terjadi di kernel                            |
+| **Maps**         | Struktur data bersama kernel ↔ user space (hash map, array, ring buffer, dsb)          | Cara eBPF program "bicara" ke luar — kirim data ke user space tanpa overhead besar               |
 
 ---
 
@@ -105,12 +105,12 @@ eBPF = drone kecil yang bisa terbang di dalam ruangan
 
 ### Perbandingan dengan Pendekatan Tradisional
 
-| Pendekatan | Kelebihan | Kelemahan | Performa | Keamanan |
-|---|---|---|---|---|
-| **Kernel Module** | Akses penuh, sangat fleksibel | Crash kernel jika ada bug, perlu recompile per versi kernel, susah diaudit | ⚡ Sangat tinggi | 💀 Sangat rendah (satu bug → kernel panic) |
-| **Sidecar Proxy** *(Istio, Envoy)* | Mudah deploy, language agnostic | Resource overhead besar (CPU+RAM), latency tambahan, kompleksitas operasional | 🟡 Sedang (overhead 5–15%) | 🟡 Sedang |
-| **Traditional Monitoring Agent** *(node exporter, telegraf)* | Sederhana, banyak support | Banyak proses, sampling loss — tidak capture per-event | 🟠 Rendah-Sedang | 🟡 Sedang |
-| **eBPF** | Aman, overhead sangat rendah, per-event, satu agen | Kurva belajar curam, butuh kernel modern (4.9+ basic, 5.7+ full feature) | ⚡ Sangat tinggi (JIT native) | ✅ Sangat tinggi (sandbox + verifier) |
+| Pendekatan                                                   | Kelebihan                                          | Kelemahan                                                                     | Performa                      | Keamanan                                   |
+| ------------------------------------------------------------ | -------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------ |
+| **Kernel Module**                                            | Akses penuh, sangat fleksibel                      | Crash kernel jika ada bug, perlu recompile per versi kernel, susah diaudit    | ⚡ Sangat tinggi              | 💀 Sangat rendah (satu bug → kernel panic) |
+| **Sidecar Proxy** _(Istio, Envoy)_                           | Mudah deploy, language agnostic                    | Resource overhead besar (CPU+RAM), latency tambahan, kompleksitas operasional | 🟡 Sedang (overhead 5–15%)    | 🟡 Sedang                                  |
+| **Traditional Monitoring Agent** _(node exporter, telegraf)_ | Sederhana, banyak support                          | Banyak proses, sampling loss — tidak capture per-event                        | 🟠 Rendah-Sedang              | 🟡 Sedang                                  |
+| **eBPF**                                                     | Aman, overhead sangat rendah, per-event, satu agen | Kurva belajar curam, butuh kernel modern (4.9+ basic, 5.7+ full feature)      | ⚡ Sangat tinggi (JIT native) | ✅ Sangat tinggi (sandbox + verifier)      |
 
 ### Data Kuantitatif
 
@@ -135,31 +135,31 @@ Event capture:
 
 ### eBPF vs Kernel Module — Langsung
 
-| Aspek | Kernel Module | eBPF |
-|---|---|---|
-| **Crash risk** | Tinggi — satu bug → seluruh kernel panic | Nol — program ditolak verifier jika tidak aman |
-| **Upgrade kernel** | Wajib recompile module tiap versi | CO-RE (Compile Once, Run Everywhere) — satu binary jalan di berbagai versi kernel |
-| **Auditability** | Manual review source code | Verifier otomatis + bisa dibatasi via `cap_bpf` capability |
-| **Deployment** | `insmod`/`rmmod` + kernel signing | `bpftool prog load` atau auto-load via systemd |
-| **Use case observability** | Bisa, tapi overkill berbahaya | Dirancang untuk ini — ini use case utama eBPF |
+| Aspek                      | Kernel Module                            | eBPF                                                                              |
+| -------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| **Crash risk**             | Tinggi — satu bug → seluruh kernel panic | Nol — program ditolak verifier jika tidak aman                                    |
+| **Upgrade kernel**         | Wajib recompile module tiap versi        | CO-RE (Compile Once, Run Everywhere) — satu binary jalan di berbagai versi kernel |
+| **Auditability**           | Manual review source code                | Verifier otomatis + bisa dibatasi via `cap_bpf` capability                        |
+| **Deployment**             | `insmod`/`rmmod` + kernel signing        | `bpftool prog load` atau auto-load via systemd                                    |
+| **Use case observability** | Bisa, tapi overkill berbahaya            | Dirancang untuk ini — ini use case utama eBPF                                     |
 
->[!warning] Kesimpulan Tegas
->Tidak ada alasan menulis kernel module baru untuk observability atau security monitoring di era eBPF. eBPF mencapai performa yang sama dengan keamanan dan kemudahan deployment yang jauh lebih tinggi.
+> [!warning] Kesimpulan Tegas
+> Tidak ada alasan menulis kernel module baru untuk observability atau security monitoring di era eBPF. eBPF mencapai performa yang sama dengan keamanan dan kemudahan deployment yang jauh lebih tinggi.
 
 ---
 
 ## eBPF di Hierarki OS Level 0–8
 
-| Level OS | Status eBPF | Use Case Relevan |
-|---|---|---|
-| **Level 0–2** *(Consumer — Privacy OS)* | ✅ Tersedia di kernel Linux 4.9+, tapi tidak dipakai aplikasi biasa | Belajar eBPF di Linux Mint / Ubuntu. `bpftrace` untuk debug one-liner, `opensnoop` untuk lihat file yang dibuka proses |
-| **Level 3–4** *(Security Research — Hardened OS)* | ✅ Medan perang eBPF | Falco untuk runtime security, Pixie untuk observability microservice, Hubble untuk network visibility. Qubes OS: eBPF di dom0 untuk monitor semua VM |
-| **Level 5–6** *(Enterprise — Certified OS)* | ✅ RHEL / AlmaLinux / Rocky dengan kernel 5.7+ | DISA STIG RHEL sudah cover konfigurasi eBPF aman. FIPS 140-2: eBPF bisa panggil modul crypto FIPS-certified via helper |
-| **Level 6 — Militer** | ✅ Justru sangat ideal | "No code change" adalah persyaratan keamanan di sistem classified. eBPF memberi visibility **tanpa modifikasi kernel** |
-| **Level 7–8** *(Compartmented — Air-Gapped)* | ⚠️ Sebagian | Green Hills INTEGRITY & VxWorks belum support (RTOS proprietary). Tapi eBPF for Windows dan eBPF for macOS sudah ada |
+| Level OS                                          | Status eBPF                                                         | Use Case Relevan                                                                                                                                     |
+| ------------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Level 0–2** _(Consumer — Privacy OS)_           | ✅ Tersedia di kernel Linux 4.9+, tapi tidak dipakai aplikasi biasa | Belajar eBPF di Linux Mint / Ubuntu. `bpftrace` untuk debug one-liner, `opensnoop` untuk lihat file yang dibuka proses                               |
+| **Level 3–4** _(Security Research — Hardened OS)_ | ✅ Medan perang eBPF                                                | Falco untuk runtime security, Pixie untuk observability microservice, Hubble untuk network visibility. Qubes OS: eBPF di dom0 untuk monitor semua VM |
+| **Level 5–6** _(Enterprise — Certified OS)_       | ✅ RHEL / AlmaLinux / Rocky dengan kernel 5.7+                      | DISA STIG RHEL sudah cover konfigurasi eBPF aman. FIPS 140-2: eBPF bisa panggil modul crypto FIPS-certified via helper                               |
+| **Level 6 — Militer**                             | ✅ Justru sangat ideal                                              | "No code change" adalah persyaratan keamanan di sistem classified. eBPF memberi visibility **tanpa modifikasi kernel**                               |
+| **Level 7–8** _(Compartmented — Air-Gapped)_      | ⚠️ Sebagian                                                         | Green Hills INTEGRITY & VxWorks belum support (RTOS proprietary). Tapi eBPF for Windows dan eBPF for macOS sudah ada                                 |
 
->[!tip] Plot Twist Militer
->NSA punya proyek internal **"BPF for Trusted Computing"** — menggabungkan eBPF dengan TPM (Trusted Platform Module). Hasilnya: attestasi jarak jauh bahwa kernel berjalan dengan program eBPF tertentu — bisa verifikasi "tidak ada rootkit" dari remote server tanpa fisik mengakses mesin.
+> [!tip] Plot Twist Militer
+> NSA punya proyek internal **"BPF for Trusted Computing"** — menggabungkan eBPF dengan TPM (Trusted Platform Module). Hasilnya: attestasi jarak jauh bahwa kernel berjalan dengan program eBPF tertentu — bisa verifikasi "tidak ada rootkit" dari remote server tanpa fisik mengakses mesin.
 
 ---
 
@@ -368,7 +368,7 @@ hubble observe --follow
 
 SEC("tracepoint/syscalls/sys_enter_execve")
 int hello(void *ctx) {
-    bpf_printk("Program baru dieksekusi! PID: %d\n", 
+    bpf_printk("Program baru dieksekusi! PID: %d\n",
                bpf_get_current_pid_tgid() >> 32);
     return 0;
 }
@@ -385,22 +385,22 @@ char LICENSE[] SEC("license") = "GPL";
 
 ## Quick Reference — Pilih Tool Berdasarkan Kebutuhan
 
-| Kebutuhan | Tool eBPF | Alternatif Lama |
-|---|---|---|
-| **Security: deteksi anomali runtime** | Falco | auditd (lebih berat), kernel module (berbahaya) |
-| **Networking: observability microservice** | Pixie, Hubble | Sidecar Envoy (lebih berat) |
-| **Networking: service mesh + security policy** | Cilium | Istio + iptables (overhead tinggi) |
-| **Performance: profiling CPU/memory** | Parca, Pyroscope | perf (lebih susah), dtrace |
-| **DDoS mitigation: packet drop cepat** | XDP (via Cilium) | iptables (lebih lambat) |
-| **Debug: one-liner investigasi** | bpftrace | strace (overhead besar), gdb |
-| **Security: monitor semua syscall** | Tracee (Aqua) | auditd + plugin |
+| Kebutuhan                                      | Tool eBPF        | Alternatif Lama                                 |
+| ---------------------------------------------- | ---------------- | ----------------------------------------------- |
+| **Security: deteksi anomali runtime**          | Falco            | auditd (lebih berat), kernel module (berbahaya) |
+| **Networking: observability microservice**     | Pixie, Hubble    | Sidecar Envoy (lebih berat)                     |
+| **Networking: service mesh + security policy** | Cilium           | Istio + iptables (overhead tinggi)              |
+| **Performance: profiling CPU/memory**          | Parca, Pyroscope | perf (lebih susah), dtrace                      |
+| **DDoS mitigation: packet drop cepat**         | XDP (via Cilium) | iptables (lebih lambat)                         |
+| **Debug: one-liner investigasi**               | bpftrace         | strace (overhead besar), gdb                    |
+| **Security: monitor semua syscall**            | Tracee (Aqua)    | auditd + plugin                                 |
 
 ---
 
->[!tip] Topik Riset yang Belum Ada yang Garap
->"Post-Quantum Verified eBPF Programs untuk Firmware Air-Gapped Systems" — gabungkan ML-DSA signing (NIST PQC standard 2024) dengan eBPF program verification, deploy di pre-boot UEFI environment.
+> [!tip] Topik Riset yang Belum Ada yang Garap
+> "Post-Quantum Verified eBPF Programs untuk Firmware Air-Gapped Systems" — gabungkan ML-DSA signing (NIST PQC standard 2024) dengan eBPF program verification, deploy di pre-boot UEFI environment.
 >
->Ini nyambung langsung ke: [[cryptography-biometrics|Kriptografi Post-Quantum]] + [[hierarchy-operating-systems|OS Hierarki Level 7-8]] + [[computer-science-foundations|Computer Architecture Ring -2]]. Belum ada yang publish paper tentang kombinasi ini.
+> Ini nyambung langsung ke: [[cryptography-biometrics|Kriptografi Post-Quantum]] + [[hierarchy-operating-systems|OS Hierarki Level 7-8]] + [[computer-science-foundations|Computer Architecture Ring -2]]. Belum ada yang publish paper tentang kombinasi ini.
 
 ---
 
@@ -417,4 +417,4 @@ char LICENSE[] SEC("license") = "GPL";
 
 ---
 
-*eBPF | Extended Berkeley Packet Filter · Ring 0 Sandbox · Falco · Cilium · XDP · RISC-V · Post-Quantum · Masa Kini dan Masa Depan Linux Security*
+_eBPF | Extended Berkeley Packet Filter · Ring 0 Sandbox · Falco · Cilium · XDP · RISC-V · Post-Quantum · Masa Kini dan Masa Depan Linux Security_

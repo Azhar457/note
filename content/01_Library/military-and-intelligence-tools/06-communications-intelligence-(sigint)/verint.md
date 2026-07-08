@@ -33,7 +33,7 @@ Verint COMINT                Verint Analytics           Verint Fusion
 │                            menganalisis)              HUMINT, OSINT,
 │                            │                          financial, dll.)
 ▼                            ▼                          ▼
-PSTN, VoIP, Mobile,          Metadata analysis,         Verint Web 
+PSTN, VoIP, Mobile,          Metadata analysis,         Verint Web
 Satcom, IP, Microwave        link analysis,             Intelligence,
                               pattern detection          social media
                                                         monitoring
@@ -47,17 +47,17 @@ Verint tidak menjual satu alat, melainkan **platform modular** yang bisa dikonfi
 
 ### Modul Utama
 
-| Modul | Fungsi | Detail Teknis |
-|-------|--------|---------------|
-| **Verint COMINT** | Intersep pasif pada berbagai media komunikasi. | TAP pasif pada backbone fiber, microwave relay, satelit, PSTN, mobile core network (MSC, GGSN). |
-| **Verint IP Intercept** | Intersep traffic internet (IP). | Deep Packet Inspection (DPI), rekonstruksi sesi TCP, ekstraksi email, chat, browsing, file transfer. |
-| **Verint Voice** | Intersep suara (PSTN, VoIP). | Demodulasi, decoding codec (G.711, G.729, AMR, SILK, Opus), speaker identification, language ID. |
-| **Verint Mobile** | Intersep mobile (GSM, 3G, LTE, 5G). | IMSI/IMEI catcher compatibility, passive intercept via core network, SS7/Diameter exploitation. |
-| **Verint Satellite** | Intersep komunikasi satelit. | Downlink intercept, demodulasi VSAT, Inmarsat, Iridium, Thuraya. |
-| **Verint Mass Data** | Penyimpanan dan pengolahan data masif. | Petabyte-scale storage, indexing, search engine untuk data intersep. |
-| **Verint Analytics** | Analisis data intersep. | Link analysis, social network analysis, pattern detection, anomaly detection. |
-| **Verint Fusion** | Fusi data dari berbagai sumber. | Gabungkan COMINT dengan HUMINT, OSINT, SIGINT lain, financial intel (FININT). |
-| **Verint Web Intelligence** | Monitoring internet & media sosial. | Scraping, sentiment analysis, influence tracking. |
+| Modul                       | Fungsi                                         | Detail Teknis                                                                                        |
+| --------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Verint COMINT**           | Intersep pasif pada berbagai media komunikasi. | TAP pasif pada backbone fiber, microwave relay, satelit, PSTN, mobile core network (MSC, GGSN).      |
+| **Verint IP Intercept**     | Intersep traffic internet (IP).                | Deep Packet Inspection (DPI), rekonstruksi sesi TCP, ekstraksi email, chat, browsing, file transfer. |
+| **Verint Voice**            | Intersep suara (PSTN, VoIP).                   | Demodulasi, decoding codec (G.711, G.729, AMR, SILK, Opus), speaker identification, language ID.     |
+| **Verint Mobile**           | Intersep mobile (GSM, 3G, LTE, 5G).            | IMSI/IMEI catcher compatibility, passive intercept via core network, SS7/Diameter exploitation.      |
+| **Verint Satellite**        | Intersep komunikasi satelit.                   | Downlink intercept, demodulasi VSAT, Inmarsat, Iridium, Thuraya.                                     |
+| **Verint Mass Data**        | Penyimpanan dan pengolahan data masif.         | Petabyte-scale storage, indexing, search engine untuk data intersep.                                 |
+| **Verint Analytics**        | Analisis data intersep.                        | Link analysis, social network analysis, pattern detection, anomaly detection.                        |
+| **Verint Fusion**           | Fusi data dari berbagai sumber.                | Gabungkan COMINT dengan HUMINT, OSINT, SIGINT lain, financial intel (FININT).                        |
+| **Verint Web Intelligence** | Monitoring internet & media sosial.            | Scraping, sentiment analysis, influence tracking.                                                    |
 
 ### Arsitektur Operasional
 
@@ -109,16 +109,17 @@ Verint tidak menjual satu alat, melainkan **platform modular** yang bisa dikonfi
 
 Verint dapat beroperasi di beberapa titik di jaringan mobile:
 
-| Titik Intersepsi | Protokol | Data yang Didapat |
-|------------------|----------|-------------------|
-| **A-bis Interface** (BTS ↔ BSC) | GSM/LTE | Voice, SMS, data (sebelum enkripsi A5 diaktifkan jika lemah). |
-| **A Interface** (BSC ↔ MSC) | GSM | Voice, SMS, signaling (SS7). |
-| **MSC/VLR** | 3G/4G | Metadata panggilan, lokasi (cell ID, LAC, TAC). |
-| **GGSN/PGW** | 3G/LTE/5G | Data IP (browsing, email, chat, VoIP). |
-| **HSS/HLR** | Semua generasi | Informasi subscriber, lokasi, layanan. |
-| **Diameter (4G/5G)** | LTE/5G | Metadata panggilan dan data, lokasi, roaming. |
+| Titik Intersepsi                | Protokol       | Data yang Didapat                                             |
+| ------------------------------- | -------------- | ------------------------------------------------------------- |
+| **A-bis Interface** (BTS ↔ BSC) | GSM/LTE        | Voice, SMS, data (sebelum enkripsi A5 diaktifkan jika lemah). |
+| **A Interface** (BSC ↔ MSC)     | GSM            | Voice, SMS, signaling (SS7).                                  |
+| **MSC/VLR**                     | 3G/4G          | Metadata panggilan, lokasi (cell ID, LAC, TAC).               |
+| **GGSN/PGW**                    | 3G/LTE/5G      | Data IP (browsing, email, chat, VoIP).                        |
+| **HSS/HLR**                     | Semua generasi | Informasi subscriber, lokasi, layanan.                        |
+| **Diameter (4G/5G)**            | LTE/5G         | Metadata panggilan dan data, lokasi, roaming.                 |
 
 Selain passive intercept, Verint juga mendukung **active measures** melalui eksploitasi SS7 dan Diameter:
+
 - Mengirim pesan SS7 `ProvideSubscriberInfo` untuk mendapatkan lokasi target.
 - Mengirim `InsertSubscriberData` untuk mengubah profil target (misal: aktifkan lawful intercept).
 - Pada 4G/5G, eksploitasi Diameter untuk intercept data roaming.
@@ -126,18 +127,21 @@ Selain passive intercept, Verint juga mendukung **active measures** melalui eksp
 ### 3. VoIP & IP Communications
 
 Verint IP Intercept menggunakan **Deep Packet Inspection (DPI)** pada backbone internet:
+
 - Mengidentifikasi traffic VoIP (SIP, RTP) dan mengekstrak audio.
 - Mengidentifikasi aplikasi chat (WhatsApp, Telegram, Skype, Viber, WeChat) dari signature traffic, lalu merekam metadata (siapa, kapan, berapa lama) — meskipun konten terenkripsi.
 - Merekonstruksi email (SMTP, POP3, IMAP).
 - Melacak browsing (HTTP) dan download.
 
 Untuk traffic terenkripsi, Verint tidak bisa mendekripsi E2EE (WhatsApp, Signal, Telegram Secret Chat). Namun, ia bisa:
+
 - Mengumpulkan metadata (siapa berbicara dengan siapa, kapan, berapa lama, berapa banyak data).
 - Jika kunci tersedia (misal: server WhatsApp di-hijack, atau SSL termination di ISP), traffic bisa didekripsi.
 
 ### 4. Satellite Communications
 
 Verint Satellite dapat mengintersep **downlink** dari satelit komunikasi:
+
 - VSAT (Very Small Aperture Terminal) — internet via satelit.
 - Inmarsat / Iridium / Thuraya — telepon satelit.
 - Menggunakan parabolic dish besar + demodulator Verint.
@@ -157,6 +161,7 @@ Setelah data terkumpul, Verint menyediakan alat analisis canggih:
 ### Link Analysis & Social Network Analysis
 
 Mirip dengan Maltego tetapi pada skala masif dan otomatis. Verint membangun **graf komunikasi** dari metadata (panggilan, SMS, chat, email). Operator bisa:
+
 - Melihat jaringan sosial target (siapa yang sering dihubungi, siapa yang jarang, siapa yang baru muncul).
 - Mendeteksi "broker" (orang yang menghubungkan dua kelompok berbeda).
 - Mendeteksi perubahan pola komunikasi (misal: dua orang yang biasanya tidak pernah kontak tiba-tiba sering berkomunikasi sebelum kejadian).
@@ -168,6 +173,7 @@ Semua panggilan yang direkam dikonversi ke teks (dengan mesin speech recognition
 ### Location Tracking & Geofencing
 
 Dari data seluler (cell ID, LAC, TAC, GPS dari handset), Verint bisa:
+
 - Melacak pergerakan target dalam periode waktu.
 - Membuat geofence (alert jika target masuk/keluar area tertentu).
 - Menganalisis pola pergerakan (pattern-of-life).
@@ -175,6 +181,7 @@ Dari data seluler (cell ID, LAC, TAC, GPS dari handset), Verint bisa:
 ### Data Fusion
 
 Verint Fusion menggabungkan data COMINT dengan:
+
 - **HUMINT**: Laporan agen lapangan.
 - **OSINT**: Data dari media sosial, berita, web scraping.
 - **FININT**: Transaksi keuangan mencurigakan.
@@ -211,7 +218,7 @@ korupsi, terorisme      │                         jurnalis
 ▼                       ▼                         Pelanggaran HAM,
 Pengadilan              Operasi ofensif           penangkapan
 (bukti sah)             (targeted killing,        sewenang-wenang
-                        drone strike)             
+                        drone strike)
 ```
 
 Verint, seperti semua alat SIGINT, sangat bergantung pada pengawasan dan kerangka hukum negara pengguna. Tanpa regulasi yang ketat, platform ini menjadi alat represi massal.
@@ -220,14 +227,14 @@ Verint, seperti semua alat SIGINT, sangat bergantung pada pengawasan dan kerangk
 
 ## 🛡️ Countermeasures & Pertahanan Terhadap Intersepsi Level Negara
 
-| Lapisan | Tindakan |
-|---------|----------|
-| **Komunikasi** | Gunakan **E2EE** (Signal, WhatsApp, iMessage). Verint tidak bisa mendekripsi konten E2EE meskipun bisa mengumpulkan metadata. |
-| **Metadata** | Gunakan **Tor** atau **VPN berlapis** untuk menyembunyikan IP. Gunakan nomor telepon burner yang tidak terkait identitas asli. |
-| **Voice** | Gunakan **VoIP dengan E2EE** (Signal voice call, FaceTime Audio). Hindari PSTN/GSM untuk percakapan sensitif. |
-| **Lokasi** | Matikan GPS dan layanan lokasi. Gunakan Faraday bag untuk memblokir sinyal seluler. |
-| **Pola** | Hindari pola komunikasi yang bisa diprediksi. Jangan gunakan perangkat yang sama untuk kehidupan pribadi dan aktivitas sensitif. |
-| **Deteksi** | Monitor SS7/Diameter: beberapa operator menyediakan alert jika ada permintaan lokasi mencurigakan. |
+| Lapisan        | Tindakan                                                                                                                         |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Komunikasi** | Gunakan **E2EE** (Signal, WhatsApp, iMessage). Verint tidak bisa mendekripsi konten E2EE meskipun bisa mengumpulkan metadata.    |
+| **Metadata**   | Gunakan **Tor** atau **VPN berlapis** untuk menyembunyikan IP. Gunakan nomor telepon burner yang tidak terkait identitas asli.   |
+| **Voice**      | Gunakan **VoIP dengan E2EE** (Signal voice call, FaceTime Audio). Hindari PSTN/GSM untuk percakapan sensitif.                    |
+| **Lokasi**     | Matikan GPS dan layanan lokasi. Gunakan Faraday bag untuk memblokir sinyal seluler.                                              |
+| **Pola**       | Hindari pola komunikasi yang bisa diprediksi. Jangan gunakan perangkat yang sama untuk kehidupan pribadi dan aktivitas sensitif. |
+| **Deteksi**    | Monitor SS7/Diameter: beberapa operator menyediakan alert jika ada permintaan lokasi mencurigakan.                               |
 
 ---
 
@@ -243,12 +250,12 @@ Verint, seperti semua alat SIGINT, sangat bergantung pada pengawasan dan kerangk
 
 ## 📚 Referensi
 
-- Snowden, E. (2013). *NSA Documents: PRISM, UPSTREAM, XKEYSCORE* (The Guardian, Washington Post).
-- Citizen Lab, *Verint: The Surveillance Company Behind the World's Most Repressive Regimes* (2018).
-- EFF, *Verint and the Surveillance Industry* (2017).
-- Verint Systems, *Communications Intelligence Solutions* (materi pemasaran publik, 2020-2024).
+- Snowden, E. (2013). _NSA Documents: PRISM, UPSTREAM, XKEYSCORE_ (The Guardian, Washington Post).
+- Citizen Lab, _Verint: The Surveillance Company Behind the World's Most Repressive Regimes_ (2018).
+- EFF, _Verint and the Surveillance Industry_ (2017).
+- Verint Systems, _Communications Intelligence Solutions_ (materi pemasaran publik, 2020-2024).
 - MITRE ATT&CK: T1595 (Active Scanning), T1592 (Gather Victim Host Information).
 
 ---
 
-*Verint Deep Dive | Communications Intelligence Platform | SIGINT Interception & Analysis*
+_Verint Deep Dive | Communications Intelligence Platform | SIGINT Interception & Analysis_

@@ -25,7 +25,7 @@ cssclasses: ""
 
 - [[#Arsitektur Reverse Proxy]]
 - [[#Fungsi Reverse Proxy — Layer 4 vs Layer 7]]
-- [[#Reverse Proxy: Nginx, HAProxy, Envoy, Traefik]]
+- [[#Reverse Proxy]]
 - [[#Pingora — Cloudflare Next-Gen Proxy Framework]]
 - [[#Connection Pooling & Keep-Alive]]
 - [[#Load Balancing Algorithms]]
@@ -43,7 +43,7 @@ cssclasses: ""
 - [[#Service Mesh & mTLS — Istio, Cilium, Linkerd]]
 - [[#Observability & Logging]]
 - [[#Deploy Pattern — Inline, Out-of-Band, Tap]]
-- [[#Homelab Build: Nginx + ModSecurity + CRS]]
+- [[#Homelab Build]]
 - [[#Perbandingan Tooling]]
 - [[#Koneksi ke Project jarsWAF]]
 - [[#Roadmap Belajar]]
@@ -129,14 +129,14 @@ USE CASE:
   - WAF integration
 ```
 
-| Aspek | Layer 4 | Layer 7 |
-|-------|---------|---------|
-| Kecepatan | 🟢 Sangat cepat (kernel) | 🟡 Lebih lambat (userspace) |
-| Visibilitas | ❌ Buta terhadap konten | ✅ Full HTTP inspection |
-| Routing | IP:Port | Host, Path, Header, Cookie |
-| TLS | Passthrough | Termination + re-encrypt |
-| Kompleksitas | Rendah | Tinggi |
-| Use case | DB, game, VPN | Web apps, API, SPA |
+| Aspek        | Layer 4                  | Layer 7                     |
+| ------------ | ------------------------ | --------------------------- |
+| Kecepatan    | 🟢 Sangat cepat (kernel) | 🟡 Lebih lambat (userspace) |
+| Visibilitas  | ❌ Buta terhadap konten  | ✅ Full HTTP inspection     |
+| Routing      | IP:Port                  | Host, Path, Header, Cookie  |
+| TLS          | Passthrough              | Termination + re-encrypt    |
+| Kompleksitas | Rendah                   | Tinggi                      |
+| Use case     | DB, game, VPN            | Web apps, API, SPA          |
 
 ---
 
@@ -274,17 +274,17 @@ services:
 
 ### Perbandingan
 
-| Aspek | Nginx | HAProxy | Envoy | Traefik |
-|-------|-------|---------|-------|---------|
-| Performa | 🟢 | 🟢🟢 | 🟡 | 🟡 |
-| Dynamic Config | ❌ (native) | ❌ | ✅ xDS | ✅ |
-| Service Mesh | ❌ | ❌ | ✅ | 🟡 |
-| Let's Encrypt | Plugin | ❌ (3rd party) | ❌ | ✅ Native |
-| WAF Module | ModSecurity | ❌ | Wasm/Lua | Plugin |
-| Hot Reload | 🟡 SIGHUP | 🟢 Graceful | ✅ Lame duck | ✅ Native |
-| Learning Curve | 🟢 | 🟢 | 🔴 | 🟢 |
-| Static Files | ✅ Best | ❌ | ❌ | ❌ |
-| gRPC | 🟡 | 🟡 | ✅ Native | ✅ |
+| Aspek          | Nginx       | HAProxy        | Envoy        | Traefik   |
+| -------------- | ----------- | -------------- | ------------ | --------- |
+| Performa       | 🟢          | 🟢🟢           | 🟡           | 🟡        |
+| Dynamic Config | ❌ (native) | ❌             | ✅ xDS       | ✅        |
+| Service Mesh   | ❌          | ❌             | ✅           | 🟡        |
+| Let's Encrypt  | Plugin      | ❌ (3rd party) | ❌           | ✅ Native |
+| WAF Module     | ModSecurity | ❌             | Wasm/Lua     | Plugin    |
+| Hot Reload     | 🟡 SIGHUP   | 🟢 Graceful    | ✅ Lame duck | ✅ Native |
+| Learning Curve | 🟢          | 🟢             | 🔴           | 🟢        |
+| Static Files   | ✅ Best     | ❌             | ❌           | ❌        |
+| gRPC           | 🟡          | 🟡             | ✅ Native    | ✅        |
 
 ---
 
@@ -321,16 +321,16 @@ ARSITEKTUR:
 
 ### ProxyHttp Lifecycle
 
-| Phase | Hook | Use Case |
-|-------|------|----------|
-| 1 | `request_filter` | Blacklist IP, rate limit, fast signature check |
-| 2 | `upstream_peer` | VHost routing, backend selection, SNI |
-| 3 | `upstream_filter` | Inject headers (X-Forwarded-For), remove internal |
-| 4 | `request_body_filter` | Body inspection, DLP, SQLi pattern |
-| 5 | `response_filter` | Security headers, response body filter |
-| 6 | `logging` | Async logging, metrics, audit trail |
-| 7 | `fail_to_connect` | Backend failure handling, circuit breaker |
-| 8 | `error_response` | Custom error page, challenge page |
+| Phase | Hook                  | Use Case                                          |
+| ----- | --------------------- | ------------------------------------------------- |
+| 1     | `request_filter`      | Blacklist IP, rate limit, fast signature check    |
+| 2     | `upstream_peer`       | VHost routing, backend selection, SNI             |
+| 3     | `upstream_filter`     | Inject headers (X-Forwarded-For), remove internal |
+| 4     | `request_body_filter` | Body inspection, DLP, SQLi pattern                |
+| 5     | `response_filter`     | Security headers, response body filter            |
+| 6     | `logging`             | Async logging, metrics, audit trail               |
+| 7     | `fail_to_connect`     | Backend failure handling, circuit breaker         |
+| 8     | `error_response`      | Custom error page, challenge page                 |
 
 ### Kenapa Pingora?
 
@@ -409,13 +409,13 @@ SOLUSI: Connection Pool
 
 ### Pooling Strategies
 
-| Strategy | Cara Kerja | Cocok Untuk |
-|----------|------------|-------------|
-| **Keep-Alive timeout** | Koneksi tetap hidup selama N detik setelah request selesai | General |
-| **Max connections** | Batasi total koneksi per backend (mencegah overload) | High traffic |
-| **Max idle** | Pertahankan N idle koneksi siap pakai | Flash traffic |
-| **Connection TTL** | Reset koneksi setelah N detik (untuk load distribution) | Long-lived |
-| **LIFO pool** | Last-In-First-Out — reuse koneksi terbaru | Consistent latency |
+| Strategy               | Cara Kerja                                                 | Cocok Untuk        |
+| ---------------------- | ---------------------------------------------------------- | ------------------ |
+| **Keep-Alive timeout** | Koneksi tetap hidup selama N detik setelah request selesai | General            |
+| **Max connections**    | Batasi total koneksi per backend (mencegah overload)       | High traffic       |
+| **Max idle**           | Pertahankan N idle koneksi siap pakai                      | Flash traffic      |
+| **Connection TTL**     | Reset koneksi setelah N detik (untuk load distribution)    | Long-lived         |
+| **LIFO pool**          | Last-In-First-Out — reuse koneksi terbaru                  | Consistent latency |
 
 ### Pingora Connection Pool
 
@@ -452,15 +452,15 @@ server {
 
 ## Load Balancing Algorithms
 
-| Algorithm | Cara Kerja | Use Case |
-|-----------|------------|----------|
-| **Round Robin** | Giliran rata ke tiap backend | Backend uniform, simple |
-| **Least Connections** | Kirim ke backend dengan koneksi paling sedikit | Backend heterogeneous |
-| **IP Hash** | Hash IP client → backend tetap | Session sticky (tanpa cookie) |
-| **URI Hash** | Hash URL → backend tetap | Cache hit ratio tinggi |
-| **Weighted** | Bobot berbeda per backend | Kapasitas backend berbeda |
-| **Random** | Random selection | Testing, canary |
-| **Least Time** | Kirim ke backend dengan response time terendah | Latency-sensitive |
+| Algorithm             | Cara Kerja                                     | Use Case                      |
+| --------------------- | ---------------------------------------------- | ----------------------------- |
+| **Round Robin**       | Giliran rata ke tiap backend                   | Backend uniform, simple       |
+| **Least Connections** | Kirim ke backend dengan koneksi paling sedikit | Backend heterogeneous         |
+| **IP Hash**           | Hash IP client → backend tetap                 | Session sticky (tanpa cookie) |
+| **URI Hash**          | Hash URL → backend tetap                       | Cache hit ratio tinggi        |
+| **Weighted**          | Bobot berbeda per backend                      | Kapasitas backend berbeda     |
+| **Random**            | Random selection                               | Testing, canary               |
+| **Least Time**        | Kirim ke backend dengan response time terendah | Latency-sensitive             |
 
 ```
 IMPLEMENTASI DI PINGORA:
@@ -609,12 +609,12 @@ LOKASI WAF DALAM STACK:
 
 ### Modes
 
-| Mode | Deskripsi | Use Case |
-|------|-----------|----------|
-| **Detection** | Log & alert, tidak block | Tuning, monitoring awal |
-| **Blocking** | Block request yang match rule | Produksi stabil |
-| **Learning** | Auto-learn traffic pattern | ML-based WAF |
-| **Bypass** | Nonaktif sementara | Emergency, debugging |
+| Mode          | Deskripsi                     | Use Case                |
+| ------------- | ----------------------------- | ----------------------- |
+| **Detection** | Log & alert, tidak block      | Tuning, monitoring awal |
+| **Blocking**  | Block request yang match rule | Produksi stabil         |
+| **Learning**  | Auto-learn traffic pattern    | ML-based WAF            |
+| **Bypass**    | Nonaktif sementara            | Emergency, debugging    |
 
 ---
 
@@ -734,25 +734,25 @@ KEUNTUNGAN:
 
 ### Rule Categories
 
-| File Prefix | Kategori | Jumlah Rule |
-|-------------|----------|-------------|
-| REQUEST-901 | Initialization | Framework |
-| REQUEST-905 | Common Exceptions | Whitelist |
-| REQUEST-911 | Method Enforcement | 9 |
-| REQUEST-913 | Scanner Detection | 9 |
-| REQUEST-920 | Protocol Enforcement | 97 |
-| REQUEST-921 | Protocol Attack | 22 |
-| REQUEST-922 | Multipart Attack | 6 |
-| REQUEST-930 | LFI | 14 |
-| REQUEST-931 | RFI | 10 |
-| REQUEST-932 | RCE | 59 |
-| REQUEST-933 | PHP Attack | 27 |
-| REQUEST-934 | Generic Injection | 19 |
-| REQUEST-941 | XSS | 33 |
-| REQUEST-942 | SQLi | 65 |
-| REQUEST-943 | Session Fixation | 12 |
-| REQUEST-944 | Java Attack | 23 |
-| REQUEST-949 | Blocking Evaluation | 27 |
+| File Prefix | Kategori             | Jumlah Rule |
+| ----------- | -------------------- | ----------- |
+| REQUEST-901 | Initialization       | Framework   |
+| REQUEST-905 | Common Exceptions    | Whitelist   |
+| REQUEST-911 | Method Enforcement   | 9           |
+| REQUEST-913 | Scanner Detection    | 9           |
+| REQUEST-920 | Protocol Enforcement | 97          |
+| REQUEST-921 | Protocol Attack      | 22          |
+| REQUEST-922 | Multipart Attack     | 6           |
+| REQUEST-930 | LFI                  | 14          |
+| REQUEST-931 | RFI                  | 10          |
+| REQUEST-932 | RCE                  | 59          |
+| REQUEST-933 | PHP Attack           | 27          |
+| REQUEST-934 | Generic Injection    | 19          |
+| REQUEST-941 | XSS                  | 33          |
+| REQUEST-942 | SQLi                 | 65          |
+| REQUEST-943 | Session Fixation     | 12          |
+| REQUEST-944 | Java Attack          | 23          |
+| REQUEST-949 | Blocking Evaluation  | 27          |
 
 ---
 
@@ -1024,15 +1024,15 @@ FITUR UMUM:
 
 ### Perbandingan API Gateway
 
-| Aspek | Kong | APISIX | Tyk |
-|-------|------|--------|-----|
-| Engine | Nginx + Lua | Nginx + Lua | Go (native) |
-| Plugin | 200+ | 100+ | 50+ |
-| Performance | 🟡 | 🟢 | 🟡 |
-| WAF | ModSecurity plugin | ModSecurity + WASM | Custom |
-| Discovery | DNS, Consul, K8s | DNS, Consul, Nacos, K8s | DNS, Consul, K8s |
-| Hot Reload | 🟡 | 🟢 Atomic | 🟢 |
-| Cost | Open Source + EE | Open Source | Open Source + EE |
+| Aspek       | Kong               | APISIX                  | Tyk              |
+| ----------- | ------------------ | ----------------------- | ---------------- |
+| Engine      | Nginx + Lua        | Nginx + Lua             | Go (native)      |
+| Plugin      | 200+               | 100+                    | 50+              |
+| Performance | 🟡                 | 🟢                      | 🟡               |
+| WAF         | ModSecurity plugin | ModSecurity + WASM      | Custom           |
+| Discovery   | DNS, Consul, K8s   | DNS, Consul, Nacos, K8s | DNS, Consul, K8s |
+| Hot Reload  | 🟡                 | 🟢 Atomic               | 🟢               |
+| Cost        | Open Source + EE   | Open Source             | Open Source + EE |
 
 ---
 
@@ -1085,15 +1085,15 @@ KONEKSI KE JARSWAF:
 
 ### Metrics Penting
 
-| Metric | Arti | Alert Threshold |
-|--------|------|----------------|
-| `waf.requests.total` | Total request | N/A (baseline) |
-| `waf.blocked.count` | Request diblok | Spike > 200% |
-| `waf.anomaly_score` | Rata-rata anomaly score | > 3 |
-| `waf.latency` | WAF processing time | > 50ms |
-| `waf.false_positive` | False positive rate | > 1% |
-| `upstream.5xx` | Backend error | > 1% |
-| `upstream.latency.p99` | Backend latency | > 500ms |
+| Metric                 | Arti                    | Alert Threshold |
+| ---------------------- | ----------------------- | --------------- |
+| `waf.requests.total`   | Total request           | N/A (baseline)  |
+| `waf.blocked.count`    | Request diblok          | Spike > 200%    |
+| `waf.anomaly_score`    | Rata-rata anomaly score | > 3             |
+| `waf.latency`          | WAF processing time     | > 50ms          |
+| `waf.false_positive`   | False positive rate     | > 1%            |
+| `upstream.5xx`         | Backend error           | > 1%            |
+| `upstream.latency.p99` | Backend latency         | > 500ms         |
 
 ### Log Format (JSON)
 
@@ -1107,8 +1107,8 @@ KONEKSI KE JARSWAF:
   "blocked": true,
   "anomaly_score": 15,
   "matched_rules": [
-    {"id": 942100, "msg": "SQL Injection", "paranoia": "PL1", "severity": "CRITICAL"},
-    {"id": 941100, "msg": "XSS Detection", "paranoia": "PL1", "severity": "CRITICAL"}
+    { "id": 942100, "msg": "SQL Injection", "paranoia": "PL1", "severity": "CRITICAL" },
+    { "id": 941100, "msg": "XSS Detection", "paranoia": "PL1", "severity": "CRITICAL" }
   ],
   "upstream_latency_ms": 0,
   "waf_latency_ms": 2.3
@@ -1119,12 +1119,12 @@ KONEKSI KE JARSWAF:
 
 ## Deploy Pattern — Inline, Out-of-Band, Tap
 
-| Pattern | Deskripsi | Kelebihan | Kekurangan |
-|---------|-----------|-----------|------------|
-| **Inline** | WAF di path request langsung | Block real-time | Latency added, SPoF |
-| **Out-of-Band** | Mirror traffic ke WAF | No latency impact | Tidak bisa block |
-| **Tap/Passive** | Copy traffic via network TAP | Forensik saja | Detection only |
-| **API-based** | Backend panggil WAF API | Granular, per-endpoint | Butuh modifikasi app |
+| Pattern         | Deskripsi                    | Kelebihan              | Kekurangan           |
+| --------------- | ---------------------------- | ---------------------- | -------------------- |
+| **Inline**      | WAF di path request langsung | Block real-time        | Latency added, SPoF  |
+| **Out-of-Band** | Mirror traffic ke WAF        | No latency impact      | Tidak bisa block     |
+| **Tap/Passive** | Copy traffic via network TAP | Forensik saja          | Detection only       |
+| **API-based**   | Backend panggil WAF API      | Granular, per-endpoint | Butuh modifikasi app |
 
 ### Rekomendasi
 
@@ -1181,24 +1181,24 @@ EOF
 
 ### WAF Engine
 
-| Engine | Bahasa | Performa | Ekosistem | Aktif |
-|--------|--------|----------|-----------|-------|
-| ModSecurity 2.x | C | 🟡 | CRS terbesar | 🟡 Legacy |
-| ModSecurity 3 | C++ | 🟢 | CRS | 🟢 |
-| **Coraza** | **Go** | 🟢 | **CRS compatible** | **🟢🟢** |
-| **jarsWAF** | **Rust** | **🟢🟢** | **Custom rules** | **🟢** |
-| lua-resty-waf | Lua | 🟢 | Limited | 🟡 |
-| Naxsi | C | 🟢 | Own rule format | 🟡 |
+| Engine          | Bahasa   | Performa | Ekosistem          | Aktif     |
+| --------------- | -------- | -------- | ------------------ | --------- |
+| ModSecurity 2.x | C        | 🟡       | CRS terbesar       | 🟡 Legacy |
+| ModSecurity 3   | C++      | 🟢       | CRS                | 🟢        |
+| **Coraza**      | **Go**   | 🟢       | **CRS compatible** | **🟢🟢**  |
+| **jarsWAF**     | **Rust** | **🟢🟢** | **Custom rules**   | **🟢**    |
+| lua-resty-waf   | Lua      | 🟢       | Limited            | 🟡        |
+| Naxsi           | C        | 🟢       | Own rule format    | 🟡        |
 
 ### Reverse Proxy
 
-| Tool | Bahasa | Throughput | Config | Use Case |
-|------|--------|------------|--------|----------|
-| Nginx | C | 100K req/s | Static files | General web |
-| HAProxy | C | 150K req/s | TCP/HTTP | Load balancer |
-| Envoy | C++ | 80K req/s | Dynamic/xDS | Service mesh |
-| Traefik | Go | 40K req/s | Auto | K8s native |
-| **Pingora** | **Rust** | **200K+ req/s** | **Code** | **Custom proxy** |
+| Tool        | Bahasa   | Throughput      | Config       | Use Case         |
+| ----------- | -------- | --------------- | ------------ | ---------------- |
+| Nginx       | C        | 100K req/s      | Static files | General web      |
+| HAProxy     | C        | 150K req/s      | TCP/HTTP     | Load balancer    |
+| Envoy       | C++      | 80K req/s       | Dynamic/xDS  | Service mesh     |
+| Traefik     | Go       | 40K req/s       | Auto         | K8s native       |
+| **Pingora** | **Rust** | **200K+ req/s** | **Code**     | **Custom proxy** |
 
 ---
 
@@ -1270,6 +1270,7 @@ HARI 5: Build & Operasi
 
 > [!tip] Lanjutan
 > Dokumen ini terkait dengan:
+>
 > - [[software-supply-chain-security-deepdive]] — SBOM & SLSA untuk WAF rules
 > - [[web-hacking-exploitation]] — attack vectors yang dicegat WAF
 > - [[cicd-shiftleft-shiftright]] — CI/CD testing WAF rules

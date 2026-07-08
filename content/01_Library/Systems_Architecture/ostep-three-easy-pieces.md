@@ -11,6 +11,7 @@ status: active
 ---
 
 # 🧵 Operating Systems: Three Easy Pieces
+
 > Remzi H. Arpaci-Dusseau & Andrea C. Arpaci-Dusseau — 2018
 
 **Tesis:** OS dibagi 3 pilar — **Virtualization** (CPU+memory), **Concurrency** (threads+locks), **Persistence** (file systems+disks). Dengan paham 3 ini, kamu paham gimana komputer kerja dari OS perspective.
@@ -20,7 +21,7 @@ status: active
 ## 📌 Kenapa Penting
 
 - OS textbook yang readable — gak kaya textboook kebanyakan
-- Paham OS = paham *kenapa* code kamu lambat, crash, atau kehabisan memory
+- Paham OS = paham _kenapa_ code kamu lambat, crash, atau kehabisan memory
 - Disk scheduling, FAT vs ext4 vs NTFS, RAID — langsung relevan buat system design
 - Pemahaman OS sangat penting bagi developer dan sistem administrator untuk memahami bagaimana komputer bekerja dan bagaimana mengoptimalkan sistem.
 
@@ -29,12 +30,14 @@ status: active
 ### Part 1: Virtualization
 
 **CPU Virtualization — Scheduling**
+
 - Metrics: turnaround time, response time, fairness
 - **FIFO** (simple, bad for short jobs)
 - **SJF** (optimal turnaround, starvation)
 - **Round Robin** (good response time, bad turnaround)
 - **MLFQ** (blend — used in real OS) — multiple levels, priority boost, time slice
 - Contoh kode implementasi MLFQ scheduler:
+
 ```c
 // mlq_scheduler.c
 #include <stdio.h>
@@ -87,12 +90,15 @@ int main() {
     return 0;
 }
 ```
+
 **Memory Virtualization**
+
 - Address translation: base & bounds → segmentation → paging
 - **TLB** (Translation Lookaside Buffer) — performance critical
 - Page tables: multi-level (saves memory for sparse address space)
 - Swapping: eviction policies (LRU ≈ optimal, FIFO simplest, Clock algorithm ≈ LRU-like)
 - Contoh kode implementasi page table:
+
 ```c
 // page_table.c
 #include <stdio.h>
@@ -146,6 +152,7 @@ int main() {
 - **Semaphores** — generalization of locks + CVs (bounded buffer → producer-consumer)
 - **Deadlock:** Coffman conditions (all 4 must hold) + prevention strategies
 - Contoh kode implementasi producer-consumer menggunakan semaphores:
+
 ```c
 // producer_consumer.c
 #include <stdio.h>
@@ -211,7 +218,7 @@ int main() {
 
 ### Part 3: Persistence
 
-- **Disks:** seek + rotation + transfer — *I/O time dominated by seek*
+- **Disks:** seek + rotation + transfer — _I/O time dominated by seek_
 - **RAID 0, 1, 4, 5, 6** — redundancy vs capacity vs performance trade-offs
 - **File Systems:**
   - FFS (Unix Fast File System) — cylinder groups, block groups
@@ -219,6 +226,7 @@ int main() {
   - **Journaling (WAL):** atomicity — write intent log first
   - **LFS (Log-structured FS):** treat disk as log — Netflix's approach
 - Contoh kode implementasi file system:
+
 ```c
 // file_system.c
 #include <stdio.h>
@@ -266,14 +274,14 @@ int main() {
 
 ## 📖 Bab Penting
 
-| Bab | Judul | Mengapa |
-|-----|-------|---------|
-| 4-8 | CPU Scheduling | MLFQ — bagaimana OS manage your processes |
-| 13-16 | Memory Virtualization | Paging, TLB — **wajib** |
-| 26-31 | Concurrency & Locks | Threads, semaphore, deadlock — **wajib** |
-| 36-40 | File Systems | ext3 journal, LFS, WAFL |
-| 41 | Flash SSD | — |
-| 47-51 | Distribution | NFS, AFS — distributed filesystems |
+| Bab   | Judul                 | Mengapa                                   |
+| ----- | --------------------- | ----------------------------------------- |
+| 4-8   | CPU Scheduling        | MLFQ — bagaimana OS manage your processes |
+| 13-16 | Memory Virtualization | Paging, TLB — **wajib**                   |
+| 26-31 | Concurrency & Locks   | Threads, semaphore, deadlock — **wajib**  |
+| 36-40 | File Systems          | ext3 journal, LFS, WAFL                   |
+| 41    | Flash SSD             | —                                         |
+| 47-51 | Distribution          | NFS, AFS — distributed filesystems        |
 
 ## ⚠️ Tantangan
 

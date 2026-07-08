@@ -8,6 +8,7 @@ created: "2026-06-07"
 updated: "2026-07-01"
 status: Complete
 ---
+
 # Ansible Hardening — Rocky Linux 9
 
 > **Goal:** 1 playbook = full hardening, 5 menit, skor Lynis 85/100.
@@ -20,11 +21,13 @@ status: Complete
 | --------------- | --------------- | ------------ | ------------- |
 | ansible-control | 192.168.130.128 | Control node | Ubuntu 24.04  |
 | rocky           | 192.168.130.129 | Managed node | Rocky Linux 9 |
-Di Ubuntu
+| Di Ubuntu       |
+
 ```
 ssh-keygen -t ed25519 -C "ansible-control"
 ssh-copy-id -i ~/.ssh/id_ed25519.pub rocky@192.168.130.129
 ```
+
 **SSH key auth:** Control node → Rocky (passwordless)
 
 ```bash
@@ -604,13 +607,13 @@ ansible-playbook -i inventory.ini lynis-scan.yml -K
 
 ## 7. Results
 
-| Metric | Value |
-|--------|-------|
-| Baseline Lynis | 67/100 |
-| Manual hardening (6 jam) | 83/100 |
-| **Ansible playbook (5 menit)** | **85/100** |
-| Time saved | ~6 jam → 5 menit |
-| Reproducible | ✅ 1, 20, atau 100 server |
+| Metric                         | Value                     |
+| ------------------------------ | ------------------------- |
+| Baseline Lynis                 | 67/100                    |
+| Manual hardening (6 jam)       | 83/100                    |
+| **Ansible playbook (5 menit)** | **85/100**                |
+| Time saved                     | ~6 jam → 5 menit          |
+| Reproducible                   | ✅ 1, 20, atau 100 server |
 
 ---
 
@@ -651,15 +654,15 @@ ansible-hardening/
 
 ## 9. Next Steps
 
-| Phase | Role | Status |
-|-------|------|--------|
+| Phase                 | Role                     | Status      |
+| --------------------- | ------------------------ | ----------- |
 | Bootstrap + Hardening | `bootstrap`, `hardening` | ✅ Complete |
-| Docker deployment | `docker` | ⏳ Planned |
-| Application stack | `nextcloud`, `wordpress` | ⏳ Planned |
-| Monitoring | `prometheus`, `wazuh` | ⏳ Planned |
-| Multi-node scale | Dynamic inventory | ⏳ Planned |
+| Docker deployment     | `docker`                 | ⏳ Planned  |
+| Application stack     | `nextcloud`, `wordpress` | ⏳ Planned  |
+| Monitoring            | `prometheus`, `wazuh`    | ⏳ Planned  |
+| Multi-node scale      | Dynamic inventory        | ⏳ Planned  |
 
 ---
 
-*Created: 2026-06-07*
-*Status: Production-ready baseline*
+_Created: 2026-06-07_
+_Status: Production-ready baseline_

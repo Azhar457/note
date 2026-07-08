@@ -22,6 +22,7 @@ cssclasses: ""
 ANT Catalog (Advanced Network Technology) adalah **katalog internal NSA yang mendokumentasikan puluhan perangkat keras implan** — alat ofensif fisik yang dirancang untuk mengakses, mengintersep, atau memanipulasi sistem target secara diam-diam. Katalog ini dioperasikan oleh unit **TAO (Tailored Access Operations)**, yang merupakan unit elite NSA untuk operasi ofensif siber-fisik.
 
 ANT Catalog terungkap melalui dokumen Snowden yang dipublikasikan oleh **Der Spiegel** pada 30 Desember 2013. Katalog ini mencakup:
+
 - **USB implants** — perangkat yang ditanam di kabel atau konektor USB.
 - **Ethernet implants** — perangkat yang dipasang di jalur jaringan kabel.
 - **Wireless implants** — perangkat RF untuk eksfiltrasi data atau remote access.
@@ -40,60 +41,60 @@ ANT Catalog mencerminkan pendekatan ini: ketika software exploitation gagal atau
 
 ### 1. USB Implants
 
-| Nama Kode | Form Factor | Fungsi |
-|-----------|-------------|--------|
-| **COTTONMOUTH-I** | USB connector (USB-A) | Implan komunikasi RF + keylogger + data exfiltration. Bisa mengirim data via RF ke relay terdekat (hingga 8 km). |
-| **COTTONMOUTH-II** | USB connector (USB-A) | Versi lebih kecil dari COTTONMOUTH-I. |
-| **COTTONMOUTH-III** | USB connector (USB-A) | Versi mini dengan RF range lebih pendek. |
-| **JETPLOW** | USB firmware implant | Menginfeksi firmware USB controller untuk persistensi. Bertahan setelah OS diinstal ulang. |
-| **SURLYSPAWN** | Keyboard implant | Keylogger hardware yang dipasang di kabel keyboard (PS/2 atau USB). |
-| **RAGEMASTER** | VGA cable implant | Implan yang dipasang di kabel VGA, menangkap dan mentransmisikan tampilan layar via RF. |
+| Nama Kode           | Form Factor           | Fungsi                                                                                                           |
+| ------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **COTTONMOUTH-I**   | USB connector (USB-A) | Implan komunikasi RF + keylogger + data exfiltration. Bisa mengirim data via RF ke relay terdekat (hingga 8 km). |
+| **COTTONMOUTH-II**  | USB connector (USB-A) | Versi lebih kecil dari COTTONMOUTH-I.                                                                            |
+| **COTTONMOUTH-III** | USB connector (USB-A) | Versi mini dengan RF range lebih pendek.                                                                         |
+| **JETPLOW**         | USB firmware implant  | Menginfeksi firmware USB controller untuk persistensi. Bertahan setelah OS diinstal ulang.                       |
+| **SURLYSPAWN**      | Keyboard implant      | Keylogger hardware yang dipasang di kabel keyboard (PS/2 atau USB).                                              |
+| **RAGEMASTER**      | VGA cable implant     | Implan yang dipasang di kabel VGA, menangkap dan mentransmisikan tampilan layar via RF.                          |
 
 ### 2. Ethernet / Network Implants
 
-| Nama Kode | Form Factor | Fungsi |
-|-----------|-------------|--------|
-| **IRATEMONK** | Ethernet connector (RJ45) | Implan di dalam konektor Ethernet. Menyediakan backdoor akses ke jaringan target via RF. |
-| **WATERWITCH** | Ethernet inline device | Perangkat yang dipasang di antara kabel Ethernet dan perangkat. Menangkap dan meneruskan traffic. |
-| **DEITYBOUNCE** | Server motherboard implant | Implan yang dipasang di slot PCIe server Dell PowerEdge. Menyediakan akses remote permanent. |
-| **IRONCHEF** | Network implant | Implan yang dipasang di jaringan untuk intercept traffic HTTP/HTTPS. |
-| **FEEDTROUGH** | Firewall implant | Malware yang menetap di firmware firewall untuk mem-bypass aturan keamanan. |
-| **HALLUXWATER** | Firewall backdoor | Implan firmware untuk firewall Huawei dan Juniper. |
+| Nama Kode       | Form Factor                | Fungsi                                                                                            |
+| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------- |
+| **IRATEMONK**   | Ethernet connector (RJ45)  | Implan di dalam konektor Ethernet. Menyediakan backdoor akses ke jaringan target via RF.          |
+| **WATERWITCH**  | Ethernet inline device     | Perangkat yang dipasang di antara kabel Ethernet dan perangkat. Menangkap dan meneruskan traffic. |
+| **DEITYBOUNCE** | Server motherboard implant | Implan yang dipasang di slot PCIe server Dell PowerEdge. Menyediakan akses remote permanent.      |
+| **IRONCHEF**    | Network implant            | Implan yang dipasang di jaringan untuk intercept traffic HTTP/HTTPS.                              |
+| **FEEDTROUGH**  | Firewall implant           | Malware yang menetap di firmware firewall untuk mem-bypass aturan keamanan.                       |
+| **HALLUXWATER** | Firewall backdoor          | Implan firmware untuk firewall Huawei dan Juniper.                                                |
 
 ### 3. Wireless / RF Implants
 
-| Nama Kode | Form Factor | Fungsi |
-|-----------|-------------|--------|
-| **NIGHTSTAND** | Portable WiFi injection device | Menanamkan malware via WiFi dari jarak hingga 8 km. Bisa membobol WiFi yang terproteksi. |
-| **NIGHTWATCH** | RF relay | Menerima data dari implan COTTONMOUTH/RAGEMASTER dan meneruskannya ke operator. |
-| **SPARROW-II** | WiFi access point implant | Komputer kecil (ukuran deck kartu) yang berfungsi sebagai AP palsu untuk mengintersep traffic. |
-| **LOUDAUTO** | RF bug | Alat pendengar audio via RF. |
-| **GENESIS** | Portable GSM interception | IMSI Catcher portabel untuk mengintersep panggilan seluler. |
+| Nama Kode      | Form Factor                    | Fungsi                                                                                         |
+| -------------- | ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| **NIGHTSTAND** | Portable WiFi injection device | Menanamkan malware via WiFi dari jarak hingga 8 km. Bisa membobol WiFi yang terproteksi.       |
+| **NIGHTWATCH** | RF relay                       | Menerima data dari implan COTTONMOUTH/RAGEMASTER dan meneruskannya ke operator.                |
+| **SPARROW-II** | WiFi access point implant      | Komputer kecil (ukuran deck kartu) yang berfungsi sebagai AP palsu untuk mengintersep traffic. |
+| **LOUDAUTO**   | RF bug                         | Alat pendengar audio via RF.                                                                   |
+| **GENESIS**    | Portable GSM interception      | IMSI Catcher portabel untuk mengintersep panggilan seluler.                                    |
 
 ### 4. BIOS / UEFI / Firmware Implants
 
-| Nama Kode | Target | Fungsi |
-|-----------|--------|--------|
-| **SWAP** | BIOS/UEFI firmware | Malware yang menetap di firmware motherboard. Bertahan setelah OS diinstal ulang, hard disk diganti. |
-| **GODSURGE** | BIOS bootblock | Implan di bootblock BIOS — mengeksekusi sebelum OS dimuat. |
-| **DEITYBOUNCE** | Server firmware | Implan firmware untuk server Dell PowerEdge. |
-| **IRONCHEF** | Network device firmware | Implan di firmware switch/router. |
-| **JETPLOW** | USB controller firmware | Implan di firmware USB controller. |
+| Nama Kode       | Target                  | Fungsi                                                                                               |
+| --------------- | ----------------------- | ---------------------------------------------------------------------------------------------------- |
+| **SWAP**        | BIOS/UEFI firmware      | Malware yang menetap di firmware motherboard. Bertahan setelah OS diinstal ulang, hard disk diganti. |
+| **GODSURGE**    | BIOS bootblock          | Implan di bootblock BIOS — mengeksekusi sebelum OS dimuat.                                           |
+| **DEITYBOUNCE** | Server firmware         | Implan firmware untuk server Dell PowerEdge.                                                         |
+| **IRONCHEF**    | Network device firmware | Implan di firmware switch/router.                                                                    |
+| **JETPLOW**     | USB controller firmware | Implan di firmware USB controller.                                                                   |
 
 ### 5. Audio / Visual Surveillance
 
-| Nama Kode | Form Factor | Fungsi |
-|-----------|-------------|--------|
-| **LOUDAUTO** | Audio bug | Mendengarkan percakapan ruangan dan mentransmisikan via RF. |
-| **RAGEMASTER** | VGA cable implant | Menangkap tampilan layar dan mentransmisikan via RF. |
-| **TAWDRYYARD** | Monitor/printer implant | Menangkap data yang dikirim ke monitor atau printer. |
+| Nama Kode      | Form Factor             | Fungsi                                                      |
+| -------------- | ----------------------- | ----------------------------------------------------------- |
+| **LOUDAUTO**   | Audio bug               | Mendengarkan percakapan ruangan dan mentransmisikan via RF. |
+| **RAGEMASTER** | VGA cable implant       | Menangkap tampilan layar dan mentransmisikan via RF.        |
+| **TAWDRYYARD** | Monitor/printer implant | Menangkap data yang dikirim ke monitor atau printer.        |
 
 ### 6. Supply Chain Interception
 
-| Nama Kode | Metode | Fungsi |
-|-----------|--------|--------|
+| Nama Kode        | Metode        | Fungsi                                                                                                                                                     |
+| ---------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **INTERDICTION** | Operasi fisik | Mencegat perangkat yang dikirim (laptop, server, router) di perjalanan, memasang implant, dan mengirimkan kembali ke tujuan — tanpa sepengetahuan pembeli. |
-| **CANDYGRAM** | Supply chain | Membuat fake cell tower (IMSI Catcher) yang dipasang di kedutaan AS di luar negeri. |
+| **CANDYGRAM**    | Supply chain  | Membuat fake cell tower (IMSI Catcher) yang dipasang di kedutaan AS di luar negeri.                                                                        |
 
 ---
 
@@ -104,18 +105,21 @@ ANT Catalog mencerminkan pendekatan ini: ketika software exploitation gagal atau
 COTTONMOUTH adalah keluarga implan USB yang menanamkan komputer mikro di dalam konektor USB. Dari luar, kabel USB tampak normal — tebal sedikit, tetapi tidak mencurigakan.
 
 **Komponen Internal:**
+
 - **Mikrokontroler ARM** dengan RF transceiver (biasanya 2.4 GHz atau frekuensi kustom).
 - **Flash storage** (MB-GB) untuk menyimpan data curian.
 - **Antena terintegrasi** di dalam konektor atau kabel.
 - **Baterai atau parasit power** (mengambil daya dari USB host).
 
 **Kemampuan:**
+
 - **Keylogging**: Merekam semua ketukan keyboard.
 - **Data Exfiltration**: Mencuri file dari target.
 - **Remote Access**: Menerima perintah via RF dari relay NIGHTWATCH.
 - **Air-Gap Jumping**: Bahkan jika target tidak terhubung ke internet, COTTONMOUTH bisa mengirim data via RF ke relay terdekat.
 
 **Kill Chain COTTONMOUTH:**
+
 1. **Delivery**: Dipasang di kabel USB target (supply chain interception atau operasi lapangan).
 2. **Infection**: Saat kabel digunakan, COTTONMOUTH aktif dan mulai merekam.
 3. **Exfiltration**: Data dikirim via RF ke relay NIGHTWATCH di dekatnya (dalam radius 8 km).
@@ -126,6 +130,7 @@ COTTONMOUTH adalah keluarga implan USB yang menanamkan komputer mikro di dalam k
 RAGEMASTER adalah implan yang dipasang di kabel VGA (Video Graphics Array) yang menghubungkan komputer ke monitor. Ia menangkap sinyal video analog dan mentransmisikan tampilan layar target secara real-time.
 
 **Kemampuan:**
+
 - **Real-time screen capture**: Operator melihat apa yang dilihat target.
 - **RF transmission**: Data dikirim via RF ke relay NIGHTWATCH.
 - **Color recovery**: Bahkan dari sinyal VGA analog, teks dan gambar bisa direkonstruksi.
@@ -135,6 +140,7 @@ RAGEMASTER adalah implan yang dipasang di kabel VGA (Video Graphics Array) yang 
 DEITYBOUNCE adalah implan yang dipasang di slot PCIe server Dell PowerEdge. Ia menetap di firmware server dan menyediakan akses remote permanent.
 
 **Kemampuan:**
+
 - **Persistensi absolut**: Bertahan setelah OS diinstal ulang.
 - **Akses remote**: Operator bisa mengakses server dari jarak jauh.
 - **Modular**: Bisa di-upgrade dengan modul tambahan via RF.
@@ -144,6 +150,7 @@ DEITYBOUNCE adalah implan yang dipasang di slot PCIe server Dell PowerEdge. Ia m
 SWAP adalah malware yang menetap di firmware BIOS/UEFI motherboard. Ia mengeksekusi sebelum sistem operasi dimuat, memberikan kontrol penuh kepada operator.
 
 **Kemampuan:**
+
 - **Bootkit**: Memuat sebelum OS; bisa menginfeksi bootloader.
 - **Persistensi absolut**: Tidak bisa dihapus dengan format hard disk.
 - **Invisible**: Tidak terlihat oleh OS atau antivirus.
@@ -170,23 +177,23 @@ NSA memasang fake cell tower (IMSI Catcher) di kedutaan AS di luar negeri — te
 
 ### 1. Deteksi Hardware Implant
 
-| Metode | Detail |
-|--------|--------|
-| **X-ray / CT Scan** | Memindai perangkat untuk mendeteksi komponen asing di dalam kabel atau konektor. |
-| **TDR (Time Domain Reflectometer)** | Mendeteksi anomali impedansi di kabel yang mengindikasikan splice atau implant. |
-| **RF Sweeping (Oscor/ANDRE)** | Mendeteksi emisi RF dari implan aktif. |
-| **Physical Inspection** | Bongkar konektor dan periksa dengan mikroskop. |
-| **Supply Chain Integrity** | Gunakan supplier tepercaya, verifikasi rantai pasok. |
+| Metode                              | Detail                                                                           |
+| ----------------------------------- | -------------------------------------------------------------------------------- |
+| **X-ray / CT Scan**                 | Memindai perangkat untuk mendeteksi komponen asing di dalam kabel atau konektor. |
+| **TDR (Time Domain Reflectometer)** | Mendeteksi anomali impedansi di kabel yang mengindikasikan splice atau implant.  |
+| **RF Sweeping (Oscor/ANDRE)**       | Mendeteksi emisi RF dari implan aktif.                                           |
+| **Physical Inspection**             | Bongkar konektor dan periksa dengan mikroskop.                                   |
+| **Supply Chain Integrity**          | Gunakan supplier tepercaya, verifikasi rantai pasok.                             |
 
 ### 2. Pencegahan
 
-| Tindakan | Detail |
-|----------|--------|
-| **Gunakan Kabel Sendiri** | Jangan pernah menerima kabel/perangkat dari sumber tidak dikenal. |
-| **Tamper-Evident Packaging** | Gunakan segel anti-rusak, hologram. |
-| **Secure Boot + TPM** | Deteksi modifikasi firmware dengan verifikasi tanda tangan. |
+| Tindakan                     | Detail                                                                              |
+| ---------------------------- | ----------------------------------------------------------------------------------- |
+| **Gunakan Kabel Sendiri**    | Jangan pernah menerima kabel/perangkat dari sumber tidak dikenal.                   |
+| **Tamper-Evident Packaging** | Gunakan segel anti-rusak, hologram.                                                 |
+| **Secure Boot + TPM**        | Deteksi modifikasi firmware dengan verifikasi tanda tangan.                         |
 | **Air-Gap dengan Shielding** | Untuk sistem sangat sensitif, gunakan Faraday cage untuk memblokir RF exfiltration. |
-| **Firmware Integrity** | Verifikasi hash firmware secara berkala. Gunakan firmware dari sumber resmi. |
+| **Firmware Integrity**       | Verifikasi hash firmware secara berkala. Gunakan firmware dari sumber resmi.        |
 
 ---
 
@@ -225,11 +232,11 @@ ANT Catalog adalah puncak dari **"when all else fails, use hardware"**. Kemampua
 
 ## 📚 Referensi
 
-- Der Spiegel. *NSA ANT Catalog: The NSA's Secret Toolbox* (2013).
-- Snowden, E. (2013). *NSA Documents: ANT Catalog*.
-- Kaspersky. *Equation Group: The Crown Creator of Cyber-Espionage* (2015).
+- Der Spiegel. _NSA ANT Catalog: The NSA's Secret Toolbox_ (2013).
+- Snowden, E. (2013). _NSA Documents: ANT Catalog_.
+- Kaspersky. _Equation Group: The Crown Creator of Cyber-Espionage_ (2015).
 - MITRE ATT&CK: T1200 (Hardware Additions), T1542 (Pre-OS Boot: Bootkit), T1557 (Man-in-the-Middle).
 
 ---
 
-*ANT Catalog Deep Dive | NSA Hardware Implant & Physical Access Toolkit | TAO Operations*
+_ANT Catalog Deep Dive | NSA Hardware Implant & Physical Access Toolkit | TAO Operations_

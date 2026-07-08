@@ -23,6 +23,7 @@ Hubungan ke Vault: Unified MCP server adalah implementasi yang terinspirasi dari
 Unified MCP Server adalah implementasi _multi-service_ dalam satu proses Python yang menggabungkan 10 MCP (Model Context Protocol) services terbaik. Setiap service aktif secara dinamis hanya jika API key yang sesuai terdeteksi di file `.env`. Prinsipnya: satu server, banyak tools, tanpa overhead deployment terpisah.
 
 Tujuan arsitektur ini:
+
 - **Efisiensi operasional** – tidak perlu menjalankan 10 server berbeda.
 - **Konfigurasi minimal** – cukup satu file `.env`.
 - **Ekstensibilitas** – menambah service baru cukup dengan satu modul Python dan satu baris konfigurasi.
@@ -32,16 +33,16 @@ Tujuan arsitektur ini:
 MCP adalah protokol client-server yang memungkinkan AI assistant (seperti Claude, Hermes, Cursor) untuk menjalankan tindakan di dunia nyata melalui _tools_. Berikut alurnya:
 
 ```
-AI Client (Hermes) 
+AI Client (Hermes)
     │  (MCP Request: nama tool + parameter)
     ▼
-Unified MCP Server 
+Unified MCP Server
     │  (validasi, autentikasi, eksekusi)
     ▼
 API Eksternal / Local Engine
     │  (hasil)
     ▼
-Unified MCP Server 
+Unified MCP Server
     │  (response terstruktur)
     ▼
 AI Client (Hermes) – interpretasi hasil
@@ -111,6 +112,7 @@ def firecrawl_search(query: str, limit: int = 5) -> list:
 ```
 
 **Troubleshooting Firecrawl**:
+
 - **Error 401**: API key salah atau kadaluarsa. Verifikasi di panel Firecrawl.
 - **Error 429**: Rate limit terlampaui. Tambahkan `time.sleep(1)` antar panggilan atau upgrade plan.
 - **Timeout 30 detik**: Tidak cukup untuk crawl besar. Naikkan parameter `timeout` atau batasi depth.
@@ -206,6 +208,7 @@ def vercel_list_deployments(project_id: str, limit: int = 10):
 ```
 
 **Troubleshooting**:
+
 - **403 Forbidden**: Token tidak punya akses ke project. Scope token di Vercel dashboard.
 - **404**: Project ID salah. Pastikan menggunakan `projectId` (bukan nama).
 
@@ -279,6 +282,7 @@ def browser_screenshot(url: str, full_page: bool = True) -> bytes:
 ```
 
 **Troubleshooting**:
+
 - **Browser tidak launch**: Pastikan `playwright install chromium` sudah dijalankan.
 - **Timeout**: Periksa koneksi internet atau naikkan parameter timeout.
 - **Memory penuh**: Screenshot full page halaman besar bisa menghabiskan RAM. Batasi dengan `full_page=False` atau crop.
@@ -338,6 +342,7 @@ all = ["unified-mcp-server[web,browser,sandbox]"]
 ```
 
 Cara install:
+
 ```bash
 pip install unified-mcp-server[web]      # Firecrawl + Brave
 pip install unified-mcp-server[browser]   # Playwright
@@ -388,6 +393,7 @@ Jika jumlah tools sesuai harapan, server siap digunakan.
 **Penyebab**: API key tidak terdeteksi.
 
 **Langkah**:
+
 1. Pastikan file `.env` ada di `workdir` dan isinya benar.
 2. Periksa ejaan variabel di `.env` dan `tools/__init__.py`.
 3. Jalankan `python -c "import os; print('FIRECRAWL_API_KEY' in os.environ)"` dari `workdir`.
@@ -433,6 +439,7 @@ Namun untuk kesederhanaan, versi awal menggunakan eager import.
 User bertanya: "Bagaimana cara deploy app ke Vercel dengan environment variable?"
 
 Alur:
+
 1. Context7 → cari dokumentasi Vercel.
 2. Playwright → buka halaman dokumentasi.
 3. Vercel tool → jalankan `add_env` di project.
@@ -449,6 +456,7 @@ browser_navigate(docs["url"])
 User: "Ada error 500 di production, apa yang terjadi?"
 
 Alur:
+
 1. Sentry list issues di project.
 2. Ambil detail issue terbaru (screenshot via Playwright jika perlu).
 3. Analisis AI dan berikan saran fix.
@@ -468,6 +476,7 @@ Pendekatan dynamic registration memungkinkan satu server melayani berbagai konfi
 ### 7.3 Extensibility
 
 Untuk menambah service baru:
+
 1. Buat file `tools/new_service.py`.
 2. Definisikan fungsi dengan dekorator `@tool`.
 3. Tambahkan mapping di `TOOL_MODULES` dengan nama env var (None jika gratis).
