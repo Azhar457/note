@@ -17,3 +17,7 @@ replit.nix
 scratch/*.py
 scratch
 scratch/*
+.env
+.env.*
+**/.env
+**/.env.*
