@@ -54,19 +54,19 @@ Shodan bukan crawler halaman web. Ia adalah **port scanner terdistribusi** yang 
 
 ### Komponen Data per Layanan
 
-| Komponen                      | Deskripsi                                   | Contoh                                        |
-| ----------------------------- | ------------------------------------------- | --------------------------------------------- |
-| **IP & Port**                 | Alamat dan port terbuka                     | 203.0.113.45:443                              |
-| **Transport Protocol**        | TCP atau UDP                                | TCP                                           |
-| **Banner / Response**         | Data mentah dari aplikasi                   | `HTTP/1.1 200 OK\nServer: nginx/1.18.0`       |
-| **Metadata Parsed**           | Informasi terstruktur hasil parsing banner  | `product:nginx`, `version:1.18.0`             |
-| **HTTP Title**                | Teks dalam `<title>` HTML                   | `"Login - Cisco Router"`                      |
-| **HTTP Headers**              | Seluruh header respons                      | `X-Powered-By: PHP/7.4.3`                     |
-| **SSL Certificate**           | Rantai sertifikat lengkap, issuer, validity | Issuer: `Let's Encrypt`, SAN: `*.example.com` |
-| **Location**                  | Estimasi geografis dari MaxMind GeoIP       | Country: ID, City: Jakarta                    |
-| **ISP / Organization**        | Pemilik alamat IP                           | Org: Telkom Indonesia                         |
-| **OS (via CPython/Nmap sig)** | Tebakan sistem operasi dari fingerprinter   | `OS: Linux 3.x`                               |
-| **Timestamp**                 | Kapan terakhir dipindai                     | `2026-06-27T12:00:00Z`                        |
+| Komponen | Deskripsi | Contoh |
+|----------|-----------|--------|
+| **IP & Port** | Alamat dan port terbuka | 203.0.113.45:443 |
+| **Transport Protocol** | TCP atau UDP | TCP |
+| **Banner / Response** | Data mentah dari aplikasi | `HTTP/1.1 200 OK\nServer: nginx/1.18.0` |
+| **Metadata Parsed** | Informasi terstruktur hasil parsing banner | `product:nginx`, `version:1.18.0` |
+| **HTTP Title** | Teks dalam `<title>` HTML | `"Login - Cisco Router"` |
+| **HTTP Headers** | Seluruh header respons | `X-Powered-By: PHP/7.4.3` |
+| **SSL Certificate** | Rantai sertifikat lengkap, issuer, validity | Issuer: `Let's Encrypt`, SAN: `*.example.com` |
+| **Location** | Estimasi geografis dari MaxMind GeoIP | Country: ID, City: Jakarta |
+| **ISP / Organization** | Pemilik alamat IP | Org: Telkom Indonesia |
+| **OS (via CPython/Nmap sig)** | Tebakan sistem operasi dari fingerprinter | `OS: Linux 3.x` |
+| **Timestamp** | Kapan terakhir dipindai | `2026-06-27T12:00:00Z` |
 
 Semua ini diindeks dan bisa dicari dengan filter spesifik.
 
@@ -76,26 +76,26 @@ Semua ini diindeks dan bisa dicari dengan filter spesifik.
 
 Query Shodan bukan sekadar kata kunci, melainkan ekosistem filter yang presisi. Daftar filter paling kritikal:
 
-| Filter                 | Fungsi                                 | Contoh                                  |
-| ---------------------- | -------------------------------------- | --------------------------------------- |
-| `port:`                | Port spesifik                          | `port:22`                               |
-| `product:`             | Nama produk terdeteksi                 | `product:Apache`                        |
-| `version:`             | Versi spesifik                         | `version:2.4.49` (rentan)               |
-| `os:`                  | Sistem operasi                         | `os:"Windows 7"`                        |
-| `country:`             | Kode negara ISO3166-1 alpha-2          | `country:ID`                            |
-| `city:`                | Kota                                   | `city:"Bandung"`                        |
-| `org:`                 | Organisasi / ISP                       | `org:"PT Telekomunikasi"`               |
-| `hostname:`            | Reverse DNS atau subdomain             | `hostname:*.go.id`                      |
-| `net:`                 | CIDR range                             | `net:103.10.64.0/22`                    |
-| `before:` / `after:`   | Tanggal pemindaian                     | `after:2026-01-01`                      |
-| `ssl:`                 | Data sertifikat SSL                    | `ssl:"Let's Encrypt"`                   |
-| `ssl.cert.subject.cn:` | Common Name sertifikat                 | `ssl.cert.subject.cn:"*.bankbca.co.id"` |
-| `http.title:`          | Judul halaman HTML                     | `http.title:"Webcam 7"`                 |
-| `http.status:`         | Kode status HTTP                       | `http.status:200`                       |
-| `http.html:`           | Isi HTML mentah (substring)            | `http.html:"phpMyAdmin"`                |
-| `has_screenshot:true`  | IP yang memiliki screenshot VNC/web    | `has_screenshot:true`                   |
-| `tags:`                | Tag oleh curator Shodan                | `tags:scada` atau `tags:ics`            |
-| `vuln:`                | Kerentanan (dari integrasi dengan NVD) | `vuln:CVE-2021-34527` (PrintNightmare)  |
+| Filter | Fungsi | Contoh |
+|--------|--------|--------|
+| `port:` | Port spesifik | `port:22` |
+| `product:` | Nama produk terdeteksi | `product:Apache` |
+| `version:` | Versi spesifik | `version:2.4.49` (rentan) |
+| `os:` | Sistem operasi | `os:"Windows 7"` |
+| `country:` | Kode negara ISO3166-1 alpha-2 | `country:ID` |
+| `city:` | Kota | `city:"Bandung"` |
+| `org:` | Organisasi / ISP | `org:"PT Telekomunikasi"` |
+| `hostname:` | Reverse DNS atau subdomain | `hostname:*.go.id` |
+| `net:` | CIDR range | `net:103.10.64.0/22` |
+| `before:` / `after:` | Tanggal pemindaian | `after:2026-01-01` |
+| `ssl:` | Data sertifikat SSL | `ssl:"Let's Encrypt"` |
+| `ssl.cert.subject.cn:` | Common Name sertifikat | `ssl.cert.subject.cn:"*.bankbca.co.id"` |
+| `http.title:` | Judul halaman HTML | `http.title:"Webcam 7"` |
+| `http.status:` | Kode status HTTP | `http.status:200` |
+| `http.html:` | Isi HTML mentah (substring) | `http.html:"phpMyAdmin"` |
+| `has_screenshot:true` | IP yang memiliki screenshot VNC/web | `has_screenshot:true` |
+| `tags:` | Tag oleh curator Shodan | `tags:scada` atau `tags:ics` |
+| `vuln:` | Kerentanan (dari integrasi dengan NVD) | `vuln:CVE-2021-34527` (PrintNightmare) |
 
 Query bisa dikombinasikan dengan boolean `AND`, `OR`, `NOT`. Contoh konkret:
 
@@ -147,7 +147,7 @@ Shodan adalah contoh sempurna alat **dual-use**. Ia tidak tahu apakah Anda seora
 
 ## 🔬 Anatomi Serangan: Dari Shodan ke Remote Code Execution
 
-Untuk menunjukkan betapa powerful Shodan sebagai _reconnaissance_, inilah alur serangan realistis:
+Untuk menunjukkan betapa powerful Shodan sebagai *reconnaissance*, inilah alur serangan realistis:
 
 1. **Recon**: Penyerang mengeksekusi query `product:"Apache" version:"2.4.49"` (versi yang rentan CVE-2021-41773 — path traversal yang bisa berujung RCE).
 2. **Filter Target**: Penambahan `country:ID` menghasilkan 150 IP. Lalu ditambah `-ssl` untuk yang tidak pakai HTTPS (mungkin lebih tidak terawat).
@@ -165,7 +165,7 @@ Untuk menunjukkan betapa powerful Shodan sebagai _reconnaissance_, inilah alur s
 
 ## 🔐 Countermeasures: Menghilang dari Shodan
 
-Tidak ada cara untuk _menghapus_ IP dari Shodan secara seketika, karena pemindaian terjadi terus-menerus. Tetapi Anda bisa:
+Tidak ada cara untuk *menghapus* IP dari Shodan secara seketika, karena pemindaian terjadi terus-menerus. Tetapi Anda bisa:
 
 1. **Tutup Port yang Tidak Perlu**: Shodan tidak bisa memindai port yang tidak terbuka. Pastikan firewall hanya membuka port yang benar-benar dibutuhkan untuk publik.
 2. **IP Access Control**: Batasi akses ke layanan sensitif (SSH, database, panel admin) hanya dari IP internal atau VPN. Gunakan security group di cloud.
@@ -181,17 +181,17 @@ Tidak ada cara untuk _menghapus_ IP dari Shodan secara seketika, karena pemindai
 
 Seperti yang Anda singgung, ada beberapa alternatif dengan pendekatan serupa:
 
-| Aspek                      | **Shodan**                       | **Censys**                                     | **ZoomEye** (KnownSec)                      |
-| -------------------------- | -------------------------------- | ---------------------------------------------- | ------------------------------------------- |
-| **Model Data**             | Berbasis port & service          | Berbasis host & sertifikat                     | Berbasis port, service, dan web fingerprint |
-| **Query Language**         | Kaya, fokus pada filter banner   | Query language sendiri + SQL-like via API      | Kaya, dengan filter Mandarin                |
-| **Sertifikat SSL**         | Diindeks, bisa dicari            | Ini adalah spesialisasi Censys                 | Ya                                          |
-| **Screenshot**             | Fitur premium (VNC, web)         | Tidak fokus ke screenshot                      | Screenshot web                              |
-| **Cakupan IPv6**           | Parsial                          | Lebih baik dari Shodan                         | Parsial                                     |
-| **Vulnerability Database** | Integrasi CVE langsung           | Tidak secara native, tapi bisa lewat BigQuery  | Ya, dengan plugin                           |
-| **API**                    | Sangat baik, dokumentasi lengkap | API REST + Google BigQuery                     | API terbatas                                |
-| **Harga**                  | Free tier terbatas, subscription | Free 250 query/bulan, data via BigQuery gratis | Poin harian, subscription                   |
-| **Use Case Unggul**        | IoT/ICS, quick banner grabbing   | Penelitian akademis, analisis sertifikat masif | Keamanan web, fingerprint aplikasi          |
+| Aspek | **Shodan** | **Censys** | **ZoomEye** (KnownSec) |
+|-------|------------|------------|-------------------------|
+| **Model Data** | Berbasis port & service | Berbasis host & sertifikat | Berbasis port, service, dan web fingerprint |
+| **Query Language** | Kaya, fokus pada filter banner | Query language sendiri + SQL-like via API | Kaya, dengan filter Mandarin |
+| **Sertifikat SSL** | Diindeks, bisa dicari | Ini adalah spesialisasi Censys | Ya |
+| **Screenshot** | Fitur premium (VNC, web) | Tidak fokus ke screenshot | Screenshot web |
+| **Cakupan IPv6** | Parsial | Lebih baik dari Shodan | Parsial |
+| **Vulnerability Database** | Integrasi CVE langsung | Tidak secara native, tapi bisa lewat BigQuery | Ya, dengan plugin |
+| **API** | Sangat baik, dokumentasi lengkap | API REST + Google BigQuery | API terbatas |
+| **Harga** | Free tier terbatas, subscription | Free 250 query/bulan, data via BigQuery gratis | Poin harian, subscription |
+| **Use Case Unggul** | IoT/ICS, quick banner grabbing | Penelitian akademis, analisis sertifikat masif | Keamanan web, fingerprint aplikasi |
 
 Censys sering digunakan untuk riset skala besar karena datasetnya bisa diakses langsung di Google BigQuery tanpa batasan query API. Misalnya: “Tunjukkan semua sertifikat yang diterbitkan untuk domain `*.go.id` dalam 24 jam terakhir” — ini sangat berguna untuk memonitor perubahan infrastruktur pemerintah atau perusahaan secara near real-time.
 
@@ -220,7 +220,7 @@ Data ini bukan rahasia; ia adalah hasil dari apa yang organisasi gagal lindungi.
 
 ## 📚 Referensi
 
-- Matherly, J. (2015). _Shodan: The Official Guide to the Internet’s Most Dangerous Search Engine_.
+- Matherly, J. (2015). *Shodan: The Official Guide to the Internet’s Most Dangerous Search Engine*.
 - Censys Documentation: https://search.censys.io
 - ZoomEye Documentation: https://www.zoomeye.org
 - NIST National Vulnerability Database integration with Shodan.
@@ -228,4 +228,4 @@ Data ini bukan rahasia; ia adalah hasil dari apa yang organisasi gagal lindungi.
 
 ---
 
-_Shodan Deep Dive | Internet Scanning & OSINT Reconnaissance | Dual-Use Infrastructure Discovery_
+*Shodan Deep Dive | Internet Scanning & OSINT Reconnaissance | Dual-Use Infrastructure Discovery*

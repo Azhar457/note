@@ -26,12 +26,12 @@ Quantum Insert dan Blackpearl adalah **teknik serangan jaringan aktif** yang mem
 
 ### Perbandingan dengan Teknik Serupa
 
-| Teknik             | Aktor           | Metode                                       | Kecepatan Respons                         |
-| ------------------ | --------------- | -------------------------------------------- | ----------------------------------------- |
-| **QUANTUM (NSA)**  | NSA             | BGP injection, race condition                | Milidetik (harus menang dari server asli) |
-| **FOXACID (NSA)**  | NSA             | Exploit delivery via redirect                | Milidetik (redirect ke exploit server)    |
-| **Quantum Insert** | NSA / Unit 8200 | Packet injection, DNS spoofing               | Milidetik                                 |
-| **Blackpearl**     | Unit 8200       | Man-in-the-Middle via ISP kolusi, BGP hijack | Milidetik hingga detik                    |
+| Teknik | Aktor | Metode | Kecepatan Respons |
+|--------|-------|--------|-------------------|
+| **QUANTUM (NSA)** | NSA | BGP injection, race condition | Milidetik (harus menang dari server asli) |
+| **FOXACID (NSA)** | NSA | Exploit delivery via redirect | Milidetik (redirect ke exploit server) |
+| **Quantum Insert** | NSA / Unit 8200 | Packet injection, DNS spoofing | Milidetik |
+| **Blackpearl** | Unit 8200 | Man-in-the-Middle via ISP kolusi, BGP hijack | Milidetik hingga detik |
 
 ---
 
@@ -68,30 +68,26 @@ Quantum Insert bekerja dengan prinsip **race condition**: penyerang harus mengir
             ▼
          [Target menerima redirect, ke exploit server]
 ```
-
 ### Persyaratan
-
 - **Akses backbone**: Harus berada di jalur traffic target (TAP fiber, IXP, atau kolusi ISP).
 - **Kecepatan**: Respons palsu harus menang race condition (biasanya < 50ms).
 - **Infrastruktur**: Server injeksi di titik strategis secara geografis.
 - **Targeting**: Sistem harus bisa mengidentifikasi target di antara miliaran traffic (cookie, IP, fingerprint).
-
 ---
-
 ## 🛠️ Blackpearl — Unit 8200's Toolkit
 
 Blackpearl dideskripsikan oleh Kaspersky (2015-2017) sebagai toolkit yang digunakan oleh **Unit 8200 Israel** dalam operasi siber ofensif. Nama ini muncul dalam laporan tentang serangan terhadap target di Timur Tengah, Eropa, dan Asia.
 
 ### Kemampuan
 
-| Modul                     | Fungsi                                                             |
-| ------------------------- | ------------------------------------------------------------------ |
-| **Network Interception**  | Man-in-the-Middle via BGP hijack atau kolusi ISP lokal.            |
-| **DNS Spoofing**          | Memalsukan respons DNS untuk mengarahkan target ke server palsu.   |
-| **HTTP Injection**        | Menyuntikkan iframe, script, atau redirect ke traffic HTTP target. |
-| **Exploit Delivery**      | Mengintegrasikan dengan exploit server (mirip FOXACID).            |
-| **Credential Harvesting** | Halaman login palsu untuk mencuri kredensial.                      |
-| **Persistence**           | Menjatuhkan implant (RAT) untuk akses jangka panjang.              |
+| Modul | Fungsi |
+|-------|--------|
+| **Network Interception** | Man-in-the-Middle via BGP hijack atau kolusi ISP lokal. |
+| **DNS Spoofing** | Memalsukan respons DNS untuk mengarahkan target ke server palsu. |
+| **HTTP Injection** | Menyuntikkan iframe, script, atau redirect ke traffic HTTP target. |
+| **Exploit Delivery** | Mengintegrasikan dengan exploit server (mirip FOXACID). |
+| **Credential Harvesting** | Halaman login palsu untuk mencuri kredensial. |
+| **Persistence** | Menjatuhkan implant (RAT) untuk akses jangka panjang. |
 
 ### Target Terdokumentasi
 
@@ -103,7 +99,6 @@ Blackpearl dideskripsikan oleh Kaspersky (2015-2017) sebagai toolkit yang diguna
 ### Hubungan Quantum Insert ↔ Blackpearl
 
 Meskipun dinamai berbeda, teknik dasarnya identik: **race condition injection**. Perbedaan utama:
-
 - **Quantum Insert** (NSA) dioperasikan oleh AS/UK.
 - **Blackpearl** dioperasikan oleh Israel (Unit 8200).
 - Keduanya berbagi TTP dan kemungkinan berbagi infrastruktur (dalam kerangka Five Eyes + Israel).
@@ -115,20 +110,17 @@ Meskipun dinamai berbeda, teknik dasarnya identik: **race condition injection**.
 ### 1. BGP Hijack untuk Interception
 
 Penyerang mengumumkan rute BGP palsu untuk mengalihkan traffic target melalui server mereka. Ini memungkinkan:
-
 - **Full Man-in-the-Middle** pada semua traffic target.
 - **SSL stripping**: Mengubah HTTPS menjadi HTTP untuk membaca plaintext.
 - **Injeksi malware** ke download software.
 
 **Kasus Terkenal:**
-
 - 2013: BGP hijack digunakan untuk mengalihkan traffic dari penyedia layanan keuangan.
 - 2018: Serangan BGP ke MyEtherWallet (kemungkinan aktor lain, tapi teknik identik).
 
 ### 2. DNS Poisoning / Spoofing
 
 Blackpearl sering menggunakan **DNS poisoning** untuk mengarahkan target ke server palsu:
-
 - Target mengetik `mail.google.com` → diarahkan ke IP penyerang.
 - Halaman login palsu mencuri kredensial.
 - Setelah login, implant dijatuhkan.
@@ -136,7 +128,6 @@ Blackpearl sering menggunakan **DNS poisoning** untuk mengarahkan target ke serv
 ### 3. HTTP 302 Redirect Injection
 
 Teknik paling umum:
-
 - Target mengunjungi website berita.
 - Quantum Insert menyuntikkan `HTTP 302 Redirect` ke `exploit-server.com/payload`.
 - Target browser otomatis mengikuti redirect ke server exploit.
@@ -145,7 +136,6 @@ Teknik paling umum:
 ### 4. Iframe Injection
 
 Untuk target yang lebih stealth:
-
 - Alih-alih redirect penuh, Quantum Insert menyuntikkan **iframe 1x1 pixel** ke halaman yang sedang dimuat.
 - Iframe memuat halaman exploit tanpa terlihat oleh target.
 - Exploit berjalan di background.
@@ -180,12 +170,12 @@ Symantec mendokumentasikan serangan terhadap target di Timur Tengah menggunakan 
 
 ### 1. Deteksi Race Condition Injection
 
-| Metode                         | Detail                                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------------------------- |
-| **Monitor TTL Anomali**        | Response palsu sering memiliki TTL berbeda dari server sah.                                       |
-| **Deteksi Duplicate Response** | Target menerima dua respons HTTP (satu asli, satu palsu).                                         |
-| **Analisis Latency**           | Response yang tiba "terlalu cepat" (lebih cepat dari geografis memungkinkan) bisa jadi injection. |
-| **Certificate Mismatch**       | Jika SSL stripping terjadi, sertifikat akan berubah dari valid ke self-signed.                    |
+| Metode | Detail |
+|--------|--------|
+| **Monitor TTL Anomali** | Response palsu sering memiliki TTL berbeda dari server sah. |
+| **Deteksi Duplicate Response** | Target menerima dua respons HTTP (satu asli, satu palsu). |
+| **Analisis Latency** | Response yang tiba "terlalu cepat" (lebih cepat dari geografis memungkinkan) bisa jadi injection. |
+| **Certificate Mismatch** | Jika SSL stripping terjadi, sertifikat akan berubah dari valid ke self-signed. |
 
 ### 2. Deteksi BGP Hijack
 
@@ -195,23 +185,23 @@ Symantec mendokumentasikan serangan terhadap target di Timur Tengah menggunakan 
 
 ### 3. Mitigasi
 
-| Lapisan       | Tindakan                                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Transport** | Gunakan **HTTPS only** dengan HSTS (HTTP Strict Transport Security). Preload HSTS di browser.                 |
-| **DNS**       | Gunakan **DNSSEC** untuk mencegah DNS spoofing. Gunakan **DNS over HTTPS (DoH)** atau **DNS over TLS (DoT)**. |
-| **BGP**       | Terapkan **RPKI** untuk memvalidasi rute. Monitor BGP anomali.                                                |
-| **Browser**   | Aktifkan **Enhanced Safe Browsing**. Gunakan browser yang mendeteksi redirect mencurigakan.                   |
-| **Endpoint**  | Deploy EDR yang mendeteksi proses browser yang tiba-tiba mengunduh dan mengeksekusi file.                     |
-| **Network**   | Monitor traffic untuk respons HTTP duplikat atau redirect ke domain tidak dikenal.                            |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Transport** | Gunakan **HTTPS only** dengan HSTS (HTTP Strict Transport Security). Preload HSTS di browser. |
+| **DNS** | Gunakan **DNSSEC** untuk mencegah DNS spoofing. Gunakan **DNS over HTTPS (DoH)** atau **DNS over TLS (DoT)**. |
+| **BGP** | Terapkan **RPKI** untuk memvalidasi rute. Monitor BGP anomali. |
+| **Browser** | Aktifkan **Enhanced Safe Browsing**. Gunakan browser yang mendeteksi redirect mencurigakan. |
+| **Endpoint** | Deploy EDR yang mendeteksi proses browser yang tiba-tiba mengunduh dan mengeksekusi file. |
+| **Network** | Monitor traffic untuk respons HTTP duplikat atau redirect ke domain tidak dikenal. |
 
 ### 4. Indikator Kompromi (IOC)
 
-| Artefak              | Detail                                                                         |
-| -------------------- | ------------------------------------------------------------------------------ |
-| **Redirect chain**   | Browser history menunjukkan redirect dari website sah ke domain tidak dikenal. |
-| **DNS logs**         | Query DNS untuk domain exploit (sering domain pendek, TLD tidak biasa).        |
-| **Certificate logs** | Sertifikat TLS yang tidak cocok dengan domain sah.                             |
-| **NetFlow**          | Koneksi ke IP tidak dikenal segera setelah mengunjungi website tertentu.       |
+| Artefak | Detail |
+|---------|--------|
+| **Redirect chain** | Browser history menunjukkan redirect dari website sah ke domain tidak dikenal. |
+| **DNS logs** | Query DNS untuk domain exploit (sering domain pendek, TLD tidak biasa). |
+| **Certificate logs** | Sertifikat TLS yang tidak cocok dengan domain sah. |
+| **NetFlow** | Koneksi ke IP tidak dikenal segera setelah mengunjungi website tertentu. |
 
 ---
 
@@ -250,12 +240,12 @@ Quantum Insert / Blackpearl adalah puncak dari kemampuan **active network attack
 
 ## 📚 Referensi
 
-- Snowden, E. (2013). _NSA Documents: QUANTUM and FOXACID Programs_ (The Guardian, Der Spiegel).
-- Kaspersky. _Blackpearl: Unit 8200's Active Network Attack Toolkit_ (2015-2017).
-- Symantec. _Rocket Man: Targeted Attacks in the Middle East_ (2017).
-- Cimpanu, C. (2018). _BGP Hijack Used to Redirect Traffic to Malicious Sites_. ZDNet.
+- Snowden, E. (2013). *NSA Documents: QUANTUM and FOXACID Programs* (The Guardian, Der Spiegel).
+- Kaspersky. *Blackpearl: Unit 8200's Active Network Attack Toolkit* (2015-2017).
+- Symantec. *Rocket Man: Targeted Attacks in the Middle East* (2017).
+- Cimpanu, C. (2018). *BGP Hijack Used to Redirect Traffic to Malicious Sites*. ZDNet.
 - MITRE ATT&CK: T1583.004 (Acquire Infrastructure: Server), T1584.004 (Compromise Infrastructure: Server), T1189 (Drive-by Compromise).
 
 ---
 
-_Quantum Insert & Blackpearl Deep Dive | Unit 8200 Active Network Attack | BGP Hijack & Race Condition Injection_
+*Quantum Insert & Blackpearl Deep Dive | Unit 8200 Active Network Attack | BGP Hijack & Race Condition Injection*

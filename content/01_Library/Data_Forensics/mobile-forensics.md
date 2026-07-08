@@ -45,16 +45,16 @@ dibanding level yang sama di PC forensics
 
 ## Hierarki Akuisisi Mobile — Level 0 sampai Level 7
 
-| Level                                  | Metode                                                                                      | Yang Didapat                                                             | Syarat                                                      | Tools                                                                         | Keterbatasan                                                                                       |
-| -------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Level 0** — Manual / UI              | Foto layar, screenshot manual, scroll dan rekam                                             | Apa yang terlihat di layar saja                                          | Device nyala, layar bisa diakses                            | Kamera, mata manusia                                                          | Paling terbatas, tidak ada metadata, mudah di-manipulasi                                           |
-| **Level 1** — Logical                  | Backup via ADB (Android) atau iTunes/Finder (iOS)                                           | App data yang di-backup, kontak, pesan, foto (tergantung backup setting) | USB debugging ON (Android), Trust This Computer (iOS)       | MOBILedit, Oxygen, Magnet AXIOM, UFED                                         | Tidak semua app di-backup, data terenkripsi end-to-end tidak masuk, tergantung izin backup per-app |
-| **Level 2** — Advanced Logical         | Full file system via ADB (rooted), AFC2 (jailbroken iOS), cloud extraction                  | Lebih lengkap dari backup biasa — termasuk app yang opt-out backup       | Root access (Android) atau Jailbreak (iOS)                  | Cellebrite UFED, Oxygen, MOBILedit, XRY                                       | Device harus sudah di-root/jailbreak sebelumnya, atau via exploit                                  |
-| **Level 3** — File System via Exploit  | Gunakan exploit untuk bypass lockscreen atau elevate privilege tanpa root permanen          | File system penuh, database SQLite tiap app, deleted artifacts           | Exploit tersedia untuk versi OS target                      | Cellebrite UFED Premium, GrayKey, Checkm8 (iOS), MOBILedit (beberapa Android) | Exploit spesifik per device/OS — tidak ada "satu exploit untuk semua"                              |
-| **Level 4** — Physical / Full Physical | Dump memory chip secara langsung — bit-for-bit image dari storage                           | Semua yang ada di storage termasuk deleted space, slack space            | EDL Mode (Qualcomm), MTK bypass, atau JTAG                  | UFED Premium, XRY, MSAB, Oxygen (beberapa device)                             | Enkripsi penuh berarti physical dump masih terenkripsi — butuh kunci dari device                   |
-| **Level 5** — JTAG / ISP               | Akses langsung ke memory chip via debug port (JTAG) atau In-System Programming              | Raw memory dump sebelum/tanpa software intervention                      | Akses fisik ke board, skill soldering, pinout documentation | JTAGulator, RIFF Box, Easy-JTAG, ISP adapter                                  | Risiko merusak device, butuh pinout yang tepat, masih dapat raw encrypted data                     |
-| **Level 6** — Chip-Off                 | Desolder chip NAND dari board, baca langsung dengan programmer                              | Raw encrypted memory tanpa boot proses                                   | Lab equipment, hot air station, NAND programmer             | UP-828, Flashcat, TNM programmer                                              | Data masih terenkripsi, key encryption ada di Secure Element yang tidak ikut dicabut               |
-| ☠️ **Level 7** — Secure Element Attack | Serangan terhadap chip yang menyimpan kunci enkripsi (Apple Secure Enclave, Google Titan M) | Kunci dekripsi untuk unlock seluruh storage                              | Lab forensik negara, side-channel attack capability         | Tidak ada tool komersial                                                      | Hampir mustahil untuk consumer hardware modern — domain intelligence agency                        |
+| Level | Metode | Yang Didapat | Syarat | Tools | Keterbatasan |
+|---|---|---|---|---|---|
+| **Level 0** — Manual / UI | Foto layar, screenshot manual, scroll dan rekam | Apa yang terlihat di layar saja | Device nyala, layar bisa diakses | Kamera, mata manusia | Paling terbatas, tidak ada metadata, mudah di-manipulasi |
+| **Level 1** — Logical | Backup via ADB (Android) atau iTunes/Finder (iOS) | App data yang di-backup, kontak, pesan, foto (tergantung backup setting) | USB debugging ON (Android), Trust This Computer (iOS) | MOBILedit, Oxygen, Magnet AXIOM, UFED | Tidak semua app di-backup, data terenkripsi end-to-end tidak masuk, tergantung izin backup per-app |
+| **Level 2** — Advanced Logical | Full file system via ADB (rooted), AFC2 (jailbroken iOS), cloud extraction | Lebih lengkap dari backup biasa — termasuk app yang opt-out backup | Root access (Android) atau Jailbreak (iOS) | Cellebrite UFED, Oxygen, MOBILedit, XRY | Device harus sudah di-root/jailbreak sebelumnya, atau via exploit |
+| **Level 3** — File System via Exploit | Gunakan exploit untuk bypass lockscreen atau elevate privilege tanpa root permanen | File system penuh, database SQLite tiap app, deleted artifacts | Exploit tersedia untuk versi OS target | Cellebrite UFED Premium, GrayKey, Checkm8 (iOS), MOBILedit (beberapa Android) | Exploit spesifik per device/OS — tidak ada "satu exploit untuk semua" |
+| **Level 4** — Physical / Full Physical | Dump memory chip secara langsung — bit-for-bit image dari storage | Semua yang ada di storage termasuk deleted space, slack space | EDL Mode (Qualcomm), MTK bypass, atau JTAG | UFED Premium, XRY, MSAB, Oxygen (beberapa device) | Enkripsi penuh berarti physical dump masih terenkripsi — butuh kunci dari device |
+| **Level 5** — JTAG / ISP | Akses langsung ke memory chip via debug port (JTAG) atau In-System Programming | Raw memory dump sebelum/tanpa software intervention | Akses fisik ke board, skill soldering, pinout documentation | JTAGulator, RIFF Box, Easy-JTAG, ISP adapter | Risiko merusak device, butuh pinout yang tepat, masih dapat raw encrypted data |
+| **Level 6** — Chip-Off | Desolder chip NAND dari board, baca langsung dengan programmer | Raw encrypted memory tanpa boot proses | Lab equipment, hot air station, NAND programmer | UP-828, Flashcat, TNM programmer | Data masih terenkripsi, key encryption ada di Secure Element yang tidak ikut dicabut |
+| ☠️ **Level 7** — Secure Element Attack | Serangan terhadap chip yang menyimpan kunci enkripsi (Apple Secure Enclave, Google Titan M) | Kunci dekripsi untuk unlock seluruh storage | Lab forensik negara, side-channel attack capability | Tidak ada tool komersial | Hampir mustahil untuk consumer hardware modern — domain intelligence agency |
 
 ---
 
@@ -87,21 +87,21 @@ Kelemahan:
 
 ## Perbandingan Tools — Head to Head
 
-| Tool                          | Developer                 | Level Support       | iOS                | Android        | Harga Approx              | Target User              |
-| ----------------------------- | ------------------------- | ------------------- | ------------------ | -------------- | ------------------------- | ------------------------ |
-| **Cellebrite UFED**           | Cellebrite (Israel)       | Level 1–4           | ✅ Sangat kuat     | ✅ Sangat kuat | $15,000-40,000/tahun      | Law enforcement, gov     |
-| **Cellebrite Premium**        | Cellebrite                | Level 3–4 (exploit) | ✅ Kunci utama iOS | ✅             | Add-on UFED, sangat mahal | Law enforcement khusus   |
-| **GrayKey**                   | Grayshift (US)            | Level 3–4           | ✅ iOS specialist  | ⚠️ Terbatas    | $18,000+                  | Law enforcement US       |
-| **Oxygen Forensic Detective** | Oxygen Forensics (US)     | Level 1–3           | ✅ Baik            | ✅ Sangat baik | $2,000-8,000              | Forensic lab, enterprise |
-| **Magnet AXIOM**              | Magnet Forensics (Canada) | Level 1–3           | ✅ Baik            | ✅ Baik        | $4,000-10,000/tahun       | Investigator, enterprise |
-| **MOBILedit Forensic**        | Compelson (Czech)         | Level 1–3           | ⚠️ Terbatas        | ✅ Baik        | $1,000-3,000              | SME, lab menengah        |
-| **XRY (MSAB)**                | MSAB (Sweden)             | Level 1–4           | ✅ Kuat            | ✅ Kuat        | $10,000-25,000            | Law enforcement EU       |
-| **Belkasoft Evidence Center** | Belkasoft (US/Russia)     | Level 1–3           | ✅ Baik            | ✅ Baik        | $3,000-8,000              | Investigator             |
-| **Andriller CE**              | Andriller                 | Level 1–2           | ❌                 | ✅             | Gratis / $250             | Hobbyist, researcher     |
-| **ADB + Manual**              | Google (ADB tools)        | Level 1–2           | ❌                 | ✅ (rooted)    | Gratis                    | Researcher, DIY          |
+| Tool | Developer | Level Support | iOS | Android | Harga Approx | Target User |
+|---|---|---|---|---|---|---|
+| **Cellebrite UFED** | Cellebrite (Israel) | Level 1–4 | ✅ Sangat kuat | ✅ Sangat kuat | $15,000-40,000/tahun | Law enforcement, gov |
+| **Cellebrite Premium** | Cellebrite | Level 3–4 (exploit) | ✅ Kunci utama iOS | ✅ | Add-on UFED, sangat mahal | Law enforcement khusus |
+| **GrayKey** | Grayshift (US) | Level 3–4 | ✅ iOS specialist | ⚠️ Terbatas | $18,000+ | Law enforcement US |
+| **Oxygen Forensic Detective** | Oxygen Forensics (US) | Level 1–3 | ✅ Baik | ✅ Sangat baik | $2,000-8,000 | Forensic lab, enterprise |
+| **Magnet AXIOM** | Magnet Forensics (Canada) | Level 1–3 | ✅ Baik | ✅ Baik | $4,000-10,000/tahun | Investigator, enterprise |
+| **MOBILedit Forensic** | Compelson (Czech) | Level 1–3 | ⚠️ Terbatas | ✅ Baik | $1,000-3,000 | SME, lab menengah |
+| **XRY (MSAB)** | MSAB (Sweden) | Level 1–4 | ✅ Kuat | ✅ Kuat | $10,000-25,000 | Law enforcement EU |
+| **Belkasoft Evidence Center** | Belkasoft (US/Russia) | Level 1–3 | ✅ Baik | ✅ Baik | $3,000-8,000 | Investigator |
+| **Andriller CE** | Andriller | Level 1–2 | ❌ | ✅ | Gratis / $250 | Hobbyist, researcher |
+| **ADB + Manual** | Google (ADB tools) | Level 1–2 | ❌ | ✅ (rooted) | Gratis | Researcher, DIY |
 
-> [!warning] Harga adalah estimasi dan berubah — verifikasi langsung ke vendor
-> [Keyakinan rendah] untuk angka harga — lisensi enterprise sangat bervariasi tergantung negosiasi dan region.
+>[!warning] Harga adalah estimasi dan berubah — verifikasi langsung ke vendor
+>[Keyakinan rendah] untuk angka harga — lisensi enterprise sangat bervariasi tergantung negosiasi dan region.
 
 ---
 
@@ -288,23 +288,21 @@ Tools yang tepat      : Coba backup dulu via ADB blind
 
 ---
 
-> [!tip] Yang Paling Worth untuk Dipelajari Sekarang
-> Tanpa budget untuk Cellebrite/GrayKey:
+>[!tip] Yang Paling Worth untuk Dipelajari Sekarang
+>Tanpa budget untuk Cellebrite/GrayKey:
+>1. **ADB commands** — gratis, powerful untuk Android yang USB debugging ON
+>2. **MVT** — open source, deteksi spyware di backup, dipakai Amnesty International
+>3. **ALEAPP/iLEAPP** — parse artifact dari backup tanpa tool mahal
+>4. **Frida** — bukan forensik tool tapi bisa extract data dari running app
 >
-> 1.  **ADB commands** — gratis, powerful untuk Android yang USB debugging ON
-> 2.  **MVT** — open source, deteksi spyware di backup, dipakai Amnesty International
-> 3.  **ALEAPP/iLEAPP** — parse artifact dari backup tanpa tool mahal
-> 4.  **Frida** — bukan forensik tool tapi bisa extract data dari running app
->
-> Kombinasi ini sudah cukup untuk 60-70% kasus research dan investigasi internal. [Keyakinan sedang] — tergantung device dan kondisi.
+>Kombinasi ini sudah cukup untuk 60-70% kasus research dan investigasi internal. [Keyakinan sedang] — tergantung device dan kondisi.
 
-> [!warning] Legal Boundary yang Harus Dipahami
-> Mobile forensics sangat sensitif secara hukum:
->
-> - Di Indonesia: UU ITE dan UU PDP mengatur akses data pribadi
-> - Melakukan akuisisi tanpa izin pemilik / tanpa surat perintah = pelanggaran
-> - Bahkan untuk device sendiri: beberapa exploit bisa void warranty
-> - Penelitian harus di device sendiri atau dengan consent tertulis yang jelas
+>[!warning] Legal Boundary yang Harus Dipahami
+>Mobile forensics sangat sensitif secara hukum:
+>- Di Indonesia: UU ITE dan UU PDP mengatur akses data pribadi
+>- Melakukan akuisisi tanpa izin pemilik / tanpa surat perintah = pelanggaran
+>- Bahkan untuk device sendiri: beberapa exploit bisa void warranty
+>- Penelitian harus di device sendiri atau dengan consent tertulis yang jelas
 
 ---
 
@@ -319,4 +317,4 @@ Tools yang tepat      : Coba backup dulu via ADB blind
 
 ---
 
-_Mobile Forensics | Level 0 (Manual) → Level 7 (Secure Element) · MOBILedit · Cellebrite · GrayKey · iOS vs Android · Open Source Path_
+*Mobile Forensics | Level 0 (Manual) → Level 7 (Secure Element) · MOBILedit · Cellebrite · GrayKey · iOS vs Android · Open Source Path*

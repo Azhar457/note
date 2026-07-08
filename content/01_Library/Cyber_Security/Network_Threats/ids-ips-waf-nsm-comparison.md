@@ -18,7 +18,6 @@ cssclasses: ""
 
 > [!info] Analogi Sebelum Mulai
 > Bayangkan sebuah gedung kantor:
->
 > - **Satpam pintu masuk** = Firewall (filter siapa yang boleh masuk)
 > - **CCTV + rekaman** = Zeek / NSM (catat semua yang terjadi)
 > - **Alarm pencuri** = Snort / Suricata IDS (detect dan alert)
@@ -39,7 +38,7 @@ IDS  (Intrusion Detection System)
   → Detect ancaman → kirim ALERT → tidak blokir apapun
   → Seperti alarm yang bunyi tapi tidak kunci pintu
 
-IPS  (Intrusion Prevention System)
+IPS  (Intrusion Prevention System)  
   → Detect ancaman → BLOKIR secara inline
   → Seperti alarm yang sekaligus kunci pintu
 
@@ -62,11 +61,11 @@ HIDS (Host-based IDS)
 
 ## Tabel Utama — Posisi Setiap Tool
 
-| Tool               | Kategori               | OSI Layer                        | Cara Kerja                                                                                                                                                                                                           | Deploy Di                                                            | ⚡ Sweet Spot                                                                                                                                | ☠️ Bukan untuk                                                                                              |
+| Tool               | Kategori               | OSI Layer                        | Cara Kerja                                                                                                                                                                                                           | Deploy Di                                                            | ⚡ Sweet Spot                                                                                                                                 | ☠️ Bukan untuk                                                                                              |
 | ------------------ | ---------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | **Snort**          | IDS / IPS              | Layer 3–7                        | Signature-based rules. Cocokkan traffic dengan pattern yang diketahui berbahaya. Mode IDS: alert saja. Mode IPS: inline, blokir.                                                                                     | Network perimeter, inline di antara router dan LAN                   | Known attack pattern yang sudah ada ruleset-nya. Mature ecosystem, rules komunitas besar (ET Rules, Snort Community)                         | Zero-day yang belum ada signature-nya. Traffic terenkripsi (tidak bisa inspect TLS tanpa man-in-the-middle) |
 | **Suricata**       | IDS / IPS / NSM hybrid | Layer 3–7                        | Sama seperti Snort tapi multi-threaded, lebih cepat di hardware modern. Support signature Snort + bisa output log seperti Zeek. Juga punya rule language sendiri.                                                    | Network perimeter, inline, juga bisa passive tap                     | High-throughput network. Bisa gantikan Snort sekaligus sebagian fungsi Zeek. Satu tool, lebih banyak output                                  | Tidak bisa fully replace Zeek untuk deep behavioral analysis. Tetap signature-based di core-nya             |
-| **Zeek** _(Bro)_   | NSM murni              | Layer 3–7                        | **Bukan IDS, bukan IPS.** Zeek menganalisis traffic dan menghasilkan **log terstruktur** — siapa konek ke siapa, protokol apa, berapa lama, berapa byte. Tidak ada alert, tidak ada blocking.                        | Passive tap / span port. **Tidak inline.**                           | Forensik dan threat hunting. "Apa yang terjadi 3 hari lalu?" Zeek punya jawabannya. Deteksi anomali behavioral yang tidak ada signature-nya. | Real-time blocking. Zeek tidak bisa blokir apapun by design                                                 |
+| **Zeek** *(Bro)*   | NSM murni              | Layer 3–7                        | **Bukan IDS, bukan IPS.** Zeek menganalisis traffic dan menghasilkan **log terstruktur** — siapa konek ke siapa, protokol apa, berapa lama, berapa byte. Tidak ada alert, tidak ada blocking.                        | Passive tap / span port. **Tidak inline.**                           | Forensik dan threat hunting. "Apa yang terjadi 3 hari lalu?" Zeek punya jawabannya. Deteksi anomali behavioral yang tidak ada signature-nya. | Real-time blocking. Zeek tidak bisa blokir apapun by design                                                 |
 | **CrowdSec**       | Collaborative IPS      | Layer 3–4 (IP level)             | Analisis log dari berbagai source → detect perilaku mencurigakan (brute force, scanning) → blokir IP. **Crowd-sourced:** IP yang diblokir satu user dikirim ke community database, semua user lain otomatis protect. | Di server/host, bukan inline network. Baca log dari Nginx, SSH, dsb. | Brute force protection, scanner detection, IP reputation. Gratis dan crowd-powered.                                                          | Layer 7 attack (SQLi, XSS) — CrowdSec tidak baca konten request, hanya perilaku                             |
 | **SafeLine**       | WAF                    | Layer 7 (HTTP/HTTPS only)        | Reverse proxy yang inspect semua HTTP request sebelum diteruskan ke aplikasi. Detect SQLi, XSS, LFI, RCE, path traversal. Chinese-made, open source, UI bagus.                                                       | Di depan web server / aplikasi sebagai reverse proxy                 | Protect web application dari OWASP Top 10. Easy setup, UI friendly. Cocok untuk homelab dan SME.                                             | Traffic non-HTTP. Tidak relevan untuk protect SSH, database, atau protocol lain                             |
 | **ModSecurity**    | WAF                    | Layer 7 (HTTP/HTTPS only)        | WAF module untuk Nginx/Apache. Rule-based, OWASP CRS (Core Rule Set) adalah ruleset standarnya. Lebih mature dari SafeLine, lebih susah dikonfigurasi.                                                               | Embedded di dalam Nginx/Apache config                                | Enterprise web protection. OWASP CRS sangat comprehensive.                                                                                   | Standalone — butuh web server sebagai host                                                                  |
@@ -227,25 +226,25 @@ Upgrade:
 
 ## Satu Tabel Akhir — Quick Reference
 
-| Tool               | Blokir?              | Alert?   | Log/Catat?     | Layer | Posisi di Network     |
-| ------------------ | -------------------- | -------- | -------------- | ----- | --------------------- |
-| **Snort**          | ✅ (IPS mode)        | ✅       | Terbatas       | 3–7   | Inline                |
-| **Suricata**       | ✅ (IPS mode)        | ✅       | ✅ (Zeek-like) | 3–7   | Inline atau Passive   |
-| **Zeek**           | ❌                   | ❌       | ✅✅✅         | 3–7   | Passive (tap/span)    |
-| **CrowdSec**       | ✅ (IP level)        | ✅       | ✅             | 3–4   | Di host               |
-| **SafeLine**       | ✅ (HTTP)            | ✅       | ✅             | 7     | Reverse proxy         |
-| **ModSecurity**    | ✅ (HTTP)            | ✅       | ✅             | 7     | Di dalam Nginx/Apache |
-| **Cloudflare WAF** | ✅ (HTTP)            | ✅       | ✅             | 7     | Cloud edge            |
-| **Wazuh**          | ❌ (butuh integrasi) | ✅       | ✅✅✅         | Host  | Di dalam host         |
-| **Fail2ban**       | ✅ (IP via iptables) | Terbatas | ❌             | 3–4   | Di host               |
+| Tool | Blokir? | Alert? | Log/Catat? | Layer | Posisi di Network |
+|---|---|---|---|---|---|
+| **Snort** | ✅ (IPS mode) | ✅ | Terbatas | 3–7 | Inline |
+| **Suricata** | ✅ (IPS mode) | ✅ | ✅ (Zeek-like) | 3–7 | Inline atau Passive |
+| **Zeek** | ❌ | ❌ | ✅✅✅ | 3–7 | Passive (tap/span) |
+| **CrowdSec** | ✅ (IP level) | ✅ | ✅ | 3–4 | Di host |
+| **SafeLine** | ✅ (HTTP) | ✅ | ✅ | 7 | Reverse proxy |
+| **ModSecurity** | ✅ (HTTP) | ✅ | ✅ | 7 | Di dalam Nginx/Apache |
+| **Cloudflare WAF** | ✅ (HTTP) | ✅ | ✅ | 7 | Cloud edge |
+| **Wazuh** | ❌ (butuh integrasi) | ✅ | ✅✅✅ | Host | Di dalam host |
+| **Fail2ban** | ✅ (IP via iptables) | Terbatas | ❌ | 3–4 | Di host |
 
 ---
 
-> [!tip] Takeaway Utama
-> Tidak ada satu tool yang bisa cover semua layer. Stack yang baik itu berlapis — seperti Defense-in-Depth di [[purple-team-osi-killchain]]. Yang berbahaya bukan tidak punya tool, tapi merasa sudah aman karena pasang satu tool dan berpikir itu cukup.
+>[!tip] Takeaway Utama
+>Tidak ada satu tool yang bisa cover semua layer. Stack yang baik itu berlapis — seperti Defense-in-Depth di [[purple-team-osi-killchain]]. Yang berbahaya bukan tidak punya tool, tapi merasa sudah aman karena pasang satu tool dan berpikir itu cukup.
 
-> [!warning] Gotcha yang Sering Diabaikan
-> **Semua IDS/IPS buta terhadap traffic terenkripsi (TLS) tanpa TLS inspection.** Suricata tidak bisa inspect isi HTTPS tanpa decrypt dulu. CrowdSec tidak peduli isi — hanya perilaku. Hanya WAF yang positioned sebagai reverse proxy yang bisa baca isi HTTPS. Ini kenapa banyak C2 modern pakai HTTPS over port 443 — lolos dari kebanyakan IDS.
+>[!warning] Gotcha yang Sering Diabaikan
+>**Semua IDS/IPS buta terhadap traffic terenkripsi (TLS) tanpa TLS inspection.** Suricata tidak bisa inspect isi HTTPS tanpa decrypt dulu. CrowdSec tidak peduli isi — hanya perilaku. Hanya WAF yang positioned sebagai reverse proxy yang bisa baca isi HTTPS. Ini kenapa banyak C2 modern pakai HTTPS over port 443 — lolos dari kebanyakan IDS.
 
 ---
 
@@ -259,4 +258,4 @@ Upgrade:
 
 ---
 
-_IDS vs IPS vs WAF vs NSM | Snort · Suricata · Zeek · CrowdSec · SafeLine · Wazuh · Fail2ban · Bukan Apple vs Apple_
+*IDS vs IPS vs WAF vs NSM | Snort · Suricata · Zeek · CrowdSec · SafeLine · Wazuh · Fail2ban · Bukan Apple vs Apple*

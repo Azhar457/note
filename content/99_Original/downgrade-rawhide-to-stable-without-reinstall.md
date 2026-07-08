@@ -2,11 +2,12 @@
 title: "Turun dari Fedora Rawhide → Stable Tanpa Reinstall"
 tags:
   - setup
+  - original
 aliases:
   - "downgrade-rawhide-to-stable-without-reinstall"
 created: "2026-07-06"
-updated: "2026-07-06"
-status: active
+updated: "2026-07-07"
+status: Ongoing
 ---
 
 # Turun dari Fedora Rawhide → Stable Tanpa Reinstall
@@ -174,3 +175,34 @@ sudo dnf reinstall fedora-release fedora-release-common --releasever=44
 - **`--justdb`** cuma buat package yang udah pasti orphan/obsolete — cek dulu `dnf provides <lib>`.
 - **9 package fc45 sisa** itu gak kritis: codec (x264, x265, vlc-plugins), appstream metadata, yama-ptrace. Biarin aja — nanti update `dnf distro-sync` selanjutnya bakal ke-replace.
 - **RPM Fusion appstream** dari fc45 gak masalah — cuma data metadata buat GNOME Software.
+
+---
+
+## 🛠️ Analisis Teknis & Penjelasan Mekanisme Kerja
+
+Proses downgrade sistem operasi Linux (khususnya distribusi berbasis RPM seperti Fedora/RHEL) adalah operasi tingkat rendah yang berisiko tinggi. Di bawah ini adalah penjelasan mendalam mengenai mengapa langkah-langkah di atas diperlukan dan bagaimana DNF mengelola dependensi selama proses transisi.
+
+### 1. DNF Config-Manager & Prioritas Repositori
+Perintah `dnf config-manager` digunakan untuk memodifikasi konfigurasi repositori secara cepat di `/etc/yum.repos.d/`. Menyetel `rawhide.enabled=0` dan mengaktifkan repositori stabil (`fedora` dan `updates`) memberi tahu manajer paket untuk tidak lagi melihat database paket fc45 (Rawhide) yang tidak stabil, melainkan mengarahkan indeks paket ke versi stabil fc44.
+
+### 2. Memaksa Releasever via dnf.conf
+Secara bawaan, DNF mendeteksi versi rilis sistem melalui paket `fedora-release`. Namun, selama proses downgrade, paket ini masih berada pada versi fc45. Dengan menuliskan `releasever=44` di `/etc/dnf/dnf.conf`, kita secara paksa mengesampingkan deteksi otomatis tersebut dan mengarahkan DNF untuk selalu mengunduh metadata dari cermin repositori Fedora 44.
+
+### 3. Memahami Parameter Distro-Sync
+Perintah utama yang melakukan pergeseran paket adalah:
+`sudo dnf --releasever=44 distro-sync --allowerasing --disablerepo="rpmfusion*" --best`
+*   `distro-sync`: Menyelaraskan seluruh paket terinstal ke versi terbaru yang tersedia di repositori aktif (dalam hal ini, karena kita memaksa versi 44, manajer paket akan mendowngrade paket yang versinya lebih tinggi dari fc44).
+*   `--allowerasing`: Mengizinkan manajer paket untuk menghapus paket terinstal jika diperlukan untuk menyelesaikan konflik dependensi. Tanpa flag ini, transaksi akan langsung gagal jika ada paket fc45 yang tidak memiliki padanan fc44.
+*   `--best`: Memaksa DNF untuk hanya memilih kandidat paket terbaik (versi tertinggi yang cocok). Jika tidak dapat diselesaikan, transaksi akan dibatalkan.
+*   `--disablerepo="rpmfusion*"`: Mematikan repositori pihak ketiga selama proses inti untuk menghindari konflik library eksternal (seperti driver Nvidia atau codec media) yang seringkali mengacaukan dependency tree.
+
+### 4. Risiko Penggunaan `--nodeps --justdb` pada RPM
+Pada Step 5, digunakan perintah:
+`sudo rpm -e --nodeps --justdb fmt11 openssl3-libs libpmem libpmemobj`
+Ini adalah operasi bedah darurat pada database RPM:
+*   `--nodeps`: Menginstruksikan RPM untuk mengabaikan pemeriksaan ketergantungan paket. RPM akan menghapus entri paket meskipun ada paket lain yang membutuhkannya.
+*   `--justdb`: Hanya menghapus catatan registrasi paket dari database RPM lokal (`/var/lib/rpm/`), namun **TIDAK** menghapus berkas biner/library fisik (`.so`) dari sistem berkas.
+*   *Mengapa ini aman untuk kasus di atas?* Karena library fisik tetap berada di `/usr/lib64/` sehingga program yang sedang berjalan tidak akan crash seketika karena kehilangan pustaka tautan dinamis. Setelah distro-sync berhasil dijalankan, DNF akan menginstal versi fc44 yang benar dan menimpa berkas fisik lama tersebut dengan aman.
+
+### 5. Mengatasi Masalah openh264 vs noopenh264
+Masalah lisensi paten Cisco membuat Fedora membagi library codec H.264 menjadi `noopenh264` (versi dummy tanpa kemampuan decode paten, bawaan repositori Fedora) dan `openh264` (versi fungsional dari repositori Cisco). Pertukaran paket menggunakan `dnf swap` memastikan bahwa browser dan pemutar media dapat memanggil akselerasi perangkat keras dengan benar pada versi Fedora yang baru diturunkan.

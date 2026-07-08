@@ -45,69 +45,64 @@ Finally, review the entire document to ensure it meets the word count and that a
 
 ---
 
-## **1. Pentingnya Kesadaran Keamanan Siber di Era Digital**
+## **1. Pentingnya Kesadaran Keamanan Siber di Era Digital**  
 
-Ancaman siber 2026 telah berevolusi menjadi **serangan AI-driven, zero-day exploits, dan supply chain sabotage**. Tidak lagi hanya phising manual, peretasan kini melibatkan alat generative AI untuk membuat pesan disinformasi yang hampir sempurna replika internal perusahaan. Contoh: peretas dapat menggunakan LLM (Large Language Model) untuk membuat email "dari rekan kerja" dengan tanda tangan dan jadwal kegiatan yang _100% valid_ berdasarkan data eksfiltrasi sebelumnya.
+Ancaman siber 2026 telah berevolusi menjadi **serangan AI-driven, zero-day exploits, dan supply chain sabotage**. Tidak lagi hanya phising manual, peretasan kini melibatkan alat generative AI untuk membuat pesan disinformasi yang hampir sempurna replika internal perusahaan. Contoh: peretas dapat menggunakan LLM (Large Language Model) untuk membuat email "dari rekan kerja" dengan tanda tangan dan jadwal kegiatan yang *100% valid* berdasarkan data eksfiltrasi sebelumnya.  
 
-### **Statistik Ancaman 2026**
+### **Statistik Ancaman 2026**  
+| Tipe Serangan | % Kenaikan vs 2025 | Dampak Rata-Rata |  
+|---------------|---------------------|------------------|  
+| Phishing AI-Driven | +320% | 245 hari downtime |  
+| Ransomware Supply Chain | +180% | $9.1M kerugian |  
+| Credential Stuffing | +75% | 3.2TB data bocor |  
 
-| Tipe Serangan           | % Kenaikan vs 2025 | Dampak Rata-Rata  |
-| ----------------------- | ------------------ | ----------------- |
-| Phishing AI-Driven      | +320%              | 245 hari downtime |
-| Ransomware Supply Chain | +180%              | $9.1M kerugian    |
-| Credential Stuffing     | +75%               | 3.2TB data bocor  |
-
-### **Arsitektur Defensi: Zero Trust Prinsip**
-
-Zero Trust tidak hanya politik desain jaringan—ia adalah paradigma pengoperasian yang **memandang setiap request sebagai potensi ancaman**. Implementasi khas:
-
-1. **Micro-Segmentation** (misal: menggunakan AWS Network Firewall)
-2. **Continuous Verification** (via Google BeyondCorp)
-3. **Least Privilege** (aktifkan hanya ACL yang diperlukan)
+### **Arsitektur Defensi: Zero Trust Prinsip**  
+Zero Trust tidak hanya politik desain jaringan—ia adalah paradigma pengoperasian yang **memandang setiap request sebagai potensi ancaman**. Implementasi khas:  
+1. **Micro-Segmentation** (misal: menggunakan AWS Network Firewall)  
+2. **Continuous Verification** (via Google BeyondCorp)  
+3. **Least Privilege** (aktifkan hanya ACL yang diperlukan)  
 
 ---
 
-## **2. Serangan Phishing: Mekanisme dan Contoh Kode**
+## **2. Serangan Phishing: Mekanisme dan Contoh Kode**  
 
-### **Contoh Kode untuk Deteksi URL Suspicious**
-
-Python dapat memfilter URL mencurigakan berdasarkan pola regex:
+### **Contoh Kode untuk Deteksi URL Suspicious**  
+Python dapat memfilter URL mencurigakan berdasarkan pola regex:  
 
 ```python
-import re
+import re  
 
-def is_suspicious(url):
-    patterns = {
-        r'microsoft\.login',  # Domain spoofing
-        r'0day-credentials',  # Keyword phishing
-        r'\\(?:[^\\:\n]*/?\s+)*\.',  # File attachment aneh
-    }
-    for p in patterns:
-        if re.search(p, url, re.IGNORECASE):
-            return True
-    return False
+def is_suspicious(url):  
+    patterns = {  
+        r'microsoft\.login',  # Domain spoofing  
+        r'0day-credentials',  # Keyword phishing  
+        r'\\(?:[^\\:\n]*/?\s+)*\.',  # File attachment aneh  
+    }  
+    for p in patterns:  
+        if re.search(p, url, re.IGNORECASE):  
+            return True  
+    return False  
 
-# Uji coba
-test_url = "https://microsoft-login.office365/phishy.html"
-if is_suspicious(test_url):
-    print("[!] URL menyerupai phishing.")
+# Uji coba  
+test_url = "https://microsoft-login.office365/phishy.html"  
+if is_suspicious(test_url):  
+    print("[!] URL menyerupai phishing.")  
 ```
 
-### **Skrip PowerShell untuk Isolasi File Mencurigakan**
-
-Gunakan PowerShell untuk memindai dan kunci file dengan hash malware:
+### **Skrip PowerShell untuk Isolasi File Mencurigakan**  
+Gunakan PowerShell untuk memindai dan kunci file dengan hash malware:  
 
 ```powershell
-# Baca database malware dari file TSV
+# Baca database malware dari file TSV  
 $malwareDb = Get-Content -Path "C:\malware_hashes.tsv" | ConvertFrom-CSV -Delimiter "`t" -Header "Hash", "Type"
 
-# Pindai folder kerja
+# Pindai folder kerja  
 $files = Get-ChildItem -Path "C:\Users\*" -Recurse | Where-Object { $_.Extension -in ".exe", ".dll" }
 
-foreach ($file in $files) {
-    $hash = Get-FileHash -Algorithm SHA256 -Path $file.FullName
-    if ($malwareDb.Hash -contains $hash.Hash) {
-        Move-Item -Path $file.FullName -Destination "C:\isolated_malware\"
+foreach ($file in $files) {  
+    $hash = Get-FileHash -Algorithm SHA256 -Path $file.FullName  
+    if ($malwareDb.Hash -contains $hash.Hash) {  
+        Move-Item -Path $file.FullName -Destination "C:\isolated_malware\"  
         Write-Output "Isolated: $file.FullName (Type: $($malwareDb.Type))"
     }
 }
@@ -115,80 +110,73 @@ foreach ($file in $files) {
 
 ---
 
-## **3. Ransomware: Mitigasi dan Contoh Serangan 2026**
+## **3. Ransomware: Mitigasi dan Contoh Serangan 2026**  
 
-### **Skenario Serangan Ransomware Multi-Vector**
+### **Skenario Serangan Ransomware Multi-Vector**  
+1. **Injeksi DNS** → Eksploitasi Kubernetes DNS resolver (CVE-2026-10001)  
+2. **Eksekusi Payload** → `rm -rf /` via compromised container  
+3. **Encrypted File Drop** → `.enc` file dengan AES-256-GCM  
 
-1. **Injeksi DNS** → Eksploitasi Kubernetes DNS resolver (CVE-2026-10001)
-2. **Eksekusi Payload** → `rm -rf /` via compromised container
-3. **Encrypted File Drop** → `.enc` file dengan AES-256-GCM
-
-### **Code Snippet untuk Deteksi File Enkripsi**
-
-Shell script untuk memantau file yang tidak bisa diakses:
+### **Code Snippet untuk Deteksi File Enkripsi**  
+Shell script untuk memantau file yang tidak bisa diakses:  
 
 ```bash
-#!/bin/bash
-THRESHOLD=5
+#!/bin/bash  
+THRESHOLD=5  
 
-# Hitung file dengan permission error
-count=$(find /data -perm /u=r,g=r,o=r -type f 2>/dev/null | wc -l)
+# Hitung file dengan permission error  
+count=$(find /data -perm /u=r,g=r,o=r -type f 2>/dev/null | wc -l)  
 
-if [ "$count" -gt "$THRESHOLD" ]; then
-    echo "[CRITICAL] Potensi enkripsi ransomware! $count file tidak bisa diakses." | mail -s "Ransomware Alert" admin@example.org
-    systemctl stop nginx
-    systemctl stop database
+if [ "$count" -gt "$THRESHOLD" ]; then  
+    echo "[CRITICAL] Potensi enkripsi ransomware! $count file tidak bisa diakses." | mail -s "Ransomware Alert" admin@example.org  
+    systemctl stop nginx  
+    systemctl stop database  
 fi
 ```
 
 ---
 
-## **4. Supply Chain Attacks: Studi Kasus dan Solusi**
+## **4. Supply Chain Attacks: Studi Kasus dan Solusi**  
 
-### **Serangan 2026: Poisoned NPM Package**
+### **Serangan 2026: Poisoned NPM Package**  
+**Contoh:** Paket `lodash` diubah untuk mengirim telemetri penggunaan ke C2. Solusi:  
+- Gunakan **SBOM (Software Bill of Materials)** dari CycloneDX  
+- Aktifkan **subresource integrity (SRI)** pada npm  
 
-**Contoh:** Paket `lodash` diubah untuk mengirim telemetri penggunaan ke C2. Solusi:
-
-- Gunakan **SBOM (Software Bill of Materials)** dari CycloneDX
-- Aktifkan **subresource integrity (SRI)** pada npm
-
-### **Code: Enforce SRI di NPM**
-
-`.npmrc` untuk memaksimalkan keamanan:
+### **Code: Enforce SRI di NPM**  
+`.npmrc` untuk memaksimalkan keamanan:  
 
 ```ini
-# Force integrity check for all packages
-audit=true
-ci=true
-strict-ssl=true
+# Force integrity check for all packages  
+audit=true  
+ci=true  
+strict-ssl=true  
 
-# Use SRI cache from hardened registry
-registry=https://registry.npmjs.org/
+# Use SRI cache from hardened registry  
+registry=https://registry.npmjs.org/  
 cache=https://hardened-cdn.pkg.cacheserv.org/
 ```
 
 ---
 
-## **5. Password Best Practices: Kecocokan NIST 2026**
+## **5. Password Best Practices: Kecocokan NIST 2026**  
 
-### **Password Validator Berbasis Regex**
-
-Python validator dengan kebijakan NIST 2026:
+### **Password Validator Berbasis Regex**  
+Python validator dengan kebijakan NIST 2026:  
 
 ```python
-import re
+import re  
 
-def validate_password(password):
-    if len(password) < 10:
-        return False, "Minimal 10 karakter"
-    if not re.search(r'[A-Z]', password):
-        return False, "Butuh huruf kapital"
-    if not re.search(r'[a-z]', password):
-        return False, "Butuh huruf kecil"
-    if not re.search(r'[0-9]', password):
-        return False, "Butuh angka"
-    if not re.search(r'[!@#$%^&*_=+]', password):
-        return False, "Butuh simbol"
-    if re.search(r'123|password|admin', password.lower()):
+def validate_password(password):  
+    if len(password) < 10:  
+        return False, "Minimal 10 karakter"  
+    if not re.search(r'[A-Z]', password):  
+        return False, "Butuh huruf kapital"  
+    if not re.search(r'[a-z]', password):  
+        return False, "Butuh huruf kecil"  
+    if not re.search(r'[0-9]', password):  
+        return False, "Butuh angka"  
+    if not re.search(r'[!@#$%^&*_=+]', password):  
+        return False, "Butuh simbol"  
+    if re.search(r'123|password|admin', password.lower()):  
         return False
-```

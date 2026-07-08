@@ -13,8 +13,8 @@ cssclasses: ""
 
 # ⚙️ CI/CD — Deep Dive: Shift Left ↔ Shift Right
 
-> **Satu kalimat dari Red Hat:** _"To shift left is to test early. To shift right is to test in production."_
->
+> **Satu kalimat dari Red Hat:** *"To shift left is to test early. To shift right is to test in production."*
+> 
 > **Yang Red Hat tidak bilang:** Keduanya adalah dua sisi dari satu strategi — dan pipeline yang tidak mengimplementasikan keduanya secara bersamaan adalah pipeline yang incomplete. Dokumen ini bedah **mekanisme teknis**, bukan definisi.
 
 > [!info] Konteks
@@ -30,7 +30,7 @@ TRADITIONAL SDLC (Waterfall, testing di akhir):
 Code → Build → [TEST disini saja] → Stage → Deploy → Production
   ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
   Bug ditemukan di production = sangat mahal untuk fix
-
+  
 MODERN SDLC (Shift Left + Shift Right):
 
 ◄─────────────── SHIFT LEFT ────────────────► ◄──── SHIFT RIGHT ────►
@@ -75,8 +75,8 @@ Developer commit ke shared branch setiap hari (atau lebih sering)
 ```yaml
 # .github/workflows/ci.yml — Contoh GitHub Actions
 # Ini yang jalan setiap kali developer push code
-```
 
+```
 ```
 name: CI Pipeline
 
@@ -163,7 +163,7 @@ jobs:
         run: |
           pytest tests/unit/ -v --cov=app --cov-report=xml
           # Jika coverage < 80%, pipeline gagal
-
+          
       - name: Check Coverage Threshold
         run: |
           coverage report --fail-under=80
@@ -198,7 +198,7 @@ jobs:
           # Contoh policy: tidak boleh ada library dengan license GPL
           #                tidak boleh ada CVE CVSS > 9.0
           #                semua image harus signed
-
+          
 ```
 
 ### Tiga Level Testing di CI
@@ -558,7 +558,7 @@ TIGA PILAR OBSERVABILITY (disebut "Three Pillars"):
 1. METRICS (angka agregat):
    → CPU usage, memory, request per second, error rate, latency (P50/P95/P99)
    → Tools: Prometheus + Grafana, Datadog, New Relic
-
+   
    CONTOH ALERT:
    rule: HTTP 5xx rate > 1% untuk 5 menit → PagerDuty alert
    rule: P99 latency > 2 detik → Slack notification
@@ -566,11 +566,11 @@ TIGA PILAR OBSERVABILITY (disebut "Three Pillars"):
 2. LOGS (event detail):
    → Setiap request, setiap error, setiap state change
    → Tools: ELK Stack (Elasticsearch + Logstash + Kibana), Loki + Grafana
-
+   
    STRUCTURED LOGGING (wajib untuk shift right):
    # BAD: log sebagai string biasa
    logger.info("User 12345 login from 192.168.1.1")
-
+   
    # GOOD: log sebagai JSON yang bisa di-query
    logger.info({
      "event": "user_login",
@@ -584,7 +584,7 @@ TIGA PILAR OBSERVABILITY (disebut "Three Pillars"):
    → Satu request HTTP → bisa melewati 20 microservice
    → Trace tunjukkan: di service mana lambatnya? di mana error-nya?
    → Tools: Jaeger, Zipkin, Tempo (Grafana), OpenTelemetry
-
+   
    CONTOH TRACE:
    Request /checkout (200ms total)
    ├── AuthService (5ms)
@@ -664,7 +664,6 @@ $10,000 ──►                                              ★ Production Bu
 # .github/workflows/minimal-ci.yml
 # Pipeline minimal tapi proper untuk project kecil
 ```
-
 ```
 name: CI/CD
 
@@ -788,19 +787,17 @@ CI/CD adalah IMPLEMENTATION dari konsep yang sudah ada di vault:
 
 ---
 
-> [!tip] Tiga yang Paling Worth Dipraktikkan Sekarang
-> Tanpa lab besar atau biaya:
->
-> 1.  **GitHub Actions + Semgrep** — buat repo, setup pipeline CI basic dengan SAST. Gratis, 30 menit setup, langsung produksi skills yang dipakai di industri.
-> 2.  **Trivy untuk container scanning** — install Docker + Trivy, scan image apa saja, lihat CVE yang ditemukan. `trivy image nginx:latest` — hasilnya mengejutkan.
-> 3.  **Chaos Mesh di Minikube** — install Minikube (Kubernetes lokal), deploy app sederhana, inject pod failure, observe behavior. Skill chaos engineering masih sangat langka.
+>[!tip] Tiga yang Paling Worth Dipraktikkan Sekarang
+>Tanpa lab besar atau biaya:
+>1. **GitHub Actions + Semgrep** — buat repo, setup pipeline CI basic dengan SAST. Gratis, 30 menit setup, langsung produksi skills yang dipakai di industri.
+>2. **Trivy untuk container scanning** — install Docker + Trivy, scan image apa saja, lihat CVE yang ditemukan. `trivy image nginx:latest` — hasilnya mengejutkan.
+>3. **Chaos Mesh di Minikube** — install Minikube (Kubernetes lokal), deploy app sederhana, inject pod failure, observe behavior. Skill chaos engineering masih sangat langka.
 
-> [!warning] Anti-Pattern yang Sering Terjadi
->
-> 1.  **Pipeline yang selalu green** = pipeline yang tidak useful (semua check di-skip atau threshold terlalu rendah)
-> 2.  **Test hanya di staging** = tidak dapat feedback dari real-world behavior
-> 3.  **Chaos engineering tanpa observability** = tidak tahu apa yang terjadi saat chaos diinjeksi
-> 4.  **SAST tanpa tuning** = terlalu banyak false positive → developer abaikan semua alert
+>[!warning] Anti-Pattern yang Sering Terjadi
+>1. **Pipeline yang selalu green** = pipeline yang tidak useful (semua check di-skip atau threshold terlalu rendah)
+>2. **Test hanya di staging** = tidak dapat feedback dari real-world behavior
+>3. **Chaos engineering tanpa observability** = tidak tahu apa yang terjadi saat chaos diinjeksi
+>4. **SAST tanpa tuning** = terlalu banyak false positive → developer abaikan semua alert
 
 ---
 
@@ -815,4 +812,4 @@ CI/CD adalah IMPLEMENTATION dari konsep yang sudah ada di vault:
 
 ---
 
-_CI/CD Deep Dive | Shift Left (SAST/DAST/SCA/Threat Model) · Shift Right (Chaos/Observability/Canary) · Pipeline Anatomy · DORA Metrics · DevSecOps_
+*CI/CD Deep Dive | Shift Left (SAST/DAST/SCA/Threat Model) · Shift Right (Chaos/Observability/Canary) · Pipeline Anatomy · DORA Metrics · DevSecOps*

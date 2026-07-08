@@ -45,7 +45,6 @@ I need to ensure technical terms are explained where necessary and that the expa
 # How Context7 MCP Works and Makes AI Better
 
 ## ⚡ Core Insight
-
 Context7 solves the **training data cutoff problem** — the primary cause of hallucination in Large Language Models (LLMs) when handling API code. By injecting real-time, version-specific documentation into the AI's context window via the Model Context Protocol (MCP), Context7 transforms every AI session into a development environment with perfect, up-to-date documentation.
 
 ---
@@ -53,25 +52,21 @@ Context7 solves the **training data cutoff problem** — the primary cause of ha
 ## 🧠 The Problem Context7 Solves
 
 ### LLM's Inherent Training Limitations
-
 LLMs are trained on static datasets, making them fundamentally out-of-date when dealing with:
-
 - Rapidly evolving libraries (e.g., React 18 vs. React 19)
 - Version-specific APIs (e.g., Next.js App Router in v13 vs. v14)
 - Framework ecosystems with divergent syntax (e.g., SvelteKit, Astro, Remix)
 
-| Problem               | Without Context7                                                            | With Context7                                            |
-| --------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------- |
-| **Outdated code**     | LLM suggests `react-helmet` for React Server Components — deprecated in v19 | Context7 fetches `next/head` from v19+ documentation     |
-| **Hallucination**     | LLM invents non-existent APIs like `useServerAction()` in React             | Context7 pulls exact syntax from React 19 source         |
-| **Version confusion** | "What version of Prisma is this?" → AI guesses based on context             | Context7 auto-detects via `package.json` or `.env` files |
-| **Context bloat**     | User pastes 3000+ token TypeScript docs into prompt                         | Context7 injects 800 optimal tokens                      |
-| **Research time**     | Manual search + copy-paste for 15+ minutes                                  | Zero friction via MCP injection                          |
+| Problem | Without Context7 | With Context7 |
+|---------|-----------------|---------------|
+| **Outdated code** | LLM suggests `react-helmet` for React Server Components — deprecated in v19 | Context7 fetches `next/head` from v19+ documentation |
+| **Hallucination** | LLM invents non-existent APIs like `useServerAction()` in React | Context7 pulls exact syntax from React 19 source |
+| **Version confusion** | "What version of Prisma is this?" → AI guesses based on context | Context7 auto-detects via `package.json` or `.env` files |
+| **Context bloat** | User pastes 3000+ token TypeScript docs into prompt | Context7 injects 800 optimal tokens |
+| **Research time** | Manual search + copy-paste for 15+ minutes | Zero friction via MCP injection |
 
 ### Real-World Scenario: API Migrations
-
 When Google releases a breaking change to its `Cloud Natural Language API`, developers using LLMs face:
-
 ```python
 # Pre-Context7 (LLM hallucination)
 from google.cloud import language_v2beta2
@@ -82,7 +77,7 @@ response = client.classify_text(document='...')
 { "docs": [
   {"title": "Detect Entities"},
   {"code": "from google.cloud import language_v2\nclient = language_v2.LanguageServiceClient()"},
-  {"url": "https://cloud.google.com/natural-language/docs"}
+  {"url": "https://cloud.google.com/natural-language/docs"} 
 ] }
 ```
 
@@ -91,9 +86,7 @@ response = client.classify_text(document='...')
 ## 🔧 Architecture Deep Dive
 
 ### Protocol Overview
-
 Context7 uses **JSON-RPC 2.0 over stdio/HTTP** for low-latency communication between:
-
 - Code editors (VS Code, JetBrains IDEs)
 - AI assistants (Claude, ChatGPT)
 - CLI tools (ctx7 CLI)
@@ -154,18 +147,15 @@ Documentation Sources (GitHub, official docs, CHANGELOG)
 ## 🎯 Technical Breakthroughs
 
 ### 1. Eliminating API Hallucinations
-
 Context7 mitigates hallucinations using:
-
-- **Strict Version Matching**
-
+- **Strict Version Matching**  
   ```json
   // Auto-detects version from context.yml
   {
     "next": "^16.0.0",
     "react": "^19.0.0"
   }
-
+  
   // Returns relevant docs from indexed version
   "next": {
     "docs": "https://nextjs.org/docs/app/building-your-application",
@@ -180,7 +170,5 @@ Context7 mitigates hallucinations using:
   - Informs about deprecated APIs removed in Next.js 14+
 
 ### 2. Version-Aware Response Engine
-
 Context7's version resolver uses:
-
 - AST parsing for `

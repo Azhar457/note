@@ -1,5 +1,5 @@
 ---
-title: "Comprehensive Threat Directory — Deep Dive Taksonomi Ancaman, Teknik Eksploitasi, dan Profil Threat Actor"
+title: "Comprehensive Threat Directory — Deep Dive: Taksonomi Ancaman, Teknik Eksploitasi, dan Profil Threat Actor"
 tags:
   - cyber-security
   - library
@@ -52,52 +52,47 @@ Need to check word count as I go. Let me start expanding each section systematic
 
 ## Daftar Isi
 
-- [[#Pengantar]]
-- [[#Struktur Direktori]]
-- [[#Kategori Utama]]
-- [[#Cara Menggunakan dalam Threat Modeling]]
-- [[#Contoh Entri]]
-- [[#Koneksi ke Vault]]
+- [[#Pengantar]]  
+- [[#Struktur Direktori]]  
+- [[#Kategori Utama]]  
+- [[#Cara Menggunakan dalam Threat Modeling]]  
+- [[#Contoh Entri]]  
+- [[#Koneksi ke Vault]]  
 - [[#Referensi]]
 
 ---
 
 ## Pengantar
 
-Dalam operasi keamanan siber, memahami lawan adalah langkah pertama. _Comprehensive Threat Directory_ (CTD) berusaha menyatukan berbagai sumber taksonomi seperti MITRE ATT&CK, CAPEC, CWE, VERIS, serta intel dari vendor dan komunitas menjadi satu referensi yang mudah diakses dan dapat ditelusuri melalui wiki-link di vault Obsidian.
+Dalam operasi keamanan siber, memahami lawan adalah langkah pertama. *Comprehensive Threat Directory* (CTD) berusaha menyatukan berbagai sumber taksonomi seperti MITRE ATT&CK, CAPEC, CWE, VERIS, serta intel dari vendor dan komunitas menjadi satu referensi yang mudah diakses dan dapat ditelusuri melalui wiki-link di vault Obsidian.
 
-CTD memiliki 3 komponen utama:
-
-1. **Taksonomi Ancaman**: Pemetaan struktural ancaman berdasarkan lapisan OSI, CPU Ring, dan vector attack.
-2. **TTPs (Tactics, Techniques, Procedures)**: Katalog eksplorasi teknik eksploitasi dengan ID standar (mis: T1059.001), deteksi, dan mitigasi.
+CTD memiliki 3 komponen utama:  
+1. **Taksonomi Ancaman**: Pemetaan struktural ancaman berdasarkan lapisan OSI, CPU Ring, dan vector attack.  
+2. **TTPs (Tactics, Techniques, Procedures)**: Katalog eksplorasi teknik eksploitasi dengan ID standar (mis: T1059.001), deteksi, dan mitigasi.  
 3. **Profil Threat Actor**: Analisis demografi dan taktik operasional aktor ancaman (APT, penjahat, hacktivist).
 
 ---
 
 ## Struktur Direktori
 
-File lengkap berada di:
-
+File lengkap berada di:  
 ```
 01_Library/Cyber_Security/Threat_Intel_Privacy/comprehensive-threat-directory.md
 ```
 
 ### Visualisasi Lapisan Ancaman
-
 ```text
-OSI Layer 7 (Application)       ↔ CPU Ring 3 (User Space)
-    ↓                                ↓
-OSI Layer 5-6 (Session/Presentation) ↔ CPU Ring 2 (OS Services)
-    ↓                                ↓
-OSI Layer 4 (Transport)           ↔ CPU Ring 1 (Driver Stack)
-    ↓                                ↓
+OSI Layer 7 (Application)       ↔ CPU Ring 3 (User Space)  
+    ↓                                ↓  
+OSI Layer 5-6 (Session/Presentation) ↔ CPU Ring 2 (OS Services)  
+    ↓                                ↓  
+OSI Layer 4 (Transport)           ↔ CPU Ring 1 (Driver Stack)  
+    ↓                                ↓  
 OSI Layer 1-3 (Physical/Network)  ↔ CPU Ring 0 (Kernel)
 ```
 
 ### Tabel Klasifikasi Ancaman
-
 Contoh implementasi dalam JSON untuk sistem otomatisasi ancaman:
-
 ```json
 {
   "id": "T1562.001",
@@ -122,12 +117,10 @@ Contoh implementasi dalam JSON untuk sistem otomatisasi ancaman:
 ## Kategori Utama
 
 ### 1. **Physical & Hardware Layer**
-
-- **Contoh Ancaman**:
-  - Cold boot attack pada memori RAM
+- **Contoh Ancaman**: 
+  - Cold boot attack pada memori RAM 
   - Firmware rootkit di BIOS/UEFI
 - **Deteksi Rekomendasi**:
-
 ```bash
 # Mendeteksi perubahan firmware menggunakan tripwire
 sudo apt install tripwire
@@ -136,9 +129,7 @@ tripwire -m c --config /etc/tripwire/twpol.txt
 ```
 
 ### 2. **Network & Routing**
-
 #### Exploit VLAN Hopping
-
 ```python
 # Skrip pemindaian VLAN menggunakan scapy
 from scapy.all import Ether, Dot1Q
@@ -153,9 +144,7 @@ def vlan_hopping_test():
 ```
 
 ### 3. **Operating System & Kernel**
-
 #### Deteksi Kernel Rootkit
-
 ```bash
 # Deteksi menggunakan rkhunter
 sudo apt install rkhunter
@@ -164,11 +153,8 @@ sudo rkhunter --check --sk --cronjob
 ```
 
 ### 4. **Application & Logic**
-
 #### Deteksi SQL Injection
-
 Script reguler ekspresi untuk deteksi awal:
-
 ```powershell
 # PowerShell regex scan untuk parameter SQL Injection
 $inputQuery = $_.Request.RawUrl
@@ -179,9 +165,7 @@ if ($malformed) {
 ```
 
 ### 5. **Session & Presentation**
-
 #### Eksploitasi TLS Downgrade Attack
-
 ```bash
 # Test TLS 1.0 support with ssllabs
 openssl s_client -connect example.com:443 -tls1
@@ -189,11 +173,8 @@ openssl s_client -connect example.com:443 -tls1
 ```
 
 ### 6. **Human & Social**
-
 #### Analisis Email Phishing
-
 Contoh penanda ancaman dalam log EDR:
-
 ```json
 {
   "type": "suspicious_email_attachment",
@@ -214,9 +195,7 @@ Contoh penanda ancaman dalam log EDR:
 ## Cara Menggunakan dalam Threat Modeling
 
 ### 1. **Modeling Threat pada Web App Financial**
-
 Contoh skenario threat modeling:
-
 ```mermaid
 graph TD
     A[User] -->|HTTPS| B[API Gateway]
@@ -224,4 +203,3 @@ graph TD
     C -->|Log to SIEM| D[Security Stack]
     subgraph Attacks
         B -->|SS
-```

@@ -45,21 +45,17 @@ Network security adalah sistem pertahanan yang bersifat multi-layered, memanfaat
 ---
 
 ## 📌 1. Layer 1 (Physical Layer)
-
 ### ⚠️ Ancaman Fisik
-
 - **Tap kabel fisik**: Serangan fisik pada kabel jaringan (ethernet, fiber).
 - **Evil Maid Attack**: Pengambilan data dari HDD setelah komputer terbuka secara fisik.
 - **Rogue Device**: Alat seperti USB Rubber Ducky (keyboard skrip) mengeksekusi payload pada pertama kali boot.
 
 ### 🔧 Contoh Mitigasi
-
 - **Port Lock Mechanism**: Gunakan kunci fisik untuk port USB atau RJ-45.
 - **Surveillance dengan IoT**: Integrasi CCTV dengan AI deteksi perilaku mencurigakan (misal: Raspberry Pi + OpenCV).
 - **Sealing Tamper-Evident**: Label yang rusak saat dibuka, seperti dalam sistem BIOS secure boot.
 
 **Contoh Implementasi Port Security di Switch**:
-
 ```bash
 # Port security pada Cisco Switch (Layer 2-1 crossover)
 Switch(config)# interface GigabitEthernet0/1
@@ -71,23 +67,18 @@ Switch(config-if)# switchport port-security violation shutdown
 ---
 
 ## 📌 2. Layer 2 (Data Link Layer)
-
 ### 🎯 Serangan MAC/Switch
-
 Serangan ARP Poisoning mengatur arus lalu lintas jaringan ke perangkat penyerang:
-
 ```bash
 # Ettercap untuk ARP Poisoning
-ettercap -T -q -i eth0 -M arp:remote /192.168.1.2/ //
+ettercap -T -q -i eth0 -M arp:remote /192.168.1.2/ // 
 ```
 
 ### 🔐 Solusi dengan DAI dan Port Security
-
 - **ARP Inspection (DAI)** mengvalidasi ARP packet source.
 - **Private VLAN**: Segmen VLAN yang tidak bisa berkomunikasi antarport.
 
 **Konfigurasi DAI di Cisco**:
-
 ```bash
 Switch(config)# ip arp inspection vlan 10
 Switch(config)# ip arp inspection validate src-mac dst-mac ip
@@ -98,18 +89,14 @@ Switch(config-if-range)# ip arp inspection trust
 ---
 
 ## 📌 3. Layer 3 (Network Layer)
-
 ### 🔄 BGP Route Hijacking
-
 Serangan BGP memanipulasi tabel rute:
-
 - **Contoh**: China Telecom hijack Google traffic (2010).
 - **Solusi**:
   - Implementasi **RPKI (Resource Public Key Infrastructure)** untuk validasi route.
   - Gunakan **bgpq3 + RPKI validator** untuk memantau route.
 
 **Script Sederhana Deteksi BGP Anomali**:
-
 ```python
 import bgpq3
 
@@ -123,20 +110,15 @@ for route in validator.routes(prefix):
 ---
 
 ## 📌 4. Layer 4 (Transport Layer)
-
 ### 📡 Serangan SYN Flood
-
 Contoh serangan volumetrik:
-
 ```bash
 # hping3 untuk SYN Flood
 hping3 --syn --dest-port 80 --flood target.ip
 ```
 
 ### 🛡️ Perlindungan dengan SYN Cookie
-
 **Konfigurasi NFTables**:
-
 ```bash
 sudo nft add rule ip filter input ct state invalid drop
 sudo nft add rule ip filter input limit rate 100/second accept
@@ -145,19 +127,14 @@ sudo nft add rule ip filter input limit rate 100/second accept
 ---
 
 ## 📌 5–6. Session & Presentation Layer
-
 ### 🔐 SSL Stripping (MITM)
-
 **Tools**: `sslstrip2` menurunkan HTTPS ke HTTP:
-
 ```bash
 python3 sslstrip.py -l 8080
 ```
 
 ### ✅ Perlindungan dengan HSTS
-
 **Header HSTS**:
-
 ```
 Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 ```
@@ -165,17 +142,13 @@ Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 ---
 
 ## 📌 7. Application Layer
-
 ### ⚡ Serangan RCE
-
 **Exploit SQLi ke PHP**:
-
 ```sql
 ' UNION SELECT '<?php system($_GET["cmd"]); ?>' INTO OUTFILE '/var/www/html/shell.php'
 ```
 
 ### ✊ WAF Rule Sederhana (ModSecurity):
-
 ```
 SecRule REQBODY_PROCESSOR "\$\{.*\}" "id:1000,phase:2,block,msg:'Command Injection'"
 ```
@@ -183,18 +156,14 @@ SecRule REQBODY_PROCESSOR "\$\{.*\}" "id:1000,phase:2,block,msg:'Command Injecti
 ---
 
 ## 🧱 8. Layer 8 (Human Layer)
-
 ### 🎯 Phishing dengan GoPhish
-
 **Membuat Template Phishing**:
-
 ```bash
 gophish login
 # Navigasi ke Campaign → New Template
 ```
 
 ### 🛡️ Countermeasure
-
 - **Simulasi Phishing Internal**: Gunakan **Owasp Social Engineering Toolkit**:
   ```bash
   SET --interface eth0 --noconsole
@@ -205,17 +174,14 @@ gophish login
 ---
 
 ## 🔁 Cross-Layer Vulnerabilities
-
 Serangan dapat merembet dari satu layer ke layer lain. Contoh: **DLL sideloading** (Layer 7) mengakibatkan kernel exploit (Layer 1) melalui exploit privilege escalation.
 
 ### Kasus Studi: Log4Shell Cascade
-
 - **Layer 7**: Deserialize attack di Log4j.
 - **Layer 4**: Menggunakan DDoS UDP reflection untuk mengakses endpoint.
 - **Layer 8**: Phishing email menyebarkan payload.
 
 **Mitigasi Multi-Layer**:
-
 1. Update ke Log4j 2.17+.
 2. Batasi port 123/UDP, 53/UDP dengan firewall (iptables).
 3. Blokir ekstensi file `.jar` di email gateway.
@@ -223,5 +189,4 @@ Serangan dapat merembet dari satu layer ke layer lain. Contoh: **DLL sideloading
 ---
 
 ## 🧭 Matriks Defensif per Layer
-
 | Layer | Alat Mitigasi Utama | Contoh Konfigurasi

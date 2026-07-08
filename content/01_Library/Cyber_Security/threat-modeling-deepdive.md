@@ -41,13 +41,13 @@ Threat modeling adalah aktivitas analisis keamanan yang bertujuan memahami bagai
 
 Beberapa metodologi yang banyak digunakan:
 
-| Metodologi                                                    | Fokus Utama                                                                                                                      | Tahap Utama                                                                                                                                              | Kelebihan                                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| **STRIDE** (Microsoft)                                        | Kategori ancaman berdasarkan Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege | 1. Menggambar arsitektur (DFD) 2. Mengidentifikasi ancaman per elemen 3. Menetapkan mitigasi                                                             | Mudah dipahami, terintegrasi dengan SDL Microsoft                                        |
-| **PASTA** (Process for Attack Simulation and Threat Analysis) | Risiko berbasis seranggan berulang tahapan                                                                                       | 1. Tujuan bisnis 2. Scope teknis 3. Decomposisi aplikasi 4. Analisis ancaman 5. Analisis kerentanan 6. Analisis serangan 7. Dampak dan risiko 8. Respons | Mengkaitkan risiko bisnis dengan teknikal, cocok untuk risk management formal            |
-| **Attack Tree**                                               | Pohon keputusan yang menunjukkan jalur serangan dari tujuan ke leaf eksploitasi                                                  | 1. Definisikan tujuan attacker 2. Pecah menjadi sub-tujuan (AND/OR) 3. Tambahkan nilai biaya/keterampilan                                                | Visual intuitif, mudah untuk komunikasi dengan pemangku kepentingan non-teknis           |
-| **TRIKE**                                                     | Risiko berbasis kebutuhan kepatuhan dan auditing                                                                                 | 1. Definisikan aktor dan hak 2. Modelkan prinsip keamanan (authority, osv) 3. Identifikasi pelanggaran                                                   | Fokus pada integritas dan akuntabilitas, berguna untuk sistem yang altamente terregulasi |
-| **VAST** (Visual, Agile, Simple Threat modeling)              | Skalabilitas dalam tim DevOps                                                                                                    | 1. Application Threat Map (developer view) 2. Operational Threat Map (infrastructure/ops view)                                                           | Dirancang untuk integrasi terus-menerus dalam CI/CD pipeline                             |
+| Metodologi | Fokus Utama | Tahap Utama | Kelebihan |
+|------------|-------------|-------------|-----------|
+| **STRIDE** (Microsoft) | Kategori ancaman berdasarkan Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege | 1. Menggambar arsitektur (DFD) 2. Mengidentifikasi ancaman per elemen 3. Menetapkan mitigasi | Mudah dipahami, terintegrasi dengan SDL Microsoft |
+| **PASTA** (Process for Attack Simulation and Threat Analysis) | Risiko berbasis seranggan berulang tahapan | 1. Tujuan bisnis 2. Scope teknis 3. Decomposisi aplikasi 4. Analisis ancaman 5. Analisis kerentanan 6. Analisis serangan 7. Dampak dan risiko 8. Respons | Mengkaitkan risiko bisnis dengan teknikal, cocok untuk risk management formal |
+| **Attack Tree** | Pohon keputusan yang menunjukkan jalur serangan dari tujuan ke leaf eksploitasi | 1. Definisikan tujuan attacker 2. Pecah menjadi sub-tujuan (AND/OR) 3. Tambahkan nilai biaya/keterampilan | Visual intuitif, mudah untuk komunikasi dengan pemangku kepentingan non-teknis |
+| **TRIKE** | Risiko berbasis kebutuhan kepatuhan dan auditing | 1. Definisikan aktor dan hak 2. Modelkan prinsip keamanan (authority, osv) 3. Identifikasi pelanggaran | Fokus pada integritas dan akuntabilitas, berguna untuk sistem yang altamente terregulasi |
+| **VAST** (Visual, Agile, Simple Threat modeling) | Skalabilitas dalam tim DevOps | 1. Application Threat Map (developer view) 2. Operational Threat Map (infrastructure/ops view) | Dirancang untuk integrasi terus-menerus dalam CI/CD pipeline |
 
 ### Konsep Dasar yang Harus Dipahami
 
@@ -79,18 +79,18 @@ Berikut adalah alur kerja yang dapat disesuaikan dengan metodologi pilihan:
      +----------------+       HTTPS       +----------------+
      |   User (Ext)   | <---------------> |   Web App      |
      +----------------+                   +----------------+
-                                              |
-                                      +-------v-------+
-                                      |   API GW      |
-                                      +-------+-------+
-                                              |
-                                  +-----------v-----------+
-                                  |   Auth Service        |
-     	                          +-----------+-----------+
-                                              |
-                                      +-------v-------+
-                                      |   DB (Postgres) |
-                                      +---------------+
+		                                         |
+		                                 +-------v-------+
+		                                 |   API GW      |
+		                                 +-------+-------+
+		                                         |
+		                             +-----------v-----------+
+		                             |   Auth Service        |
+			                          +-----------+-----------+
+		                                         |
+		                                 +-------v-------+
+		                                 |   DB (Postgres) |
+		                                 +---------------+
      ```
 
 3. **Identifikasi dan Katalogkan Ancaman**
@@ -114,19 +114,19 @@ Berikut adalah alur kerja yang dapat disesuaikan dengan metodologi pilihan:
 6. **Validasi dan Ulang**
    - Review hasil dengan tim pengembang dan keamanan.
    - Integrasikan ke dalam backlog sebagai user story atau ticket.
-     story atau bug.
+   story atau bug.
    - Periksa kembali ketika ada perubahan arsitektur signifikan (misalnya: migrasi ke micro-services, adopsi service mesh).
 
 ### Contoh Artefak
 
 #### Threat Model Register (Tabel)
 
-| Threat ID | Judul                         | Kategori STRIDE        | Komponen Terpengaruh  | Likelihood | Dampak | Skor Risiko | Status Mitigasi    |
-| --------- | ----------------------------- | ---------------------- | --------------------- | ---------- | ------ | ----------- | ------------------ |
-| TM-001    | SQL Injection di API          | Tampering              | API Gateway, DB       | Tinggi     | Krutis | 9           | Dalam Implementasi |
-| TM-002    | Session Hijacking via XSS     | Spoofing               | Web App, Auth Service | Sedang     | Tinggi | 7           | Belum Ditangani    |
-| TM-003    | Kebocoran Kartu Kredit di Log | Info Disclosure        | API Gateway, Payment  | Sedang     | Krutis | 8           | Selesai            |
-| TM-004    | Privilege Escalasi via BYOVD  | Elevation of Privilege | OS Kernel             | Rendah     | Krutis | 6           | Direncanakan Q4    |
+| Threat ID | Judul                       | Kategori STRIDE | Komponen Terpengaruh | Likelihood | Dampak | Skor Risiko | Status Mitigasi |
+|-----------|-----------------------------|-----------------|----------------------|------------|--------|-------------|-----------------|
+| TM-001    | SQL Injection di API        | Tampering       | API Gateway, DB      | Tinggi     | Krutis | 9           | Dalam Implementasi |
+| TM-002    | Session Hijacking via XSS   | Spoofing        | Web App, Auth Service| Sedang     | Tinggi | 7           | Belum Ditangani |
+| TM-003    | Kebocoran Kartu Kredit di Log| Info Disclosure | API Gateway, Payment | Sedang     | Krutis | 8           | Selesai         |
+| TM-004    | Privilege Escalasi via BYOVD| Elevation of Privilege | OS Kernel   | Rendah     | Krutis | 6           | Direncanakan Q4 |
 
 #### Contoh Aturan Sigma untuk Deteksi Upaya Exploitasi (berdasarkan threat model)
 
@@ -150,14 +150,14 @@ level: tinggi
 
 ### Toolchain dan Otomatisasi
 
-| Alat                                                 | Lisensi      | Fokus                                   | Integrasi CI/CD                 | Catatan                                   |
-| ---------------------------------------------------- | ------------ | --------------------------------------- | ------------------------------- | ----------------------------------------- |
-| Microsoft Threat Modeling Tool                       | Gratis (MIT) | STRIDE, DFD visual                      | Via TMX export + skrip custom   | GUI mudah, cocok untuk tim awal           |
-| OWASP Threat Dragon                                  | MIT          | STRIDE, LINDDUN, DFD                    | CLI, JSON export                | Open source, cross-platform               |
-| IriusRisk (Community)                                | Freemium     | PASTA, risk-based, countermeasure       | REST API, plugin Jenkins/GitLab | Versi terbatas tapi cukup untuk tim kecil |
-| PyTM                                                 | Apache 2.0   | Python-as-code, threat modeling as code | GitHub Actions, pre‑commit      | Mendefinisikan model sebagai kode Python  |
-| Threagile                                            | Apache 2.0   | Graf-based, risk-driven                 | Docker, CLI                     | Menghasilkan raportasi risiko otomatis    |
-| Microsoft Threat Modeling Extension for Azure DevOps | Gratis       | Azure‑centric, work item tracking       | Native Azure DevOps             | Terkait langsung dengan backlog           |
+| Alat                     | Lisensi      | Fokus                      | Integrasi CI/CD | Catatan |
+|--------------------------|--------------|----------------------------|-----------------|---------|
+| Microsoft Threat Modeling Tool | Gratis (MIT) | STRIDE, DFD visual         | Via TMX export + skrip custom | GUI mudah, cocok untuk tim awal |
+| OWASP Threat Dragon      | MIT          | STRIDE, LINDDUN, DFD       | CLI, JSON export | Open source, cross-platform |
+| IriusRisk (Community)    | Freemium     | PASTA, risk-based, countermeasure | REST API, plugin Jenkins/GitLab | Versi terbatas tapi cukup untuk tim kecil |
+| PyTM                     | Apache 2.0   | Python-as-code, threat modeling as code | GitHub Actions, pre‑commit | Mendefinisikan model sebagai kode Python |
+| Threagile                | Apache 2.0   | Graf-based, risk-driven    | Docker, CLI     | Menghasilkan raportasi risiko otomatis |
+| Microsoft Threat Modeling Extension for Azure DevOps | Gratis | Azure‑centric, work item tracking | Native Azure DevOps | Terkait langsung dengan backlog |
 
 #### Contoh Penggunaan PyTM (Infrastructure as Code)
 
@@ -184,11 +184,9 @@ tm.process()
 ```
 
 Jalankan dengan:
-
 ```bash
 ptm threatmodel.py
 ```
-
 Yang menghasilkan file `threatmodel.tm` dan `threatmodel.report.html`.
 
 ### Mengintegrasikan Threat Modeling ke dalam SDLC
@@ -203,7 +201,7 @@ Yang menghasilkan file `threatmodel.tm` dan `threatmodel.report.html`.
 ## Case Studies
 
 | Studi Kasus | Konteksusun | Temuan Kunci | Mitigasi yang Diimplementasi |
-| --------------------------------------- | ------------------------------------------------------------ | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------|-----------|-----------|--------------|------------------------------|
 | **E‑Commerce Platform (2023)** | Aplikasi web micro‑service + API gateway + DB terdistribusi | STRIDE + Attack Tree | 1. Insecure Direct Object Reference (IDOR) pada endpoint order/<id>. 2. Credential hard‑coded dalam CI vars. | 1. Implementasi objek level access control (OLAC). 2. Migrasi ke vault secret (HashiCorp Vault) dan rotasi otomatis. |
 | **Sistem IoT Smart Meter (2022)** | Jaringan ratusan ribu meter berbasis LoRaWAN + backend cloud | PASTA + VAST | 1. Firmware tidak ditandatangani → risiko suplai rantai compromised. 2. Tidak ada mutal TLS antara meter dan concentrator. | 1. Code signing dengan ECDSA P‑256, verifikasi saat boot. 2. Deploy mutual TLS dengan sertifikat unik per device. |
 | **Platform Pembayaran Digital (2024)** | Mobile app ↔ gateway ↔ processor eksternal (PCI‑DSS) | LINDDUN (privacy focus) + STRIDE | 1. Log debug mengirim PAN pertama 6 digit ke server analitik. 2. Tokenisasi tidak konsisten di caching layer. | 1. Penerapan masking pada tingkat ingestion log. 2. Penegakan tokenisasi konsisten dengan skrining bypass cache. |
@@ -224,16 +222,16 @@ Yang menghasilkan file `threatmodel.tm` dan `threatmodel.report.html`.
 
 ## Referensi
 
-1. OWASP Foundation. _OWASP Testing Guide v4_. 2014. https://owasp.org/www-project-testing-guide/
-2. Microsoft. _Threat Modeling Tool_. https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool
-3. Shostack, Adam. _Threat Modeling: Designing for Security_. Wiley, 2014.
-4. UcedaVelez, Alfredo & Marco M. Morana. _Risk Centric Threat Modeling: Process for Attack Simulation and Threat Analysis (PASTA)_. Wiley, 2015.
-5. Carnegie Mellon University. _Security Engineering: A Guide to Building Dependable Distributed Systems_. 2003. (CAPEC, Attack Trees)
-6. The MITRE Corporation. _Common Attack Pattern Enumeration and Classification (CAPEC)_. https://capec.mitre.org/
-7. OWASP. _OWASP Threat Dragon_. https://owasp.org/www-project-threat-dragon/
-8. Python Software Foundation. _PyTM – Python Threat Modeling_. https://pypi.org/project/pytm/
-9. National Institute of Standards and Technology (NIST). _SP 800-30 Rev. 1: Guide for Conducting Risk Assessments_. 2012.
+1. OWASP Foundation. *OWASP Testing Guide v4*. 2014. https://owasp.org/www-project-testing-guide/
+2. Microsoft. *Threat Modeling Tool*. https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool
+3. Shostack, Adam. *Threat Modeling: Designing for Security*. Wiley, 2014.
+4. UcedaVelez, Alfredo & Marco M. Morana. *Risk Centric Threat Modeling: Process for Attack Simulation and Threat Analysis (PASTA)*. Wiley, 2015.
+5. Carnegie Mellon University. *Security Engineering: A Guide to Building Dependable Distributed Systems*. 2003. (CAPEC, Attack Trees)
+6. The MITRE Corporation. *Common Attack Pattern Enumeration and Classification (CAPEC)*. https://capec.mitre.org/
+7. OWASP. *OWASP Threat Dragon*. https://owasp.org/www-project-threat-dragon/
+8. Python Software Foundation. *PyTM – Python Threat Modeling*. https://pypi.org/project/pytm/
+9. National Institute of Standards and Technology (NIST). *SP 800-30 Rev. 1: Guide for Conducting Risk Assessments*. 2012.
 10. ISO/IEC 27005:2018 – Information technology — Security techniques — Information security risk management.
 
 > [!tip] Bottom Line
-> Threat modeling bukan sekadar dokumentasi satu kali; ini adalah praktik berkelanjutan yang harus diembed ke dalam budaya pengembangan dan operasi keamanan. Dengan memodelkan ancaman secara sistematis, tim dapat mengalihkan fokus dari _reactive patching_ ke _preventive design_, mengurangi biaya mitigasi secara signifikan dan meningkatkan kepercayaan pemangku kepentingan terhadap keamanan produk.
+> Threat modeling bukan sekadar dokumentasi satu kali; ini adalah praktik berkelanjutan yang harus diembed ke dalam budaya pengembangan dan operasi keamanan. Dengan memodelkan ancaman secara sistematis, tim dapat mengalihkan fokus dari *reactive patching* ke *preventive design*, mengurangi biaya mitigasi secara signifikan dan meningkatkan kepercayaan pemangku kepentingan terhadap keamanan produk.

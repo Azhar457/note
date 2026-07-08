@@ -25,14 +25,14 @@ Predator pertama kali diungkap oleh Citizen Lab dan Google TAG pada 2021-2022, k
 
 ### Perbandingan Predator vs Pegasus vs FinSpy
 
-| Aspek                | Pegasus (NSO)                 | Predator (Intellexa)                                                | FinSpy (Gamma)                                           |
-| -------------------- | ----------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
-| **Pengembang**       | NSO Group (Israel)            | Cytrox/Intellexa (Makedonia Utara/Yunani)                           | Gamma/FinFisher (Jerman)                                 |
-| **Fokus Platform**   | iOS, Android (mobile only)    | iOS, Android, Chrome, Windows (multi-platform via browser exploits) | Windows, macOS, Linux, iOS, Android (desktop kuat)       |
-| **Vektor Utama**     | 0-click iMessage/WhatsApp     | 0-day & n-day browser (Chrome, Safari), phishing, network injection | Phishing, fake apps, social engineering, physical access |
-| **Harga**            | $10-20 juta+                  | $5-10 juta (estimasi)                                               | $1-5 juta (estimasi)                                     |
-| **Klien Terungkap**  | 40+ negara                    | Mesir, Armenia, Yunani, Arab Saudi, Vietnam, Indonesia?             | 50+ negara                                               |
-| **Deteksi Forensik** | MVT, iShutdown, Amnesty tools | MVT, Google TAG analysis, forensic traces di Chrome/Safari          | Kaspersky, ESET, rootkit scanner                         |
+| Aspek | Pegasus (NSO) | Predator (Intellexa) | FinSpy (Gamma) |
+|-------|---------------|----------------------|----------------|
+| **Pengembang** | NSO Group (Israel) | Cytrox/Intellexa (Makedonia Utara/Yunani) | Gamma/FinFisher (Jerman) |
+| **Fokus Platform** | iOS, Android (mobile only) | iOS, Android, Chrome, Windows (multi-platform via browser exploits) | Windows, macOS, Linux, iOS, Android (desktop kuat) |
+| **Vektor Utama** | 0-click iMessage/WhatsApp | 0-day & n-day browser (Chrome, Safari), phishing, network injection | Phishing, fake apps, social engineering, physical access |
+| **Harga** | $10-20 juta+ | $5-10 juta (estimasi) | $1-5 juta (estimasi) |
+| **Klien Terungkap** | 40+ negara | Mesir, Armenia, Yunani, Arab Saudi, Vietnam, Indonesia? | 50+ negara |
+| **Deteksi Forensik** | MVT, iShutdown, Amnesty tools | MVT, Google TAG analysis, forensic traces di Chrome/Safari | Kaspersky, ESET, rootkit scanner |
 
 ---
 
@@ -76,13 +76,13 @@ Intellexa Alliance membangun ekosistem pengawasan yang terintegrasi, di mana Pre
 
 ### Komponen Ekosistem Intellexa
 
-| Komponen                 | Fungsi                                                                      |
-| ------------------------ | --------------------------------------------------------------------------- |
-| **Cytrox Predator**      | Implant spyware untuk mobile dan desktop.                                   |
-| **Nexa Technologies**    | Penjualan, negosiasi kontrak, dukungan pelanggan.                           |
-| **WiSpear**              | Network interception: pasif (monitoring) dan aktif (injection).             |
-| **Senpai** (kemungkinan) | Modul analisis data yang dikumpulkan.                                       |
-| **Alias**                | Entitas depan untuk menghindari sanksi (berbasis di Siprus, Yunani, Swiss). |
+| Komponen | Fungsi |
+|----------|--------|
+| **Cytrox Predator** | Implant spyware untuk mobile dan desktop. |
+| **Nexa Technologies** | Penjualan, negosiasi kontrak, dukungan pelanggan. |
+| **WiSpear** | Network interception: pasif (monitoring) dan aktif (injection). |
+| **Senpai** (kemungkinan) | Modul analisis data yang dikumpulkan. |
+| **Alias** | Entitas depan untuk menghindari sanksi (berbasis di Siprus, Yunani, Swiss). |
 
 ---
 
@@ -123,28 +123,26 @@ Ini adalah vektor paling signifikan yang diungkap oleh Google TAG. Predator meng
 
 **CVE yang pernah digunakan Predator (terungkap):**
 
-| CVE            | Platform | Komponen  | Jenis                  |
-| -------------- | -------- | --------- | ---------------------- |
-| CVE-2022-3723  | Chrome   | V8 engine | Renderer RCE (0-day)   |
-| CVE-2022-4135  | Chrome   | GPU       | Sandbox escape (0-day) |
-| CVE-2022-4262  | Chrome   | V8 engine | Renderer RCE (0-day)   |
-| CVE-2021-38003 | Chrome   | V8 engine | Renderer RCE (n-day)   |
-| CVE-2021-37973 | Chrome   | Portals   | Use-after-free         |
-| CVE-2022-2294  | WebRTC   | Video     | Buffer overflow        |
-| CVE-2023-4762  | Chrome   | V8 engine | Type confusion (0-day) |
+| CVE | Platform | Komponen | Jenis |
+|-----|----------|----------|-------|
+| CVE-2022-3723 | Chrome | V8 engine | Renderer RCE (0-day) |
+| CVE-2022-4135 | Chrome | GPU | Sandbox escape (0-day) |
+| CVE-2022-4262 | Chrome | V8 engine | Renderer RCE (0-day) |
+| CVE-2021-38003 | Chrome | V8 engine | Renderer RCE (n-day) |
+| CVE-2021-37973 | Chrome | Portals | Use-after-free |
+| CVE-2022-2294 | WebRTC | Video | Buffer overflow |
+| CVE-2023-4762 | Chrome | V8 engine | Type confusion (0-day) |
 
 Google TAG mencatat bahwa Predator adalah salah satu pengguna 0-day Chrome paling produktif yang pernah mereka lacak.
 
 ### 2. Mobile Infection (Android & iOS)
 
 **Android:**
-
 - Link phishing yang mengarah ke APK berbahaya (menyamar sebagai aplikasi sistem).
 - Exploit browser (Chrome) → mengunduh APK otomatis.
 - Fake update via SMS.
 
 **iOS:**
-
 - Exploit Safari (WebKit) → mengunduh binary.
 - **Enterprise certificate abuse**: Binary ditandatangani dengan sertifikat enterprise, mem-bypass App Store.
 - **MDM profile abuse**: Membujuk korban menginstal profil Mobile Device Management yang memberikan kontrol penuh.
@@ -152,7 +150,6 @@ Google TAG mencatat bahwa Predator adalah salah satu pengguna 0-day Chrome palin
 ### 3. Network Injection (via WiSpear)
 
 Jika klien Intellexa memiliki akses ke infrastruktur ISP lokal (melalui kolusi dengan pemerintah), mereka dapat menggunakan **WiSpear** untuk:
-
 - Menyuntikkan iframe atau redirect ke website yang dikunjungi target.
 - Memaksa target mengunduh exploit tanpa perlu mengklik link.
 - Meng-intercept traffic untuk mengumpulkan metadata.
@@ -162,7 +159,6 @@ Ini mirip dengan network injection Pegasus, tetapi WiSpear adalah produk terpisa
 ### 4. Phishing & Social Engineering
 
 Operator Predator sering menggunakan **social engineering** yang ditargetkan:
-
 - Email dengan lampiran berbahaya (PDF, DOCX dengan exploit).
 - Pesan WhatsApp/SMS dari nomor yang tampak resmi.
 - Fake news articles yang meminta target mengklik link.
@@ -173,34 +169,34 @@ Operator Predator sering menggunakan **social engineering** yang ditargetkan:
 
 ### Mobile (Android/iOS)
 
-| Kemampuan                | Deskripsi                                                             |
-| ------------------------ | --------------------------------------------------------------------- |
-| **Audio Recording**      | Aktifkan mikrofon untuk merekam percakapan ambient.                   |
-| **Call Recording**       | Rekam panggilan telepon (VoLTE, VoWiFi, GSM).                         |
-| **Camera Capture**       | Ambil foto/video dari kamera depan/belakang.                          |
-| **GPS Tracking**         | Lacak lokasi real-time dan history.                                   |
+| Kemampuan | Deskripsi |
+|-----------|-----------|
+| **Audio Recording** | Aktifkan mikrofon untuk merekam percakapan ambient. |
+| **Call Recording** | Rekam panggilan telepon (VoLTE, VoWiFi, GSM). |
+| **Camera Capture** | Ambil foto/video dari kamera depan/belakang. |
+| **GPS Tracking** | Lacak lokasi real-time dan history. |
 | **Message Interception** | Baca SMS, WhatsApp, Telegram, Signal, Viber, Facebook Messenger, dll. |
-| **Contact/Calendar**     | Ekstrak kontak, kalender, catatan.                                    |
-| **File Exfiltration**    | Akses penyimpanan internal, unggah file target.                       |
-| **Keylogging**           | Rekam input keyboard.                                                 |
-| **Screenshot**           | Ambil screenshot layar secara periodik.                               |
-| **App Installation**     | Instal/matikan aplikasi dari jarak jauh.                              |
-| **Persistence**          | Bertahan setelah reboot via proses sistem.                            |
+| **Contact/Calendar** | Ekstrak kontak, kalender, catatan. |
+| **File Exfiltration** | Akses penyimpanan internal, unggah file target. |
+| **Keylogging** | Rekam input keyboard. |
+| **Screenshot** | Ambil screenshot layar secara periodik. |
+| **App Installation** | Instal/matikan aplikasi dari jarak jauh. |
+| **Persistence** | Bertahan setelah reboot via proses sistem. |
 
 ### Desktop (Windows/macOS)
 
-| Kemampuan                | Deskripsi                                                                        |
-| ------------------------ | -------------------------------------------------------------------------------- |
-| **File System Access**   | Browse, baca, tulis, unggah file apa pun.                                        |
-| **Keylogging**           | Rekam semua ketukan keyboard.                                                    |
-| **Screenshot**           | Screenshot periodik.                                                             |
-| **Webcam/Mic**           | Streaming audio/video real-time.                                                 |
-| **Browser Data**         | Ekstrak password, history, cookies, bookmark dari Chrome, Firefox, Edge, Safari. |
-| **Email Exfiltration**   | Akses Outlook, Thunderbird, Apple Mail.                                          |
-| **VoIP Interception**    | Rekam panggilan Skype, Zoom, Teams, dll. (via audio hook).                       |
-| **Clipboard Monitoring** | Catat isi clipboard.                                                             |
-| **Process/Service Enum** | Lihat proses berjalan, service, driver.                                          |
-| **Network Monitoring**   | Tangkap traffic jaringan, lihat koneksi aktif.                                   |
+| Kemampuan | Deskripsi |
+|-----------|-----------|
+| **File System Access** | Browse, baca, tulis, unggah file apa pun. |
+| **Keylogging** | Rekam semua ketukan keyboard. |
+| **Screenshot** | Screenshot periodik. |
+| **Webcam/Mic** | Streaming audio/video real-time. |
+| **Browser Data** | Ekstrak password, history, cookies, bookmark dari Chrome, Firefox, Edge, Safari. |
+| **Email Exfiltration** | Akses Outlook, Thunderbird, Apple Mail. |
+| **VoIP Interception** | Rekam panggilan Skype, Zoom, Teams, dll. (via audio hook). |
+| **Clipboard Monitoring** | Catat isi clipboard. |
+| **Process/Service Enum** | Lihat proses berjalan, service, driver. |
+| **Network Monitoring** | Tangkap traffic jaringan, lihat koneksi aktif. |
 
 ---
 
@@ -218,25 +214,25 @@ Google TAG mengembangkan metode forensik untuk mendeteksi infeksi Predator melal
 
 ### 2. Jejak di Android
 
-| Artefak                   | Lokasi / Metode                                                                     |
-| ------------------------- | ----------------------------------------------------------------------------------- |
-| **APK mencurigakan**      | `/data/app/` atau `/data/data/` dengan nama paket tidak dikenal.                    |
-| **Device Admin**          | Pengaturan > Keamanan > Administrator Perangkat — cari aplikasi yang tidak dikenal. |
-| **Accessibility Service** | Pengaturan > Aksesibilitas — cari service mencurigakan dengan hak penuh.            |
-| **Unknown Sources**       | Jika diaktifkan untuk aplikasi tidak dikenal.                                       |
-| **Network Connections**   | `netstat` atau `lsof` untuk koneksi ke IP/domain mencurigakan.                      |
-| **SMS/MMS**               | Pesan phishing yang mungkin masih ada di inbox.                                     |
+| Artefak | Lokasi / Metode |
+|---------|-----------------|
+| **APK mencurigakan** | `/data/app/` atau `/data/data/` dengan nama paket tidak dikenal. |
+| **Device Admin** | Pengaturan > Keamanan > Administrator Perangkat — cari aplikasi yang tidak dikenal. |
+| **Accessibility Service** | Pengaturan > Aksesibilitas — cari service mencurigakan dengan hak penuh. |
+| **Unknown Sources** | Jika diaktifkan untuk aplikasi tidak dikenal. |
+| **Network Connections** | `netstat` atau `lsof` untuk koneksi ke IP/domain mencurigakan. |
+| **SMS/MMS** | Pesan phishing yang mungkin masih ada di inbox. |
 
 ### 3. Jejak di iOS
 
-| Artefak                    | Lokasi / Metode                                                                 |
-| -------------------------- | ------------------------------------------------------------------------------- |
+| Artefak | Lokasi / Metode |
+|---------|-----------------|
 | **Enterprise Certificate** | Pengaturan > Umum > VPN & Manajemen Perangkat — cari profil yang tidak dikenal. |
-| **MDM Profile**            | Pengaturan > Umum > Manajemen Perangkat — profil MDM yang tidak sah.            |
-| **Safari History**         | Periksa history untuk link exploit.                                             |
-| **Shutdown Log**           | Analisis `shutdown.log` (via iShutdown tool) untuk proses aneh saat restart.    |
-| **Backup Analysis**        | Gunakan MVT untuk memeriksa IOC (domain, IP, file hash).                        |
-| **Battery Usage**          | Pengaturan > Baterai — aplikasi tidak dikenal yang menggunakan baterai tinggi.  |
+| **MDM Profile** | Pengaturan > Umum > Manajemen Perangkat — profil MDM yang tidak sah. |
+| **Safari History** | Periksa history untuk link exploit. |
+| **Shutdown Log** | Analisis `shutdown.log` (via iShutdown tool) untuk proses aneh saat restart. |
+| **Backup Analysis** | Gunakan MVT untuk memeriksa IOC (domain, IP, file hash). |
+| **Battery Usage** | Pengaturan > Baterai — aplikasi tidak dikenal yang menggunakan baterai tinggi. |
 
 ### 4. Analisis Jaringan
 
@@ -247,7 +243,6 @@ Google TAG mengembangkan metode forensik untuk mendeteksi infeksi Predator melal
 ### 5. MVT (Mobile Verification Toolkit)
 
 MVT dari Amnesty International mendukung deteksi Predator dengan IOC yang diperbarui. Fitur:
-
 - Memindai backup iOS/Android untuk indikator kompromi.
 - Mengecek domain C2, IP, dan hash file.
 - Menganalisis log sistem untuk anomali.
@@ -257,19 +252,15 @@ MVT dari Amnesty International mendukung deteksi Predator dengan IOC yang diperb
 ## 📊 Studi Kasus & Penyalahgunaan Terungkap
 
 ### Kasus 1: Mesir — Politisi Oposisi
-
 Pada 2021-2022, beberapa politisi oposisi Mesir di pengasingan (di Eropa) ditarget dengan Predator. Mereka menerima link via WhatsApp/SMS yang mengarah ke domain exploit. Google TAG mengonfirmasi bahwa link tersebut mengeksploitasi Chrome 0-day (CVE-2022-3723). Infeksi berhasil pada beberapa target.
 
 ### Kasus 2: Armenia — Jurnalis
-
 Jurnalis investigasi di Armenia ditarget dengan Predator melalui phishing yang sangat ditargetkan. Link dikirim dari nomor yang menyamar sebagai kolega. Infeksi menggunakan exploit Safari dan Chrome.
 
 ### Kasus 3: Yunani — Aktivis & Politikus
-
 Skandal "Greek Watergate" (2022) mengungkap bahwa badan intelijen Yunani (EYP) menggunakan Predator untuk menargetkan anggota parlemen oposisi, jurnalis, dan aktivis. Infeksi dilakukan melalui SMS berisi link exploit. Kasus ini menyebabkan pengunduran diri kepala intelijen Yunani.
 
 ### Kasus 4: Vietnam? — Indikasi Penggunaan
-
 Laporan dari Amnesty International dan Electronic Frontier Foundation menunjukkan kemungkinan penggunaan Predator di Vietnam terhadap aktivis dan blogger, meskipun bukti teknis masih terbatas.
 
 ---
@@ -297,15 +288,15 @@ Intellexa mengklaim hanya menjual ke pemerintah untuk tujuan penegakan hukum dan
 
 ## 🛡️ Countermeasures
 
-| Lapisan               | Tindakan                                                                                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Pengguna**          | Waspada terhadap link dari sumber tidak dikenal. Jangan klik link pendek atau mencurigakan. Verifikasi identitas pengirim.                               |
-| **Browser**           | Selalu perbarui Chrome, Safari, Edge ke versi terbaru. Aktifkan "Enhanced Safe Browsing" di Chrome. Nonaktifkan JavaScript di browser jika memungkinkan. |
-| **Mobile**            | Aktifkan Lockdown Mode di iOS 16+. Jangan instal profil konfigurasi dari sumber tidak dikenal. Periksa secara berkala Manajemen Perangkat.               |
-| **Android**           | Matikan "Unknown Sources". Jangan instal APK di luar Play Store. Periksa Device Admin dan Accessibility Services secara berkala.                         |
-| **Network**           | Gunakan VPN terpercaya. Monitor DNS untuk domain mencurigakan. Blokir IOC Intellexa di firewall.                                                         |
-| **Scanning**          | Jalankan MVT secara berkala pada backup iOS/Android. Periksa log shutdown iOS dengan iShutdown.                                                          |
-| **Incident Response** | Jika terinfeksi: isolasi perangkat, jangan restart (preserve memory), ambil forensik image, laporkan ke CERT lokal dan Citizen Lab/Amnesty.              |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Pengguna** | Waspada terhadap link dari sumber tidak dikenal. Jangan klik link pendek atau mencurigakan. Verifikasi identitas pengirim. |
+| **Browser** | Selalu perbarui Chrome, Safari, Edge ke versi terbaru. Aktifkan "Enhanced Safe Browsing" di Chrome. Nonaktifkan JavaScript di browser jika memungkinkan. |
+| **Mobile** | Aktifkan Lockdown Mode di iOS 16+. Jangan instal profil konfigurasi dari sumber tidak dikenal. Periksa secara berkala Manajemen Perangkat. |
+| **Android** | Matikan "Unknown Sources". Jangan instal APK di luar Play Store. Periksa Device Admin dan Accessibility Services secara berkala. |
+| **Network** | Gunakan VPN terpercaya. Monitor DNS untuk domain mencurigakan. Blokir IOC Intellexa di firewall. |
+| **Scanning** | Jalankan MVT secara berkala pada backup iOS/Android. Periksa log shutdown iOS dengan iShutdown. |
+| **Incident Response** | Jika terinfeksi: isolasi perangkat, jangan restart (preserve memory), ambil forensik image, laporkan ke CERT lokal dan Citizen Lab/Amnesty. |
 
 ---
 
@@ -322,13 +313,13 @@ Intellexa mengklaim hanya menjual ke pemerintah untuk tujuan penegakan hukum dan
 
 ## 📚 Referensi
 
-- Citizen Lab, _Predator: The Mercenary Spyware_ (2021-2023)
-- Google Threat Analysis Group (TAG), _Exposing Cytrox Predator Spyware_ (2022-2023)
-- Amnesty International, _Predator Spyware and the Greek Watergate_ (2022)
-- Meta, _Taking Action Against Surveillance-for-Hire_ (2022)
+- Citizen Lab, *Predator: The Mercenary Spyware* (2021-2023)
+- Google Threat Analysis Group (TAG), *Exposing Cytrox Predator Spyware* (2022-2023)
+- Amnesty International, *Predator Spyware and the Greek Watergate* (2022)
+- Meta, *Taking Action Against Surveillance-for-Hire* (2022)
 - MITRE ATT&CK: T1189 (Drive-by Compromise), T1203 (Exploitation for Client Execution), T1056.001 (Input Capture: Keylogging)
-- European Parliament, _Sanctions Against Intellexa_ (2023)
+- European Parliament, *Sanctions Against Intellexa* (2023)
 
 ---
 
-_Predator Deep Dive | Intellexa Commercial Spyware | Browser Exploitation & Mobile Surveillance_
+*Predator Deep Dive | Intellexa Commercial Spyware | Browser Exploitation & Mobile Surveillance*

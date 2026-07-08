@@ -25,11 +25,11 @@ Berbeda dengan alat sebelumnya di vault yang bersifat spesifik (XKEYSCORE untuk 
 
 ### Palantir Gotham vs Foundry vs Apollo
 
-| Produk      | Fokus                             | Pengguna Utama                                           |
-| ----------- | --------------------------------- | -------------------------------------------------------- |
-| **Gotham**  | Intelijen, militer, penegak hukum | CIA, NSA, FBI, DHS, ICE, DoD, kepolisian, Angkatan Darat |
-| **Foundry** | Bisnis, supply chain, keuangan    | Airbus, Ferrari, BP, NHS, bank                           |
-| **Apollo**  | Manajemen infrastruktur software  | Internal & pelanggan Palantir                            |
+| Produk | Fokus | Pengguna Utama |
+|--------|-------|----------------|
+| **Gotham** | Intelijen, militer, penegak hukum | CIA, NSA, FBI, DHS, ICE, DoD, kepolisian, Angkatan Darat |
+| **Foundry** | Bisnis, supply chain, keuangan | Airbus, Ferrari, BP, NHS, bank |
+| **Apollo** | Manajemen infrastruktur software | Internal & pelanggan Palantir |
 
 ---
 
@@ -76,7 +76,6 @@ Palantir Gotham dibangun di atas filosofi **"semantic data integration"** — se
 ### Dynamic Ontology
 
 Ini adalah jantung Palantir. Alih-alih skema database kaku (tabel, kolom), Palantir menggunakan **dynamic ontology** di mana:
-
 - **Objek** (Entities): Representasi dari hal nyata — orang, tempat, acara, dokumen, nomor telepon, kendaraan, transaksi, dll.
 - **Properti** (Properties): Atribut objek — nama, tanggal lahir, lokasi, nomor seri, dll.
 - **Hubungan** (Relationships/Links): Koneksi antar objek — "menelepon", "bertemu", "memiliki", "terjadi pada", dll.
@@ -91,7 +90,6 @@ Ontologi ini **dinamis** — analis dapat menambah jenis objek dan hubungan baru
 ### 1. Browser
 
 Antarmuka utama untuk mencari dan menjelajahi data. Mirip dengan file explorer, tetapi untuk objek intelijen. Analis dapat:
-
 - Mencari objek dengan full-text search.
 - Melihat semua properti objek.
 - Melihat semua hubungan objek (grafik mini).
@@ -100,7 +98,6 @@ Antarmuka utama untuk mencari dan menjelajahi data. Mirip dengan file explorer, 
 ### 2. Graph (Link Analysis)
 
 Aplikasi visualisasi graf untuk analisis jaringan. Kemampuan:
-
 - Menampilkan jaringan sosial, komunikasi, keuangan.
 - Filter, zoom, dan navigasi graf besar.
 - Menghitung centrality, shortest path, community detection.
@@ -110,7 +107,6 @@ Aplikasi visualisasi graf untuk analisis jaringan. Kemampuan:
 ### 3. Map (Geospatial Analysis)
 
 Aplikasi peta untuk analisis lokasi:
-
 - Plot objek di peta (alamat, koordinat GPS, cell tower).
 - Heatmap, density analysis.
 - Geofencing & alerting.
@@ -120,7 +116,6 @@ Aplikasi peta untuk analisis lokasi:
 ### 4. Timeline (Temporal Analysis)
 
 Aplikasi kronologi untuk menganalisis urutan kejadian:
-
 - Menampilkan objek dan event di timeline.
 - Menganimasikan sequence.
 - Mendeteksi pola temporal (misal: panggilan selalu terjadi sebelum jam 6 pagi).
@@ -129,7 +124,6 @@ Aplikasi kronologi untuk menganalisis urutan kejadian:
 ### 5. Object Explorer
 
 "Profile view" untuk objek tertentu — menampilkan semua yang diketahui tentang satu entitas:
-
 - Semua properti.
 - Semua hubungan ke objek lain.
 - Semua dokumen/email yang terkait.
@@ -139,7 +133,6 @@ Aplikasi kronologi untuk menganalisis urutan kejadian:
 ### 6. Search & Discovery
 
 Palantir mengindeks **semua** data (teks, metadata, anotasi) dan mendukung:
-
 - Full-text search dengan boolean, fuzzy, proximity.
 - Search by example (temukan objek mirip dengan ini).
 - Search across sources (mencari di semua database yang terintegrasi sekaligus).
@@ -147,7 +140,6 @@ Palantir mengindeks **semua** data (teks, metadata, anotasi) dan mendukung:
 ### 7. Collaboration & Presentation
 
 Analis dapat:
-
 - Membuat **investigative pathway**: urutan langkah analisis yang bisa direproduksi.
 - Anotasi dan tagging.
 - Membuat slide presentasi langsung dari data (dengan grafik yang bisa di-klik untuk drill-down).
@@ -159,19 +151,18 @@ Analis dapat:
 
 Palantir dapat mengintegrasikan hampir semua jenis data:
 
-| Jenis Data               | Metode Ingestion                                      |
-| ------------------------ | ----------------------------------------------------- |
-| **Database relasional**  | JDBC connector: Oracle, SQL Server, PostgreSQL, MySQL |
-| **Data streaming**       | Kafka, Kinesis, TCP/UDP feed real-time                |
-| **File**                 | CSV, JSON, XML, Excel, PDF, Word, image, video        |
-| **API**                  | REST, SOAP, GraphQL                                   |
-| **HDFS / Cloud Storage** | Hadoop, S3, Azure Blob                                |
-| **Email**                | PST, MBOX, Exchange                                   |
-| **Log**                  | Syslog, Windows Event Log, custom format              |
-| **Telephony**            | CDR (Call Detail Records), tower dumps                |
+| Jenis Data | Metode Ingestion |
+|------------|------------------|
+| **Database relasional** | JDBC connector: Oracle, SQL Server, PostgreSQL, MySQL |
+| **Data streaming** | Kafka, Kinesis, TCP/UDP feed real-time |
+| **File** | CSV, JSON, XML, Excel, PDF, Word, image, video |
+| **API** | REST, SOAP, GraphQL |
+| **HDFS / Cloud Storage** | Hadoop, S3, Azure Blob |
+| **Email** | PST, MBOX, Exchange |
+| **Log** | Syslog, Windows Event Log, custom format |
+| **Telephony** | CDR (Call Detail Records), tower dumps |
 
 Pipeline ingestion memungkinkan:
-
 - **Transformasi data** (normalisasi, parsing, enrichment).
 - **Entity resolution**: Menggabungkan data tentang entitas yang sama dari sumber berbeda (misal: "John Doe" di database A = "jdoe@email.com" di database B).
 - **Provenance tracking**: Setiap potongan data memiliki metadata tentang sumbernya (origin, timestamp, reliability rating).
@@ -222,7 +213,6 @@ Palantir disebut-sebut (meskipun tidak dikonfirmasi resmi) digunakan dalam opera
 ### Kasus 2: LAPD & Predictive Policing
 
 Palantir Gotham digunakan oleh Los Angeles Police Department (LAPD) untuk analisis kejahatan dan predictive policing. Kritikus menuduh bahwa sistem ini:
-
 - Memperkuat bias rasial dalam kepolisian.
 - Menarget komunitas minoritas secara tidak proporsional.
 - Mengumpulkan data tanpa pengawasan yang memadai.
@@ -230,7 +220,6 @@ Palantir Gotham digunakan oleh Los Angeles Police Department (LAPD) untuk analis
 ### Kasus 3: ICE & Deportasi
 
 Palantir menyediakan platform untuk U.S. Immigration and Customs Enforcement (ICE) yang digunakan untuk:
-
 - Melacak imigran tidak berdokumen.
 - Mengintegrasikan data dari berbagai sumber (DMV, utilitas, media sosial) untuk menemukan target deportasi.
 - Menuai protes dari karyawan Palantir sendiri dan organisasi HAM.
@@ -243,13 +232,13 @@ Selama pandemi COVID-19, Palantir Foundry digunakan oleh NHS (National Health Se
 
 ## 🛡️ Countermeasures & Pertahanan
 
-| Lapisan                  | Tindakan                                                                                                   |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| **Data Minimization**    | Kurangi jejak digital: batasi data yang dibagikan ke platform online, gunakan alat privasi.                |
-| **Compartmentalization** | Pisahkan identitas digital — akun terpisah untuk kehidupan normal dan aktivitas sensitif.                  |
-| **Metadata Awareness**   | Sadari bahwa metadata (siapa, kapan, di mana) saja sudah sangat informatif bagi platform seperti Palantir. |
-| **E2EE**                 | Gunakan enkripsi end-to-end agar konten komunikasi tidak bisa diintegrasikan.                              |
-| **Advokasi**             | Dukung regulasi pengawasan, transparansi algoritmik, dan akuntabilitas penggunaan platform data fusion.    |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Data Minimization** | Kurangi jejak digital: batasi data yang dibagikan ke platform online, gunakan alat privasi. |
+| **Compartmentalization** | Pisahkan identitas digital — akun terpisah untuk kehidupan normal dan aktivitas sensitif. |
+| **Metadata Awareness** | Sadari bahwa metadata (siapa, kapan, di mana) saja sudah sangat informatif bagi platform seperti Palantir. |
+| **E2EE** | Gunakan enkripsi end-to-end agar konten komunikasi tidak bisa diintegrasikan. |
+| **Advokasi** | Dukung regulasi pengawasan, transparansi algoritmik, dan akuntabilitas penggunaan platform data fusion. |
 
 ---
 
@@ -289,12 +278,12 @@ Palantir adalah alat netral yang potensinya untuk kebaikan (menemukan teroris, m
 
 ## 📚 Referensi
 
-- Palantir Technologies. _Gotham Platform Overview & Documentation_ (2023-2024).
-- Greenberg, A. (2019). _Palantir: The Secretive Tech Company That's Powering the Global Security State_. Wired.
-- Waldman, P. (2020). _Palantir Knows Everything About You_. Bloomberg.
-- EFF. _Palantir and the Surveillance State_ (2019).
+- Palantir Technologies. *Gotham Platform Overview & Documentation* (2023-2024).
+- Greenberg, A. (2019). *Palantir: The Secretive Tech Company That's Powering the Global Security State*. Wired.
+- Waldman, P. (2020). *Palantir Knows Everything About You*. Bloomberg.
+- EFF. *Palantir and the Surveillance State* (2019).
 - MITRE ATT&CK: T1591 (Gather Victim Org Information), T1590 (Gather Victim Network Information).
 
 ---
 
-_Palantir Gotham Deep Dive | Intelligence Data Fusion & Analysis Platform | Dual-Use Analytics_
+*Palantir Gotham Deep Dive | Intelligence Data Fusion & Analysis Platform | Dual-Use Analytics*

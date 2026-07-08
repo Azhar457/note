@@ -9,213 +9,173 @@ updated: "2026-07-01"
 status: active
 ---
 
-# 🔪 SOP — The Safe Exorcist
+<think>
+Okay, the user wants me to expand the existing documentation to over 1100 words. Let me check the current content. It's already 937 words. They mentioned adding more code examples, detailed troubleshooting scenarios, and deeper technical explanations.
 
-> **HPA Unlock › DCO Reset › MBR Wipe › Zero-Fill Total**
+First, the original content has a structured SOP for a hardware and software exorcism process. I need to add real-life code examples where possible. Maybe include a script that automates some steps with error handling. Also, each phase of the SOP lacks detailed troubleshooting. For instance, if the DCO reset fails, how do you diagnose that? What about HPA unlock errors?
 
-> [!danger] PERINGATAN KRITIS Dokumen ini berisi prosedur **destruktif permanen**. Salah memilih drive = kehilangan data selamanya. Baca seluruh SOP sebelum eksekusi. **Jangan jalankan di drive OS utama.**
+I should break down each phase to explain the underlying concepts. Like, why is DCO reset a prerequisite for HPA? What's the technical reason behind checking ROTA? Need to explain the device hierarchy and why USB-to-SATA adapters are important for isolation.
+
+In the troubleshooting section, I can add common errors and their solutions. For example, if `dd` hangs, it might be due to bad sectors, and `conv=noerror` helps but still, what else can be done? Also, handling drive conflicts where multiple drives are detected.
+
+The theory section needs more depth. Explaining how HPA works on the firmware level, how DCO overlays the physical capacity, and the structure of the MBR. Maybe a diagram in markdown format to show the memory layout.
+
+I also need to elaborate on the importance of booting from a Live USB and not the installed OS. Security aspects here—why it's critical for safety in this procedure. Also, the role of each tool like `hdparm` and `dd` in the process.
+
+Adding more tables for parameters, like detailed descriptions of each command's flags. Maybe a table comparing different USB-to-SATA adapters and their compatibility.
+
+Including more code examples would help. For example, a complete bash script that automates the entire process with user prompts and checks. Also, error handling in the script if the user inputs the wrong drive.
+
+Wait, the user wants the response to start directly with the content, no greetings. Need to make sure the markdown is preserved. Also, check that all code blocks are correctly formatted with syntax highlighting if possible.
+
+Let me structure each section to add the required details without fluff. For example, in the DCO Reset section, add a subsection explaining what DCO is, how it manipulates drive capacity, and why resetting it is crucial. Similarly, for HPA, explain how HPA is hidden and why unlocking it is a critical step.
+
+In troubleshooting, create a list with common issues like "HPA unlock fails after power cycle" and the solution would be to ensure the 'p' parameter was used in the `hdparm` command. Another issue could be "Zero-fill process aborts due to I/O errors" which would involve checking the drive's physical condition and using `badblocks`.
+
+Also, in the estimation time table, add more entries for different SSD sizes and note that SSDs might have faster times due to their architecture. Maybe discuss why HDD takes longer than SSD.
+
+I should also explain the parameters of `dd` in more detail, like `bs=4M` being a balance between speed and memory usage, and `conv=noerror` allowing the process to continue despite errors.
+
+Adding a subsection on security considerations—why Zero-fill is necessary over a normal erase, and how it affects data recovery.
+
+Including step-by-step instructions for creating the Live USB, which the original didn't have. Maybe even a brief on verifying the ISO checksum for authenticity.
+
+Finally, ensure the total word count exceeds 1100, but the expansion should be natural, not forced. Check that all added content is relevant and enhances the technical depth without redundancy.
+</think>
+
+# 🔪 SOP — The Safe Exorcist  
+> **HPA Unlock › DCO Reset › MBR Wipe › Zero-Fill Total**  
+
+> [!danger] PERINGATAN KRITIS  
+- Dokumen ini berisi **prosedur destruktif permanen**. Salah memilih drive = kehilangan data selamanya.  
+- Tahan drive target dari komputer utama (gunakan USB-to-SATA adapter).  
+- **Jangan jalankan di drive OS utama**. Pastikan boot dari Live USB (tidak dari installed OS).  
 
 ---
 
-## ⚙️ Prasyarat & Persiapan
+## ⚙️ Prasyarat & Persiapan  
 
-| Item              | Detail                                                              |
-| ----------------- | ------------------------------------------------------------------- |
-| **OS**            | SystemRescue Live USB _(boot terpisah, bukan dari disk target)_     |
-| **Tools wajib**   | `hdparm` `dd` `lsblk` `blockdev`                                    |
-| **Koneksi drive** | USB-to-SATA adapter — **JANGAN** colok langsung ke SATA motherboard |
+| Komponen          | Detail                          |  
+|--------------------|---------------------------------|  
+| **OS**            | SystemRescue Live USB (versi ≥ 12.04) |  
+| **Tools wajib**   | `hdparm` `dd` `lsblk` `blockdev` `badblocks` |  
+| **Drive target**  | Terhubung via USB-to-SATA (jangan ke SATA motherboard!) |  
+| **Verifikasi**    | Pastikan drive target **tidak ter-mount** |  
 
-> [!info] Rocky Linux? Jalankan dulu: `sudo dnf install hdparm util-linux coreutils` Pastikan boot dari **Live USB**, bukan dari installed OS.
+### Contoh Instalasi Alat di Rocky Linux  
+```bash
+sudo dnf install hdparm util-linux coreutils e2fsprogs
+```
+
+> [!attention]  
+> **Jika drive target sudah ter-mount**, perintah `dd` bisa menyebabkan korupsi data bersifat cascading ke drive lain yang terpasang bersama. Gunakan `lsblk` untuk cek semua drive:  
+```bash
+lsblk
+# Contoh output: sdb: target, sda: drive OS
+```
 
 ---
 
-## Fase 1 — Identifikasi Target & Status
+## ⚙️ Fase 1 — Identifikasi Target & Status  
 
-### 1.1 Tampilkan semua drive fisik
-
-`ROTA=1` → HDD | `ROTA=0` → SSD/NVMe
+### 1.1: Deteksi Tipe Drive  
 
 ```bash
 lsblk -d -o NAME,SIZE,MODEL,ROTA
 ```
 
-### 1.2 Pastikan drive target tidak ter-mount
+**Legenda Output:**  
+- `ROTA=1` = HDD (menggunakan mekanisme disk fisik)  
+- `ROTA=0` = SSD/NVMe (tanpa mekanisme geser)  
 
-```bash
-umount /dev/sdX* 2>/dev/null
+**Output Contoh:**  
+```
+NAME   SIZE   MODEL          ROTA
+sda    238.5G Samsung SSD 870  0
+sdb    1.82T ST2000LM015-2DR  1
 ```
 
-> [!warning] Mount = Bahaya Jika drive masih ter-mount dan kamu jalankan `dd` → korupsi bisa menyebar ke disk lain yang terpasang bersamaan.
+> ❗ Pastikan `sdb` adalah drive target yang sesuai kebutuhan Anda. Jika tidak yakin, **lebih baik tidak melanjutkan**.
+
+### 1.2: Unmount Drive Target  
+
+```bash
+umount /dev/sdX* 2>/dev/null || true
+```
+
+> ❗ Pastikan tidak ada partisi (`sdX1`, `sdX2`, etc.) yang masih aktif sebagai mount point. Gunakan `df -h` untuk konfirmasi.
 
 ---
 
-## Fase 2 — Reset DCO (Device Configuration Overlay)
+## ⚙️ Fase 2 — Reset DCO (Device Configuration Overlay)  
 
-> [!tip] Kenapa DCO Dulu? DCO duduk **di bawah** HPA. Jika DCO tidak direset dulu, perintah unlock HPA bisa gagal total atau tidak persistent setelah power cycle.
+> [!info]  
+> **DCO (Device Configuration Overlay)** adalah layer firmware yang **mengurangi kapasitas fisik drive** untuk kontrol vendor (seperti OEM recovery). Reset DCO **hendaklah dilakukan sebelum unlock HPA**, karena DCO bisa **override** HPA jika tidak dibersihkan.
 
-### 2.1 Cek apakah ada DCO yang dimanipulasi
+### 2.1: Cek Status DCO  
 
 ```bash
 hdparm --dco-identify /dev/sdX
 ```
 
-### 2.2 Reset DCO ke bawaan pabrik
-
-```bash
-hdparm --dco-restore /dev/sdX
+**Contoh Output (DCO dimanipulasi):**  
+```
+drive is in DCO mode: enabled sectors = 500105856/976773168
 ```
 
-### 2.3 Paksa kernel baca ulang geometri
+> ✅ Jika output menunjukkan angka tidak sama → DCO aktif dan perlu direset.
+
+---
+
+### 2.2: Reset DCO ke Pabrik  
 
 ```bash
-blockdev --rereadpt /dev/sdX
+sudo hdparm --dco-restore /dev/sdX
+```
+
+> ❗ **Jika Error (`Input/output error`), ini biasa terjadi pada drive terenkripsi**. Coba:  
+> ```bash
+> dd if=/dev/zero of=/dev/sdX bs=512 count=1 status=progress
+> # Tulis ulang sektor pertama untuk melompati enkripsi
+> ```
+
+### 2.3: Paksa Kernel Mereload Konfigurasi  
+
+```bash
+sudo blockdev --rereadpt /dev/sdX
 ```
 
 ---
 
-## Fase 3 — Interogasi & Buka Kunci HPA
+## ⚙️ Fase 3 — Buka Kunci HPA (Hidden Partition Area)  
 
-### 3.1 Cek status HPA
+> [!warning]  
+> **HPA (Hidden Partition Area)** adalah area tersembunyi yang tidak dikenali oleh sistem operasi umum. HPA bisa digunakan untuk menampung:  
+> - OEM recovery factory image  
+> - Malware persisten  
+> - Rootkit yang terjebak di sektor akhir  
+
+### 3.1: Cek Status HPA  
 
 ```bash
 hdparm -N /dev/sdX
 ```
 
-**Contoh output:**
-
+**Contoh Output (HPA Aktif):**  
 ```
-max sectors   = 900000/976773168, HPA is enabled
-               ==^^====/^====^^==
-               current   native_max  ← AMBIL ANGKA INI
+max sectors = 500105856/976773168, HPA is enabled
 ```
 
-> Catat angka **Native Max** = angka **kedua setelah tanda `/`** Contoh di atas: `976773168`
-
-### 3.2 Buka gembok HPA secara paksa
-
-Tambahkan huruf `p` di depan angka Native Max:
-
-```bash
-hdparm -N p976773168 /dev/sdX
-#         ^
-#         p = persistent (survive power cycle)
-```
-
-### 3.3 Paksa kernel baca ulang kapasitas baru
-
-```bash
-blockdev --rereadpt /dev/sdX
-```
-
-### 3.4 Konfirmasi HPA sudah terbuka
-
-```bash
-hdparm -N /dev/sdX
-# ✅ Sukses = kedua angka sama + output: "HPA is disabled"
-```
-
-> [!success] HPA Terbuka Jika output berbunyi `HPA is disabled` dan kedua angka identik → seluruh kapasitas fisik disk kini terekspos dan siap di-zero-fill.
+> ✅ Catat angka kedua (`976773168`) sebagai `native_max`.
 
 ---
 
-## Fase 4 — Eksekusi Kematian (Zero-Fill Total)
-
-> [!danger] POINT OF NO RETURN Setelah perintah ini dieksekusi, **tidak ada yang bisa diselamatkan**. Semua partisi, data, HPA, DCO, MBR, Bootkit, Rootkit, dan virus akan terhapus sempurna.
-
-### 4.1 Konfirmasi nama drive sekali lagi
+### 3.2: Buka Kunci HPA  
 
 ```bash
-lsblk -d -o NAME,SIZE,MODEL,SERIAL /dev/sdX
+sudo hdparm -N p976773168 /dev/sdX
 ```
 
-### 4.2 Eksekusi Zero-Fill
-
-```bash
-dd if=/dev/zero of=/dev/sdX bs=4M conv=noerror,sync status=progress
-```
-
-| Parameter         | Fungsi                                                 |
-| ----------------- | ------------------------------------------------------ |
-| `bs=4M`           | Chunk besar → kecepatan optimal                        |
-| `conv=noerror`    | Lanjut meski ada bad sector _(kritis untuk HDD rusak)_ |
-| `conv=sync`       | Isi bad sector dengan nol, bukan dilewati              |
-| `status=progress` | Tampilkan progress real-time                           |
-
-**Estimasi waktu:**
-
-| Drive | Ukuran | Estimasi      |
-| ----- | ------ | ------------- |
-| HDD   | 250 GB | ~20–30 menit  |
-| HDD   | 500 GB | ~40–60 menit  |
-| HDD   | 1 TB   | ~90–120 menit |
-| SSD   | 250 GB | ~5–15 menit   |
-
----
-
-## ✅ Hasil Setelah Zero-Fill Selesai
-
-- [x] MBR/Bootkit terhapus sempurna
-- [x] Area HPA ter-zero-fill (tidak bisa reload ulang)
-- [x] DCO dikembalikan ke kapasitas pabrik
-- [x] Semua partisi dan data hilang
-- [x] Drive bersih seperti baru dari pabrik
-
-Drive kini siap dipartisi ulang dan diinstall OS baru.
-
----
-
-## 🗺️ Peta Lokasi Si Parasit (Referensi)
-
-```
-[Sektor 0 — 512 byte]
-│
-├── MBR ←─────────────── Bootkit duduk di sini (Fase 3–4 bunuh ini)
-│    └── Jump ke kode jahat di Unallocated Space dekat sektor 0
-│
-├── Partisi C: (Windows)   ← Antivirus biasa hanya melihat di sini
-├── Partisi D: (Data)
-├── Unallocated Space      ← Tubuh utama rootkit bersembunyi
-│
-└── [Sektor Terakhir — area tersembunyi]
-     │
-     └── HPA ←──────────── Cadangan infeksi / OEM Recovery
-          ├── Berisi OEM recovery bersih  = Teori A murni
-          └── Berisi kode executable aneh = Teori A + B hybrid ⚠️
-```
-
----
-
-## ⚡ Quick Reference — Urutan Wajib
-
-```bash
-# [1] Isolasi fisik → USB adapter + Live USB terpisah
-
-# [2] Identifikasi
-lsblk -d -o NAME,SIZE,MODEL,ROTA
-umount /dev/sdX* 2>/dev/null
-
-# [3] DCO Reset (SEBELUM HPA!)
-hdparm --dco-restore /dev/sdX
-blockdev --rereadpt /dev/sdX
-
-# [4] HPA Unlock
-hdparm -N /dev/sdX                  # catat native_max
-hdparm -N p{native_max} /dev/sdX    # buka paksa
-blockdev --rereadpt /dev/sdX
-
-# [5] Zero-Fill
-dd if=/dev/zero of=/dev/sdX bs=4M conv=noerror,sync status=progress
-```
-
----
-
-## 🔗 Lihat Juga
-
-- [Script Exorcist](D:\Documents\Obsidian Vault\REPAIR\Exorcist.sh)
-- [[data-recovery|Data Recovery]] — Recovery Level 0–7
-- [[endpoint-security|Endpoint Security]] — CPU Ring & Boot Chain
-- [[network-security|Network Security]] — OSI Layer 1–8
-
----
-
-_The Safe Exorcist v2.0 — HPA/DCO/MBR Elimination Protocol_
+> 🔧 **Jika Gagal dengan Error (`hdparm: invalid option`)**:  
+> - Pastikan parameter `-N` diikuti dengan opsi `p<angka>`.  
+> - Coba tambahkan `-n` untuk non-DOS mode:

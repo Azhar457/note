@@ -25,17 +25,17 @@ Pada 2024, Cellebrite mengklaim dapat mengekstrak data dari **lebih dari 45.000 
 
 ### Ekosistem Produk Cellebrite
 
-| Produk                            | Fungsi                                                                                                                                                        |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **UFED Touch3**                   | Tablet forensik lapangan (rugged) untuk ekstraksi langsung di TKP. Baterai tahan lama, konektivitas Wi-Fi/Bluetooth/kabel.                                    |
-| **UFED 4PC**                      | Software untuk laptop/PC investigator, dengan kabel kit ekstensif.                                                                                            |
-| **UFED Physical Analyzer**        | Software analisis desktop untuk memproses, mem-parsing, dan memvisualisasikan data hasil ekstraksi.                                                           |
-| **Cellebrite Premium**            | Suite eselon atas dengan kemampuan bypass lock screen terkini (termasuk brute-force hardware-assisted), cloud extraction, dan dukungan untuk chipset terbaru. |
-| **UFED Cloud Analyzer**           | Ekstraksi data dari cloud (iCloud, Google Drive, WhatsApp backup, dll.) dengan kredensial atau token yang didapat dari perangkat.                             |
-| **UFED Reader**                   | Software gratis untuk berbagi hasil ekstraksi dengan jaksa/pengadilan tanpa lisensi penuh.                                                                    |
-| **UFED Link**                     | Remote extraction: agen di lapangan mengoperasikan UFED yang dikendalikan dari lab.                                                                           |
-| **Cellebrite Pathfinder**         | Analitik lanjutan: relationship mapping, timeline, pattern detection, analisis gambar AI.                                                                     |
-| **Cellebrite Endpoint Inspector** | Forensik endpoint (laptop/desktop) untuk melengkapi mobile forensics.                                                                                         |
+| Produk | Fungsi |
+|--------|--------|
+| **UFED Touch3** | Tablet forensik lapangan (rugged) untuk ekstraksi langsung di TKP. Baterai tahan lama, konektivitas Wi-Fi/Bluetooth/kabel. |
+| **UFED 4PC** | Software untuk laptop/PC investigator, dengan kabel kit ekstensif. |
+| **UFED Physical Analyzer** | Software analisis desktop untuk memproses, mem-parsing, dan memvisualisasikan data hasil ekstraksi. |
+| **Cellebrite Premium** | Suite eselon atas dengan kemampuan bypass lock screen terkini (termasuk brute-force hardware-assisted), cloud extraction, dan dukungan untuk chipset terbaru. |
+| **UFED Cloud Analyzer** | Ekstraksi data dari cloud (iCloud, Google Drive, WhatsApp backup, dll.) dengan kredensial atau token yang didapat dari perangkat. |
+| **UFED Reader** | Software gratis untuk berbagi hasil ekstraksi dengan jaksa/pengadilan tanpa lisensi penuh. |
+| **UFED Link** | Remote extraction: agen di lapangan mengoperasikan UFED yang dikendalikan dari lab. |
+| **Cellebrite Pathfinder** | Analitik lanjutan: relationship mapping, timeline, pattern detection, analisis gambar AI. |
+| **Cellebrite Endpoint Inspector** | Forensik endpoint (laptop/desktop) untuk melengkapi mobile forensics. |
 
 ---
 
@@ -48,21 +48,18 @@ Cellebrite mendukung beberapa metode ekstraksi, diurutkan dari yang paling tidak
 **Prinsip:** UFED berkomunikasi dengan perangkat melalui protokol standar (iTunes/AFC untuk iOS, MTP/ADB untuk Android) dan meminta data yang "terlihat" oleh sistem operasi.
 
 **Data yang bisa didapat:**
-
 - Kontak, kalender, catatan, SMS/MMS, log panggilan.
 - Media (foto, video, audio) di penyimpanan yang dapat diakses.
 - Riwayat Wi-Fi, Bluetooth, lokasi.
 - Beberapa data aplikasi (jika aplikasi mengizinkan backup).
 
 **Keterbatasan:**
-
 - Tidak bisa mendapat data aplikasi sandboxed (WhatsApp, Signal, Telegram).
 - Tidak bisa mendapat data terhapus.
 - Tidak bisa akses file sistem.
 - Bergantung pada mode USB yang diizinkan perangkat (jika terkunci, logical extraction sering gagal).
 
 **Metode koneksi:**
-
 - **iOS**: pairing record (jika sebelumnya sudah dipercaya), atau iTunes backup.
 - **Android**: USB debugging (jika diaktifkan), backup Android, atau MTP.
 
@@ -71,13 +68,11 @@ Cellebrite mendukung beberapa metode ekstraksi, diurutkan dari yang paling tidak
 **Prinsip:** UFED mendapatkan akses ke seluruh filesystem perangkat, termasuk direktori aplikasi sandboxed dan file sistem (tidak termasuk partisi terproteksi).
 
 **Prasyarat:**
-
 - Perangkat harus di-unlock (passcode diketahui atau sudah di-bypass).
 - Pada iOS, biasanya memerlukan exploit bootrom (checkm8) atau exploit kernel untuk mengakses filesystem penuh.
 - Pada Android, memerlukan root akses (temporary root via exploit) atau custom recovery.
 
 **Data tambahan vs Logical:**
-
 - Semua data aplikasi (WhatsApp, Signal, Telegram, Facebook, Instagram, TikTok, dll.).
 - Cache, log, cookie, session token.
 - Database yang disimpan aplikasi di direktori pribadi.
@@ -88,21 +83,18 @@ Cellebrite mendukung beberapa metode ekstraksi, diurutkan dari yang paling tidak
 **Prinsip:** UFED membuat salinan bit-ke-bit (bit-by-bit copy) dari seluruh penyimpanan internal perangkat, termasuk partisi yang tidak ter-mount, ruang kosong (unallocated space), dan area yang tidak dapat diakses melalui sistem operasi normal.
 
 **Proses:**
-
 1. UFED mengirimkan **bootloader exploit** atau **agent** ke perangkat (dalam mode recovery/DFU/Fastboot/EDL).
 2. Agent ini mem-bypass verifikasi signature dan mengakses memori NAND secara langsung.
 3. UFED membaca seluruh penyimpanan mentah dan menyalinnya ke file image.
 4. File image kemudian di-mount dan dianalisis di Physical Analyzer.
 
 **Keunggulan:**
-
 - Mendapatkan SEMUA data, termasuk file terhapus (jika belum ditimpa).
 - Mendapatkan data dari partisi yang tidak terlihat oleh OS (EFI, baseband, OEM).
 - Mendapatkan artefak forensik seperti timestamp file, fragmentasi file, metadata filesystem.
 - Bisa membaca data dari perangkat yang tidak bisa booting (rusak secara fisik tetapi chip penyimpanan masih utuh).
 
 **Teknik yang digunakan:**
-
 - **Bootrom exploit (checkm8)**: Untuk iPhone 4s hingga iPhone X (A5–A11). Eksploitasi ini bersifat permanen (tidak bisa ditambal Apple) karena ada di bootrom. UFED memanfaatkannya untuk menjalankan kode kustom dan membaca NAND.
 - **EDL mode (Qualcomm)**: Untuk banyak perangkat Android dengan chip Qualcomm. Mode Emergency Download memungkinkan akses langsung ke memori.
 - **Pre-loader exploit (MediaTek)**: Untuk perangkat MediaTek, UFED menggunakan mode BROM (Boot ROM) untuk membaca memori.
@@ -128,15 +120,14 @@ Kemampuan UFED untuk membuka kunci perangkat adalah aspek yang paling kontrovers
 
 ### iPhone / iOS
 
-| Model                    | Chip    | Metode Bypass                                                                                                                                                                                                       | Waktu Estimasi                                                              | Diperbaiki?                                     |
-| ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------- |
-| iPhone 4s – iPhone X     | A5–A11  | **Checkm8 bootrom exploit**: UFED mengeksploitasi bootrom untuk menonaktifkan passcode retry limit, lalu brute-force passcode dengan kecepatan tinggi (via USB, ribuan percobaan/detik).                            | 4-digit PIN: menit. 6-digit PIN: jam. Alphanumeric panjang: berbulan-bulan. | ❌ Tidak bisa ditambal (permanen).              |
-| iPhone XR/XS – iPhone 14 | A12–A15 | **Cellebrite Premium**: Kernel exploit untuk mengaktifkan brute-force (tanpa bootrom exploit). Detail rahasia; kemungkinan menggunakan 0-day atau kombinasi hardware attack.                                        | 4-digit PIN: cepat (detail tidak diungkap). 6-digit PIN: lebih lama.        | ✅ Ditambal di iOS 16+ (Lockdown Mode), iOS 17. |
-| iPhone 15                | A16/A17 | **Terbatas**: Cellebrite Premium mengklaim dukungan terbatas. Detail tidak diungkap.                                                                                                                                | Mungkin lebih lambat.                                                       | ✅ Apple terus menambal.                        |
-| Semua iPhone             | Semua   | **GrayKey/ GrayShift**: (Alat terpisah tapi terintegrasi) Brute-force hardware dengan mengirimkan kode PIN via koneksi serial ke Secure Enclave. UFED bisa bekerja sama dengan GrayKey untuk unlock lalu ekstraksi. | 4-digit: ~6 menit. 6-digit: ~11 jam.                                        | ✅ Ditambal di iOS 12 (USB Restricted Mode).    |
+| Model | Chip | Metode Bypass | Waktu Estimasi | Diperbaiki? |
+|-------|------|---------------|----------------|-------------|
+| iPhone 4s – iPhone X | A5–A11 | **Checkm8 bootrom exploit**: UFED mengeksploitasi bootrom untuk menonaktifkan passcode retry limit, lalu brute-force passcode dengan kecepatan tinggi (via USB, ribuan percobaan/detik). | 4-digit PIN: menit. 6-digit PIN: jam. Alphanumeric panjang: berbulan-bulan. | ❌ Tidak bisa ditambal (permanen). |
+| iPhone XR/XS – iPhone 14 | A12–A15 | **Cellebrite Premium**: Kernel exploit untuk mengaktifkan brute-force (tanpa bootrom exploit). Detail rahasia; kemungkinan menggunakan 0-day atau kombinasi hardware attack. | 4-digit PIN: cepat (detail tidak diungkap). 6-digit PIN: lebih lama. | ✅ Ditambal di iOS 16+ (Lockdown Mode), iOS 17. |
+| iPhone 15 | A16/A17 | **Terbatas**: Cellebrite Premium mengklaim dukungan terbatas. Detail tidak diungkap. | Mungkin lebih lambat. | ✅ Apple terus menambal. |
+| Semua iPhone | Semua | **GrayKey/ GrayShift**: (Alat terpisah tapi terintegrasi) Brute-force hardware dengan mengirimkan kode PIN via koneksi serial ke Secure Enclave. UFED bisa bekerja sama dengan GrayKey untuk unlock lalu ekstraksi. | 4-digit: ~6 menit. 6-digit: ~11 jam. | ✅ Ditambal di iOS 12 (USB Restricted Mode). |
 
 **Metode brute-force UFED sendiri (tanpa GrayKey):**
-
 1. UFED menempatkan perangkat dalam mode recovery/DFU.
 2. Mengirimkan payload eksploitasi (checkm8 atau kernel exploit) untuk memodifikasi boot chain.
 3. Mem-patch kernel agar tidak menghapus perangkat setelah X percobaan gagal.
@@ -146,14 +137,14 @@ Kemampuan UFED untuk membuka kunci perangkat adalah aspek yang paling kontrovers
 
 ### Android
 
-| Metode                          | Deskripsi                                                                                                                                                                |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Google Account Bypass (FRP)** | Jika perangkat di-reset tapi masih terikat akun Google, UFED bisa mem-bypass Factory Reset Protection (FRP) dengan exploit tertentu.                                     |
-| **Bootloader Unlock**           | Jika bootloader bisa di-unlock, UFED mem-flash custom image untuk akses data.                                                                                            |
-| **EDL Mode (Qualcomm)**         | Mode darurat pada chipset Qualcomm memungkinkan akses langsung ke memori, mem-bypass lockscreen sepenuhnya. Banyak perangkat Android yang EDL mode-nya tidak dilindungi. |
-| **MediaTek BROM**               | Mirip EDL, akses low-level ke memori via MediaTek Boot ROM.                                                                                                              |
-| **Samsung Exynos**              | Beberapa chip Exynos memiliki kelemahan yang memungkinkan bypass.                                                                                                        |
-| **Brute-force PIN/Pattern**     | UFED dapat mencoba ribuan pola/PIN via USB, meskipun lebih lambat dari iPhone.                                                                                           |
+| Metode | Deskripsi |
+|--------|-----------|
+| **Google Account Bypass (FRP)** | Jika perangkat di-reset tapi masih terikat akun Google, UFED bisa mem-bypass Factory Reset Protection (FRP) dengan exploit tertentu. |
+| **Bootloader Unlock** | Jika bootloader bisa di-unlock, UFED mem-flash custom image untuk akses data. |
+| **EDL Mode (Qualcomm)** | Mode darurat pada chipset Qualcomm memungkinkan akses langsung ke memori, mem-bypass lockscreen sepenuhnya. Banyak perangkat Android yang EDL mode-nya tidak dilindungi. |
+| **MediaTek BROM** | Mirip EDL, akses low-level ke memori via MediaTek Boot ROM. |
+| **Samsung Exynos** | Beberapa chip Exynos memiliki kelemahan yang memungkinkan bypass. |
+| **Brute-force PIN/Pattern** | UFED dapat mencoba ribuan pola/PIN via USB, meskipun lebih lambat dari iPhone. |
 
 ---
 
@@ -171,20 +162,19 @@ Setelah data diekstrak, file image diproses oleh **UFED Physical Analyzer** (PA)
 
 ### Analitik & Visualisasi
 
-| Fitur                    | Deskripsi                                                                           |
-| ------------------------ | ----------------------------------------------------------------------------------- |
-| **Timeline View**        | Semua event (panggilan, pesan, foto, lokasi) dalam satu timeline kronologis.        |
-| **Connection Graph**     | Visualisasi hubungan antara kontak, nomor telepon, email, akun media sosial.        |
-| **Location Mapping**     | Plot data lokasi (GPS, cell tower, Wi-Fi) pada peta.                                |
-| **Keyword Search**       | Pencarian full-text di semua data, termasuk di gambar (OCR).                        |
+| Fitur | Deskripsi |
+|-------|-----------|
+| **Timeline View** | Semua event (panggilan, pesan, foto, lokasi) dalam satu timeline kronologis. |
+| **Connection Graph** | Visualisasi hubungan antara kontak, nomor telepon, email, akun media sosial. |
+| **Location Mapping** | Plot data lokasi (GPS, cell tower, Wi-Fi) pada peta. |
+| **Keyword Search** | Pencarian full-text di semua data, termasuk di gambar (OCR). |
 | **Image Categorization** | AI untuk mengkategorikan gambar (senjata, narkoba, uang, dokumen, pornografi anak). |
-| **Pattern Detection**    | Mendeteksi pola komunikasi, rute perjalanan, anomali.                               |
-| **Watch List**           | Mencocokkan data dengan daftar target (nomor, email, nama).                         |
+| **Pattern Detection** | Mendeteksi pola komunikasi, rute perjalanan, anomali. |
+| **Watch List** | Mencocokkan data dengan daftar target (nomor, email, nama). |
 
 ### Ekstraksi Cloud
 
 Jika token atau kredensial ditemukan di perangkat, PA dapat menggunakannya untuk:
-
 - Mengunduh backup iCloud penuh (termasuk foto, kontak, catatan, dll.).
 - Mengakses Google Drive, Google Photos, Google Maps timeline.
 - Mengunduh chat history WhatsApp dari Google Drive backup.
@@ -213,7 +203,6 @@ Jika iPhone tidak di-unlock selama lebih dari 1 jam, port Lightning akan menonak
 ### 3. Lockdown Mode (iOS 16+)
 
 Lockdown Mode secara drastis mempersempit permukaan serangan:
-
 - Menonaktifkan koneksi kabel saat terkunci (bahkan lebih ketat dari USB Restricted Mode).
 - Memblokir konfigurasi MDM saat terkunci.
 - Menonaktifkan exploit vector di browser, pesan, FaceTime.
@@ -302,14 +291,14 @@ Militer AS dan sekutu menggunakan Cellebrite UFED di Irak, Afghanistan, Suriah u
 
 ## 📚 Referensi
 
-- Cellebrite, _UFED User Manual & Technical Specifications_ (2024)
-- Cellebrite, _Physical Analyzer Training Materials_
-- NIST, _Guidelines on Mobile Device Forensics_ (SP 800-101 Rev. 1)
-- Apple, _Platform Security Guide_ (2024)
-- Amnesty International, _Cellebrite: The Tool That Unlocks Your Phone_ (2021)
-- Upturn, _Cellebrite and the Sale of Mobile Forensic Tools to Governments_ (2020)
+- Cellebrite, *UFED User Manual & Technical Specifications* (2024)
+- Cellebrite, *Physical Analyzer Training Materials*
+- NIST, *Guidelines on Mobile Device Forensics* (SP 800-101 Rev. 1)
+- Apple, *Platform Security Guide* (2024)
+- Amnesty International, *Cellebrite: The Tool That Unlocks Your Phone* (2021)
+- Upturn, *Cellebrite and the Sale of Mobile Forensic Tools to Governments* (2020)
 - MITRE ATT&CK: T1588.001 (Obtain Capabilities: Malware), T1592.002 (Gather Victim Host Information: Software)
 
 ---
 
-_Cellebrite UFED Deep Dive | Mobile Forensic Extraction | Dual-Use Forensic Platform_
+*Cellebrite UFED Deep Dive | Mobile Forensic Extraction | Dual-Use Forensic Platform*

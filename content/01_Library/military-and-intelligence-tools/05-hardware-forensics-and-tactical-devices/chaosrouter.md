@@ -25,13 +25,13 @@ Chaosrouter dinamai berdasarkan kemampuannya untuk menciptakan "kekacauan" (chao
 
 ### Posisi dalam Ekosistem IMSI Catcher
 
-| Perangkat       | Produsen             | Kemampuan Utama                                   | Portabilitas       |
-| --------------- | -------------------- | ------------------------------------------------- | ------------------ |
-| **StingRay**    | L3Harris (AS)        | Interception, tracking                            | Kendaraan          |
-| **EXODUS**      | Septier (Israel)     | Interception, jamming                             | Backpack/Kendaraan |
-| **Piranha**     | Rayzone (Israel)     | Interception, tracking, MITM                      | Backpack           |
-| **Chaosrouter** | Shadow-Tech (Israel) | Interception, manipulation, active routing attack | Backpack/Handheld  |
-| **GOSSIP**      | Ability (Israel)     | Passive interception                              | Kendaraan          |
+| Perangkat | Produsen | Kemampuan Utama | Portabilitas |
+|-----------|----------|-----------------|--------------|
+| **StingRay** | L3Harris (AS) | Interception, tracking | Kendaraan |
+| **EXODUS** | Septier (Israel) | Interception, jamming | Backpack/Kendaraan |
+| **Piranha** | Rayzone (Israel) | Interception, tracking, MITM | Backpack |
+| **Chaosrouter** | Shadow-Tech (Israel) | Interception, manipulation, active routing attack | Backpack/Handheld |
+| **GOSSIP** | Ability (Israel) | Passive interception | Kendaraan |
 
 Chaosrouter menonjol karena **kemampuan manipulasi aktif** — bukan hanya mendengarkan, tapi mengubah konten komunikasi.
 
@@ -41,16 +41,16 @@ Chaosrouter menonjol karena **kemampuan manipulasi aktif** — bukan hanya mende
 
 ### Komponen Fisik
 
-| Komponen         | Detail                                                                                    |
-| ---------------- | ----------------------------------------------------------------------------------------- |
-| **Main Unit**    | Kotak aluminium rugged, 20x15x8 cm, berat ~2 kg                                           |
-| **Radio Modul**  | Software-Defined Radio (SDR) multi-band: GSM (900/1800), UMTS (2100), LTE (800/1800/2600) |
-| **Antena**       | 4x SMA port: 1x TX, 2x RX diversity, 1x GPS                                               |
-| **Prosesor**     | Intel i7 embedded + FPGA Xilinx untuk real-time signal processing                         |
-| **Penyimpanan**  | 512 GB NVMe SSD (log, rekaman, database)                                                  |
-| **Baterai**      | Hot-swappable Li-Ion pack, 4 jam operasi                                                  |
-| **Konektivitas** | Gigabit Ethernet, WiFi (untuk remote control via tablet/laptop)                           |
-| **Software**     | ChaosOS — Linux-based dengan GUI web untuk operator                                       |
+| Komponen | Detail |
+|----------|--------|
+| **Main Unit** | Kotak aluminium rugged, 20x15x8 cm, berat ~2 kg |
+| **Radio Modul** | Software-Defined Radio (SDR) multi-band: GSM (900/1800), UMTS (2100), LTE (800/1800/2600) |
+| **Antena** | 4x SMA port: 1x TX, 2x RX diversity, 1x GPS |
+| **Prosesor** | Intel i7 embedded + FPGA Xilinx untuk real-time signal processing |
+| **Penyimpanan** | 512 GB NVMe SSD (log, rekaman, database) |
+| **Baterai** | Hot-swappable Li-Ion pack, 4 jam operasi |
+| **Konektivitas** | Gigabit Ethernet, WiFi (untuk remote control via tablet/laptop) |
+| **Software** | ChaosOS — Linux-based dengan GUI web untuk operator |
 
 ### Arsitektur Software
 
@@ -79,7 +79,6 @@ Chaosrouter menonjol karena **kemampuan manipulasi aktif** — bukan hanya mende
 Seperti IMSI Catcher lain, Chaosrouter bisa mengumpulkan IMSI/IMEI secara pasif dengan mendengarkan broadcast channel BTS sah.
 
 **Keunggulan Chaosrouter:**
-
 - **Multi-band simultaneous**: Bisa mendengarkan GSM, UMTS, dan LTE secara bersamaan.
 - **Database matching**: Otomatis mencocokkan IMSI dengan database target (whitelist/blacklist).
 - **Silent mode**: Tidak memancarkan sinyal sama sekali — tidak terdeteksi.
@@ -97,14 +96,14 @@ Chaosrouter bisa berfungsi sebagai BTS palsu penuh:
 
 Ini adalah kemampuan yang membedakan Chaosrouter dari IMSI Catcher lain:
 
-| Manipulasi                 | Deskripsi                                                                                       |
-| -------------------------- | ----------------------------------------------------------------------------------------------- |
-| **Call Redirection**       | Mengalihkan panggilan target ke nomor lain (via SS7/ISUP injection).                            |
-| **SMS Modification**       | Mengubah isi SMS yang dikirim/diterima target secara real-time.                                 |
-| **SMS Spoofing**           | Mengirim SMS yang tampak berasal dari nomor sah (bank, pemerintah, kolega).                     |
-| **Call Content Injection** | Menyisipkan audio ke dalam panggilan yang sedang berlangsung.                                   |
+| Manipulasi | Deskripsi |
+|------------|-----------|
+| **Call Redirection** | Mengalihkan panggilan target ke nomor lain (via SS7/ISUP injection). |
+| **SMS Modification** | Mengubah isi SMS yang dikirim/diterima target secara real-time. |
+| **SMS Spoofing** | Mengirim SMS yang tampak berasal dari nomor sah (bank, pemerintah, kolega). |
+| **Call Content Injection** | Menyisipkan audio ke dalam panggilan yang sedang berlangsung. |
 | **USSD Command Injection** | Mengirim perintah USSD ke ponsel target (misal: `*21*[nomor penyadap]#` untuk call forwarding). |
-| **SIM Toolkit Attack**     | Mengeksploitasi SIM toolkit untuk menjalankan perintah di ponsel target.                        |
+| **SIM Toolkit Attack** | Mengeksploitasi SIM toolkit untuk menjalankan perintah di ponsel target. |
 
 ### 4. Protocol Downgrade & Decryption
 
@@ -151,25 +150,25 @@ Ini adalah kemampuan yang membedakan Chaosrouter dari IMSI Catcher lain:
 
 ### 1. Deteksi Chaosrouter
 
-| Metode                        | Detail                                                                                             |
-| ----------------------------- | -------------------------------------------------------------------------------------------------- |
+| Metode | Detail |
+|--------|--------|
 | **IMSI Catcher Detector App** | Aplikasi seperti SnoopSnitch, IMSI-Catcher Detector — mendeteksi BTS palsu dari anomali parameter. |
-| **LAC/Cell ID Mismatch**      | Chaosrouter mungkin menggunakan LAC/Cell ID yang tidak sesuai database operator.                   |
-| **Protocol Anomaly**          | Chaosrouter mengirimkan pesan yang tidak standar (A5/0 forcing, downgrade command).                |
-| **Signal Strength Spike**     | Lonjakan sinyal tiba-tiba di area yang biasanya sinyal lemah.                                      |
-| **SMS Delay/Modification**    | SMS yang diterima tidak sesuai yang dikirim (verifikasi via saluran kedua).                        |
-| **Call Routing Anomaly**      | Panggilan terdengar aneh (delay, echo, kualitas rendah) karena melewati relay.                     |
+| **LAC/Cell ID Mismatch** | Chaosrouter mungkin menggunakan LAC/Cell ID yang tidak sesuai database operator. |
+| **Protocol Anomaly** | Chaosrouter mengirimkan pesan yang tidak standar (A5/0 forcing, downgrade command). |
+| **Signal Strength Spike** | Lonjakan sinyal tiba-tiba di area yang biasanya sinyal lemah. |
+| **SMS Delay/Modification** | SMS yang diterima tidak sesuai yang dikirim (verifikasi via saluran kedua). |
+| **Call Routing Anomaly** | Panggilan terdengar aneh (delay, echo, kualitas rendah) karena melewati relay. |
 
 ### 2. Countermeasures
 
-| Lapisan                    | Tindakan                                                                                         |
-| -------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Komunikasi**             | Gunakan **E2EE messenger** (Signal, WhatsApp) — Chaosrouter tidak bisa memodifikasi konten E2EE. |
-| **Panggilan**              | Gunakan **VoIP dengan E2EE** (Signal voice, FaceTime Audio) — tidak melalui jaringan seluler.    |
-| **Verifikasi Out-of-Band** | Konfirmasi informasi penting via saluran kedua (email, messenger berbeda).                       |
-| **SIM Security**           | Nonaktifkan SIM toolkit jika tidak digunakan. Blokir USSD command yang tidak dikenal.            |
-| **Network Monitoring**     | Operator seluler harus mendeteksi BTS palsu dari laporan UE (User Equipment).                    |
-| **5G SA**                  | 5G Standalone dengan SUCI dan mutual authentication penuh mempersulit IMSI Catcher.              |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Komunikasi** | Gunakan **E2EE messenger** (Signal, WhatsApp) — Chaosrouter tidak bisa memodifikasi konten E2EE. |
+| **Panggilan** | Gunakan **VoIP dengan E2EE** (Signal voice, FaceTime Audio) — tidak melalui jaringan seluler. |
+| **Verifikasi Out-of-Band** | Konfirmasi informasi penting via saluran kedua (email, messenger berbeda). |
+| **SIM Security** | Nonaktifkan SIM toolkit jika tidak digunakan. Blokir USSD command yang tidak dikenal. |
+| **Network Monitoring** | Operator seluler harus mendeteksi BTS palsu dari laporan UE (User Equipment). |
+| **5G SA** | 5G Standalone dengan SUCI dan mutual authentication penuh mempersulit IMSI Catcher. |
 
 ---
 
@@ -206,11 +205,11 @@ Chaosrouter adalah eskalasi signifikan dari IMSI Catcher tradisional. Kemampuan 
 
 ## 📚 Referensi
 
-- Shadow-Tech. _Chaosrouter Technical Overview_ (dokumen bocor, 2021).
-- Kaspersky. _Advanced IMSI Catchers: Beyond Stingray_ (2019).
-- ETSI TS 133 102: _3G Security Architecture_.
+- Shadow-Tech. *Chaosrouter Technical Overview* (dokumen bocor, 2021).
+- Kaspersky. *Advanced IMSI Catchers: Beyond Stingray* (2019).
+- ETSI TS 133 102: *3G Security Architecture*.
 - MITRE ATT&CK: T1588 (Obtain Capabilities), T1595 (Active Scanning), T1189 (Drive-by Compromise).
 
 ---
 
-_Chaosrouter Deep Dive | Portable Cellular Interception & Manipulation | Israel Tactical SIGINT Tool_
+*Chaosrouter Deep Dive | Portable Cellular Interception & Manipulation | Israel Tactical SIGINT Tool*

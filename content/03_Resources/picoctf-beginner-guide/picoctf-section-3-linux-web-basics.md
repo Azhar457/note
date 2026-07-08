@@ -6,116 +6,144 @@ tags:
 aliases:
   - "picoctf-section-3-linux-web-basics"
 created: "2026-05-12"
-updated: "2026-07-01"
+updated: "2026-07-07"
 status: operational
 ---
 
 # 🛠️ PICOCTF SECTION 3 — Linux & Web Basics
 
-> **Tools:** `strings`, `grep`, `file`, Browser DevTools
-> **Filosofi:** Intip apa yang tidak terlihat di permukaan.
-> **Target:** Binary files, Source code, & Hidden Web elements.
+> **Tools:** `strings`, `grep`, `file`, `reset`, Browser DevTools  
+> **Filosofi:** Intip apa yang tidak terlihat di permukaan.  
+> **Target:** Binary files, Source code, & Hidden Web elements.  
 
 ---
 
-## FASE 1 — Analisis Biner Sederhana
+## FASE 1 — Analisis Biner Sederhana (File & Strings)
 
-Saat Anda mengunduh file biner yang tidak bisa dibaca manusia, gunakan alat ini:
+Saat Anda mengunduh berkas biner (seperti program yang sudah dikompilasi, gambar, atau berkas arsip) di tantangan CTF, isi berkas tersebut tidak dapat langsung dibaca dengan editor teks biasa. Membuka berkas biner secara paksa dengan editor teks hanya akan menampilkan karakter acak yang tidak berarti (*garbage characters*).
 
-### 1.1 Command `strings`
-
-Menampilkan semua urutan karakter yang dapat dicetak dalam file.
+### 1.1 Perintah `file` (Identifikasi Format Sebenarnya)
+Ekstensi berkas di sistem operasi Linux tidak menentukan jenis berkas. Seorang pembuat soal CTF bisa saja menyembunyikan berkas arsip zip dengan mengubah ekstensinya menjadi `.jpg`. Perintah `file` memeriksa bagian *header* berkas (dikenal sebagai **Magic Bytes**) untuk menentukan tipe data berkas yang sebenarnya.
 
 ```bash
-# Mencari flag di dalam file biner
+# Contoh penggunaan:
+file target_file
+```
+**Contoh Output:**
+```text
+target_file: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, build id: 1234abcd..., stripped
+```
+*   `ELF 64-bit`: Program biner executable untuk arsitektur Linux 64-bit.
+*   `dynamically linked`: Program membutuhkan library eksternal untuk berjalan.
+*   `stripped`: Informasi simbol debug telah dihapus untuk memperkecil ukuran berkas, yang membuat proses analisis mendalam (*reverse engineering*) menjadi lebih menantang.
+
+### 1.2 Perintah `strings` (Ekstraksi Teks Biner)
+Perintah `strings` memindai seluruh berkas biner dan menampilkan urutan karakter ASCII yang dapat dicetak (*printable characters*) dengan panjang minimal 4 karakter (secara default). Teknik ini sangat efektif untuk menemukan flag yang ditanam langsung sebagai string konstan di dalam kode program.
+
+```bash
+# Menampilkan string dan menyaring kata kunci picoCTF
 strings strings_it | grep "picoCTF"
 ```
 
-### 1.2 Command `file`
+### 1.3 Pemulihan Terminal Akibat Kesalahan `cat`
+Jika Anda tidak sengaja menjalankan perintah `cat` pada file biner (seperti `cat biner_executable`), terminal Anda kemungkinan besar akan menampilkan karakter aneh dan rusak. Ini terjadi karena biner tersebut berisi urutan kontrol terminal ANSI yang mengubah pemetaan font terminal Anda. Jangan panik atau menutup terminal Anda. Anda dapat memulihkannya dengan mengetik perintah berikut (meskipun karakter yang Anda ketik mungkin tidak terlihat di layar, tekan saja Enter):
+```bash
+reset
+```
+Perintah ini akan menginisialisasi ulang status terminal Anda ke konfigurasi bawaan.
 
-Mengetahui jenis file sebenarnya (ekstensi bisa menipu).
+---
+
+## FASE 2 — Penguasaan Pencarian Tekstual (`grep` Mastery)
+
+`grep` (Global Regular Expression Print) adalah salah satu utilitas CLI Linux paling kuat untuk mencari baris teks yang cocok dengan pola tertentu di dalam satu atau banyak berkas.
+
+### 2.1 Sintaks Pencarian Tingkat Lanjut
+*   **Pencarian Rekursif (`-r` atau `-R`):** Mencari kecocokan kata kunci di seluruh berkas yang ada di dalam direktori saat ini beserta seluruh sub-direktorinya.
+    ```bash
+    grep -r "picoCTF" .
+    ```
+*   **Case-Insensitive (`-i`):** Mengabaikan perbedaan huruf besar dan huruf kecil pada kata kunci pencarian.
+    ```bash
+    grep -i "picoctf" file_log.txt
+    ```
+*   **Menampilkan Baris Sekitar (`-B`, `-A`, `-C`):** Menampilkan konteks baris sebelum (*Before*), sesudah (*After*), atau keduanya (*Context*) di sekitar baris yang cocok. Ini sangat berguna jika flag dipecah ke beberapa baris.
+    ```bash
+    # Menampilkan 2 baris sebelum dan 2 baris sesudah baris yang cocok
+    grep -C 2 "flag" database.sql
+    ```
+*   **Hanya Tampilkan Kecocokan (`-o`):** Hanya mengekstrak string yang cocok secara persis dengan pola pencarian, bukan menampilkan seluruh baris teks. Sangat ampuh jika dikombinasikan dengan Regular Expression (Regex).
+    ```bash
+    # Mengekstrak pola flag picoCTF menggunakan regex
+    grep -o -E "picoCTF\{[a-zA-Z0-9_-]+\}" file.txt
+    ```
+
+---
+
+## FASE 3 — Eksploitasi Web Dasar (Web Exploitation)
+
+Tantangan kategori Web Exploitation melatih Anda untuk menganalisis aplikasi web dari sudut pandang client-side maupun server-side.
+
+### 3.1 Inspeksi Kode Sumber (Browser DevTools)
+Saat menghadapi tantangan web sederhana seperti tantangan *Insp3ct0r* di picoCTF, langkah pertama adalah memeriksa berkas yang dikirimkan oleh server ke peramban (*browser*) Anda. Tekan `Ctrl + Shift + I` (atau `F12`) untuk membuka Developer Tools.
+
+1.  **Tab Elements / HTML Source:** Periksa struktur DOM HTML. Cari komentar-komentar yang sengaja ditinggalkan developer menggunakan sintaks `<!-- komentar -->`.
+2.  **Tab Sources / Debugger (CSS & JS):** Aplikasi web modern memisahkan gaya tampilan (CSS) dan logika aplikasi (JavaScript) ke berkas eksternal. Periksa berkas stylesheet `.css` dan skrip `.js`. Flag seringkali dipecah menjadi tiga bagian dan diletakkan masing-masing di file HTML, CSS, dan JS.
+
+### 3.2 Berkas Konfigurasi Sensitif (`robots.txt` & `.git`)
+Aplikasi web sering meninggalkan berkas administratif atau riwayat pengembangan yang dapat diakses oleh publik jika server tidak dikonfigurasi dengan aman.
+
+*   **`robots.txt`:** Protokol standar yang digunakan oleh situs web untuk berkomunikasi dengan bot perayap mesin pencari (seperti Googlebot). File ini menentukan halaman mana yang *tidak boleh* diindeks. Dalam skenario CTF, entri `Disallow` di `robots.txt` sering kali menunjukkan letak folder atau file rahasia yang berisi flag.
+    ```text
+    # Contoh isi robots.txt
+    User-agent: *
+    Disallow: /admin-portal-rahasia/
+    ```
+*   **`.git` Leak:** Jika pengembang tidak sengaja mengunggah folder repositori `.git` ke direktori root web server, penyerang dapat mengunduh folder tersebut dan merekonstruksi seluruh riwayat kode sumber aplikasi (termasuk komit lama yang mungkin berisi kredensial atau flag yang telah dihapus). Anda dapat memeriksanya dengan mengakses `http://[IP-Target]/.git/`.
+
+### 3.3 Manipulasi Cookie
+Cookie adalah data kecil yang dikirim dari situs web dan disimpan di komputer pengguna oleh peramban web pengguna saat pengguna tersebut sedang menjelajah. Cookie sering digunakan untuk manajemen sesi (*session management*) atau melacak status login.
+
+Di Developer Tools, buka tab **Application** (pada Chrome) atau **Storage** (pada Firefox), lalu pilih bagian **Cookies**. Anda akan melihat pasangan nama dan nilai (*Key-Value Pair*).
+*   **Contoh Skenario:** Jika Anda masuk sebagai tamu, Anda mungkin melihat cookie `admin=0` atau `auth=guest`. Anda dapat memodifikasi nilai tersebut secara langsung menjadi `admin=1` atau `auth=admin`, lalu memuat ulang (*refresh*) halaman web untuk mengelabui logika autentikasi server dan mendapatkan akses administratif.
+
+---
+
+## 📋 Lembar Acuan Perintah (Cheat Sheet)
 
 ```bash
-file target_file
+# ═══ ANALISIS FILE & BINER ═══
+file berkas_misterius                  # Cek tipe berkas berdasarkan magic bytes
+strings -n 6 berkas_biner              # Cari string yang panjangnya minimal 6 karakter
+strings berkas.bin | grep -oE "picoCTF\{.*\}" # Ekstraksi flag otomatis dari file biner
+
+# ═══ GREP MASTERY ═══
+grep -rnw '/path/ke/direktori/' -e 'pico' # Cari string 'pico' secara rekursif, tampilkan baris, abaikan biner
+grep -E "(pico|flag)" file.txt         # Cari baris yang mengandung kata 'pico' ATAU 'flag' (Extended Regex)
+
+# ═══ WEB & DIAGNOSTIK ═══
+curl -I https://target.com             # Ambil HTTP Response Header saja
+curl -s https://target.com/robots.txt  # Baca file robots.txt secara diam-diam lewat terminal
 ```
 
 ---
 
-## FASE 2 — Pencarian Tekstual (Grep Mastery)
+## ⚠️ Anti-Pattern & Skenario Kesalahan Umum
 
-`grep` adalah sahabat terbaik Anda untuk menyaring ribuan baris teks.
-
-### 2.1 Mencari Flag Pertama
-
-```bash
-grep "picoCTF" file.txt
-```
-
-### 2.2 Case Insensitive
-
-Jika tidak yakin huruf besar/kecil:
-
-```bash
-grep -i "picoctf" file.txt
-```
-
----
-
-## FASE 3 — Web Exploitation (Sanity Check)
-
-Tantangan seperti `Insp3ct0r` melatih Anda melihat ke balik tampilan website.
-
-### 3.1 Inspect Element (Ctrl + Shift + I)
-
-Flag sering dipecah menjadi beberapa bagian di lokasi berbeda:
-
-- **HTML**: Cek komentar `<!-- ... -->`.
-- **CSS**: Cek file `.css` untuk komentar.
-- **JavaScript**: Cek file `.js`.
-
-### 3.2 File `robots.txt`
-
-File standar yang memberi tahu bot pencari mana yang tidak boleh diindeks. Seringkali berisi folder rahasia.
-
-```bash
-# Akses via browser
-https://jupiter.challenges.picoctf.org/problem/XXXXX/robots.txt
-```
-
----
-
-## Quick Reference — Cheat Sheet
-
-```bash
-# ═══ LINUX CLI ═══
-strings [file] | grep "pico"           # Cari flag di biner
-grep -r "pico" .                       # Cari rekursif di folder
-cat [file]                             # Baca isi file teks
-
-# ═══ WEB ═══
-view-source:[URL]                      # Lihat source code HTML
-/robots.txt                            # Cek file konfigurasi robot
-/secret/                               # Tebakan folder umum
-```
-
----
-
-## Anti-Pattern — Jangan Lakukan Ini
-
-| ❌ Salah                                | ✅ Benar                                    |
-| --------------------------------------- | ------------------------------------------- |
-| Mencoba membaca file biner dengan `cat` | Gunakan `strings` agar terminal tidak rusak |
-| Hanya mengecek HTML                     | Cek juga file CSS dan JS pendukung          |
-| Mengabaikan hint "inspect"              | Gunakan Browser Developer Tools             |
+| Tindakan Salah ❌ | Dampak Buruk | Solusi Benar ✅ |
+|---|---|---|
+| Membuka file biner raksasa dengan perintah `cat` | Terminal macet, crash, dan menampilkan karakter aneh yang merusak output konsol. | Gunakan perintah `strings` untuk menyaring teks, atau gunakan `hexdump -C` jika ingin menganalisis byte mentah. |
+| Hanya menguji file index HTML saat melakukan investigasi web | Melewatkan komponen penting seperti script JS, CSS, config XML, atau endpoint API tempat penyimpanan data asli. | Periksa tab *Network* di DevTools untuk melihat seluruh daftar aset yang diunduh secara berkala oleh halaman web. |
+| Melakukan brute force direktori web secara manual satu per satu | Sangat lambat dan tidak efisien. | Gunakan alat bantu pemindai otomatis (*directory brute force*) seperti `gobuster`, `dirb`, atau `ffuf` dengan wordlist standar. |
 
 ---
 
 ## 🔗 Lihat Juga
 
-- [[picoctf-master-index]] — Roadmap Utama
-- [[picoctf-section-2-cyberchef-encodings]] — Kembali ke Section 2
-- [[picoctf-section-4-python-automation]] — Lanjut ke Section 4
+- [[picoctf-master-index]] — Peta Alur Pembelajaran Utama.
+- [[picoctf-section-2-cyberchef-encodings]] — Kembali ke teknik konversi encoding data.
+- [[picoctf-section-4-python-automation]] — Melanjutkan ke pembuatan skrip eksploitasi otomatis menggunakan Python.
 
 ---
 
-_PicoCTF Section 3 | strings · grep · robots.txt · Insp3ct0r_
+*PicoCTF Section 3 | strings · grep · robots.txt · Insp3ct0r | Edisi Lengkap*
