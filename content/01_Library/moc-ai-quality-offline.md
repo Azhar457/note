@@ -1,9 +1,9 @@
 ---
-title: "📚 Learning Companion: Tiga Buku Teknologi"
+title: "MOC — AI, Software Quality & Offline Infrastructure"
 tags:
   - library
 aliases:
-  - "learning-companion-3-buku"
+  - "moc-ai-quality-offline"
 created: "2026-07-06"
 updated: "2026-07-06"
 status: active

@@ -11,36 +11,6 @@ status: operational
 cssclasses: ""
 ---
 
-<think>
-Okay, I need to expand the existing document to over 1100 words. The user wants more real code examples, detailed troubleshooting scenarios, and deeper technical explanations. Let me start by reviewing the current content to identify areas where I can add more details.
-
-First, the introduction is pretty good, but maybe I can add a section explaining why having a comprehensive threat directory is crucial for modern cybersecurity. That will give theoretical background.
-
-In the structure section, there's a diagram of the OSI and CPU layers. Adding a code snippet that shows how these layers map in a network application would be useful. Maybe a Python example using sockets across layers.
-
-For the threat actor profiles, I can expand the APT29 example with more specific techniques they use. Maybe include a detection script for Mimikatz usage.
-
-The malware taxonomy table is there, but I can elaborate on each category with more examples and detection techniques. For ransomware, a PowerShell script that detects encryption patterns would be a good addition.
-
-In the mitigation section, the current SQLi mitigation is a simple example. I can add a more complex SQL injection detection script using regex and logging. Also, include a Python example for detecting suspicious command-line arguments in PowerShell.
-
-The troubleshooting scenarios need to be more detailed. For a SQL injection attack, I can outline step-by-step how to detect and respond, including log analysis and patching. Another scenario could involve a ransomware attack and the steps to isolate the system and restore from backups.
-
-The code examples need to be longer and more detailed. For instance, expanding the SQLi detection script with comments explaining each part. Adding more detection rules for PowerShell in Sysmon would help.
-
-I should also elaborate on the threat modeling process, maybe provide a step-by-step example using a fictional company's data flow diagram and mapping it to threat actors.
-
-Including more references to real-world attacks and how the threat directory applies to them would add context. For example, relating the Petya ransomware to the fileless malware category.
-
-Finally, ensuring that all new content is structured clearly with headings, code blocks, and tables. Making sure each addition directly addresses the user's request for more technical depth without being redundant.
-
-Wait, the user mentioned troubleshooting scenarios. Let me think of a few common issues and their solutions based on the threat directory. For example, how to handle a DDoS attack, detect malware using signature analysis, or implement network segmentation as per the threat landscape.
-
-Also, maybe add a section on integrating the threat directory with existing security tools like SIEM solutions, explaining how rules from the directory can be translated into detection queries in ELK stack or Splunk.
-
-Need to check word count as I go. Let me start expanding each section systematically, adding code examples, theoretical explanations, and detailed troubleshooting guides where possible.
-</think>
-
 # 🗂️ Comprehensive Threat Directory — Deep Dive: Taksonomi Ancaman, Teknik Eksploitasi, dan Profil Threat Actor
 
 > Ringkasan satu-paragraf menjelaskan bahwa direktori ini merupakan kumpulan terstruktur dari ancaman siber, teknik eksploitasi (TTP), malware, dan profil threat actor global yang dapat digunakan sebagai referensi untuk threat modeling, deteksi, dan respons insiden.
