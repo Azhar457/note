@@ -21,3 +21,9 @@ scratch/*
 .env.*
 **/.env
 **/.env.*
+private
+templates
+.obsidian
+template-note.md
+agent-guide.md
+_index.md
