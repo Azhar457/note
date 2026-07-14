@@ -10,7 +10,6 @@ updated: "2026-07-01"
 status: operational
 ---
 
-<think>
 Here's a thinking process:
 
 1.  **Analyze User Input:**

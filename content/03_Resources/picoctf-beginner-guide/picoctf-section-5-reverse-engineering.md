@@ -1,171 +1,123 @@
 ---
-title: "Picoctf Section 5 Reverse Engineering"
 tags:
-  - picoctf-beginner-guide
-  - resources
+  - CTF
+  - Reverse-Engineering
+  - Java
+  - Python
+  - Hashing
 aliases:
-  - "picoctf-section-5-reverse-engineering"
-created: "2026-05-12"
-updated: "2026-07-01"
+  - PicoCTF RevEng
+  - SHA256 Indexing Guide
+created: 2026-05-12
 status: operational
+title: Picoctf Section 5 Reverse Engineering
+updated: "2026-07-01"
 ---
-
-<think>
-Okay, so the user wants me to expand the existing Reverse Engineering documentation to over 1100 words by adding more examples, troubleshooting scenarios, and deeper technical explanations. Let me start by looking at the original content and see where I can elaborate.
-
-First, the introduction is already covering the basics. I can maybe add a section on the importance of Reverse Engineering in cybersecurity, mentioning real-world applications like vulnerability discovery or malware analysis. That would add some context.
-
-In the Java Source Analysis section, the example provided is simple. Maybe I can explain the structure of a Java class, how the JVM works, and show a more complex example with obfuscation techniques. Also, troubleshooting tips when the substring method isn't working as expected would be useful.
-
-For the Python Reverse Engineering part, hashing with SHA256 is mentioned. I can expand on the cryptographic properties, why SHA256 is used, and provide a step-by-step example of generating a key. Maybe include a more detailed code sample that demonstrates indexing and handling edge cases.
-
-The Strategies section mentions Keygenner and Patcher approaches. I can elaborate on when each method is appropriate, and provide examples of obfuscation techniques that might be used in real challenges. Troubleshooting patching failures when decryption is involved would also be good.
-
-The Quick Reference and Anti-Pattern sections can be expanded with more common mistakes and additional tips. For example, explaining common pitfalls in indexing or hash manipulation.
-
-I need to ensure that each added section ties back to the original content and enhances it without being redundant. Adding more code examples and real scenarios will help meet the word count. Also, including diagrams or tables might help, but since the user wants Markdown, I can use text-based diagrams or more detailed tables.
-
-I should also check that the technical explanations are accurate and deeper. For instance, when discussing SHA256, explain why it's considered secure, and how preimage resistance works from a practical stand.
-
-Let me structure the added content section by section, making sure each part builds on the existing information and adds value through examples and deeper analysis. Troubleshooting should cover common issues users might face, like incorrect substring lengths or hash mismatches, and how to resolve them.
-
-Finally, I'll review the document to ensure it flows logically and that all new content is integrated smoothly into the existing structure, maintaining clarity and avoiding repetition.
-</think>
 
 # ⚙️ PICOCTF SECTION 5 — Reverse Engineering
 
-## Pengantar
+> **Environment:** Java JDK, Python 3
+> **Filosofi:** Pahami logikanya, temukan kuncinya, atau hancurkan pintunya.
+> **Target:** Source Code (.java, .py), Compiled Bytecode, & License Key.
 
-Reverse Engineering adalah inti dari penebangan logika sistem yang tersembunyi. Dalam konteks PicoCTF, tugas utamanya adalah merobek abstraksi untuk menemukan flag yang disembunyikan dalam logika pengecekan password, hashing, atau enkripsi. Penjelasan berikut akan mengupas teknik analisis kode Java/Python, manipulasi hash, dan strategi bypass menggunakan metode algoritmik atau patching logika.
+> [!tip] Golden Rule
+> Password yang ditaruh di dalam Source Code (Hardcoded) adalah kerentanan fatal.
 
 ---
 
 ## FASE 1 — Java Source Analysis (VaultDoor)
 
-Pada kasus ini, flag disembunyikan dalam metode `checkPassword()` yang menggunakan `substring()` dan `equals()` untuk memverifikasi masukan pengguna.
+Tantangan di mana password disembunyikan langsung di dalam fungsi `checkPassword`.
 
-### 1.1 Kompilasi dan Eksekusi
+### 1.1 Compiled vs Interpreted
 
-Java bekerja dalam dua tahap: kompilasi kode sumber (.java) menjadi bytecode (.class), lalu interpretasi oleh JVM. Proses ini membutuhkan kehati-hatian karena perubahan kecil di bytecode dapat mengganggu eksekusi.
-
-Contoh implementasi:
+Berbeda dengan Python, Java harus dikompilasi ke bytecode sebelum bisa dijalankan.
 
 ```bash
-# Kompilasi dan eksekusi sederhana
-javac VaultDoor.java
-java -Dfile.encoding=UTF-8 VaultDoor
+# Tahap 1: Kompilasi (.java -> .class)
+javac VaultDoorTraining.java
+
+# Tahap 2: Eksekusi
+java VaultDoorTraining
 ```
 
-> Catatan: Flag sering kali dimasukkan tanpa bungkus `picoCTF{}` di dalam kode, karena metode `substring()` mengasumsikan format tersebut. Jika tidak ada bungkus, pengecekan akan gagal.
-
----
-
-### 1.2 Analisis Fungsi `substring()` dan `equals()`
-
-Kode berikut menunjukkan mekanisme penggunaan `substring()` untuk memotong masukan pengguna:
+### 1.2 Analisis Logika `equals()` & `substring()`
 
 ```java
-public boolean checkPassword(String userInput) {
-    String input = userInput.substring(8, userInput.length()-1);
-    return input.equals("f1ag_1s_pr1v4t3_bUt_n0t_50_8254");
-}
+// Contoh potongan kode yang menjebak
+String input = userInput.substring("picoCTF{".length(), userInput.length()-1);
+if (input.equals("w4rm1ng_Up_w1tH_jAv4_...")) { ... }
 ```
 
-#### Tabel: Hasil Manipulasi Input
-
-| Masukan Pengguna      | Substring Hasil                      | Hasil Verifikasi (`equals()`) |
-| --------------------- | ------------------------------------ | ----------------------------- |
-| `picoCTF{f1ag}`       | `f1ag`                               | ✅ **Benar**                  |
-| `picoCTF{f1ag1}`      | `f1ag1`                              | ❌ **Salah**                  |
-| `f1ag_1s_pr1v4t3_...` | Tidak diproses (tidak sesuai format) | ❌ **Gagal**                  |
-
-> ❗ **Bug Umum**: Jika panjang `userInput` kurang dari 8 karakter, `substring(8, ...)` akan memicu `StringIndexOutOfBoundsException`.
-
-#### Troubleshooting
-
-1. **Kesalahan `StringIndexOutOfBoundsException`:**
-   - **Penyebab:** Masukan tidak mengandung `picoCTF{}` sebagai awalan.
-   - **Solusi:** Pastikan masukan diawali dengan `picoCTF{}` dan ditutup dengan `}`.
-
-2. **Nilai `equals()` tidak sesuai:**
-   - **Penyebab:** Substring tidak mencocokkan target karena perbedaan panjang atau karakter.
-   - **Solusi:** Uji masukan menggunakan debug di IDE (misal: IntelliJ IDEA) atau kelas `System.out.println()` untuk melihat string yang dipotong.
+> [!warning] Hati-hati
+> Karena ada fungsi `substring()`, kamu harus memasukkan flag secara utuh dengan bungkusnya `picoCTF{...}` agar setelah dipotong hasilnya cocok dengan string target.
 
 ---
 
 ## FASE 2 — Python Reverse Engineering (Keygenme)
 
-Keygenme adalah tantangan yang memerlukan pemahaman algoritma pembuatan lisensi dinamis. Contoh dalam PicoCTF mengggunakan hashing SHA256 dengan manipulasi indeks karakter hasil hash.
+Tantangan di mana kunci lisensi dibuat secara dinamis menggunakan **SHA256 Hashing**.
 
-### 2.1 SHA256: Sifat Kriptografi
+### 2.1 Konsep SHA256 (Digital Blender)
 
-SHA256 adalah fungsi hash satu arah dengan output 256-bit (64 karakter hexadesimal). Sifat utamanya meliputi:
+- **Satu Arah**: "BENNETT" jadi hash bisa, balik lagi nggak bisa.
+- **Sensitif**: Satu huruf beda (kapital/kecil), hasil hash berubah total.
 
-1. **Preimage Resistance**: Tidak mungkin mendapatkan input dari hash.
-2. **Deterministik**: Input yang sama selalu menghasilkan hash yang sama.
-3. **Sensitif terhadap Perubahan**: Perubahan 1 karakter di input menghasilkan hash yang sangat berbeda.
+### 2.2 Memahami "Indexing" & "Obfuscation"
 
-#### Contoh Implementasi
+Hasil SHA256 terdiri dari 64 karakter. Program seringkali hanya mengambil beberapa karakter di posisi tertentu (Index) secara acak untuk menyesatkan (Obfuscation).
 
-```python
-import hashlib
-
-def generate_key(username):
-    hash_obj = hashlib.sha256(username.encode())
-    hex_hash = hash_obj.hexdigest()
-    # Ambil karakter berdasarkan indeks acak (obfuscation)
-    key_part = f"{hex_hash[4]}{hex_hash[11]}{hex_hash[18]}{hex_hash[25]}"
-    return key_part
-```
-
-**Output untuk input `BENNETT`:**
+**Langkah Eksekusi (Python One-Liner):**
 
 ```bash
-$ python3 -c "import hashlib; print(generate_key(b'BENNETT').encode())"
-b'17a2'
+# Ambil karakter indeks [4], [5], [3], [6], [2], [7], [1], [8] dari hash username "BENNETT"
+python3 -c "import hashlib; u = b'BENNETT'; h = hashlib.sha256(u).hexdigest(); print(h[4] + h[5] + h[3] + h[6] + h[2] + h[7] + h[1] + h[8])"
 ```
 
 ---
 
-### 2.2 Pemecahan Masalah dengan Indexing
+## FASE 3 — Strategi Menembus "Pintu"
 
-Jika indeks karakter hash digunakan secara acak (misal: indeks [4], [11], [18]), tugas adalah memahami pola pemilihan indeks tersebut.
+Dalam Reverse Engineering, kamu punya dua pilihan:
 
-#### Skenario Kasus
-
-Kode berikut menghasilkan 4 digit dari hash SHA256 dengan indeks [4], [24], [1], [28]:
-
-```bash
-python3 -c "import hashlib; u='BENNETT'; h=hashlib.sha256(u.encode()).hexdigest(); print(h[4]+h[24]+h[1]+h[28])"
-```
-
-**Hasil:** `f74c`
-
-#### Tips Efisiensi
-
-1. **Jangan hitung manual.** Gunakan Python one-liner untuk memastikan indeks benar.
-2. **Gunakan debugger:** Jika kode obfuscated, pasang breakpoint di fungsi hashing untuk menelusuri indeks yang ditarget.
+1.  **Opsi A (The Keygenner)**: Pelajari algoritma pembuatan kunci, buat kuncinya (Intended Way).
+2.  **Opsi B (The Patcher)**: Hancurkan logikanya. Ubah `if (check_key)` menjadi `if (true)`.
+    - _Catatan:_ Opsi B bisa gagal jika kunci tersebut juga digunakan sebagai kunci dekripsi (misal: Fernet) untuk data berikutnya.
 
 ---
 
-## FASE 3 — Strategi Bypass (Keygenner vs Patcher)
+## Quick Reference — Cheat Sheet
 
-### 3.1 The Keygenner (Pembuatan Algoritma Lisensi)
+```bash
+# ═══ JAVA ═══
+javac File.java && java File           # Compile & Run
 
-Metode ini melibatkan reverse-engineering algoritma lisensi untuk menghasilkan key valid. Contoh:
+# ═══ PYTHON HASHING ═══
+# Mencari hash SHA256 via terminal
+echo -n "BENNETT" | sha256sum
 
-```python
-import hashlib
-
-def generate_valid_key():
-    # Simulasi algoritma lisensi berbasis username
-    base_username = "TARGET_USERNAME"
-    hash_obj = hashlib.sha256(base_username.encode()).hexdigest()
-    # Ambil indeks [4], [5], [2], [8] sesuai pola target
-    key = f"{hash_obj[4]}{hash_obj[5]}{hash_obj[2]}{hash_obj[8]}"
-    return f"CREDENTIAL-{key}"
+# Python Indexing (Ambil karakter posisi 4)
+python3 -c "import hashlib; print(hashlib.sha256(b'input').hexdigest()[4])"
 ```
 
-### 3.2 The Patcher (Modifikasi Logika)
+---
 
-Jika lisensi juga digunakan untuk dekripsi data, patching `if (check_key)` menjadi `
+## Anti-Pattern — Jangan Lakukan Ini
+
+| ❌ Salah                                      | ✅ Benar                                         |
+| --------------------------------------------- | ------------------------------------------------ |
+| Memasukkan password tanpa bungkus `picoCTF{}` | Cek logika `substring` di kode                   |
+| Menghitung indeks hash secara manual          | Gunakan Python one-liner (Indeks mulai dari 0)   |
+| Patching logika sembarangan                   | Pastikan kunci tidak dipakai untuk dekripsi data |
+
+---
+
+## 🔗 Lihat Juga
+
+- [[picoctf-master-index]] — Roadmap Utama
+- [[picoctf-section-4-python-automation]] — Kembali ke Modul 4
+- [[picoctf-section-5-binary-exploitation]] — Lanjut ke Modul 3
+
+---
+
+_PicoCTF Modul 2 | RevEng · Java · Python · SHA256_

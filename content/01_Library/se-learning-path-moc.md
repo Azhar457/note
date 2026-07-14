@@ -17,7 +17,7 @@ Struktur vault yang disajikan di atas membagi konten menjadi beberapa kategori u
 
 - `01_Library/`: Berisi koleksi buku yang terorganisir ke dalam beberapa sub-kategori seperti `Software_Engineering`, `Systems_Architecture`, `Algorithms_Math`, `Productivity_Career`, dan lain-lain.
 - `Software_Engineering/`: Fokus pada prinsip-prinsip pengembangan perangkat lunak, seperti coding, desain, dan refactoring. Beberapa buku yang terdaftar di sini adalah [[clean-code-robert-martin]], [[design-patterns-gof]], dan [[the-pragmatic-programmer]].
-- `Systems_Architecture/`: Mencakup topik-topik terkait arsitektur sistem, termasuk sistem terdistribusi, sistem operasi, dan reliability. Buku-buku seperti [[ddia-kleppmann]], [[sre-google]], [[csapp-bryant-ohallaron]], [[ostep-three-easy-pieces]], dan [[systems-design-interview-alex-xu]] menjadi referensi utama.
+- `Systems_Architecture/`: Mencakup topik-topik terkait arsitektur sistem, termasuk sistem terdistribusi, sistem operasi, dan reliability. Buku-buku seperti [[ddia-kleppmann]], [[sre]], [[csapp-bryant-ohallaron]], [[ostep-three-easy-pieces]], dan [[systems-design-interview-alex-xu]] menjadi referensi utama.
 - `Algorithms_Math/`: Berfokus pada fondasi teoretis algoritma dan matematika, dengan buku seperti [[sicp-abelson-sussman]] dan [[clrs-introduction-to-algorithms]].
 - `Productivity_Career/`: Membahas tentang mindset, fokus, dan strategi karier, termasuk buku [[deep-work-and-so-good-newport]].
 - Kategori-kategori lain seperti [[Software_Engineering/bonus-books-refactoring-legacy-ydkjs-knuth]], `Swarm_AI/`, `Kualitas_Perangkat_Lunak/`, dan `Internet_Offline/` juga disediakan untuk memperluas cakupan topik.

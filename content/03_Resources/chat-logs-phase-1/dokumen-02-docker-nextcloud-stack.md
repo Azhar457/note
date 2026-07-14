@@ -1,38 +1,21 @@
 ---
-title: "Dokumen 02 Docker Nextcloud Stack"
 tags:
-  - chat-logs-phase-1
-  - resources
+  - Docker
+  - Nextcloud
+  - MariaDB
+  - IaC
+  - Compose
+  - Cloud-Native
+  - Persistence
 aliases:
-  - "dokumen-02-docker-nextcloud-stack"
-created: "2026-04-24"
-updated: "2026-07-01"
+  - Nextcloud Stack
+  - Docker Compose
+  - Infrastructure as Code
 status: operational
+created: 2026-04-24
+title: Dokumen 02 Docker Nextcloud Stack
+updated: "2026-07-01"
 ---
-
-<think>
-Okay, I need to expand the given Docker Nextcloud stack document to at least 1200 words. Let me look at the original content and see where I can add more details.
-
-First, the original has sections on cleaning old Docker installations, installing Docker Engine V2, AppArmor removal, preparing persistent storage, the docker-compose.yml file, deployment, anti-reset principles, and access verification.
-
-Each section is pretty concise. To expand, I can add more technical details in each step. For example, in the installation part, explain why using the official repository is better than the Ubuntu one. Also, maybe include some background on why AppArmor is disabled in LXC environments.
-
-In the docker-compose.yml section, perhaps elaborate on each service configuration—why specific tags are chosen for MariaDB, what each environment variable does, and the importance of network configuration. Also, maybe add a note on security practices for the environment variables, like using secrets instead of plain text.
-
-For the anti-reset section, I can explain the concept of immutable infrastructure more deeply, discuss the benefits, and perhaps provide an example of a CI/CD pipeline that automates the deployment process. Also, mention how using bind mounts instead of Docker volumes is more reliable in this context.
-
-I should also consider adding troubleshooting tips in each section. For example, if the Docker containers fail to start, what are common issues and how to resolve them. Maybe include logs examples or common error messages.
-
-Additionally, maybe include a step-by-step deployment checklist, a table comparing different approaches to persistent storage, or a diagram showing the architecture of the stack. Since the user mentioned not to use markdown diagrams but text-based ones, perhaps a simple ASCII art or textual description of the stack components and their interactions.
-
-Another area is the Cloudflare tunnel setup. The original mentions it in the tunnel service but doesn't elaborate. I can add more details on how to generate the Cloudflare token, the Zero Trust configuration steps, and how the tunnel works to expose the Nextcloud instance securely.
-
-Also, the security aspects—maybe discuss securing the MariaDB instance, like using SSL/TLS, limiting access via network policies, or setting up proper firewalls. In the AppArmor section, explain the trade-offs of disabling it and how Docker's default security measures can compensate.
-
-Including performance tuning tips for Nextcloud and MariaDB, such as adjusting memory limits, using Docker resource constraints, or optimizing the filesystem for the bind mounts.
-
-Lastly, ensure that all code examples are correct and that explanations are thorough enough to guide someone through each step without ambiguity. Maybe add more commands for verification, like checking Docker logs, verifying persistent data, or testing failover scenarios.
-</think>
 
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage
 
@@ -42,26 +25,18 @@ Lastly, ensure that all code examples are correct and that explanations are thor
 
 ## 1. Bersihkan Instalasi Docker Lama
 
-Versi Python `docker-compose` lawas sudah tidak kompatibel dengan Ubuntu 24.04 (modul `distutils` dihapus). Hapus total sebelum instalasi resmi. Proses ini menghilangkan konflik library dan memastikan Docker menggunakan Golang-based Compose Plugin (v2) yang lebih cepat dan kompatibel dengan fitur terbaru.
+Versi Python `docker-compose` lawas sudah tidak kompatibel dengan Ubuntu 24.04 (modul `distutils` dihapus). Hapus total sebelum instalasi resmi.
 
 ```bash
 sudo apt remove docker-compose docker.io -y
 sudo apt autoremove -y
 ```
 
-### Verifikasi Penghapusan
-
-Pastikan semua artefak lama hilang:
-
-```bash
-dpkg -l | grep -E 'docker|compose'
-```
-
 ---
 
 ## 2. Instalasi Docker Engine V2 (Golang)
 
-Gunakan repositori resmi Docker Community Edition. Jangan pakai snap atau repositori bawaan Ubuntu. Pendekatan ini memastikan update langsung dari sumber otentik dan menghindari risiko kerentanan dari versi pihak ketiga.
+Gunakan repositori resmi Docker Community Edition. Jangan pakai snap atau repositori bawaan Ubuntu.
 
 ```bash
 sudo apt update
@@ -86,15 +61,8 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-### Verifikasi Instalasi
-
-Cek versi untuk memastikan Golang-based Compose Plugin aktif:
-
-```bash
-docker compose version
-```
-
-Output yang valid menunjukkan `docker compose` (spasi, bukan `docker-compose`).
+> [!tip]
+> Docker Compose V2 menggunakan perintah `docker compose` (spasi), bukan `docker-compose` (tanda hubung).
 
 ---
 
@@ -110,45 +78,35 @@ sudo systemctl restart docker
 ```
 
 > [!warning]
-> Langkah ini wajib dilakukan setelah bypass AppArmor di host Proxmox. Jika dilewatkan, container Docker akan gagal start dengan error `exit status 243`.
-
-### Alternatif Keamanan
-
-Gantikan AppArmor dan SELinux dengan:
-
-1. **SELinux dihost**: Jika Proxmox konfigurasi ulang.
-2. **Firewalld**: Batasi akses jaringan ke container via port.
-3. **Cap-shelve**: Batasi capability container (e.g., `--cap-drop=NET_RAW`).
+> Langkah ini wajib dilakukan setelah bypass AppArmor di host Proxmox (lihat [[dokumen-01-persiapan-host-lxc|Dokumen 01]]). Jika dilewatkan, container Docker akan gagal start dengan error `exit status 243`.
 
 ---
 
 ## 4. Persiapan Direktori Persisten (Anti-Reset)
 
-Data Nextcloud dan MariaDB akan disimpan di filesystem host LXC untuk keperawanan data. Strategi bind mount lebih stabil daripada Docker volume karena tidak bergantung pada service Docker.
+Data Nextcloud dan MariaDB akan disimpan di filesystem host LXC, bukan di dalam layer container yang sifatnya ephemera (sementara).
 
 ```bash
 sudo mkdir -p /opt/nextcloud/{app,data,db}
-chcon -t container_file_t /opt/nextcloud/ -R  # Untuk kompatibilitas SELinux di host
 ```
 
-### Struktur Folder
-
-- `/opt/nextcloud/app`: File Nextcloud (termasuk `config.php`).
-- `/opt/nextcloud/data`: Upload file pengguna.
-- `/opt/nextcloud/db`: Data MariaDB (termasuk basis SQL).
-
 > [!info]
-> Jika container dihapus via `docker compose down -v`, data tetap aman karena tidak ada flag `-v` yang mengapus bind mount.
+> Struktur direktori ini adalah rumah permanenmu. Jika container dihapus total (`docker compose down -v`), data tetap aman di `/opt/nextcloud/` karena tidak termasuk flag `-v` untuk volume.
 
 ---
 
 ## 5. Penulisan File IaC (`docker-compose.yml`)
 
-File ini adalah core dari konfigurasi. Fokus pada 3 poin kritis:
+```bash
+sudo nano /opt/nextcloud/docker-compose.yml
+```
 
-1. Tag spesifik untuk database (hindari `:latest`).
-2. Jaringan internal Docker untuk komunikasi container.
-3. Kunci keamanan minimalis.
+Isi dengan konfigurasi final berikut. Perhatikan poin-poin kritis:
+
+- **Tidak ada atribut `version:`** — sudah usang di Compose V2, akan di-ignore.
+- **MariaDB menggunakan tag spesifik** (`mariadb:12.2.2`) — jangan gunakan `:latest` untuk database agar terhindar dari bom waktu upgrade otomatis.
+- **Nextcloud dan MariaDB** saling terhubung via jaringan internal Docker (`nextcloud_default`).
+- **Cloudflared** sebagai sidecar container untuk tunnel ke internet (detail di [[dokumen-03-cloudflare-tunnel-routing|Dokumen 03]]).
 
 ```yaml
 services:
@@ -163,11 +121,6 @@ services:
       - MYSQL_PASSWORD=NextcloudUser123!
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   app:
     image: nextcloud:latest
@@ -182,24 +135,19 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
-      - NEXTCLOUD_ADMIN_USER=admin
-      - NEXTCLOUD_ADMIN_PASSWORD=admin123!
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   tunnel:
     image: cloudflare/cloudflared:latest
     restart: always
     command: tunnel --no-autoupdate run --token MASUKKAN_TOKEN_ANDA
-    ports:
-      - "8080:80"
 ```
 
-### Tips Keamanan
+> [!warning]
+> Ganti `MASUKKAN_TOKEN_ANDA` dengan token panjang dari dashboard Cloudflare Zero Trust. Token ini akan diperoleh saat pembuatan tunnel di [[dokumen-03-cloudflare-tunnel-routing|Dokumen 03]].
 
-- Gunakan `Secrets` Docker untuk parameter sensitif (ganti `MYSQL_ROOT_PASSWORD` dengan `environment_files`).
-- Aktifkan SSL di Nextcloud via HTTPS reverse proxy (lihat [[dokumen-05-ssl-and-reverse-proxy|Dokumen 05]]).
+Simpan (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
 ---
 
@@ -207,5 +155,64 @@ services:
 
 ```bash
 cd /opt/nextcloud
-sudo docker compose up -
+sudo docker compose up -d
 ```
+
+Perintah ini akan menarik (_pull_) image MariaDB, Nextcloud, dan Cloudflared dari Docker Hub, lalu menyalakannya di background sebagai daemon.
+
+Verifikasi status:
+
+```bash
+sudo docker ps
+```
+
+Output yang diharapkan:
+
+```text
+CONTAINER ID   IMAGE                           STATUS          PORTS
+xxxxxxxxxxxx   nextcloud:latest                Up x minutes    0.0.0.0:8080->80/tcp
+xxxxxxxxxxxx   mariadb:12.2.2                  Up x minutes    3306/tcp
+xxxxxxxxxxxx   cloudflare/cloudflared:latest   Up x minutes
+```
+
+---
+
+## 7. Prinsip Anti-Reset & Immutable Infrastructure
+
+### 7.1 Tahan Reboot & Mati Listrik
+
+Jika listrik mati atau server reboot:
+
+1. Proxmox menyalakan LXC secara otomatis.
+2. Docker daemon membaca kembali `/opt/nextcloud/docker-compose.yml`.
+3. Data tetap ada di `/opt/nextcloud/` karena di-mount ke host via bind volume.
+4. Nextcloud melanjutkan operasi tanpa instalasi ulang atau setup wizard.
+
+### 7.2 Larangan Mengubah Container Secara Manual
+
+Jika Trivy menemukan CVE kritis (lihat [[dokumen-04-security-stack|Dokumen 04]]), **jangan pernah** masuk ke dalam container untuk `apt upgrade`:
+
+```bash
+# ❌ SALAH — perubahan akan hilang saat restart
+docker exec -it nextcloud-db-1 bash
+apt update && apt upgrade
+```
+
+**Cara benar (Immutable Infrastructure):**
+
+1. Cek Docker Hub apakah versi baru image sudah tersedia.
+2. Ubah tag di `docker-compose.yml` (contoh: `mariadb:12.2.2` → `mariadb:12.2.3`).
+3. Jalankan `sudo docker compose up -d`.
+4. Docker menarik image baru dan mengganti container lama tanpa menyentuh data di `/opt/nextcloud/`.
+
+---
+
+## 8. Verifikasi Akses Lokal
+
+Sebelum eksposur ke internet via tunnel, pastikan Nextcloud berjalan normal di jaringan lokal:
+
+```text
+http://192.168.1.51:8080
+```
+
+Jika halaman setup Nextcloud muncul, stack berhasil. Lanjutkan ke [[dokumen-03-cloudflare-tunnel-routing|Dokumen 03]] untuk konfigurasi domain publik dan Zero Trust.

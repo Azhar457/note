@@ -1,195 +1,97 @@
 ---
 title: "Structure and Interpretation of Computer Programs (SICP)"
 tags:
-  - algorithms-math
-  - library
+  - functional-programming
+  - abstraction
+  - mit
+  - programming-language
+  - metacircular-evaluator
 aliases:
-  - "sicp-abelson-sussman"
-created: "2026-07-05"
-updated: "2026-07-05"
+  - "SICP"
+  - "Wizard Book"
+created: 2026-07-05
+updated: 2026-07-05
 status: active
 ---
 
-<think>
-Okay, I need to expand this SICP content to at least 1200 words. The user wants it detailed, technical, and structured with markdown elements like tables, code examples, and explanations. Let me start by looking at the existing content and see where I can add more depth.
-
-First, the structure is already pretty good with sections covering importance, key takeaways, essential chapters, challenges, reading strategy, related works, and a checklist. To expand, maybe each key takeaway can be a separate section with more detailed explanations, code examples, and diagrams. For instance, in section 1 on abstraction with procedures, adding a code example of higher-order functions in Scheme would help. Also, explaining the difference between recursion and iteration with Scheme code would clarify the first key takeaway.
-
-Similarly, in the data abstraction section, maybe include a code example showing tagged data and how polymorphism works in Lisp. That would make the concepts more concrete. For modular programming and state, perhaps discuss the stream implementation as a code example, explaining lazy evaluation.
-
-The challenges section could elaborate on why Scheme is a challenge for beginners, maybe compare it to other languages. The reading strategy can be expanded with specific time allocations or a step-by-step study plan. Also, adding a section on the metacircular evaluator's significance in interpreter design, maybe with a code snippet from Chapter 4.
-
-I should also add a table comparing SICP with other books like CLRS and Clean Code, as that's in the connections section. For the checklist, maybe expand each point with more actionable steps. Including a troubleshooting section for common mistakes when working through SICP exercises might be useful.
-
-Let me also check the word count. The original content is around 500 words. I need to double that. Adding detailed code examples, expanding each key takeaway with explanations, diagrams (textual maybe), and additional sections on the historical context of SICP, its impact on computer science education, and its relevance today can help meet the word count without being redundant.
-
-Including practical tips on how to approach each chapter, common pitfalls to avoid, and how to use the exercises effectively would add value. Maybe a section on the importance of mathematical thinking in SICP, given it's math-heavy. A diagram explaining the eval-apply cycle in the metacircular evaluator as a textual table or flowchart.
-
-Also, ensuring that all code examples are formatted correctly in markdown with explanations. Adding a section on resources, like online implementations or study groups for SICP. A comparison of different Scheme interpreters suitable for working through SICP exercises.
-
-Finally, a summary section that ties all the key points together, emphasizing the importance of mastering SICP for a deep understanding of computer science concepts. Maybe include a list of real-world applications where the principles from SICP are applied.
-</think>
-
-# 🔬 Struktur dan Interpretasi Program Komputer (SICP)
+# 🔬 Structure and Interpretation of Computer Programs
 
 > Harold Abelson & Gerald Jay Sussman (MIT) — 1985
 
-**Tesis:** Programming bukan soal syntax — tentang **abstraksi, komposisi, dan metamorfosis data/tugas**.
+**Tesis:** Programming bukan soal syntax — tentang **abstraksi, composition, dan metamorfosis data/makna tugas**.
 
 ---
 
 ## 📌 Kenapa Penting
 
-1. **Landasan Pemikiran CS**: Buku ini bukan panduan "cara pakai X", tetapi fokus pada _fondasi komputasi_.
-   - Memahami konsep abstraksi memungkinkan desain sistem yang modular dan mudah dipelihara.
-   - Metacircular evaluator (evaluator Lisp dalam Lisp) mengajarkan interpretasi bahasa program dari dalam, memberi wawasan tentang evaluasi dan lingkungan.
+- Bukan buku "cara pake X" — _fundamental CS thinking_
+- Metacircular evaluator: interpreter Lisp in Lisp — pemahaman terdalam soal "gimana bahasa programming jalan"
+- Baca buku ini → mindset berubah selamanya soal desain, abstraksi, dan state
 
-2. **Perubahan Mindset**:
-   - Sebelum membaca, pengembang biasanya berpikir dalam skala _function_ atau _class_. SICP memaksa pembaca berpikir dalam skala _meta_: bagaimana bahasa itu sendiri dibangun.
-   - Misalnya, stream (data tak terhingga) mengajarkan konsep evaluasi malas (laziness) dan manipulasi data tak terbatas sebagai abstraksi.
+## 🎯 Key Takeaways
 
-3. **Pengaruh pada Industri**:
-   - Prinsip abstraksi dalam SICP menjadi dasar untuk _design pattern_ seperti Factory, Strategy, dan Functional Programming.
-   - Konsep _closure_ dan _lexical scoping_ dari SICP diterapkan di JavaScript, Python, dan bahasa modern lainnya.
+**1. Abstraksi dengan Procedures**
 
----
+- Higher-order procedures: fungsi yang nerima/return fungsi
+- _Lambda the ultimate_ — closure, lexical scoping
+- Baris kode lebih sedikit, lebih deklaratif, lebih general
 
-## 🎯 5 Prinsip Utama SICP
+**2. Abstraksi dengan Data**
 
-### 1. **Abstraksi Fungsi (Higher-Order Procedures)**
+- Data is "procedures with a contract" — pareng-prinsip apung
+- Representasi data abstrak — jangan expose implementasi
+- Tagged data + dispatch = polymorphism sebelum OOP
 
-Fungsi sebagai _first-class citizens_ memungkinkan abstraksi algoritma. Misalnya, `map` dan `filter` menggeneralisasi operasi iterasi.
+**3. Modularitas, Object, dan State**
 
-**Contoh Kode**:
+- Assignment (set!) ngasih power tapi ngerusak referential transparency
+- **Stream** sebagai infinite data structure — lazy evaluation
+- Mengganti state dengan stream menghilangkan waktu
 
-```scheme
-(define (sum-integers a b)
-  (if (> a b)
-      0
-      (+ a (sum-integers (+ a 1) b))))
+**4. Metacircular Evaluator**
 
-(define (sum term a next b)
-  (if (> a b)
-      0
-      (+ (term a) (sum term (next a) next b))))
+- Bikin interpreter Lisp sendiri — cuma ~100 baris
+- Paham: eval → apply cycle, environment model, special forms
 
-(define (sum-cubes a b)
-  (sum (lambda (x) (* x x x)) a (lambda (x) (+ x 1)) b))
-```
+**5. Register Machines**
 
-- `sum` menjadi abstraksi umum yang dapat digunakan untuk berbagai `term` dan `next`.
+- Kompiler → implementasi di level mesin
+- Bikin compiler dari Lisp ke register machine
+- Lihat sendiri gimana _abstraction_ di-compile ke _mechanical steps_
 
----
+## 📖 Bab Penting
 
-### 2. **Abstraksi Data**
+| Bab | Judul                                 | Mengapa                                                        |
+| --- | ------------------------------------- | -------------------------------------------------------------- |
+| 1   | Building Abstractions with Procedures | Rekursive process vs iterative, higher-order functions — wajib |
+| 2   | Building Abstractions with Data       | Data abstraction, closures, symbolic data                      |
+| 3   | Modularity, Objects, and State        | Assignment + stream — filosofi state management                |
+| 4   | Metacircular Evaluator                | **Pièce de résistance** — gimana interpreter kerja             |
+| 5   | Computing with Register Machines      | Compiler — full stack dari Lisp ke hardware                    |
 
-Data tidak ada; semua adalah _prosedur dengan kontrak_. Prinsip ini muncul dalam berbagai bentuk:
+## ⚠️ Tantangan
 
-- **Representasi Aksioma**: Data dirancang tanpa mengungkap implementasi (enkapsulasi).
-- **Tagged Data**:
-  ```scheme
-  (define (attach-tag type-tag contents)
-    (cons type-tag contents))
-  (define (type-tag datum) (car datum))
-  (define (contents datum) (cdr datum))
-  ```
-  _Polimorfisme_ diimplementasikan melalui dispatch berdasarkan tag.
+- **Bahasa:** Scheme (dialek Lisp). Kalo belum pernah functional → kurva curam
+- **Math-heavy** — ekspektasi familiar sama matematika diskrit
+- **Buku teks** — butuh komitmen, bukan beach read
+- **Source:** Free online alias, di mitpress.mit.edu/sicp/
 
----
+## 🚦 Strategi Baca
 
-### 3. **Modularitas dan State**
+1. Jangan dibaca cover-to-cover kaya novel
+2. **Chapter 1** + latihan — fondasi
+3. **Chapter 2 (2.1-2.3)** — data abstraction
+4. **Chapter 4** — metacircular evaluator (mind-blowing moment)
+5. Latihan kunci: ex 1.11-1.13 (recursive vs iterative), ex 2.4-2.6 (Church numerals), ex 4.3-4.7 (variants of eval)
 
-- **Kompromi antara `set!` dan Streams**:
-  - `set!`: Memberikan kekuatan, tapi mengorbankan _referential transparency_.
-  - **Stream**: Data tak terhingga yang dievaluasi secara _lazy_.
-    ```scheme
-    (define (stream-map proc s)
-      (cons-stream (proc (stream-car s))
-                   (stream-map proc (stream-cdr s))))
-    ```
-    Konsep ini menjadi dasar reaktif programming seperti RxJS.
+## 🔗 Koneksi
 
----
+- [[clrs-introduction-to-algorithms]] — sama-sama soal pemikiran komputasional
+- [[clean-code-robert-martin]] — prinsip abstraksi di SICP keliatan di kata' Uncle Bob
 
-### 4. **Metacircular Evaluator**
+## ✅ Checklist
 
-Evaluator Lisp dalam Lisp menunjukkan:
-
-- **Cycle Eval-Appli**: Proses evaluasi dan aplikasi fungsi.
-- **Model Lingkungan**: Representasi variabel dalam ruang skop.
-
-**Contoh Implementasi**:
-
-```scheme
-(define (eval exp env)
-  (cond ((self-evaluating? exp) exp)
-        ((variable? exp) (lookup-variable-value exp env))
-        ((application? exp)
-         (apply (eval (operator exp) env)
-                (list-of-values (operands exp) env)))
-        ...))
-
-(define (apply procedure arguments)
-  (cond ((primitive-procedure? procedure)
-         (apply-primitive-procedure procedure arguments))
-        ((compound-procedure? procedure)
-         (eval-sequence (procedure-body procedure)
-                        (extend-environment (procedure-parameters procedure)
-                                          arguments
-                                          (procedure-environment procedure))))
-        ...))
-```
-
-- **Kasus Khusus**: `if`, `lambda`, `begin` ditangani secara explisit karena bersifat _special form_.
-
----
-
-### 5. **Register Machine**: Full-Stack Compilation
-
-- **Level Abstraksi ke Mesin**:
-  - SICP bab 5 menunjukkan kompilasi Lisp ke mesin register, menetapkan logika program ke instruksi biner.
-  - Contoh:
-    ```scheme
-    (controller
-      (assign continue (label fact-done))
-      fact-loop
-      (test (op =) (reg n) (const 1))
-      (branch (label base-case))
-      (save continue)
-      (save n)
-      (assign n (op -) (reg n) (const 1))
-      (assign continue (reg val))
-      (goto (label fact-loop))
-      base-case
-      (assign val (const 1))
-      (goto (reg continue))
-      fact-done)
-    ```
-    Meski sederhana, kode ini mirip struktur _assembly_.
-
----
-
-## 📖 Bab Penting & Detail Teknis
-
-| Bab   | Fokus              | Contoh Implementasi |
-| ----- | ------------------ | ------------------- |
-| **1** | Rekursi vs Iterasi |
-
-```scheme
-(define (factorial n)
-  (if (= n 1)
-      1
-      (* n (factorial (- n 1))) )) ; Rekursif
-(define (factorial-iter product counter max-count)
-  (if (> counter max-count)
-      product
-      (factorial-iter (* product counter)
-                      (+ counter 1)
-                      max-count)))
-```
-
-| **2** | Aritmatika Simbolis |
-
-```scheme
-(add '(+ x 3) '(+ y 4)) → '(+ (+ x 3)
-```
+- [ ] Kerjakan minimal 10 latihan dari Chapter 1
+- [ ] Baca metacircular evaluator (Chapter 4) — run through sample sesi jeda
+- [ ] Terapkan higher-order functions di codebase harian
+- [ ] Abstraction retrofit: cari kode yang "leaky abstraction" dan perbaiki
