@@ -246,7 +246,7 @@ Berikut adalah cara baca buku ini:
 Berikut adalah beberapa koneksi yang dapat membantu dalam memahami buku ini:
 
 - [[ddia-kleppmann]] — depth theory distributed systems
-- [[sre]] — production reliability
+- [[site-reability-engineering]] — production reliability
 - [[clrs-introduction-to-algorithms]] — consistent hashing, trie
 
 ## ✅ Checklist

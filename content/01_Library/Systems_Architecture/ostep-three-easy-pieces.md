@@ -294,7 +294,7 @@ int main() {
 
 - [[csapp-bryant-ohallaron]] — CS:APP = programmer perspective, OSTEP = OS designer perspective
 - [[ddia-kleppmann]] — distributed systems butuh OS fundamentals
-- [[sre]] — reliability juga soal OS level (OOM, I/O scheduling)
+- [[site-reability-engineering]] — reliability juga soal OS level (OOM, I/O scheduling)
 
 ## ✅ Checklist
 

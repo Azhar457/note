@@ -117,7 +117,7 @@ Contoh implementasi consistency model adalah Cassandra, yang menggunakan eventua
 
 - [[ostep-three-easy-pieces]] — concurrency + OS fundamentals untuk distributed systems
 - [[systems-design-interview-alex-xu]] — ringkasan praktis, DDIA adalah _deep theory_-nya
-- [[sre]] — SRE = run system di buku DDIA di production
+- [[site-reability-engineering]] — SRE = run system di buku DDIA di production
 
 ## ✅ Checklist
 
