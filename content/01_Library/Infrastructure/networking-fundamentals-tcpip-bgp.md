@@ -83,13 +83,13 @@ Tiap layer punya **headers** yang ditambahkan (encapsulation) dan **attack surfa
           └──────────────┬─────────────────┘
                          │
           ┌──────────────▼─────────────────┐
-          │     IP Layer (netfilter)        │
+          │     IP Layer (netfilter)       │
           │  PREROUTING → FORWARD → POSTR. │
           │  INPUT → LOCAL → OUTPUT        │
           └──────────────┬─────────────────┘
                          │
           ┌──────────────▼─────────────────┐
-          │     Network Driver (NIC)        │
+          │     Network Driver (NIC)       │
           │  RX ring → IRQ → NAPI poll     │
           └────────────────────────────────┘
 ```
