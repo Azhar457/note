@@ -27,7 +27,7 @@ cssclasses:
 > Chunking adalah tindakan pertama dan paling fundamental dalam pipeline Retrieval-Augmented Generation (RAG). Ini adalah keputusan arsitektural tentang bagaimana Anda mendefinisikan **unit atomik makna** yang akan di-retrieve. Pilihan yang salah menghasilkan jawaban yang terfragmentasi, kehilangan konteks, atau halusinasi. Pilihan yang tepat menghasilkan retrieval yang presisi, jawaban yang kaya konteks, dan efisiensi komputasi. Dokumen ini membedah spektrum strategi chunking, dari yang naif hingga production-grade, dengan fokus pada arsitektur **Parent-Child Chunking** yang menyelesaikan trade-off fundamental antara presisi pencarian dan kelengkapan konteks.
 
 > [!info] Hubungan ke Vault
-> Nota ini adalah **fondasi teoretis** dari implementasi RAG di project `vault-rag`. Strategi chunking yang dijelaskan di sini diimplementasikan secara konkret di [[../vault-rag/scripts/index_vault.py]] dengan arsitektur Parent-Child + Structure-Aware untuk vault markdown. Terkait dengan [[ai-engineering-stack-roadmap]] (Fase 2: Data Pipeline & Vector Infrastructure), [[cognitive-architecture-engineering]] (memori hierarkis), dan [[math-and-algorithms]] (cosine similarity untuk semantic chunking).
+> Nota ini adalah **fondasi teoretis** dari implementasi RAG di project `vault-rag`. Strategi chunking yang dijelaskan di sini diimplementasikan secara konkret di `../vault-rag/scripts/index_vault.py` dengan arsitektur Parent-Child + Structure-Aware untuk vault markdown. Terkait dengan [[ai-engineering-stack-roadmap]] (Fase 2: Data Pipeline & Vector Infrastructure), [[cognitive-architecture-engineering]] (memori hierarkis), dan [[math-and-algorithms]] (cosine similarity untuk semantic chunking).
 
 > [!tip] Implementasi di vault-rag
 > Di `scripts/index_vault.py`, chunking sudah menggunakan Structure-Aware Parent-Child:
@@ -424,8 +424,8 @@ Berdasarkan analisis struktur vault — semua file markdown dengan heading hiera
 
 ## Koneksi ke Vault
 
-- [[../vault-rag/CLAUDE.md]] — Dokumentasi implementasi RAG di vault-rag project
-- [[../vault-rag/scripts/index_vault.py]] — Implementasi konkret parent-child chunking
+- `../vault-rag/CLAUDE.md` — Dokumentasi implementasi RAG di vault-rag project
+- `../vault-rag/scripts/index_vault.py` — Implementasi konkret parent-child chunking
 - [[../vault-rag/scripts/query.py]] — Implementasi parent context augmentation di retrieval
 - [[ai-engineering-stack-roadmap]] — Peta jalan: Fase 2 (Data Pipeline & Vector Infrastructure)
 - [[cognitive-architecture-engineering]] — Memori hierarkis: child = working memory, parent = long-term memory

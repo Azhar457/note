@@ -208,9 +208,9 @@ MUSCULAR adalah contoh ekstrem dari **"collect it all" philosophy** NSA. Meskipu
 ## 🔗 Koneksi dalam Vault
 
 - [[prism]] — PRISM adalah jalur legal; MUSCULAR adalah jalur rahasia. Keduanya mengumpulkan data dari perusahaan yang sama.
-- [[UPSTREAM & TEMPORA]] — MUSCULAR adalah "UPSTREAM untuk data center" — intersepsi backbone internal, bukan publik.
+- [[upstream-and-tempora]] — MUSCULAR adalah "UPSTREAM untuk data center" — intersepsi backbone internal, bukan publik.
 - [[xkeyscore]] — Data MUSCULAR diindeks dan dapat dicari via XKEYSCORE.
-- [[QUANTUM (NSA)]] — QUANTUM bisa digunakan untuk mengalihkan traffic ke titik intersepsi MUSCULAR.
+- [[quantum]] — QUANTUM bisa digunakan untuk mengalihkan traffic ke titik intersepsi MUSCULAR.
 - [[foxacid]] — Jika MUSCULAR tidak bisa mendekripsi data, FOXACID bisa digunakan untuk menginfeksi target dan mencuri kunci enkripsi.
 - [[verint]] — Verint menyediakan perangkat keras DPI untuk program seperti MUSCULAR.
 

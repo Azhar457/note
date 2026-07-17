@@ -107,7 +107,7 @@ Ketika robot menyentuh sebuah objek, ia tidak boleh sekadar "menabraknya". Ia ha
 `F = K (x_d - x) + D (ẋ_d - ẋ)`
 di mana `K` adalah kekakuan (stiffness) dan `D` adalah redaman (damping). Untuk tugas perakitan, robot harus "lunak" (low K) agar tidak merusak komponen. Untuk menulis di papan tulis, robot harus "kaku" (high K).
 
-**Koneksi Vault:** Ini adalah perwujudan fisik dari prinsip **Error Budget** di **[[site-reliability-engineering]]**. Dalam SRE, kita mengelola varians antara keadaan yang diinginkan dan aktual. Dalam kontrol, kita mengelola kesalahan pelacakan (tracking error) dan memastikan sistem tetap stabil.
+**Koneksi Vault:** Ini adalah perwujudan fisik dari prinsip **Error Budget** di **[[site-reability-engineering]]**. Dalam SRE, kita mengelola varians antara keadaan yang diinginkan dan aktual. Dalam kontrol, kita mengelola kesalahan pelacakan (tracking error) dan memastikan sistem tetap stabil.
 
 ### 2.3 Grasping: Masalah yang Belum Terpecahkan
 
@@ -196,7 +196,7 @@ Ini adalah tantangan eksistensial bagi robotik modern. Dokumen Anda telah membah
 Domain Randomization (DR) bukan sekadar trik; ia adalah bentuk **adversarial training**. Kita melatih policy melawan "musuh" yang terus-menerus mengacak parameter fisika. Tujuannya adalah untuk menemukan policy yang merupakan **minimax solution**—tangguh terhadap kemungkinan terburuk dari distribution shift.
 
 `θ* = arg min_θ E_{ξ ~ Ξ} [ L(π_θ, sim(ξ)) ]`
-di mana `Ξ` adalah ruang parameter fisika (gesekan, massa, pencahayaan, dll.). Ini persis seperti melatih model untuk menjadi robust terhadap serangan adversarial di **[[llm-security-red-teaming]]**, tetapi untuk domain fisik.
+di mana `Ξ` adalah ruang parameter fisika (gesekan, massa, pencahayaan, dll.). Ini persis seperti melatih model untuk menjadi robust terhadap serangan adversarial di **[[llm-security-red-teaming-attack-surface-ai-layer]]**, tetapi untuk domain fisik.
 
 ### 4.2 System Identification sebagai Kalibrasi Otomatis
 

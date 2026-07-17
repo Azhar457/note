@@ -20,7 +20,7 @@ cssclasses: ""
 
 ## FOTO
 
-![[pasted-image-20260430215147-png]]
+!_(gambar arp-spoof)_
 
 ## 🎯 Attack Anatomy (Apa yang Sebenarnya Terjadi)
 

@@ -169,10 +169,10 @@ proaktif                  (chain of custody)       sendiri setelah
 
 ## 🔗 Koneksi dalam Vault
 
-- [[IMSI Catcher / Stingray]] — IMSI Catcher adalah alat ofensif; Oscor/ANDRE adalah defensif. Keduanya beroperasi di domain RF.
-- [[Hak5 Suite]] — Alat Hak5 untuk physical intrusion; Oscor/ANDRE untuk mendeteksi physical bug.
-- [[RF & SIGINT]] — Oscor pada dasarnya adalah spectrum analyzer; terkait erat dengan SDR, analisis spektrum, dan RF forensics.
-- [[Cellebrite UFED]] — UFED untuk ekstraksi data digital; Oscor/ANDRE untuk ekstraksi data analog (sinyal RF).
+- [[imsi-catcher]] — IMSI Catcher adalah alat ofensif; Oscor/ANDRE adalah defensif. Keduanya beroperasi di domain RF.
+- [[hack5-suite]] — Alat Hak5 untuk physical intrusion; Oscor/ANDRE untuk mendeteksi physical bug.
+- RF & SIGINT — Oscor pada dasarnya adalah spectrum analyzer; terkait erat dengan SDR, analisis spektrum, dan RF forensics.
+- [[cellebrite-ufed]] — UFED untuk ekstraksi data digital; Oscor/ANDRE untuk ekstraksi data analog (sinyal RF).
 - [[drfm]] — Digital RF Memory untuk jamming; Oscor bisa mendeteksi emisi DRFM.
 
 ---

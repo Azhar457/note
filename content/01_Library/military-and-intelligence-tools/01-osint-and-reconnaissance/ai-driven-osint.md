@@ -352,7 +352,7 @@ OSINT adalah pedang bermata dua. Kemampuan untuk mengumpulkan adalah kemampuan u
 - **Canary Tokens:** Menyebarkan data palsu yang unik (seperti alamat email) di tempat-tempat yang mungkin di-scrape. Jika data itu digunakan, Anda langsung tahu telah terjadi pengumpulan intelijen dan dari sumber mana.
 - **Honeypots:** Membangun server, database, atau akun media sosial palsu yang dirancang untuk menarik pengumpul intelijen. Ini memberikan intelijen berharga tentang siapa yang menargetkan Anda, teknik apa yang mereka gunakan, dan apa yang mereka cari.
 
-**Koneksi Vault:** Ini adalah aplikasi langsung dari prinsip-prinsip **[[llm-security-red-teaming]]** dan **[[countermeasure-stack]]** ke dalam domain OSINT. Ini adalah lapisan pertahanan untuk aset informasi Anda sendiri.
+**Koneksi Vault:** Ini adalah aplikasi langsung dari prinsip-prinsip **[[llm-security-red-teaming-attack-surface-ai-layer]]** dan **[[countermeasure-stack]]** ke dalam domain OSINT. Ini adalah lapisan pertahanan untuk aset informasi Anda sendiri.
 
 ---
 
@@ -374,14 +374,14 @@ OSINT adalah pedang bermata dua. Kemampuan untuk mengumpulkan adalah kemampuan u
 
 Dokumen ini adalah titik kulminasi dari banyak disiplin ilmu yang telah Anda bangun.
 
-| Domain Vault                                | Koneksi Kritis                                                                                                                                                                                                          |
-| :------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[[agentic-ai-mcp-roadmap]]**              | Orkestrasi agen adalah inti dari AI-driven OSINT. Setiap spesialis (Collector, Analyst) adalah agen yang dapat dihubungkan melalui protokol standar (MCP).                                                              |
-| **[[cognitive-architecture-engineering]]**  | Arsitektur multi-agen yang diusulkan (Orchestrator -> Specialist) adalah contoh konkret dari arsitektur kognitif yang sedang bekerja, sebuah "Meta-Agent" untuk intelijen.                                              |
-| **[[test-time-compute-system2]]**           | Deepfake Detection dan GraphRAG adalah contoh sempurna dari "System 2" thinking yang lambat dan analitis. Pipeline mengerahkan compute tambahan pada waktu inferensi untuk tugas-tugas yang membutuhkan akurasi tinggi. |
-| **[[llm-security-red-teaming]]**            | Seluruh konsep "Counter-OSINT" dan "Adversarial Robustness Check" adalah aplikasi langsung dari pola pikir Red Teaming pada LLM ke dalam domain OSINT.                                                                  |
-| **[[military-and-intelligence-tools-hub]]** | Dokumen ini adalah lapisan "AI-Native" di atas alat-alat tradisional yang Anda dokumentasikan. Ini adalah evolusi dari intelijen taktis ke intelijen strategis berbasis AI.                                             |
-| **[[15-types-of-thinking]]**                | Proses koleksi, analisis, dan korelasi mencerminkan transisi dari _Concrete Thinking_ (data mentah) ke _Abstract Thinking_ (pola) dan _Strategic Thinking_ (tujuan agen).                                               |
-| **[[google-dorks]]** & **[[shodan]]**       | Ini adalah alat "Level 0" untuk Collection Agent. Agen harus mampu menghasilkan dan menjalankan kueri ini secara otomatis dan cerdas.                                                                                   |
+| Domain Vault                                             | Koneksi Kritis                                                                                                                                                                                                          |
+| :------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[[agentic-ai-mcp-roadmap]]**                           | Orkestrasi agen adalah inti dari AI-driven OSINT. Setiap spesialis (Collector, Analyst) adalah agen yang dapat dihubungkan melalui protokol standar (MCP).                                                              |
+| **[[cognitive-architecture-engineering]]**               | Arsitektur multi-agen yang diusulkan (Orchestrator -> Specialist) adalah contoh konkret dari arsitektur kognitif yang sedang bekerja, sebuah "Meta-Agent" untuk intelijen.                                              |
+| **[[test-time-compute-system2]]**                        | Deepfake Detection dan GraphRAG adalah contoh sempurna dari "System 2" thinking yang lambat dan analitis. Pipeline mengerahkan compute tambahan pada waktu inferensi untuk tugas-tugas yang membutuhkan akurasi tinggi. |
+| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | Seluruh konsep "Counter-OSINT" dan "Adversarial Robustness Check" adalah aplikasi langsung dari pola pikir Red Teaming pada LLM ke dalam domain OSINT.                                                                  |
+| **[[military-and-intelligence-tools-hub]]**              | Dokumen ini adalah lapisan "AI-Native" di atas alat-alat tradisional yang Anda dokumentasikan. Ini adalah evolusi dari intelijen taktis ke intelijen strategis berbasis AI.                                             |
+| **[[15-types-of-thinking]]**                             | Proses koleksi, analisis, dan korelasi mencerminkan transisi dari _Concrete Thinking_ (data mentah) ke _Abstract Thinking_ (pola) dan _Strategic Thinking_ (tujuan agen).                                               |
+| **[[google-dorks]]** & **[[shodan]]**                    | Ini adalah alat "Level 0" untuk Collection Agent. Agen harus mampu menghasilkan dan menjalankan kueri ini secara otomatis dan cerdas.                                                                                   |
 
 Ini bukan lagi tentang menggunakan alat. Ini adalah tentang merancang **organisme kognitif digital** yang mampu merasakan, memahami, dan bertindak dalam lanskap informasi global.

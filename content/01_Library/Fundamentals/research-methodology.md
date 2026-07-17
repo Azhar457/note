@@ -113,7 +113,7 @@ graph TD
 
 ---
 
-![[gemini-generated-image-png|350]]
+!_(gambar)_
 
 ## 💡 Strategi & Jebakan
 

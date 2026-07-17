@@ -190,7 +190,7 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 | Dokumen                        | Kontribusi                     |
 | ------------------------------ | ------------------------------ |
-| [[cicd-guive                   | CI/CD Pipeline Guide]]         | PG + Podman deployment context, environment variables pattern |
+| [[cicd-guide                   | CI/CD Pipeline Guide]]         | PG + Podman deployment context, environment variables pattern |
 | [[devops                       | DevOps Roadmap]]               | Container deployment patterns, Docker Compose structure       |
 | [[data-engineering             | Data Engineering Roadmap]]     | Posisi PG dalam pipeline data secara umum                     |
 | [[infrastructure-administrator | Infrastructure Administrator]] | Server layout — PG jadi salah satu service                    |

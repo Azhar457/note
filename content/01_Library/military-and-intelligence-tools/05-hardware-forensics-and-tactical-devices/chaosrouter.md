@@ -196,11 +196,11 @@ Chaosrouter adalah eskalasi signifikan dari IMSI Catcher tradisional. Kemampuan 
 
 ## 🔗 Koneksi dalam Vault
 
-- [[IMSI Catcher / Stingray]] — Chaosrouter adalah IMSI Catcher dengan kemampuan manipulasi tambahan. Dokumen Stingray mencakup dasar-dasar yang relevan.
-- [[Quantum Insert + Blackpearl]] — Teknik manipulasi traffic yang identik: Stingray/Chaosrouter di domain seluler, Quantum Insert di domain IP.
+- [[imsi-catcher]] — Chaosrouter adalah IMSI Catcher dengan kemampuan manipulasi tambahan. Dokumen Stingray mencakup dasar-dasar yang relevan.
+- [[quantum-insert-and-blackpearl]] — Teknik manipulasi traffic yang identik: Stingray/Chaosrouter di domain seluler, Quantum Insert di domain IP.
 - [[verint]] — Verint adalah platform COMINT besar; Chaosrouter adalah alat taktis yang bisa feed data ke Verint.
 - [[pegasus]] — Pegasus menginfeksi perangkat untuk kontrol penuh; Chaosrouter mengintersep dan memanipulasi komunikasi tanpa infeksi.
-- [[Hak5 Suite]] — Keduanya adalah alat taktis portabel; Hak5 untuk WiFi/USB, Chaosrouter untuk seluler.
+- [[hack5-suite]] — Keduanya adalah alat taktis portabel; Hak5 untuk WiFi/USB, Chaosrouter untuk seluler.
 
 ---
 

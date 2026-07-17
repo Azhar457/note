@@ -20,7 +20,7 @@ cssclasses:
 > Embedding model adalah jantung semantic search — ia yang menentukan seberapa baik makna dokumen ditangkap dalam ruang vektor. Memilih model yang salah berarti chunk terbaik pun tidak akan ter-retrieve. Dokumen ini membedah spektrum embedding model dari yang proprietary (OpenAI, Cohere) hingga open-source (BGE, E5, Jina), konsep dimensi & Matryoshka embeddings, fine-tuning dengan LoRA untuk domain spesifik, dan strategi eval untuk memilih model yang tepat untuk vault ini.
 
 > [!info] Hubungan ke Vault
-> vault-rag saat ini menggunakan `text-embedding-3-small` via 9Router API. Catatan ini membahas alternatif (BGE, E5, Jina) dan kapan fine-tuning diperlukan. Terkait dengan [[advanced-chunking-strategies-deepdive]] (kualitas chunk = kualitas embedding), [[vector-database-internals-optimization]] (dimensi vector → performa index), [[../vault-rag/scripts/index_vault.py]] (implementasi embedding), dan [[rag-evaluation-framework]] (metric embedding quality).
+> vault-rag saat ini menggunakan `text-embedding-3-small` via 9Router API. Catatan ini membahas alternatif (BGE, E5, Jina) dan kapan fine-tuning diperlukan. Terkait dengan [[advanced-chunking-strategies-deepdive]] (kualitas chunk = kualitas embedding), [[vector-database-internals-optimization]] (dimensi vector → performa index), `../vault-rag/scripts/index_vault.py` (implementasi embedding), dan [[rag-evaluation-framework]] (metric embedding quality).
 
 ---
 
@@ -206,7 +206,7 @@ def eval_embedding(model_name, dimension=256):
 - [[vector-database-internals-optimization]] — Dimensi embedding → performa index HNSW → tuning
 - [[hybrid-search-vector-keyword]] — Embedding + BM25 = hybrid search. Sparse embedding (BGE-M3) juga bahas di sini
 - [[rag-evaluation-framework]] — Metric retrieval quality: recall@k, MRR, NDCG
-- [[../vault-rag/scripts/index_vault.py]] — Implementasi embedding: `ollama_api.embed()` pake `text-embedding-3-small`
+- `../vault-rag/scripts/index_vault.py` — Implementasi embedding: `ollama_api.embed()` pake `text-embedding-3-small`
 
 ---
 

@@ -323,7 +323,7 @@ def adversarial_training(model, train_loader, epsilon, alpha, num_iter):
 | [[ai-evaluation-framework]]                          | Model evaluation + adversarial robustness testing             |
 | [[ai-governance-ethics]]                             | Ethical implications of adversarial attacks                   |
 | [[advanced-ai-algorithms-breakthroughs]]             | Diffusion model — adversarial examples generation             |
-| [[evaluation-framework]]                             | Testing robustness against adversarial attacks                |
+| [[ai-evaluation-framework]]                          | Testing robustness against adversarial attacks                |
 
 ---
 

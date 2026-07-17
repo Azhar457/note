@@ -128,10 +128,10 @@ Ini adalah salah satu aspek paling kritis dari QML. Bagaimana Anda merepresentas
 
 | Metode Encoding        | Mekanisme Kuantum           | Koneksi Vault (Biometrik & Kriptografi)           |
 | :--------------------- | :-------------------------- | :------------------------------------------------ |
-| **Basis Encoding**     | `x (biner) ->               | x⟩`. Setiap bit menjadi qubit.                    | **[[cryptography-biometrics]]** — Representasi langsung dari hash atau kunci kriptografi.              |
-| **Amplitude Encoding** | `x (vektor) -> Σ x_i        | i⟩`. Data disimpan dalam amplitudo.               | **[[math-and-algorithms]]** — Sangat efisien, tetapi sulit dan mahal untuk dimuat.                     |
-| **Angle Encoding**     | `x (vektor) -> ⊗ RY(x_i)    | 0⟩`. Setiap fitur menjadi rotasi.                 | **[[swarm-ai-imam-robandi]]** — Encoding paling sederhana, cocok untuk PSO/VQE.                        |
-| **IQP Encoding**       | `x -> exp(i Σ x_i Z_i) H^⊗n | 0⟩`. Menciptakan kernel yang sulit secara klasik. | **[[llm-security-red-teaming]]** — Mengubah input sederhana menjadi representasi yang sangat kompleks. |
+| **Basis Encoding**     | `x (biner) ->               | x⟩`. Setiap bit menjadi qubit.                    | **[[cryptography-biometrics]]** — Representasi langsung dari hash atau kunci kriptografi.                                      |
+| **Amplitude Encoding** | `x (vektor) -> Σ x_i        | i⟩`. Data disimpan dalam amplitudo.               | **[[math-and-algorithms]]** — Sangat efisien, tetapi sulit dan mahal untuk dimuat.                                             |
+| **Angle Encoding**     | `x (vektor) -> ⊗ RY(x_i)    | 0⟩`. Setiap fitur menjadi rotasi.                 | **[[swarm-ai-imam-robandi]]** — Encoding paling sederhana, cocok untuk PSO/VQE.                                                |
+| **IQP Encoding**       | `x -> exp(i Σ x_i Z_i) H^⊗n | 0⟩`. Menciptakan kernel yang sulit secara klasik. | **[[llm-security-red-teaming-attack-surface-ai-layer]]** — Mengubah input sederhana menjadi representasi yang sangat kompleks. |
 
 ### 3.2 Data Re-Uploading: Membangun Kedalaman Tanpa Kedalaman Fisik
 

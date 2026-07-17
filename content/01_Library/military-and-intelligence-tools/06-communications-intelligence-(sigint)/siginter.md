@@ -221,11 +221,11 @@ SIGINTer adalah contoh sempurna alat dual-use di domain taktis: sistem yang sama
 ## 🔗 Koneksi dalam Vault
 
 - [[verint]] — Verint adalah platform COMINT strategis (backbone); SIGINTer adalah platform COMINT/ELINT taktis (lapangan). Keduanya saling melengkapi.
-- [[IMSI Catcher / Stingray]] — SIGINTer memiliki kemampuan IMSI Catcher sebagai salah satu modulnya.
+- [[imsi-catcher]] — SIGINTer memiliki kemampuan IMSI Catcher sebagai salah satu modulnya.
 - [[drfm]] — SIGINTer mendeteksi sinyal radar; DRFM mengeksekusi jamming/spoofing radar. Keduanya sering terintegrasi.
 - [[chaosrouter]] — Chaosrouter adalah IMSI Catcher ofensif portabel; SIGINTer adalah sistem yang lebih besar dan multi-fungsi.
-- [[Oscor / ANDRE]] — Oscor/ANDRE adalah TSCM defensif; SIGINTer adalah ofensif di domain RF yang sama.
-- [[Spectrum-Analysis-Tools]] — SIGINTer pada dasarnya adalah spectrum analyzer + classifier + DF + jammer terintegrasi.
+- [[oscor]] — Oscor/ANDRE adalah TSCM defensif; SIGINTer adalah ofensif di domain RF yang sama.
+- `Spectrum-Analysis-Tools` — SIGINTer pada dasarnya adalah spectrum analyzer + classifier + DF + jammer terintegrasi.
 
 ---
 

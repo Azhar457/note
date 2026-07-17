@@ -459,7 +459,7 @@ trace = [hack_contract]
 | [[fuzzing-vulnerability-research]] | Echidna property-based fuzzing for smart contracts |
 | [[comprehensive-threat-directory]] | Web3 threat actors, smart contract malware         |
 | [[underground-knowledge]]          | Dark web marketplace analysis, crypto mixing       |
-| [[cyber-aware]]                    | Crypto scam awareness, phishing prevention         |
+| [[digital-privacy-anonymity]]      | Crypto scam awareness, phishing prevention         |
 | [[quantum-cryptography-deepdive]]  | Post-quantum signatures for blockchain future      |
 
 ---

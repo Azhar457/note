@@ -245,7 +245,7 @@ INIT (compile time):
   └─ 3 fase: Uri, Headers, Body
 
 CUSTOM RULES (runtime):
-  config.toml → [[custom_rules]]
+  config.toml → `custom_rules`
   ├─ condition_type: path/header/cookie/body/query/method
   ├─ operator: contains/prefix/suffix/regex/equals
   └─ action: block/log

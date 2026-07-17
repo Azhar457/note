@@ -222,7 +222,7 @@ grep -rai "password|passwd|secret|token|api_key" /mnt/analysis/p1/ > keyword_hit
 yara -r /rules/malware_rules.yar /mnt/analysis/p1/ > yara_hits.txt
 
 # 3. Regular Expressions (CC, email, phone)
-grep -roE "[0-9]{4}[[space]]?[0-9]{4}[[space]]?[0-9]{4}[[space]]?[0-9]{4}" /mnt/analysis/p1/ > cc_numbers.txt
+grep -roE "[0-9]{4}?[0-9]{4}?[0-9]{4}?[0-9]{4}" /mnt/analysis/p1/ > cc_numbers.txt
 ```
 
 ---

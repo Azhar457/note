@@ -273,11 +273,11 @@ FOXACID adalah komponen kritis dalam rantai serangan NSA. Tanpa FOXACID, QUANTUM
 
 ## 🔗 Koneksi dalam Vault
 
-- [[QUANTUM (NSA)]] — QUANTUM adalah trigger redirect; FOXACID adalah payload delivery. Keduanya tidak bisa dipisahkan.
-- [[Quantum Insert + Blackpearl]] — Teknik yang sama: redirect target ke server exploit. FOXACID adalah server exploit-nya.
-- [[UPSTREAM & TEMPORA]] — Backbone interception untuk mendeteksi target dan memicu QUANTUM → FOXACID.
+- [[quantum]] — QUANTUM adalah trigger redirect; FOXACID adalah payload delivery. Keduanya tidak bisa dipisahkan.
+- [[quantum-insert-and-blackpearl]] — Teknik yang sama: redirect target ke server exploit. FOXACID adalah server exploit-nya.
+- [[upstream-and-tempora]] — Backbone interception untuk mendeteksi target dan memicu QUANTUM → FOXACID.
 - [[xkeyscore]] — FOXACID bisa menggunakan data XKEYSCORE untuk menentukan target value dan memilih exploit.
-- [[ANT Catalog]] — Implant hardware NSA (COTTONMOUTH, dll.) bisa diaktifkan oleh FOXACID setelah infeksi software berhasil.
+- [[ant-catalog]] — Implant hardware NSA (COTTONMOUTH, dll.) bisa diaktifkan oleh FOXACID setelah infeksi software berhasil.
 - [[muscular]] — Intersep internal Google/Yahoo link untuk mengidentifikasi target dan meredirect ke FOXACID.
 
 ---

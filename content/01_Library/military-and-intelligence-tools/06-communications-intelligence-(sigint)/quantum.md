@@ -90,7 +90,7 @@ QUANTUM bergantung pada **posisi strategis di backbone internet**. NSA menempatk
 
 ### 1. QUANTUM Insert (HTTP Race Condition Injection)
 
-Ini adalah teknik paling umum dan sudah dibahas secara mendalam di dokumen [[Quantum Insert + Blackpearl]].
+Ini adalah teknik paling umum dan sudah dibahas secara mendalam di dokumen [[quantum-insert-and-blackpearl]].
 
 **Ringkasan:**
 
@@ -261,10 +261,10 @@ QUANTUM, terutama QUANTUM Theory (BGP hijack), adalah eskalasi ofensif yang sang
 ## 🔗 Koneksi dalam Vault
 
 - [[foxacid]] — QUANTUM adalah trigger redirect; FOXACID adalah payload delivery. Keduanya adalah satu kesatuan.
-- [[Quantum Insert + Blackpearl]] — Dokumen tersebut membahas teknik QUANTUM Insert secara mendalam; dokumen ini fokus pada program QUANTUM secara keseluruhan.
-- [[UPSTREAM & TEMPORA]] — Backbone interception pasif yang menjadi fondasi untuk QUANTUM (harus bisa melihat traffic sebelum bisa mengalihkan).
+- [[quantum-insert-and-blackpearl]] — Dokumen tersebut membahas teknik QUANTUM Insert secara mendalam; dokumen ini fokus pada program QUANTUM secara keseluruhan.
+- [[upstream-and-tempora]] — Backbone interception pasif yang menjadi fondasi untuk QUANTUM (harus bisa melihat traffic sebelum bisa mengalihkan).
 - [[muscular]] — Intersep internal data center; QUANTUM digunakan untuk mengalihkan traffic ke titik MUSCULAR.
-- [[BGP Hijack]] — QUANTUM Theory adalah implementasi BGP hijack yang paling canggih.
+- `BGP Hijack` — QUANTUM Theory adalah implementasi BGP hijack yang paling canggih.
 - [[drfm]] — DRFM meniru sinyal radar; QUANTUM meniru respons jaringan. Prinsip spoofing yang identik di domain berbeda.
 
 ---

@@ -169,11 +169,11 @@ Sistem yang adil secara demografis bisa jadi tidak adil secara prediktif, dan se
 
 Dokumen ini adalah inti dari "kenapa" di balik semua yang Anda bangun. Ia menghubungkan arsitektur, keamanan, dan kognisi ke dalam satu tujuan etis.
 
-| Disiplin Vault                             | Perwujudan dalam Tata Kelola AI                                                                                                                                         |
-| :----------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[[llm-security-red-teaming]]**           | Red teaming adalah mesin pengujian untuk keamanan model. Setiap kerentanan yang ditemukan di sini menjadi input untuk pelatihan alignment (DPO) dan aturan guardrail.   |
-| **[[neurosymbolic-ai]]**                   | XAI (SHAP, TCAV) adalah lapisan transparansi untuk audit. AI Kausal membantu menjawab _mengapa_ model membuat keputusan yang bias.                                      |
-| **[[synthetic-data-privacy]]**             | Differential Privacy adalah perisai teknis untuk melindungi data individu dalam set pelatihan, sebuah persyaratan NIST dan EU AI Act.                                   |
-| **[[ai-engineering-stack-roadmap]]**       | MLOps adalah pipa kepatuhan. Tanpa versioning, logging, dan monitoring, tidak ada jejak audit, dan karenanya tidak ada akuntabilitas.                                   |
-| **[[cognitive-architecture-engineering]]** | Sebuah Meta-Agent membutuhkan "konstitusi" untuk mengorkestrasi sub-agen. Tata kelola adalah proses mendefinisikan, mengimplementasikan, dan menegakkan konstitusi itu. |
-| **[[site-reliability-engineering]]**       | Keandalan AI adalah bagian dari keamanan AI. Error budget dapat dan harus mencakup metrik keadilan dan keamanan, bukan hanya uptime.                                    |
+| Disiplin Vault                                           | Perwujudan dalam Tata Kelola AI                                                                                                                                         |
+| :------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | Red teaming adalah mesin pengujian untuk keamanan model. Setiap kerentanan yang ditemukan di sini menjadi input untuk pelatihan alignment (DPO) dan aturan guardrail.   |
+| **[[neurosymbolic-ai]]**                                 | XAI (SHAP, TCAV) adalah lapisan transparansi untuk audit. AI Kausal membantu menjawab _mengapa_ model membuat keputusan yang bias.                                      |
+| **[[synthetic-data-privacy]]**                           | Differential Privacy adalah perisai teknis untuk melindungi data individu dalam set pelatihan, sebuah persyaratan NIST dan EU AI Act.                                   |
+| **[[ai-engineering-stack-roadmap]]**                     | MLOps adalah pipa kepatuhan. Tanpa versioning, logging, dan monitoring, tidak ada jejak audit, dan karenanya tidak ada akuntabilitas.                                   |
+| **[[cognitive-architecture-engineering]]**               | Sebuah Meta-Agent membutuhkan "konstitusi" untuk mengorkestrasi sub-agen. Tata kelola adalah proses mendefinisikan, mengimplementasikan, dan menegakkan konstitusi itu. |
+| **[[site-reability-engineering]]**                       | Keandalan AI adalah bagian dari keamanan AI. Error budget dapat dan harus mencakup metrik keadilan dan keamanan, bukan hanya uptime.                                    |

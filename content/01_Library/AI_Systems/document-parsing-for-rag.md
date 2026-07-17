@@ -285,7 +285,7 @@ Karena vault mayoritas file Markdown (sudah bersih), fokus parsing adalah **data
 - [[ai-engineering-stack-roadmap]] — Fase 2: Data Pipeline & Vector Infrastructure dimulai dari parsing
 - [[encoding-serialization-compression-deepdive]] — Encoding charset, base64, charset detection
 - [[linux-fundamentals-deepdive]] — Filesystem path, file permissions buat pipeline ingestion
-- [[../vault-rag/scripts/index_vault.py]] — Implementasi chunking yang nerima output parser
+- `../vault-rag/scripts/index_vault.py` — Implementasi chunking yang nerima output parser
 
 ---
 

@@ -463,7 +463,7 @@ for name, clf in [('LR', clf1), ('RF', clf2), ('XGB', clf3)]:
 - [[machine-learning-classical-hierarchy]] — Teori dan implementasi dari nol
 - [[math-and-algorithms]] — Fondasi matematis
 - [[swarm-ai-imam-robandi]] — Optimasi alternatif
-- [[llm-security-red-teaming]] — Adversarial attack pada model ML
+- [[llm-security-red-teaming-attack-surface-ai-layer]] — Adversarial attack pada model ML
 - [[research-methodology]] — Evaluasi eksperimen
 
 ---

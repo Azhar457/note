@@ -20,7 +20,7 @@ cssclasses:
 > "You can't improve what you don't measure." RAG punya dua komponen yang perlu diukur: **retrieval** (apakah dokumen yang relevan terambil?) dan **generation** (apakah jawaban LLM akurat dan grounded?). Dokumen ini membahas metrik RAGAS (Faithfulness, Relevancy, Precision, Recall), DeepEval, evaluation dataset, automated testing pipeline, dan cara eval vault-rag secara konkret.
 
 > [!info] Hubungan ke Vault
-> Catatan ini adalah **lapisan paling atas** dari pipeline RAG — setelah semua komponen (chunking, embedding, search, transformation, generation) berjalan, evaluasi mengukur seberapa baik semuanya bekerja. Terkait dengan [[hallucination-mitigation-grounding]] (faithfulness metric), [[advanced-chunking-strategies-deepdive]] (context precision), [[hybrid-search-vector-keyword]] (retrieval recall), dan [[../vault-rag/scripts/mock_test.py]] (test suite vault-rag).
+> Catatan ini adalah **lapisan paling atas** dari pipeline RAG — setelah semua komponen (chunking, embedding, search, transformation, generation) berjalan, evaluasi mengukur seberapa baik semuanya bekerja. Terkait dengan [[hallucination-mitigation-grounding]] (faithfulness metric), [[advanced-chunking-strategies-deepdive]] (context precision), [[hybrid-search-vector-keyword]] (retrieval recall), dan `../vault-rag/scripts/mock_test.py` (test suite vault-rag).
 
 ---
 
@@ -286,8 +286,8 @@ def test_retrieval_regression():
 - [[hallucination-mitigation-grounding]] — Faithfulness metric = evaluasi hallucination
 - [[advanced-chunking-strategies-deepdive]] — Context precision metric = kualitas chunking
 - [[hybrid-search-vector-keyword]] — Recall metric = efektivitas fusion
-- [[../vault-rag/scripts/mock_test.py]] — Test suite vault-rag saat ini (unit test, bukan eval)
-- [[../vault-rag/scripts/query.py]] — Pipeline yang di-evaluate
+- `../vault-rag/scripts/mock_test.py` — Test suite vault-rag saat ini (unit test, bukan eval)
+- `../vault-rag/scripts/query.py` — Pipeline yang di-evaluate
 
 ---
 

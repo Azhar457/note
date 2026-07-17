@@ -81,12 +81,12 @@ def detect_deepfake(frame):
 
 ## 3. Koneksi ke Vault
 
-| Note                          | Hubungan                                   |
-| ----------------------------- | ------------------------------------------ |
-| [[osint]]                     | OSINT countermeasures, source verification |
-| [[digital-privacy-anonymity]] | Privacy as defense against profiling       |
-| [[llm-security-red-teaming]]  | LLM-generated disinformation detection     |
-| [[social-engineering]]        | Extension to population-scale manipulation |
+| Note                                                 | Hubungan                                   |
+| ---------------------------------------------------- | ------------------------------------------ |
+| [[osint]]                                            | OSINT countermeasures, source verification |
+| [[digital-privacy-anonymity]]                        | Privacy as defense against profiling       |
+| [[llm-security-red-teaming-attack-surface-ai-layer]] | LLM-generated disinformation detection     |
+| [[social-engineering]]                               | Extension to population-scale manipulation |
 
 ---
 

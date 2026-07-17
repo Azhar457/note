@@ -295,7 +295,7 @@ Stored as array `static RULES: &[Rule]`. Masing-masing punya:
 ### Custom Rules (Config + Plugins)
 
 ```toml
-[[custom_rules]]
+`custom_rules`
 id = "BLOCK-PHP-ADMIN"
 name = "Block PHP Admin"
 condition_type = "path"

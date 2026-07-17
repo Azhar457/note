@@ -222,11 +222,11 @@ ANT Catalog adalah puncak dari **"when all else fails, use hardware"**. Kemampua
 ## 🔗 Koneksi dalam Vault
 
 - [[foxacid]] — FOXACID mengeksploitasi software; ANT Catalog mengeksploitasi hardware. Keduanya adalah tools TAO.
-- [[QUANTUM (NSA)]] — QUANTUM untuk redirect; COTTONMOUTH untuk exfiltration dari air-gapped target.
+- [[quantum]] — QUANTUM untuk redirect; COTTONMOUTH untuk exfiltration dari air-gapped target.
 - [[muscular]] — MUSCULAR untuk intersep data center; ANT Catalog untuk akses endpoint.
-- [[Oscor / ANDRE]] — Oscor/ANDRE adalah alat untuk mendeteksi implan ANT Catalog.
-- [[Hak5 Suite]] — Hak5 adalah versi sipil (dan kurang canggih) dari ANT Catalog.
-- [[IMSI Catcher / Stingray]] — GENESIS/CANDYGRAM adalah StingRay versi NSA.
+- [[oscor]] — Oscor/ANDRE adalah alat untuk mendeteksi implan ANT Catalog.
+- [[hack5-suite]] — Hak5 adalah versi sipil (dan kurang canggih) dari ANT Catalog.
+- [[imsi-catcher]] — GENESIS/CANDYGRAM adalah StingRay versi NSA.
 
 ---
 

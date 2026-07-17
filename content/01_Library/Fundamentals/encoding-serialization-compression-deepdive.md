@@ -19,7 +19,7 @@ cssclasses:
 > Panduan komprehensif encoding, serialization, dan compression yang merupakan fondasi pertukaran data modern. Mencakup encoding (base64, hex, URL, HTML entities, Unicode), serialization formats (JSON, XML, Protocol Buffers, MessagePack, CBOR, YAML, TOML), compression algorithms (gzip, deflate, zstd, brotli), dan — yang paling penting buat security engineer — **attack surface**: deserialization RCE, XXE injection, billion laughs attack, encoding bypass untuk WAF, dan prototype pollution. Nota ini menyatukan konsep yang tersebar di picoCTF, web hacking, malware analysis, dan API security.
 
 > [!info] Posisi di Vault
-> Nota ini terkait dengan [[http-protocol-deepdive]] (Content-Encoding, Transfer-Encoding, Content-Type), [[web-hacking-exploitation]] (encoding bypass WAF, XXE), [[malware-analysis-reverse-engineering-playbook]] (string decoding, base64, XOR), [[api-security-deep-dive]] (JSON/Protobuf serialization API), [[picoctf-section-2]] (encoding dasar), [[comprehensive-threat-directory]] (deserialization attack), dan [[cryptography-biometrics]] (encoding vs encryption — beda fundamental).
+> Nota ini terkait dengan [[http-protocol-deepdive]] (Content-Encoding, Transfer-Encoding, Content-Type), [[web-hacking-exploitation]] (encoding bypass WAF, XXE), [[malware-analysis-reverse-engineering-playbook]] (string decoding, base64, XOR), [[api-security-deep-dive]] (JSON/Protobuf serialization API), [[picoctf-section-2-cyberchef-encodings]] (encoding dasar), [[comprehensive-threat-directory]] (deserialization attack), dan [[cryptography-biometrics]] (encoding vs encryption — beda fundamental).
 
 ---
 
@@ -551,7 +551,7 @@ protoc --decode Person person.proto < data.bin  # Dengan schema
 - [[web-hacking-exploitation]] — encoding bypass WAF, XXE injection, deserialization
 - [[malware-analysis-reverse-engineering-playbook]] — base64 decode, XOR decode, string decoding
 - [[api-security-deep-dive]] — JSON/Protobuf serialization API, gRPC
-- [[picoctf-section-2]] — encoding dasar untuk CTF (base64, hex, rot13, xor)
+- [[picoctf-section-2-cyberchef-encodings]] — encoding dasar untuk CTF (base64, hex, rot13, xor)
 - [[cryptography-biometrics]] — beda encoding vs encryption
 - [[comprehensive-threat-directory]] — deserialization attack taxonomy
 - [[browser-security-exploitation-deepdive]] — XSS via HTML encoding bypass

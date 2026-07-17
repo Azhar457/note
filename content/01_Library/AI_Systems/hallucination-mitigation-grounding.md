@@ -150,7 +150,7 @@ def corrective_rag(query, llm, retriever):
 - [[query-transformation-rag]] — CRAG rewrite query saat retrieval gagal
 - [[advanced-chunking-strategies-deepdive]] — Parent-child chunking = mitigasi hallucination via konteks lengkap
 - [[rag-evaluation-framework]] — Evaluasi faithfulness score
-- [[../vault-rag/scripts/corrective_rag.py]] — Implementasi CRAG loop
+- `../vault-rag/scripts/corrective_rag.py` — Implementasi CRAG loop
 - [[../vault-rag/scripts/query.py]] — Prompt grounding: "If context has NOTHING relevant: say No relevant information found"
 
 ---

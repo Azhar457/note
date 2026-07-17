@@ -21,7 +21,7 @@ cssclasses:
 > Query transformation adalah teknik untuk **memperbaiki retrieval dengan memperbaiki query** — sebelum query dikirim ke vector search. Ide dasarnya: user jarang nulis query yang sempurna. Query pendek ("TCP handshake"), ambigu ("jelasin"), atau terlalu spesifik ("gimana cara kerja sequence number di SYN-ACK?") bisa di-rewrite, diperluas, atau diabstraksi untuk retrieval yang lebih baik. Dokumen ini membahas 4 teknik: Multi-Query, HyDE, Step-Back Prompting, dan RAG-Fusion.
 
 > [!info] Hubungan ke Vault
-> vault-rag punya **Corrective RAG (CRAG)** — self-evaluating loop. Query transformation adalah langkah SEBELUM CRAG. Catatan ini terhubung dengan [[hallucination-mitigation-grounding]] (transformation yang salah = hallucination), [[hybrid-search-vector-keyword]] (query expansion untuk dense + BM25), dan [[../vault-rag/scripts/corrective_rag.py]] (implementasi CRAG).
+> vault-rag punya **Corrective RAG (CRAG)** — self-evaluating loop. Query transformation adalah langkah SEBELUM CRAG. Catatan ini terhubung dengan [[hallucination-mitigation-grounding]] (transformation yang salah = hallucination), [[hybrid-search-vector-keyword]] (query expansion untuk dense + BM25), dan `../vault-rag/scripts/corrective_rag.py` (implementasi CRAG).
 
 ---
 
@@ -227,7 +227,7 @@ def query_pipeline(query, mode="auto"):
 
 - [[hallucination-mitigation-grounding]] — Query transformation yang salah = hallucination. CRAG sebagai safety net.
 - [[hybrid-search-vector-keyword]] — Hasil query transformation di-search pake hybrid (dense + BM25)
-- [[../vault-rag/scripts/corrective_rag.py]] — CRAG: self-evaluating loop yang bisa detect kalo retrieval gagal
+- `../vault-rag/scripts/corrective_rag.py` — CRAG: self-evaluating loop yang bisa detect kalo retrieval gagal
 
 ---
 

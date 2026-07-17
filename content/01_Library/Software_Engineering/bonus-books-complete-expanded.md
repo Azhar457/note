@@ -314,7 +314,7 @@ Sistem kami saat ini menggunakan **engine penyimpanan berbasis B‑Tree** untuk 
 | **Selasa** | **Refactor JS Asynchronous** – konversi callback‑based ke `async/await`.                     | Kirim PR dengan refactor async dan unit tes.               |
 | **Rabu**   | **Mini‑Project Algoritmik** – implementasikan _binary search_ Knuth beserta bukti kecepatan. | Tambahkan `binary_search.py` beserta bukti kecepatan.      |
 | **Kamis**  | **ADR Lintas** – buat ADR yang menghubungkan seam, async, dan algoritma analisis.            | Tambahkan `001‑seam‑async‑search.adoc` ke `docs/adr/`.     |
-| **Jumat**  | **Pantau Pengethuan** – catat pencapaian mingguan di `[[knowledge‑log]]`.                    | Tanda‑kan tugas selesai, atur target membaca minggu depan. |
+| **Jumat**  | **Pantau Pengethuan** – catat pencapaian mingguan di `[[knowledge-log]]`.                    | Tanda‑kan tugas selesai, atur target membaca minggu depan. |
 
 ---
 

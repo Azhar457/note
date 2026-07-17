@@ -110,7 +110,7 @@ Bukan satu strategi — **hirarki chunking**:
 class HierarchicalChunker:
     """
     Level 0: Document (raw)
-    Level 1: Sections (by heading — [[heading_2]])
+    Level 1: Sections (by heading — )
     Level 2: Chunks (256-512 tokens, with 20% overlap)
     Level 3: Sentences (for reranking)
     """

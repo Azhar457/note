@@ -194,11 +194,11 @@ Platform EW defensif      Wild Weasel              terhadap radar
 
 ## 🔗 Koneksi dalam Vault
 
-- [[IMSI Catcher / Stingray]] — DRFM adalah "IMSI Catcher" untuk radar: meniru sinyal sah untuk menipu penerima.
-- [[RF & SIGINT]] — DRFM adalah perangkat keras inti di balik banyak sistem SIGINT ofensif.
-- [[Spectrum-Analysis-Tools]] — Untuk mendeteksi penggunaan DRFM, diperlukan analisis spektrum lanjutan.
-- [[Antenna-Design-Basics]] — Antena wideband adalah komponen kunci DRFM.
-- [[Quantum Insert + Blackpearl]] — Teknik race condition di jaringan IP; DRFM melakukan race condition di domain radar.
+- [[imsi-catcher]] — DRFM adalah "IMSI Catcher" untuk radar: meniru sinyal sah untuk menipu penerima.
+- RF & SIGINT — DRFM adalah perangkat keras inti di balik banyak sistem SIGINT ofensif.
+- `Spectrum-Analysis-Tools` — Untuk mendeteksi penggunaan DRFM, diperlukan analisis spektrum lanjutan.
+- [Antenna-Design-Basics] — Antena wideband adalah komponen kunci DRFM.
+- [[quantum-insert-and-blackpearl]] — Teknik race condition di jaringan IP; DRFM melakukan race condition di domain radar.
 
 ---
 

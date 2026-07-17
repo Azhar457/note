@@ -21,7 +21,7 @@ cssclasses:
 > Vector database adalah engine yang membuat semantic search mungkin dalam milidetik — bukan dengan membandingkan query ke semua dokumen (brute force), tapi dengan struktur index yang cerdas. Dokumen ini membedah arsitektur index vector: HNSW (Hierarchical Navigable Small World), IVF (Inverted File Index), Product Quantization (PQ), scalar quantization, dan bagaimana sqlite-vec (yang dipake vault-rag) bekerja di bawah hood. Plus: strategi tuning untuk performa search vs akurasi.
 
 > [!info] Hubungan ke Vault
-> vault-rag menggunakan **sqlite-vec** dengan cosine search (brute force — karena ukuran data masih kecil). Catatan ini membahas scaling: kapan perlu HNSW, trade-off akurasi vs latency, dan optimasi index. Terkait dengan [[embedding-model-selection-finetuning]] (dimensi → performa index), [[hybrid-search-vector-keyword]] (dense + sparse === dua index berbeda), dan [[../vault-rag/scripts/index_vault.py]] (sqlite-vec integration).
+> vault-rag menggunakan **sqlite-vec** dengan cosine search (brute force — karena ukuran data masih kecil). Catatan ini membahas scaling: kapan perlu HNSW, trade-off akurasi vs latency, dan optimasi index. Terkait dengan [[embedding-model-selection-finetuning]] (dimensi → performa index), [[hybrid-search-vector-keyword]] (dense + sparse === dua index berbeda), dan `../vault-rag/scripts/index_vault.py` (sqlite-vec integration).
 
 ---
 
@@ -257,8 +257,8 @@ Kalo vault-rag > 100K chunks (vault tumbuh), strategi:
 - [[embedding-model-selection-finetuning]] — Dimensi embedding menentukan ukuran & performa index
 - [[hybrid-search-vector-keyword]] — Dense index + FTS5 index = dua index berbeda untuk fusion
 - [[advanced-chunking-strategies-deepdive]] — Jumlah chunk → performa index
-- [[../vault-rag/scripts/index_vault.py]] — sqlite-vec integration: `CREATE VIRTUAL TABLE vec_chunks`
-- [[../vault-rag/scripts/query.py]] — Cosine search via `WHERE embedding MATCH ?`
+- `../vault-rag/scripts/index_vault.py` — sqlite-vec integration: `CREATE VIRTUAL TABLE vec_chunks`
+- `../vault-rag/scripts/query.py` — Cosine search via `WHERE embedding MATCH ?`
 
 ---
 

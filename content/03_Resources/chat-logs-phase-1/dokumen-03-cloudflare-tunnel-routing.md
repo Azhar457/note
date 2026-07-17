@@ -54,7 +54,7 @@ Zero Trust:   Nextcloud ──► cloudflared ──► Cloudflare Edge ──�
 
 ## 3. Integrasi Token ke Docker Compose
 
-Token tunnel sudah disuntikkan ke file `docker-compose.yml` di [[dokumen-02-infrastruktur-docker-persistence-storage|Dokumen 02]]. Pastikan blok `tunnel` terisi token asli:
+Token tunnel sudah disuntikkan ke file `docker-compose.yml` di [Dokumen 02](dokumen-02-docker-nextcloud-stack.md). Pastikan blok `tunnel` terisi token asli:
 
 ```yaml
 tunnel:

@@ -334,11 +334,11 @@ training
 ## 🔗 Koneksi dalam Vault
 
 - [[metasploit]] — Bash Bunny bisa menjalankan payload Metasploit (reverse shell, meterpreter).
-- [[Cobalt Strike]] — Payload keyboard injection bisa mengirimkan stager Cobalt Strike.
+- [[cobalt-strike]] — Payload keyboard injection bisa mengirimkan stager Cobalt Strike.
 - [[empire]] — PowerShell payload bisa diketikkan via Rubber Ducky / O.MG Cable.
-- [[WiFi-Bluetooth-Sniffing]] — WiFi Pineapple adalah alat utama untuk sniffing WiFi.
-- [[IMSI Catcher / Stingray]] — Sama-sama alat taktis lapangan untuk intercept; IMSI Catcher untuk cellular, WiFi Pineapple untuk WiFi.
-- [[Social Engineering]] — Semua alat Hak5 sangat bergantung pada social engineering untuk delivery.
+- `WiFi-Bluetooth-Sniffing` — WiFi Pineapple adalah alat utama untuk sniffing WiFi.
+- [[imsi-catcher]] — Sama-sama alat taktis lapangan untuk intercept; IMSI Catcher untuk cellular, WiFi Pineapple untuk WiFi.
+- [[social-engineering]] — Semua alat Hak5 sangat bergantung pada social engineering untuk delivery.
 
 ---
 

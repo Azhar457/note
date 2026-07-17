@@ -310,13 +310,13 @@ jobs:
 
 ```toml
 # .gitleaks.toml
-[[rules]]
+`rules`
 id = "custom-aws-key"
 description = "AWS Access Key ID"
 regex = '''(?i)(?:ak|sk|AWS)[\s:=]+(?:A3T[A-Z0-9]|AKIA|ASIA)[A-Z0-9]{16}'''
 tags = ["aws", "credentials"]
 
-[[rules]]
+`rules`
 id = "custom-jwt"
 description = "JWT Token (common pattern)"
 regex = '''eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*'''

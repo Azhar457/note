@@ -239,9 +239,9 @@ Quantum Insert / Blackpearl adalah puncak dari kemampuan **active network attack
 
 ## 🔗 Koneksi dalam Vault
 
-- [[UPSTREAM & TEMPORA]] — Backbone interception pasif yang menjadi fondasi untuk Quantum Insert (harus bisa melihat traffic dulu sebelum bisa menyuntikkan).
+- [[upstream-and-tempora]] — Backbone interception pasif yang menjadi fondasi untuk Quantum Insert (harus bisa melihat traffic dulu sebelum bisa menyuntikkan).
 - [[foxacid]] — Server exploit delivery yang menjadi tujuan redirect dari Quantum Insert.
-- [[QUANTUM (NSA)]] — Program NSA untuk active network attack, saudara dari Quantum Insert.
+- [[quantum]] — Program NSA untuk active network attack, saudara dari Quantum Insert.
 - [[verint]] — Verint menyediakan hardware untuk pemantauan traffic yang bisa digunakan untuk mendeteksi target sebelum Quantum Insert.
 - [[pegasus]] — Quantum Insert bisa digunakan untuk mengarahkan target ke server yang mengeksploitasi browser, menjatuhkan implant seperti Pegasus.
 - [[muscular]] — Operasi NSA/GCHQ untuk mengintersep link internal data center; Quantum Insert bisa digunakan untuk mengalihkan traffic ke titik intersep.

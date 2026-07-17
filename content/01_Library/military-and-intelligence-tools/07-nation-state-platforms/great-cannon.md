@@ -227,13 +227,13 @@ Great Cannon adalah contoh sempurna bagaimana infrastruktur defensif dapat denga
 
 ## 🔗 Koneksi dalam Vault
 
-- [[Quantum Insert + Blackpearl]] — Teknik injeksi HTTP yang identik; Quantum Insert (NSA/Unit 8200) dan Great Cannon (Tiongkok) menggunakan prinsip race condition yang sama.
+- [[quantum-insert-and-blackpearl]] — Teknik injeksi HTTP yang identik; Quantum Insert (NSA/Unit 8200) dan Great Cannon (Tiongkok) menggunakan prinsip race condition yang sama.
 - [[foxacid]] — NSA menggunakan FOXACID untuk exploit delivery setelah redirect; Great Cannon bisa melakukan redirect ke server exploit serupa.
-- [[UPSTREAM & TEMPORA]] — Intersep backbone pasif; Great Cannon adalah versi ofensif dari kemampuan ini.
+- [[upstream-and-tempora]] — Intersep backbone pasif; Great Cannon adalah versi ofensif dari kemampuan ini.
 - [[muscular]] — Operasi NSA/GCHQ untuk mengintersep link internal data center; Great Cannon mengintersep dan memodifikasi traffic di border.
-- [[QUANTUM (NSA)]] — Program NSA untuk active network attack; Great Cannon adalah padanan Tiongkok.
-- [[DNS Poisoning]] — Teknik yang digunakan oleh Great Cannon untuk mengalihkan traffic.
-- [[BGP Hijack]] — Bagian dari GFW Arsenal untuk mengalihkan rute internasional.
+- [[quantum]] — Program NSA untuk active network attack; Great Cannon adalah padanan Tiongkok.
+- `DNS Poisoning` — Teknik yang digunakan oleh Great Cannon untuk mengalihkan traffic.
+- `BGP Hijack` — Bagian dari GFW Arsenal untuk mengalihkan rute internasional.
 
 ---
 

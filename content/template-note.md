@@ -17,4 +17,4 @@ status: active
 
 ## Referensi
 
-- [[related-note]]
+- related-note

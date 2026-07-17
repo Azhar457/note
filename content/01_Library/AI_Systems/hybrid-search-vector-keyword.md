@@ -21,7 +21,7 @@ cssclasses:
 > Dense retrieval (embedding) menangkap makna, BM25 (keyword) menangkap kecocokan literal. Masing-masing punya kelemahan: embedding kesusahan dengan istilah teknis langka (singkatan, kode error), BM25 kesusahan dengan sinonim dan konsep (tanpa kata kunci yang sama). Hybrid search menggabungkan keduanya. Dokumen ini membedah teknik fusion — Reciprocal Rank Fusion (RRF), weighted score, dense→sparse — dengan implementasi konkret dari vault-rag yang udah pake hybrid search sejak awal.
 
 > [!info] Hubungan ke Vault
-> vault-rag sudah menerapkan hybrid search: dense (cosine) × 0.7 + BM25 (FTS5) × 0.3. Catatan ini menjelaskan kenapa weight itu dipilih, alternatif fusion (RRF), dan sparse embedding BGE-M3. Terkait dengan [[vector-database-internals-optimization]] (dense index), [[advanced-chunking-strategies-deepdive]] (FTS5 index di child chunks), dan [[../vault-rag/scripts/query.py]] (implementasi `search_hybrid()`).
+> vault-rag sudah menerapkan hybrid search: dense (cosine) × 0.7 + BM25 (FTS5) × 0.3. Catatan ini menjelaskan kenapa weight itu dipilih, alternatif fusion (RRF), dan sparse embedding BGE-M3. Terkait dengan [[vector-database-internals-optimization]] (dense index), [[advanced-chunking-strategies-deepdive]] (FTS5 index di child chunks), dan `../vault-rag/scripts/query.py` (implementasi `search_hybrid()`).
 
 ---
 
@@ -197,7 +197,7 @@ print(f"Best weight: dense={best_weight}, BM25={1-best_weight}")
 - [[advanced-chunking-strategies-deepdive]] — FTS5 di child chunks untuk BM25 search
 - [[embedding-model-selection-finetuning]] — Dense embedding untuk dense search
 - [[vector-database-internals-optimization]] — Dense index (HNSW) + FTS5 index (BM25)
-- [[../vault-rag/scripts/query.py]] — Implementasi `search_hybrid()` → `search_dense()` + `search_bm25()`
+- `../vault-rag/scripts/query.py` — Implementasi `search_hybrid()` → `search_dense()` + `search_bm25()`
 
 ---
 
