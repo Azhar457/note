@@ -1,13 +1,17 @@
 ---
-title: "Internet Offline — Onno W. Purbo"
+title: "Offline Internet — Onno W. Purbo"
 tags:
+  - infrastructure
   - internet-offline
-  - library
 aliases:
   - "internet-offline-onno-purbo"
 created: "2026-07-05"
-updated: "2026-07-05"
+updated: "2026-07-16"
 status: active
+---
+
+# Offline Internet — Infrastruktur & Deployment Daerah Blank Spot (Ekspansi Teknis)
+
 ---
 
 # Internet Offline — Infrastruktur & Deployment Daerah Blank Spot (Ekspansi Teknis)

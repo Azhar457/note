@@ -258,7 +258,7 @@ Embodied AI adalah titik kulminasi dari banyak jalur di vault Anda.
 | **[[agentic-ai-mcp-architecture-deepdive]]** | Loop Sense-Plan-Act adalah inti dari robot. Tools adalah gripper, kamera, dan motor.                                                                 |
 | **[[cognitive-architecture-engineering]]**   | Hirarki kontrol (Strategis-Taktis-Reaktif) adalah arsitektur kognitif untuk fisik.                                                                   |
 | **[[test-time-compute-system2]]**            | Perencanaan gerak (Motion Planning) dan penalaran tugas adalah System 2 thinking yang membutuhkan compute besar.                                     |
-| **[[desain-sistem-otonom]]**                 | Robot yang beroperasi 24/7 tanpa manusia adalah Sistem Otonom pamungkas.                                                                             |
+| **[[autonomous-system-design]]**             | Robot yang beroperasi 24/7 tanpa manusia adalah Sistem Otonom pamungkas.                                                                             |
 | **[[embedded-systems]]**                     | Mikrokontroler, sensor, dan aktuator adalah "tubuh" dari agen.                                                                                       |
 | **[[swarm-ai-imam-robandi]]**                | Swarm robotik menerapkan PSO dan stigmergy di dunia nyata.                                                                                           |
 | **[[15-types-of-thinking]]**                 | _Concrete Thinking_ (data sensor), _Analytical Thinking_ (kinematika), dan _Strategic Thinking_ (perencanaan tugas) semuanya hadir dalam satu robot. |
@@ -278,7 +278,7 @@ Akankah scaling compute, data, dan model size menyelesaikan robotik, seperti yan
 
 ### 7.2 The Final Fusion: VLA + Continual Learning
 
-Robot masa depan tidak akan berhenti belajar setelah deployment. Mereka akan menggunakan setiap interaksi—setiap kegagalan, setiap keberhasilan—untuk memperbarui **procedural memory** mereka. Ini adalah aplikasi langsung dari **[[desain-sistem-otonom]]**.
+Robot masa depan tidak akan berhenti belajar setelah deployment. Mereka akan menggunakan setiap interaksi—setiap kegagalan, setiap keberhasilan—untuk memperbarui **procedural memory** mereka. Ini adalah aplikasi langsung dari **[[autonomous-system-design]]**.
 
 ```python
 # Pseudo-code: Robot yang terus belajar

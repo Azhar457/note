@@ -675,7 +675,7 @@ Inferensi VLA model (562B params) di embedded hardware? **Belum feasible.**
 ## Catatan Terkait
 
 - **[[agentic-ai-mcp-architecture-deepdive]]** — Agentic AI (cognitive loop untuk robot)
-- **[[desain-sistem-otonom]]** — Autonomous system design (arsitektur robot)
+- **[[autonomous-system-design]]** — Autonomous system design (arsitektur robot)
 - **[[embedded-systems]]** — Embedded systems (hardware robot)
 - **[[cognitive-architecture-engineering]]** — Cognitive architecture (robot cognition)
 - **[[computer-vision-deepdive]]** — Computer vision (perception untuk robot)

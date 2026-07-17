@@ -22,10 +22,10 @@ cssclasses:
 
 # 🗄️ Database Internals: Indexing, MVCC & Query Planning
 
-> Vault udah punya [[postgresql-administrasi-backup]] dan [[postgresql-performance-triage]] — dua-duanya fokus ke operasional: backup, restore, troubleshooting slow query. Tapi belum ada yang bedah **apa yang terjadi di dalam database** ketika lo jalanin `CREATE INDEX`, `UPDATE`, atau `EXPLAIN ANALYZE`. Catatan ini adalah layer fundamental yang ngejelasin kenapa index B-Tree cocok untuk range query tapi jelek untuk JSONB, kenapa UPDATE lebih mahal dari INSERT (akibat MVCC), dan bagaimana query planner milih antara Nested Loop, Hash Join, atau Merge Join. Tanpa ini, lo cuma bisa bilang "query lambat, bikin index" tanpa ngerti index mana yang tepat untuk workload lo.
+> Vault udah punya [[postgresql-admin-backup]] dan [[postgresql-performance-triage]] — dua-duanya fokus ke operasional: backup, restore, troubleshooting slow query. Tapi belum ada yang bedah **apa yang terjadi di dalam database** ketika lo jalanin `CREATE INDEX`, `UPDATE`, atau `EXPLAIN ANALYZE`. Catatan ini adalah layer fundamental yang ngejelasin kenapa index B-Tree cocok untuk range query tapi jelek untuk JSONB, kenapa UPDATE lebih mahal dari INSERT (akibat MVCC), dan bagaimana query planner milih antara Nested Loop, Hash Join, atau Merge Join. Tanpa ini, lo cuma bisa bilang "query lambat, bikin index" tanpa ngerti index mana yang tepat untuk workload lo.
 
 > [!info] Posisi di Vault
-> Ini adalah **teori di belakang** [[postgresql-administrasi-backup]] dan [[postgresql-performance-triage]]. Baca ini untuk paham kenapa operasional PostgreSQL bekerja seperti itu. Juga terhubung dengan [[ddia-kleppmann]] (Part II — storage & retrieval) dan [[data-engineering]] (pipeline data).
+> Ini adalah **teori di belakang** [[postgresql-admin-backup]] dan [[postgresql-performance-triage]]. Baca ini untuk paham kenapa operasional PostgreSQL bekerja seperti itu. Juga terhubung dengan [[ddia-kleppmann]] (Part II — storage & retrieval) dan [[data-engineering]] (pipeline data).
 
 ---
 
@@ -716,7 +716,7 @@ Gunakan [[postgresql-performance-triage]] untuk checklist troubleshooting.
 
 ## 🔗 Koneksi ke Catatan Lain
 
-- [[postgresql-administrasi-backup]] — backup/restore, operasional sehari-hari
+- [[postgresql-admin-backup]] — backup/restore, operasional sehari-hari
 - [[postgresql-performance-triage]] — troubleshooting slow query, praktik
 - [[ddia-kleppmann]] — Part II storage & retrieval = teori database internals
 - [[data-engineering]] — pipeline data, butuh paham indexing untuk performance

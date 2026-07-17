@@ -457,6 +457,6 @@ WHERE state IS NOT NULL GROUP BY state;
 
 ## 🔗 Lihat Juga
 
-- [[postgresql-administrasi-backup|PostgreSQL Administrasi Backup]] — Backup & disaster recovery
+- [[postgresql-admin-backup|PostgreSQL Administrasi Backup]] — Backup & disaster recovery
 - [[data-engineering|Data Engineering Roadmap]] — Posisi PG dalam pipeline data
 - [[devops|DevOps Roadmap]] — Container deployment patterns

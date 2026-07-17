@@ -587,9 +587,9 @@ print(nn.forward(X))
 | Konsep                  | Dokumen                                                        |
 | ----------------------- | -------------------------------------------------------------- |
 | PSO/GA/ACO → optimasi   | [[ai-engineering-stack-roadmap]] (MLOps hyperparameter tuning) |
-| Fuzzy Logic → penilaian | [[kualitas-pl-untung-yuhana]] (kualitas perangkat lunak)       |
+| Fuzzy Logic → penilaian | [[software-quality-untung-yuhana]] (kualitas perangkat lunak)  |
 | NN → prediksi           | [[test-time-compute-system2]] (system 1 vs system 2)           |
-| Swarm → multi-agent     | [[orkestrasi-meta-agen]] (agent orchestration)                 |
+| Swarm → multi-agent     | [[meta-agent-orchestration]] (agent orchestration)             |
 | Emergent behavior       | [[cognitive-architecture-engineering]] (emergent cognition)    |
 
 ---

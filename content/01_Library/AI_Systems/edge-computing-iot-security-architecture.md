@@ -24,7 +24,7 @@ cssclasses:
 > Vault punya [[embodied-ai-robotics]] yang fokus ke robotics + AI di edge, dan [[wireless-security-deepdive]] yang bahas RF attacks (Zigbee, BLE, WiFi). Tapi belum ada yang ngejembatin antara **IoT device fisik, edge gateway, dan cloud backend** dari sudut pandang arsitektur dan security. Catatan ini bahas edge computing secara vertikal: dari sensor constrained (ESP32, nRF52) yang jalan di baterai selama setahun, sampe edge gateway (Jetson, Raspberry Pi) yang jalanin ML inference, sampe cloud backend yang aggregate data. Setiap tier punya attack surface sendiri-sendiri — firmware signing, secure boot, OTA update, network segmentation buat OT/IIoT, dan supply chain security.
 
 > [!info] Posisi di Vault
-> Ini adalah **jembatan** antara [[embodied-ai-robotics]] (robotics AI), [[wireless-security-deepdive]] (RF communication), [[firmware-reverse-engineering-deepdive]] (firmware security), [[desain-sistem-otonom]] (autonomous systems), dan [[container-kubernetes-security-deepdive]] (cloud backend). Baca ini setelah paham dasar networking [[networking-fundamentals-tcpip-bgp]] dan sebelum mendalami hardware hacking [[hardware-hacking-re]].
+> Ini adalah **jembatan** antara [[embodied-ai-robotics]] (robotics AI), [[wireless-security-deepdive]] (RF communication), [[firmware-reverse-engineering-deepdive]] (firmware security), [[autonomous-system-design]] (autonomous systems), dan [[container-kubernetes-security-deepdive]] (cloud backend). Baca ini setelah paham dasar networking [[networking-fundamentals-tcpip-bgp]] dan sebelum mendalami hardware hacking [[hardware-hacking-re]].
 
 ---
 
@@ -634,7 +634,7 @@ while True:
 - [[embodied-ai-robotics]] — robotics AI + edge computing, overlapping di Tier 2
 - [[wireless-security-deepdive]] — RF attacks di Zigbee, BLE, WiFi (Tier 1 communication)
 - [[firmware-reverse-engineering-deepdive]] — RE firmware untuk audit keamanan device
-- [[desain-sistem-otonom]] — autonomous system = edge AI + real-time control
+- [[autonomous-system-design]] — autonomous system = edge AI + real-time control
 - [[hardware-hacking-re]] — physical access attack ke embedded device
 - [[container-kubernetes-security-deepdive]] — cloud backend (Tier 3) security
 - [[networking-fundamentals-tcpip-bgp]] — network segmentation & routing untuk IoT VLAN

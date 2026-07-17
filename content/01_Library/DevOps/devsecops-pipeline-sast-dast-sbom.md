@@ -603,7 +603,7 @@ jobs:
 - [[comprehensive-threat-directory]] — taksonomi ancaman yang menjadi target scanning tools
 - [[threat-modeling-deepdive]] — identifikasi ancaman yang harus di-cover oleh pipeline testing
 - [[data-engineering]] — pipeline data juga perlu DevSecOps (schema validation, data quality)
-- [[desain-sistem-otonom]] — DevSecOps untuk sistem otonom/agentic
+- [[autonomous-system-design]] — DevSecOps untuk sistem otonom/agentic
 
 ---
 

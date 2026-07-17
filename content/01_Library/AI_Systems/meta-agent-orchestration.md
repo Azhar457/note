@@ -200,7 +200,7 @@ Agen `UNHEALTHY` tidak lagi diberi tugas sampai pulih — dan penyebabnya dicata
 | Multi-Agent Framework        | [[agentic-ai-mcp-roadmap]] (Fase 5: Multi-Agent)                       |
 | Agent Communication Protocol | [[ai-comm-protocol-deep-dive]] (A2A, Gibberlink)                       |
 | Orchestration Pillar         | [[cognitive-architecture-engineering]] (Pilar 1, 3)                    |
-| Goal Management              | [[desain-sistem-otonom]] (Goal Tree Manager)                           |
+| Goal Management              | [[autonomous-system-design]] (Goal Tree Manager)                       |
 | Evaluator as First-Class     | [[ai-evaluation-framework]], [[test-time-compute-system2]] (PRM)       |
 | Agent Security               | [[llm-security-red-teaming-attack-surface-ai-layer]] (Tool Sandboxing) |
 | MCP Integration              | [[agentic-ai-mcp-architecture-deepdive]] (Tool Use, MCP)               |

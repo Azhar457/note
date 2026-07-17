@@ -3,7 +3,7 @@ title: "MOC — AI, Software Quality & Offline Infrastructure"
 tags:
   - library
 aliases:
-  - "moc-ai-quality-offline"
+  - "ai-quality-offline-moc"
 created: "2026-07-06"
 updated: "2026-07-06"
 status: active

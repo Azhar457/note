@@ -7,7 +7,7 @@ tags:
   - backup
   - devops
 aliases:
-  - "PostgreSQL Administration"
+  - "postgresql-admin-backup"
   - "PG Backup Restore"
 created: "2026-07-11"
 updated: "2026-07-11"

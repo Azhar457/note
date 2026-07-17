@@ -4,7 +4,7 @@ tags:
   - kualitas-perangkat-lunak
   - library
 aliases:
-  - "kualitas-pl-untung-yuhana"
+  - "software-quality-untung-yuhana"
 created: "2026-07-05"
 updated: "2026-07-05"
 status: active

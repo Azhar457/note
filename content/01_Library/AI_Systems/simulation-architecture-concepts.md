@@ -4,7 +4,7 @@ tags:
   - library
   - other
 aliases:
-  - "arsitektur-dan-konsep-simulasi"
+  - "simulation-architecture-concepts"
 created: "2026-05-16"
 updated: "2026-07-01"
 status: operational
@@ -91,7 +91,7 @@ Tabel berikut menjelaskan fungsionalitas setiap alat keamanan yang diinstal di l
 
 ## 🔗 Lihat Juga
 
-- [[arsitektur-dan-konsep-simulasi|Master SOP Setup Lingkungan]]
+- [[simulation-architecture-concepts|Master SOP Setup Lingkungan]]
 - [[network-security|Dasar Keamanan Jaringan (OSI Layer)]]
 
 ## 📚 Instalasi dan Konfigurasi
