@@ -500,8 +500,8 @@ def process_checkout(order, payment_token):
 - [[the-pragmatic-programmer]] — mindset overlap: DRY, TDD, knowledge portfolio, broken window theory
 - [[design-patterns-gof]] — banyak design pattern yang jawab "gimana bikin kode bersih" (adapter, strategy, factory)
 - [[refactoring-martin-fowler]] — teknik konkret: extract method, rename variable, move field
-- [[working-effectively-legacy-code]] — strategi bersihin kode warisan yang gak punya test
-- [[ddia]] — clean code di level sistem: boundaries, isolation, SRP di arsitektur
+- [[clean-code-robert-martin]] (refactoring pattern) — strategi bersihin kode warisan yang gak punya test
+- [[ddia-summary]] — clean code di level sistem: boundaries, isolation, SRP di arsitektur
 
 ---
 
