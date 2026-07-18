@@ -398,7 +398,7 @@ Semua tools di bawah ini muat dalam **satu flashdisk 128GB** dengan partisi:
 ## Connected Notes
 
 - [[printer-maintenance-reset]] — Servis printer inkjet (Epson, Canon, Brother, HP)
-- [[hierarchy-endpoint-security-freeware]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
+- [[endpoint-security-freeware]] — Arsitektur keamanan endpoint (Ring -3 sampai Ring 3)
 - [[storage-refurbishing]] — Refurbishing HDD/SSD untuk dijual kembali
 - [[laptop-qc-procurement|TEMA-C-Laptop-QC-Procurement]] — QC laptop & procurement guide
 - [[application]] — 🛠️ Master Interactive Tool Arsenal (GitHub Pages)

@@ -1,17 +1,24 @@
 ---
-title: "Hierarchy Endpoint Security Freeware"
+title: "Endpoint Security Freeware"
 tags:
-  - atlas
+  - endpoint-security
+  - freeware
+  - open-source
+  - blue-team
+  - CPU-ring
 aliases:
-  - "hierarchy-endpoint-security-freeware"
+  - "endpoint-security-freeware"
 created: "2026-05-01"
-updated: "2026-07-01"
+updated: "2026-07-17"
 status: operational
 ---
 
-# 🛡️ Endpoint Security Hierarchy — Open Source & Freeware Edition
+# 🛡️ Endpoint Security Tools — Open Source & Freeware Edition
 
-> Hierarki keamanan endpoint dari firmware (Ring -3) sampai user space (Ring 3), dengan tools **gratis & open source** sebagai pengganti Windows Defender. Mapped ke arsitektur ring yang sudah didefinisikan.
+> Hierarki keamanan endpoint dari firmware (Ring -3) sampai user space (Ring 3), dengan tools **gratis & open source** sebagai pengganti Windows Defender. Mapped ke arsitektur ring yang sudah didefinisikan di [[endpoint-security]] (knowledge primer) dan [[hierarchy-endpoint-security]] (peta konsep atlas). File ini fokus pada **tooling defender** per Ring.
+
+> [!info] Navigator Cepat
+> Untuk konsep hirarki privilege CPU dan **plot twist dual-use**, lihat [[hierarchy-endpoint-security]]. Untuk **landscape ancaman** (blue team vs red team per Ring), lihat [[endpoint-security]]. File ini adalah playbook tools-nya.
 
 ---
 

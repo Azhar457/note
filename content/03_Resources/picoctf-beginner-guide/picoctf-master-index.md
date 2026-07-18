@@ -139,7 +139,7 @@ Untuk memperdalam pemahaman lintas sub-domain keamanan, silakan merujuk pada cat
 
 - [[curriculum-mapping]] — Peta kurikulum keamanan siber global dan sertifikasi industri (OSCP, CISSP, CEH).
 - [[technician-toolkit-standard]] — Panduan lengkap penggunaan perkakas sistem, troubleshooting hardware, dan utilitas pengetesan jaringan.
-- [[hierarchy-endpoint-security-freeware]] — Konsep pengamanan komputer klien dari serangan malware tingkat lanjut.
+- [[endpoint-security-freeware]] — Konsep pengamanan komputer klien dari serangan malware tingkat lanjut.
 
 ### Tabel Perbandingan
 
