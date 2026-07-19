@@ -132,8 +132,8 @@ CLIENT                    SERVER
                     └────┬─────┘
                          │ active open (SYN)
                     ┌────▼─────┐         ┌──────────┐
-          ┌─────────│ SYN_SENT │         │ SYN_RCVD │←────────┐
-          │         └────┬─────┘         └────┬──────┘         │
+          ┌─────────│ SYN_SENT │         │ SYN_RCVD │←──────────┐
+          │         └────┬─────┘         └────┬──────┘          │
           │              │ SYN+ACK            │ ACK             │
           │         ┌────▼────────────────────▼──────┐          │
           │         │         ESTABLISHED            │          │
@@ -316,8 +316,8 @@ Attacker            DNS Server (open resolver)            Victim
    |── spoofed src=victim ──→|                               |
    |   query: ANY isc.org    |                               |
    |    (60 bytes)           |                               |
-   |                         |── response: 3500 bytes ─────→|
-   |                         |   (58x amplification!)       |
+   |                         |── response: 3500 bytes ──────→|
+   |                         |   (58x amplification!)        |
 ```
 
 **Mitigasi:**
