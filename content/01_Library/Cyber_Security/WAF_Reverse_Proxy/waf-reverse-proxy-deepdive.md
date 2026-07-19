@@ -17,7 +17,7 @@ cssclasses: ""
 > WAF dan Reverse Proxy adalah dua komponen yang **saling melengkapi** — Reverse Proxy mengatur lalu lintas di Layer 7 (routing, load balancing, TLS termination), sementara WAF menginspeksi dan memfilter konten berbahaya di dalam lalu lintas tersebut. Di era arsitektur mikroservis dan API-first, memahami keduanya secara bersamaan bukan lagi opsional — ini adalah **fondasi security infrastructure modern**. Dokumen ini membedah setiap aspek dari ModSecurity/CRS, Nginx/HAProxy/Envoy, Pingora, dan API Gateway, dari teori sampai implementasi.
 
 > [!info] Hubungan ke Vault
-> Ini adalah deep dive utama untuk WAF & Reverse Proxy ecosystem. Terkait erat dengan [[software-supply-chain-security-deepdive|Supply Chain Security]] (WAF rule lifecycle), [[web-hacking-exploitation|Web Hacking]] (attack vectors yang diblok WAF), [[cicd-shiftleft-shiftright|CI/CD Pipeline]] (WAF testing di pipeline), dan [[software-supply-chain-security-deepdive|SLSA framework]] (build provenance untuk WAF rules). Juga terhubung dengan custom WAF project [[Pingora vs jarsWAF|jarsWAF]] yang dibangun dengan Pingora.
+> Ini adalah deep dive utama untuk WAF & Reverse Proxy ecosystem. Terkait erat dengan [[software-supply-chain-security-deepdive|Supply Chain Security]] (WAF rule lifecycle), [[web-hacking-exploitation|Web Hacking]] (attack vectors yang diblok WAF), [[cicd-shiftleft-shiftright|CI/CD Pipeline]] (WAF testing di pipeline), dan [[software-supply-chain-security-deepdive|SLSA framework]] (build provenance untuk WAF rules). Juga terhubung dengan custom WAF project [[jarswaf-lifecycle-architecture|jarsWAF]] yang dibangun dengan Pingora.
 
 ---
 

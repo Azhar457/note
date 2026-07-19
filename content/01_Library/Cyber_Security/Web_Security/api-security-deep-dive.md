@@ -137,6 +137,79 @@ type RateLimiter struct {
 
 ---
 
+## GraphQL Deep Inspection & Security
+
+GraphQL menawarkan fleksibilitas query bagi client, namun fleksibilitas ini memperkenalkan _attack surface_ baru yang unik di mana query tunggal dapat melumpuhkan server.
+
+### GraphQL Query Complexity & Depth Analysis
+
+Penyerang dapat mengirimkan query bersarang (_nested query_) secara rekursif untuk memicu kehabisan memori atau CPU pada server database (_DoS via Circular Queries_):
+
+```graphql
+# ❌ Malicious Nested Query (Circular Reference)
+query {
+  user(id: "1") {
+    friends {
+      friends {
+        friends {
+          friends {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Pertahanan (WAF / API Gateway Layer):**
+
+- **Query Depth Limiting**: Batasi kedalaman sarang maksimum (misal: `max_depth = 5`).
+- **Query Complexity Analysis**: Berikan bobot biaya (_complexity score_) pada setiap field (misal: field relasi = 5, field skalar = 1). Tolak query jika total skor melebihi batas (misal: `max_complexity = 100`).
+
+### Introspection Blocking
+
+Introspection query (`__schema`, `__type`) memungkinkan siapa pun menelusuri skema API internal Anda dan memetakan struktur database secara instan.
+
+**Pertahanan:**
+
+- **Nonaktifkan Introspection di Production**: Pastikan introspection hanya aktif di lingkungan development.
+- **WAF Rule blocking**: Blokir request HTTP POST yang mengandung kata kunci `__schema` atau `__type` di level proxy sebelum mencapai GraphQL parser.
+
+### Alias-based Rate Limit Bypass (Batching Attack)
+
+Penyerang dapat mengirimkan ratusan panggilan API yang berbeda di dalam satu HTTP request menggunakan _GraphQL aliases_, melewati filter _rate limiting_ berbasis HTTP request konvensional:
+
+```graphql
+# ❌ Batching Attack Bypass HTTP Rate Limiting
+query {
+  first: getUser(id: "1") {
+    name
+  }
+  second: getUser(id: "2") {
+    name
+  }
+  third: getUser(id: "3") {
+    name
+  }
+  # ... 100 aliases dalam satu request
+}
+```
+
+**Pertahanan:**
+
+- **Alias Limiting**: Batasi jumlah maksimum alias di dalam satu query (misal: `max_aliases = 10`).
+- **Object/Field Rate Limiting**: Hitung rate limiting berdasarkan jumlah field pengaksesan objek aktual, bukan berdasarkan jumlah HTTP request.
+
+### GraphQL Pentesting Checklist (Red Team)
+
+- [ ] Lakukan pemetaan skema via Introspection Query (`POST /graphql` dengan query `__schema`).
+- [ ] Uji kerentanan DOS dengan mengirim circular reference query (kedalaman > 15 tingkat).
+- [ ] Kirim bulk query menggunakan alias untuk melewati rate limiting IP standar.
+- [ ] Coba injeksi SQLi/NoSQLi pada argumen input query GraphQL.
+
+---
+
 ## CORS — Sering Salah
 
 ```http

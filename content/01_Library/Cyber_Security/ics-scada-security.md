@@ -33,7 +33,8 @@ status: growing
 7. [ICS Malware Case Studies](#7-ics-malware-case-studies)
 8. [OT Network Defense](#8-ot-network-defense)
 9. [Security Frameworks](#9-security-frameworks)
-10. [Koneksi ke Vault](#10-koneksi-ke-vault)
+10. [Smart Grid Security & AI Energy War](#10-smart-grid-security--ai-energy-war)
+11. [Koneksi ke Vault](#11-koneksi-ke-vault)
 
 ## 1. OT vs IT — Paradigma Berbeda
 
@@ -527,7 +528,47 @@ Wajib di US/Canada untuk power grid:
 - CIP-007: Systems security management
 - CIP-009: Recovery plans
 
-## 10. Koneksi ke Vault
+## 10. Smart Grid Security & AI Energy War
+
+### 10.1 Konteks Perang Energi AI (AI Energy War)
+
+Meningkatnya kebutuhan daya komputasi untuk AI Data Centers memicu ketergantungan yang masif terhadap kestabilan jaringan listrik (Power Grid). Hal ini menempatkan infrastruktur energi sebagai target utama spionase dan sabotase geopolitik. Serangan tidak lagi hanya menyasar IT korporat, melainkan langsung ke operational technology (OT) yang mengatur distribusi beban listrik.
+
+### 10.2 Vektor Serangan Grid (Grid Attack Vectors)
+
+- **Spearphishing Operator SCADA**: Masuk ke level control network melalui akun VPN operator yang tidak memiliki MFA atau melalui infeksi _watering hole_ pada software utility.
+- **Eksploitasi Zero-Day Protokol IEC 61850**: Protokol otomasi gardu induk (substation) seperti GOOSE (Generic Object Oriented Substation Event) berjalan di Layer 2 secara multicast tanpa enkripsi bawaan. Penyerang dapat menyuntikkan paket GOOSE palsu untuk membuka breaker (_circuit breaker tripping_) secara paksa dalam waktu <3ms.
+- **Manipulasi Prakiraan Beban (Load Forecasting Manipulation)**: Penyerang meretas database atau API histori beban listrik dan menyuntikkan data palsu. Saat sistem grid otomatis (Automatic Generation Control/AGC) atau operator menilai dan menyesuaikan pembangkitan berdasarkan data palsu tersebut, dapat terjadi ketidakseimbangan frekuensi (over-generation atau under-generation) yang memicu blackout regional.
+
+### 10.3 AI untuk Pertahanan Grid (AI for Grid Defense)
+
+- **Deteksi Anomali Telemetri**: Menggunakan model _Machine Learning_ untuk mendeteksi deviasi mikroskopis pada data telemetri grid, seperti anomali fase tegangan atau pola command yang tidak biasa (misal: pengiriman bertubi-tubi perintah OPEN ke breaker).
+- **Proyek GRIDWATCH (Mandiant)**: Inisiatif intelijen ancaman yang berfokus pada pemantauan tanda-tanda awal dari intrusi siber gardu listrik secara global melalui korelasi log aktivitas protokol industri secara real-time.
+
+### 10.4 Studi Kasus: Ukraine Power Grid Attacks (2015 & 2016)
+
+#### Ukraine Grid Attack 2015 (BlackEnergy 3)
+
+- **Tanggal**: 23 Desember 2015.
+- **Dampak**: Padamnya listrik selama 1-6 jam bagi ~230.000 pelanggan di wilayah Ivano-Frankivsk.
+- **Metode**:
+  1. Spearphishing kampanye mengirim dokumen Word bermakro jahat untuk menginstal malware **BlackEnergy 3**.
+  2. Penyerang mencuri kredensial VPN operator lokal, lalu masuk ke jaringan SCADA.
+  3. Mengambil kendali HMI secara remote dan secara manual mengklik untuk membuka 30 circuit breaker di 3 gardu induk.
+  4. Menghapus konfigurasi gateway serial-to-ethernet menggunakan malware penghancur data **KillDisk** agar operator tidak bisa mengontrol gardu dari jarak jauh.
+  5. Melakukan pemboman panggilan telepon (TDoS) ke call center PLN setempat agar pelanggan tidak bisa melaporkan pemadaman.
+
+#### Ukraine Grid Attack 2016 (Industroyer / CrashOverride)
+
+- **Tanggal**: 17 Desember 2016.
+- **Dampak**: Padamnya gardu induk Pivnichna di Kyiv selama 1 jam (~225.000 pelanggan).
+- **Metode**:
+  1. Penggunaan framework malware otomatis pertama yang dirancang khusus untuk menyerang gardu listrik secara modular (**Industroyer**).
+  2. Malware memiliki modul protokol industri (IEC 104, IEC 61850, DNP3, OPC DA) untuk berkomunikasi langsung dengan gardu.
+  3. Modul IEC 104 mengirimkan perintah pemutusan gardu (_circuit breaker OPEN_) secara loop berkelanjutan agar gardu tetap padam meskipun operator mencoba menyalakan kembali secara manual.
+  4. Menyertakan modul wiper khusus untuk merusak OS server SCADA dan file konfigurasi gardu sebelum penyerang keluar.
+
+## 11. Koneksi ke Vault
 
 | Note                            | Hubungan                                              |
 | ------------------------------- | ----------------------------------------------------- |

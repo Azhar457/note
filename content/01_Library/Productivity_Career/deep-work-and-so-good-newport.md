@@ -75,16 +75,16 @@ Dalam melakukan pekerjaan yang mendalam, diagram tekstual yang dapat digunakan a
 
 ```
 +---------------+
-|  Pekerjaan  |
+|  Pekerjaan   |
 +---------------+
-|  Fokus      |
-|  Tidak      |
+|  Fokus       |
+|  Tidak       |
 |  Ter Ganggu  |
 +---------------+
-|  Kemampuan  |
-|  Fokus     |
-|  Pemecahan  |
-|  Masalah   |
+|  Kemampuan   |
+|  Fokus       |
+|  Pemecahan   |
+|  Masalah     |
 +---------------+
 ```
 
