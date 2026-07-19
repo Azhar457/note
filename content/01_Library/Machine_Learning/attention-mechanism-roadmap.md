@@ -54,7 +54,7 @@ Proses attention mengukur kesesuaian (_compatibility score_) antara Query dengan
 
 ## 3. Fase 2: Implementasi Scaled Dot-Product Attention (PyTorch)
 
-Pada fase ini, Anda menulis fungsi dasar untuk mengalkulasi attention, lengkap dengan scaling factor \( \frac{1}{\sqrt{d_k}} \) dan causal mask (untuk generative decoding):
+Pada fase ini, Anda menulis fungsi dasar untuk mengalkulasi attention, lengkap dengan scaling factor $\frac{1}{\sqrt{d_k}}$ dan causal mask (untuk generative decoding):
 
 ```python
 import math
@@ -166,14 +166,14 @@ class TransformerDecoderLayer(nn.Module):
 
 ### Soal 1
 
-Mengapa kita membutuhkan faktor pembagi \( \sqrt{d_k} \) pada rumus attention? Apa akibatnya jika faktor tersebut dihilangkan?
+Mengapa kita membutuhkan faktor pembagi $\sqrt{d_k}$ pada rumus attention? Apa akibatnya jika faktor tersebut dihilangkan?
 
 **Solusi**
-Untuk dimensi kunci yang besar (misalnya \( d_k = 512 \)), nilai dot-product \( Q \cdot K^T \) akan bertumbuh secara signifikan. Hal ini mendorong nilai skor menjauh menuju wilayah ekstrem dari fungsi softmax. Akibatnya:
+Untuk dimensi kunci yang besar (misalnya $d_k = 512$), nilai dot-product $Q \cdot K^T$ akan bertumbuh secara signifikan. Hal ini mendorong nilai skor menjauh menuju wilayah ekstrem dari fungsi softmax. Akibatnya:
 
 1. Gradien fungsi softmax pada daerah ekstrem tersebut akan mendekati nol (_vanishing gradient_).
 2. Proses pelatihan (_training_) model akan mengalami hambatan berat atau bahkan berhenti belajar.
-   Dengan membagi menggunakan \( \sqrt{d_k} \), kita mengembalikan rata-rata sebaran variansi dot-product mendekati 1.0, menjaga kelancaran aliran balik gradien.
+   Dengan membagi menggunakan $\sqrt{d_k}$, kita mengembalikan rata-rata sebaran variansi dot-product mendekati 1.0, menjaga kelancaran aliran balik gradien.
 
 ---
 

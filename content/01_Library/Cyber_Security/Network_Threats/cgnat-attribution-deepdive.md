@@ -749,7 +749,7 @@ grok {
        NAT inside=%{IP:inside_ip}:%{NUMBER:inside_port}
        outside=%{IP:outside_ip}:%{NUMBER:outside_port}
        remote=%{IP:remote_ip}:%{NUMBER:remote_port}
-       protocol=%{DATA:protocol_name}\(%{NUMBER:protocol_number}\)
+       protocol=%{DATA:protocol_name}$%{NUMBER:protocol_number}$
        subscriber=%{DATA:subscriber}
        session-id=%{DATA:session_id}%{DATA:flags}"
     ]

@@ -80,7 +80,7 @@ Parser mengambil token-token hasil lexing dan membangun struktur hierarki pohon 
 
 Parser modern menggunakan algoritma penguraian rekursif:
 
-- **LL(k)**: Parser _top-down_ yang memproses token dari kiri ke kanan dengan melihat ke depan sebanyak \(k\) token untuk memprediksi arah penguraian.
+- **LL(k)**: Parser _top-down_ yang memproses token dari kiri ke kanan dengan melihat ke depan sebanyak $k$ token untuk memprediksi arah penguraian.
 - **LR(k) / LALR**: Parser _bottom-up_ yang menggunakan stack untuk menggeser (_shift_) dan mereduksi (_reduce_) token menjadi ekspresi gramatikal yang valid.
 
 Visualisasi AST dari ekspresi `x = 5 + 3`:
@@ -117,9 +117,9 @@ x2 = x1 + 2
 y1 = x2 * 2
 ```
 
-### 3.2 Fungsi PHI (\(\phi\)-node)
+### 3.2 Fungsi PHI ($\phi$-node)
 
-Pada percabangan logika (_control flow graph_), variabel dapat menerima nilai dari jalur eksekusi yang berbeda. SSA menggunakan fungsi matematis \(\phi\) untuk memilih versi variabel yang benar:
+Pada percabangan logika (_control flow graph_), variabel dapat menerima nilai dari jalur eksekusi yang berbeda. SSA menggunakan fungsi matematis $\phi$ untuk memilih versi variabel yang benar:
 
 ```
 // Control Flow

@@ -45,13 +45,11 @@ ML-KEM beroperasi menggunakan masalah matematika **Module Learning With Errors (
 
 ### 2.1 Formulasi M-LWE
 
-Diberikan matriks polynomial ring publik \( A \), vektor rahasia \( s \), dan vektor noise kecil \( e \). Skema enkripsi menghasilkan nilai publik \( t \) sebagai berikut:
+Diberikan matriks polynomial ring publik $ A $, vektor rahasia $ s $, dan vektor noise kecil $ e $. Skema enkripsi menghasilkan nilai publik $ t $ sebagai berikut:
 
-\[
-t = A \cdot s + e \pmod q
-\]
+$$t = A \cdot s + e \pmod q$$
 
-Menghitung vektor rahasia \( s \) jika hanya diketahui \( A \) dan \( t \) adalah masalah matematika NP-hard (sangat sulit) bahkan untuk komputer kuantum, karena adanya gangguan error vector \( e \).
+Menghitung vektor rahasia $ s $ jika hanya diketahui $ A $ dan $ t $ adalah masalah matematika NP-hard (sangat sulit) bahkan untuk komputer kuantum, karena adanya gangguan error vector $ e $.
 
 ### 2.2 Parameter Varian ML-KEM
 
@@ -103,14 +101,14 @@ Selama masa transisi, dunia keamanan menggunakan skema **Hybrid Key Exchange** u
 
 Saat ClientHello dikirim, klien menyertakan dua bagian key share:
 
-1. Porsi Klasik: Kunci publik \( \text{pk}_{\text{ECDHE}} \) (misal: X25519).
-2. Porsi Post-Quantum: Kunci publik \( \text{pk}_{\text{ML-KEM}} \).
+1. Porsi Klasik: Kunci publik $ \text{pk}_{\text{ECDHE}} $ (misal: X25519).
+2. Porsi Post-Quantum: Kunci publik $ \text{pk}_{\text{ML-KEM}} $.
 
-Server merespon dengan melakukan enkapsulasi kunci pada kedua algoritma menghasilkan dua rahasia mentah: \( S_{\text{ECDHE}} \) dan \( S_{\text{ML-KEM}} \). Kedua rahasia tersebut digabungkan menggunakan fungsi derivasi kunci (KDF) untuk menghasilkan _Master Secret_ akhir:
+Server merespon dengan melakukan enkapsulasi kunci pada kedua algoritma menghasilkan dua rahasia mentah: $ S_{\text{ECDHE}} $ dan $ S_{\text{ML-KEM}} $. Kedua rahasia tersebut digabungkan menggunakan fungsi derivasi kunci (KDF) untuk menghasilkan _Master Secret_ akhir:
 
-\[
+$$
 \text{Shared Secret} = \text{HKDF-Extract}(\text{Salt}, S_{\text{ECDHE}} \mathbin{\Vert} S_{\text{ML-KEM}})
-\]
+$$
 
 **Keamanan**: Komunikasi tetap aman selama salah satu dari kedua algoritma tersebut belum berhasil dipecahkan (_dual-security guarantee_).
 

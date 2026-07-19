@@ -48,7 +48,7 @@ Tabel berikut memetakan evolusi penyimpanan berdasarkan kompleksitas abstraksi, 
 
 - **Konsep**: Penyimpanan data biner mentah tanpa struktur formal di atas sistem berkas.
 - **Mekanisme**: Penulisan langsung ke sektor disk menggunakan standard library OS (seperti kernel call `write`). Tidak ada indeks, transaksi, atau validasi tipe data.
-- **Kelemahan**: Pencarian membutuhkan pemindaian linear penuh (_Full Scan_ / \(O(N)\) complexity).
+- **Kelemahan**: Pencarian membutuhkan pemindaian linear penuh (_Full Scan_ / $O(N)$ complexity).
 
 ### Level 1 — Structured Files
 

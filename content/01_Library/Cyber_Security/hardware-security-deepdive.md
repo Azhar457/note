@@ -63,9 +63,7 @@ TPM adalah mikrokontroler kriptografi khusus yang diintegrasikan pada motherboar
 
 PCR adalah register internal TPM 20-byte (PCR 0 s.d 23) yang digunakan untuk merekam status booting secara kumulatif. Register ini tidak dapat ditulis langsung secara bebas (_write-protected_); ia hanya dapat diubah melalui operasi matematika **Extend**:
 
-\[
-\text{PCR}_{\text{new}} = \text{SHA-256}(\text{PCR}_{\text{old}} \mathbin{\Vert} \text{Hash}(\text{NewData}))
-\]
+$$\text{PCR}_{\text{new}} = \text{SHA-256}(\text{PCR}_{\text{old}} \mathbin{\Vert} \text{Hash}(\text{NewData}))$$
 
 Tabel pemetaan register PCR standar TCG:
 

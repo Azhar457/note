@@ -464,7 +464,7 @@ include = ["/var/log/nginx/access.log"]
 type = "remap"
 inputs = ["nginx_logs"]
 source = '''
-. = parse_regex!(.message, r'^(?P<client_ip>\S+) - - \[(?P<timestamp>[^\]]+)\] "(?P<method>\S+) (?P<path>\S+) \S+" (?P<status>\d+) (?P<size>\d+)')
+. = parse_regex!(.message, r'^(?P<client_ip>\S+) - - $$(?P<timestamp>[^$$]+)\] "(?P<method>\S+) (?P<path>\S+) \S+" (?P<status>\d+) (?P<size>\d+)')
 .timestamp = parse_timestamp!(.timestamp, format: "%d/%b/%Y:%H:%M:%S %z")
 '''
 

@@ -42,21 +42,15 @@ Peta jalan ini memandu Anda membangun pemahaman intuitif dan praktis mengenai gr
 
 ## 2. Fase 1: Fondasi Matematika (Kalkulus & Turunan Berantai)
 
-Sebelum menulis kode, Anda harus memahami **Aturan Rantai (Chain Rule)** secara intuitif. Aturan rantai menyatakan bahwa jika sebuah variabel \( z \) bergantung pada \( y \), yang kemudian bergantung pada \( x \), maka turunan \( z \) terhadap \( x \) adalah perkalian turunan keduanya:
+Sebelum menulis kode, Anda harus memahami **Aturan Rantai (Chain Rule)** secara intuitif. Aturan rantai menyatakan bahwa jika sebuah variabel $z$ bergantung pada $y$, yang kemudian bergantung pada $x$, maka turunan $z$ terhadap $x$ adalah perkalian turunan keduanya:
 
-\[
-\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}
-\]
+$$\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}$$
 
-Dalam graf komputasi neural network, jika kita memiliki fungsi loss \( L \), output node \( y \), dan input bobot \( w \):
-\[
-\frac{\partial L}{\partial w} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial w}
-\]
+Dalam graf komputasi neural network, jika kita memiliki fungsi loss $L$, output node $y$, dan input bobot $w$:
+$$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial w}$$
 Bobot diperbarui menggunakan algoritma Gradient Descent:
-\[
-w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial L}{\partial w}
-\]
-Dimana \( \eta \) adalah _learning rate_.
+$$w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial L}{\partial w}$$
+Dimana $\eta$ adalah _learning rate_.
 
 ---
 
@@ -203,20 +197,20 @@ print("Gradien COCOK! Autograd kustom terbukti valid secara matematika.")
 
 ### Soal 1
 
-Diberikan fungsi komputasi \( f(x, y) = x \cdot y + y^2 \). Jika nilai awal \( x = 3.0 \) dan \( y = -2.0 \):
+Diberikan fungsi komputasi $f(x, y) = x \cdot y + y^2$. Jika nilai awal $x = 3.0$ dan $y = -2.0$:
 
 1. Hitung nilai output forward pass.
-2. Turunkan nilai gradien parsial \( \frac{\partial f}{\partial x} \) dan \( \frac{\partial f}{\partial y} \) secara manual menggunakan aturan rantai.
+2. Turunkan nilai gradien parsial $\frac{\partial f}{\partial x}$ dan $\frac{\partial f}{\partial y}$ secara manual menggunakan aturan rantai.
 3. Buktikan menggunakan kode engine `Value` Anda.
 
 **Solusi**
 
 Kalkulasi manual:
 
-- Forward pass: \( f(3.0, -2.0) = (3.0 \cdot -2.0) + (-2.0)^2 = -6.0 + 4.0 = -2.0 \).
+- Forward pass: $f(3.0, -2.0) = (3.0 \cdot -2.0) + (-2.0)^2 = -6.0 + 4.0 = -2.0$.
 - Gradien parsial:
-  - \( \frac{\partial f}{\partial x} = y = -2.0 \)
-  - \( \frac{\partial f}{\partial y} = x + 2y = 3.0 + 2(-2.0) = 3.0 - 4.0 = -1.0 \)
+  - $\frac{\partial f}{\partial x} = y = -2.0$
+  - $\frac{\partial f}{\partial y} = x + 2y = 3.0 + 2(-2.0) = 3.0 - 4.0 = -1.0$
 
 Kode pembuktian:
 

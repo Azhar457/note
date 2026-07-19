@@ -303,8 +303,8 @@ SUSPICIOUS_PATTERNS = [
     r"disregard (your|all|previous)",
     r"new (system|core) instruction",
     r"override (safety|policy|rules)",
-    r"\[SYSTEM\]",
-    r"\[INST\]",
+    r"$$SYSTEM$$",
+    r"$$INST$$",
 ]
 
 def scan_document(content: str) -> bool:

@@ -84,7 +84,7 @@ Sebagian besar eksploitasi browser berfokus pada manipulasi memori di dalam mesi
 
 ### 4.1 Type Confusion (Kekacauan Tipe)
 
-Kerentanan ini terjadi ketika engine mengasumsikan objek memori memiliki tipe data \(A\), padahal memori tersebut telah dimodifikasi menjadi tipe data \(B\).
+Kerentanan ini terjadi ketika engine mengasumsikan objek memori memiliki tipe data $A$, padahal memori tersebut telah dimodifikasi menjadi tipe data $B$.
 
 - **Contoh**: Meng-hook properti array sehingga optimizer JIT (TurboFan) mengabaikan pemeriksaan tipe (_Type Check_) saat penulisan, membiarkan nilai integer ditulis langsung ke memori yang seharusnya berisi pointer objek. Penyerang mendapatkan kemampuan manipulasi memori primitif: membaca dan menulis alamat memori secara acak (_Arbitrary Read/Write_).
 

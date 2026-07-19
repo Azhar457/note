@@ -47,13 +47,9 @@ Peta jalan belajar ini membimbing Anda dari mekanika kuantum dasar hingga penuli
 Sebelum mempelajari kriptografi kuantum, Anda wajib menguasai representasi matematika dari **Qubit** (Quantum Bit):
 
 - **Qubit State**: Berbeda dengan bit klasik yang bernilai 0 atau 1, qubit berada dalam kondisi superposisi linier dari kedua keadaan:
-  \[
-  \lvert\psi\rangle = \alpha \lvert0\rangle + \beta \lvert1\rangle
-  \]
-  Dimana amplitudo probabilitas \(\alpha, \beta \in \mathbb{C}\) memenuhi syarat normalisasi:
-  \[
-  \lvert\alpha\rvert^2 + \lvert\beta\rvert^2 = 1
-  \]
+  $$\lvert\psi\rangle = \alpha \lvert0\rangle + \beta \lvert1\rangle$$
+  Dimana amplitudo probabilitas $\alpha, \beta \in \mathbb{C}$ memenuhi syarat normalisasi:
+  $$\lvert\alpha\rvert^2 + \lvert\beta\rvert^2 = 1$$
 - **Entanglement (Keterikatan)**: Kondisi di mana dua partikel terhubung secara eksklusif sehingga keadaan satu partikel secara instan menentukan keadaan partikel pasangannya, meskipun dipisahkan jarak kosmis (digunakan untuk teletransportasi kuantum dan deteksi penyadapan).
 
 ---

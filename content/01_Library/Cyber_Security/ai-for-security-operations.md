@@ -68,11 +68,9 @@ Untuk log terstruktur dengan dimensi tinggi, digunakan model matematika khusus:
 
 - **Isolation Forest**: Memisahkan anomali dengan cara membagi partisi fitur data secara acak. Karena data anomali memiliki nilai fitur tidak biasa, titik data tersebut akan terisolasi lebih cepat (jarak jalur pohon keputusan lebih pendek) dibanding data normal.
 - **Autoencoders (Deep Learning)**: Neural network kompresi-dekompresi (Encoder-Decoder) yang dilatih hanya pada data log normal.
-  - **Mekanisme**: Model menerima log input \(x\), memampatkannya ke representasi dimensi rendah (bottleneck), dan mencoba merekonstruksi kembali menjadi \(\hat{x}\).
+  - **Mekanisme**: Model menerima log input $x$, memampatkannya ke representasi dimensi rendah (bottleneck), dan mencoba merekonstruksi kembali menjadi $\hat{x}$.
   - **Fungsi Loss (Reconstruction Error)**:
-    \[
-    L(x, \hat{x}) = \| x - \hat{x} \|^2
-    \]
+    $$L(x, \hat{x}) = \| x - \hat{x} \|^2$$
   - **Aturan Deteksi**: Jika Reconstruction Error bernilai tinggi saat memproses log baru, itu menandakan pola aktivitas tersebut tidak pernah terlihat saat latihan (anomali siber).
 
 ---

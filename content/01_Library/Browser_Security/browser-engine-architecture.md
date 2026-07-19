@@ -63,7 +63,7 @@ Merupakan gabungan dari DOM dan CSSOM. Render Tree hanya berisi elemen-elemen ya
 
 ### 3.1 Layout (Reflow)
 
-Pada tahap ini, browser menghitung geometri fisik (posisi koordinat \(x, y\) serta lebar dan tinggi) dari setiap objek dalam Render Tree. Perhitungan ini dimulai dari elemen root (`<html>`) ke bawah secara rekursif.
+Pada tahap ini, browser menghitung geometri fisik (posisi koordinat $x, y$ serta lebar dan tinggi) dari setiap objek dalam Render Tree. Perhitungan ini dimulai dari elemen root (`<html>`) ke bawah secara rekursif.
 
 - **Pemicu Reflow**: Perubahan ukuran layar, manipulasi DOM yang merubah ukuran, atau pembacaan properti geometri seperti `offsetWidth` via JavaScript.
 

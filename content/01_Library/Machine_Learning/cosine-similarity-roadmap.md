@@ -42,25 +42,17 @@ Peta jalan belajar ini menuntun Anda dari aljabar linier dasar hingga mesin penc
 
 ## 2. Fase 1: Fondasi Matematika Vektor & Perkalian Titik
 
-Diberikan dua vektor \( A \) dan \( B \) berdimensi \( n \):
-\[
-A = [a_1, a_2, \dots, a_n], \quad B = [b_1, b_2, \dots, b_n]
-\]
+Diberikan dua vektor $A$ dan $B$ berdimensi $n$:
+$$A = [a_1, a_2, \dots, a_n], \quad B = [b_1, b_2, \dots, b_n]$$
 
 - **Dot Product (Perkalian Titik)**:
-  \[
-  A \cdot B = \sum_{i=1}^{n} a_i b_i
-  \]
+  $$A \cdot B = \sum_{i=1}^{n} a_i b_i$$
 - **Magnitudo Vektor (L2 Norm)**:
-  \[
-  \|A\| = \sqrt{\sum_{i=1}^{n} a_i^2}
-  \]
+  $$\|A\| = \sqrt{\sum_{i=1}^{n} a_i^2}$$
 - **Cosine Similarity**:
-  \[
-  \text{Cosine Sim}(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|}
-  \]
+  $$\text{Cosine Sim}(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|}$$
 
-Nilai Cosine Similarity berkisar antara \([-1, 1]\). Untuk representasi teks (embedding), nilainya biasanya berada di rentang \([0, 1]\) karena bobot fitur bernilai non-negatif.
+Nilai Cosine Similarity berkisar antara $[-1, 1]$. Untuk representasi teks (embedding), nilainya biasanya berada di rentang $[0, 1]$ karena bobot fitur bernilai non-negatif.
 
 ---
 
@@ -176,27 +168,27 @@ class VectorSearchEngine:
 
 Diberikan tiga vektor berikut:
 
-- Kueri \( Q = [1.0, 0.0] \)
-- Dokumen \( A = [1.0, 1.0] \)
-- Dokumen \( B = [0.0, 5.0] \)
+- Kueri $Q = [1.0, 0.0]$
+- Dokumen $A = [1.0, 1.0]$
+- Dokumen $B = [0.0, 5.0]$
   Hitunglah:
 
-1. Cosine similarity antara \( Q \) dengan \( A \) dan \( B \).
-2. Euclidean distance antara \( Q \) dengan \( A \) dan \( B \).
+1. Cosine similarity antara $Q$ dengan $A$ dan $B$.
+2. Euclidean distance antara $Q$ dengan $A$ dan $B$.
 3. Berdasarkan hasil di atas, dokumen mana yang lebih dekat dengan kueri jika menggunakan Cosine vs Euclidean?
 
 **Solusi**
 
 Kalkulasi Cosine Similarity:
 
-- \( \text{Cos}(Q, A) = \frac{1(1) + 0(1)}{\sqrt{1}\sqrt{2}} = \frac{1}{\sqrt{2}} \approx 0.707 \)
-- \( \text{Cos}(Q, B) = \frac{1(0) + 0(5)}{\sqrt{1}\sqrt{25}} = 0.0 \)
+- $\text{Cos}(Q, A) = \frac{1(1) + 0(1)}{\sqrt{1}\sqrt{2}} = \frac{1}{\sqrt{2}} \approx 0.707$
+- $\text{Cos}(Q, B) = \frac{1(0) + 0(5)}{\sqrt{1}\sqrt{25}} = 0.0$
 - _Hasil Cosine_: Dokumen A lebih mirip dengan Q daripada Dokumen B.
 
 Kalkulasi Euclidean Distance:
 
-- \( \text{Dist}(Q, A) = \sqrt{(1-1)^2 + (0-1)^2} = \sqrt{1} = 1.0 \)
-- \( \text{Dist}(Q, B) = \sqrt{(1-0)^2 + (0-5)^2} = \sqrt{1 + 25} = \sqrt{26} \approx 5.099 \)
+- $\text{Dist}(Q, A) = \sqrt{(1-1)^2 + (0-1)^2} = \sqrt{1} = 1.0$
+- $\text{Dist}(Q, B) = \sqrt{(1-0)^2 + (0-5)^2} = \sqrt{1 + 25} = \sqrt{26} \approx 5.099$
 - _Hasil Euclidean_: Dokumen A lebih dekat dengan Q daripada Dokumen B.
 
 ---
