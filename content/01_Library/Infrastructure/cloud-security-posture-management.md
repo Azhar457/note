@@ -492,6 +492,172 @@ level: medium
 
 ---
 
+---
+
+## Cloud-Native WAF — Cross-Provider Comparison
+
+### AWS WAF vs Azure WAF vs GCP Cloud Armor vs Cloudflare
+
+| Fitur               | AWS WAF                                | Azure WAF                                       | GCP Cloud Armor                            | Cloudflare WAF                               |
+| ------------------- | -------------------------------------- | ----------------------------------------------- | ------------------------------------------ | -------------------------------------------- |
+| **Deployment**      | CloudFront, ALB, API Gateway, AppSync  | Application Gateway, Front Door, CDN            | Cloud Load Balancing, Cloud CDN, Media CDN | Any HTTP/HTTPS via reverse proxy             |
+| **Rule engine**     | JSON-based rule groups + Managed rules | Custom rules + Managed rulesets (OWASP 3.2/3.1) | YAML-based security policies               | WAF rule builder + Managed rulesets          |
+| **Rate limiting**   | Rate-based rules (5-minute window)     | Rate limiting per IP (custom)                   | Rate limiting per IP/Source                | Rate limiting rules + Advanced DDoS          |
+| **Bot control**     | AWS WAF Bot Control (managed)          | Bot protection (Front Door/AFD premium)         | Google Cloud Armor Bot Management          | Bot Fight Mode + Super Bot Fight             |
+| **IP reputation**   | AWS Managed Rules (anonymous IP, etc.) | Managed rules from threat intelligence          | Managed rules from threat intelligence     | Project Honey Pot, own intelligence          |
+| **Custom response** | Block / Count + custom response code   | Deny / Redirect / Rate Limit                    | Deny / Redirect / Rate Limit               | Challenge / JS Challenge / Block             |
+| **OWASP Top 10**    | AWS Managed Rules (core rule set)      | OWASP 3.2 / 3.1 managed rules                   | OWASP CRS preconfigured                    | OWASP CRS + Cloudflare Managed Rules         |
+| **Pricing**         | $5/rule + $0.60/1M requests            | $20-200/month per Application Gateway           | $5-15/policy per month                     | Free tier available, Pro/Business/Enterprise |
+
+### Azure WAF — Application Gateway
+
+```json
+// Azure Application Gateway WAF policy
+{
+  "name": "owasp-policy",
+  "properties": {
+    "policySettings": {
+      "mode": "Prevention",
+      "requestBodyCheck": true,
+      "maxRequestBodySizeInKb": 128,
+      "fileUploadLimitInMb": 100
+    },
+    "managedRules": {
+      "managedRuleSets": [{ "ruleSetType": "OWASP", "ruleSetVersion": "3.2" }]
+    }
+  }
+}
+```
+
+### GCP Cloud Armor — Adaptive Protection
+
+```yaml
+# GCP Cloud Armor security policy
+name: cloud-armor-policy
+rules:
+  - action: deny(403)
+    priority: 1
+    match:
+      versionedExpr: SRC_IPS_V1
+      config:
+        srcIpRanges: ["known-malicious-ips"]
+    description: "Block known malicious IPs"
+  - action: throttle
+    priority: 2
+    match:
+      expr:
+        expression: "request.path.matches('/api/login')"
+    rateLimitOptions:
+      enforceOnKey: IP
+      rateLimitThreshold:
+        count: 10
+        intervalSec: 60
+```
+
+---
+
+## Multi-Cloud IAM Models — AWS vs Azure vs GCP
+
+### Perbandingan Identity Architecture
+
+| Aspek                    | AWS IAM                                                            | Azure AD / Entra ID                                                                    | GCP IAM                                                                        |
+| ------------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Permission model**     | JSON policy document (Effect, Action, Resource, Condition)         | Role-based (Owner, Contributor, Reader) + custom RBAC JSON                             | Primitive roles (Owner, Editor, Viewer) + predefined roles + custom roles      |
+| **Identity types**       | IAM User (human), IAM Role (machine/assumed), Federated            | User, Service Principal, Managed Identity, Group                                       | User, Service Account (attached to resource), Group                            |
+| **Policy attachment**    | Direct to user/role/resource + Permission Boundary + SCP           | Role assignment at scope (Management Group → Subscription → Resource Group → Resource) | Role binding at resource or project level                                      |
+| **Condition engine**     | IAM condition keys (aws:SourceIp, aws:MFA, aws:PrincipalTag, etc.) | Azure ABAC (Attribute-Based Access Control) — conditions on role assignments           | IAM Conditions (expr attributes like timestamp, resource.name, origin)         |
+| **Cross-account access** | STS:AssumeRole + ExternalId for 3rd party                          | B2B direct federation / Azure Lighthouse for cross-tenant management                   | Service account impersonation + Workload Identity Federation                   |
+| **PIM/JIT**              | AWS IAM Identity Center (SSO) + permission sets                    | Azure PIM (Privileged Identity Management) — activation workflow with MFA + approval   | GCP Privileged Access Manager (PAM) — just-in-time, time-bound, approval-based |
+
+### AWS IAM — Policy Document (Recap)
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::corp-data/*",
+      "Condition": {
+        "IpAddress": { "aws:SourceIp": "10.0.0.0/8" }
+      }
+    }
+  ]
+}
+```
+
+### Azure RBAC — Role Definition
+
+```json
+{
+  "Name": "Storage Blob Data Reader",
+  "Id": "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
+  "Actions": ["Microsoft.Storage/storageAccounts/blobServices/containers/read"],
+  "NotActions": [],
+  "DataActions": ["Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read"],
+  "AssignableScopes": ["/subscriptions/{subscription-id}"]
+}
+```
+
+**Key difference:** Azure separates _management plane_ (Actions) from _data plane_ (DataActions) — unik vs AWS/GCP.
+
+### GCP IAM — Role Binding
+
+```yaml
+# GCP IAM: grant role at resource level
+bindings:
+  - members:
+      - user:azhar@urbansolv.co.id
+    role: roles/editor # Primitive: broad
+  - members:
+      - serviceAccount:app-reader@project.iam.gserviceaccount.com
+    role: roles/storage.objectViewer # Predefined: narrow
+```
+
+**Key difference:** GCP tidak punya policy document — role-role udah predefined oleh Google atau custom YAML. Condition ditambah via IAM Conditions expr.
+
+### Privilege Escalation Vectors — Azure vs GCP
+
+| Vector                             | AWS                                                                            | Azure                                                                               | GCP                                                                                |
+| ---------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Role assignment attack**         | `iam:CreatePolicyVersion` → set admin policy version                           | `Microsoft.Authorization/roleAssignments/write` → assign Owner role ke diri sendiri | `resourcemanager.projects.setIamPolicy` → set policy yang grant diri sendiri owner |
+| **Service Account takeover**       | `iam:PassRole` ke EC2/Lambda → launch resource dengan admin role → steal creds | Compromise VM dengan Managed Identity → IMDS endpoint → access token                | Compromise Compute Engine dengan attached SA → metadata server → token             |
+| **Cross-account lateral movement** | `sts:AssumeRole` ke role di account produksi                                   | Lighthouse delegation → cross-tenant management (butuh approval)                    | Service Account Impersonation → `iam.serviceAccounts.getAccessToken`               |
+
+### Cross-Cloud Hardening Checklist
+
+```
+✅ AWS:
+☐ Enable CloudTrail / AWS Config / GuardDuty di ALL regions
+☐ S3 Block Public Access — enabled di account level
+☐ IAM: enforce MFA untuk ALL human users
+☐ SCP: deny non-approved regions
+☐ SCP: deny root user actions
+☐ IAM Access Analyzer: review unused permissions tiap 90 hari
+☐ Secrets Manager, tidak plaintext di code
+
+✅ Azure:
+☐ Enable Azure AD PIM untuk role admin
+☐ Managed Identity untuk compute (bukan static credentials)
+☐ Azure Policy: deny public blob / storage account
+☐ Network Security Group: restrict 0.0.0.0/0 ingress
+☐ Azure Defender for Cloud di semua subscription
+☐ Key Vault dengan RBAC dan soft-delete enabled
+☐ Conditional Access policy: MFA untuk semua admin
+
+✅ GCP:
+☐ Organization Policy: disable service account key creation
+☐ Organization Policy: disable public bucket (storage.uniformBucketLevelAccess)
+☐ VPC Service Controls: perimeter untuk data exfiltration prevention
+☐ Security Command Center: semua project
+☐ Cloud Audit Logs: admin activity + data access enabled
+☐ IAM Recommender: review role binding tiap 90 hari
+☐ Workload Identity Federation (bukan SA key file)
+```
+
+---
+
 ## Koneksi ke Vault
 
 - [[cloud-infrastructure]] — arsitektur cloud umum yang sekarang diperdalam dengan posture management dan admission control
@@ -504,6 +670,7 @@ level: medium
 - [[identity-and-access-management]] — fondasi IAM yang diperluas ke AWS IAM dan CIEM
 - [[comprehensive-threat-directory]] — taksonomi ancaman yang mencakup cloud-specific threats
 - [[threat-modeling-deepdive]] — metodologi untuk memodelkan ancaman cloud secara sistematis
+- [[mass-assignment-broken-access-control-deepdive]] — Mass assignment & BAC (Broken Access Control)
 
 ---
 
