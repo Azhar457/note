@@ -237,4 +237,4 @@ git log origin/v4 --oneline -5
 - [[master-index-audit-broken-wikilink-sweep|SOP Vault Audit]] — Kalau setelah deploy ada broken link
 - [[podman-networking-ufw]] — Kalau perlu override container network buat testing lokal
 - [[ansible-hardening-rocky-linux-9]] — Hardening laptop Fedora (script ini jalan di Fedora)
-- [[inndex|Atlas Master-Index]] — Verifikasi rendering homepage post-deploy
+- [[master-index|Atlas Master-Index]] — Verifikasi rendering homepage post-deploy
