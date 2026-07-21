@@ -1,16 +1,16 @@
 ---
-title: 'Encoding, Serialization & Compression — Deep Dive: base64, JSON, Protobuf,
-  gzip, dan Attack Surface'
+title: "Encoding, Serialization & Compression — Deep Dive: base64, JSON, Protobuf,
+  gzip, dan Attack Surface"
 tags:
-- fundamentals
-- encoding
-- serialization
-- library
-created: '2026-07-16'
-updated: '2026-07-16'
+  - fundamentals
+  - encoding
+  - serialization
+  - library
+created: "2026-07-16"
+updated: "2026-07-16"
 status: operational
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🔣 Encoding, Serialization & Compression — Deep Dive: base64, JSON, Protobuf, gzip, dan Attack Surface
@@ -40,12 +40,12 @@ cssclasses:
 
 ### Encoding vs Encryption vs Serialization
 
-| Operasi | Tujuan | Reversible? | Kunci Rahasia? | Contoh |
-|---------|--------|-------------|----------------|--------|
-| **Encoding** | Representasi data — bikin data binary bisa dikirim lewat medium yang gak support binary | ✅ Ya (100% reversible) | ❌ Tidak — siapa aja bisa decode | base64, hex, URL encoding |
-| **Encryption** | Kerahasiaan — cuma pihak dengan kunci yang bisa baca | ✅ Ya (dengan kunci) | ✅ Wajib | AES, ChaCha20 |
-| **Hashing** | Integrity — verifikasi data gak berubah | ❌ Tidak (one-way) | ❌ Tidak (tapi salt opsional) | SHA-256, bcrypt |
-| **Serialization** | Struktur data → byte stream (transfer/storage) | ✅ Ya | ❌ Tidak (tapi bisa di-enkripsi setelah serialisasi) | JSON, Protobuf, pickle |
+| Operasi           | Tujuan                                                                                  | Reversible?             | Kunci Rahasia?                                       | Contoh                    |
+| ----------------- | --------------------------------------------------------------------------------------- | ----------------------- | ---------------------------------------------------- | ------------------------- |
+| **Encoding**      | Representasi data — bikin data binary bisa dikirim lewat medium yang gak support binary | ✅ Ya (100% reversible) | ❌ Tidak — siapa aja bisa decode                     | base64, hex, URL encoding |
+| **Encryption**    | Kerahasiaan — cuma pihak dengan kunci yang bisa baca                                    | ✅ Ya (dengan kunci)    | ✅ Wajib                                             | AES, ChaCha20             |
+| **Hashing**       | Integrity — verifikasi data gak berubah                                                 | ❌ Tidak (one-way)      | ❌ Tidak (tapi salt opsional)                        | SHA-256, bcrypt           |
+| **Serialization** | Struktur data → byte stream (transfer/storage)                                          | ✅ Ya                   | ❌ Tidak (tapi bisa di-enkripsi setelah serialisasi) | JSON, Protobuf, pickle    |
 
 > [!warning] Kesalahan Umum
 > base64 **bukan** encryption. Lihat orang yang nyebut "mengenkripsi dengan base64" langsung tahu dia gak paham dasar. Base64 = encoding, siapa aja bisa decode dengan 3 baris Python.
@@ -78,6 +78,7 @@ Data
 Base64 meng-encode binary data menjadi string yang hanya terdiri dari `[A-Za-z0-9+/=]` — aman dikirim di media yang cuma support teks (email, HTTP header, JSON).
 
 **Cara kerja:**
+
 ```
 Teks:        M       a       n
 Binary:     01001101 01100001 01101110
@@ -88,6 +89,7 @@ Base64:     T      W      F      u
 ```
 
 **Karakter set:**
+
 ```
 Index: 0-25 = A-Z, 26-51 = a-z, 52-61 = 0-9, 62 = +, 63 = /
 Padding: = (setiap 3 byte → 4 char base64, padding kalo kurang)
@@ -95,11 +97,11 @@ Padding: = (setiap 3 byte → 4 char base64, padding kalo kurang)
 
 **Varian:**
 
-| Varian | Karakter | Padding | Dipakai di |
-|--------|----------|---------|-----------|
-| **Base64** | `A-Za-z0-9+/` | `=` | Standar (MIME, JWT, data URI) |
-| **Base64URL** | `A-Za-z0-9-_` | Optional (biasanya tanpa) | URL-safe — JWT, OAuth tokens |
-| **Base64 (RFC 4648)** | Sama standar | Wajib | Definisi standar |
+| Varian                | Karakter      | Padding                   | Dipakai di                    |
+| --------------------- | ------------- | ------------------------- | ----------------------------- |
+| **Base64**            | `A-Za-z0-9+/` | `=`                       | Standar (MIME, JWT, data URI) |
+| **Base64URL**         | `A-Za-z0-9-_` | Optional (biasanya tanpa) | URL-safe — JWT, OAuth tokens  |
+| **Base64 (RFC 4648)** | Sama standar  | Wajib                     | Definisi standar              |
 
 ```bash
 # CLI
@@ -114,6 +116,7 @@ base64.urlsafe_b64encode(b"\xfb\xff")  # b'  _v_8' (base64url)
 ```
 
 **Karakteristik:**
+
 - Output ~33% lebih besar dari input (3 byte → 4 char)
 - **Bukan encryption** — jangan pake untuk "sembunyiin" data
 - Dipake di: JWT (base64url), HTTP Basic auth (`base64(user:pass)`), email attachments (MIME), data URI (`data:image/png;base64,...`), malware C2 config
@@ -173,16 +176,16 @@ Base58 alphabet: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
 ### ASCII — 7-bit
 
-| Range | Karakter | Contoh |
-|-------|----------|--------|
-| 0-31 | Control | NUL (0), LF (10), CR (13), ESC (27) |
-| 32-47 | Symbols | Space, !, ", #, $, %, &, ', (, ), *, +, ,, -, ., / |
-| 48-57 | Digits | 0-9 |
-| 58-64 | Symbols | :, ;, <, =, >, ?, @ |
-| 65-90 | Uppercase | A-Z |
-| 91-96 | Symbols | [, \, ], ^, _, ` |
-| 97-122 | Lowercase | a-z |
-| 123-126 | Symbols | {, \|, }, ~ |
+| Range   | Karakter  | Contoh                                             |
+| ------- | --------- | -------------------------------------------------- |
+| 0-31    | Control   | NUL (0), LF (10), CR (13), ESC (27)                |
+| 32-47   | Symbols   | Space, !, ", #, $, %, &, ', (, ), *, +, ,, -, ., / |
+| 48-57   | Digits    | 0-9                                                |
+| 58-64   | Symbols   | :, ;, <, =, >, ?, @                                |
+| 65-90   | Uppercase | A-Z                                                |
+| 91-96   | Symbols   | [, \, ], ^, _, `                                   |
+| 97-122  | Lowercase | a-z                                                |
+| 123-126 | Symbols   | {, \|, }, ~                                        |
 
 ### UTF-8 — Variable-width Unicode (1-4 bytes)
 
@@ -197,6 +200,7 @@ U+10000-U+10FFFF 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx         (4 bytes)
 ```
 
 **Relevansi security:**
+
 - **UTF-8 BOM** (Byte Order Mark) `\xEF\xBB\xBF` di awal file bisa bypass signature detection
 - **Normalization** — huruf bisa direpresentasikan dengan cara berbeda: `é` bisa sebagai `U+00E9` (precomposed) atau `e` + `U+0301` (combining). Bisa bypass input validation.
 - **Invalid byte sequences** bisa bypass WAF rules that only check ASCII
@@ -218,27 +222,27 @@ Format paling populer untuk API. Ringan, readable, native di JavaScript.
   "boolean": true,
   "null": null,
   "array": [1, 2, 3],
-  "object": {"key": "val"}
+  "object": { "key": "val" }
 }
 ```
 
-| Tipe JSON | JavaScript | Python | Go |
-|-----------|-----------|--------|-----|
-| string | string | str | string |
-| number | number | int/float | float64 (int untuk integer) |
-| boolean | boolean | bool | bool |
-| null | null | None | nil |
-| array | Array | list | []interface{} |
-| object | Object | dict | map[string]interface{} |
+| Tipe JSON | JavaScript | Python    | Go                          |
+| --------- | ---------- | --------- | --------------------------- |
+| string    | string     | str       | string                      |
+| number    | number     | int/float | float64 (int untuk integer) |
+| boolean   | boolean    | bool      | bool                        |
+| null      | null       | None      | nil                         |
+| array     | Array      | list      | []interface{}               |
+| object    | Object     | dict      | map[string]interface{}      |
 
 **Security:**
 
-| Issue | Detail |
-|-------|--------|
-| **Prototype Pollution** | `{"__proto__": {"admin": true}}` — di JS, objek merge bisa kontaminasi prototype chain. Prevent: gunakan `Object.create(null)` atau library safe merge |
-| **No circular ref safety** | JSON.stringify() throw error buat circular reference |
-| **Large numbers precision loss** | JSON number = IEEE 754 double → integer > 53-bit loss precision. Kirim ID besar sebagai string |
-| **Schema validation** | JSON tidak punya schema built-in → butuh validasi eksternal (JSON Schema) |
+| Issue                            | Detail                                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Prototype Pollution**          | `{"__proto__": {"admin": true}}` — di JS, objek merge bisa kontaminasi prototype chain. Prevent: gunakan `Object.create(null)` atau library safe merge |
+| **No circular ref safety**       | JSON.stringify() throw error buat circular reference                                                                                                   |
+| **Large numbers precision loss** | JSON number = IEEE 754 double → integer > 53-bit loss precision. Kirim ID besar sebagai string                                                         |
+| **Schema validation**            | JSON tidak punya schema built-in → butuh validasi eksternal (JSON Schema)                                                                              |
 
 ### XML
 
@@ -266,6 +270,7 @@ Lebih verbose, tapi punya fitur yang JSON gak punya: comments, attributes, names
 ```
 
 XXE bisa:
+
 - **Read file** — `file:///etc/passwd`
 - **SSRF** — `http://internal-server/admin`
 - **Denial of Service** — Billion Laughs Attack (entity expansion eksponensial)
@@ -299,6 +304,7 @@ VS JSON (80 bytes):
 **Keuntungan:** Ukuran kecil, parsing cepat, typed, backward compatible (field optional). **Kekurangan:** Tidak human-readable, butuh schema di client & server.
 
 **Security:**
+
 - **Malformed input** — Protobuf parser lebih resilient dari XML/JSON (binary, typed)
 - **No script injection** — karena binary, gak bisa XSS via serialization
 - **Schema enforcement** — field di luar schema langsung diabaikan, bukan error
@@ -314,12 +320,12 @@ packed = msgpack.packb(data)   # 13 bytes vs 27 bytes JSON
 msgpack.unpackb(packed)        # Decode
 ```
 
-| Format | JSON Setara | Ukuran ({"name":"John"}) | Human Readable |
-|--------|------------|------------------------|----------------|
-| **JSON** | — | 16 bytes | ✅ Ya |
-| **MessagePack** | ✅ | 11 bytes | ❌ Binary |
-| **CBOR** | ✅ | 12 bytes | ❌ Binary |
-| **BSON** (MongoDB) | ✅ | 18 bytes (termasuk length prefix) | ❌ Binary |
+| Format             | JSON Setara | Ukuran ({"name":"John"})          | Human Readable |
+| ------------------ | ----------- | --------------------------------- | -------------- |
+| **JSON**           | —           | 16 bytes                          | ✅ Ya          |
+| **MessagePack**    | ✅          | 11 bytes                          | ❌ Binary      |
+| **CBOR**           | ✅          | 12 bytes                          | ❌ Binary      |
+| **BSON** (MongoDB) | ✅          | 18 bytes (termasuk length prefix) | ❌ Binary      |
 
 ### YAML
 
@@ -375,14 +381,14 @@ pickle.loads(payload)  # RCE!
 
 ### Algorithm Comparison
 
-| Algoritma | Kecepatan | Rasio | Dipakai di |
-|-----------|-----------|-------|-----------|
-| **gzip** (deflate) | 🟡 Medium | 🟡 Medium | HTTP Content-Encoding, file .gz, package managers |
-| **brotli** | 🟢 Fast | 🟢 Better than gzip (20% lebih kecil) | HTTP Content-Encoding (Chrome, Firefox), WOFF fonts |
-| **zstd** | 🟢 Fast | 🟢 Better than gzip, setara brotli | ZFS compression, container images, Facebook |
-| **LZ4** | 🟢⚡ Extremely fast | 🟡 Medium (lower ratio) | Kernel compression, real-time logs |
-| **bzip2** | 🔴 Slow | 🟢 High ratio (lebih kecil dari gzip) | File distribution (jarang di HTTP) |
-| **xz / LZMA** | 🔴 Very slow | 🔵 Highest ratio | Linux kernel tarballs, package .tar.xz |
+| Algoritma          | Kecepatan           | Rasio                                 | Dipakai di                                          |
+| ------------------ | ------------------- | ------------------------------------- | --------------------------------------------------- |
+| **gzip** (deflate) | 🟡 Medium           | 🟡 Medium                             | HTTP Content-Encoding, file .gz, package managers   |
+| **brotli**         | 🟢 Fast             | 🟢 Better than gzip (20% lebih kecil) | HTTP Content-Encoding (Chrome, Firefox), WOFF fonts |
+| **zstd**           | 🟢 Fast             | 🟢 Better than gzip, setara brotli    | ZFS compression, container images, Facebook         |
+| **LZ4**            | 🟢⚡ Extremely fast | 🟡 Medium (lower ratio)               | Kernel compression, real-time logs                  |
+| **bzip2**          | 🔴 Slow             | 🟢 High ratio (lebih kecil dari gzip) | File distribution (jarang di HTTP)                  |
+| **xz / LZMA**      | 🔴 Very slow        | 🔵 Highest ratio                      | Linux kernel tarballs, package .tar.xz              |
 
 ### HTTP Compression
 
@@ -397,10 +403,10 @@ Proses: Client kirim `Accept-Encoding` → server pilih kompresi → kompres bod
 
 ### Streaming vs Block Compression
 
-| Mode | Cara Kerja | Contoh |
-|------|-----------|--------|
+| Mode          | Cara Kerja                                            | Contoh                                           |
+| ------------- | ----------------------------------------------------- | ------------------------------------------------ |
 | **Streaming** | Kompres data on-the-fly — gak perlu tahu total ukuran | gzip streaming, Chunked Transfer-Encoding + gzip |
-| **Block** | Kompres per blok — bisa random access | zstd dictionary, LZ4 HC |
+| **Block**     | Kompres per blok — bisa random access                 | zstd dictionary, LZ4 HC                          |
 
 ---
 
@@ -412,16 +418,17 @@ Ini adalah salah satu **top 10 OWASP** yang paling sering menghasilkan RCE.
 
 **Mengapa berbahaya?** Deserialization mengubah byte stream → object. Kalo formatnya support tipe data yang bisa mengeksekusi code (pickle, YAML `!!python`, Java serialization, PHP `unserialize()`), attacker bisa inject object berbahaya yang menjalankan command saat deserialization.
 
-| Platform | Fungsi Berbahaya | Format | RCE? |
-|----------|-----------------|--------|------|
-| **Python** | `pickle.loads()`, `yaml.load()` (not safe_load) | pickle, YAML | ✅ Yes |
-| **Java** | `ObjectInputStream.readObject()`, `readUnshared()` | Java serialization | ✅ Yes (gadget chain) |
-| **PHP** | `unserialize()`, `session_decode()` | PHP serialize | ✅ Yes (magic methods) |
-| **Ruby** | `Marshal.load()`, `YAML.load()` | Marshal, YAML | ✅ Yes |
-| **.NET** | `BinaryFormatter.Deserialize()`, `JavaScriptSerializer()` | Binary, JSON, Soap | ✅ Yes (gadget chain) |
-| **Node.js** | `node-serialize`, `funcion constructor` via `eval` | Custom | ✅ Yes |
+| Platform    | Fungsi Berbahaya                                          | Format             | RCE?                   |
+| ----------- | --------------------------------------------------------- | ------------------ | ---------------------- |
+| **Python**  | `pickle.loads()`, `yaml.load()` (not safe_load)           | pickle, YAML       | ✅ Yes                 |
+| **Java**    | `ObjectInputStream.readObject()`, `readUnshared()`        | Java serialization | ✅ Yes (gadget chain)  |
+| **PHP**     | `unserialize()`, `session_decode()`                       | PHP serialize      | ✅ Yes (magic methods) |
+| **Ruby**    | `Marshal.load()`, `YAML.load()`                           | Marshal, YAML      | ✅ Yes                 |
+| **.NET**    | `BinaryFormatter.Deserialize()`, `JavaScriptSerializer()` | Binary, JSON, Soap | ✅ Yes (gadget chain)  |
+| **Node.js** | `node-serialize`, `funcion constructor` via `eval`        | Custom             | ✅ Yes                 |
 
 **Mitigasi:**
+
 1. Jangan deserialize data dari untrusted source
 2. Pake format yang gak support arbitrary types — JSON aja (dengan `JSON.parse()`, bukan `eval()`)
 3. Kalo harus pake binary format, pake Protobuf atau MessagePack (gak support code execution)
@@ -451,20 +458,20 @@ Sudah dijelaskan di section XML — tapi ini cukup penting untuk diulang:
 ```javascript
 const merge = (target, source) => {
   for (let key in source) {
-    if (typeof source[key] === 'object') {
-      merge(target[key] ||= {}, source[key]);
+    if (typeof source[key] === "object") {
+      merge((target[key] ||= {}), source[key])
     } else {
-      target[key] = source[key];
+      target[key] = source[key]
     }
   }
-};
+}
 
 // Attacker sends:
-const payload = JSON.parse('{"__proto__": {"admin": true}}');
-merge({}, payload);
+const payload = JSON.parse('{"__proto__": {"admin": true}}')
+merge({}, payload)
 
 // Now every object has admin: true
-console.log({}.admin);  // true — prototype polluted!
+console.log({}.admin) // true — prototype polluted!
 ```
 
 **Mitigasi:** Gunakan `Object.create(null)` untuk object tanpa prototype, atau gunakan library merge yang aman (lodash `merge` sudah fix ini).
@@ -473,16 +480,16 @@ console.log({}.admin);  // true — prototype polluted!
 
 Teknik yang sering dipake attacker untuk bypass WAF rules:
 
-| Teknik | Contoh | Bypass |
-|--------|--------|--------|
-| **Double URL encoding** | `%2527` → WAF decode jadi `%27` → aplikasi decode jadi `'` | SQL injection filter melihat `%2527` bukan `'` |
-| **Unicode normalization** | `⒳` atau `%EF%BC%A3` (fullwidth C) instead of `C` | Case-sensitive rules |
-| **UTF-8 overlong** | `/` di-encode sebagai `%C0%AF` (2-byte UTF-8 overlong) | Filter yang cek ASCII |
-| **Null byte injection** | `../../etc/passwd%00.txt` | Extension-checking WAF |
-| **Case variation** | `<sCrIpT>` instead of `<script>` | Case-sensitive rules |
-| **Mixed encoding in one request** | URL encode bagian tertentu, double encode bagian lain | Multi-pass decoder confusion |
-| **BOM injection** | UTF-8 BOM `\xEF\xBB\xBF` di awal payload | Signature-based WAF |
-| **HTML entity encoding** | `&#x3C;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;` instead of `<script>` | WAF yang gak decode HTML entities |
+| Teknik                            | Contoh                                                                   | Bypass                                         |
+| --------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------- |
+| **Double URL encoding**           | `%2527` → WAF decode jadi `%27` → aplikasi decode jadi `'`               | SQL injection filter melihat `%2527` bukan `'` |
+| **Unicode normalization**         | `⒳` atau `%EF%BC%A3` (fullwidth C) instead of `C`                        | Case-sensitive rules                           |
+| **UTF-8 overlong**                | `/` di-encode sebagai `%C0%AF` (2-byte UTF-8 overlong)                   | Filter yang cek ASCII                          |
+| **Null byte injection**           | `../../etc/passwd%00.txt`                                                | Extension-checking WAF                         |
+| **Case variation**                | `<sCrIpT>` instead of `<script>`                                         | Case-sensitive rules                           |
+| **Mixed encoding in one request** | URL encode bagian tertentu, double encode bagian lain                    | Multi-pass decoder confusion                   |
+| **BOM injection**                 | UTF-8 BOM `\xEF\xBB\xBF` di awal payload                                 | Signature-based WAF                            |
+| **HTML entity encoding**          | `&#x3C;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;` instead of `<script>` | WAF yang gak decode HTML entities              |
 
 ### WAF Evasion via Chunked Encoding
 
@@ -552,26 +559,26 @@ protoc --decode Person person.proto < data.bin  # Dengan schema
 
 ## References
 
-1. IETF. *RFC 4648: The Base16, Base32, and Base64 Data Encodings*. 2006.
-2. IETF. *RFC 3986: URI Generic Syntax (Percent Encoding)*. 2005.
-3. IETF. *RFC 3629: UTF-8, a transformation format of ISO 10646*. 2003.
-4. IETF. *RFC 8259: The JavaScript Object Notation (JSON)*. 2017.
-5. IETF. *RFC 1952: GZIP file format specification*. 1996.
-6. IETF. *RFC 7932: Brotli Compressed Data Format*. 2016.
-7. Facebook. *Zstandard Compression*. https://github.com/facebook/zstd
-8. Google. *Protocol Buffers*. https://protobuf.dev/
-9. OWASP. *Deserialization Cheat Sheet*. https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-10. OWASP. *XML External Entity (XXE) Prevention*. https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
-11. OWASP. *Prototype Pollution Prevention*. https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html
-12. PortSwigger. *What is XXE?* https://portswigger.net/web-security/xxe
-13. PortSwigger. *What is Deserialization?* https://portswigger.net/web-security/deserialization
-14. PortSwigger. *CRIME Attack*. https://portswigger.net/daily-swig/crime-attack
-15. Python Security. *pickle documentation*. https://docs.python.org/3/library/pickle.html
-16. Frohoff & Lawrence. *ysoserial — Java deserialization gadget chains*. https://github.com/frohoff/ysoserial
-17. W3C. *XML Specification*. https://www.w3.org/XML/
-18. MessagePack. *MessagePack Specification*. https://msgpack.org/index.html
-19. CBOR. *RFC 7049*. https://cbor.io/
-20. YAML. *YAML Specification*. https://yaml.org/spec/
+1. IETF. _RFC 4648: The Base16, Base32, and Base64 Data Encodings_. 2006.
+2. IETF. _RFC 3986: URI Generic Syntax (Percent Encoding)_. 2005.
+3. IETF. _RFC 3629: UTF-8, a transformation format of ISO 10646_. 2003.
+4. IETF. _RFC 8259: The JavaScript Object Notation (JSON)_. 2017.
+5. IETF. _RFC 1952: GZIP file format specification_. 1996.
+6. IETF. _RFC 7932: Brotli Compressed Data Format_. 2016.
+7. Facebook. _Zstandard Compression_. https://github.com/facebook/zstd
+8. Google. _Protocol Buffers_. https://protobuf.dev/
+9. OWASP. _Deserialization Cheat Sheet_. https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
+10. OWASP. _XML External Entity (XXE) Prevention_. https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+11. OWASP. _Prototype Pollution Prevention_. https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html
+12. PortSwigger. _What is XXE?_ https://portswigger.net/web-security/xxe
+13. PortSwigger. _What is Deserialization?_ https://portswigger.net/web-security/deserialization
+14. PortSwigger. _CRIME Attack_. https://portswigger.net/daily-swig/crime-attack
+15. Python Security. _pickle documentation_. https://docs.python.org/3/library/pickle.html
+16. Frohoff & Lawrence. _ysoserial — Java deserialization gadget chains_. https://github.com/frohoff/ysoserial
+17. W3C. _XML Specification_. https://www.w3.org/XML/
+18. MessagePack. _MessagePack Specification_. https://msgpack.org/index.html
+19. CBOR. _RFC 7049_. https://cbor.io/
+20. YAML. _YAML Specification_. https://yaml.org/spec/
 
 > [!tip] Bottom Line
 > Encoding, serialization, dan compression adalah **fondasi pertukaran data** yang sering dianggap remeh. Setiap satu dari 10,000 API request yang lewat hari ini pasti melewati setidaknya base64, JSON, dan gzip. Buat security engineer: (1) **base64 ≠ encryption** — jangan pernah pake base64 untuk keamanan. (2) **Pickle/YAML.load/Java unserialize/ unserialize** adalah RCE dalam bentuk serialization — jangan pernah deserialize data dari untrusted source dengan fungsi-fungsi itu. (3) **XXE** masih ada di 2026 — karena XML masih dipake di enterprise legacy dan SOAP API. (4) **Encoding bypass** adalah teknik paling umum untuk melewati WAF — paham double encoding dan unicode normalization adalah minimum. (5) **Kompresi sebagai oracle** — CRIME attack membuktikan bahwa compression ratio bisa dipake untuk recover secret — alasan kenapa TLS 1.3 menghapus compression.

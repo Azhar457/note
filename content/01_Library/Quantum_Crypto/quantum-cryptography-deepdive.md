@@ -1,21 +1,21 @@
 ---
 title: 🔬 Quantum Computing & Cryptography — Deep Dive
 tags:
-- library
-- quantum-crypto
-created: '2026-07-02'
-updated: '2026-07-06'
+  - library
+  - quantum-crypto
+created: "2026-07-02"
+updated: "2026-07-06"
 status: evergreen
 source: comprehensive-research
 confidence: high
 难度: advanced
-topics: ''
+topics: ""
 ---
 
 # 🔬 Quantum Computing & Cryptography — Deep Dive
 
-> *"If you think you understand quantum mechanics, you don't understand quantum mechanics."* — Richard Feynman  
-> *"The only way to prove you understand quantum cryptography is to actually break RSA with a quantum computer."* — Anonymous cryptographer
+> _"If you think you understand quantum mechanics, you don't understand quantum mechanics."_ — Richard Feynman  
+> _"The only way to prove you understand quantum cryptography is to actually break RSA with a quantum computer."_ — Anonymous cryptographer
 
 > [!INFO] 📖 Overview
 > **Quantum computing** represents a paradigm shift from classical bits to **qubits** that exploit superposition, entanglement, and interference. This note covers the full spectrum: from qubit fundamentals and quantum gates through Shor's and Grover's algorithms, the **NIST PQC standardization process**, post-quantum cryptographic primitives (CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON, SPHINCS+), quantum key distribution (BB84, satellite QKD), quantum error correction using surface codes, hardware modalities (superconducting, trapped ion, photonic, topological), the **Y2Q threat timeline**, crypto agility, and migration strategies including hybrid certificates and PQ/TLS. Written in **Bahasa Indonesia campur English** for a bilingual technical audience.
@@ -63,12 +63,12 @@ di mana $\ket{0}$ dan $\ket{1}$ adalah basis states (biasanya basis Z / computat
 
 $$|\alpha|^2 + |\beta|^2 = 1$$
 
-| Konsep | Analogi Klasik | Penjelasan Quantum |
-|--------|---------------|-------------------|
-| Bit vs Qubit | 0 atau 1 | 0, 1, atau superposition keduanya sekaligus |
-| Measurement | Instant read | Collapse superposition, destroy informasi |
-| Gate | AND/OR/NOT | Unitary transformation, reversible |
-| Copy | Mudah | **No-Cloning Theorem** — qubit tidak bisa dicopy |
+| Konsep       | Analogi Klasik | Penjelasan Quantum                               |
+| ------------ | -------------- | ------------------------------------------------ |
+| Bit vs Qubit | 0 atau 1       | 0, 1, atau superposition keduanya sekaligus      |
+| Measurement  | Instant read   | Collapse superposition, destroy informasi        |
+| Gate         | AND/OR/NOT     | Unitary transformation, reversible               |
+| Copy         | Mudah          | **No-Cloning Theorem** — qubit tidak bisa dicopy |
 
 ### 1.2 Superposition
 
@@ -83,18 +83,18 @@ Setelah Hadamard gate, qubit berada di superposition equal. Ketika diukur, proba
 
 ### 1.3 Entanglement
 
-**Entanglement** adalah fenomena quantum di mana dua atau lebih qubit menjadi berkorelasi secara instant — tidak peduli seberapa jauh jarak mereka. Einstein menyebutnya *"spooky action at a distance"*.
+**Entanglement** adalah fenomena quantum di mana dua atau lebih qubit menjadi berkorelasi secara instant — tidak peduli seberapa jauh jarak mereka. Einstein menyebutnya _"spooky action at a distance"_.
 
 $$\ket{\Phi^+} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$$
 
 Pasangan Bell states yang umum:
 
-| Bell State | Formula | Penggunaan |
-|-----------|---------|-----------|
+| Bell State     | Formula                                   | Penggunaan         |
+| -------------- | ----------------------------------------- | ------------------ |
 | $\ket{\Phi^+}$ | $\frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$ | QKD, teleportation |
-| $\ket{\Phi^-}$ | $\frac{1}{\sqrt{2}}(\ket{00} - \ket{11})$ | QKD variant |
-| $\ket{\Psi^+}$ | $\frac{1}{\sqrt{2}}(\ket{01} + \ket{10})$ | Superdense coding |
-| $\ket{\Psi^-}$ | $\frac{1}{\sqrt{2}}(\ket{01} - \ket{10})$ | Error detection |
+| $\ket{\Phi^-}$ | $\frac{1}{\sqrt{2}}(\ket{00} - \ket{11})$ | QKD variant        |
+| $\ket{\Psi^+}$ | $\frac{1}{\sqrt{2}}(\ket{01} + \ket{10})$ | Superdense coding  |
+| $\ket{\Psi^-}$ | $\frac{1}{\sqrt{2}}(\ket{01} - \ket{10})$ | Error detection    |
 
 Ketika dua qubit entangled, mengukur satu qubit **secara instant** menentukan state qubit lainnya:
 
@@ -118,12 +118,12 @@ def quantum_entangled():
 
 Measurement dalam quantum mechanics masih menjadi topik debat filosofis:
 
-| Interpretasi | Penjelasan | Proponent |
-|-------------|-----------|-----------|
-| Copenhagen | Collapse terjadi saat observasi | Bohr, Heisenberg |
-| Many-Worlds | Semua outcome terjadi — parallel universes | Everett |
-| Pilot-Wave | Deterministic dengan hidden variables | de Broglie, Bohm |
-| QBism | Informasi subjektif dari agent | Fuchs, Caves |
+| Interpretasi | Penjelasan                                 | Proponent        |
+| ------------ | ------------------------------------------ | ---------------- |
+| Copenhagen   | Collapse terjadi saat observasi            | Bohr, Heisenberg |
+| Many-Worlds  | Semua outcome terjadi — parallel universes | Everett          |
+| Pilot-Wave   | Deterministic dengan hidden variables      | de Broglie, Bohm |
+| QBism        | Informasi subjektif dari agent             | Fuchs, Caves     |
 
 Untuk tujuan komputasi, **Copenhagen interpretation** paling pragmatis: measurement collapse, get classical output.
 
@@ -137,29 +137,30 @@ Quantum gates adalah **unitary operators** (memenuhi $U^\dagger U = I$) — arti
 
 ### 2.2 Single-Qubit Gates
 
-| Gate | Matrix | Action | Simbol |
-|------|--------|--------|--------|
-| **Pauli-X** (NOT) | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$ | Flip: $\ket{0} \rightarrow \ket{1}$ | ⊕ |
-| **Pauli-Y** | $\begin{bmatrix}0 & -i \\ i & 0\end{bmatrix}$ | Bit + phase flip | — |
-| **Pauli-Z** | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$ | Phase flip: $\ket{1} \rightarrow -\ket{1}$ | ⊙ |
-| **Hadamard (H)** | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$ | Create superposition | H |
-| **Phase (S)** | $\begin{bmatrix}1 & 0 \\ 0 & i\end{bmatrix}$ | 90° phase rotation | S |
-| **T Gate** | $\begin{bmatrix}1 & 0 \\ 0 & e^{i\pi/4}\end{bmatrix}$ | 45° phase rotation | T |
+| Gate              | Matrix                                                          | Action                                     | Simbol |
+| ----------------- | --------------------------------------------------------------- | ------------------------------------------ | ------ |
+| **Pauli-X** (NOT) | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$                    | Flip: $\ket{0} \rightarrow \ket{1}$        | ⊕      |
+| **Pauli-Y**       | $\begin{bmatrix}0 & -i \\ i & 0\end{bmatrix}$                   | Bit + phase flip                           | —      |
+| **Pauli-Z**       | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$                   | Phase flip: $\ket{1} \rightarrow -\ket{1}$ | ⊙      |
+| **Hadamard (H)**  | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$ | Create superposition                       | H      |
+| **Phase (S)**     | $\begin{bmatrix}1 & 0 \\ 0 & i\end{bmatrix}$                    | 90° phase rotation                         | S      |
+| **T Gate**        | $\begin{bmatrix}1 & 0 \\ 0 & e^{i\pi/4}\end{bmatrix}$           | 45° phase rotation                         | T      |
 
 ### 2.3 Multi-Qubit Gates
 
-| Gate | Input → Output | Matrix | Penggunaan |
-|------|---------------|--------|-----------|
-| **CNOT** | $\ket{AB} \rightarrow \ket{A}\ket{A \oplus B}$ | $4 \times 4$ (controlled-X) | Entanglement generator |
-| **Toffoli** (CCNOT) | $\ket{ABC} \rightarrow \ket{AB}\ket{C \oplus (A \land B)}$ | $8 \times 8$ | Universal reversible computing |
-| **SWAP** | $\ket{AB} \rightarrow \ket{BA}$ | $4 \times 4$ | Qubit routing |
-| **Fredkin** (CSWAP) | Controlled SWAP | $8 \times 8$ | Reversible circuit |
+| Gate                | Input → Output                                             | Matrix                      | Penggunaan                     |
+| ------------------- | ---------------------------------------------------------- | --------------------------- | ------------------------------ |
+| **CNOT**            | $\ket{AB} \rightarrow \ket{A}\ket{A \oplus B}$             | $4 \times 4$ (controlled-X) | Entanglement generator         |
+| **Toffoli** (CCNOT) | $\ket{ABC} \rightarrow \ket{AB}\ket{C \oplus (A \land B)}$ | $8 \times 8$                | Universal reversible computing |
+| **SWAP**            | $\ket{AB} \rightarrow \ket{BA}$                            | $4 \times 4$                | Qubit routing                  |
+| **Fredkin** (CSWAP) | Controlled SWAP                                            | $8 \times 8$                | Reversible circuit             |
 
 ### 2.4 Quantum Gate Decomposition — Universal Gate Sets
 
 Setiap unitary operation bisa didekomposisi menjadi set **universal quantum gates**:
 
 **Universal sets:**
+
 1. `{H, CNOT, T}` — Clifford + T (paling umum untuk fault-tolerant)
 2. `{Toffoli}` — single gate universal (tapi praktisnya expensive)
 3. `{CNOT, single-qubit rotations}` — untuk NISQ devices
@@ -196,12 +197,12 @@ print(f"Bell state: {psi}")  # [1/√2, 0, 0, 1/√2]
 
 ### 2.5 Gate Fidelity dan Error Rates
 
-| Platform | Single-Qubit Gate Fidelity | Two-Qubit Gate Fidelity |
-|----------|---------------------------|------------------------|
-| Superconducting (IBM) | 99.9% | 99.0-99.7% |
-| Trapped Ion (Quantinuum) | 99.99% | 99.8% |
-| Photonic (Xanadu) | 99.0% | 97.0% |
-| Neutral Atom (QuEra) | 99.5% | 98.5% |
+| Platform                 | Single-Qubit Gate Fidelity | Two-Qubit Gate Fidelity |
+| ------------------------ | -------------------------- | ----------------------- |
+| Superconducting (IBM)    | 99.9%                      | 99.0-99.7%              |
+| Trapped Ion (Quantinuum) | 99.99%                     | 99.8%                   |
+| Photonic (Xanadu)        | 99.0%                      | 97.0%                   |
+| Neutral Atom (QuEra)     | 99.5%                      | 98.5%                   |
 
 > [!TIP] 💡 Gate fidelity adalah ukuran seberapa dekat gate actual dengan gate ideal. Dihitung dari **process fidelity** — perbandingan output state aktual vs theoretical.
 
@@ -220,6 +221,7 @@ di mana $\sum |c_i|^2 = 1$ dan $\ket{i}$ adalah basis computational ($\ket{00...
 ### 3.2 Quantum Circuit Model
 
 Quantum circuit terdiri dari:
+
 - **Qubit lines** (horizontal lines)
 - **Gates** (applied sequentially left-to-right)
 - **Measurement** (akhir circuit, collapse ke classical bit)
@@ -235,12 +237,12 @@ Visual representation (simplified):
 
 NISQ (Noisy Intermediate-Scale Quantum) devices punya noise signifikan:
 
-| Noise Channel | Effect | Parameter |
-|--------------|--------|-----------|
-| Depolarizing | Randomly replace state with maximally mixed | Error rate $p$ |
-| Amplitude Damping | Energy relaxation ($T_1$ decay) | $T_1$ time |
-| Dephasing | Phase randomization ($T_2$ decay) | $T_2$ time |
-| Readout Error | Wrong classification saat measurement | Readout fidelity |
+| Noise Channel     | Effect                                      | Parameter        |
+| ----------------- | ------------------------------------------- | ---------------- |
+| Depolarizing      | Randomly replace state with maximally mixed | Error rate $p$   |
+| Amplitude Damping | Energy relaxation ($T_1$ decay)             | $T_1$ time       |
+| Dephasing         | Phase randomization ($T_2$ decay)           | $T_2$ time       |
+| Readout Error     | Wrong classification saat measurement       | Readout fidelity |
 
 Quantum simulations di classical computer **tidak mengalami noise** — salah satu alasan kenapa simulator tidak bisa menggantikan quantum hardware untuk validasi algoritma noise-sensitive.
 
@@ -251,16 +253,17 @@ Quantum simulations di classical computer **tidak mengalami noise** — salah sa
 ### 4.1 Mengapa Shor's Algorithm Revolusioner?
 
 **Shor's Algorithm** (Peter Shor, 1994) adalah algoritma quantum polynomial-time untuk:
+
 1. **Integer factorization** — memecah $n = p \times q$ (basis RSA)
 2. **Discrete logarithm** — memecah DH dan ECDSA
 
 ### 4.2 Analisis Kompleksitas
 
-| Algoritma | Complexity Klasik | Complexity Quantum |
-|-----------|-----------------|-------------------|
-| Factor RSA-2048 | ~$10^{15}$ tahun (GNFS) | ~$10^8$ detik (dengan error correction) |
-| Discrete Log (256-bit EC) | ~$2^{128}$ | ~$2^{64}$ Grover |
-| Goldilocks (448-bit EC) | ~$2^{224}$ | ~$2^{112}$ Grover |
+| Algoritma                 | Complexity Klasik       | Complexity Quantum                      |
+| ------------------------- | ----------------------- | --------------------------------------- |
+| Factor RSA-2048           | ~$10^{15}$ tahun (GNFS) | ~$10^8$ detik (dengan error correction) |
+| Discrete Log (256-bit EC) | ~$2^{128}$              | ~$2^{64}$ Grover                        |
+| Goldilocks (448-bit EC)   | ~$2^{224}$              | ~$2^{112}$ Grover                       |
 
 ### 4.3 Shor's Algorithm — Langkah-langkah
 
@@ -274,27 +277,27 @@ Quantum simulations di classical computer **tidak mengalami noise** — salah sa
 def shor_factor(n: int):
     """Find a non-trivial factor of n using Shor's algorithm"""
     assert n % 2 != 0, "n must be odd"
-    
+
     # Step 1: random a < n
     a = random.randint(2, n-1)
     if gcd(a, n) != 1:
         return gcd(a, n)  # lucky
-    
+
     # Step 2: Quantum period finding
     # |0⟩⊗m|0⟩⊗L ─H⊗m─► 1/√(2^m) Σ_x |x⟩ |0⟩
     # ─ Controlled-U^{x} ─► 1/√(2^m) Σ_x |x⟩ |a^x mod n⟩
     # ─ IQFT ─► measure ─► period r
-    
+
     # Step 3: Classical post-processing
     # Measure phase φ ≈ s/r, use continued fraction to find r
-    
+
     # Step 4: Extract factor
     # If r is even and a^(r/2) ≠ ±1 mod n:
     #   factor = gcd(a^(r/2) - 1, n) or gcd(a^(r/2) + 1, n)
     # Else: retry with different a
-    
+
     r = quantum_period_finding(a, n)
-    
+
     if r % 2 == 0 and pow(a, r//2, n) != n-1:
         return gcd(pow(a, r//2, n) - 1, n)
     else:
@@ -303,22 +306,22 @@ def shor_factor(n: int):
 
 ### 4.4 Resource Requirements untuk Memecah RSA-2048
 
-| Resource | Estimasi |
-|----------|---------|
-| Logical qubits | ~20 million |
-| Physical qubits (surface code, d=27) | ~20 billion |
-| T gates | ~$4 \times 10^{11}$ |
-| Runtime (dengan parallelization) | ~8 jam — 8 hari |
-| Magic state factories | Ribuan |
+| Resource                             | Estimasi            |
+| ------------------------------------ | ------------------- |
+| Logical qubits                       | ~20 million         |
+| Physical qubits (surface code, d=27) | ~20 billion         |
+| T gates                              | ~$4 \times 10^{11}$ |
+| Runtime (dengan parallelization)     | ~8 jam — 8 hari     |
+| Magic state factories                | Ribuan              |
 
 ### 4.5 Impact untuk Kriptografi Asymmetric
 
-| Cryptosystem | Key Size Aman Klasik | Key Size Aman Pasca-Quantum |
-|-------------|-------------------|---------------------------|
-| RSA | 3072-bit | **Broken by Shor** |
-| DH | 3072-bit | **Broken by Shor** |
-| ECDSA / EdDSA | 256-bit | **Broken by Shor** |
-| ECDH (X25519) | 256-bit | **Broken by Shor** |
+| Cryptosystem  | Key Size Aman Klasik | Key Size Aman Pasca-Quantum |
+| ------------- | -------------------- | --------------------------- |
+| RSA           | 3072-bit             | **Broken by Shor**          |
+| DH            | 3072-bit             | **Broken by Shor**          |
+| ECDSA / EdDSA | 256-bit              | **Broken by Shor**          |
+| ECDH (X25519) | 256-bit              | **Broken by Shor**          |
 
 > [!DANGER] ☢️ Implikasi  
 > Semua kriptografi **public-key klasik** (RSA, ECDSA, DH, DSA) akan **runtuh total** ketika quantum computer dengan ~20 juta logical qubits tersedia. Tidak ada peningkatan key size yang bisa menyelamatkan — algoritmanya sendiri yang inherently insecure terhadap Shor.
@@ -335,13 +338,13 @@ $$O(N) \xrightarrow{\text{Grover}} O(\sqrt{N})$$
 
 ### 5.2 Implikasi untuk Symmetric Cryptography
 
-| Algoritma | Key Length Klasik | Key Length Pasca-Quantum (Grover) |
-|-----------|-----------------|---------------------------------|
-| AES-128 | 128-bit (~$2^{128}$) | **~$2^{64}$** — tidak aman |
-| AES-192 | 192-bit (~$2^{192}$) | ~$2^{96}$ — masih aman |
-| AES-256 | 256-bit (~$2^{256}$) | ~$2^{128}$ — aman |
-| SHA-256 (digest) | 256-bit (~$2^{256}$) | **~$2^{128}$** — collision |
-| SHA-384 | 384-bit (~$2^{384}$) | ~$2^{192}$ — aman |
+| Algoritma        | Key Length Klasik    | Key Length Pasca-Quantum (Grover) |
+| ---------------- | -------------------- | --------------------------------- |
+| AES-128          | 128-bit (~$2^{128}$) | **~$2^{64}$** — tidak aman        |
+| AES-192          | 192-bit (~$2^{192}$) | ~$2^{96}$ — masih aman            |
+| AES-256          | 256-bit (~$2^{256}$) | ~$2^{128}$ — aman                 |
+| SHA-256 (digest) | 256-bit (~$2^{256}$) | **~$2^{128}$** — collision        |
+| SHA-384          | 384-bit (~$2^{384}$) | ~$2^{192}$ — aman                 |
 
 ### 5.3 Grover's Algorithm Steps
 
@@ -356,28 +359,29 @@ $$O(N) \xrightarrow{\text{Grover}} O(\sqrt{N})$$
 def grover_search(N, oracle):
     """
     Find marked element in N items in O(√N) quantum queries.
-    
+
     Args:
         N: Number of items (must be power of 2)
         oracle: Function that returns 1 for target, 0 otherwise
     """
     iterations = int(np.pi/4 * np.sqrt(N))
-    
+
     # Step 1: Uniform superposition
     state = hadamard_on_all(N)
-    
+
     for _ in range(iterations):
         # Step 2: Apply oracle (phase flip target)
         state = phase_oracle(state, oracle)
         # Step 3: Diffusion operator (inversion about mean)
         state = diffusion_operator(state)
-    
+
     return measure(state)
 ```
 
 ### 5.4 Mitigation Strategy
 
 Untuk mitigasi Grover pada symmetric crypto:
+
 - **Gandakan key size**: AES-128 → AES-256 (double key, double cost untuk classical, double cost untuk quantum)
 - **Gunakan hash dengan output lebih panjang**: SHA-256 → SHA-384
 - **Post-quantum MAC**: Gunakan key panjang (256+ bit) untuk HMAC
@@ -392,28 +396,31 @@ Untuk mitigasi Grover pada symmetric crypto:
 
 ### 6.2 Enam Kandidat Terpilih NIST (2022-2024)
 
-| Family | KEM (Key Encapsulation) | Signature | Basis Matematis |
-|--------|------------------------|-----------|----------------|
-| **CRYSTALS** | **Kyber** 🔒 | **Dilithium** ✍️ | Module Learning With Errors (MLWE) |
-| **FALCON** | — | **FALCON** 🦅 | NTRU / Lattice (Gaussian) |
-| **SPHINCS+** | — | **SPHINCS+** 🌲 | Stateless Hash-Based |
-| **BIKE** | BIKE | — | QC-MDPC Codes |
-| **Classic McEliece** | Classic McEliece | — | Goppa Codes |
-| **HQC** | HQC | — | Quasi-Cyclic Codes |
+| Family               | KEM (Key Encapsulation) | Signature        | Basis Matematis                    |
+| -------------------- | ----------------------- | ---------------- | ---------------------------------- |
+| **CRYSTALS**         | **Kyber** 🔒            | **Dilithium** ✍️ | Module Learning With Errors (MLWE) |
+| **FALCON**           | —                       | **FALCON** 🦅    | NTRU / Lattice (Gaussian)          |
+| **SPHINCS+**         | —                       | **SPHINCS+** 🌲  | Stateless Hash-Based               |
+| **BIKE**             | BIKE                    | —                | QC-MDPC Codes                      |
+| **Classic McEliece** | Classic McEliece        | —                | Goppa Codes                        |
+| **HQC**              | HQC                     | —                | Quasi-Cyclic Codes                 |
 
 ### 6.3 Families Matematis
 
 **Lattice-based** (Kyber, Dilithium, FALCON):
+
 - Basis: Learning With Errors (LWE), Module-LWE, NTRU
 - Keamanan direduksi ke **shortest vector problem (SVP)** — believed quantum-hard
 - Efisien, key size moderate, signatures compact
 
 **Hash-based** (SPHINCS+):
+
 - Basis: Keamanan dari cryptographic hash functions
 - Stateless (tidak perlu maintain state)
 - Signature besar, tapi proven security
 
 **Code-based** (Classic McEliece, BIKE, HQC):
+
 - Basis: Syndrome decoding — NP-hard problem
 - Key size sangat besar (Classic McEliece: ~1MB), BIKE dan HQC lebih kecil
 - Security track record panjang (McEliece dari 1978)
@@ -428,15 +435,15 @@ Untuk mitigasi Grover pada symmetric crypto:
 
 ### 7.2 Parameter Sets
 
-| Parameter | Kyber-512 | Kyber-768 | Kyber-1024 |
-|-----------|----------|----------|-----------|
-| Security Level | NIST 1 (128-bit) | NIST 3 (192-bit) | NIST 5 (256-bit) |
-| $k$ (module rank) | 2 | 3 | 4 |
-| $n$ (polynomial degree) | 256 | 256 | 256 |
-| $q$ (modulus) | 3329 | 3329 | 3329 |
-| Public Key Size | 800 B | 1,184 B | 1,568 B |
-| Ciphertext Size | 768 B | 1,088 B | 1,568 B |
-| Shared Secret | 256 bit | 256 bit | 256 bit |
+| Parameter               | Kyber-512        | Kyber-768        | Kyber-1024       |
+| ----------------------- | ---------------- | ---------------- | ---------------- |
+| Security Level          | NIST 1 (128-bit) | NIST 3 (192-bit) | NIST 5 (256-bit) |
+| $k$ (module rank)       | 2                | 3                | 4                |
+| $n$ (polynomial degree) | 256              | 256              | 256              |
+| $q$ (modulus)           | 3329             | 3329             | 3329             |
+| Public Key Size         | 800 B            | 1,184 B          | 1,568 B          |
+| Ciphertext Size         | 768 B            | 1,088 B          | 1,568 B          |
+| Shared Secret           | 256 bit          | 256 bit          | 256 bit          |
 
 ### 7.3 Cara Kerja Simplified
 
@@ -447,7 +454,7 @@ class KyberKEM:
         self.k = k
         self.n = 256
         self.q = 3329
-    
+
     def keygen(self):
         """
         Key Generation:
@@ -461,7 +468,7 @@ class KyberKEM:
         e = self.sample_small_polynomial()  # error
         t = A @ s + e
         return (t, A), s
-    
+
     def encaps(self, pk):
         """
         Encapsulation:
@@ -476,7 +483,7 @@ class KyberKEM:
         u = A.T @ s_prime + e_prime
         v = t @ s_prime + ...  # + encoded message
         return (u, v), shared_secret
-    
+
     def decaps(self, sk, ct):
         """Decapsulation — decrypt ciphertext back to shared secret"""
         (u, v) = ct
@@ -488,12 +495,12 @@ class KyberKEM:
 
 ### 7.4 Kelebihan dan Kekurangan
 
-| Aspect | Rating | Notes |
-|--------|--------|-------|
-| Key size | ✅ Moderat | 800-1568 bytes — acceptable untuk TLS |
-| Performance | ✅ Cepat | ~50-100 µs untuk key gen/encap |
-| Security | ✅ Proven | Reduction to Module-LWE |
-| Maturity | ✅ Standardized | NIST FIPS 203 (draft) |
+| Aspect       | Rating             | Notes                                 |
+| ------------ | ------------------ | ------------------------------------- |
+| Key size     | ✅ Moderat         | 800-1568 bytes — acceptable untuk TLS |
+| Performance  | ✅ Cepat           | ~50-100 µs untuk key gen/encap        |
+| Security     | ✅ Proven          | Reduction to Module-LWE               |
+| Maturity     | ✅ Standardized    | NIST FIPS 203 (draft)                 |
 | Side-channel | ⚠️ Perlu hati-hati | Constant-time implementation critical |
 
 ### 7.5 Standardization Code
@@ -512,14 +519,14 @@ class KyberKEM:
 
 ### 8.2 Parameter Sets
 
-| Parameter | Dilithium-2 | Dilithium-3 | Dilithium-5 |
-|-----------|-----------|-----------|-----------|
-| Security Level | NIST 2 (128-bit) | NIST 3 (192-bit) | NIST 5 (256-bit) |
-| $(k, \ell)$ | $(4, 4)$ | $(5, 5)$ | $(6, 6)$ |
-| $q$ | 8,380,417 | 8,380,417 | 8,380,417 |
-| Public Key Size | 1,312 B | 1,952 B | 2,592 B |
-| Signature Size | 2,420 B | 3,293 B | 4,595 B |
-| Signing Speed | 2× ECDSA | 1.5× ECDSA | ~ECDSA |
+| Parameter       | Dilithium-2      | Dilithium-3      | Dilithium-5      |
+| --------------- | ---------------- | ---------------- | ---------------- |
+| Security Level  | NIST 2 (128-bit) | NIST 3 (192-bit) | NIST 5 (256-bit) |
+| $(k, \ell)$     | $(4, 4)$         | $(5, 5)$         | $(6, 6)$         |
+| $q$             | 8,380,417        | 8,380,417        | 8,380,417        |
+| Public Key Size | 1,312 B          | 1,952 B          | 2,592 B          |
+| Signature Size  | 2,420 B          | 3,293 B          | 4,595 B          |
+| Signing Speed   | 2× ECDSA         | 1.5× ECDSA       | ~ECDSA           |
 
 ### 8.3 Fiat-Shamir with Abort
 
@@ -536,36 +543,36 @@ def dilithium_sign(sk, msg):
     """Fiat-Shamir with Abort signature"""
     A, s1, s2 = sk  # secret: small s1, s2
     k, ell = len(A), len(s1)
-    
+
     while True:
         # Masking
         y = sample_uniform_gamma1()  # large masking value
         w = decompose_polynomial(A @ y, alpha=2*gamma2)
         w1 = high_bits(w)  # keep high bits
-        
+
         # Challenge
         c = shake256_extend(w1, msg)
-        
+
         # Response
         z = y + c * s1
-        
+
         # Abort condition - check infinity norm
         if max_norm_inf(z) > gamma1 - beta:
             continue  # abort, retry
         if max_norm_inf(w - c * s2) > gamma2 - beta:
             continue  # abort, retry
-        
+
         return (c, z)  # signature
-    
+
 def dilithium_verify(pk, msg, sig):
     """Verify Fiat-Shamir signature"""
     t1, A = pk  # t1 = high bits of t = As1 + s2
     c, z = sig
-    
+
     # Recompute challenge
     w_prime = high_bits(A @ z - c * t1, alpha=2*gamma2)
     c_prime = shake256_extend(w_prime, msg)
-    
+
     return c == c_prime
 ```
 
@@ -584,12 +591,12 @@ def dilithium_verify(pk, msg, sig):
 
 ### 9.2 Perbandingan Signature Sizes
 
-| Scheme | Public Key | Signature | Catatan |
-|--------|-----------|-----------|---------|
-| **FALCON-512** | 897 B | **666 B** | ✅ Tersignature terkecil |
-| **FALCON-1024** | 1,793 B | 1,280 B | Untuk level 5 |
-| Dilithium-2 | 1,312 B | 2,420 B | Signatures lebih besar |
-| SPHINCS+-128s | 32 B | 7,856 B | Signature jauh lebih besar |
+| Scheme          | Public Key | Signature | Catatan                    |
+| --------------- | ---------- | --------- | -------------------------- |
+| **FALCON-512**  | 897 B      | **666 B** | ✅ Tersignature terkecil   |
+| **FALCON-1024** | 1,793 B    | 1,280 B   | Untuk level 5              |
+| Dilithium-2     | 1,312 B    | 2,420 B   | Signatures lebih besar     |
+| SPHINCS+-128s   | 32 B       | 7,856 B   | Signature jauh lebih besar |
 
 ### 9.3 NTRU Trapdoor Sampling — Kompleksitas
 
@@ -603,31 +610,31 @@ def falcon_sign(sk, msg):
     Uses fast Fourier transform (FFT) over polynomial ring.
     """
     f, g, F, G = sk  # NTRU trapdoor basis
-    
+
     # Compute salt + hash
     salt, c = hash_to_point(msg)
-    
+
     # Solve:
     # s1 = r - c*f (mod q)
     # s2 = r - c*g (mod q)
     # where r is sampled using F, G as trapdoor
-    
+
     # Gaussian sampling with FFT-based rejection
     # (much faster than naive lattice sampling)
-    
+
     s1, s2 = ntru_fft_sampling(f, g, F, G, c)
     return (salt, s1_compressed, s2_compressed)
 ```
 
 ### 9.4 Kapan Pakai FALCON vs Dilithium?
 
-| Scenario | Recommended | Reason |
-|----------|------------|--------|
-| TLS handshake | Kyber + Dilithium | Better ecosystem support |
-| Blockchain (small TX) | **FALCON** | Signature size critical |
-| Embedded / IoT | **FALCON** | Compact signatures |
-| High-throughput server | Dilithium | Faster verification |
-| Regulatory compliance | **Keduanya** | NIST supports both |
+| Scenario               | Recommended       | Reason                   |
+| ---------------------- | ----------------- | ------------------------ |
+| TLS handshake          | Kyber + Dilithium | Better ecosystem support |
+| Blockchain (small TX)  | **FALCON**        | Signature size critical  |
+| Embedded / IoT         | **FALCON**        | Compact signatures       |
+| High-throughput server | Dilithium         | Faster verification      |
+| Regulatory compliance  | **Keduanya**      | NIST supports both       |
 
 ---
 
@@ -655,13 +662,13 @@ SPHINCS+ hierarchy:
 
 ### 10.3 Parameter Sets
 
-| Parameter | SPHINCS+-128s | SPHINCS+-128f | SPHINCS+-256s |
-|-----------|-------------|-------------|-------------|
-| Security | NIST 2 (128) | NIST 2 (128) | NIST 5 (256) |
-| Signature Size | 7,856 B | 16,960 B | 29,792 B |
-| Public Key | 32 B | 32 B | 64 B |
-| Private Key | 64 B | 64 B | 128 B |
-| Signing Speed | **Slow** (slow mode) | **Fast** (fast mode) | Slow |
+| Parameter      | SPHINCS+-128s        | SPHINCS+-128f        | SPHINCS+-256s |
+| -------------- | -------------------- | -------------------- | ------------- |
+| Security       | NIST 2 (128)         | NIST 2 (128)         | NIST 5 (256)  |
+| Signature Size | 7,856 B              | 16,960 B             | 29,792 B      |
+| Public Key     | 32 B                 | 32 B                 | 64 B          |
+| Private Key    | 64 B                 | 64 B                 | 128 B         |
+| Signing Speed  | **Slow** (slow mode) | **Fast** (fast mode) | Slow          |
 
 ### 10.4 Kelebihan
 
@@ -681,17 +688,17 @@ SPHINCS+ hierarchy:
 
 ### 11.1 Timeline Lengkap
 
-| Tahun | Event | Detail |
-|-------|-------|--------|
-| **2016** | NIST Call for Proposals | PQC standardization dimulai |
-| **2017** | Round 1 | 69 submissions (diterima) |
-| **2019** | Round 2 | 26 kandidat lanjut |
-| **2020** | Round 3 | 15 kandidat finalis + alternates |
-| **Jul 2022** | **Round 3 Selection** | **Kyber dan Dilithium** terpilih untuk standardisasi |
-| **2023** | Round 4 | BIKE, Classic McEliece, HQC, SIKE (SIKE broken oleh Castryck-Decru) |
+| Tahun        | Event                        | Detail                                                                                  |
+| ------------ | ---------------------------- | --------------------------------------------------------------------------------------- |
+| **2016**     | NIST Call for Proposals      | PQC standardization dimulai                                                             |
+| **2017**     | Round 1                      | 69 submissions (diterima)                                                               |
+| **2019**     | Round 2                      | 26 kandidat lanjut                                                                      |
+| **2020**     | Round 3                      | 15 kandidat finalis + alternates                                                        |
+| **Jul 2022** | **Round 3 Selection**        | **Kyber dan Dilithium** terpilih untuk standardisasi                                    |
+| **2023**     | Round 4                      | BIKE, Classic McEliece, HQC, SIKE (SIKE broken oleh Castryck-Decru)                     |
 | **Aug 2024** | **FIPS 203, 204, 205 Final** | **ML-KEM (Kyber), ML-DSA (Dilithium), SLH-DSA (SPHINCS+)**, FN-DSA (FALCON) di finalize |
-| **2025** | FIPS Publication | FIPS 203, 204, 205 resmi diterbitkan |
-| **2026+** | Additional Signatures | NIST call for additional signature schemes (beyond lattice) |
+| **2025**     | FIPS Publication             | FIPS 203, 204, 205 resmi diterbitkan                                                    |
+| **2026+**    | Additional Signatures        | NIST call for additional signature schemes (beyond lattice)                             |
 
 ### 11.2 SIKE — Ketika Kandidat NIST PQC Dihancurkan
 
@@ -706,14 +713,14 @@ SPHINCS+ hierarchy:
 
 ### 11.3 Current Standardization Status (Mid-2026)
 
-| Standard | Algorithm | Status |
-|----------|----------|--------|
-| **FIPS 203** | ML-KEM (Kyber) | ✅ **Published** (2024-08-13) |
-| **FIPS 204** | ML-DSA (Dilithium) | ✅ **Published** (2024-08-13) |
-| **FIPS 205** | SLH-DSA (SPHINCS+) | ✅ **Published** (2024-10-30) |
-| **FIPS 206** | FN-DSA (FALCON) | ✅ **Published** (2025-03) |
-| NIST SP 800-227 | Hybrid Schemes | In progress |
-| IETF CFRG | X25519Kyber768 | Experimental RFC |
+| Standard        | Algorithm          | Status                        |
+| --------------- | ------------------ | ----------------------------- |
+| **FIPS 203**    | ML-KEM (Kyber)     | ✅ **Published** (2024-08-13) |
+| **FIPS 204**    | ML-DSA (Dilithium) | ✅ **Published** (2024-08-13) |
+| **FIPS 205**    | SLH-DSA (SPHINCS+) | ✅ **Published** (2024-10-30) |
+| **FIPS 206**    | FN-DSA (FALCON)    | ✅ **Published** (2025-03)    |
+| NIST SP 800-227 | Hybrid Schemes     | In progress                   |
+| IETF CFRG       | X25519Kyber768     | Experimental RFC              |
 
 ---
 
@@ -776,12 +783,12 @@ openssl s_server -cert server-cert.pem \
 
 ### 12.4 Migration Roadmap
 
-| Phase | Timeline | Action |
-|-------|----------|--------|
-| **Awareness** | Now — 2026 | Inventory crypto inventory systems, identify RSA/DH/ECDSA usage |
+| Phase                  | Timeline    | Action                                                           |
+| ---------------------- | ----------- | ---------------------------------------------------------------- |
+| **Awareness**          | Now — 2026  | Inventory crypto inventory systems, identify RSA/DH/ECDSA usage  |
 | **Hybrid Integration** | 2026 — 2028 | Deploy hybrid certs (X.509 composite), enable PQ/TLS in browsers |
-| **Migration** | 2028 — 2032 | Default ke PQC-only, deprecate classical key exchange |
-| **Hardening** | 2032+ | Remove classical fallback, PQC-only infrastructure |
+| **Migration**          | 2028 — 2032 | Default ke PQC-only, deprecate classical key exchange            |
+| **Hardening**          | 2032+       | Remove classical fallback, PQC-only infrastructure               |
 
 ---
 
@@ -812,7 +819,7 @@ def bb84_protocol(n_bits=100):
     alice_bits = [random.randint(0, 1) for _ in range(n_bits)]
     alice_bases = [random.choice(['+', 'x']) for _ in range(n_bits)]
     bob_bases = [random.choice(['+', 'x']) for _ in range(n_bits)]
-    
+
     # Bob measurement (simulate photon detection)
     bob_bits = []
     for ab, bb, bit in zip(alice_bases, bob_bases, alice_bits):
@@ -820,22 +827,22 @@ def bb84_protocol(n_bits=100):
             bob_bits.append(bit)  # correct measurement
         else:
             bob_bits.append(random.randint(0, 1))  # random if basis mismatch
-    
+
     # Basis reconciliation (public discussion)
-    matching_indices = [i for i in range(n_bits) 
+    matching_indices = [i for i in range(n_bits)
                         if alice_bases[i] == bob_bases[i]]
-    
+
     # Sifted key: matching bits only
     alice_sifted = [alice_bits[i] for i in matching_indices]
     bob_sifted = [bob_bits[i] for i in matching_indices]
-    
+
     # Error estimation (subset)
     sample = random.sample(range(len(alice_sifted)), min(10, len(alice_sifted)))
     qber = sum(alice_sifted[i] != bob_sifted[i] for i in sample) / len(sample)
-    
+
     if qber > 0.11:  # 11% threshold for BB84 with decoy states
         return None, qber  # Eavesdropping detected!
-    
+
     # Error correction + privacy amplification
     final_key = privacy_amplification(
         error_correction(alice_sifted, bob_sifted)
@@ -855,13 +862,13 @@ Dengan membandingkan gain dan error rate dari different intensitas, Alice-Bob bi
 
 ### 13.4 QKD Link Budget
 
-| Parameter | Nilai | Catatan |
-|-----------|-------|---------|
-| Sekret key rate (50 km fiber) | ~1-10 Mbps | State-of-art |
-| Sekret key rate (100 km fiber) | ~100 kbps | Harga fiber loss |
-| Sekret key rate (satellite-ke-ground) | ~1-10 kbps | Dipengaruhi cuaca |
-| Dark count rate | ~10⁻⁶ per gate | Detektor SPAD |
-| QBER threshold | ~11% | Decoy BB84 |
+| Parameter                             | Nilai          | Catatan           |
+| ------------------------------------- | -------------- | ----------------- |
+| Sekret key rate (50 km fiber)         | ~1-10 Mbps     | State-of-art      |
+| Sekret key rate (100 km fiber)        | ~100 kbps      | Harga fiber loss  |
+| Sekret key rate (satellite-ke-ground) | ~1-10 kbps     | Dipengaruhi cuaca |
+| Dark count rate                       | ~10⁻⁶ per gate | Detektor SPAD     |
+| QBER threshold                        | ~11%           | Decoy BB84        |
 
 ---
 
@@ -871,13 +878,13 @@ Dengan membandingkan gain dan error rate dari different intensitas, Alice-Bob bi
 
 **Micius** (2016) adalah satelit QKD pertama di dunia:
 
-| Achievement | Detail |
-|------------|--------|
-| Satelit-ke-ground QKD | Kirim key dari 500 km orbit |
-| Intercontinental QKD | China → Austria (7,600 km) |
-| Quantum entanglement distribution | 1,200 km (jarak terjauh) |
-| Microwave-based QKD | First demonstration |
-| Key rate | ~1 kbps dari space-ke-ground |
+| Achievement                       | Detail                       |
+| --------------------------------- | ---------------------------- |
+| Satelit-ke-ground QKD             | Kirim key dari 500 km orbit  |
+| Intercontinental QKD              | China → Austria (7,600 km)   |
+| Quantum entanglement distribution | 1,200 km (jarak terjauh)     |
+| Microwave-based QKD               | First demonstration          |
+| Key rate                          | ~1 kbps dari space-ke-ground |
 
 ### 14.2 Arsitektur QKD Satelit
 
@@ -898,13 +905,13 @@ Dengan membandingkan gain dan error rate dari different intensitas, Alice-Bob bi
 
 ### 14.3 Tantangan Satellite QKD
 
-| Challenge | Issue | Mitigation |
-|-----------|-------|-----------|
-| Atmospheric turbulence | Beam distortion, phase noise | Adaptive optics |
-| Daytime background | Solar noise | Narrow filters, tracking |
-| Pointing stability | Micro-vibrations | Active tracking (AOD) |
-| Cloud cover | Blocked line-of-sight | Multiple ground stations |
-| Key rate | Limited by diffraction | Larger telescope apertures |
+| Challenge              | Issue                        | Mitigation                 |
+| ---------------------- | ---------------------------- | -------------------------- |
+| Atmospheric turbulence | Beam distortion, phase noise | Adaptive optics            |
+| Daytime background     | Solar noise                  | Narrow filters, tracking   |
+| Pointing stability     | Micro-vibrations             | Active tracking (AOD)      |
+| Cloud cover            | Blocked line-of-sight        | Multiple ground stations   |
+| Key rate               | Limited by diffraction       | Larger telescope apertures |
 
 ### 14.4 Next-Generation Satellite QKD
 
@@ -930,12 +937,12 @@ Superconducting qubits adalah **circuit QED** — menggunakan Josephson junction
 
 ### 15.2 Major Players
 
-| Company | Platform | Qubits (2026) | Rekor |
-|---------|----------|--------------|-------|
-| **IBM** | Superconducting (Falcon → Condor) | 1,121+ | Condor (1,121 qubit), Heron (133, improved gate) |
-| **Google** | Superconducting (Sycamore → Willow) | 105+ (Willow) | Beyond-classical (2019), Willow error correction breakthrough |
-| **Rigetti** | Superconducting (Ankaa) | 84-336 | Multi-chip modular |
-| **IQM** | Superconducting (Adonis) | 20-54 | Co-design approach |
+| Company     | Platform                            | Qubits (2026) | Rekor                                                         |
+| ----------- | ----------------------------------- | ------------- | ------------------------------------------------------------- |
+| **IBM**     | Superconducting (Falcon → Condor)   | 1,121+        | Condor (1,121 qubit), Heron (133, improved gate)              |
+| **Google**  | Superconducting (Sycamore → Willow) | 105+ (Willow) | Beyond-classical (2019), Willow error correction breakthrough |
+| **Rigetti** | Superconducting (Ankaa)             | 84-336        | Multi-chip modular                                            |
+| **IQM**     | Superconducting (Adonis)            | 20-54         | Co-design approach                                            |
 
 ### 15.3 Google Willow (2024-2025)
 
@@ -948,13 +955,13 @@ Google's **Willow** processor adalah milestone besar:
 
 ### 15.4 IBM Quantum Roadmap
 
-| Year | Processor | Key Feature |
-|------|-----------|-------------|
-| 2023 | Condor (1,121) + Heron (133) | High qubit count + improved gate |
-| 2024 | Heron (improved) | 5,000+ 2-qubit gates before error |
-| 2025 | Flamingo | Multi-chip QPU interconnect |
-| 2026 | — | Parallel multi-QPU, 100+ logical qubits |
-| 2027+ | — | ~200 logical qubits, error correction scaling |
+| Year  | Processor                    | Key Feature                                   |
+| ----- | ---------------------------- | --------------------------------------------- |
+| 2023  | Condor (1,121) + Heron (133) | High qubit count + improved gate              |
+| 2024  | Heron (improved)             | 5,000+ 2-qubit gates before error             |
+| 2025  | Flamingo                     | Multi-chip QPU interconnect                   |
+| 2026  | —                            | Parallel multi-QPU, 100+ logical qubits       |
+| 2027+ | —                            | ~200 logical qubits, error correction scaling |
 
 ---
 
@@ -964,12 +971,12 @@ Google's **Willow** processor adalah milestone besar:
 
 **Trapped ion** menggunakan ion yang terperangkap di **Paul trap**, dimanipulasi dengan laser:
 
-| Aspect | Karakteristik |
-|--------|-------------|
-| Gate fidelity | **Tertinggi** — 99.99% single, 99.8% two-qubit |
-| Coherence time | Sangat panjang (menit hingga jam) |
-| Connectivity | All-to-all (karena ion bisa bergerak) |
-| Scalability | Challenging — ion count limited |
+| Aspect         | Karakteristik                                  |
+| -------------- | ---------------------------------------------- |
+| Gate fidelity  | **Tertinggi** — 99.99% single, 99.8% two-qubit |
+| Coherence time | Sangat panjang (menit hingga jam)              |
+| Connectivity   | All-to-all (karena ion bisa bergerak)          |
+| Scalability    | Challenging — ion count limited                |
 
 **Quantinuum H2**: 56 trapped ion qubits dengan all-to-all connectivity. **IonQ Aria** dan **Forte**: 36 qubit generasi terbaru.
 
@@ -977,22 +984,22 @@ Google's **Willow** processor adalah milestone besar:
 
 **Photonic** menggunakan photon sebagai qubit:
 
-| Aspect | Karakteristik |
-|--------|-------------|
-| Qubit implementation | Foton dalam optical waveguide/silicon photonics |
-| Temperatur operasi | Room temperature (tapi detektor perlu cryogenic) |
-| Entanglement | Berbasis beam splitter dan nonlinear optics |
-| Lost mechanism | Photon loss — tantangan terbesar |
+| Aspect               | Karakteristik                                    |
+| -------------------- | ------------------------------------------------ |
+| Qubit implementation | Foton dalam optical waveguide/silicon photonics  |
+| Temperatur operasi   | Room temperature (tapi detektor perlu cryogenic) |
+| Entanglement         | Berbasis beam splitter dan nonlinear optics      |
+| Lost mechanism       | Photon loss — tantangan terbesar                 |
 
 ### 16.3 Perbandingan Modalitas Hardware
 
-| Parameter | Superconducting | Trapped Ion | Photonic | Neutral Atom |
-|-----------|---------------|------------|----------|-------------|
-| **Qubit count** | 100+ (1,000+) | 30-60 | 216 (Xanadu) | 256+ (QuEra) |
-| **Gate fidelity** | 99.9% | **99.99%** | 99.0% | 99.5% |
-| **Coherence time** | ~100 µs | **~10 min** | ~ms | ~1 s |
-| **Temperatur** | ~15 mK | Room temp (trap) + laser | Room temp / cryogenic | ~10 µK (laser cooling) |
-| **Scalability** | Chip fabrication | Ion transport challenges | Loss scaling | +1D/2D arrays |
+| Parameter          | Superconducting  | Trapped Ion              | Photonic              | Neutral Atom           |
+| ------------------ | ---------------- | ------------------------ | --------------------- | ---------------------- |
+| **Qubit count**    | 100+ (1,000+)    | 30-60                    | 216 (Xanadu)          | 256+ (QuEra)           |
+| **Gate fidelity**  | 99.9%            | **99.99%**               | 99.0%                 | 99.5%                  |
+| **Coherence time** | ~100 µs          | **~10 min**              | ~ms                   | ~1 s                   |
+| **Temperatur**     | ~15 mK           | Room temp (trap) + laser | Room temp / cryogenic | ~10 µK (laser cooling) |
+| **Scalability**    | Chip fabrication | Ion transport challenges | Loss scaling          | +1D/2D arrays          |
 
 ---
 
@@ -1009,13 +1016,13 @@ Google's **Willow** processor adalah milestone besar:
 
 **Majorana zero modes** (MZM) adalah quasipartikel yang identik dengan antipartikelnya (Majorana fermion). Microsoft menghabiskan ~$10B untuk research ini:
 
-| Tahun | Event |
-|-------|-------|
-| 2018 | Microsoft mengklaim deteksi Majorana (Delft experiment) — kemudian **retracted** |
-| 2021 | Nature paper: topological gap protocol — klaim lebih kuat |
-| 2023 | Microsoft Mars: 3 topological qubits dengan error rate sangat rendah |
-| 2024 | Microsoft melanjutkan — topological qubit array kecil |
-| 2025 | Progress pada topological braiding — masih dalam research |
+| Tahun | Event                                                                            |
+| ----- | -------------------------------------------------------------------------------- |
+| 2018  | Microsoft mengklaim deteksi Majorana (Delft experiment) — kemudian **retracted** |
+| 2021  | Nature paper: topological gap protocol — klaim lebih kuat                        |
+| 2023  | Microsoft Mars: 3 topological qubits dengan error rate sangat rendah             |
+| 2024  | Microsoft melanjutkan — topological qubit array kecil                            |
+| 2025  | Progress pada topological braiding — masih dalam research                        |
 
 ### 17.3 Perbandingan Error Protection
 
@@ -1058,13 +1065,13 @@ Distance d = 3 → correct (d-1)/2 = 1 error
 Physical qubits = (2d-1)² = 25 for d=5
 ```
 
-| Code Distance (d) | Physical Qubits (2D grid) | Correctable Errors |
-|------------------|--------------------------|-------------------|
-| 3 | (2×3−1)² = 25 | 1 |
-| 5 | (2×5−1)² = 81 | 2 |
-| 7 | (2×7−1)² = 169 | 3 |
-| 9 | (2×9−1)² = 289 | 4 |
-| d | (2d-1)² | $\lfloor (d-1)/2 \rfloor$ |
+| Code Distance (d) | Physical Qubits (2D grid) | Correctable Errors        |
+| ----------------- | ------------------------- | ------------------------- |
+| 3                 | (2×3−1)² = 25             | 1                         |
+| 5                 | (2×5−1)² = 81             | 2                         |
+| 7                 | (2×7−1)² = 169            | 3                         |
+| 9                 | (2×9−1)² = 289            | 4                         |
+| d                 | (2d-1)²                   | $\lfloor (d-1)/2 \rfloor$ |
 
 ### 18.3 Google Willow — Below Threshold Milestone
 
@@ -1099,31 +1106,32 @@ d=7:  Logical error ~3×10⁻⁵ per cycle  (100× from d=3)
 
 ### 19.1 Definisi Logical vs Physical Qubit
 
-| Konsep | Penjelasan |
-|--------|-----------|
-| **Physical qubit** | Qubit real di hardware — noisy, short coherence |
-| **Logical qubit** | Encoded dalam banyak physical qubits — protected oleh QEC |
-| **Overhead** | ~1000 physical qubits / logical qubit (surface code, d=7) |
+| Konsep             | Penjelasan                                                |
+| ------------------ | --------------------------------------------------------- |
+| **Physical qubit** | Qubit real di hardware — noisy, short coherence           |
+| **Logical qubit**  | Encoded dalam banyak physical qubits — protected oleh QEC |
+| **Overhead**       | ~1000 physical qubits / logical qubit (surface code, d=7) |
 
 ### 19.2 Fault-Tolerant Threshold Theorem
 
 > **Fault-Tolerant Threshold Theorem**: Jika physical error rate di bawah threshold tertentu, quantum computation bisa dilakukan dengan arbitrary accuracy dengan mengorbankan overhead polynomial.
 
 **Threshold values**:
-| Platform | Estimated Threshold |
-|----------|-------------------|
-| Superconducting (IBM/Google) | ~0.5-1% |
-| Trapped ion | ~1-3% |
-| Topological | ~10% (theoretical) |
+
+| Platform                     | Estimated Threshold |
+| ---------------------------- | ------------------- |
+| Superconducting (IBM/Google) | ~0.5-1%             |
+| Trapped ion                  | ~1-3%               |
+| Topological                  | ~10% (theoretical)  |
 
 ### 19.3 Resource Estimates — Menuju FTQC
 
-| Milestone | Logical Qubits | Physical Qubits | Gate Fidelity | Use Case |
-|-----------|---------------|----------------|---------------|----------|
-| **NISQ** (<2025) | 0 (no FT) | 50-1,000 | 99-99.9% | Heuristic optimization |
-| **Early FT** (2025-2028) | ~10-100 | 10K-100K | 99.99% | QEC demo, chemistry |
-| **100 FT qubits** (2028-2030) | ~100 | 100K-1M | 99.99% | Crypto (Shor 2048 masih jauh) |
-| **FT Cryptography** (2035+) | ~20M | ~20B | <0.1% | **RSA-2048 factorization** |
+| Milestone                     | Logical Qubits | Physical Qubits | Gate Fidelity | Use Case                      |
+| ----------------------------- | -------------- | --------------- | ------------- | ----------------------------- |
+| **NISQ** (<2025)              | 0 (no FT)      | 50-1,000        | 99-99.9%      | Heuristic optimization        |
+| **Early FT** (2025-2028)      | ~10-100        | 10K-100K        | 99.99%        | QEC demo, chemistry           |
+| **100 FT qubits** (2028-2030) | ~100           | 100K-1M         | 99.99%        | Crypto (Shor 2048 masih jauh) |
+| **FT Cryptography** (2035+)   | ~20M           | ~20B            | <0.1%         | **RSA-2048 factorization**    |
 
 ---
 
@@ -1135,14 +1143,14 @@ d=7:  Logical error ~3×10⁻⁵ per cycle  (100× from d=3)
 
 ### 20.2 Estimasi Berbagai Lembaga
 
-| Sumber | Estimasi Y2Q | Metodologi |
-|--------|-------------|-----------|
-| **Global Risk Institute (2024)** | **40-60% kemungkinan 2035** | Expert survey |
-| **McKinsey** | 2035-2040 | Technology adoption curve |
-| **NSA** | "Significant risk before 2035" | Classified |
-| **IBM** | 2030s (extrapolation roadmap) | Hardware roadmap |
-| **Google/Willow team** | "Below threshold at 105 qubits" | Experimental (faktor 10⁶ masih perlu) |
-| **IT-Harvest (2025)** | 15% chance by 2030, 50% by 2035 | Composite model |
+| Sumber                           | Estimasi Y2Q                    | Metodologi                            |
+| -------------------------------- | ------------------------------- | ------------------------------------- |
+| **Global Risk Institute (2024)** | **40-60% kemungkinan 2035**     | Expert survey                         |
+| **McKinsey**                     | 2035-2040                       | Technology adoption curve             |
+| **NSA**                          | "Significant risk before 2035"  | Classified                            |
+| **IBM**                          | 2030s (extrapolation roadmap)   | Hardware roadmap                      |
+| **Google/Willow team**           | "Below threshold at 105 qubits" | Experimental (faktor 10⁶ masih perlu) |
+| **IT-Harvest (2025)**            | 15% chance by 2030, 50% by 2035 | Composite model                       |
 
 ### 20.3 Qubit Requirement untuk RSA-2048
 
@@ -1152,7 +1160,7 @@ RSA-2048 factorization quantum resource roadmap:
 Year   Max Logical Qubits    RSA-2048 Possible?
 ─────────────────────────────────────────────────
 2026   ~1-5 (small QEC)      ❌ No
-2028   ~10-50                ❌ No  
+2028   ~10-50                ❌ No
 2030   ~50-200               ❌ No (need 20M)
 2032   ~200-1,000            ❌ No
 2034   ~1,000-5,000          ❌ Still far
@@ -1164,21 +1172,21 @@ Year   Max Logical Qubits    RSA-2048 Possible?
 
 ### 20.4 Risk Assessment oleh NIST dan NSA
 
-| Organization | Stance |
-|-------------|--------|
-| **NSA** (CNSA 2.0) | "Migrate to PQC by 2035" — CNSA suite 2.0 |
-| **NIST** | "Harus mulai migrate sekarang" |
-| **CISA** | "Quantum-readiness adalah national security priority" |
-| **BSI** (German) | PQC migration timeline 2030+ |
+| Organization       | Stance                                                |
+| ------------------ | ----------------------------------------------------- |
+| **NSA** (CNSA 2.0) | "Migrate to PQC by 2035" — CNSA suite 2.0             |
+| **NIST**           | "Harus mulai migrate sekarang"                        |
+| **CISA**           | "Quantum-readiness adalah national security priority" |
+| **BSI** (German)   | PQC migration timeline 2030+                          |
 
 ### 20.5 Kapan Grover Threat Terjadi?
 
 Grover's threat berbeda — butuh lebih sedikit qubits tapi butuh **sequential depth**:
 
-| Target | Logical Qubits | Depth (gates) | Timeline |
-|--------|---------------|---------------|----------|
-| AES-128 brute force | ~4,800 | ~$2^{64}$ | Extremely long — **sequential** depth besar |
-| SHA-256 collision | ~10,000 | ~$2^{85}$ | Juga jangka panjang |
+| Target              | Logical Qubits | Depth (gates) | Timeline                                    |
+| ------------------- | -------------- | ------------- | ------------------------------------------- |
+| AES-128 brute force | ~4,800         | ~$2^{64}$     | Extremely long — **sequential** depth besar |
+| SHA-256 collision   | ~10,000        | ~$2^{85}$     | Juga jangka panjang                         |
 
 > [!TIP] 💡  
 > Grover quadratic speedup untuk symmetric crypto bisa dimitigasi dengan double key size (AES-128 → AES-256). Shor polynomial speedup untuk asymmetric crypto **tidak bisa** dimitigasi dengan key size — perlu **migrasi ke PQC**.
@@ -1222,7 +1230,7 @@ class PQDoubleRatchet:
         # PQ: CRYSTALS-Kyber KEM
         self.classic_dh = X25519(sk)
         self.pq_kem = KyberKEM()
-        
+
     def ratchet_step(self, dh_output, pq_ct):
         """
         Hybrid ratchet step:
@@ -1239,24 +1247,24 @@ class PQDoubleRatchet:
 
 ### 21.4 Migration Steps untuk Enterprise
 
-| Phase | Action | Timeline |
-|-------|--------|----------|
-| **1. Crypto inventory** | Catalog semua penggunaan RSA/ECDSA, TLS versi | Now |
-| **2. PQC-compatible libraries** | Update ke OpenSSL 3 + OQS provider | 2026-2027 |
-| **3. Hybrid certificates** | Deploy composite certs (X.509 hybrid) | 2027-2028 |
-| **4. Code signature** | PQ + classical dual signing | 2027-2029 |
-| **5. Document signature** | PQ signing untuk compliance | 2028-2030 |
-| **6. Fallback removal** | Disable classical-only key exchange | 2030-2035 |
+| Phase                           | Action                                        | Timeline  |
+| ------------------------------- | --------------------------------------------- | --------- |
+| **1. Crypto inventory**         | Catalog semua penggunaan RSA/ECDSA, TLS versi | Now       |
+| **2. PQC-compatible libraries** | Update ke OpenSSL 3 + OQS provider            | 2026-2027 |
+| **3. Hybrid certificates**      | Deploy composite certs (X.509 hybrid)         | 2027-2028 |
+| **4. Code signature**           | PQ + classical dual signing                   | 2027-2029 |
+| **5. Document signature**       | PQ signing untuk compliance                   | 2028-2030 |
+| **6. Fallback removal**         | Disable classical-only key exchange           | 2030-2035 |
 
 ### 21.5 Tantangan Crypto Agility
 
-| Challenge | Explanation |
-|-----------|------------|
-| **Performance overhead** | PQ signatures ~1-3 KB (vs ECDSA 64-72 B) |
-| **Protocol ossification** | TLS, SSH, IKE sudah rigid — update spec butuh tahunan |
-| **Side-channel resistance** | PQ implementations baru — belum mature constant-time |
-| **Key size explosion** | Kyber PK ~1.2 KB, McEliece ~1 MB |
-| **Network packet size** | TCP MSS, DNS, cert chain size — bisa fragment |
+| Challenge                   | Explanation                                           |
+| --------------------------- | ----------------------------------------------------- |
+| **Performance overhead**    | PQ signatures ~1-3 KB (vs ECDSA 64-72 B)              |
+| **Protocol ossification**   | TLS, SSH, IKE sudah rigid — update spec butuh tahunan |
+| **Side-channel resistance** | PQ implementations baru — belum mature constant-time  |
+| **Key size explosion**      | Kyber PK ~1.2 KB, McEliece ~1 MB                      |
+| **Network packet size**     | TCP MSS, DNS, cert chain size — bisa fragment         |
 
 ---
 
@@ -1268,21 +1276,21 @@ RNG adalah fondasi keamanan kriptografi. **Quantum RNG** menggunakan quantum pro
 
 ### 22.2 QRNG Mechanisms
 
-| Method | Process | Rate |
-|--------|---------|------|
-| **Beam splitter** | Photon path superposition | Mbps |
-| **Phase noise** | Vacuum fluctuation sampling | Gbps |
-| **Shot noise** | Photon counting statistics | Gbps |
-| **Spontaneous** | Parametric down-conversion | Mbps |
+| Method            | Process                     | Rate |
+| ----------------- | --------------------------- | ---- |
+| **Beam splitter** | Photon path superposition   | Mbps |
+| **Phase noise**   | Vacuum fluctuation sampling | Gbps |
+| **Shot noise**    | Photon counting statistics  | Gbps |
+| **Spontaneous**   | Parametric down-conversion  | Mbps |
 
 ### 22.3 Commercial QRNG Chips
 
-| Company | Product | Speed | Size | Price |
-|---------|---------|-------|------|-------|
-| **ID Quantique** | Quantis | 16-64 Mbps | PCIe/USB | ~$1K-5K |
-| **QuNu Labs** | QRNG chip | 1+ Gbps | Chip-scale | OEM |
-| **IBM** | Quantum safe credential | N/A | Server-grade | Integrated |
-| **Cambridge Quantum** | QRNG via TKET | N/A | Cloud | API |
+| Company               | Product                 | Speed      | Size         | Price      |
+| --------------------- | ----------------------- | ---------- | ------------ | ---------- |
+| **ID Quantique**      | Quantis                 | 16-64 Mbps | PCIe/USB     | ~$1K-5K    |
+| **QuNu Labs**         | QRNG chip               | 1+ Gbps    | Chip-scale   | OEM        |
+| **IBM**               | Quantum safe credential | N/A        | Server-grade | Integrated |
+| **Cambridge Quantum** | QRNG via TKET           | N/A        | Cloud        | API        |
 
 ---
 
@@ -1292,25 +1300,25 @@ RNG adalah fondasi keamanan kriptografi. **Quantum RNG** menggunakan quantum pro
 
 **IETF** memiliki working groups aktif untuk PQC integration:
 
-| Draft | Status | Detail |
-|-------|--------|--------|
-| **draft-ietf-tls-hybrid-design** | Active | TLS hybrid key exchange spec |
-| **draft-ietf-tls-hybrid-kem** | Active | KEM-based hybrid in TLS |
-| **draft-ietf-lamps-pq-composite-keys** | Active | X.509 PQ composite certs |
-| **draft-ietf-ipsecme-qss** | Active | Quantum-safe IKEv2 |
-| **draft-ietf-openpgp-pqc** | Active | OpenPGP PQC integration |
-| **draft-jose-cose-pqc** | Active | COSE/JOSE PQC |
+| Draft                                  | Status | Detail                       |
+| -------------------------------------- | ------ | ---------------------------- |
+| **draft-ietf-tls-hybrid-design**       | Active | TLS hybrid key exchange spec |
+| **draft-ietf-tls-hybrid-kem**          | Active | KEM-based hybrid in TLS      |
+| **draft-ietf-lamps-pq-composite-keys** | Active | X.509 PQ composite certs     |
+| **draft-ietf-ipsecme-qss**             | Active | Quantum-safe IKEv2           |
+| **draft-ietf-openpgp-pqc**             | Active | OpenPGP PQC integration      |
+| **draft-jose-cose-pqc**                | Active | COSE/JOSE PQC                |
 
 ### 23.2 Browser PQ/TLS Support (2026)
 
-| Browser | PQ/TLS Status |
-|---------|---------------|
-| **Chrome** | ✅ X25519Kyber768 sejak Chrome 116 (2023) |
+| Browser     | PQ/TLS Status                                       |
+| ----------- | --------------------------------------------------- |
+| **Chrome**  | ✅ X25519Kyber768 sejak Chrome 116 (2023)           |
 | **Firefox** | ✅ X25519Kyber768 di eval — shipping in 127+ (2024) |
-| **Safari** | ❌ Belum PQ — Apple intelligence? |
-| **Edge** | ✅ Juga Chrome-based (X25519Kyber768) |
-| **Curl** | ✅ OQS provider support |
-| **OpenSSH** | ⚠️ Hybrid KEM draft — belum standard |
+| **Safari**  | ❌ Belum PQ — Apple intelligence?                   |
+| **Edge**    | ✅ Juga Chrome-based (X25519Kyber768)               |
+| **Curl**    | ✅ OQS provider support                             |
+| **OpenSSH** | ⚠️ Hybrid KEM draft — belum standard                |
 
 ### 23.3 Post-Quantum VPN
 
@@ -1375,16 +1383,16 @@ watch_items = {
 
 ### 24.4 Tools dan References
 
-| Sumber | Link | Type |
-|--------|------|------|
-| NIST FIPS 203 | https://csrc.nist.gov/pubs/fips/203/final | Standard |
-| OpenQuantumSafe | https://openquantumsafe.org/ | Library |
-| Quantum Algorithm Zoo | https://quantumalgorithmzoo.org/ | Reference |
-| NIST PQC Portal | https://csrc.nist.gov/projects/post-quantum-cryptography | Portal |
-| Qiskit Textbook | https://qiskit.org/textbook/ | Tutorial |
+| Sumber                | Link                                                     | Type      |
+| --------------------- | -------------------------------------------------------- | --------- |
+| NIST FIPS 203         | https://csrc.nist.gov/pubs/fips/203/final                | Standard  |
+| OpenQuantumSafe       | https://openquantumsafe.org/                             | Library   |
+| Quantum Algorithm Zoo | https://quantumalgorithmzoo.org/                         | Reference |
+| NIST PQC Portal       | https://csrc.nist.gov/projects/post-quantum-cryptography | Portal    |
+| Qiskit Textbook       | https://qiskit.org/textbook/                             | Tutorial  |
 
 ---
 
 > [!QUOTE] 📝 Catatan Akhir  
-> *"The quantum threat is not a question of 'if' but 'when'. Cryptography must be quantum-ready before the first RSA-breaking computer is built — not after."*  
-> — ***Vault 801 — Deep Note Catalogus, 2026-07-02***
+> _"The quantum threat is not a question of 'if' but 'when'. Cryptography must be quantum-ready before the first RSA-breaking computer is built — not after."_  
+> — _**Vault 801 — Deep Note Catalogus, 2026-07-02**_

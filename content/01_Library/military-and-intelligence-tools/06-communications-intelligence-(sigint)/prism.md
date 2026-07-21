@@ -1,13 +1,13 @@
 ---
 title: Prism
 tags:
-- 06-communications-intelligence-(sigint)
-- library
-- military-and-intelligence-tools
-created: '2026-06-27'
-updated: '2026-07-01'
+  - 06-communications-intelligence-(sigint)
+  - library
+  - military-and-intelligence-tools
+created: "2026-06-27"
+updated: "2026-07-01"
 status: operational
-cssclasses: ''
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -21,15 +21,15 @@ PRISM bukanlah program intersepsi backbone seperti UPSTREAM. Ia adalah mekanisme
 
 ### Perbedaan Fundamental: PRISM vs UPSTREAM
 
-| Aspek | PRISM | UPSTREAM |
-|-------|-------|----------|
-| **Metode Pengumpulan** | Dari server perusahaan (Facebook, Google, Microsoft, dll.) | TAP fisik pada fiber optic backbone |
-| **Cara Kerja** | NSA mengirim selector ke perusahaan; perusahaan mengirim balik data | NSA mengintersep langsung traffic yang lewat kabel fiber |
-| **Jenis Data** | Email, chat, file, foto, video, VoIP, social media, stored data | Raw internet traffic, metadata, content yang lewat backbone |
-| **Lokasi Target** | Data pengguna yang di-hosting oleh perusahaan AS | Traffic yang melintasi titik TAP fisik (AS dan internasional) |
-| **Otoritas Hukum** | FISA Section 702 (wajibkan perusahaan) | Executive Order 12333 (intersep di luar AS tanpa warrant) |
-| **Cakupan Target** | Hanya non-US persons di luar AS | Siapa saja yang traffic-nya lewat backbone yang dimonitor |
-| **Keterlibatan Perusahaan** | ✅ Ya, perusahaan harus comply | ❌ Tidak, NSA mengintersep sendiri |
+| Aspek                       | PRISM                                                               | UPSTREAM                                                      |
+| --------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Metode Pengumpulan**      | Dari server perusahaan (Facebook, Google, Microsoft, dll.)          | TAP fisik pada fiber optic backbone                           |
+| **Cara Kerja**              | NSA mengirim selector ke perusahaan; perusahaan mengirim balik data | NSA mengintersep langsung traffic yang lewat kabel fiber      |
+| **Jenis Data**              | Email, chat, file, foto, video, VoIP, social media, stored data     | Raw internet traffic, metadata, content yang lewat backbone   |
+| **Lokasi Target**           | Data pengguna yang di-hosting oleh perusahaan AS                    | Traffic yang melintasi titik TAP fisik (AS dan internasional) |
+| **Otoritas Hukum**          | FISA Section 702 (wajibkan perusahaan)                              | Executive Order 12333 (intersep di luar AS tanpa warrant)     |
+| **Cakupan Target**          | Hanya non-US persons di luar AS                                     | Siapa saja yang traffic-nya lewat backbone yang dimonitor     |
+| **Keterlibatan Perusahaan** | ✅ Ya, perusahaan harus comply                                      | ❌ Tidak, NSA mengintersep sendiri                            |
 
 PRISM dan UPSTREAM saling melengkapi: PRISM untuk data yang tersimpan di server, UPSTREAM untuk traffic real-time yang lewat backbone.
 
@@ -74,17 +74,17 @@ PRISM dan UPSTREAM saling melengkapi: PRISM untuk data yang tersimpan di server,
 
 ### Perusahaan yang Terlibat (Dokumen Snowden, 2012-2013)
 
-| Perusahaan | Bergabung Sejak | Jenis Data Utama |
-|------------|-----------------|------------------|
-| **Microsoft** | 2007 | Hotmail/Outlook email, OneDrive files, Skype audio/video/chat |
-| **Yahoo** | 2008 | Yahoo Mail, Yahoo Messenger, Flickr |
-| **Google** | 2009 | Gmail, Google Drive, Google Voice, Hangouts, YouTube |
-| **Facebook** | 2009 | Facebook messages, posts, photos, friend lists, events |
-| **PalTalk** | 2009 | Voice chat, video, text messaging |
-| **YouTube** | 2010 | Video uploads, comments, viewing history |
-| **Skype** | 2011 | Audio calls, video calls, instant messaging |
-| **AOL** | 2011 | AOL Mail, AIM instant messenger |
-| **Apple** | 2012 | iCloud email, iMessage, FaceTime, iCloud backups (terbatas saat itu) |
+| Perusahaan    | Bergabung Sejak | Jenis Data Utama                                                     |
+| ------------- | --------------- | -------------------------------------------------------------------- |
+| **Microsoft** | 2007            | Hotmail/Outlook email, OneDrive files, Skype audio/video/chat        |
+| **Yahoo**     | 2008            | Yahoo Mail, Yahoo Messenger, Flickr                                  |
+| **Google**    | 2009            | Gmail, Google Drive, Google Voice, Hangouts, YouTube                 |
+| **Facebook**  | 2009            | Facebook messages, posts, photos, friend lists, events               |
+| **PalTalk**   | 2009            | Voice chat, video, text messaging                                    |
+| **YouTube**   | 2010            | Video uploads, comments, viewing history                             |
+| **Skype**     | 2011            | Audio calls, video calls, instant messaging                          |
+| **AOL**       | 2011            | AOL Mail, AIM instant messenger                                      |
+| **Apple**     | 2012            | iCloud email, iMessage, FaceTime, iCloud backups (terbatas saat itu) |
 
 Setelah Snowden leaks, beberapa perusahaan mengklaim telah memperkuat enkripsi dan menolak memberikan akses langsung. **Namun, kewajiban hukum Section 702 tetap ada**, dan perusahaan tetap diwajibkan memberikan data ketika menerima FISA order yang sah.
 
@@ -94,19 +94,20 @@ Setelah Snowden leaks, beberapa perusahaan mengklaim telah memperkuat enkripsi d
 
 ### Metadata & Content
 
-| Kategori | Contoh Data |
-|----------|-------------|
-| **Email** | To, From, CC, BCC, Subject, Body, Attachments (file, gambar), timestamp, IP address pengirim/penerima. |
-| **Chat & IM** | Kontak, isi pesan, timestamp, durasi sesi, file yang dikirim. |
-| **VoIP (Skype, dll.)** | Audio call, video call, call duration, participants, IP address. |
-| **Social Media** | Posts, comments, photos, friend lists, profile info, private messages, events. |
-| **File Storage** | File yang diunggah (Google Drive, OneDrive, Dropbox), metadata file. |
-| **Login & Session** | IP address login, browser/device fingerprint, durasi sesi, lokasi. |
-| **Search History** | (Tidak dikonfirmasi, tetapi mungkin via Google/Yahoo) |
+| Kategori               | Contoh Data                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Email**              | To, From, CC, BCC, Subject, Body, Attachments (file, gambar), timestamp, IP address pengirim/penerima. |
+| **Chat & IM**          | Kontak, isi pesan, timestamp, durasi sesi, file yang dikirim.                                          |
+| **VoIP (Skype, dll.)** | Audio call, video call, call duration, participants, IP address.                                       |
+| **Social Media**       | Posts, comments, photos, friend lists, profile info, private messages, events.                         |
+| **File Storage**       | File yang diunggah (Google Drive, OneDrive, Dropbox), metadata file.                                   |
+| **Login & Session**    | IP address login, browser/device fingerprint, durasi sesi, lokasi.                                     |
+| **Search History**     | (Tidak dikonfirmasi, tetapi mungkin via Google/Yahoo)                                                  |
 
 ### Selector (Tasking)
 
 NSA dapat men-target data berdasarkan:
+
 - **Email address**: `target@example.com`
 - **Username / Account ID**: `target_user`
 - **Phone number**: `+1-202-555-0123`
@@ -114,7 +115,7 @@ NSA dapat men-target data berdasarkan:
 - **Cookie / Device ID**: (kemungkinan)
 - **MAC address**: (kemungkinan, via tracking)
 
-Ketika satu selector masuk, PRISM mengumpulkan **semua data yang terkait**: email yang dikirim/diterima, chat history, file, foto, kontak, dan metadata. Tidak hanya untuk target, tetapi juga **"about" collection**: komunikasi yang *membahas* atau *menyebut* target, meskipun pengirim/penerima bukan target. (Praktik "about" collection dihentikan NSA pada 2017 setelah kritik luas).
+Ketika satu selector masuk, PRISM mengumpulkan **semua data yang terkait**: email yang dikirim/diterima, chat history, file, foto, kontak, dan metadata. Tidak hanya untuk target, tetapi juga **"about" collection**: komunikasi yang _membahas_ atau _menyebut_ target, meskipun pengirim/penerima bukan target. (Praktik "about" collection dihentikan NSA pada 2017 setelah kritik luas).
 
 ---
 
@@ -224,13 +225,13 @@ PRISM, dalam desain aslinya, adalah alat kontra-terorisme dan intelijen luar neg
 
 ## 📚 Referensi
 
-- Greenwald, G. & MacAskill, E. (2013). *NSA Prism Program Taps into User Data of Apple, Google and Others* (The Guardian).
-- Gellman, B. & Poitras, L. (2013). *U.S., British Intelligence Mining Data from Nine U.S. Internet Companies in Broad Secret Program* (Washington Post).
-- Snowden, E. (2019). *Permanent Record*. Metropolitan Books.
-- Privacy and Civil Liberties Oversight Board (PCLOB). *Report on the Surveillance Program Operated Pursuant to Section 702 of the Foreign Intelligence Surveillance Act* (2014).
-- NSA. *Section 702 of the FISA Amendments Act: Overview* (dokumen deklasifikasi).
+- Greenwald, G. & MacAskill, E. (2013). _NSA Prism Program Taps into User Data of Apple, Google and Others_ (The Guardian).
+- Gellman, B. & Poitras, L. (2013). _U.S., British Intelligence Mining Data from Nine U.S. Internet Companies in Broad Secret Program_ (Washington Post).
+- Snowden, E. (2019). _Permanent Record_. Metropolitan Books.
+- Privacy and Civil Liberties Oversight Board (PCLOB). _Report on the Surveillance Program Operated Pursuant to Section 702 of the Foreign Intelligence Surveillance Act_ (2014).
+- NSA. _Section 702 of the FISA Amendments Act: Overview_ (dokumen deklasifikasi).
 - MITRE ATT&CK: T1595 (Active Scanning), T1590 (Gather Victim Network Information).
 
 ---
 
-*PRISM Deep Dive | NSA Data Collection Program | FISA Section 702 Mass Surveillance*
+_PRISM Deep Dive | NSA Data Collection Program | FISA Section 702 Mass Surveillance_

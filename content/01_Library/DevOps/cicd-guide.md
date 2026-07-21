@@ -1,19 +1,21 @@
 ---
 title: Cicd Guide
 tags:
-- devops
-- library
-created: '2026-07-01'
-updated: '2026-07-01'
+  - devops
+  - library
+created: "2026-07-01"
+updated: "2026-07-01"
 status: active
 ---
 
-# CI/CD Pipeline Guide 
+# CI/CD Pipeline Guide
+
 > [!tip] Stack: Express + NestJS · Runner: Self-hosted (Ubuntu) · Container: Podman · DB: PostgreSQL/MySQL → Podman
 
 ---
 
 ## Daftar Isi
+
 1. [Prerequisites & Deliverables](#1-prerequisites--deliverables)
 2. [Branching Strategy](#2-branching-strategy)
 3. [Secret Management](#3-secret-management)
@@ -34,14 +36,14 @@ status: active
 
 ### 1.1 Di VM / VPS
 
-| Tool | Cek | Install |
-|---|---|---|
-| Node.js LTS (≥20) | `node -v` | `nvm install --lts` |
-| npm | `npm -v` | Ikut Node.js |
-| Git | `git --version` | `apt install git` |
-| Podman | `podman --version` | `apt install podman` |
-| GitHub Actions Runner | `./svc.sh status` | Lihat §4 |
-| PostgreSQL client | `psql --version` | `apt install postgresql-client` |
+| Tool                  | Cek                | Install                         |
+| --------------------- | ------------------ | ------------------------------- |
+| Node.js LTS (≥20)     | `node -v`          | `nvm install --lts`             |
+| npm                   | `npm -v`           | Ikut Node.js                    |
+| Git                   | `git --version`    | `apt install git`               |
+| Podman                | `podman --version` | `apt install podman`            |
+| GitHub Actions Runner | `./svc.sh status`  | Lihat §4                        |
+| PostgreSQL client     | `psql --version`   | `apt install postgresql-client` |
 
 > [!tip] `[SKIP jika sudah ada]` — jangan reinstall jika versi sudah memenuhi syarat.
 
@@ -84,6 +86,7 @@ hotfix/token-expiry-crash
 Masuk: **GitHub Repo → Settings → Branches → Add rule**
 
 **Untuk branch `main`:**
+
 ```
 ✅ Require pull request before merging
 ✅ Require approvals: 1
@@ -95,6 +98,7 @@ Masuk: **GitHub Repo → Settings → Branches → Add rule**
 ```
 
 **Untuk branch `develop`:**
+
 ```
 ✅ Require pull request before merging
 ✅ Require status checks to pass (pilih: CI Pipeline)
@@ -111,14 +115,14 @@ Masuk: **GitHub Repo → Settings → Branches → Add rule**
 
 Masuk: **Repo → Settings → Secrets and variables → Actions → New repository secret**
 
-| Secret Name | Isi |
-|---|---|
-| `DB_HOST` | IP atau hostname database |
-| `DB_PORT` | Port database |
-| `DB_NAME` | Nama database |
-| `DB_USER` | Username database |
-| `DB_PASSWORD` | Password database |
-| `JWT_SECRET` | Secret untuk JWT |
+| Secret Name      | Isi                                      |
+| ---------------- | ---------------------------------------- |
+| `DB_HOST`        | IP atau hostname database                |
+| `DB_PORT`        | Port database                            |
+| `DB_NAME`        | Nama database                            |
+| `DB_USER`        | Username database                        |
+| `DB_PASSWORD`    | Password database                        |
+| `JWT_SECRET`     | Secret untuk JWT                         |
 | `DEPLOY_SSH_KEY` | Private key SSH ke VPS (jika CD via SSH) |
 
 ### 3.2 .env.example di Repo
@@ -226,8 +230,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       # ── 3. DELIVERABLES / DEPENDENCIES ───────────────
       - name: Install dependencies
@@ -284,6 +288,7 @@ jobs:
 | `npm audit` gagal    | Jalankan `npm audit fix`. Jika tidak bisa auto-fix, review manual dan buat keputusan apakah acceptable risk. |
 | Build gagal          | Cek error log di Actions. Biasanya import missing atau env var tidak tersedia.                               |
 | Test gagal           | Lihat test output. Jangan merge sebelum test hijau.                                                          |
+
 ## 6. Containerization — Podman
 
 ### 6.1 Prinsip Utama
@@ -330,7 +335,7 @@ CMD ["node", "dist/main.js"]
 ### 6.4 podman-compose.yml
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
@@ -519,13 +524,13 @@ name: CD Pipeline
 
 on:
   push:
-    branches: [main]    # Hanya deploy ke production dari main
+    branches: [main] # Hanya deploy ke production dari main
 
 jobs:
   deploy:
     name: Build & Deploy
     runs-on: self-hosted
-    needs: []           # Tambahkan job CI di sini jika dalam satu workflow
+    needs: [] # Tambahkan job CI di sini jika dalam satu workflow
 
     steps:
       - name: Checkout
@@ -581,9 +586,9 @@ health() {
 
 ```javascript
 // Express
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() })
+})
 ```
 
 ---
@@ -624,12 +629,12 @@ podman exec -i [container-db] \
 
 ### 9.4 Kapan Pakai Rollback Level Berapa
 
-| Situasi | Level |
-|---|---|
-| Container crash setelah deploy | 1 |
-| Bug kritis ditemukan setelah deploy | 1 atau 2 |
-| Data corrupt setelah migrasi DB | 3 |
-| Code logic error, tidak ada masalah data | 2 |
+| Situasi                                  | Level    |
+| ---------------------------------------- | -------- |
+| Container crash setelah deploy           | 1        |
+| Bug kritis ditemukan setelah deploy      | 1 atau 2 |
+| Data corrupt setelah migrasi DB          | 3        |
+| Code logic error, tidak ada masalah data | 2        |
 
 ---
 
@@ -640,19 +645,19 @@ podman exec -i [container-db] \
 Tambahkan di akhir job CI/CD:
 
 ```yaml
-      - name: Notify on failure
-        if: failure()
-        run: |
-          curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
-            -H 'Content-Type: application/json' \
-            -d '{"content": "❌ Pipeline gagal di branch **${{ github.ref_name }}** — commit `${{ github.sha }}`"}'
+- name: Notify on failure
+  if: failure()
+  run: |
+    curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
+      -H 'Content-Type: application/json' \
+      -d '{"content": "❌ Pipeline gagal di branch **${{ github.ref_name }}** — commit `${{ github.sha }}`"}'
 
-      - name: Notify on success
-        if: success()
-        run: |
-          curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
-            -H 'Content-Type: application/json' \
-            -d '{"content": "✅ Deploy berhasil — branch **${{ github.ref_name }}**"}'
+- name: Notify on success
+  if: success()
+  run: |
+    curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
+      -H 'Content-Type: application/json' \
+      -d '{"content": "✅ Deploy berhasil — branch **${{ github.ref_name }}**"}'
 ```
 
 ### 10.2 GitHub Actions Default Notifikasi
@@ -665,6 +670,7 @@ GitHub otomatis kirim email ke committer jika pipeline gagal. Pastikan email not
 ## 11. Master Checklist
 
 ### Setup Awal
+
 - [ ] Repo sudah konsolidasi (bukan per orang)
 - [ ] Branch `main` dan `develop` ada
 - [ ] `.gitignore` mencakup `.env` dan `node_modules`
@@ -674,6 +680,7 @@ GitHub otomatis kirim email ke committer jika pipeline gagal. Pastikan email not
 - [ ] Branch protection aktif untuk `main` dan `develop`
 
 ### CI Pipeline
+
 - [ ] `ci.yml` sudah ada di `.github/workflows/`
 - [ ] Lint berjalan tanpa error
 - [ ] Build berhasil
@@ -681,12 +688,14 @@ GitHub otomatis kirim email ke committer jika pipeline gagal. Pastikan email not
 - [ ] Pipeline fail → PR tidak bisa merge (branch protection enforce)
 
 ### Containerization
+
 - [ ] `Containerfile` sudah dibuat dan tested lokal
 - [ ] `podman-compose.yml` sudah dikonfigurasi
 - [ ] Health check endpoint tersedia di aplikasi
 - [ ] Strategi update versi sudah dipahami tim
 
 ### Database Migration
+
 - [ ] Backup terakhir tersimpan di lokasi aman
 - [ ] Container DB staging sudah ditest
 - [ ] Query kritis sudah diverifikasi di staging
@@ -694,6 +703,7 @@ GitHub otomatis kirim email ke committer jika pipeline gagal. Pastikan email not
 - [ ] Native DB tetap hidup sampai 1-2 hari setelah cutover
 
 ### CD Pipeline
+
 - [ ] `cd.yml` hanya trigger dari branch `main`
 - [ ] Health check setelah deploy berjalan
 - [ ] Rollback container bisa dilakukan dalam < 5 menit
@@ -701,4 +711,4 @@ GitHub otomatis kirim email ke committer jika pipeline gagal. Pastikan email not
 
 ---
 
-*Dokumen ini dibuat sebagai referensi kerja internal — update sesuai kondisi infrastructure yang berkembang.*
+_Dokumen ini dibuat sebagai referensi kerja internal — update sesuai kondisi infrastructure yang berkembang._

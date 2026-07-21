@@ -34,7 +34,7 @@ cssclasses:
 
 ## Daftar Isi
 
-- [[#1. First Principles: Mengapa Parsing Sulit?]]
+- [[#1. First Principles]]
 - [[#2. Arsitektur Pipeline Parsing]]
 - [[#3. Implementasi per Format]]
 - [[#4. Cleaning & Normalization]]
@@ -53,6 +53,7 @@ cssclasses:
 Dokumen digital, terutama PDF, dirancang untuk **tampilan visual yang konsisten**, bukan untuk ekstraksi teks. Teks bisa tersimpan sebagai karakter individual dengan koordinat absolut, bukan sebagai paragraf yang mengalir. Sebuah tabel mungkin bukan "tabel" dalam kode, melainkan serangkaian kotak teks yang diposisikan secara visual agar terlihat seperti tabel bagi mata manusia.
 
 **Masalah fundamental:**
+
 - **Urutan Membaca:** Teks multi-kolom bisa terbaca sebagai satu baris yang melompat dari kolom kiri ke kanan
 - **Header/Footer:** Nomor halaman, judul bab berulang, dan catatan kaki ikut terekstrak sebagai teks yang tidak relevan
 - **Tabel:** Data tabular kehilangan strukturnya dan menjadi teks yang tidak koheren
@@ -60,14 +61,14 @@ Dokumen digital, terutama PDF, dirancang untuk **tampilan visual yang konsisten*
 
 ### 1.2 Spektrum Format Dokumen
 
-| Format | Kompleksitas | Tools Utama | Skenario Vault |
-|--------|-------------|-------------|----------------|
-| **Markdown** | 🟢 Sangat Rendah | `MarkdownHeaderTextSplitter` | Dokumen vault sendiri (sudah optimal) |
-| **HTML** | 🟡 Rendah-Sedang | `BeautifulSoup`, `Unstructured` | Web scraping, arsip blog |
-| **Word (DOCX)** | 🟡 Sedang | `python-docx`, `Unstructured` | Laporan internal, whitepaper |
-| **PDF (Digital)** | 🔴 Tinggi | `PyMuPDF`, `pdfplumber` | Paper akademik, laporan resmi |
-| **PDF (Scanned/OCR)** | 🔴 Sangat Tinggi | `Tesseract`, `Azure Document Intelligence` | Dokumen historis, faks |
-| **Gambar (Screenshot)** | 🔴 Sangat Tinggi | `LlamaParse`, GPT-4V | Infografis, slide presentasi |
+| Format                  | Kompleksitas     | Tools Utama                                | Skenario Vault                        |
+| ----------------------- | ---------------- | ------------------------------------------ | ------------------------------------- |
+| **Markdown**            | 🟢 Sangat Rendah | `MarkdownHeaderTextSplitter`               | Dokumen vault sendiri (sudah optimal) |
+| **HTML**                | 🟡 Rendah-Sedang | `BeautifulSoup`, `Unstructured`            | Web scraping, arsip blog              |
+| **Word (DOCX)**         | 🟡 Sedang        | `python-docx`, `Unstructured`              | Laporan internal, whitepaper          |
+| **PDF (Digital)**       | 🔴 Tinggi        | `PyMuPDF`, `pdfplumber`                    | Paper akademik, laporan resmi         |
+| **PDF (Scanned/OCR)**   | 🔴 Sangat Tinggi | `Tesseract`, `Azure Document Intelligence` | Dokumen historis, faks                |
+| **Gambar (Screenshot)** | 🔴 Sangat Tinggi | `LlamaParse`, GPT-4V                       | Infografis, slide presentasi          |
 
 ---
 
@@ -249,14 +250,14 @@ def clean_extracted_text(text: str) -> str:
 
 ## 5. Perbandingan Tools
 
-| Tool | Format Terbaik | Keunggulan | Kelemahan | Biaya |
-|------|---------------|------------|-----------|-------|
-| **PyMuPDF (fitz)** | PDF digital | 🟢 Cepat, akurat, open-source | 🔴 Tidak bisa OCR | 🟢 Gratis |
-| **pdfplumber** | PDF + tabel | 🟢 Ekstraksi tabel sangat baik | 🟡 Lebih lambat | 🟢 Gratis |
-| **Tesseract** | PDF scan, gambar | 🟢 OCR gratis, banyak bahasa | 🟡 Akurasi bervariasi | 🟢 Gratis |
-| **Unstructured.io** | Semua format | 🟢 Universal, output terstruktur | 🟡 Setup kompleks | 🟢 Gratis (OSS) |
-| **LlamaParse** | Semua kompleks | 🟢 AI-powered, paham konteks visual | 🔴 Biaya API, latency | 🔴 Berbayar |
-| **Azure Document Intel** | Form, invoice | 🟢 Akurasi tinggi, cloud-native | 🔴 Vendor lock-in | 🔴 Berbayar |
+| Tool                     | Format Terbaik   | Keunggulan                          | Kelemahan             | Biaya           |
+| ------------------------ | ---------------- | ----------------------------------- | --------------------- | --------------- |
+| **PyMuPDF (fitz)**       | PDF digital      | 🟢 Cepat, akurat, open-source       | 🔴 Tidak bisa OCR     | 🟢 Gratis       |
+| **pdfplumber**           | PDF + tabel      | 🟢 Ekstraksi tabel sangat baik      | 🟡 Lebih lambat       | 🟢 Gratis       |
+| **Tesseract**            | PDF scan, gambar | 🟢 OCR gratis, banyak bahasa        | 🟡 Akurasi bervariasi | 🟢 Gratis       |
+| **Unstructured.io**      | Semua format     | 🟢 Universal, output terstruktur    | 🟡 Setup kompleks     | 🟢 Gratis (OSS) |
+| **LlamaParse**           | Semua kompleks   | 🟢 AI-powered, paham konteks visual | 🔴 Biaya API, latency | 🔴 Berbayar     |
+| **Azure Document Intel** | Form, invoice    | 🟢 Akurasi tinggi, cloud-native     | 🔴 Vendor lock-in     | 🔴 Berbayar     |
 
 ---
 
@@ -271,13 +272,13 @@ Karena vault mayoritas file Markdown (sudah bersih), fokus parsing adalah **data
 
 ### Roadmap Ingestion
 
-| Phase | Kemampuan | Tools |
-|-------|-----------|-------|
-| **1** (sekarang) | Vault markdown → Chunking → Vector DB | `index_vault.py` |
-| **2** | + PDF ingestion | PyMuPDF → Markdown → pipeline existing |
-| **3** | + Web scraping | Trafilatura → Markdown → pipeline existing |
-| **4** | + DOCX/XLSX | Unstructured → Markdown → pipeline existing |
-| **5** | + OCR pipeline | Tesseract/LlamaParse → Markdown → pipeline existing |
+| Phase            | Kemampuan                             | Tools                                               |
+| ---------------- | ------------------------------------- | --------------------------------------------------- |
+| **1** (sekarang) | Vault markdown → Chunking → Vector DB | `index_vault.py`                                    |
+| **2**            | + PDF ingestion                       | PyMuPDF → Markdown → pipeline existing              |
+| **3**            | + Web scraping                        | Trafilatura → Markdown → pipeline existing          |
+| **4**            | + DOCX/XLSX                           | Unstructured → Markdown → pipeline existing         |
+| **5**            | + OCR pipeline                        | Tesseract/LlamaParse → Markdown → pipeline existing |
 
 ---
 

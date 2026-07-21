@@ -1,12 +1,12 @@
 ---
 title: Data Engineering
 tags:
-- atlas
-- roadmap
-created: '2026-04-25'
-updated: '2026-07-01'
+  - atlas
+  - roadmap
+created: "2026-04-25"
+updated: "2026-07-01"
 status: active
-cssclasses: ''
+cssclasses: ""
 ---
 
 # 📊 Roadmap Data Engineering
@@ -42,13 +42,13 @@ Next step: Install Python, DuckDB, setup Docker Compose untuk PostgreSQL + Airfl
 > **Goal:** SQL dan Python HARUS di level intermediate sebelum melangkah. Tidak ada shortcut.
 > **RAM Impact:** Minimal — editor + terminal + database.
 
-| Skill | Yang Dipelajari | Combo A+B yang Membuktikan |
-|-------|-----------------|---------------------------|
-| **SQL Advanced** | Window functions, CTEs, subqueries, EXPLAIN, indexing, partitioning | SQL + **complex analytical query** = kamu bisa jawab business question langsung |
-| **Python Data** | pandas, polars, file I/O, API calls, error handling, typing | Python + **data transformation pipeline** = kamu bisa process data programmatically |
-| **Linux & Shell** | Bash scripting, cron, ssh, file system, process management | Linux + **scheduled script** = kamu bisa automate tanpa UI |
-| **Docker** | Container, Compose, networking, volume mount, multi-service | Docker + **local dev environment** = consistent setup everywhere |
-| **Git** | Branching, PR, versioning, .gitignore untuk data | Git + **versioned pipeline code** = kamu treat data pipeline seperti software |
+| Skill             | Yang Dipelajari                                                     | Combo A+B yang Membuktikan                                                          |
+| ----------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **SQL Advanced**  | Window functions, CTEs, subqueries, EXPLAIN, indexing, partitioning | SQL + **complex analytical query** = kamu bisa jawab business question langsung     |
+| **Python Data**   | pandas, polars, file I/O, API calls, error handling, typing         | Python + **data transformation pipeline** = kamu bisa process data programmatically |
+| **Linux & Shell** | Bash scripting, cron, ssh, file system, process management          | Linux + **scheduled script** = kamu bisa automate tanpa UI                          |
+| **Docker**        | Container, Compose, networking, volume mount, multi-service         | Docker + **local dev environment** = consistent setup everywhere                    |
+| **Git**           | Branching, PR, versioning, .gitignore untuk data                    | Git + **versioned pipeline code** = kamu treat data pipeline seperti software       |
 
 > [!tip] DuckDB Adalah Game Changer
 > Untuk belajar SQL advanced, pakai **DuckDB** — analytical database yang jalan di local tanpa server. Import CSV/Parquet langsung, query secepat Spark untuk data <10GB. Zero setup, zero RAM overhead. Perfect untuk homelab.
@@ -63,13 +63,13 @@ Next step: Install Python, DuckDB, setup Docker Compose untuk PostgreSQL + Airfl
 > **Goal:** Bangun pipeline pertama yang extract → transform → load secara otomatis.
 > **RAM Impact:** Airflow ~1-2GB. PostgreSQL ~500MB. Matikan service lain.
 
-| Tool/Skill | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
-|------------|-----|-----------------|---------------------------|
-| **Apache Airflow** | ~1.5GB | DAG-based orchestration, scheduling, dependency, retry, alerting | Airflow + **custom DAG dengan error handling** = kamu bisa orchestrate production pipeline |
-| **dbt (data build tool)** | ~200MB | SQL-based transformation, testing, documentation, lineage | dbt + **tested models** = kamu bisa transform dan validate data di warehouse |
-| **PostgreSQL** | ~500MB | Warehouse sederhana — schema design, materialized views, partitioning | PostgreSQL + **analytical schema** = kamu paham dimensional modeling |
-| **API Extraction** | — | REST API, pagination, rate limiting, error handling, incremental load | API + **idempotent extraction** = kamu bisa build reliable ingestion |
-| **File Formats** | — | CSV, JSON, Parquet, Avro — kapan pakai apa dan kenapa | Format + **performance comparison** = kamu paham storage optimization |
+| Tool/Skill                | RAM    | Yang Dipelajari                                                       | Combo A+B yang Membuktikan                                                                 |
+| ------------------------- | ------ | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Apache Airflow**        | ~1.5GB | DAG-based orchestration, scheduling, dependency, retry, alerting      | Airflow + **custom DAG dengan error handling** = kamu bisa orchestrate production pipeline |
+| **dbt (data build tool)** | ~200MB | SQL-based transformation, testing, documentation, lineage             | dbt + **tested models** = kamu bisa transform dan validate data di warehouse               |
+| **PostgreSQL**            | ~500MB | Warehouse sederhana — schema design, materialized views, partitioning | PostgreSQL + **analytical schema** = kamu paham dimensional modeling                       |
+| **API Extraction**        | —      | REST API, pagination, rate limiting, error handling, incremental load | API + **idempotent extraction** = kamu bisa build reliable ingestion                       |
+| **File Formats**          | —      | CSV, JSON, Parquet, Avro — kapan pakai apa dan kenapa                 | Format + **performance comparison** = kamu paham storage optimization                      |
 
 > [!warning] Airflow di 8GB RAM
 > Pakai **Airflow standalone mode** (bukan CeleryExecutor). Set `AIRFLOW__CORE__PARALLELISM=4` dan `AIRFLOW__CORE__DAG_CONCURRENCY=2`. Cukup untuk belajar. Matikan Wazuh/Suricata kalau jalan bersamaan.
@@ -84,13 +84,13 @@ Next step: Install Python, DuckDB, setup Docker Compose untuk PostgreSQL + Airfl
 > **Goal:** Dari single database → proper data warehouse dengan modeling methodology.
 > **RAM Impact:** Spark heavy. Pakai Polars untuk homelab (10x lebih ringan).
 
-| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
-|------------|-----|-----------------|---------------------------|
-| **Dimensional Modeling** | — | Star schema, snowflake schema, SCD Type 1/2, fact vs dimension table | Modeling + **implemented warehouse** = kamu bisa design data architecture |
-| **Polars / PySpark** | ~500MB–2GB | DataFrame API, lazy evaluation, partitioning, join strategies | Polars + **large dataset processing** = kamu bisa process data yang tidak muat di pandas |
-| **Parquet / Delta Lake** | — | Columnar storage, schema evolution, time travel, ACID on files | Parquet + **partitioned data lake** = kamu paham modern data storage |
-| **MinIO (S3-compatible)** | ~500MB | Object storage — data lake layer, lifecycle policies | MinIO + **partitioned storage** = kamu punya data lake di homelab |
-| **Great Expectations** | ~300MB | Data quality — expectations, validation, profiling, docs | GX + **automated testing** = kamu bisa prove data quality to stakeholders |
+| Skill/Tool                | RAM        | Yang Dipelajari                                                      | Combo A+B yang Membuktikan                                                               |
+| ------------------------- | ---------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Dimensional Modeling**  | —          | Star schema, snowflake schema, SCD Type 1/2, fact vs dimension table | Modeling + **implemented warehouse** = kamu bisa design data architecture                |
+| **Polars / PySpark**      | ~500MB–2GB | DataFrame API, lazy evaluation, partitioning, join strategies        | Polars + **large dataset processing** = kamu bisa process data yang tidak muat di pandas |
+| **Parquet / Delta Lake**  | —          | Columnar storage, schema evolution, time travel, ACID on files       | Parquet + **partitioned data lake** = kamu paham modern data storage                     |
+| **MinIO (S3-compatible)** | ~500MB     | Object storage — data lake layer, lifecycle policies                 | MinIO + **partitioned storage** = kamu punya data lake di homelab                        |
+| **Great Expectations**    | ~300MB     | Data quality — expectations, validation, profiling, docs             | GX + **automated testing** = kamu bisa prove data quality to stakeholders                |
 
 > [!tip] Polars vs PySpark untuk Homelab
 > **Pakai Polars.** PySpark butuh JVM + Spark cluster (~3GB minimum). Polars jalan native di Python, 10-100x lebih cepat dari pandas, dan API mirip Spark. Kalau interview tanya Spark, bilang "saya pakai Polars untuk local, konsep lazy evaluation dan partitioning sama — saya bisa switch ke Spark di cluster." Rekruter mengerti.
@@ -105,13 +105,13 @@ Next step: Install Python, DuckDB, setup Docker Compose untuk PostgreSQL + Airfl
 > **Goal:** Real-time data processing dan production-grade data platform.
 > **RAM Impact:** Kafka heavy (~2GB). Pelajari konsep dulu, jalankan hanya saat khusus belajar.
 
-| Skill/Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
-|------------|-----|-----------------|---------------------------|
-| **Apache Kafka** | ~2GB | Event streaming, topic/partition, consumer group, exactly-once | Kafka + **streaming pipeline** = kamu bisa handle real-time data |
-| **Flink / Kafka Streams** | ~1GB | Stream processing, windowing, stateful computation | Stream processing + **real-time dashboard** = kamu paham beyond batch |
-| **Data Contracts** | — | Schema registry, backward/forward compatibility, breaking change detection | Contracts + **enforcement** = kamu bisa manage schema evolution |
-| **Cloud Provider** | Cloud | BigQuery / Redshift / Snowflake — managed warehouse | Cloud + **cost optimization** = kamu bisa migrate on-prem ke cloud |
-| **Metadata / Catalog** | ~500MB | DataHub / Amundsen — data discovery, lineage, ownership | Catalog + **searchable data** = kamu bisa scale data org |
+| Skill/Tool                | RAM    | Yang Dipelajari                                                            | Combo A+B yang Membuktikan                                            |
+| ------------------------- | ------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Apache Kafka**          | ~2GB   | Event streaming, topic/partition, consumer group, exactly-once             | Kafka + **streaming pipeline** = kamu bisa handle real-time data      |
+| **Flink / Kafka Streams** | ~1GB   | Stream processing, windowing, stateful computation                         | Stream processing + **real-time dashboard** = kamu paham beyond batch |
+| **Data Contracts**        | —      | Schema registry, backward/forward compatibility, breaking change detection | Contracts + **enforcement** = kamu bisa manage schema evolution       |
+| **Cloud Provider**        | Cloud  | BigQuery / Redshift / Snowflake — managed warehouse                        | Cloud + **cost optimization** = kamu bisa migrate on-prem ke cloud    |
+| **Metadata / Catalog**    | ~500MB | DataHub / Amundsen — data discovery, lineage, ownership                    | Catalog + **searchable data** = kamu bisa scale data org              |
 
 > [!warning] Kafka di 8GB RAM
 > Kafka butuh ~2GB (broker + ZooKeeper). **Matikan SEMUA service lain.** Atau: pakai **Redpanda** — Kafka-compatible, single binary, butuh cuma ~500MB. API sama, performance lebih baik untuk single node.
@@ -143,26 +143,26 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 
 ## Sertifikasi yang Cocok per Fase
 
-| Fase | Sertifikasi | Kenapa |
-|------|-------------|--------|
-| Setelah Fase 1 | **Google Data Analytics Certificate** (Coursera, gratis) | Fondasi analytics thinking |
-| Setelah Fase 2 | **dbt Analytics Engineering Certification** (gratis) | Industry standard transformation tool |
-| Setelah Fase 3 | **Google Professional Data Engineer** | Comprehensive — design + build + optimize |
-| Setelah Fase 4 | **Databricks Data Engineer Associate/Professional** | Modern lakehouse standard |
+| Fase           | Sertifikasi                                              | Kenapa                                    |
+| -------------- | -------------------------------------------------------- | ----------------------------------------- |
+| Setelah Fase 1 | **Google Data Analytics Certificate** (Coursera, gratis) | Fondasi analytics thinking                |
+| Setelah Fase 2 | **dbt Analytics Engineering Certification** (gratis)     | Industry standard transformation tool     |
+| Setelah Fase 3 | **Google Professional Data Engineer**                    | Comprehensive — design + build + optimize |
+| Setelah Fase 4 | **Databricks Data Engineer Associate/Professional**      | Modern lakehouse standard                 |
 
 ---
 
 ## Stack Comparison — Mana yang Dipilih?
 
-| Komponen | Pilihan Homelab (Gratis) | Pilihan Cloud (Production) | Notes |
-|----------|-------------------------|---------------------------|-------|
-| **Orchestrator** | Airflow (Docker) | Airflow / Dagster / Prefect | Airflow = industry standard, tapi Dagster lebih modern |
-| **Transformation** | dbt Core (CLI) | dbt Cloud | dbt Core gratis dan feature-complete |
-| **Warehouse** | PostgreSQL / DuckDB | BigQuery / Snowflake / Redshift | PostgreSQL cukup untuk belajar konsep |
-| **Storage** | MinIO (S3-compatible) | AWS S3 / GCS | MinIO API identical dengan S3 |
-| **Processing** | Polars (local) | PySpark (cluster) | Konsep sama, scale beda |
-| **Streaming** | Redpanda (single node) | Kafka (managed) | Redpanda = Kafka API, less resource |
-| **Quality** | Great Expectations | Monte Carlo / Soda | GX gratis dan powerful |
+| Komponen           | Pilihan Homelab (Gratis) | Pilihan Cloud (Production)      | Notes                                                  |
+| ------------------ | ------------------------ | ------------------------------- | ------------------------------------------------------ |
+| **Orchestrator**   | Airflow (Docker)         | Airflow / Dagster / Prefect     | Airflow = industry standard, tapi Dagster lebih modern |
+| **Transformation** | dbt Core (CLI)           | dbt Cloud                       | dbt Core gratis dan feature-complete                   |
+| **Warehouse**      | PostgreSQL / DuckDB      | BigQuery / Snowflake / Redshift | PostgreSQL cukup untuk belajar konsep                  |
+| **Storage**        | MinIO (S3-compatible)    | AWS S3 / GCS                    | MinIO API identical dengan S3                          |
+| **Processing**     | Polars (local)           | PySpark (cluster)               | Konsep sama, scale beda                                |
+| **Streaming**      | Redpanda (single node)   | Kafka (managed)                 | Redpanda = Kafka API, less resource                    |
+| **Quality**        | Great Expectations       | Monte Carlo / Soda              | GX gratis dan powerful                                 |
 
 ---
 
@@ -180,4 +180,4 @@ Bulan 1-2         Bulan 3-5         Bulan 6-7         Bulan 8-10
 
 ---
 
-*Roadmap Data Engineering | Fase 1 (SQL/Python) → Fase 4 (Streaming) · 10 Bulan*
+_Roadmap Data Engineering | Fase 1 (SQL/Python) → Fase 4 (Streaming) · 10 Bulan_

@@ -1,19 +1,19 @@
 ---
 title: Ansible Hardening Rocky Linux 9 — Automasi CIS Benchmark + Lynis Tracker
 tags:
-- infrastructure
-- devops
-- ansible
-- hardening
-- rockylinux9
-- cis-benchmark
-- lynis
-- homelab
+  - infrastructure
+  - devops
+  - ansible
+  - hardening
+  - rockylinux9
+  - cis-benchmark
+  - lynis
+  - homelab
 aliases:
-- Rocky Linux Hardening Ansible
-- CIS Rocky 9 Automation
-created: '2026-07-19'
-updated: '2026-07-19'
+  - Rocky Linux Hardening Ansible
+  - CIS Rocky 9 Automation
+created: "2026-07-19"
+updated: "2026-07-19"
 status: active
 ---
 
@@ -37,12 +37,12 @@ status: active
 
 ## Mengapa Otomasi Hardening?
 
-| Pendekatan   | Pro                                          | Kontra                                          |
-| --- | --- | --- |
-| **Manual**     | Bisa detail per-host                          | Tidak reproducible. Drift antar server setelah 2-3 bulan.       |
-| **Bash script ad-hoc** | Cepat ditulis      | Tidak ada idempotency. State drift susah dilacak.                |
-| **Ansible (rekomendasi)** | Idempotent, versioned di git, declarative | Butuh initial learning curve                                    |
-| **Config Management lengkap (Puppet/Salt)** | Powerful, real-time | Overkill untuk ≤ 50 server. Setup cost besar. |
+| Pendekatan                                  | Pro                                       | Kontra                                                    |
+| ------------------------------------------- | ----------------------------------------- | --------------------------------------------------------- |
+| **Manual**                                  | Bisa detail per-host                      | Tidak reproducible. Drift antar server setelah 2-3 bulan. |
+| **Bash script ad-hoc**                      | Cepat ditulis                             | Tidak ada idempotency. State drift susah dilacak.         |
+| **Ansible (rekomendasi)**                   | Idempotent, versioned di git, declarative | Butuh initial learning curve                              |
+| **Config Management lengkap (Puppet/Salt)** | Powerful, real-time                       | Overkill untuk ≤ 50 server. Setup cost besar.             |
 
 Untuk skala VPS-prod (≤ 10 instance) + homelab, **Ansible** sweet spot: setup 1-2 hari, maintain ringan.
 
@@ -50,14 +50,14 @@ Untuk skala VPS-prod (≤ 10 instance) + homelab, **Ansible** sweet spot: setup 
 
 ## Prasyarat
 
-| Komponen | Versi | Catatan |
-| --- | --- | --- |
-| Rocky Linux      | 9.x (latest)                       | Target host. RHEL-9 clone.           |
-| Ansible Core     | 2.15+                              | Control node (laptop / CI-runner).   |
-| Python           | 3.9+                                | Default di Rocky 9.                  |
-| SSH access       | key-based, sudo NOPASSWD           | Untuk user provisioner.              |
-| Lynis            | 3.0+                                | Audit tool. Install via `dnf install lynis` atau GitHub release. |
-| git              | 2.x+                                | Version control untuk playbook.       |
+| Komponen     | Versi                    | Catatan                                                          |
+| ------------ | ------------------------ | ---------------------------------------------------------------- |
+| Rocky Linux  | 9.x (latest)             | Target host. RHEL-9 clone.                                       |
+| Ansible Core | 2.15+                    | Control node (laptop / CI-runner).                               |
+| Python       | 3.9+                     | Default di Rocky 9.                                              |
+| SSH access   | key-based, sudo NOPASSWD | Untuk user provisioner.                                          |
+| Lynis        | 3.0+                     | Audit tool. Install via `dnf install lynis` atau GitHub release. |
+| git          | 2.x+                     | Version control untuk playbook.                                  |
 
 **Control node:** Bisa laptop Fedora 44 (cara lihat [[podman-networking-ufw]]) atau container khusus. Wajib satu network dengan target host (atau pakai `ansible_ssh_common_args` melalui bastion).
 
@@ -163,15 +163,15 @@ ansible-playbook -i inventory/production.ini playbooks/audit_only.yml
 
 ## Role-Ansible Detail
 
-| Role             | Tujuan                                                                    | Tags         |
-| --- | --- | --- |
-| `cis_baseline`     | CIS Level 1: partition, AIDE, disable unused services, sysctl           | `cis_l1`     |
-| `cis_hardened`     | CIS Level 2: SELinux enforcing, MAC, AppArmor strict                     | `cis_l2`     |
-| `auditd_stig`      | Audit daemon + 50+ STIG rules dari DISA STIG profile                     | `stig`       |
-| `ssh_hardening`    | `sshd_config`: no root login, no password auth, MaxAuthTries 3, ...      | `ssh`        |
-| `firewall_base`    | Firewalld: default deny, allow 22/80/443 only                           | `fw`         |
-| `account_lockdown` | pam_faillock (10 fail → lock 15 min), password minlen 14, history 5      | `pam`        |
-| `lynis_tracker`    | Cron weekly Lynis scan + diff vs baseline                                | `audit`      |
+| Role               | Tujuan                                                              | Tags     |
+| ------------------ | ------------------------------------------------------------------- | -------- |
+| `cis_baseline`     | CIS Level 1: partition, AIDE, disable unused services, sysctl       | `cis_l1` |
+| `cis_hardened`     | CIS Level 2: SELinux enforcing, MAC, AppArmor strict                | `cis_l2` |
+| `auditd_stig`      | Audit daemon + 50+ STIG rules dari DISA STIG profile                | `stig`   |
+| `ssh_hardening`    | `sshd_config`: no root login, no password auth, MaxAuthTries 3, ... | `ssh`    |
+| `firewall_base`    | Firewalld: default deny, allow 22/80/443 only                       | `fw`     |
+| `account_lockdown` | pam_faillock (10 fail → lock 15 min), password minlen 14, history 5 | `pam`    |
+| `lynis_tracker`    | Cron weekly Lynis scan + diff vs baseline                           | `audit`  |
 
 ### Contoh: Role `ssh_hardening`
 
@@ -182,14 +182,14 @@ ansible-playbook -i inventory/production.ini playbooks/audit_only.yml
     src: /etc/ssh/sshd_config
     dest: /etc/ssh/sshd_config.backup-{{ ansible_date_time.date }}
     remote_src: true
-  
+
 - name: Deploy hardened sshd_config
   ansible.builtin.template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
   notify: restart_sshd
 
 - name: Regenerate host keys (ed25519 only)
@@ -257,7 +257,7 @@ Pendekatan **principled**: setiap provisioning baru (VPS spin-up) wajib lulus pi
 name: Hardening Compliance Check
 on:
   schedule:
-    - cron: '0 6 * * 1'  # Senin 06:00 UTC
+    - cron: "0 6 * * 1" # Senin 06:00 UTC
 
 jobs:
   lynis-audit:
@@ -285,16 +285,17 @@ Skor target: **Lynis Hardening Index ≥ 75** (Level 1) atau **≥ 85** (Level 2
 
 ## Verifikasi & Rollback
 
-| Item                              | Expected                          | Perintah                                                  |
-| --- | --- | --- |
-| SSH login root                     | **Gagal**                        | `ssh root@<host>`                                        |
-| SSH login dengan password          | **Gagal**                        | Test dengan `-o PreferredAuthentications=password`        |
-| Lynis Hardening Index              | ≥ 75                              | `grep "Hardening index" /var/log/lynis.log`              |
-| CIS sections "OK"                  | ≥ 85%                              | `lynis show details`                                       |
-| Auditd status                      | active (running)                 | `systemctl status auditd`                                |
-| Firewalld                          | default zone 'public', services 22/80/443 only | `firewall-cmd --list-all`                  |
+| Item                      | Expected                                       | Perintah                                           |
+| ------------------------- | ---------------------------------------------- | -------------------------------------------------- |
+| SSH login root            | **Gagal**                                      | `ssh root@<host>`                                  |
+| SSH login dengan password | **Gagal**                                      | Test dengan `-o PreferredAuthentications=password` |
+| Lynis Hardening Index     | ≥ 75                                           | `grep "Hardening index" /var/log/lynis.log`        |
+| CIS sections "OK"         | ≥ 85%                                          | `lynis show details`                               |
+| Auditd status             | active (running)                               | `systemctl status auditd`                          |
+| Firewalld                 | default zone 'public', services 22/80/443 only | `firewall-cmd --list-all`                          |
 
 **Rollback:**
+
 ```bash
 # Restore dari backup sshd_config
 sudo cp /etc/ssh/sshd_config.backup-$(date +%Y-%m-%d) /etc/ssh/sshd_config

@@ -1,14 +1,14 @@
 ---
 title: Production Model Serving & Inference Optimization
 tags:
-- llm
-- serving
-- vllm
-- tgi
-- quantization
-- inference
-created: '2026-07-16'
-updated: '2026-07-16'
+  - llm
+  - serving
+  - vllm
+  - tgi
+  - quantization
+  - inference
+created: "2026-07-16"
+updated: "2026-07-16"
 status: growing
 ---
 
@@ -29,12 +29,12 @@ status: growing
 
 Vault punya `llm-finetuning-toolchain.md` yang detail dari LoRA sampai RLHF. Tapi fine-tuning cuma setengah perjalanan — model yang udah di-tune harus **di-serve** biar bisa dipakai. Gap-nya:
 
-| Fase | Tool | Tantangan |
-|------|------|-----------|
-| **Train** | PyTorch, FSDP, DeepSpeed, Axolotl | Throughput training, memory GPU |
-| **Export** | safetensors, GGUF, ONNX, TensorRT | Format conversion, loss precision |
-| **Serve** | vLLM, TGI, TensorRT-LLM, llama.cpp | **Latency, throughput, memory** |
-| **Optimize** | Quantization, KV cache, batching | Tradeoff quality vs speed |
+| Fase         | Tool                               | Tantangan                         |
+| ------------ | ---------------------------------- | --------------------------------- |
+| **Train**    | PyTorch, FSDP, DeepSpeed, Axolotl  | Throughput training, memory GPU   |
+| **Export**   | safetensors, GGUF, ONNX, TensorRT  | Format conversion, loss precision |
+| **Serve**    | vLLM, TGI, TensorRT-LLM, llama.cpp | **Latency, throughput, memory**   |
+| **Optimize** | Quantization, KV cache, batching   | Tradeoff quality vs speed         |
 
 **Target serving:** throughput tinggi (requests/detik), latency rendah (TTFT, TPOT), memory efisien (muat di GPU terbatas).
 
@@ -47,6 +47,7 @@ Vault punya `llm-finetuning-toolchain.md` yang detail dari LoRA sampai RLHF. Tap
 **Paling populer 2024-2026.** Dibuat oleh UC Berkeley, sekarang di-production oleh banyak perusahaan.
 
 **Core innovation — PagedAttention:**
+
 - **Problem:** KV cache di model standard dialokasikan secara contiguous — external fragmentation & wasted memory
 - **Solution:** PagedAttention — KV cache di-split jadi blocks (pages) seperti virtual memory OS
 - **Hasil:** memory utilization >95% (vs ~60% standard), throughput naik 2-4×
@@ -75,6 +76,7 @@ output = llm.generate(["ceritakan tentang RAG"], sampling_params)
 ```
 
 **Kelebihan:**
+
 - ✅ PagedAttention — memory efisien
 - ✅ Continuous batching — tidak perlu nunggu batch penuh
 - ✅ Prefix caching — kalau prompt sama, shared KV cache
@@ -99,6 +101,7 @@ docker run -d --gpus all \
 ```
 
 **Kelebihan:**
+
 - ✅ Integrasi HuggingFace flawless (tokenizer, pipeline, model hub)
 - ✅ Messages API native (chat template)
 - ✅ Speculative decoding built-in
@@ -128,6 +131,7 @@ trtllm-build \
 ```
 
 **Kelebihan:**
+
 - ✅ **Fastest inference** — sampai 3× vLLM di A100
 - ✅ In-flight batching
 - ✅ PagedAttention (dari vLLM, sudah diadopsi)
@@ -152,6 +156,7 @@ Untuk CPU / edge / GPU terbatas. Format GGUF.
 ```
 
 **Kelebihan:**
+
 - ✅ **CPU inference feasible** — dengan quantization
 - ✅ Ukuran model kecil (7B Q4 = ~4GB)
 - ✅ Portable — satu binary cross-platform
@@ -161,12 +166,12 @@ Untuk CPU / edge / GPU terbatas. Format GGUF.
 
 ### Perbandingan Engine
 
-| Engine | Throughput | Latency | Memory | Setup | Best For |
-|--------|-----------|---------|--------|-------|----------|
-| **vLLM** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Mudah | **Default production** |
-| **TGI** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Mudah | HF ecosystem |
-| **TensorRT-LLM** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Sulit | NVIDIA-only, max perf |
-| **llama.cpp** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Mudah | Edge, CPU, personal |
+| Engine           | Throughput | Latency    | Memory     | Setup | Best For               |
+| ---------------- | ---------- | ---------- | ---------- | ----- | ---------------------- |
+| **vLLM**         | ⭐⭐⭐⭐   | ⭐⭐⭐⭐   | ⭐⭐⭐⭐⭐ | Mudah | **Default production** |
+| **TGI**          | ⭐⭐⭐     | ⭐⭐⭐⭐   | ⭐⭐⭐⭐   | Mudah | HF ecosystem           |
+| **TensorRT-LLM** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Sulit | NVIDIA-only, max perf  |
+| **llama.cpp**    | ⭐⭐       | ⭐⭐⭐     | ⭐⭐⭐⭐⭐ | Mudah | Edge, CPU, personal    |
 
 ---
 
@@ -176,17 +181,18 @@ Quantization = representasi weight dengan bit lebih rendah. Tujuan: model lebih 
 
 ### 3.1 Level Quantization
 
-| Type | Bits | Size 7B | Size 70B | Quality Loss | Speedup |
-|------|------|---------|----------|-------------|---------|
-| **FP16** | 16 | 14 GB | 140 GB | Baseline | 1× |
-| **INT8** | 8 | 7 GB | 70 GB | Minimal | 1.2-1.5× |
-| **INT4** | 4 | 3.5 GB | 35 GB | Sedikit | 1.5-2× |
-| **INT3 / NF3** | 3 | 2.6 GB | 26 GB | Moderate | 2-3× |
-| **INT2** | 2 | 1.8 GB | 18 GB | Signifikan | 3-4× |
+| Type           | Bits | Size 7B | Size 70B | Quality Loss | Speedup  |
+| -------------- | ---- | ------- | -------- | ------------ | -------- |
+| **FP16**       | 16   | 14 GB   | 140 GB   | Baseline     | 1×       |
+| **INT8**       | 8    | 7 GB    | 70 GB    | Minimal      | 1.2-1.5× |
+| **INT4**       | 4    | 3.5 GB  | 35 GB    | Sedikit      | 1.5-2×   |
+| **INT3 / NF3** | 3    | 2.6 GB  | 26 GB    | Moderate     | 2-3×     |
+| **INT2**       | 2    | 1.8 GB  | 18 GB    | Signifikan   | 3-4×     |
 
 ### 3.2 Teknik Quantization
 
 #### GPTQ — Weight-only quantization
+
 - **Post-training:** butuh calibration dataset (sekitar 128 samples)
 - **Metode:** Optimal Brain Quantization — cari quantization yang minim error per weight
 - **Format:** `.gptq` (tapi sering disimpan sebagai safetensors biasa)
@@ -207,6 +213,7 @@ model = AutoGPTQForCausalLM.from_pretrained(
 ```
 
 #### AWQ — Activation-Aware Weight Quantization
+
 - **Lebih baik dari GPTQ** — aware bahwa weight tertentu lebih penting dari yang lain
 - **Metode:** scale up weight yang penting (aktifasi tinggi), scale down yang lain
 - **Hasil:** quality lebih tinggi dari GPTQ di bit yang sama
@@ -222,6 +229,7 @@ llm = LLM(
 ```
 
 #### GGUF — llama.cpp format
+
 - **Kuantisasi weight + sebagian aktivasi**
 - **Metode:** Q2_K, Q3_K, Q4_K_M, Q5_K_M, Q6_K, Q8_0 — varian quality/size tradeoff
 - **K_K_M:** recommended — K-quant dengan half-integer representation
@@ -242,6 +250,7 @@ Priority size:     Q2_K (1.8GB 7B) > Q3_K > Q4_K_M > INT4 > Q6_K > INT8 > Q8_0 >
 ```
 
 **Rekomendasi pragmatic:**
+
 - **GPU ≥ 24GB:** FP16 atau AWQ-4 (vLLM)
 - **GPU 8-12GB:** AWQ-4 atau Q4_K_M (llama.cpp)
 - **CPU only:** Q4_K_M atau Q5_K_M (llama.cpp)
@@ -264,15 +273,15 @@ LLaMA-3.1 70B, FP16, 32K context, batch=1:
 
 ### 4.2 Strategi Optimasi
 
-| Teknik | Penghematan | Implementasi |
-|--------|------------|-------------|
-| **PagedAttention** | ~40% | vLLM (built-in) |
-| **KV cache quantization** | 50% (FP16→INT8) | vLLM, TensorRT-LLM |
-| **Prefix caching** | 30-80% (bergantung prompt overlap) | vLLM (enable_prefix_caching=True) |
-| **Sliding window** | Variable | Mistral, TGI |
-| **Multi-Query Attention** | ~80% (vs MHA) | Ada di model (LLaMA-2 70B, Falcon) |
-| **MLA (DeepSeek)** | 75-90% | Hanya DeepSeek |
-| **Sparsity / eviction** | ~50% | Riset — H2O, StreamingLLM |
+| Teknik                    | Penghematan                        | Implementasi                       |
+| ------------------------- | ---------------------------------- | ---------------------------------- |
+| **PagedAttention**        | ~40%                               | vLLM (built-in)                    |
+| **KV cache quantization** | 50% (FP16→INT8)                    | vLLM, TensorRT-LLM                 |
+| **Prefix caching**        | 30-80% (bergantung prompt overlap) | vLLM (enable_prefix_caching=True)  |
+| **Sliding window**        | Variable                           | Mistral, TGI                       |
+| **Multi-Query Attention** | ~80% (vs MHA)                      | Ada di model (LLaMA-2 70B, Falcon) |
+| **MLA (DeepSeek)**        | 75-90%                             | Hanya DeepSeek                     |
+| **Sparsity / eviction**   | ~50%                               | Riset — H2O, StreamingLLM          |
 
 ### 4.3 Implementasi di vLLM
 
@@ -280,19 +289,19 @@ LLaMA-3.1 70B, FP16, 32K context, batch=1:
 # vLLM — konfigurasi KV cache
 llm = LLM(
     model="meta-llama/Llama-3.1-8B-Instruct",
-    
+
     # PagedAttention block size
     block_size=16,                    # default; 16 biasanya optimal
-    
+
     # KV cache quantization (vLLM ≥ 0.6)
     kv_cache_dtype="fp8_e5m2",        # FP8 KV cache — 50% less memory
-    
+
     # Prefix caching
     enable_prefix_caching=True,       # cache prompt yang sama (chat template)
-    
+
     # Max model length
     max_model_len=32768,              # limit biar KV cache gak overcommit
-    
+
     # Memory budget
     gpu_memory_utilization=0.85,      # sisakan 15% untuk activations + overhead
 )
@@ -319,11 +328,13 @@ Cocok kalau banyak request dengan prefix sama:
 ### 5.1 Static Batching vs Continuous Batching
 
 **Static batching (traditional):**
+
 - Kumpulin N request → jalankan bersama → selesai semua → return
 - **Waste:** request cepat nunggu yang lambat
 - **Memory waste:** padding tokens
 
 **Continuous batching (vLLM, TGI, TRT-LLM):**
+
 - Tiap request masuk langsung diproses
 - Request yang selesai duluan langsung return — gak nunggu yang lain
 - Iteration-level scheduling: tiap langkah decoding, scheduler atur mana request yang lanjut
@@ -336,11 +347,11 @@ Dynamic: |A|B|C|A|B|A|B|A|B|A|B|C| → request cepat selesai duluan
 ### 5.2 Throughput Gain
 
 | Batch Size | Static (req/s) | Continuous (req/s) | Gain |
-|-----------|---------------|-------------------|------|
-| 1 | 10 | 10 | 1× |
-| 8 | 25 | 45 | 1.8× |
-| 32 | 40 | 120 | 3× |
-| 128 | 50 | 250 | 5× |
+| ---------- | -------------- | ------------------ | ---- |
+| 1          | 10             | 10                 | 1×   |
+| 8          | 25             | 45                 | 1.8× |
+| 32         | 40             | 120                | 3×   |
+| 128        | 50             | 250                | 5×   |
 
 Continuous batching scaling hampir linear dengan batch size — selama GPU memory cukup.
 
@@ -352,7 +363,7 @@ Continuous batching scaling hampir linear dengan batch size — selama GPU memor
 
 ```yaml
 # docker-compose.yml — 1 GPU, 1 model
-version: '3.8'
+version: "3.8"
 services:
   vllm:
     image: vllm/vllm-openai:latest
@@ -411,11 +422,11 @@ import aiohttp
 
 class InferenceRouter:
     """Route requests to model berdasarkan task complexity."""
-    
+
     def __init__(self):
         self.fast_client = AsyncOpenAI(base_url="http://vllm-sm:8000/v1")
         self.strong_client = AsyncOpenAI(base_url="http://vllm-70b:8000/v1")
-    
+
     async def generate(self, prompt: str, complexity: str = "auto"):
         if complexity == "auto":
             # Simple heuristic: short prompt + simple task → small model
@@ -423,7 +434,7 @@ class InferenceRouter:
                 return await self.fast_client.chat.completions.create(...)
             else:
                 return await self.strong_client.chat.completions.create(...)
-        
+
         return await {
             "fast": self.fast_client,
             "strong": self.strong_client,
@@ -436,16 +447,17 @@ class InferenceRouter:
 
 ### 7.1 Model Size → GPU Requirement
 
-| Model | FP16 | AWQ-4 | Q4_K_M | GPU Minimum |
-|-------|------|-------|--------|-------------|
-| **1.5B** (Qwen2.5) | 3 GB | 1 GB | 1.2 GB | RTX 3060 / M1 |
-| **7-8B** (LLaMA-3, Mistral) | 14 GB | 4 GB | 4.5 GB | RTX 3090 / A10 |
-| **13B** | 26 GB | 7 GB | 8 GB | A100 40GB / 2×3090 |
-| **30B** | 60 GB | 16 GB | 18 GB | A100 80GB / 2×A10 |
-| **70B** | 140 GB | 35 GB | 40 GB | 2×A100 80GB / 8×3090 |
-| **120B+** (Mixtral 8x22B) | 240 GB | 60 GB | 70 GB | 4×A100 / H100 |
+| Model                       | FP16   | AWQ-4 | Q4_K_M | GPU Minimum          |
+| --------------------------- | ------ | ----- | ------ | -------------------- |
+| **1.5B** (Qwen2.5)          | 3 GB   | 1 GB  | 1.2 GB | RTX 3060 / M1        |
+| **7-8B** (LLaMA-3, Mistral) | 14 GB  | 4 GB  | 4.5 GB | RTX 3090 / A10       |
+| **13B**                     | 26 GB  | 7 GB  | 8 GB   | A100 40GB / 2×3090   |
+| **30B**                     | 60 GB  | 16 GB | 18 GB  | A100 80GB / 2×A10    |
+| **70B**                     | 140 GB | 35 GB | 40 GB  | 2×A100 80GB / 8×3090 |
+| **120B+** (Mixtral 8x22B)   | 240 GB | 60 GB | 70 GB  | 4×A100 / H100        |
 
 **Formula:**
+
 ```
 VRAM needed = model_size (billions) × bytes_per_param + KV_cache + overhead
 
@@ -456,16 +468,17 @@ Overhead: ~10-15%
 
 ### 7.2 GPU Cost Efficiency
 
-| GPU | VRAM | Harga | Cocok Untuk |
-|-----|------|-------|-------------|
-| **RTX 3090** | 24 GB | ~$700 (used) | **Best value** — 7-8B FP16, 13B AWQ |
-| **RTX 4090** | 24 GB | ~$1600 | Sama 3090 tapi 2× lebih cepat |
-| **A10** | 24 GB | ~$2500 (cloud) | Enterprise, 7-8B reliable |
-| **A100 80GB** | 80 GB | ~$15000 | 70B AWQ, multi-model |
-| **H100** | 80 GB | ~$30000 | **Best** — FP8 support, 2.5× A100 |
-| **L40S** | 48 GB | ~$10000 | Mid-range, 70B INT4 |
+| GPU           | VRAM  | Harga          | Cocok Untuk                         |
+| ------------- | ----- | -------------- | ----------------------------------- |
+| **RTX 3090**  | 24 GB | ~$700 (used)   | **Best value** — 7-8B FP16, 13B AWQ |
+| **RTX 4090**  | 24 GB | ~$1600         | Sama 3090 tapi 2× lebih cepat       |
+| **A10**       | 24 GB | ~$2500 (cloud) | Enterprise, 7-8B reliable           |
+| **A100 80GB** | 80 GB | ~$15000        | 70B AWQ, multi-model                |
+| **H100**      | 80 GB | ~$30000        | **Best** — FP8 support, 2.5× A100   |
+| **L40S**      | 48 GB | ~$10000        | Mid-range, 70B INT4                 |
 
 **Paling cost-efficient buat production 2024-2026:**
+
 - **7B model:** 1× RTX 3090 (24GB) — AWQ quantization → 500+ req/s
 - **70B model:** 2× A100 80GB — TP2, AWQ → 100+ req/s
 - **Budget:** RunPod / Vast.ai sewa GPU per jam
@@ -476,13 +489,13 @@ Overhead: ~10-15%
 
 ### 8.1 Metrics Penting
 
-| Metric | Arti | Target |
-|--------|------|--------|
-| **TTFT** | Time to First Token | < 500ms |
-| **TPOT** | Time per Output Token | < 30ms/token |
-| **Throughput** | Requests per second | > 10 (7B), > 1 (70B) |
-| **ITL** | Inter-token Latency | < 50ms |
-| **Decode speed** | Tokens per second | > 50 tok/s (user perception) |
+| Metric           | Arti                  | Target                       |
+| ---------------- | --------------------- | ---------------------------- |
+| **TTFT**         | Time to First Token   | < 500ms                      |
+| **TPOT**         | Time per Output Token | < 30ms/token                 |
+| **Throughput**   | Requests per second   | > 10 (7B), > 1 (70B)         |
+| **ITL**          | Inter-token Latency   | < 50ms                       |
+| **Decode speed** | Tokens per second     | > 50 tok/s (user perception) |
 
 ### 8.2 Benchmark Tool
 
@@ -521,6 +534,7 @@ METRICS = {
 ```
 
 **Alert rules:**
+
 ```yaml
 # prometheus-rules.yml
 groups:
@@ -561,4 +575,4 @@ groups:
 
 ---
 
-*Dibuat: 16 Juli 2026 — Panduan serving model LLM dari engine selection sampai monitoring.*
+_Dibuat: 16 Juli 2026 — Panduan serving model LLM dari engine selection sampai monitoring._

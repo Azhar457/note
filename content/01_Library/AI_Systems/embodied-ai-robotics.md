@@ -19,6 +19,7 @@ status: evergreen
 cssclasses:
   - wide-table
 ---
+
 # 🏭 EMBODIED AI & ROBOTICS — Ketika AI Mendapatkan Tubuh
 
 **VLA Models (RT-2 · PaLM-E) · Sim-to-Real · Robotic Foundation Models · Open Challenges**
@@ -48,6 +49,7 @@ cssclasses:
 ### Apa itu Embodied AI?
 
 Embodied AI ≠ "robot with ChatGPT." Embodied AI adalah agen yang:
+
 1. **Menerima input sensorik** dari dunia fisik (kamera, tactile, proprioception)
 2. **Mengambil keputusan** berdasarkan input + tujuan
 3. **Bertindak** di dunia fisik melalui aktuator (lengan, kaki, gripper)
@@ -155,14 +157,14 @@ Robotic fine-tuning
 
 ### Detail Arsitektur
 
-| Komponen | Detail |
-|----------|--------|
-| **Base Model** | PaLI-X (55B) atau PaLM-E (562B) |
-| **Visual Encoder** | ViT-22B + SigLIP |
-| **Training** | Co-Fine-Tuning: web data + robotic data simultan |
-| **Action Rep** | 8 bins per dimensi → token |
-| **Sequence** | 6 timestep history → predict next action |
-| **Inference** | Autoregressive: 7 action tokens per step |
+| Komponen           | Detail                                           |
+| ------------------ | ------------------------------------------------ |
+| **Base Model**     | PaLI-X (55B) atau PaLM-E (562B)                  |
+| **Visual Encoder** | ViT-22B + SigLIP                                 |
+| **Training**       | Co-Fine-Tuning: web data + robotic data simultan |
+| **Action Rep**     | 8 bins per dimensi → token                       |
+| **Sequence**       | 6 timestep history → predict next action         |
+| **Inference**      | Autoregressive: 7 action tokens per step         |
 
 ### CoT + RT-2
 
@@ -181,12 +183,12 @@ Model generates:
 
 ### Evaluasi RT-2
 
-| Task | RT-2 (No CoT) | RT-2 (CoT) | Baseline (Gato) |
-|------|--------------|------------|-----------------|
-| **Pick & Place** (seen) | 87% | 91% | 72% |
-| **Pick & Place** (unseen) | 62% | 78% | 35% |
-| **Multi-step** (3 steps) | 42% | 58% | 18% |
-| **Distractor rejection** | 68% | 81% | 41% |
+| Task                      | RT-2 (No CoT) | RT-2 (CoT) | Baseline (Gato) |
+| ------------------------- | ------------- | ---------- | --------------- |
+| **Pick & Place** (seen)   | 87%           | 91%        | 72%             |
+| **Pick & Place** (unseen) | 62%           | 78%        | 35%             |
+| **Multi-step** (3 steps)  | 42%           | 58%        | 18%             |
+| **Distractor rejection**  | 68%           | 81%        | 41%             |
 
 ---
 
@@ -194,7 +196,7 @@ Model generates:
 
 ### Inovasi PaLM-E
 
-PaLM-E mengintegrasikan **continuous sensor data langsung ke dalam language model** sebagai *embodied tokens*.
+PaLM-E mengintegrasikan **continuous sensor data langsung ke dalam language model** sebagai _embodied tokens_.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -228,13 +230,13 @@ PaLM-E mengintegrasikan **continuous sensor data langsung ke dalam language mode
 
 ### Kemampuan Unik PaLM-E
 
-| Kemampuan | Deskripsi | Contoh |
-|-----------|-----------|--------|
-| **Active Perception** | Gerak untuk melihat lebih baik | "Saya tidak bisa melihat kotak, putar kamera 45°" |
-| **Failure Recovery** | Deteksi + koreksi kegagalan | "Gagal grasp — coba lagi dengan posisi 2cm ke kiri" |
-| **Multi-modal Reasoning** | Gabung visual + state + language | "Objek terlalu berat untuk suction gripper" |
-| **Task Planning** | Breakdown task kompleks | "Ambil kotak → buka laci → letakkan → tutup laci" |
-| **Language Grounding** | Hubungkan simbol ke fisik | "Kiri" = koordinat relatif -0.3m dari current pose |
+| Kemampuan                 | Deskripsi                        | Contoh                                              |
+| ------------------------- | -------------------------------- | --------------------------------------------------- |
+| **Active Perception**     | Gerak untuk melihat lebih baik   | "Saya tidak bisa melihat kotak, putar kamera 45°"   |
+| **Failure Recovery**      | Deteksi + koreksi kegagalan      | "Gagal grasp — coba lagi dengan posisi 2cm ke kiri" |
+| **Multi-modal Reasoning** | Gabung visual + state + language | "Objek terlalu berat untuk suction gripper"         |
+| **Task Planning**         | Breakdown task kompleks          | "Ambil kotak → buka laci → letakkan → tutup laci"   |
+| **Language Grounding**    | Hubungkan simbol ke fisik        | "Kiri" = koordinat relatif -0.3m dari current pose  |
 
 ---
 
@@ -244,14 +246,14 @@ PaLM-E mengintegrasikan **continuous sensor data langsung ke dalam language mode
 
 Simulator tidak pernah sempurna. Perbedaan antara simulasi dan realitas = **reality gap**.
 
-| Aspek | Simulator | Dunia Nyata |
-|-------|-----------|-------------|
-| **Fisika** | Approximate (PBD, spring-damper) | Real physics |
-| **Sensor** | Perfect, no noise | Noise, latency, dropout |
-| **Aktuator** | Instant, precise | Delay, backlash, friction |
-| **Object** | Perfect mesh, uniform | Deformasi, variasi, texture |
-| **Lighting** | Controlled | Unpredictable |
-| **Latency** | Deterministic | Stochastic |
+| Aspek        | Simulator                        | Dunia Nyata                 |
+| ------------ | -------------------------------- | --------------------------- |
+| **Fisika**   | Approximate (PBD, spring-damper) | Real physics                |
+| **Sensor**   | Perfect, no noise                | Noise, latency, dropout     |
+| **Aktuator** | Instant, precise                 | Delay, backlash, friction   |
+| **Object**   | Perfect mesh, uniform            | Deformasi, variasi, texture |
+| **Lighting** | Controlled                       | Unpredictable               |
+| **Latency**  | Deterministic                    | Stochastic                  |
 
 ### Domain Randomization (DR)
 
@@ -270,7 +272,7 @@ def randomize_scene():
     }
     table_texture = random.choice(TEXTURES)  # wood, metal, plastic
     object_color = random_color()  # RGB random
-    
+
     # 2. Physics randomization
     physics = {
         "friction": uniform(0.2, 1.5),       # Coefficient
@@ -279,14 +281,14 @@ def randomize_scene():
         "joint_damping": uniform(0.01, 0.1),   # Motor damping
         "control_latency": uniform(0, 0.05),   # Detik
     }
-    
+
     # 3. Camera randomization
     camera = {
         "position_noise": uniform(-0.02, 0.02),  # meter
         "fov_noise": uniform(-2, 2),              # degrees
         "motion_blur": uniform(0, 0.5),           # intensity
     }
-    
+
     return {"lighting": lighting, "physics": physics, "camera": camera}
 ```
 
@@ -313,13 +315,13 @@ def randomize_scene():
 ```python
 def sys_id(real_trajectory, initial_params):
     """Cari parameter simulator yang paling match dengan real data"""
-    
+
     def sim_loss(params):
         # Run simulator with params
         sim_traj = run_sim(params, real_trajectory.actions)
         # MSE between sim and real states
         return np.mean((sim_traj.states - real_trajectory.states) ** 2)
-    
+
     # Bayesian optimization untuk mencari parameter optimal
     best_params = bayesian_optimize(
         sim_loss,
@@ -335,12 +337,12 @@ def sys_id(real_trajectory, initial_params):
 
 ### Sim-to-Real Success Stories
 
-| Project | Task | Sim | Real Success | Teknik |
-|---------|------|-----|-------------|--------|
-| **OpenAI Dactyl** | Rubik's cube | MuJoCo | 100% | DR + LSTM + asymm. actor-critic |
-| **Drone Racing** | Gate traversal | FlightGoggles | 95% | DR + GAN domain adaptation |
-| **ANYmal** | Rough terrain locomotion | RaiSim | 90% | DR + teacher-student |
-| **RLBench** | Multi-task manipulation | CoppeliaSim | 45-75% | Per-task (masih rendah) |
+| Project           | Task                     | Sim           | Real Success | Teknik                          |
+| ----------------- | ------------------------ | ------------- | ------------ | ------------------------------- |
+| **OpenAI Dactyl** | Rubik's cube             | MuJoCo        | 100%         | DR + LSTM + asymm. actor-critic |
+| **Drone Racing**  | Gate traversal           | FlightGoggles | 95%          | DR + GAN domain adaptation      |
+| **ANYmal**        | Rough terrain locomotion | RaiSim        | 90%          | DR + teacher-student            |
+| **RLBench**       | Multi-task manipulation  | CoppeliaSim   | 45-75%       | Per-task (masih rendah)         |
 
 ---
 
@@ -348,27 +350,27 @@ def sys_id(real_trajectory, initial_params):
 
 ### Perbandingan Model
 
-| Model | Org | Tahun | Arsitektur | Data | Action Space | Open Source? |
-|-------|-----|-------|-----------|------|-------------|--------------|
-| **RT-2** | Google DeepMind | 2023 | PaLI-X → action | Web data + ~10K demo | ❌ |
-| **RT-X** | Open X-Embodiment | 2023 | RT-2 arch + multi-embodiment | 1M+ episode, 22 robots | ✅ |
-| **PaLM-E** | Google | 2023 | PaLM + embodied tokens | Internet + robotic | ❌ |
-| **Octo** | UC Berkeley | 2023 | Transformer-based | Open X-Embodiment | ✅ |
-| **π0 (Pi-Zero)** | Physical Intelligence | 2024 | Flow matching + VLM | Multi-robot, multi-task | ❌ |
-| **MOO** | MIT | 2024 | Object-centric VLA | Proprietary | ❌ |
-| **GraspGPT** | Microsoft | 2024 | LLM-based grasp planning | Internet | ❌ |
+| Model            | Org                   | Tahun | Arsitektur                   | Data                    | Action Space | Open Source? |
+| ---------------- | --------------------- | ----- | ---------------------------- | ----------------------- | ------------ | ------------ |
+| **RT-2**         | Google DeepMind       | 2023  | PaLI-X → action              | Web data + ~10K demo    | ❌           |
+| **RT-X**         | Open X-Embodiment     | 2023  | RT-2 arch + multi-embodiment | 1M+ episode, 22 robots  | ✅           |
+| **PaLM-E**       | Google                | 2023  | PaLM + embodied tokens       | Internet + robotic      | ❌           |
+| **Octo**         | UC Berkeley           | 2023  | Transformer-based            | Open X-Embodiment       | ✅           |
+| **π0 (Pi-Zero)** | Physical Intelligence | 2024  | Flow matching + VLM          | Multi-robot, multi-task | ❌           |
+| **MOO**          | MIT                   | 2024  | Object-centric VLA           | Proprietary             | ❌           |
+| **GraspGPT**     | Microsoft             | 2024  | LLM-based grasp planning     | Internet                | ❌           |
 
 ### Open X-Embodiment Dataset
 
 **Dataset terbesar dan paling beragam untuk robotic learning:**
 
-| Metrik | Nilai |
-|--------|-------|
-| **Total episodes** | 1,000,000+ |
-| **Robot platforms** | 22 (Franka, Kuka, UR5, Sawyer, Spot, etc.) |
-| **Tasks** | 527 (pick, place, push, open, close, pour, etc.) |
-| **Environments** | 60+ labs worldwide |
-| **Annotations** | Language instructions, task IDs, success/failure |
+| Metrik              | Nilai                                            |
+| ------------------- | ------------------------------------------------ |
+| **Total episodes**  | 1,000,000+                                       |
+| **Robot platforms** | 22 (Franka, Kuka, UR5, Sawyer, Spot, etc.)       |
+| **Tasks**           | 527 (pick, place, push, open, close, pour, etc.) |
+| **Environments**    | 60+ labs worldwide                               |
+| **Annotations**     | Language instructions, task IDs, success/failure |
 
 **Format RT-X (unified):**
 
@@ -402,14 +404,14 @@ def sys_id(real_trajectory, initial_params):
 
 ### Simulators
 
-| Simulator | Fisika | Visual | Robot Support | RL Support | GPU |
-|-----------|--------|--------|--------------|------------|-----|
-| **MuJoCo** | ✅ Excellent | ❌ Basic | ✅ Broad | ✅ Native | ❌ |
-| **Isaac Sim (NVIDIA)** | ✅ Excellent | ✅ Photoreal | ✅ Broad | ✅ Native | ✅ |
-| **PyBullet** | ⚠️ OK | ⚠️ Basic | ✅ Broad | ⚠️ DIY | ❌ |
-| **Habitat (Meta)** | ❌ N/A | ✅ Excellent | ❌ Navigation | ✅ | ✅ |
-| **CoppeliaSim** | ✅ Good | ⚠️ OK | ✅ Broad | ⚠️ API | ⚠️ |
-| **SAPIEN** | ⚠️ OK | ✅ Good | ✅ Maniulation | ✅ | ✅ |
+| Simulator              | Fisika       | Visual       | Robot Support  | RL Support | GPU |
+| ---------------------- | ------------ | ------------ | -------------- | ---------- | --- |
+| **MuJoCo**             | ✅ Excellent | ❌ Basic     | ✅ Broad       | ✅ Native  | ❌  |
+| **Isaac Sim (NVIDIA)** | ✅ Excellent | ✅ Photoreal | ✅ Broad       | ✅ Native  | ✅  |
+| **PyBullet**           | ⚠️ OK        | ⚠️ Basic     | ✅ Broad       | ⚠️ DIY     | ❌  |
+| **Habitat (Meta)**     | ❌ N/A       | ✅ Excellent | ❌ Navigation  | ✅         | ✅  |
+| **CoppeliaSim**        | ✅ Good      | ⚠️ OK        | ✅ Broad       | ⚠️ API     | ⚠️  |
+| **SAPIEN**             | ⚠️ OK        | ✅ Good      | ✅ Maniulation | ✅         | ✅  |
 
 ### Robot Middleware
 
@@ -455,14 +457,14 @@ class RobotEnv(gym.Env):
     def __init__(self, model_path, render_mode=None):
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
-        
+
         # Action space: 7 joint velocities + gripper
         self.action_space = gym.spaces.Box(
             low=np.array([-1.0]*7 + [0.0]),
             high=np.array([1.0]*7 + [1.0]),
             dtype=np.float32,
         )
-        
+
         # Observation: joint positions, end-effector pose, gripper
         self.observation_space = gym.spaces.Dict({
             "joint_pos": gym.spaces.Box(-3.14, 3.14, (7,)),
@@ -470,44 +472,44 @@ class RobotEnv(gym.Env):
             "gripper": gym.spaces.Box(0.0, 0.08, (1,)),
             "image": gym.spaces.Box(0, 255, (224, 224, 3), dtype=np.uint8),
         })
-        
+
         # Rendering
         self.renderer = mujoco.Renderer(self.model)
-    
+
     def step(self, action):
         # Apply action
         self.data.ctrl[:7] = action[:7]  # Joint velocities
         self.data.ctrl[7] = action[7]    # Gripper
-        
+
         # Physics step
         mujoco.mj_step(self.model, self.data)
-        
+
         # Get observation
         obs = self._get_obs()
-        
+
         # Reward: distance to goal
         reward = -np.linalg.norm(obs["ee_pose"][:3] - self.goal_pos)
-        
+
         # Done: close enough or timeout
         done = reward > -0.02  # < 2cm from goal
-        
+
         return obs, reward, done, False, {}
-    
+
     def _get_obs(self):
         # Extract joint positions
         joint_pos = self.data.qpos[:7].copy()
-        
+
         # End-effector pose from FK
         ee_id = self.model.body("end_effector").id
         ee_pose = np.concatenate([
             self.data.xpos[ee_id],
             self.data.xquat[ee_id],
         ])
-        
+
         # Render image
         self.renderer.update_scene(self.data, camera="front")
         image = self.renderer.render().copy()
-        
+
         return {
             "joint_pos": joint_pos,
             "ee_pose": ee_pose,
@@ -527,14 +529,14 @@ class DomainRandomizationWrapper(gym.Wrapper):
     def reset(self, **kwargs):
         # Randomize physics
         self.model.opt.gravity[2] = np.random.uniform(-10.0, -8.0)
-        
+
         # Randomize object pose
         obj_id = self.model.body("object").id
         self.model.body_pos[obj_id][:2] = np.random.uniform(-0.2, 0.2, 2)
-        
+
         # Randomize goal
         self.goal_pos = np.random.uniform([0.2, -0.3, 0.0], [0.5, 0.3, 0.3])
-        
+
         return self.env.reset(**kwargs)
 
 # Create env
@@ -568,37 +570,37 @@ from geometry_msgs.msg import PoseStamped
 class SimToRealDeploy:
     def __init__(self, policy_path):
         self.policy = SAC.load(policy_path)
-        
+
         # ROS subscribers
         rospy.Subscriber("/joint_states", JointState, self.joint_callback)
         rospy.Subscriber("/cartesian_pose", PoseStamped, self.pose_callback)
-        
+
         # Publishers
         self.arm_pub = rospy.Publisher("/arm_controller/command", JointState, queue_size=10)
         self.gripper_pub = rospy.Publisher("/gripper_controller/command", JointState, queue_size=10)
-        
+
         self.current_obs = None
         self.rate = rospy.Rate(50)  # 50 Hz
-    
+
     def joint_callback(self, msg):
         # Update joint state
         pass
-    
+
     def pose_callback(self, msg):
         # Update end-effector pose
         pass
-    
+
     def run(self):
         while not rospy.is_shutdown():
             if self.current_obs is None:
                 continue
-            
+
             # Policy inference — no exploration
             action, _ = self.policy.predict(self.current_obs, deterministic=True)
-            
+
             # Clip action untuk safety
             action = np.clip(action, -0.5, 0.5)
-            
+
             # Publish
             self.publish_action(action)
             self.rate.sleep()
@@ -610,19 +612,21 @@ class SimToRealDeploy:
 
 ### 1. Data Scarcity
 
-| Domain | Data Scale | Biaya |
-|--------|-----------|-------|
-| **Text** | Trillions of tokens | ~$0.1M |
-| **Image** | Billions of images | ~$1M |
+| Domain    | Data Scale           | Biaya      |
+| --------- | -------------------- | ---------- |
+| **Text**  | Trillions of tokens  | ~$0.1M     |
+| **Image** | Billions of images   | ~$1M       |
 | **Robot** | Millions of episodes | **$100M+** |
 
 **Mengapa robot data sangat mahal?**
+
 - Setiap episode = setup ulang robot secara fisik (manusia ~30 detik)
 - 1M episode = ~8,300 jam manusia
 - Robot rusak, battery habis, object jatuh
 - Tidak bisa "scale up" dengan compute saja
 
 **Solusi potensial:**
+
 - **Sim-to-Real** (tapi masih gap)
 - **Human video** as training data (IL from YouTube)
 - **Self-supervised exploration** (curiosity-driven)
@@ -630,13 +634,13 @@ class SimToRealDeploy:
 
 ### 2. Generalization
 
-| Dimensi | Current SOTA | Target |
-|---------|-------------|--------|
-| **Object** | 10-50 objects | 10,000+ |
-| **Scene** | 1-3 scenes | Any tabletop |
-| **Lighting** | Lab conditions | Any |
-| **Distractors** | 0-2 objects | Clutter |
-| **Tasks** | Pick & Place, Open | Any manipulation |
+| Dimensi         | Current SOTA       | Target           |
+| --------------- | ------------------ | ---------------- |
+| **Object**      | 10-50 objects      | 10,000+          |
+| **Scene**       | 1-3 scenes         | Any tabletop     |
+| **Lighting**    | Lab conditions     | Any              |
+| **Distractors** | 0-2 objects        | Clutter          |
+| **Tasks**       | Pick & Place, Open | Any manipulation |
 
 ### 3. Safety
 
@@ -647,7 +651,7 @@ Physical Safety:
 ├── Collision detection — filtered contact detection
 └── Safe RL — constraint dalam policy optimization (Lagrangian, shielding)
 
-System Safety:  
+System Safety:
 ├── Distribution shift detection — policy di luar training distribution → stop
 ├── Fallback policy — jika primary policy tidak yakin
 ├── Human-in-the-loop — untuk high-risk decisions
@@ -658,11 +662,11 @@ System Safety:
 
 Inferensi VLA model (562B params) di embedded hardware? **Belum feasible.**
 
-| Hardware | PaLM-E (562B) | RT-2 (55B) | Octo (1.2B) |
-|----------|---------------|------------|-------------|
-| **A100 (80GB)** | ~5 detik/step | ~0.5 detik/step | ~10ms/step |
-| **Jetson Orin** | ❌ | ❌ | ~100ms/step |
-| **Raspberry Pi** | ❌ | ❌ | ❌ |
+| Hardware         | PaLM-E (562B) | RT-2 (55B)      | Octo (1.2B) |
+| ---------------- | ------------- | --------------- | ----------- |
+| **A100 (80GB)**  | ~5 detik/step | ~0.5 detik/step | ~10ms/step  |
+| **Jetson Orin**  | ❌            | ❌              | ~100ms/step |
+| **Raspberry Pi** | ❌            | ❌              | ❌          |
 
 **Arah riset:** Model kecil (sub-5B), quantization, distillation, temporal action aggregation.
 

@@ -1,12 +1,12 @@
 ---
 title: Hierarchy Data Recovery
 tags:
-- atlas
-- data-forensics
-- data-recovery
-- hardware
-created: '2026-07-17'
-updated: '2026-07-17'
+  - atlas
+  - data-forensics
+  - data-recovery
+  - hardware
+created: "2026-07-17"
+updated: "2026-07-17"
 status: active
 ---
 
@@ -21,16 +21,16 @@ status: active
 
 ## Tabel Utama — Level 0 sampai Level 7
 
-| 💾 Level | 🧠 Zona & Alat | ⚡ Sweet Spot | ☠️ Tembok Kematian | 🎯 Cocok Untuk Siapa |
-|---|---|---|---|---|
-| **Level 0** — Sensorik Fisik & BIOS | Mata, telinga, indikator LED drive, BIOS POST screen | Triage 30 detik: drive hidup atau mati? Bunyi normal atau abnormal? BIOS baca kapasitas wajar atau `SATAFIRM S11` (firmware corrupt)? | Tidak bisa诊断 internal cell health. Kalau drive bunyi click-of-death atau PCB gosong, mata gak bisa lihat lapisan dalam | Pembeli barang lelang, tukang servis cepat, siapa saja yang mau sortir cepat mana drive yang layak diselamatkan vs mana yang jadi kanibal |
-| **Level 1** — OS-Level Software | Recuva, Disk Drill, TestDisk, PhotoRec (Windows LTSC / Linux live) | Mengais file terhapus dari Recycle Bin atau partisi terformat (RAW). Cepat, gratis, ribuan file bisa diselamatkan kalau level corruption rendah | Bergantung izin OS. Tidak bisa bypass corrupt filesystem berat. Kalau controller HDD error → Windows freeze atau BSOD | Pengguna rumahan yang tidak sengaja hapus foto, teknisi servis ringan, kasus "user salah klik" |
-| **Level 2** — Pre-OS / WinPE | Hiren's BootCD PE, Victoria SSD/HDD, HD Sentinel dari PE | Triage 3 menit via SMART. Test surface scan kilat sortir HDD cepat vs lambat. **Punya akses langsung ke storage tanpa OS interference** | Tetap terikat driver bawaan. Bisa hang kalau sinyal drive sangat kacau | Teknisi servis barang lelang, fleet auditor storage, triage pra-investasi |
-| **Level 3** — Bare-Metal Legacy | MHDD, HDAT2, Victoria di FreeDOS / UBCD via USB | Eksekusi logical bad sector membandel pada HDD SATA/IDE. Tembak langsung port I/O tanpa Windows intervening | Buta terhadap SSD M.2 NVMe. Tidak support UEFI modern | Perbaikan HDD lawas, servis workshop repair, owner data lama |
-| **Level 4** — Bare-Metal Modern | HDDSuperClone via Rocky Linux / Ventoy, ddrescue, Atola | Cloning “kejam” dengan skip bad sector milidetik. Cocok SATA & NVMe. **Multi-pass cloning** dengan algoritma adaptif. **Bisa boot via Linux USB, gak butuh OS host** | Tidak bisa perbaiki firmware corrupt atau controller mati | Forensik profesional, recovery center, tim IR saat drive korban ransomware perlu dikloning sebelum dianalisa |
-| **Level 5** — Hardware & Firmware | PC-3000 PCI-E (ACE Lab), Rusolut, DeepSpar | **God Mode**. Tulis ulang ROM/firmware, bypass ATA password, disable head rusak via command micro. Recovery drive yang di-declare "mati" oleh software | Tidak bisa perbaiki platter tergores (rotational scoring) atau silicon hancur | Recovery center profesional, forensik hukum (chain of custody penting), kasus data seharga bisnis |
-| **Level 6** — Deep Nano-Physics | Focused Ion Beam (FIB), Magnetic Force Microscopy (MFM), chemical decapsulation, electron microscope | Baca sisa fluks magnetik platter atau iris atom silikon NAND untuk ekstrak elektron satu per satu. **Tingkat atom per atom** | **Hukum fisika**. Proses ini menghancurkan medium secara permanen. Kalau ada enkripsi AES-256 + chip mati = kode acak abadi | Nation-state intelligence, kasus forensik kelas dunia (black box pesawat), riset akademis |
-| **Level 7** — Kriptanalisis Kuantum | Komputer kuantum (IBM, Google, D-Wave), Algoritma Grover / Shor | Matematika murni. Hancurkan tembok enkripsi AES-256/BitLocker/Apple T2 via brute-force kuantum kalau chip controller hangus sempurna | **Hukum termodinamika**. AES-256 masih kebal quantum computer hari ini. Butuh jutaan qubit stabil di suhu 0 Kelvin. Hampir mustahil dalam dekade ini | NSA, GCHQ, Mossad, eq四 — negara adidaya dengan budget triliunan + akses ke fasilitas riset rahasia |
+| 💾 Level                            | 🧠 Zona & Alat                                                                                       | ⚡ Sweet Spot                                                                                                                                                        | ☠️ Tembok Kematian                                                                                                                                   | 🎯 Cocok Untuk Siapa                                                                                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Level 0** — Sensorik Fisik & BIOS | Mata, telinga, indikator LED drive, BIOS POST screen                                                 | Triage 30 detik: drive hidup atau mati? Bunyi normal atau abnormal? BIOS baca kapasitas wajar atau `SATAFIRM S11` (firmware corrupt)?                                | Tidak bisa诊断 internal cell health. Kalau drive bunyi click-of-death atau PCB gosong, mata gak bisa lihat lapisan dalam                             | Pembeli barang lelang, tukang servis cepat, siapa saja yang mau sortir cepat mana drive yang layak diselamatkan vs mana yang jadi kanibal |
+| **Level 1** — OS-Level Software     | Recuva, Disk Drill, TestDisk, PhotoRec (Windows LTSC / Linux live)                                   | Mengais file terhapus dari Recycle Bin atau partisi terformat (RAW). Cepat, gratis, ribuan file bisa diselamatkan kalau level corruption rendah                      | Bergantung izin OS. Tidak bisa bypass corrupt filesystem berat. Kalau controller HDD error → Windows freeze atau BSOD                                | Pengguna rumahan yang tidak sengaja hapus foto, teknisi servis ringan, kasus "user salah klik"                                            |
+| **Level 2** — Pre-OS / WinPE        | Hiren's BootCD PE, Victoria SSD/HDD, HD Sentinel dari PE                                             | Triage 3 menit via SMART. Test surface scan kilat sortir HDD cepat vs lambat. **Punya akses langsung ke storage tanpa OS interference**                              | Tetap terikat driver bawaan. Bisa hang kalau sinyal drive sangat kacau                                                                               | Teknisi servis barang lelang, fleet auditor storage, triage pra-investasi                                                                 |
+| **Level 3** — Bare-Metal Legacy     | MHDD, HDAT2, Victoria di FreeDOS / UBCD via USB                                                      | Eksekusi logical bad sector membandel pada HDD SATA/IDE. Tembak langsung port I/O tanpa Windows intervening                                                          | Buta terhadap SSD M.2 NVMe. Tidak support UEFI modern                                                                                                | Perbaikan HDD lawas, servis workshop repair, owner data lama                                                                              |
+| **Level 4** — Bare-Metal Modern     | HDDSuperClone via Rocky Linux / Ventoy, ddrescue, Atola                                              | Cloning “kejam” dengan skip bad sector milidetik. Cocok SATA & NVMe. **Multi-pass cloning** dengan algoritma adaptif. **Bisa boot via Linux USB, gak butuh OS host** | Tidak bisa perbaiki firmware corrupt atau controller mati                                                                                            | Forensik profesional, recovery center, tim IR saat drive korban ransomware perlu dikloning sebelum dianalisa                              |
+| **Level 5** — Hardware & Firmware   | PC-3000 PCI-E (ACE Lab), Rusolut, DeepSpar                                                           | **God Mode**. Tulis ulang ROM/firmware, bypass ATA password, disable head rusak via command micro. Recovery drive yang di-declare "mati" oleh software               | Tidak bisa perbaiki platter tergores (rotational scoring) atau silicon hancur                                                                        | Recovery center profesional, forensik hukum (chain of custody penting), kasus data seharga bisnis                                         |
+| **Level 6** — Deep Nano-Physics     | Focused Ion Beam (FIB), Magnetic Force Microscopy (MFM), chemical decapsulation, electron microscope | Baca sisa fluks magnetik platter atau iris atom silikon NAND untuk ekstrak elektron satu per satu. **Tingkat atom per atom**                                         | **Hukum fisika**. Proses ini menghancurkan medium secara permanen. Kalau ada enkripsi AES-256 + chip mati = kode acak abadi                          | Nation-state intelligence, kasus forensik kelas dunia (black box pesawat), riset akademis                                                 |
+| **Level 7** — Kriptanalisis Kuantum | Komputer kuantum (IBM, Google, D-Wave), Algoritma Grover / Shor                                      | Matematika murni. Hancurkan tembok enkripsi AES-256/BitLocker/Apple T2 via brute-force kuantum kalau chip controller hangus sempurna                                 | **Hukum termodinamika**. AES-256 masih kebal quantum computer hari ini. Butuh jutaan qubit stabil di suhu 0 Kelvin. Hampir mustahil dalam dekade ini | NSA, GCHQ, Mossad, eq四 — negara adidaya dengan budget triliunan + akses ke fasilitas riset rahasia                                       |
 
 ---
 
@@ -70,6 +70,7 @@ status: active
 ### 1. Setiap Drive Memiliki "Batas Yang Tidak Bisa Dilampaui"
 
 Tidak ada tools — secanggih apapun — yang bisa membaca:
+
 - Platter yang tergores parah (rotational scoring) → hukum fisika
 - Cipher AES-256 kalau kunci hilang → hukum matematika
 - Data yang sudah ditimpa (overwritten) → hukum informasi (Shannon entropy)
@@ -82,20 +83,21 @@ Level 0–3 terdengar murah — tapi **80% kasus data recovery solvable di sini*
 
 ### 3. Forensik vs Recovery Itu Berbeda
 
-| Aspek | Data Recovery | Digital Forensics |
-|---|---|---|
-| **Tujuan** | Selamatkan data, apapun caranya | Selamatkan bukti **tanpa mengubah**, chain of custody utuh |
-| **Hash integrity** | Tidak wajib penting | Wajib SHA-256 verified sebelum & sesudah |
-| **Original drive** | Boleh ditulis-dulu | Tidak boleh disentuh — clone dulu, kerja di clone |
-| **Tools** | Recuva → PC-3000 | ddrescue → EnCase / Autopsy → FTK |
-| **Reporting** | Internal client | Chain of custody court-admissible |
-| **Use case** | Hard drive pribadi | Kasus hukum, e-discovery, IR |
+| Aspek              | Data Recovery                   | Digital Forensics                                          |
+| ------------------ | ------------------------------- | ---------------------------------------------------------- |
+| **Tujuan**         | Selamatkan data, apapun caranya | Selamatkan bukti **tanpa mengubah**, chain of custody utuh |
+| **Hash integrity** | Tidak wajib penting             | Wajib SHA-256 verified sebelum & sesudah                   |
+| **Original drive** | Boleh ditulis-dulu              | Tidak boleh disentuh — clone dulu, kerja di clone          |
+| **Tools**          | Recuva → PC-3000                | ddrescue → EnCase / Autopsy → FTK                          |
+| **Reporting**      | Internal client                 | Chain of custody court-admissible                          |
+| **Use case**       | Hard drive pribadi              | Kasus hukum, e-discovery, IR                               |
 
 Hirarki untuk forensik di [[data-recovery|sheet forensics]] punya aturan lebih ketat tentang **non-modifikasi original evidence**. Hirarki di sini fokus ke recovery — tapi recovery center profesional biasanya bisa handle kedua mode.
 
 ### 4. Backup Mengubah Hierarki Seluruhnya
 
 Kalau lo punya backup 3-2-1 rule (3 copies, 2 different media, 1 offsite) — Level 0–5 jadi **tidak relevan** untuk skenario disaster recovery. Lo cuma restore dari backup. Hirarki recovery baru relevan kalau:
+
 - Backup corruption / incomplete
 - Backup hilang
 - Pre-incident state yang tidak pernah dibackup
@@ -168,14 +170,14 @@ Pohon keputusan ini yang membedakan **teknisi data recovery profesional** dari "
 
 ## Perbandingan Pendekatan Recovery oleh Profil
 
-| Profil | Tools Yang Realistically Dipakai | Capability Ceiling |
-|---|---|---|
-| **Personal / Rumahan** | Level 0–1 (BIOS + Recuva gratis) | Bisa recover file terhapus Recycle Bin |
-| **Teknisi Servis / Tukang PC** | + Level 2 (Hiren's + Victoria) | Triage barang lelang, servis ringan |
-| **Repair Workshop** | + Level 3 (FreeDOS + MHDD) | Handle HDD lawas membandel |
-| **Recovery Center Profesional** | + Level 4 (Linux ddrescue) + Level 5 (PC-3000 + DeepSpar) | 90% kasus solvable, forensik chain of custody |
-| **Forensik Hukum / Corporate** | + Level 5 + image-cli workflow + hashing SHA-256 + reporting court-admissible | Kasus hukum, e-discovery, IR investigation |
-| **Government / Intelijen** | + Level 6 (FIB, MFM) + Level 7 (quantum decryption capability) | Kaspersky, Vault 7, Vault 8 leaks menunjukkan capability ini dipakai untuk ekstraksi data dari device target intelligence |
+| Profil                          | Tools Yang Realistically Dipakai                                              | Capability Ceiling                                                                                                        |
+| ------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Personal / Rumahan**          | Level 0–1 (BIOS + Recuva gratis)                                              | Bisa recover file terhapus Recycle Bin                                                                                    |
+| **Teknisi Servis / Tukang PC**  | + Level 2 (Hiren's + Victoria)                                                | Triage barang lelang, servis ringan                                                                                       |
+| **Repair Workshop**             | + Level 3 (FreeDOS + MHDD)                                                    | Handle HDD lawas membandel                                                                                                |
+| **Recovery Center Profesional** | + Level 4 (Linux ddrescue) + Level 5 (PC-3000 + DeepSpar)                     | 90% kasus solvable, forensik chain of custody                                                                             |
+| **Forensik Hukum / Corporate**  | + Level 5 + image-cli workflow + hashing SHA-256 + reporting court-admissible | Kasus hukum, e-discovery, IR investigation                                                                                |
+| **Government / Intelijen**      | + Level 6 (FIB, MFM) + Level 7 (quantum decryption capability)                | Kaspersky, Vault 7, Vault 8 leaks menunjukkan capability ini dipakai untuk ekstraksi data dari device target intelligence |
 
 Profil umumnya berhenti di **Level 5**. Level 6–7 digunakan oleh badan intelijen dan entitas riset canggih.
 
@@ -194,4 +196,4 @@ Profil umumnya berhenti di **Level 5**. Level 6–7 digunakan oleh badan intelij
 
 > Hirarki data recovery bukan cuma urutan eskalasi — itu cara berpikir yang mengendalikan **ekspektasi**. Mulai murah, eskalasi hanya kalau perlu, dan jujur tentang kapan harus berhenti. Kasus recovery yang sukses adalah tentang **menemukan level minimum yang solvable**, bukan selalu mencapai Level 5 atau 7.
 
-*Data Recovery Hierarchy | Level 0 (Sensorik) → Level 7 (Quantum Decryption) · Geometri Biaya Eksponensial*
+_Data Recovery Hierarchy | Level 0 (Sensorik) → Level 7 (Quantum Decryption) · Geometri Biaya Eksponensial_

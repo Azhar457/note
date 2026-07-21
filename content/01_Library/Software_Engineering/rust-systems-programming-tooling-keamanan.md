@@ -1,21 +1,21 @@
 ---
 title: Rust Systems Programming untuk Tooling Keamanan
 tags:
-- rust
-- systems-programming
-- security-tooling
-- no-std
-- wasm
-- library
+  - rust
+  - systems-programming
+  - security-tooling
+  - no-std
+  - wasm
+  - library
 aliases:
-- rust-security-tooling-deepdive
-- rust-untuk-pentest-engineer
-- systems-programming-modern
-created: '2026-07-15'
-updated: '2026-07-15'
+  - rust-security-tooling-deepdive
+  - rust-untuk-pentest-engineer
+  - systems-programming-modern
+created: "2026-07-15"
+updated: "2026-07-15"
 status: draft
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🦀 Rust Systems Programming untuk Tooling Keamanan
@@ -60,29 +60,29 @@ Masalah:
 
 ### 1.2 Rust Menjawab
 
-| Aspek | Python | C | Rust |
-|-------|--------|---|------|
-| Memory safety | ✅ GC | ❌ Manual | ✅ Compiler-checked |
-| Performance | 🟡 Interpreted | 🟢 Native | 🟢 Native |
-| Concurrency | ❌ GIL | 🟡 Manual locks | ✅ Send + Sync traits |
-| Cross-compilation | 🟡 (limited) | 🟢 (painful) | 🟢 (rustup target) |
-| Ecosystem | 🟢 Besar | 🟡 Legacy | 🟡 Tumbuh cepat |
-| Zero-cost abstraction | ❌ | 🟢 Pointer | 🟢 Traits, generics |
-| No_std / bare-metal | ❌ | 🟢 | 🟢 |
+| Aspek                 | Python         | C               | Rust                  |
+| --------------------- | -------------- | --------------- | --------------------- |
+| Memory safety         | ✅ GC          | ❌ Manual       | ✅ Compiler-checked   |
+| Performance           | 🟡 Interpreted | 🟢 Native       | 🟢 Native             |
+| Concurrency           | ❌ GIL         | 🟡 Manual locks | ✅ Send + Sync traits |
+| Cross-compilation     | 🟡 (limited)   | 🟢 (painful)    | 🟢 (rustup target)    |
+| Ecosystem             | 🟢 Besar       | 🟡 Legacy       | 🟡 Tumbuh cepat       |
+| Zero-cost abstraction | ❌             | 🟢 Pointer      | 🟢 Traits, generics   |
+| No_std / bare-metal   | ❌             | 🟢              | 🟢                    |
 
 ### 1.3 Tools Security Populer di Rust
 
-| Tool | Fungsi | Kenapa Rust? |
-|------|--------|-------------|
-| **Ripgrep** | Grep alternatif | 5-10x lebih cepat dari grep |
-| **fd** | find alternatif | UX lebih baik, performa |
-| **bottom (btm)** | htop alternatif | Multi-threaded, GPU monitoring |
-| **Firecracker** | AWS microVM | Security isolation + speed |
-| **Pingora** | Cloudflare proxy | Connection reuse > 90% dari 40M req/s |
-| **Aya** | eBPF library | Rust-native, gak perlu LLVM/Clang |
-| **rustls** | TLS implementation | Memory safe, no OpenSSL drama |
-| **Suricata 7+** | IDS/IPS | Rust modules di framework C |
-| **Cargo-geiger** | Security audit unsafe code | Analisis unsafe di dependency |
+| Tool             | Fungsi                     | Kenapa Rust?                          |
+| ---------------- | -------------------------- | ------------------------------------- |
+| **Ripgrep**      | Grep alternatif            | 5-10x lebih cepat dari grep           |
+| **fd**           | find alternatif            | UX lebih baik, performa               |
+| **bottom (btm)** | htop alternatif            | Multi-threaded, GPU monitoring        |
+| **Firecracker**  | AWS microVM                | Security isolation + speed            |
+| **Pingora**      | Cloudflare proxy           | Connection reuse > 90% dari 40M req/s |
+| **Aya**          | eBPF library               | Rust-native, gak perlu LLVM/Clang     |
+| **rustls**       | TLS implementation         | Memory safe, no OpenSSL drama         |
+| **Suricata 7+**  | IDS/IPS                    | Rust modules di framework C           |
+| **Cargo-geiger** | Security audit unsafe code | Analisis unsafe di dependency         |
 
 ---
 
@@ -270,22 +270,22 @@ unsafe fn read_from_pointer(ptr: *const u32) -> u32 {
 // Pattern aman: wrap unsafe di safe API
 mod safe_wrapper {
     use std::ptr;
-    
+
     pub struct Buffer {
         data: Vec<u8>,
     }
-    
+
     impl Buffer {
         pub fn new(size: usize) -> Self {
             Self {
                 data: vec![0; size],  // safe allocation
             }
         }
-        
+
         pub fn as_ptr(&self) -> *const u8 {
             self.data.as_ptr()  // raw pointer allowed di safe
         }
-        
+
         // Semua unsafe detail di sini — caller pake safe API
         pub unsafe fn write_at(&mut self, offset: usize, value: u8) {
             if offset >= self.data.len() {
@@ -446,15 +446,15 @@ struct ElfHeader {
 }
 
 fn parse_elf32_header(input: &[u8]) -> IResult<&[u8], ElfHeader> {
-    let (input, (magic, class, endian, version, os_abi, padding)) = 
+    let (input, (magic, class, endian, version, os_abi, padding)) =
         tuple((tag(b"\x7fELF"), take(1u8), take(1u8), take(1u8), take(1u8), take(8u8)))(input)?;
-    
-    let (input, (entry, phoff, shoff, flags)) = 
+
+    let (input, (entry, phoff, shoff, flags)) =
         tuple((le_u32, le_u32, le_u32, le_u32))(input)?;
-    
-    let (input, (ehsize, phentsize, phnum, shentsize, shnum, shstrndx)) = 
+
+    let (input, (ehsize, phentsize, phnum, shentsize, shnum, shstrndx)) =
         tuple((le_u16, le_u16, le_u16, le_u16, le_u16, le_u16))(input)?;
-    
+
     Ok((input, ElfHeader {
         magic: [magic[0], magic[1], magic[2], magic[3]],
         class: class[0],
@@ -490,19 +490,19 @@ use std::net::Ipv4Addr;
 
 fn main() -> Result<(), anyhow::Error> {
     let mut bpf = Bpf::load(include_bytes_aligned!("path/to/ebpf.o"))?;
-    
+
     let program: &mut Xdp = bpf.program_mut("xdp_drop").unwrap().try_into()?;
     program.load()?;
     program.attach("eth0", XdpFlags::default())?;
-    
+
     // Maps — share data antara eBPF dan userspace
-    let mut blocklist: aya::maps::HashMap<_, u32, u32> = 
+    let mut blocklist: aya::maps::HashMap<_, u32, u32> =
         bpf.map_mut("BLOCKLIST").unwrap().try_into()?;
-    
+
     // Block IP 10.0.0.1
     let ip = u32::from(Ipv4Addr::new(10, 0, 0, 1));
     blocklist.insert(ip, 1, 0)?;
-    
+
     println!("eBPF loaded — blocking traffic");
     loop { std::thread::sleep(std::time::Duration::from_secs(1)); }
 }
@@ -596,22 +596,22 @@ Lihat [[firmware-reverse-engineering-deepdive]] untuk analisis firmware.
 
 ### Benchmark Sintaksis
 
-| Task | Rust Lines | C Lines | Go Lines |
-|------|-----------|---------|----------|
-| TCP server | 30 | 80 | 25 |
-| Binary parser | 40 | 100 | 60 |
-| HTTP client | 15 | 120 | 15 |
-| Thread pool | 50 | 200 | 20 |
+| Task          | Rust Lines | C Lines | Go Lines |
+| ------------- | ---------- | ------- | -------- |
+| TCP server    | 30         | 80      | 25       |
+| Binary parser | 40         | 100     | 60       |
+| HTTP client   | 15         | 120     | 15       |
+| Thread pool   | 50         | 200     | 20       |
 
 ### Performance
 
-| Tool | Rust | C | Go |
-|------|------|---|----|
-| HTTP throughput | 🟢 | 🟢 | 🟡 (GC pause) |
-| Memory safety | 🟢 (compile time) | 🔴 (valgrind) | 🟡 (GC) |
-| Binary size (static) | 2-5 MB | 0.5-1 MB | 8-15 MB |
-| Startup time | 1-5ms | <1ms | 5-50ms |
-| Compile time | 30s - 5m | 10s - 2m | 5-30s |
+| Tool                 | Rust              | C             | Go            |
+| -------------------- | ----------------- | ------------- | ------------- |
+| HTTP throughput      | 🟢                | 🟢            | 🟡 (GC pause) |
+| Memory safety        | 🟢 (compile time) | 🔴 (valgrind) | 🟡 (GC)       |
+| Binary size (static) | 2-5 MB            | 0.5-1 MB      | 8-15 MB       |
+| Startup time         | 1-5ms             | <1ms          | 5-50ms        |
+| Compile time         | 30s - 5m          | 10s - 2m      | 5-30s         |
 
 ---
 

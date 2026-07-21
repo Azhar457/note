@@ -1,18 +1,18 @@
 ---
-title: 'LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector
-  DB Ops, Cost Tracking, LLM Observability'
+title: "LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector
+  DB Ops, Cost Tracking, LLM Observability"
 tags:
-- llmops
-- ai-infrastructure
-- langfuse
-- observability
-- cost-optimization
-- rag-ops
-created: '2026-07-18'
-updated: '2026-07-18'
+  - llmops
+  - ai-infrastructure
+  - langfuse
+  - observability
+  - cost-optimization
+  - rag-ops
+created: "2026-07-18"
+updated: "2026-07-18"
 status: operational
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🔧 LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector DB Ops, Cost Tracking, LLM Observability
@@ -41,25 +41,25 @@ cssclasses:
 
 ### Kenapa Observability untuk LLM Berbeda dari App Biasa?
 
-| Dimensi | App Biasa | LLM App |
-|---------|-----------|---------|
-| **Error** | 500, timeout, exception | ✅ Halusinasi ❌ tidak ada exception |
-| **Latency** | ms (predictable) | Detik (stochastic — tergantung token) |
-| **Cost** | CPU/memory (fixed) | Per-token (variable — tergantung output length) |
-| **Quality** | Functional correctness | Semantic correctness (subjective) |
-| **Security** | Injection, XSS | Prompt injection, jailbreak, data exfiltration |
+| Dimensi      | App Biasa               | LLM App                                         |
+| ------------ | ----------------------- | ----------------------------------------------- |
+| **Error**    | 500, timeout, exception | ✅ Halusinasi ❌ tidak ada exception            |
+| **Latency**  | ms (predictable)        | Detik (stochastic — tergantung token)           |
+| **Cost**     | CPU/memory (fixed)      | Per-token (variable — tergantung output length) |
+| **Quality**  | Functional correctness  | Semantic correctness (subjective)               |
+| **Security** | Injection, XSS          | Prompt injection, jailbreak, data exfiltration  |
 
 ### Observability Tools
 
-| Tool | Open Source | Hosted | Fitur Kunci | Best For |
-|------|------------|--------|-------------|----------|
-| **Langfuse** | ✅ Yes | ✅ | Tracing, prompt management, evaluation, cost tracking | Production LLM stack |
-| **LangSmith** | ❌ | ✅ | Tracing, dataset, annotation, A/B testing | LangChain-heavy stack |
-| **W&B Prompts** | ❌ | ✅ | Prompt versioning, model comparison | ML research teams |
-| **Helicone** | ✅ Yes | ✅ | Proxy-based logging, cost analytics | Simple setup, proxy |
-| **Arize Phoenix** | ✅ Yes | ✅ | LLM tracing, embedding drift, RAG analysis | Embedding-focused |
-| **SigNoz** | ✅ Yes | ✅ | APM + LLM tracing | All-in-one observability |
-| **OpenObserve** | ✅ Yes | ✅ | Log, metrics, traces — LLM support | SRE teams |
+| Tool              | Open Source | Hosted | Fitur Kunci                                           | Best For                 |
+| ----------------- | ----------- | ------ | ----------------------------------------------------- | ------------------------ |
+| **Langfuse**      | ✅ Yes      | ✅     | Tracing, prompt management, evaluation, cost tracking | Production LLM stack     |
+| **LangSmith**     | ❌          | ✅     | Tracing, dataset, annotation, A/B testing             | LangChain-heavy stack    |
+| **W&B Prompts**   | ❌          | ✅     | Prompt versioning, model comparison                   | ML research teams        |
+| **Helicone**      | ✅ Yes      | ✅     | Proxy-based logging, cost analytics                   | Simple setup, proxy      |
+| **Arize Phoenix** | ✅ Yes      | ✅     | LLM tracing, embedding drift, RAG analysis            | Embedding-focused        |
+| **SigNoz**        | ✅ Yes      | ✅     | APM + LLM tracing                                     | All-in-one observability |
+| **OpenObserve**   | ✅ Yes      | ✅     | Log, metrics, traces — LLM support                    | SRE teams                |
 
 ### Langfuse: Core Concepts
 
@@ -76,6 +76,7 @@ Trace = satu request (e.g., "Jawab pertanyaan user")
 ```
 
 ### Tracing Flow
+
 ```
 User Query → [Trace start]
   │
@@ -96,17 +97,18 @@ User Query → [Trace start]
 
 ### What to Trace (Minimum)
 
-| Component | Track | Why |
-|-----------|-------|-----|
-| **LLM Call** | Model, prompt, response, token count, latency, cost | Billing, quality, debug |
-| **RAG Retrieval** | Query, top-k, source scores, document IDs | Debug retrieval quality |
-| **Tool Call** | Tool name, args, result, latency | Debug agent loop |
-| **Guardrail** | Check type, passed/failed, score | Safety monitoring |
-| **User Feedback** | Thumbs up/down, rating 1-5 | Quality metrics |
+| Component         | Track                                               | Why                     |
+| ----------------- | --------------------------------------------------- | ----------------------- |
+| **LLM Call**      | Model, prompt, response, token count, latency, cost | Billing, quality, debug |
+| **RAG Retrieval** | Query, top-k, source scores, document IDs           | Debug retrieval quality |
+| **Tool Call**     | Tool name, args, result, latency                    | Debug agent loop        |
+| **Guardrail**     | Check type, passed/failed, score                    | Safety monitoring       |
+| **User Feedback** | Thumbs up/down, rating 1-5                          | Quality metrics         |
 
 ## Prompt Management & Versioning
 
 ### Masalah tanpa Prompt Management
+
 - Prompt ada di **codebase** — ganti prompt = deploy ulang (slow)
 - Tidak ada **version history** — "siapa yang ngubah prompt kemarin?"
 - Tidak ada **A/B testing** — "apakah prompt baru lebih bagus?"
@@ -114,14 +116,15 @@ User Query → [Trace start]
 
 ### Prompt Management Tools
 
-| Tool | Versioning | A/B Test | Deploy Rollback | API | Self-host |
-|------|-----------|----------|-----------------|-----|-----------|
-| **Langfuse Prompts** | ✅ Git-like | ✅ | ✅ | ✅ REST/SDK | ✅ |
-| **LangSmith Hub** | ✅ | ❌ | ❌ | ✅ | ❌ |
-| **Portkey** | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Agenta** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Tool                 | Versioning  | A/B Test | Deploy Rollback | API         | Self-host |
+| -------------------- | ----------- | -------- | --------------- | ----------- | --------- |
+| **Langfuse Prompts** | ✅ Git-like | ✅       | ✅              | ✅ REST/SDK | ✅        |
+| **LangSmith Hub**    | ✅          | ❌       | ❌              | ✅          | ❌        |
+| **Portkey**          | ✅          | ✅       | ✅              | ✅          | ❌        |
+| **Agenta**           | ✅          | ✅       | ✅              | ✅          | ✅        |
 
 ### Prompt Engineering Workflow di Production
+
 ```
 Dev:     Tulis prompt di Langfuse UI atau code → test dengan dataset
 Review:  Bandingkan output old vs new prompt
@@ -134,48 +137,49 @@ Rollback: Rollback ke versi sebelumnya 1 klik (tanpa deploy code)
 
 ### Index Maintenance
 
-| Operation | Frequency | Impact | Notes |
-|-----------|-----------|--------|-------|
-| **Index Build** | Once (initial) | Full rebuild — semua data | Pakai IVFFlat untuk fast build pertama |
-| **Incremental Insert** | Continuous | Minimal — HNSW support dynamic insert | Tidak perlu rebuild |
-| **Index Optimize** | Weekly / after bulk insert | Medium — rebuild HNSW graph | Vacuum + optimize |
-| **Reindex** (full) | Monthly / schema change | High — downtime | Swap index, not rebuild in-place |
-| **Prune** (delete) | As needed | Medium — tombstone segments | Rebuild after many deletes |
+| Operation              | Frequency                  | Impact                                | Notes                                  |
+| ---------------------- | -------------------------- | ------------------------------------- | -------------------------------------- |
+| **Index Build**        | Once (initial)             | Full rebuild — semua data             | Pakai IVFFlat untuk fast build pertama |
+| **Incremental Insert** | Continuous                 | Minimal — HNSW support dynamic insert | Tidak perlu rebuild                    |
+| **Index Optimize**     | Weekly / after bulk insert | Medium — rebuild HNSW graph           | Vacuum + optimize                      |
+| **Reindex** (full)     | Monthly / schema change    | High — downtime                       | Swap index, not rebuild in-place       |
+| **Prune** (delete)     | As needed                  | Medium — tombstone segments           | Rebuild after many deletes             |
 
 ### Indexing Strategy
 
-| Strategy | Write Volume | Query Latency | Memory | Best For |
-|----------|-------------|---------------|--------|----------|
-| **Immediate index** | Low | Low | High | Production, <100K docs |
-| **Batch index** (interval) | High | Medium | Medium | Streaming pipeline |
-| **Hybrid** (immediate + batch) | Variable | Low-Medium | High | Production, any scale |
-| **Separate indexes** (hot/warm) | N/A | Hot=Low, Warm=Medium | Optimized | Tiered storage (SSD+HDD) |
+| Strategy                        | Write Volume | Query Latency        | Memory    | Best For                 |
+| ------------------------------- | ------------ | -------------------- | --------- | ------------------------ |
+| **Immediate index**             | Low          | Low                  | High      | Production, <100K docs   |
+| **Batch index** (interval)      | High         | Medium               | Medium    | Streaming pipeline       |
+| **Hybrid** (immediate + batch)  | Variable     | Low-Medium           | High      | Production, any scale    |
+| **Separate indexes** (hot/warm) | N/A          | Hot=Low, Warm=Medium | Optimized | Tiered storage (SSD+HDD) |
 
 ### Monitoring Vector DB
 
-| Metric | What It Tells | Action If Bad |
-|--------|--------------|---------------|
-| **Recall@k** | Fraction of relevant results in top-k | Reindex, check embedding model |
-| **Index fullness** | % of capacity used | Scale up or prune |
-| **Avg query latency** | Search speed | Optimize HNSW ef_construction, ef_search |
-| **Index size on disk** | Storage cost | Quantization (SQ/PC) |
-| **Delete/update throughput** | Churn rate | Schedule rebuild during low traffic |
+| Metric                       | What It Tells                         | Action If Bad                            |
+| ---------------------------- | ------------------------------------- | ---------------------------------------- |
+| **Recall@k**                 | Fraction of relevant results in top-k | Reindex, check embedding model           |
+| **Index fullness**           | % of capacity used                    | Scale up or prune                        |
+| **Avg query latency**        | Search speed                          | Optimize HNSW ef_construction, ef_search |
+| **Index size on disk**       | Storage cost                          | Quantization (SQ/PC)                     |
+| **Delete/update throughput** | Churn rate                            | Schedule rebuild during low traffic      |
 
 ## Cost Tracking & Optimization
 
 ### LLM Cost Breakdown
 
-| Component | % of Total | Optimization |
-|-----------|-----------|-------------|
-| **LLM API calls** | 60-80% | Model routing, caching, prompt compression |
-| **Vector DB** | 5-10% | Index optimization, tiered storage |
-| **Embedding** | 5-15% | Cache embeddings, batch embed |
-| **GPU serving** (self-host) | 10-30% | vLLM, quantization, batching |
-| **Infrastructure** (network, k8s) | 5-10% | Reserved instances, spot |
+| Component                         | % of Total | Optimization                               |
+| --------------------------------- | ---------- | ------------------------------------------ |
+| **LLM API calls**                 | 60-80%     | Model routing, caching, prompt compression |
+| **Vector DB**                     | 5-10%      | Index optimization, tiered storage         |
+| **Embedding**                     | 5-15%      | Cache embeddings, batch embed              |
+| **GPU serving** (self-host)       | 10-30%     | vLLM, quantization, batching               |
+| **Infrastructure** (network, k8s) | 5-10%      | Reserved instances, spot                   |
 
 ### Cost Optimization Strategies
 
 #### 1. Model Routing
+
 ```python
 # Cheap model untuk simple task, expensive untuk complex
 route = {
@@ -187,19 +191,23 @@ route = {
 ```
 
 #### 2. Semantic Caching
+
 Cache response untuk query yang semantically **mirip** (bukan exact match).
+
 ```
 Query: "Apa itu Kubernetes?"
 Cached: "Jelaskan K8s" → similarity 0.92 > threshold 0.85 → return cached response
 ```
 
 #### 3. Prompt Compression
+
 - **Prefix caching** — cache system prompt + fixed context
 - **Context pruning** — hapus dokumen RAG dengan relevance score rendah
 - **LLMLingua** — compress prompt dengan lossy compression
 - **Chain of thought distillation** — short CoT → even shorter CoT
 
 #### 4. Batching
+
 ```python
 # ❌ Buruk: 10 API call sequential
 for q in queries:
@@ -210,24 +218,26 @@ response = llm.batch(queries, max_tokens=512)  # 1 call, 10 queries
 ```
 
 #### 5. Self-Hosting GPU
-| Model | GPU Needed | Approx Cost/Month (on-prem) | API Cost/Month @ 1M tokens/day |
-|-------|-----------|---------------------------|-------------------------------|
-| Llama 3 8B | 1x RTX 4090 | $200 | $300-500 |
-| Llama 3 70B | 2x A100 | $2,000 | $3,000-5,000 |
-| DeepSeek V3 | 8x H100 | $15,000 | $10,000-20,000 |
+
+| Model       | GPU Needed  | Approx Cost/Month (on-prem) | API Cost/Month @ 1M tokens/day |
+| ----------- | ----------- | --------------------------- | ------------------------------ |
+| Llama 3 8B  | 1x RTX 4090 | $200                        | $300-500                       |
+| Llama 3 70B | 2x A100     | $2,000                      | $3,000-5,000                   |
+| DeepSeek V3 | 8x H100     | $15,000                     | $10,000-20,000                 |
 
 ## LLM Caching
 
 ### Types of LLM Cache
 
-| Cache Type | Granularity | Hit Rate | Implementation |
-|-----------|------------|----------|----------------|
-| **Exact match** | Full input | Low (10-20%) | Redis: key=hash(input), value=response |
-| **Semantic** | Query meaning | Medium (20-40%) | Embed query → nearest neighbor → check similarity |
-| **KV Cache** | Per token (self-attention) | High (80%+) | GPU memory — vLLM, TensorRT-LLM |
-| **Prefix Cache** | System prompt | High (50%+) | Cache compute prefix across requests |
+| Cache Type       | Granularity                | Hit Rate        | Implementation                                    |
+| ---------------- | -------------------------- | --------------- | ------------------------------------------------- |
+| **Exact match**  | Full input                 | Low (10-20%)    | Redis: key=hash(input), value=response            |
+| **Semantic**     | Query meaning              | Medium (20-40%) | Embed query → nearest neighbor → check similarity |
+| **KV Cache**     | Per token (self-attention) | High (80%+)     | GPU memory — vLLM, TensorRT-LLM                   |
+| **Prefix Cache** | System prompt              | High (50%+)     | Cache compute prefix across requests              |
 
 ### KV Cache (Production LLM)
+
 ```
 Tanpa KV cache: tiap token baru recompute semua attention → O(n²)
 Dengan KV cache: simpan Key/Value dari token sebelumnya → O(n)
@@ -240,6 +250,7 @@ Ukuran KV cache per request:
 ## Production Deployment
 
 ### Architecture Reference
+
 ```
 User → Load Balancer → Guardrails → Router → LLM Provider
                               │
@@ -260,14 +271,15 @@ User → Load Balancer → Guardrails → Router → LLM Provider
 
 ### Guardrails
 
-| Guardrail | Function | Implementation |
-|-----------|----------|----------------|
-| **Input guard** | Deteksi prompt injection, jailbreak | LLM-as-judge, regex, ML classifier |
+| Guardrail        | Function                                  | Implementation                                        |
+| ---------------- | ----------------------------------------- | ----------------------------------------------------- |
+| **Input guard**  | Deteksi prompt injection, jailbreak       | LLM-as-judge, regex, ML classifier                    |
 | **Output guard** | Deteksi PII, toxic content, hallucination | PII masking, toxicity classifier, factual consistency |
-| **Rate limit** | Batasi requests/user | Token bucket, sliding window |
-| **Cost limit** | Budget per user/session/day | Langfuse cost tracking + alert |
+| **Rate limit**   | Batasi requests/user                      | Token bucket, sliding window                          |
+| **Cost limit**   | Budget per user/session/day               | Langfuse cost tracking + alert                        |
 
 ### Canary Deploy untuk LLM
+
 ```
 1. 90% traffic → model v1 (stable)
 2. 10% traffic → model v2 (new)
@@ -279,15 +291,15 @@ User → Load Balancer → Guardrails → Router → LLM Provider
 
 ## Tool Comparison
 
-| Fungsinya | Tools | Best For |
-|-----------|-------|----------|
-| **LLM Observability** | Langfuse, LangSmith, W&B Prompts | Production tracing & monitoring |
-| **Prompt Management** | Langfuse Prompts, Portkey, Agenta | Versioning & deploy prompts |
-| **Vector DB Ops** | Qdrant, Weaviate, Milvus, pgvector | Indexing, CRUD, scale |
-| **Model Serving** | vLLM, TGI, TensorRT-LLM, Ollama | Self-hosted inference |
-| **Cost Tracking** | Langfuse, Helicone, Portkey | Budget & billing |
-| **Guardrails** | Guardrails AI, NVIDIA NeMo, Azure AI Content Safety | Safety & compliance |
-| **Evaluation** | RAGAS, DeepEval, Langfuse Eval | Automated quality metrics |
+| Fungsinya             | Tools                                               | Best For                        |
+| --------------------- | --------------------------------------------------- | ------------------------------- |
+| **LLM Observability** | Langfuse, LangSmith, W&B Prompts                    | Production tracing & monitoring |
+| **Prompt Management** | Langfuse Prompts, Portkey, Agenta                   | Versioning & deploy prompts     |
+| **Vector DB Ops**     | Qdrant, Weaviate, Milvus, pgvector                  | Indexing, CRUD, scale           |
+| **Model Serving**     | vLLM, TGI, TensorRT-LLM, Ollama                     | Self-hosted inference           |
+| **Cost Tracking**     | Langfuse, Helicone, Portkey                         | Budget & billing                |
+| **Guardrails**        | Guardrails AI, NVIDIA NeMo, Azure AI Content Safety | Safety & compliance             |
+| **Evaluation**        | RAGAS, DeepEval, Langfuse Eval                      | Automated quality metrics       |
 
 ---
 

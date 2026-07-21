@@ -2,14 +2,14 @@
 title: RASP (Runtime Application Self-Protection) Architecture — Rust Hooking & Application
   Shielding
 tags:
-- rasp
-- runtime-security
-- application-shielding
-- rust
-- instrumentation
-- web-security
-created: '2026-07-19'
-updated: '2026-07-19'
+  - rasp
+  - runtime-security
+  - application-shielding
+  - rust
+  - instrumentation
+  - web-security
+created: "2026-07-19"
+updated: "2026-07-19"
 status: operational
 ---
 
@@ -28,7 +28,7 @@ status: operational
 
 ## 1. Arsitektur RASP vs WAF
 
-WAF memeriksa payload dari luar sebelum mencapai aplikasi (*inspection at perimeter*), sehingga rentan dilewati oleh teknik *obfuscation* atau serangan yang memanfaatkan modifikasi state internal aplikasi. RASP ditempelkan langsung ke dalam proses aplikasi untuk mendeteksi apakah payload tersebut memicu aksi berbahaya di dalam CPU/Memory runtime (*inspection at execution*).
+WAF memeriksa payload dari luar sebelum mencapai aplikasi (_inspection at perimeter_), sehingga rentan dilewati oleh teknik _obfuscation_ atau serangan yang memanfaatkan modifikasi state internal aplikasi. RASP ditempelkan langsung ke dalam proses aplikasi untuk mendeteksi apakah payload tersebut memicu aksi berbahaya di dalam CPU/Memory runtime (_inspection at execution_).
 
 ```
 Client Request
@@ -57,9 +57,10 @@ Client Request
 
 Untuk bahasa yang di-compile secara native atau interpreter yang memanggil library dinamis C, RASP dapat di-inject tanpa memodifikasi kode sumber aplikasi menggunakan mekanisme pemuatan dinamis `LD_PRELOAD`.
 
-Berikut adalah contoh agen RASP kecil (<10MB) berbasis Rust yang meng-override fungsi sistem `execve` untuk mendeteksi *Command Injection*.
+Berikut adalah contoh agen RASP kecil (<10MB) berbasis Rust yang meng-override fungsi sistem `execve` untuk mendeteksi _Command Injection_.
 
 ### 2.1 Konfigurasi `Cargo.toml`
+
 ```toml
 [package]
 name = "jarswaf-rasp-agent"
@@ -101,11 +102,11 @@ pub unsafe extern "C" fn execve(
     envp: *const *const c_char,
 ) -> c_int {
     let path = CStr::from_ptr(pathname).to_string_lossy();
-    
+
     // Analisis perilaku berbahaya (Mendeteksi shell spawn ilegal dari web server)
     if path.contains("/bin/sh") || path.contains("/bin/bash") {
         eprintln!("[RASP WARNING] Deteksi eksekusi shell mencurigakan: {}", path);
-        
+
         // Pilihan RASP: Blokir langsung eksekusi sistem dengan mengembalikan error ijin ditolak
         *libc::__errno_location() = libc::EACCES;
         return -1;
@@ -117,6 +118,7 @@ pub unsafe extern "C" fn execve(
 ```
 
 Kompilasi dan jalankan aplikasi web dengan menyuntikkan library RASP:
+
 ```bash
 cargo build --release
 # Injeksi ke proses aplikasi Node.js/Python
@@ -137,18 +139,18 @@ Untuk runtime bahasa tingkat tinggi (managed runtimes), agen RASP meng-override 
 
 ## 4. Integrasi WAF + RASP Feedback Loop
 
-Menggabungkan WAF di perimeter dan RASP di runtime menciptakan sistem pertahanan adaptif (*Adaptive Threat Intelligence*):
+Menggabungkan WAF di perimeter dan RASP di runtime menciptakan sistem pertahanan adaptif (_Adaptive Threat Intelligence_):
 
 1. **Telemetry Sharing**: RASP mendeteksi upaya SQLi yang berhasil lolos dari filter WAF (misal karena pengkodean khusus). RASP mengirimkan telemetri anomali beserta query yang terpicu ke WAF.
-2. **Auto-Blocking**: WAF menerima sinyal deteksi dari RASP, menganalisis IP asal request tersebut, lalu secara otomatis memasukkan IP tersebut ke dalam *distributed blocklist* jarsWAF (menggunakan Gossip protocol) untuk diblokir total di tingkat edge node sebelum request masuk kembali.
-3. **Double Verification**: Jika WAF mendeteksi request dengan tingkat kecurigaan menengah (*medium confidence anomaly score*), WAF dapat menyematkan header tak terlihat `X-jarsWAF-Trace: verify` ke downstream. RASP yang melihat header ini akan memperketat kebijakan deteksi (*strict auditing mode*) pada alur pemrosesan request tersebut di memori aplikasi.
+2. **Auto-Blocking**: WAF menerima sinyal deteksi dari RASP, menganalisis IP asal request tersebut, lalu secara otomatis memasukkan IP tersebut ke dalam _distributed blocklist_ jarsWAF (menggunakan Gossip protocol) untuk diblokir total di tingkat edge node sebelum request masuk kembali.
+3. **Double Verification**: Jika WAF mendeteksi request dengan tingkat kecurigaan menengah (_medium confidence anomaly score_), WAF dapat menyematkan header tak terlihat `X-jarsWAF-Trace: verify` ke downstream. RASP yang melihat header ini akan memperketat kebijakan deteksi (_strict auditing mode_) pada alur pemrosesan request tersebut di memori aplikasi.
 
 ---
 
 ## 5. Koneksi ke Vault
 
-| Catatan | Hubungan |
-|------|----------|
-| [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF yang bekerja sama dengan RASP agent untuk memblokir IP penyerang. |
-| [[hardware-hacking-re]] | Teknik modifikasi runtime dan reverse engineering biner serupa. |
-| [[jarswaf-plan]] | Dokumen perencanaan utama jarsWAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |
+| Catatan                        | Hubungan                                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF yang bekerja sama dengan RASP agent untuk memblokir IP penyerang.         |
+| [[hardware-hacking-re]]        | Teknik modifikasi runtime dan reverse engineering biner serupa.                              |
+| [[jarswaf-plan]]               | Dokumen perencanaan utama jarsWAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |

@@ -1,18 +1,18 @@
 ---
-title: '🔀 Hybrid Search — Vector + Keyword Fusion: RRF, Weighted, Dense→Sparse di
-  vault-rag'
+title: "🔀 Hybrid Search — Vector + Keyword Fusion: RRF, Weighted, Dense→Sparse di
+  vault-rag"
 tags:
-- hybrid-search
-- rag
-- retrieval
-- fusion
-- bm25
-- library
-created: '2026-07-16'
-updated: '2026-07-16'
+  - hybrid-search
+  - rag
+  - retrieval
+  - fusion
+  - bm25
+  - library
+created: "2026-07-16"
+updated: "2026-07-16"
 status: operational
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🔀 Hybrid Search — Vector + Keyword Fusion: RRF, Weighted, Dense→Sparse di vault-rag
@@ -40,12 +40,12 @@ cssclasses:
 
 ### 1.1 Dense vs Sparse
 
-| Aspek | Dense (Vector) | Sparse (BM25/Keyword) |
-|-------|----------------|----------------------|
-| **Cocok untuk** | Makna, sinonim, konsep | Istilah exact, kode, singkatan |
-| **Gagal saat** | Istilah langka, typo | Konsep tanpa kata kunci bersama |
-| **Contoh berhasil** | "Cara hacker menyusup" → dapet artikel "Teknik post-exploitation" | "CVE-2021-44228" → dapet artikel Log4j |
-| **Contoh gagal** | "gRPC vs REST" → dapet artikel "API protocols" (kata gRPC/REST gak muncul) | "API protocol" — BM25 gak cocokin "gRPC" atau "REST" |
+| Aspek               | Dense (Vector)                                                             | Sparse (BM25/Keyword)                                |
+| ------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Cocok untuk**     | Makna, sinonim, konsep                                                     | Istilah exact, kode, singkatan                       |
+| **Gagal saat**      | Istilah langka, typo                                                       | Konsep tanpa kata kunci bersama                      |
+| **Contoh berhasil** | "Cara hacker menyusup" → dapet artikel "Teknik post-exploitation"          | "CVE-2021-44228" → dapet artikel Log4j               |
+| **Contoh gagal**    | "gRPC vs REST" → dapet artikel "API protocols" (kata gRPC/REST gak muncul) | "API protocol" — BM25 gak cocokin "gRPC" atau "REST" |
 
 ### 1.2 Gabungan = Lebih Baik
 
@@ -87,11 +87,12 @@ def rrf(dense_results, bm25_results, k=60):
 ```
 
 **Keunggulan RRF:**
+
 - Tidak perlu normalize score (dense vs BM25 punya distribusi beda)
 - Robust — satu hasil dominan gak menenggelamkan yang lain
 - Parameter `k`: kecil = penekanan pada top rank, besar = distribusi lebih merata
 
-**Kelemahan:** Ranking position buta terhadap seberapa *yakin* model.
+**Kelemahan:** Ranking position buta terhadap seberapa _yakin_ model.
 
 ### 2.3 Dense→Sparse Fallback
 
@@ -106,11 +107,11 @@ return dense_results
 
 ### 2.4 Perbandingan
 
-| Method | Keunggulan | Kelemahan | vault-rag? |
-|--------|-----------|-----------|-----------|
-| **Weighted** | Sederhana, interpretable | Butuh normalize score | ✅ **Sekarang** |
-| **RRF** | Gak perlu normalize, robust | Buta confidence | 🟡 Bisa ditambahkan |
-| **Dense→Sparse** | Cepat (gak perlu 2 search selalu) | Kehilangan hasil hybrid | ❌ |
+| Method           | Keunggulan                        | Kelemahan               | vault-rag?          |
+| ---------------- | --------------------------------- | ----------------------- | ------------------- |
+| **Weighted**     | Sederhana, interpretable          | Butuh normalize score   | ✅ **Sekarang**     |
+| **RRF**          | Gak perlu normalize, robust       | Buta confidence         | 🟡 Bisa ditambahkan |
+| **Dense→Sparse** | Cepat (gak perlu 2 search selalu) | Kehilangan hasil hybrid | ❌                  |
 
 ---
 
@@ -124,6 +125,7 @@ Sparse: [0, 0, 0, 0, 2.5, 0, 0, 0, 0, 1.3, 0, ...] — kebanyakan 0
 ```
 
 Keunggulan sparse embedding:
+
 - Bisa di-index pake **inverted index** (sama kaya BM25) — sangat cepat
 - Gabungan dense representation learning + exact match capability
 - BGE-M3 support dense + sparse dari satu model
@@ -181,11 +183,11 @@ print(f"Best weight: dense={best_weight}, BM25={1-best_weight}")
 
 ### 5.2 Rekomendasi
 
-| Konten Vault | Dense Weight | BM25 Weight |
-|-------------|-------------|-------------|
-| Konseptual (makna) | 0.8 | 0.2 |
-| Teknis (istilah exact) | 0.6 | 0.4 |
-| **Campuran (vault ini)** | **0.7** | **0.3** |
+| Konten Vault             | Dense Weight | BM25 Weight |
+| ------------------------ | ------------ | ----------- |
+| Konseptual (makna)       | 0.8          | 0.2         |
+| Teknis (istilah exact)   | 0.6          | 0.4         |
+| **Campuran (vault ini)** | **0.7**      | **0.3**     |
 
 ---
 
@@ -200,10 +202,10 @@ print(f"Best weight: dense={best_weight}, BM25={1-best_weight}")
 
 ## References
 
-1. RRF Paper. *G. Cormack et al. (2009)*. https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf
-2. SPLADE. *T. Formal et al. (2021)*. https://arxiv.org/abs/2107.05720
+1. RRF Paper. _G. Cormack et al. (2009)_. https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf
+2. SPLADE. _T. Formal et al. (2021)_. https://arxiv.org/abs/2107.05720
 3. BGE-M3. https://huggingface.co/BAAI/bge-m3
-4. Elasticsearch. *Hybrid Search*. https://www.elastic.co/guide/en/elasticsearch/reference/current/hybrid-search.html
+4. Elasticsearch. _Hybrid Search_. https://www.elastic.co/guide/en/elasticsearch/reference/current/hybrid-search.html
 
 > [!tip] Bottom Line
 > Hybrid search = dense (makna) + sparse (keyword). vault-rag pake **weighted fusion (dense×0.7 + BM25×0.3)** — sudah OK. Alternatif: **RRF** lebih fair karena gak perlu normalize score. Kalo mau upgrade: sparse embedding (BGE-M3 mode sparse) = BM25 + deep learning dalam satu model.
