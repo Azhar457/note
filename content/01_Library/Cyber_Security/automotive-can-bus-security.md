@@ -1,17 +1,15 @@
 ---
-title: "Automotive Security — CAN Bus, ECU & Vehicle Hacking"
+title: Automotive Security — CAN Bus, ECU & Vehicle Hacking
 tags:
-  - automotive
-  - can-bus
-  - ecu
-  - obd-ii
-  - vehicle-hacking
-  - automotive-security
-  - iso-21434
-aliases:
-  - "automotive-can-bus-security"
-created: "2026-07-19"
-updated: "2026-07-19"
+- automotive
+- can-bus
+- ecu
+- obd-ii
+- vehicle-hacking
+- automotive-security
+- iso-21434
+created: '2026-07-19'
+updated: '2026-07-19'
 status: growing
 ---
 
@@ -71,15 +69,15 @@ Bit 1: A=0 (dominant), B=1 (recessive)
 
 ### 1.3 CAN 2.0 vs CAN FD vs FlexRay
 
-| Feature            | CAN 2.0                          | CAN FD                | FlexRay                  |
-| ------------------ | -------------------------------- | --------------------- | ------------------------ |
-| **Payload**        | 8 bytes                          | 64 bytes              | 254 bytes                |
-| **Data Rate**      | 1 Mbps                           | 2-5 Mbps (data phase) | 10 Mbps                  |
-| **Arbitration**    | CSMA/CR                          | CSMA/CR               | TDMA (time-triggered)    |
-| **Topology**       | Bus                              | Bus                   | Star / Bus               |
-| **Error Handling** | Error passive/bus-off            | Same                  | More robust              |
-| **Security**       | None (plaintext)                 | None + CRC            | CRC only                 |
-| **Used In**        | All cars (OBD, powertrain, body) | Newer cars (2020+)    | BMW, premium (X-by-wire) |
+| Feature | CAN 2.0 | CAN FD | FlexRay |
+|---------|---------|--------|---------|
+| **Payload** | 8 bytes | 64 bytes | 254 bytes |
+| **Data Rate** | 1 Mbps | 2-5 Mbps (data phase) | 10 Mbps |
+| **Arbitration** | CSMA/CR | CSMA/CR | TDMA (time-triggered) |
+| **Topology** | Bus | Bus | Star / Bus |
+| **Error Handling** | Error passive/bus-off | Same | More robust |
+| **Security** | None (plaintext) | None + CRC | CRC only |
+| **Used In** | All cars (OBD, powertrain, body) | Newer cars (2020+) | BMW, premium (X-by-wire) |
 
 ### 1.4 CAN Bus Topology
 
@@ -151,33 +149,33 @@ cansend can0 7DF#02010C0000000000
 
 ### 3.1 ECU Network Classification
 
-| Domain           | ECUs               | CAN Bus Speed | Criticality                             |
-| ---------------- | ------------------ | ------------- | --------------------------------------- |
-| **Powertrain**   | ECM, TCM, BMS      | 500 kbps      | **Safety-critical** (brake, throttle)   |
-| **Chassis**      | ABS, ESP, EPS, SRS | 500 kbps      | **Safety-critical** (airbag, stability) |
-| **Body**         | BCM, DCM, HVAC     | 125-250 kbps  | Comfort (windows, lights, door)         |
-| **Infotainment** | HU, IC, AMP, DAB   | 125-500 kbps  | Non-safety (but gateway connected)      |
-| **Telematics**   | TCU, V2X           | 125-500 kbps  | Communication (4G/5G)                   |
+| Domain | ECUs | CAN Bus Speed | Criticality |
+|--------|------|---------------|-------------|
+| **Powertrain** | ECM, TCM, BMS | 500 kbps | **Safety-critical** (brake, throttle) |
+| **Chassis** | ABS, ESP, EPS, SRS | 500 kbps | **Safety-critical** (airbag, stability) |
+| **Body** | BCM, DCM, HVAC | 125-250 kbps | Comfort (windows, lights, door) |
+| **Infotainment** | HU, IC, AMP, DAB | 125-500 kbps | Non-safety (but gateway connected) |
+| **Telematics** | TCU, V2X | 125-500 kbps | Communication (4G/5G) |
 
 ### 3.2 UDS (Unified Diagnostic Services) — ISO 14229
 
 Protokol diagnostik standar untuk semua ECU modern:
 
-| SID  | Service                    | Direction      | Security             |
-| ---- | -------------------------- | -------------- | -------------------- |
-| 0x10 | DiagnosticSessionControl   | Tester→ECU     | Ya (level 1-3)       |
-| 0x11 | ECUReset                   | Tester→ECU     | Ya                   |
-| 0x14 | ClearDiagnosticInformation | Tester→ECU     | Ya                   |
-| 0x19 | ReadDTCInformation         | Bi-directional | Tidak                |
-| 0x22 | ReadDataByIdentifier       | Tester→ECU     | Tidak (some)         |
-| 0x27 | SecurityAccess             | Tester→ECU     | **Unlock seed-key**  |
-| 0x28 | CommunicationControl       | Tester→ECU     | Ya                   |
-| 0x2E | WriteDataByIdentifier      | Tester→ECU     | Ya                   |
-| 0x31 | RoutineControl             | Tester→ECU     | Ya                   |
-| 0x34 | RequestDownload            | Tester→ECU     | **Ya (reflash)**     |
-| 0x35 | RequestUpload              | Tester→ECU     | Ya                   |
-| 0x36 | TransferData               | Tester→ECU     | **Ya (write flash)** |
-| 0x37 | RequestTransferExit        | Tester→ECU     | Ya                   |
+| SID | Service | Direction | Security |
+|-----|---------|-----------|----------|
+| 0x10 | DiagnosticSessionControl | Tester→ECU | Ya (level 1-3) |
+| 0x11 | ECUReset | Tester→ECU | Ya |
+| 0x14 | ClearDiagnosticInformation | Tester→ECU | Ya |
+| 0x19 | ReadDTCInformation | Bi-directional | Tidak |
+| 0x22 | ReadDataByIdentifier | Tester→ECU | Tidak (some) |
+| 0x27 | SecurityAccess | Tester→ECU | **Unlock seed-key** |
+| 0x28 | CommunicationControl | Tester→ECU | Ya |
+| 0x2E | WriteDataByIdentifier | Tester→ECU | Ya |
+| 0x31 | RoutineControl | Tester→ECU | Ya |
+| 0x34 | RequestDownload | Tester→ECU | **Ya (reflash)** |
+| 0x35 | RequestUpload | Tester→ECU | Ya |
+| 0x36 | TransferData | Tester→ECU | **Ya (write flash)** |
+| 0x37 | RequestTransferExit | Tester→ECU | Ya |
 
 **Critical:** SID 0x27 (SecurityAccess) adalah satu-satunya barrier antara "read-only" dan "ECU reflash". Seed-key algorithm sering lemah (static key, XOR-based, proprietary rolling).
 
@@ -235,15 +233,15 @@ ip -det -stat link dev can0
 
 ### 4.3 Advanced Tooling
 
-| Tool                                                 | Purpose                | Notes                    |
-| ---------------------------------------------------- | ---------------------- | ------------------------ |
-| [caringo](https://github.com/grnet/caringo)          | CAN bus ID bruteforce  | Find active IDs on bus   |
-| [CANtact](https://cantact.io/)                       | USB-CAN adapter        | Open source hardware     |
-| [UDSim](https://github.com/zombieCraig/UDSim)        | Simulated ECU          | Testing UDS commands     |
-| [Kayak](https://github.com/dschanoeh/Kayak)          | Java CAN bus analyzer  | Like Wireshark for CAN   |
-| [Busmaster](https://github.com/rbei-etas/busmaster)  | Full-featured tool     | Windows, commercial-like |
-| [Python-can](https://github.com/hardbyte/python-can) | Python library         | Scripting interface      |
-| [icsim](https://github.com/zombieCraig/icsim)        | Instrument cluster sim | Demo/test environment    |
+| Tool | Purpose | Notes |
+|------|---------|-------|
+| [caringo](https://github.com/grnet/caringo) | CAN bus ID bruteforce | Find active IDs on bus |
+| [CANtact](https://cantact.io/) | USB-CAN adapter | Open source hardware |
+| [UDSim](https://github.com/zombieCraig/UDSim) | Simulated ECU | Testing UDS commands |
+| [Kayak](https://github.com/dschanoeh/Kayak) | Java CAN bus analyzer | Like Wireshark for CAN |
+| [Busmaster](https://github.com/rbei-etas/busmaster) | Full-featured tool | Windows, commercial-like |
+| [Python-can](https://github.com/hardbyte/python-can) | Python library | Scripting interface |
+| [icsim](https://github.com/zombieCraig/icsim) | Instrument cluster sim | Demo/test environment |
 
 ## 5. CAN Bus Attacks
 
@@ -381,13 +379,13 @@ urh
 
 ### 7.1 Sensor Types & Attack Surface
 
-| Sensor         | Function                            | Attack                                           |
-| -------------- | ----------------------------------- | ------------------------------------------------ |
-| **Camera**     | Lane keep, traffic sign, pedestrian | Blinding (laser), spoof sign (adversarial patch) |
-| **LiDAR**      | Object detection, ranging           | Spoofing (delayed pulse), jamming (IR)           |
-| **Radar**      | ACC, blind spot                     | Jamming (same freq), spoofing (chirp modulation) |
-| **Ultrasonic** | Parking sensor                      | Jamming, spoofing (noise)                        |
-| **GPS**        | Navigation                          | Spoofing (fake satellite signals), jamming       |
+| Sensor | Function | Attack |
+|--------|----------|--------|
+| **Camera** | Lane keep, traffic sign, pedestrian | Blinding (laser), spoof sign (adversarial patch) |
+| **LiDAR** | Object detection, ranging | Spoofing (delayed pulse), jamming (IR) |
+| **Radar** | ACC, blind spot | Jamming (same freq), spoofing (chirp modulation) |
+| **Ultrasonic** | Parking sensor | Jamming, spoofing (noise) |
+| **GPS** | Navigation | Spoofing (fake satellite signals), jamming |
 
 ### 7.2 Adversarial Patch for Camera
 
@@ -426,7 +424,6 @@ ECUs (powertrain, body, chassis)
 ```
 
 **Remote attack path (Jeep Cherokee 2015 — Charlie Miller & Chris Valasek):**
-
 1. Pwn infotainment via cellular
 2. Flash new firmware via OTA update mechanism
 3. CAN gateway bypass
@@ -523,16 +520,16 @@ Production Phase
 
 ## 11. Koneksi ke Vault
 
-| Note                               | Hubungan                                    |
-| ---------------------------------- | ------------------------------------------- |
-| [[hardware-hacking-re]]            | ECU hardware extraction, chip-off forensics |
-| [[wireless-security-deepdive]]     | Key fob RF, BLE telematics, SDR             |
-| [[exploit-development]]            | CAN fuzzing → exploit chain ke ECU          |
-| [[ics-scada-security]]             | Safety-critical system security methodology |
-| [[fuzzing-vulnerability-research]] | CAN fuzzing, protocol fuzzing               |
-| [[embedded-systems]]               | ECU RTOS, CAN stack implementation          |
-| [[military-sigint-deepdive]]       | RF direction finding untuk telematics SDR   |
-| [[forensic-imaging-analysis]]      | Vehicle forensics imaging                   |
+| Note | Hubungan |
+|------|----------|
+| [[hardware-hacking-re]] | ECU hardware extraction, chip-off forensics |
+| [[wireless-security-deepdive]] | Key fob RF, BLE telematics, SDR |
+| [[exploit-development]] | CAN fuzzing → exploit chain ke ECU |
+| [[ics-scada-security]] | Safety-critical system security methodology |
+| [[fuzzing-vulnerability-research]] | CAN fuzzing, protocol fuzzing |
+| [[embedded-systems]] | ECU RTOS, CAN stack implementation |
+| [[military-sigint-deepdive]] | RF direction finding untuk telematics SDR |
+| [[forensic-imaging-analysis]] | Vehicle forensics imaging |
 
 ---
 

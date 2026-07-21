@@ -1,16 +1,13 @@
 ---
-title: "🛠️ Master Interactive Tool Arsenal"
+title: 🛠️ Master Interactive Tool Arsenal
 tags:
-  - resources
-aliases:
-  - "application"
-created: "2026-04-30"
-updated: "2026-07-07"
+- resources
+created: '2026-04-30'
+updated: '2026-07-07'
 status: active
 ---
 
 # 🛠️ Master Interactive Tool Arsenal
-
 Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat untuk memudahkan pencarian lintas disiplin. Di bawah ini terdapat berbagai sub-kategori peralatan taktis yang terbagi berdasarkan domain keahlian teknologi masing-masing.
 
 > [!tip] Navigasi Cepat
@@ -19,11 +16,9 @@ Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat unt
 ---
 
 ## 🛡️ Cyber Security (Defensive Security)
-
 Domain Defensive Security difokuskan pada perlindungan aset digital, deteksi ancaman secara real-time, dan respons insiden yang efektif. Mengelola pertahanan modern membutuhkan pemahaman mendalam tentang lanskap ancaman (threat landscape) serta taksonomi kerentanan yang sistematis. Aplikasi interaktif di bawah memetakan ekosistem alat pertahanan siber.
 
 ### Komponen Utama Pertahanan Siber:
-
 1. **Security Information and Event Management (SIEM):** Sistem terpusat yang bertugas mengumpulkan log peristiwa dari berbagai perangkat (firewall, router, server, endpoint) dan menganalisis korelasi data untuk mengidentifikasi perilaku mencurigakan. Contoh arsitektur populer melibatkan Elastic Stack (ELK), Splunk, dan Wazuh.
    - **Elastic Stack (ELK):** Terdiri dari Elasticsearch, Logstash, dan Kibana, yang bekerja sama untuk mengumpulkan, mengolah, dan menganalisis log dari berbagai sumber.
    - **Splunk:** Menyediakan platform untuk mengumpulkan, mengindeks, dan menganalisis data log untuk mendeteksi ancaman dan meningkatkan keamanan.
@@ -44,11 +39,9 @@ Domain Defensive Security difokuskan pada perlindungan aset digital, deteksi anc
 ---
 
 ## ♾️ DevOps & Platform Engineering
-
 DevOps bukan hanya sekadar metodologi, melainkan integrasi budaya dan otomatisasi untuk menyatukan siklus pengembangan perangkat lunak (Development) dengan operasional sistem (Operations). Kecepatan pengiriman kode yang aman harus didukung oleh keandalan infrastruktur yang dapat diprogram (Infrastructure as Code - IaC) dan otomatisasi pipelines.
 
 ### Pilar Utama DevOps:
-
 1. **Continuous Integration & Continuous Deployment (CI/CD):** Otomatisasi penggabungan kode, pengujian otomatis, dan perilisan aplikasi secara berkelanjutan. Alat seperti GitHub Actions, GitLab CI/CD, Jenkins, dan ArgoCD memastikan bahwa setiap perubahan kode divalidasi sebelum mencapai produksi.
    - **GitHub Actions:** Menyediakan kemampuan CI/CD yang terintegrasi langsung ke dalam GitHub, memungkinkan developer untuk mengotomatiskan alur kerja pengujian dan penerapan kode.
 
@@ -66,11 +59,9 @@ DevOps bukan hanya sekadar metodologi, melainkan integrasi budaya dan otomatisas
 ---
 
 ## 📊 Data Engineering
-
 Data Engineering adalah disiplin ilmu untuk merancang, membangun, dan memelihara sistem pemrosesan data skala besar. Fokus utamanya adalah mengubah data mentah (raw data) dari berbagai sumber terdistribusi menjadi format terstruktur yang siap dianalisis oleh data scientist dan analis bisnis.
 
 ### Tahapan dalam Pipeline Data:
-
 1. **Data Ingestion:** Proses penarikan data dari sumber eksternal (API, database operasional, IoT) baik secara batch (misalnya Apache Sqoop, Airbyte) maupun secara real-time streaming (misalnya Apache Kafka, Redpanda).
    - **Apache Kafka:** Sebuah sistem messaging terdistribusi yang dirancang untuk menangani streams data berkecepatan tinggi dan memberikan kemampuan integrasi data secara real-time.
 
@@ -88,11 +79,9 @@ Data Engineering adalah disiplin ilmu untuk merancang, membangun, dan memelihara
 ---
 
 ## 🔍 Forensics & Data Recovery
-
 Digital Forensics and Incident Response (DFIR) melibatkan investigasi ilmiah terhadap insiden siber untuk mengidentifikasi pelaku, menganalisis metode serangan, dan memulihkan data yang hilang atau sengaja dihapus oleh pihak musuh. Pekerjaan forensik menuntut kepatuhan ketat terhadap chain of custody untuk memastikan bukti digital sah di pengadilan.
 
 ### Cabang Investigasi Forensik:
-
 1. **Memory Forensics:** Analisis terhadap RAM sistem yang aktif untuk mengidentifikasi malware tanpa berkas (fileless malware), koneksi jaringan aktif yang disembunyikan, dan kunci kriptografi yang tersimpan di memori sementara. Volatility adalah standar industri untuk analisis ini.
    - **Volatility:** Sebuah kerangka kerja forensik memori yang mendukung analisis berbagai sistem operasi, memberikan wawasan tentang aktivitas malware di memori.
 
@@ -110,11 +99,9 @@ Digital Forensics and Incident Response (DFIR) melibatkan investigasi ilmiah ter
 ---
 
 ## ⚔️ Cyber Offense (Offensive Security)
-
 Offensive Security berfokus pada pengujian pertahanan siber melalui simulasi serangan nyata. Kegiatan ini mencakup penetration testing terstruktur dan latihan red teaming yang bertujuan menemukan celah keamanan sebelum dieksploitasi oleh penyerang sungguhan.
 
 ### Fase-Fase Serangan (Cyber Kill Chain):
-
 1. **Reconnaissance & OSINT:** Pengumpulan informasi publik mengenai target, seperti blok IP, sub-domain, struktur organisasi, kredensial bocor, dan teknologi yang digunakan. Alat populer termasuk Amass, Shodan, dan Google Dorks.
    - **Amass:** Sebuah alat Intelijen Osint yang dapat membantu mengidentifikasi aset-aset organisasi di internet, termasuk domain, IP, dan informasi lainnya.
 

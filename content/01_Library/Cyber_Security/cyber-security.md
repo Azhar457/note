@@ -1,14 +1,12 @@
 ---
-title: "Cyber Security"
+title: Cyber Security
 tags:
-  - atlas
-  - roadmap
-aliases:
-  - "cyber-security"
-created: "2026-04-25"
-updated: "2026-07-01"
+- atlas
+- roadmap
+created: '2026-04-25'
+updated: '2026-07-01'
 status: active
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🛡️ Roadmap Cyber Security — Blue Team / SOC Analyst
@@ -44,12 +42,12 @@ Next step: Install Proxmox, pindah Ubuntu jadi VM, buat VM target latihan
 > **Goal:** Pahami apa yang membuat sistem rentan, dan pasang "mata" pertama di infrastruktur kamu.
 > **RAM Impact:** Semua tool bisa jalan bersamaan, total <2GB.
 
-| Tool         | RAM    | Yang Dipelajari                                                   | Combo A+B yang Membuktikan                                                       |
-| ------------ | ------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **Lynis**    | ~50MB  | Security auditing — skor hardening, rekomendasi fix CIS Benchmark | Lynis + **remediasi manual** = kamu bisa hardening Linux dari nol                |
-| **Trivy**    | ~100MB | Container vulnerability scanning — deteksi CVE sebelum deploy     | Trivy + **Docker image scanning pipeline** = kamu paham shift-left security      |
-| **CrowdSec** | ~150MB | Collaborative IPS — belajar attack patterns dari data komunal     | CrowdSec + **log analysis** = kamu lihat serangan nyata ke server kamu           |
-| **Suricata** | ~350MB | Network IDS — deteksi intrusi di level packet                     | Suricata + **alert triage** = kamu bisa baca network traffic seperti SOC analyst |
+| Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------|-----|-----------------|---------------------------|
+| **Lynis** | ~50MB | Security auditing — skor hardening, rekomendasi fix CIS Benchmark | Lynis + **remediasi manual** = kamu bisa hardening Linux dari nol |
+| **Trivy** | ~100MB | Container vulnerability scanning — deteksi CVE sebelum deploy | Trivy + **Docker image scanning pipeline** = kamu paham shift-left security |
+| **CrowdSec** | ~150MB | Collaborative IPS — belajar attack patterns dari data komunal | CrowdSec + **log analysis** = kamu lihat serangan nyata ke server kamu |
+| **Suricata** | ~350MB | Network IDS — deteksi intrusi di level packet | Suricata + **alert triage** = kamu bisa baca network traffic seperti SOC analyst |
 
 > [!tip] Cara Belajar Fase 1
 > Jalankan `sudo lynis audit system` — ikuti rekomendasinya satu per satu. Setiap poin yang kamu fix, catat di catatan: "Sebelum: skor 54. Sesudah: skor 72. Yang saya fix: SSH config, firewall rules, file permissions." **Ini cerita interview.**
@@ -64,11 +62,11 @@ Next step: Install Proxmox, pindah Ubuntu jadi VM, buat VM target latihan
 > **Goal:** Deteksi ancaman di level runtime (kernel) dan temukan kelemahan sebelum penyerang.
 > **RAM Impact:** Jalankan 1-2 sekaligus. Matikan yang tidak dipelajari. Total aman ~3-4GB.
 
-| Tool                  | RAM    | Yang Dipelajari                                                     | Combo A+B yang Membuktikan                                                             |
-| --------------------- | ------ | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| **Falco**             | ~400MB | Runtime security — deteksi perilaku mencurigakan di kernel via eBPF | Falco + **custom rules** = kamu bisa menulis detection logic, bukan cuma pakai default |
-| **Semgrep**           | ~200MB | SAST — cari bug keamanan di source code                             | Semgrep + **CI pipeline integration** = kamu paham DevSecOps workflow                  |
-| **OpenVAS/Greenbone** | ~1.5GB | Vulnerability scanner — temukan kelemahan infrastruktur             | OpenVAS + **remediation report** = kamu bisa triage vulnerability berdasarkan CVSS     |
+| Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------|-----|-----------------|---------------------------|
+| **Falco** | ~400MB | Runtime security — deteksi perilaku mencurigakan di kernel via eBPF | Falco + **custom rules** = kamu bisa menulis detection logic, bukan cuma pakai default |
+| **Semgrep** | ~200MB | SAST — cari bug keamanan di source code | Semgrep + **CI pipeline integration** = kamu paham DevSecOps workflow |
+| **OpenVAS/Greenbone** | ~1.5GB | Vulnerability scanner — temukan kelemahan infrastruktur | OpenVAS + **remediation report** = kamu bisa triage vulnerability berdasarkan CVSS |
 
 > [!warning] RAM Management
 > **Matikan Suricata & Falco dulu sebelum jalankan OpenVAS.** OpenVAS butuh ~1.5GB sendiri. Scan ke VM lain di jaringan lokal — jangan ke server yang sedang dipelajari.
@@ -83,10 +81,10 @@ Next step: Install Proxmox, pindah Ubuntu jadi VM, buat VM target latihan
 > **Goal:** Ini inti pekerjaan SOC analyst. Agregasi log, korelasi event, dan respons insiden.
 > **RAM Impact:** Heavy. Jalankan satu-satu. Matikan semua tool lain.
 
-| Tool                    | RAM    | Yang Dipelajari                                          | Combo A+B yang Membuktikan                                                           |
-| ----------------------- | ------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Wazuh** (single-node) | ~3.0GB | SIEM — agregasi log, deteksi threat, compliance          | Wazuh + **custom decoder + alert rules** = kamu bisa tuning SIEM, bukan cuma install |
-| **TheHive**             | ~2.0GB | Case management — cara SOC mendokumentasikan investigasi | TheHive + **incident playbook** = kamu paham workflow investigasi end-to-end         |
+| Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------|-----|-----------------|---------------------------|
+| **Wazuh** (single-node) | ~3.0GB | SIEM — agregasi log, deteksi threat, compliance | Wazuh + **custom decoder + alert rules** = kamu bisa tuning SIEM, bukan cuma install |
+| **TheHive** | ~2.0GB | Case management — cara SOC mendokumentasikan investigasi | TheHive + **incident playbook** = kamu paham workflow investigasi end-to-end |
 
 > [!tip] Trik RAM untuk Wazuh
 > Pakai Docker Compose resmi, tapi edit `docker-compose.yml`: set `ES_JAVA_OPTS=-Xms512m -Xmx1g` untuk hemat RAM. Pasang Wazuh agent di VM lain untuk kirim log ke manager.
@@ -101,10 +99,10 @@ Next step: Install Proxmox, pindah Ubuntu jadi VM, buat VM target latihan
 > **Goal:** Level lanjutan. Berbagi IOC antar organisasi dan manage credential secara aman.
 > **RAM Impact:** Pelajari konsep dulu. Jalankan hanya saat khusus belajar.
 
-| Tool                | RAM    | Yang Dipelajari                                              | Combo A+B yang Membuktikan                                                    |
-| ------------------- | ------ | ------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| **MISP**            | ~2.0GB | Threat intelligence sharing — IOC (Indicators of Compromise) | MISP + **TheHive integration** = kamu bisa automate enrichment dari IOC feeds |
-| **HashiCorp Vault** | ~300MB | Secrets management — credential tidak boleh hardcode         | Vault + **auto-rotation credential database** = kamu paham zero-trust secrets |
+| Tool | RAM | Yang Dipelajari | Combo A+B yang Membuktikan |
+|------|-----|-----------------|---------------------------|
+| **MISP** | ~2.0GB | Threat intelligence sharing — IOC (Indicators of Compromise) | MISP + **TheHive integration** = kamu bisa automate enrichment dari IOC feeds |
+| **HashiCorp Vault** | ~300MB | Secrets management — credential tidak boleh hardcode | Vault + **auto-rotation credential database** = kamu paham zero-trust secrets |
 
 **Proyek Portofolio Fase 4:**
 `Threat Intelligence Pipeline` — setup MISP feed → TheHive auto-enrichment → Wazuh correlation. Atau: Vault secrets engine + auto-rotation credential PostgreSQL dengan audit trail.
@@ -133,19 +131,18 @@ Bulan 1      Bulan 2      Bulan 3      Bulan 4      Bulan 5      Bulan 6
 
 ## Sertifikasi yang Cocok per Fase
 
-| Fase             | Sertifikasi                                         | Kenapa                                                           |
-| ---------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
-| Setelah Fase 1–2 | **CompTIA Security+**                               | Fondasi teori security — validasi apa yang sudah kamu praktekkan |
-| Setelah Fase 3   | **BTL1 (Blue Team Level 1)**                        | SOC analyst cert paling praktis — langsung pakai SIEM & IR       |
-| Setelah Fase 4   | **CCD (Certified CyberDefender)** by CyberDefenders | Lab-based, pakai evidence dari SIEM/log nyata                    |
-| Jangka panjang   | **GCIA (GIAC Certified Intrusion Analyst)**         | Gold standard network defense — mahal tapi berharga              |
+| Fase | Sertifikasi | Kenapa |
+|------|-------------|--------|
+| Setelah Fase 1–2 | **CompTIA Security+** | Fondasi teori security — validasi apa yang sudah kamu praktekkan |
+| Setelah Fase 3 | **BTL1 (Blue Team Level 1)** | SOC analyst cert paling praktis — langsung pakai SIEM & IR |
+| Setelah Fase 4 | **CCD (Certified CyberDefender)** by CyberDefenders | Lab-based, pakai evidence dari SIEM/log nyata |
+| Jangka panjang | **GCIA (GIAC Certified Intrusion Analyst)** | Gold standard network defense — mahal tapi berharga |
 
 ---
 
 ## Yang TIDAK Perlu Dipelajari Sekarang
 
 > [!warning] Jangan Buang Waktu
->
 > - ~~Kali Linux tools (Metasploit, Burp Suite)~~ — itu jalur Red Team, beda roadmap
 > - ~~Cloud-native security (AWS GuardDuty, Azure Sentinel)~~ — pelajari setelah punya fondasi on-prem
 > - ~~Malware analysis / reverse engineering~~ — butuh fondasi assembly, beda spesialisasi
@@ -167,4 +164,4 @@ Bulan 1      Bulan 2      Bulan 3      Bulan 4      Bulan 5      Bulan 6
 
 ---
 
-_Roadmap Cyber Security Blue Team | Fase 1 (Hardening) → Fase 4 (Threat Intel) · 6 Bulan Homelab_
+*Roadmap Cyber Security Blue Team | Fase 1 (Hardening) → Fase 4 (Threat Intel) · 6 Bulan Homelab*

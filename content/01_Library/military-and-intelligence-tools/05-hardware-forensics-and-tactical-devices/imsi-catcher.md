@@ -1,15 +1,13 @@
 ---
-title: "Imsi Catcher"
+title: Imsi Catcher
 tags:
-  - 05-hardware-forensics-and-tactical-devices
-  - library
-  - military-and-intelligence-tools
-aliases:
-  - "imsi-catcher"
-created: "2026-06-28"
-updated: "2026-07-01"
+- 05-hardware-forensics-and-tactical-devices
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -30,15 +28,15 @@ IMSI Catcher adalah perangkat yang menyamar sebagai **Base Transceiver Station (
 
 StingRay adalah merek dagang dari **Harris Corporation** (AS), tetapi istilah ini sering digunakan secara generik untuk semua IMSI Catcher. Perangkat serupa diproduksi oleh:
 
-| Produsen                           | Negara    | Produk                             |
-| ---------------------------------- | --------- | ---------------------------------- |
-| **Harris Corporation** (L3Harris)  | AS        | StingRay, KingFish, Hailstorm      |
-| **Septier Communications**         | Israel    | Interceptor, EXODUS                |
-| **Ability/Ultra Electronics**      | Israel/UK | GSM/3G/LTE Interceptor             |
-| **PKI Electronic**                 | Jerman    | IMSI Catcher series                |
-| **Comstrac**                       | UK        | Passive/Active GSM Interceptor     |
-| **Rayzone**                        | Israel    | Piranha                            |
-| **CETC (China Electronics Tech.)** | Tiongkok  | Berbagai sistem intersepsi seluler |
+| Produsen | Negara | Produk |
+|----------|--------|--------|
+| **Harris Corporation** (L3Harris) | AS | StingRay, KingFish, Hailstorm |
+| **Septier Communications** | Israel | Interceptor, EXODUS |
+| **Ability/Ultra Electronics** | Israel/UK | GSM/3G/LTE Interceptor |
+| **PKI Electronic** | Jerman | IMSI Catcher series |
+| **Comstrac** | UK | Passive/Active GSM Interceptor |
+| **Rayzone** | Israel | Piranha |
+| **CETC (China Electronics Tech.)** | Tiongkok | Berbagai sistem intersepsi seluler |
 
 ---
 
@@ -48,13 +46,13 @@ StingRay adalah merek dagang dari **Harris Corporation** (AS), tetapi istilah in
 
 IMSI Catcher biasanya terdiri dari:
 
-| Komponen                           | Fungsi                                                                             |
-| ---------------------------------- | ---------------------------------------------------------------------------------- |
-| **Radio Transceiver** (SDR-based)  | Memancarkan sinyal BTS pada frekuensi GSM/3G/LTE/5G.                               |
-| **Amplifier & Antenna**            | Meningkatkan jangkauan (portabel: 100-500m; kendaraan: 1-2km; fixed: hingga 10km). |
-| **Komputer Kontrol**               | Menjalankan software untuk mengelola koneksi, mengumpulkan data, dan logging.      |
-| **Baterai / Power Supply**         | Untuk operasi portabel (backpack, kendaraan).                                      |
-| **Backhaul Connection** (Opsional) | Untuk meneruskan panggilan/data ke jaringan asli (man-in-the-middle penuh).        |
+| Komponen | Fungsi |
+|----------|--------|
+| **Radio Transceiver** (SDR-based) | Memancarkan sinyal BTS pada frekuensi GSM/3G/LTE/5G. |
+| **Amplifier & Antenna** | Meningkatkan jangkauan (portabel: 100-500m; kendaraan: 1-2km; fixed: hingga 10km). |
+| **Komputer Kontrol** | Menjalankan software untuk mengelola koneksi, mengumpulkan data, dan logging. |
+| **Baterai / Power Supply** | Untuk operasi portabel (backpack, kendaraan). |
+| **Backhaul Connection** (Opsional) | Untuk meneruskan panggilan/data ke jaringan asli (man-in-the-middle penuh). |
 
 ### Mode Operasi
 
@@ -93,27 +91,27 @@ IMSI Catcher biasanya terdiri dari:
 
 ### 1. Kerentanan di 2G (GSM)
 
-| Kerentanan                      | Deskripsi                                                                                                                                 |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Kerentanan | Deskripsi |
+|------------|-----------|
 | **Mutual Authentication Lemah** | Hanya jaringan yang mengotentikasi ponsel; ponsel TIDAK mengotentikasi jaringan. IMSI Catcher bisa menyamar sebagai BTS tanpa terdeteksi. |
-| **Enkripsi A5/1 Lemah**         | Cipher A5/1 (64-bit) bisa dipecahkan dengan rainbow tables dalam hitungan detik (teknik "A5/1 cracking").                                 |
-| **A5/0 (No Encryption)**        | BTS bisa memerintahkan ponsel menggunakan A5/0 (tanpa enkripsi). IMSI Catcher mengeksploitasi ini.                                        |
-| **IMSI Exposure**               | Dalam prosedur awal, ponsel mengirimkan IMSI dalam plaintext jika TMSI tidak tersedia.                                                    |
+| **Enkripsi A5/1 Lemah** | Cipher A5/1 (64-bit) bisa dipecahkan dengan rainbow tables dalam hitungan detik (teknik "A5/1 cracking"). |
+| **A5/0 (No Encryption)** | BTS bisa memerintahkan ponsel menggunakan A5/0 (tanpa enkripsi). IMSI Catcher mengeksploitasi ini. |
+| **IMSI Exposure** | Dalam prosedur awal, ponsel mengirimkan IMSI dalam plaintext jika TMSI tidak tersedia. |
 
 ### 2. Kerentanan di 3G (UMTS)
 
-| Kerentanan                             | Deskripsi                                                                                                                                                 |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kerentanan | Deskripsi |
+|------------|-----------|
 | **Mutual Authentication Ada, Tapi...** | 3G mewajibkan mutual authentication, tetapi ponsel bisa di-downgrade ke 2G oleh IMSI Catcher (dengan jamming sinyal 3G/4G atau mengirimkan pesan reject). |
-| **IMSI Catcher Detection di 3G**       | Ponsel bisa mendeteksi BTS palsu jika menerima pesan yang tidak sesuai protokol 3G. Tapi IMSI Catcher modern bisa menghindari deteksi.                    |
+| **IMSI Catcher Detection di 3G** | Ponsel bisa mendeteksi BTS palsu jika menerima pesan yang tidak sesuai protokol 3G. Tapi IMSI Catcher modern bisa menghindari deteksi. |
 
 ### 3. Kerentanan di 4G (LTE) & 5G
 
-| Kerentanan                                      | Deskripsi                                                                                                                                                                                                 |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **IMSI Catching via Diameter/SS7**              | Alih-alih menggunakan BTS palsu, penyerang bisa mengeksploitasi kelemahan protokol SS7/Diameter untuk mendapatkan IMSI dan lokasi target dari operator seluler langsung (tanpa perlu dekat secara fisik). |
-| **LTE/5G Downgrade ke 2G**                      | Dengan jamming frekuensi LTE/5G, ponsel dipaksa turun ke 2G/3G yang lebih lemah.                                                                                                                          |
-| **5G SUCI (Subscription Concealed Identifier)** | 5G memperkenalkan SUCI — IMSI terenkripsi. Tapi implementasi yang salah atau downgrade ke 4G/3G/2G bisa mem-bypass ini.                                                                                   |
+| Kerentanan | Deskripsi |
+|------------|-----------|
+| **IMSI Catching via Diameter/SS7** | Alih-alih menggunakan BTS palsu, penyerang bisa mengeksploitasi kelemahan protokol SS7/Diameter untuk mendapatkan IMSI dan lokasi target dari operator seluler langsung (tanpa perlu dekat secara fisik). |
+| **LTE/5G Downgrade ke 2G** | Dengan jamming frekuensi LTE/5G, ponsel dipaksa turun ke 2G/3G yang lebih lemah. |
+| **5G SUCI (Subscription Concealed Identifier)** | 5G memperkenalkan SUCI — IMSI terenkripsi. Tapi implementasi yang salah atau downgrade ke 4G/3G/2G bisa mem-bypass ini. |
 
 ---
 
@@ -122,7 +120,6 @@ IMSI Catcher biasanya terdiri dari:
 ### 1. IMSI Harvesting
 
 IMSI Catcher mengumpulkan semua IMSI dari ponsel di sekitarnya. Dalam operasi pengawasan massal (misal: demonstrasi), ribuan IMSI bisa dikumpulkan dalam hitungan menit. Data ini kemudian bisa:
-
 - Diidentifikasi (IMSI ↔ nomor telepon ↔ identitas pemilik via operator).
 - Dilacak (muncul di lokasi protes → dicurigai aktivis).
 
@@ -151,14 +148,14 @@ IMSI Catcher mengumpulkan semua IMSI dari ponsel di sekitarnya. Dalam operasi pe
 
 ## 🕵️‍♂️ Penggunaan Terdokumentasi
 
-| Negara      | Penggunaan                        | Detail                                                                     |
-| ----------- | --------------------------------- | -------------------------------------------------------------------------- |
-| **AS**      | Penegak hukum (FBI, polisi lokal) | Digunakan sejak 1990-an; kontroversi karena tanpa warrant di banyak kasus. |
-| **UK**      | Polisi Metropolitan, MI5          | Digunakan untuk melacak tersangka kriminal dan teroris.                    |
-| **Turki**   | Rezim Erdogan                     | Digunakan untuk melacak aktivis, jurnalis, dan lawan politik.              |
-| **Myanmar** | Junta militer                     | Digunakan untuk melacak demonstran prodemokrasi.                           |
-| **Meksiko** | Kartel & pemerintah               | Digunakan oleh kedua belah pihak.                                          |
-| **China**   | MSS                               | Digunakan secara masif di Xinjiang dan terhadap aktivis.                   |
+| Negara | Penggunaan | Detail |
+|--------|------------|--------|
+| **AS** | Penegak hukum (FBI, polisi lokal) | Digunakan sejak 1990-an; kontroversi karena tanpa warrant di banyak kasus. |
+| **UK** | Polisi Metropolitan, MI5 | Digunakan untuk melacak tersangka kriminal dan teroris. |
+| **Turki** | Rezim Erdogan | Digunakan untuk melacak aktivis, jurnalis, dan lawan politik. |
+| **Myanmar** | Junta militer | Digunakan untuk melacak demonstran prodemokrasi. |
+| **Meksiko** | Kartel & pemerintah | Digunakan oleh kedua belah pihak. |
+| **China** | MSS | Digunakan secara masif di Xinjiang dan terhadap aktivis. |
 
 ---
 
@@ -166,35 +163,35 @@ IMSI Catcher mengumpulkan semua IMSI dari ponsel di sekitarnya. Dalam operasi pe
 
 ### 1. Deteksi IMSI Catcher
 
-| Metode                            | Aplikasi/Tools                                                                                                       |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Android IMSI Catcher Detector** | Aplikasi seperti SnoopSnitch, Cell Spy Catcher, IMSI-Catcher Detector. Memonitor sinyal BTS anomali.                 |
-| **iOS**                           | Tidak ada aplikasi khusus (keterbatasan API). Tapi indikator: ponsel tiba-tiba jatuh ke 2G di area yang biasanya 4G. |
-| **Field Test Mode**               | Masuk ke Field Test Mode ( `*3001#12345#*` di iPhone) untuk melihat Cell ID, LAC, dan mendeteksi BTS tidak dikenal.  |
-| **Femtocell Detection**           | BTS palsu sering tidak memiliki tetangga (neighbor cells) atau parameternya aneh.                                    |
-| **Signal Monitoring**             | Lonjakan sinyal tiba-tiba di area yang biasanya sinyal lemah.                                                        |
+| Metode | Aplikasi/Tools |
+|--------|----------------|
+| **Android IMSI Catcher Detector** | Aplikasi seperti SnoopSnitch, Cell Spy Catcher, IMSI-Catcher Detector. Memonitor sinyal BTS anomali. |
+| **iOS** | Tidak ada aplikasi khusus (keterbatasan API). Tapi indikator: ponsel tiba-tiba jatuh ke 2G di area yang biasanya 4G. |
+| **Field Test Mode** | Masuk ke Field Test Mode ( `*3001#12345#*` di iPhone) untuk melihat Cell ID, LAC, dan mendeteksi BTS tidak dikenal. |
+| **Femtocell Detection** | BTS palsu sering tidak memiliki tetangga (neighbor cells) atau parameternya aneh. |
+| **Signal Monitoring** | Lonjakan sinyal tiba-tiba di area yang biasanya sinyal lemah. |
 
 ### 2. Indikator BTS Palsu
 
-| Indikator                    | Normal                   | IMSI Catcher                                                |
-| ---------------------------- | ------------------------ | ----------------------------------------------------------- |
-| **LAC (Location Area Code)** | Sesuai dengan area       | Berbeda dari sel sekitar, atau tidak berubah saat berpindah |
-| **Cell ID**                  | Sesuai database operator | ID tidak dikenal atau duplikat                              |
-| **Neighbor Cells**           | Banyak                   | Sedikit atau tidak ada                                      |
-| **Enkripsi (Ciphering)**     | A5/1, A5/3               | A5/0 (no encryption) atau A5/1 lemah                        |
-| **Sinyal Strength**          | Fluktuatif               | Tiba-tiba sangat kuat                                       |
-| **Network Mode**             | 4G/5G stabil             | Tiba-tiba drop ke 2G                                        |
+| Indikator | Normal | IMSI Catcher |
+|-----------|--------|--------------|
+| **LAC (Location Area Code)** | Sesuai dengan area | Berbeda dari sel sekitar, atau tidak berubah saat berpindah |
+| **Cell ID** | Sesuai database operator | ID tidak dikenal atau duplikat |
+| **Neighbor Cells** | Banyak | Sedikit atau tidak ada |
+| **Enkripsi (Ciphering)** | A5/1, A5/3 | A5/0 (no encryption) atau A5/1 lemah |
+| **Sinyal Strength** | Fluktuatif | Tiba-tiba sangat kuat |
+| **Network Mode** | 4G/5G stabil | Tiba-tiba drop ke 2G |
 
 ### 3. Countermeasures
 
-| Lapisan        | Tindakan                                                                                         |
-| -------------- | ------------------------------------------------------------------------------------------------ |
-| **Pengguna**   | Gunakan aplikasi deteksi. Waspada jika ponsel tiba-tiba jatuh ke 2G.                             |
-| **Komunikasi** | Gunakan **E2EE** (Signal, WhatsApp). Bahkan jika diintersep, konten tidak bisa dibaca.           |
-| **Ponsel**     | Gunakan ponsel dengan chipset yang mendukung deteksi IMSI Catcher (Snapdragon X55+).             |
-| **Operator**   | Operator harus mengimplementasikan **5G SUCI**, **mutual authentication**, dan **A5/3 minimal**. |
-| **Regulasi**   | Larang penggunaan IMSI Catcher tanpa warrant. Audit penggunaan oleh penegak hukum.               |
-| **Teknis**     | Gunakan **VPN** untuk data agar tidak bisa diintersep meskipun di 2G.                            |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Pengguna** | Gunakan aplikasi deteksi. Waspada jika ponsel tiba-tiba jatuh ke 2G. |
+| **Komunikasi** | Gunakan **E2EE** (Signal, WhatsApp). Bahkan jika diintersep, konten tidak bisa dibaca. |
+| **Ponsel** | Gunakan ponsel dengan chipset yang mendukung deteksi IMSI Catcher (Snapdragon X55+). |
+| **Operator** | Operator harus mengimplementasikan **5G SUCI**, **mutual authentication**, dan **A5/3 minimal**. |
+| **Regulasi** | Larang penggunaan IMSI Catcher tanpa warrant. Audit penggunaan oleh penegak hukum. |
+| **Teknis** | Gunakan **VPN** untuk data agar tidak bisa diintersep meskipun di 2G. |
 
 ---
 
@@ -229,12 +226,12 @@ sandera                   intelijen sah
 
 ## 📚 Referensi
 
-- EFF. _Stingray: The Most Common Cell Phone Surveillance Device_. 2019.
-- ACLU. _Stingray Tracking Devices: Who's Got Them?_. 2018.
-- 3GPP TS 33.102: _Security Architecture for 3G/4G/5G_.
-- Karsten Nohl et al. _A5/1 Cracking and GSM Security_.
+- EFF. *Stingray: The Most Common Cell Phone Surveillance Device*. 2019.
+- ACLU. *Stingray Tracking Devices: Who's Got Them?*. 2018.
+- 3GPP TS 33.102: *Security Architecture for 3G/4G/5G*.
+- Karsten Nohl et al. *A5/1 Cracking and GSM Security*.
 - MITRE ATT&CK: T1588 (Obtain Capabilities), T1595 (Active Scanning).
 
 ---
 
-_IMSI Catcher / Stingray Deep Dive | Cellular Interception & Tracking | Dual-Use Surveillance Hardware_
+*IMSI Catcher / Stingray Deep Dive | Cellular Interception & Tracking | Dual-Use Surveillance Hardware*

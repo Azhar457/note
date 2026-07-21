@@ -1,14 +1,12 @@
 ---
-title: "Hierarchy Cryptography"
+title: Hierarchy Cryptography
 tags:
-  - atlas
-  - cryptography
-  - post-quantum
-  - blue-team
-aliases:
-  - "hierarchy-cryptography"
-created: "2026-07-17"
-updated: "2026-07-17"
+- atlas
+- cryptography
+- post-quantum
+- blue-team
+created: '2026-07-17'
+updated: '2026-07-17'
 status: active
 ---
 
@@ -23,16 +21,16 @@ status: active
 
 ## Tabel Utama — Level 0 sampai Level 7
 
-| 🔑 Level                                       | 🧠 Algoritma & Pendekatan                                                                                                                      | ⚡ Sweet Spot & Cara Kerja                                                                                                                                                                                                               | ☠️ Tembok Kematian (Kapan Expired)                                                                                                                                                                                           | 🎯 Dipakai Di Mana Hari Ini                                                                                                                                    |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Level 0** — Classical Cipher                 | Caesar, Vigenère, ROT13, Atbash, Rail Fence, Substitution Cipher                                                                               | Substitusi atau transposisi karakter sederhana. Caesar: geser huruf N posisi. Vigenère: Caesar dengan kunci berulang (kelihatannya kuat, lemah dengan frequency analysis)                                                                | **Langsung mati** di hadapan frequency analysis. Huruf E di bahasa Inggris adalah 12.7% — bikin pattern cipher terlihat sehari. Tidak ada computational security whatsoever                                                  | CTF pemula, edukasi konsep dasar, puzzle harian, Steganografi sederhana. Bukan untuk production                                                                |
-| **Level 1** — Symmetric Encryption             | DES (mati), 3DES (mati), **AES-128/256** (standar), ChaCha20, Blowfish, Twofish, Camellia                                                      | Satu kunci shared untuk enkripsi + dekripsi. AES-256: standar emas, dipakai militer AS, bank sentral, VPN modern. Blowfish (1993) tergantikan AES karena concern key size. DES (56-bit key) dipecahkan EFF DES Cracker dalam 22 jam 1999 | **Key distribution problem**. Bagaimana berbagi kunci aman dengan pihak yang belum pernah bertemu? Ini yang mendorong lahirnya Level 2 (asymmetric). AES-256 sendiri aman sampai quantum computer besar (Grover's algorithm) | HTTPS session key, VeraCrypt, BitLocker, FileVault, disk encryption, VPN tunnel, database encryption at-rest                                                   |
-| **Level 2** — Asymmetric / Public Key          | RSA-2048/4096, **ECC** (Curve25519/P-256), Diffie-Hellman, ElGamal, DSA                                                                        | Dua kunci: **public** boleh disebar; **private** rahasia. Enkripsi dengan public, dekripsi dengan private. ECC: keamanan setara RSA-2048 dengan kunci 256-bit (lebih efisien mobile). DH: shared secret tanpa kirim.                     | **Rentan Shor's Algorithm** di quantum computer cukup besar. RSA-1024 mati. ECC aman dari classical tapi vulnerable quantum                                                                                                  | TLS handshake (browser ke server), SSH key pair, PGP email, code signing certificate, S/MIME, JWT signing, blockchain wallet                                   |
-| **Level 3** — Hash Functions                   | **MD5** (mati), **SHA-1** (mati), **SHA-256/384/512** (standar), SHA-3 (Keccak), BLAKE3, bcrypt, Argon2, scrypt                                | One-way function: mudah compute hash(x), **mustahil** balik hash(x) → x. BLAKE3 = tercepat 2024. bcrypt/Argon2 = slow hash untuk password storage. Salt + slow = rainbow table attack mustahil.                                          | MD5 collision (2004). SHA-1 collision (Google SHAttered 2017). Hash tanpa salt = rainbow table vulnerable. SHA-256/512 aman saat ini, **rentan quantum** (Grover's halving security)                                         | Integritas file (checksum SHA-256), password storage (Argon2/bcrypt), blockchain (Bitcoin pakai SHA-256), digital signature, HMAC, deduplication               |
-| **Level 4** — Protokol Kriptografi             | **TLS 1.3**, WireGuard, Signal Protocol, Noise Protocol, SSH, IPsec/IKEv2                                                                      | Kombinasi primitif jadi protokol komunikasi aman. TLS 1.3: handshake 1-RTT, forward secrecy wajib, hapus cipher legacy. Signal Protocol: Double Ratchet (WhatsApp, Telegram). WireGuard: VPN modern 4000 baris kode (vs OpenVPN 70.000)  | **Implementasi yang salah lebih bahaya dari algoritma lemah.** Padding oracle attack (POODLE 2014), Heartbleed 2014, ROBOT 2017 — semua bug implementasi, bukan algoritma                                                    | HTTPS di web, messaging E2E (Signal, WhatsApp), SSH remote access, VPN modern, IoT TLS, REST API over HTTPS                                                    |
-| **Level 5** — PKI & Certificate Infrastructure | **X.509**, CA hierarchy (Root → Intermediate → End-entity), Certificate Transparency (CT) logs, OCSP, **Certificate Pinning**                  | PKI = sistem kepercayaan hierarkis. Root CA (bisa di-audit, ~150 di browser) → Intermediate CA → End-entity sertif. Browser hanya percaya Root CA di trust store-nya. CT log publik semua sertifikat diterbitkan, detect fake.           | **Root CA compromise = seluruh internet tidak aman untuk domain itu**. DigiNotar 2011, CNNIC 2015. Pinning bisa break app kalau cert rotate. OCSP soft-fail vs hard-fail                                                     | HTTPS di seluruh web, code signing, S/MIME email, VPN client auth, IoT device identity, government eID                                                         |
-| **Level 6** — Zero-Knowledge & Advanced        | **ZKP** (Zero-Knowledge Proof), **zk-SNARKs** (Zcash, zkEVM), Homomorphic Encryption (FHE), MPC (Multi-Party Compute), Secret Sharing (Shamir) | ZKP: **buktikan kamu tahu tanpa tunjukkan apa yang kamu tahu.** zk-SNARK: ZKP compact dan verify cepat. FHE: compute data terenkripsi tanpa decrypt (cloud tidak pernah lihat data). MPC: komputasi tanpa ada pihak lihat input.         | FHE: **1000–10.000x lebih lambat** dari compute tidak terenkripsi. zk-SNARK butuh trusted setup ceremony. MPC latency tinggi. Belum battle-tested skala production                                                           | Privacy-preserving ML, blockchain privacy (Zcash, Monero), e-voting, secure genomic analysis, supply chain provenance                                          |
-| **☠️ Level 7** — Post-Quantum Cryptography     | **CRYSTALS-Kyber** (NIST FIPS 203), **CRYSTALS-Dilithium** (FIPS 204), **FALCON**, **SPHINCS+**, NTRU, NewHope                                 | Algoritma **tahan quantum** (Shor's tidak bisa pecahkan). NIST 2024 standardisasi 4 algoritma. Berbasis **lattice** (Kyber/Dilithium), hash-based (SPHINCS+), atau code-based (Classic McEliece).                                        | Signature & key **jauh lebih besar** dari RSA/ECC. Performance overhead. Belum battle-tested panjang. **Harvest-now-decrypt-later**: adversary rekam traffic sekarang, decrypt saat quantum cukup                            | Migrasi infrastruktur kritis (bank, militer, government) — wajib sebelum 2030. Browser mulai hybrid mode (X25519 + Kyber). TLS hybrid handshake roll-out 2025+ |
+| 🔑 Level | 🧠 Algoritma & Pendekatan | ⚡ Sweet Spot & Cara Kerja | ☠️ Tembok Kematian (Kapan Expired) | 🎯 Dipakai Di Mana Hari Ini |
+|---|---|---|---|---|
+| **Level 0** — Classical Cipher | Caesar, Vigenère, ROT13, Atbash, Rail Fence, Substitution Cipher | Substitusi atau transposisi karakter sederhana. Caesar: geser huruf N posisi. Vigenère: Caesar dengan kunci berulang (kelihatannya kuat, lemah dengan frequency analysis) | **Langsung mati** di hadapan frequency analysis. Huruf E di bahasa Inggris adalah 12.7% — bikin pattern cipher terlihat sehari. Tidak ada computational security whatsoever | CTF pemula, edukasi konsep dasar, puzzle harian, Steganografi sederhana. Bukan untuk production |
+| **Level 1** — Symmetric Encryption | DES (mati), 3DES (mati), **AES-128/256** (standar), ChaCha20, Blowfish, Twofish, Camellia | Satu kunci shared untuk enkripsi + dekripsi. AES-256: standar emas, dipakai militer AS, bank sentral, VPN modern. Blowfish (1993) tergantikan AES karena concern key size. DES (56-bit key) dipecahkan EFF DES Cracker dalam 22 jam 1999 | **Key distribution problem**. Bagaimana berbagi kunci aman dengan pihak yang belum pernah bertemu? Ini yang mendorong lahirnya Level 2 (asymmetric). AES-256 sendiri aman sampai quantum computer besar (Grover's algorithm) | HTTPS session key, VeraCrypt, BitLocker, FileVault, disk encryption, VPN tunnel, database encryption at-rest |
+| **Level 2** — Asymmetric / Public Key | RSA-2048/4096, **ECC** (Curve25519/P-256), Diffie-Hellman, ElGamal, DSA | Dua kunci: **public** boleh disebar; **private** rahasia. Enkripsi dengan public, dekripsi dengan private. ECC: keamanan setara RSA-2048 dengan kunci 256-bit (lebih efisien mobile). DH: shared secret tanpa kirim. | **Rentan Shor's Algorithm** di quantum computer cukup besar. RSA-1024 mati. ECC aman dari classical tapi vulnerable quantum | TLS handshake (browser ke server), SSH key pair, PGP email, code signing certificate, S/MIME, JWT signing, blockchain wallet |
+| **Level 3** — Hash Functions | **MD5** (mati), **SHA-1** (mati), **SHA-256/384/512** (standar), SHA-3 (Keccak), BLAKE3, bcrypt, Argon2, scrypt | One-way function: mudah compute hash(x), **mustahil** balik hash(x) → x. BLAKE3 = tercepat 2024. bcrypt/Argon2 = slow hash untuk password storage. Salt + slow = rainbow table attack mustahil. | MD5 collision (2004). SHA-1 collision (Google SHAttered 2017). Hash tanpa salt = rainbow table vulnerable. SHA-256/512 aman saat ini, **rentan quantum** (Grover's halving security) | Integritas file (checksum SHA-256), password storage (Argon2/bcrypt), blockchain (Bitcoin pakai SHA-256), digital signature, HMAC, deduplication |
+| **Level 4** — Protokol Kriptografi | **TLS 1.3**, WireGuard, Signal Protocol, Noise Protocol, SSH, IPsec/IKEv2 | Kombinasi primitif jadi protokol komunikasi aman. TLS 1.3: handshake 1-RTT, forward secrecy wajib, hapus cipher legacy. Signal Protocol: Double Ratchet (WhatsApp, Telegram). WireGuard: VPN modern 4000 baris kode (vs OpenVPN 70.000) | **Implementasi yang salah lebih bahaya dari algoritma lemah.** Padding oracle attack (POODLE 2014), Heartbleed 2014, ROBOT 2017 — semua bug implementasi, bukan algoritma | HTTPS di web, messaging E2E (Signal, WhatsApp), SSH remote access, VPN modern, IoT TLS, REST API over HTTPS |
+| **Level 5** — PKI & Certificate Infrastructure | **X.509**, CA hierarchy (Root → Intermediate → End-entity), Certificate Transparency (CT) logs, OCSP, **Certificate Pinning** | PKI = sistem kepercayaan hierarkis. Root CA (bisa di-audit, ~150 di browser) → Intermediate CA → End-entity sertif. Browser hanya percaya Root CA di trust store-nya. CT log publik semua sertifikat diterbitkan, detect fake. | **Root CA compromise = seluruh internet tidak aman untuk domain itu**. DigiNotar 2011, CNNIC 2015. Pinning bisa break app kalau cert rotate. OCSP soft-fail vs hard-fail | HTTPS di seluruh web, code signing, S/MIME email, VPN client auth, IoT device identity, government eID |
+| **Level 6** — Zero-Knowledge & Advanced | **ZKP** (Zero-Knowledge Proof), **zk-SNARKs** (Zcash, zkEVM), Homomorphic Encryption (FHE), MPC (Multi-Party Compute), Secret Sharing (Shamir) | ZKP: **buktikan kamu tahu tanpa tunjukkan apa yang kamu tahu.** zk-SNARK: ZKP compact dan verify cepat. FHE: compute data terenkripsi tanpa decrypt (cloud tidak pernah lihat data). MPC: komputasi tanpa ada pihak lihat input. | FHE: **1000–10.000x lebih lambat** dari compute tidak terenkripsi. zk-SNARK butuh trusted setup ceremony. MPC latency tinggi. Belum battle-tested skala production | Privacy-preserving ML, blockchain privacy (Zcash, Monero), e-voting, secure genomic analysis, supply chain provenance |
+| **☠️ Level 7** — Post-Quantum Cryptography | **CRYSTALS-Kyber** (NIST FIPS 203), **CRYSTALS-Dilithium** (FIPS 204), **FALCON**, **SPHINCS+**, NTRU, NewHope | Algoritma **tahan quantum** (Shor's tidak bisa pecahkan). NIST 2024 standardisasi 4 algoritma. Berbasis **lattice** (Kyber/Dilithium), hash-based (SPHINCS+), atau code-based (Classic McEliece). | Signature & key **jauh lebih besar** dari RSA/ECC. Performance overhead. Belum battle-tested panjang. **Harvest-now-decrypt-later**: adversary rekam traffic sekarang, decrypt saat quantum cukup | Migrasi infrastruktur kritis (bank, militer, government) — wajib sebelum 2030. Browser mulai hybrid mode (X25519 + Kyber). TLS hybrid handshake roll-out 2025+ |
 
 ---
 
@@ -58,7 +56,6 @@ LEWAT ──── SEKARANG ──── MASA DEPAN ──── (quantum aktif 
 
 > [!warning] Timeline Kematian — Bukan Teori
 > Beberapa algoritma di hierarki ini **mati untuk production use**:
->
 > - **DES (1977)** → dipecahkan 1999 (22 jam, EFF cracker)
 > - **MD5 (1992)** → collision 2004 (Wang et al.)
 > - **SHA-1 (1995)** → collision Google SHAttered 2017 (USD 110K)
@@ -79,7 +76,6 @@ Firewalls, antivirus, IDS — semua security tools tidak punya konsep "mati di t
 ### 2. Adopsi Bertahap, Bukan Switch Instan
 
 Migrasi Level 1–5 → Level 7 bukan migrasi "besok langsung pakai PQC." Algoritma baru butuh:
-
 - Implementasi reference (NIST biasanya publish dalam beberapa tahun setelah standardisasi)
 - Library production-grade (OpenSSL, BoringSSL, libsodium)
 - Audit & formal verification
@@ -87,14 +83,12 @@ Migrasi Level 1–5 → Level 7 bukan migrasi "besok langsung pakai PQC." Algori
 - Adoption period (5–10 tahun untuk sistem kritis)
 
 Maka **hybrid mode** rolling out 2025+:
-
 - TLS pakai X25519 + Kyber768 simultaneously
 - Sistem kritis migrasi parallel pathways dulu
 
 ### 3. Aturan "Never Roll Your Own Crypto"
 
 Ini bukan semboyan, ini **bias survivor**:
-
 - 90% CTF crypto challenge solvable karena penulis salah implementasi, **bukan karena algoritmanya lemah**
 - Heartbleed (2014) = open-source library well-maintained (OpenSSL) masih punya bug memory disclosure
 - Padding oracle attack (POODLE, ROBOT) = implementasi legacy yang salah pulih dari error
@@ -132,10 +126,9 @@ Solusi: **post-quantum migration untuk data sensitif TTL panjang** sekarang, tid
 
 > [!tip] Plot Twist 4: Implementasi Terbuka = Risiko Audit
 > OpenSSL Heartbleed (2014) cuma satu bug dari ribuan bug implementasi open source kripto. Trade-off fundamental:
->
 > - **Open-source** = bisa di-audit semua orang, komunitas bug bounty → **lebih aman long-term**
 > - **Closed-source** = lebih cepat patch tapi trust = "katakan vendor" → **lebih rapuh**
->
+> 
 > NSA dual-EC backdoor di OpenSSL (RSA BSAFE) awalnya closed-source — semua percaya "standar resmi." Paradoks: **transparency is the cure**, tapi implementasinya berat dengan audit. OpenSSL audit post-Heartbleed terima USD 900K dari Linux Foundation dan sekarang distressed — tapi jumlah kontributor aktif naik signifikan.
 
 > [!tip] Plot Twist 5: Biometrik Bukan Crypto — Tapi Berdua Fundamental
@@ -145,13 +138,13 @@ Solusi: **post-quantum migration untuk data sensitif TTL panjang** sekarang, tid
 
 ## Migration Roadmap — Sekarang ke Pasca-Quantum
 
-| Fase                | Timeline  | Target                                                                                      |
-| ------------------- | --------- | ------------------------------------------------------------------------------------------- |
-| **Audit**           | 2025–2026 | Inventarisasi semua algoritma kriptografi di stack kamu. RSA-2048? ECC P-256? SHA-1? RC4?   |
-| **Hybrid TLS**      | 2025–2027 | Browser + server pakai **X25519 + Kyber768** secara paralel. Cloudflare sudah roll-out 2024 |
-| **Internal Crypto** | 2026–2028 | Database, backup encryption, file encryption migrasi AES-256 → AES-256 + Kyber wrap         |
-| **Long-TTL Data**   | 2026–2030 | Data sensitif TTL panjang (medical, government, financial) migrasi ke PQC ASAP              |
-| **Quantum Arrival** | ~2035?    | Saat quantum dekripsi public key asimtotik feasible, hybrid menjadi sole-PQC                |
+| Fase | Timeline | Target |
+|---|---|---|
+| **Audit** | 2025–2026 | Inventarisasi semua algoritma kriptografi di stack kamu. RSA-2048? ECC P-256? SHA-1? RC4? |
+| **Hybrid TLS** | 2025–2027 | Browser + server pakai **X25519 + Kyber768** secara paralel. Cloudflare sudah roll-out 2024 |
+| **Internal Crypto** | 2026–2028 | Database, backup encryption, file encryption migrasi AES-256 → AES-256 + Kyber wrap |
+| **Long-TTL Data** | 2026–2030 | Data sensitif TTL panjang (medical, government, financial) migrasi ke PQC ASAP |
+| **Quantum Arrival** | ~2035? | Saat quantum dekripsi public key asimtotik feasible, hybrid menjadi sole-PQC |
 
 PQC migration bukan **opsional upgrade** — itu **inevitability yang perlu planning 5-10 tahun**.
 
@@ -172,4 +165,4 @@ PQC migration bukan **opsional upgrade** — itu **inevitability yang perlu plan
 
 > Hierarki kriptografi adalah hierarki **ketidak-abadian**. Setiap algoritma yang hari ini "aman," besok bisa mati. Tapi yang lebih penting: tiap naik level lo menambahkan **kemampuan + cost**. Lo tidak perlu Level 6 ZKP untuk secure web app — cukup TLS 1.3 (Level 4). Yang penting adalah **tahu level mana lo berada dan kapan harus migrasi**.
 
-_Cryptography Hierarchy | Level 0 (Caesar) → Level 7 (PQC NIST 2024) · Satu-Satunya Hierarki yang Punya Expired Date_
+*Cryptography Hierarchy | Level 0 (Caesar) → Level 7 (PQC NIST 2024) · Satu-Satunya Hierarki yang Punya Expired Date*

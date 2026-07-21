@@ -1,21 +1,21 @@
 ---
-title: "🔗 Claude Code Plugin Marketplace — Distribusi Modular Skill untuk Coding Agent: dari Ad-hoc ke Structured Distribution"
+title: '🔗 Claude Code Plugin Marketplace — Distribusi Modular Skill untuk Coding Agent:
+  dari Ad-hoc ke Structured Distribution'
 tags:
-  - claude-code
-  - plugin-marketplace
-  - skill-distribution
-  - coding-agent
-  - thoughtworks-radar-vol-34
-  - library
+- claude-code
+- plugin-marketplace
+- skill-distribution
+- coding-agent
+- thoughtworks-radar-vol-34
+- library
 aliases:
-  - "claude-code-plugin-marketplace-deepdive"
-  - "skill-marketplace-pattern"
-  - "agent-plugin-distribution"
-created: "2026-07-19"
-updated: "2026-07-19"
+- skill-marketplace-pattern
+- agent-plugin-distribution
+created: '2026-07-19'
+updated: '2026-07-19'
 status: growing
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🔗 Claude Code Plugin Marketplace — Distribusi Modular Skill untuk Coding Agent
@@ -48,7 +48,7 @@ Sebelum plugin marketplace muncul, berbagi skill coding agent berarti:
 
 ThoughtWorks Radar Vol.34 (April 2026) memasukkan **blip #72 Claude Code plugin marketplace** di ring **Trial** — menandakan pola udah ada tapi belum mature di seluruh industry. Quote:
 
-> _"Previously, sharing custom commands, specialized knowledge, or workflow instructions for coding agents required ad-hoc copy-paste. The Claude Code plugin marketplace provides a structured way to package and distribute these capabilities."_
+> *"Previously, sharing custom commands, specialized knowledge, or workflow instructions for coding agents required ad-hoc copy-paste. The Claude Code plugin marketplace provides a structured way to package and distribute these capabilities."*
 
 **Marketplace sebagai registry** menyelesaikan:
 
@@ -116,13 +116,13 @@ Cross-link ke fondasi: [[agentic-ai-mcp-architecture-deepdive]] for MCP sebagai 
 
 Key perbedaan implementasi:
 
-| Variant                        | Namespace model                             | Distribution channel             | Trust model                  | Resolution           |
-| ------------------------------ | ------------------------------------------- | -------------------------------- | ---------------------------- | -------------------- |
+| Variant | Namespace model | Distribution channel | Trust model | Resolution |
+|---------|-----------------|---------------------|-------------|----------|
 | Claude Code plugin marketplace | Per maintainer (e.g. `@author/plugin-name`) | Anthropic-hosted CDN + signature | Reputational + opt signature | Bundler-style semver |
-| Superpowers catalog            | Flat + git repo                             | Git pull only                    | Git commit signature         | git submodules       |
-| GitHub Spec-Kit                | Repo-based (per project repo)               | Source clone atau git submodule  | GitHub auth                  | git submodule        |
-| OpenSpec registry              | `openspec-<package>`                        | PyPI-style registry              | TBD pilot                    | pip semver           |
-| Hermes skills dir              | `~/.hermes/skills/<name>/`                  | Local filesystem, manual sync    | User self-curated            | Manual               |
+| Superpowers catalog | Flat + git repo | Git pull only | Git commit signature | git submodules |
+| GitHub Spec-Kit | Repo-based (per project repo) | Source clone atau git submodule | GitHub auth | git submodule |
+| OpenSpec registry | `openspec-<package>` | PyPI-style registry | TBD pilot | pip semver |
+| Hermes skills dir | `~/.hermes/skills/<name>/` | Local filesystem, manual sync | User self-curated | Manual |
 
 ---
 
@@ -161,8 +161,8 @@ my-awesome-skill/
   },
   "dependencies": {
     "skills": [
-      { "name": "rust-patterns", "version": "^2.0.0" },
-      { "name": "git-workflow", "version": "^1.0.0" }
+      {"name": "rust-patterns", "version": "^2.0.0"},
+      {"name": "git-workflow", "version": "^1.0.0"}
     ]
   },
   "capabilities_required": ["filesystem.read", "terminal.exec"],
@@ -217,7 +217,7 @@ claude plugin publish --registry=anthropic-official
 
 Contoh real skill body yang mendukung marketplace distribution:
 
-````markdown
+```markdown
 ---
 name: cargo-mutants-agent-guide
 description: "Use when user wants to add Rust mutation testing via cargo-mutants. Loads cargo-mutants usage patterns, integration CI patterns, dan pitfalls di weak assertions."
@@ -239,7 +239,6 @@ Mutation testing is the most honest signal for test suite quality. cargo-mutants
 ## Trigger Conditions
 
 User asks for any of:
-
 - "add mutation testing to this Rust project"
 - "cargo-mutants setup"
 - "this test suite weak?"
@@ -253,8 +252,6 @@ User asks for any of:
    [config]
    execlude_files = ["tests/", "benches/"]
    ```
-````
-
 3. Run baseline: `cargo mutants -j 4`
 4. Generate HTML report: `cargo mutants --output-formats html`
 5. Triage mutations by `Missed` (test doesn't catch — fix assertions)
@@ -274,7 +271,6 @@ cargo mutants -j 4 --output-formats json
 ```
 
 Output:
-
 - `missed_outcomes.json` — list mutations caught by tests
 - `status_outcomes.json` — overall summary
 
@@ -288,9 +284,8 @@ Untuk CI gate: parse JSON, check `missed.length / total.length < 0.2`.
 
 ---
 
-_Skill craft: azhar457 — 2026-07-19_
-
-````
+*Skill craft: azhar457 — 2026-07-19*
+```
 
 Cross-link: contoh ini menghubungkan marketplace, [[agent-skills-feedback-sensors-deepdive]], dan ThoughtWorks Radar Vol.34.
 
@@ -345,7 +340,7 @@ claude plugin publish
 
 # Consumer side → verify
 claude plugin install @azhar457/cargo-mutants@1.2.0 --verify-signature
-````
+```
 
 ### Kill-Switch Registry Side
 
@@ -354,7 +349,6 @@ Untuk public marketplace: maintainer bisa revoke publish dengan cryptographic pr
 ### Telemetry & Usage Metrics
 
 Marketplace harus track:
-
 - Install count per version
 - Failure rate per skill invocation (anonymized, just aggregate count)
 - Time-to-discovery (publish → first install)
@@ -403,4 +397,4 @@ Resolver: topological sort. Sama seperti cargo / npm. Cycle detection mandatory.
 
 ---
 
-_Skill marketplace distribution pattern · cross-link ke [agent-skills-feedback-sensors-deepdive] untuk harness engineering integration · v1.0 — July 2026_
+*Skill marketplace distribution pattern · cross-link ke [agent-skills-feedback-sensors-deepdive] untuk harness engineering integration · v1.0 — July 2026*

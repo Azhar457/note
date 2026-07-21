@@ -1,22 +1,19 @@
 ---
-title: "Drfm"
+title: Drfm
 tags:
-  - 06-communications-intelligence-(sigint)
-  - library
-  - military-and-intelligence-tools
-aliases:
-  - "drfm"
-created: "2026-06-28"
-updated: "2026-07-01"
+- 06-communications-intelligence-(sigint)
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
 > Teknologi DRFM adalah komponen inti sistem Electronic Warfare (EW) militer yang digunakan untuk jamming, spoofing radar, dan perlindungan pesawat/kapal. Informasi di bawah berasal dari literatur teknik terbuka (IEEE, jurnal radar, paten publik), serta dokumentasi vendor pertahanan. Pembahasan ini murni **edukasional dan defensif**. Tidak ada instruksi untuk membangun atau menggunakan DRFM secara ilegal.
 
 ---
-
 ## 🧬 Apa Itu DRFM?
 
 Digital Radio Frequency Memory (DRFM) adalah **sistem elektronik yang menangkap, menyimpan, memodifikasi, dan memancarkan kembali sinyal RF** secara real-time. Awalnya dikembangkan untuk jamming radar, DRFM kini menjadi tulang punggung **Electronic Attack (EA)** modern — digunakan untuk menipu radar musuh, melindungi platform militer, dan bahkan melakukan spoofing komunikasi.
@@ -25,13 +22,13 @@ Prinsip dasarnya sederhana namun sangat kuat: **tangkap sinyal musuh, modifikasi
 
 ### DRFM vs Teknik Jamming Tradisional
 
-|                     | Jamming Tradisional (Noise)                      | DRFM                                                         |
-| ------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| **Prinsip**         | Memancarkan noise untuk membutakan radar         | Menangkap, memodifikasi, memancarkan kembali sinyal radar    |
-| **Energi**          | Membutuhkan daya besar (broadband noise)         | Efisien (hanya memancar di frekuensi radar target)           |
-| **Efektivitas**     | Rendah terhadap radar modern (frequency hopping) | Tinggi — meniru sinyal radar dengan sempurna                 |
-| **Teknik Spoofing** | Tidak bisa                                       | Bisa: false targets, range gate pull-off, velocity deception |
-| **Kecerdasan**      | Tidak ada                                        | Bisa merekam karakteristik radar untuk analisis ELINT        |
+| | Jamming Tradisional (Noise) | DRFM |
+|---|---|---|
+| **Prinsip** | Memancarkan noise untuk membutakan radar | Menangkap, memodifikasi, memancarkan kembali sinyal radar |
+| **Energi** | Membutuhkan daya besar (broadband noise) | Efisien (hanya memancar di frekuensi radar target) |
+| **Efektivitas** | Rendah terhadap radar modern (frequency hopping) | Tinggi — meniru sinyal radar dengan sempurna |
+| **Teknik Spoofing** | Tidak bisa | Bisa: false targets, range gate pull-off, velocity deception |
+| **Kecerdasan** | Tidak ada | Bisa merekam karakteristik radar untuk analisis ELINT |
 
 ---
 
@@ -59,18 +56,17 @@ Prinsip dasarnya sederhana namun sangat kuat: **tangkap sinyal musuh, modifikasi
 
 ### Komponen Utama
 
-| Komponen                              | Fungsi                                                 | Spesifikasi Tipikal                      |
-| ------------------------------------- | ------------------------------------------------------ | ---------------------------------------- |
-| **Antena Penerima**                   | Menangkap sinyal radar musuh.                          | Wideband, 0.5–40 GHz                     |
-| **LNA (Low Noise Amplifier)**         | Memperkuat sinyal tanpa menambah noise.                | Gain 30-60 dB, NF < 2 dB                 |
-| **Downconverter**                     | Menurunkan frekuensi RF ke IF/baseband untuk ADC.      | Multi-stage, low phase noise             |
-| **ADC (Analog-to-Digital Converter)** | Mengubah sinyal analog ke digital.                     | 12-bit, 5 GSPS (Giga Samples per Second) |
-| **Memory (RAM)**                      | Menyimpan sinyal digital untuk replay/modifikasi.      | 64-256 GB DDR4, bandwidth 100+ GB/s      |
-| **Processor (FPGA/DSP)**              | Memproses sinyal: delay, Doppler, modulasi, dll.       | Xilinx Virtex-7/Altera Stratix 10        |
-| **DAC (Digital-to-Analog Converter)** | Mengubah kembali ke analog.                            | 14-bit, 12 GSPS                          |
-| **Upconverter**                       | Menaikkan ke frekuensi RF asli.                        | Multi-stage, phase-coherent              |
-| **HPA (High Power Amplifier)**        | Memperkuat sinyal output untuk menjangkau radar musuh. | 100W – 10kW (tergantung platform)        |
-
+| Komponen | Fungsi | Spesifikasi Tipikal |
+|----------|--------|---------------------|
+| **Antena Penerima** | Menangkap sinyal radar musuh. | Wideband, 0.5–40 GHz |
+| **LNA (Low Noise Amplifier)** | Memperkuat sinyal tanpa menambah noise. | Gain 30-60 dB, NF < 2 dB |
+| **Downconverter** | Menurunkan frekuensi RF ke IF/baseband untuk ADC. | Multi-stage, low phase noise |
+| **ADC (Analog-to-Digital Converter)** | Mengubah sinyal analog ke digital. | 12-bit, 5 GSPS (Giga Samples per Second) |
+| **Memory (RAM)** | Menyimpan sinyal digital untuk replay/modifikasi. | 64-256 GB DDR4, bandwidth 100+ GB/s |
+| **Processor (FPGA/DSP)** | Memproses sinyal: delay, Doppler, modulasi, dll. | Xilinx Virtex-7/Altera Stratix 10 |
+| **DAC (Digital-to-Analog Converter)** | Mengubah kembali ke analog. | 14-bit, 12 GSPS |
+| **Upconverter** | Menaikkan ke frekuensi RF asli. | Multi-stage, phase-coherent |
+| **HPA (High Power Amplifier)** | Memperkuat sinyal output untuk menjangkau radar musuh. | 100W – 10kW (tergantung platform) |
 ### Parameter Kunci
 
 | Parameter                         | Makna                                                           | Nilai Tipikal                        |
@@ -113,7 +109,6 @@ DRFM menangkap satu pulsa radar, lalu memancarkan **banyak salinan** dengan dela
 ### 4. Doppler Spoofing
 
 DRFM memodifikasi frekuensi sinyal yang dipancarkan kembali untuk meniru kecepatan berbeda. Misalnya:
-
 - Pesawat tempur bergerak lambat → DRFM memancarkan echo dengan Doppler shift tinggi → radar mengira itu pesawat cepat (atau sebaliknya).
 
 ### 5. Cross-Polarization Jamming
@@ -152,12 +147,12 @@ Kombinasi semua teknik di atas: DRFM secara otomatis menganalisis radar musuh (P
 
 ### 1. Radar dengan Waveform Agility
 
-| Teknik                                      | Cara Mengalahkan DRFM                                                                                          |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Pulse-to-pulse frequency hopping**        | DRFM harus menangkap dan menganalisis frekuensi baru setiap pulsa. Jika hopping sangat cepat, DRFM tertinggal. |
-| **Phase-coded waveform**                    | Sinyal dengan kode fase pseudo-random sulit ditiru oleh DRFM tanpa mengetahui kode.                            |
-| **Chirp diversity**                         | Mengubah slope dan bandwidth chirp secara acak.                                                                |
-| **Random PRF (Pulse Repetition Frequency)** | PRF yang tidak teratur membuat DRFM sulit memprediksi pulsa berikutnya.                                        |
+| Teknik | Cara Mengalahkan DRFM |
+|--------|------------------------|
+| **Pulse-to-pulse frequency hopping** | DRFM harus menangkap dan menganalisis frekuensi baru setiap pulsa. Jika hopping sangat cepat, DRFM tertinggal. |
+| **Phase-coded waveform** | Sinyal dengan kode fase pseudo-random sulit ditiru oleh DRFM tanpa mengetahui kode. |
+| **Chirp diversity** | Mengubah slope dan bandwidth chirp secara acak. |
+| **Random PRF (Pulse Repetition Frequency)** | PRF yang tidak teratur membuat DRFM sulit memprediksi pulsa berikutnya. |
 
 ### 2. Radar Multistatic / Bistatic
 
@@ -204,13 +199,13 @@ Platform EW defensif      Wild Weasel              terhadap radar
 
 ## 📚 Referensi
 
-- Adamy, D. (2001). _EW 101: A First Course in Electronic Warfare_. Artech House.
-- Adamy, D. (2004). _EW 102: A Second Course in Electronic Warfare_. Artech House.
-- Schleher, D. C. (1999). _Electronic Warfare in the Information Age_. Artech House.
-- IEEE Transactions on Aerospace and Electronic Systems. _DRFM Technology and Applications_ (2015-2024).
-- Elbit Systems. _Light Shield DRFM-based Self-Protection Jammer_.
-- Rafael Advanced Defense Systems. _Sky Shield EW Pod_.
+- Adamy, D. (2001). *EW 101: A First Course in Electronic Warfare*. Artech House.
+- Adamy, D. (2004). *EW 102: A Second Course in Electronic Warfare*. Artech House.
+- Schleher, D. C. (1999). *Electronic Warfare in the Information Age*. Artech House.
+- IEEE Transactions on Aerospace and Electronic Systems. *DRFM Technology and Applications* (2015-2024).
+- Elbit Systems. *Light Shield DRFM-based Self-Protection Jammer*.
+- Rafael Advanced Defense Systems. *Sky Shield EW Pod*.
 
 ---
 
-_DRFM Deep Dive | Digital RF Memory & Electronic Warfare Jamming | Radar Spoofing & Deception_
+*DRFM Deep Dive | Digital RF Memory & Electronic Warfare Jamming | Radar Spoofing & Deception*

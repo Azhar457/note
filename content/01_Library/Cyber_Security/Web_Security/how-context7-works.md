@@ -21,7 +21,7 @@ cssclasses:
 # ⚡ How Context7 MCP Works and Makes AI Better
 
 > [!important] Core Insight
-> Context7 solves the **training data cutoff problem** — the #1 reason LLMs hallucinate API code. Instead of relying on stale training data, it injects _real-time, version-specific documentation_ directly into the AI's context window via MCP. This turns every AI session into a "perfectly documented" development environment.
+> Context7 solves the **training data cutoff problem** — the #1 reason LLMs hallucinate API code. Instead of relying on stale training data, it injects *real-time, version-specific documentation* directly into the AI's context window via MCP. This turns every AI session into a "perfectly documented" development environment.
 
 ---
 
@@ -29,13 +29,13 @@ cssclasses:
 
 LLMs have a fundamental limitation: **they only know what they were trained on**. For rapidly evolving libraries (React, Next.js, Python packages, cloud SDKs), this means:
 
-| Problem               | Without Context7                    | With Context7                   |
-| --------------------- | ----------------------------------- | ------------------------------- |
-| **Outdated code**     | LLM suggests deprecated APIs        | Context7 fetches latest docs    |
-| **Hallucination**     | LLM invents non-existent APIs       | Real code from official repos   |
-| **Version confusion** | "What version of Next.js is this?"  | Version-specific docs on demand |
-| **Context bloat**     | Pasting whole doc pages into prompt | Precisely filtered snippets     |
-| **Research time**     | Manual copy-paste from browser      | Auto-injected via MCP/CLI       |
+| Problem | Without Context7 | With Context7 |
+|---------|-----------------|---------------|
+| **Outdated code** | LLM suggests deprecated APIs | Context7 fetches latest docs |
+| **Hallucination** | LLM invents non-existent APIs | Real code from official repos |
+| **Version confusion** | "What version of Next.js is this?" | Version-specific docs on demand |
+| **Context bloat** | Pasting whole doc pages into prompt | Precisely filtered snippets |
+| **Research time** | Manual copy-paste from browser | Auto-injected via MCP/CLI |
 
 ---
 
@@ -106,12 +106,10 @@ Documentation Sources (GitHub README, official docs, CHANGELOG)
 ## 🎯 How It Makes AI Better
 
 ### 1. **Eliminates Hallucinated APIs**
-
 Without Context7: "Yes, you can use `useServerAction()` in React 19" — this function doesn't exist.
 With Context7: Fetches actual React 19 docs showing the real API surface.
 
 ### 2. **Version-Aware Responses**
-
 ```javascript
 // Without Context7 — might suggest Next.js 14 patterns in Next.js 16
 // With Context7 — knows the exact version and adjusts
@@ -123,28 +121,25 @@ With Context7: Fetches actual React 19 docs showing the real API surface.
 
 ### 3. **Token Efficiency (The Silent Killer Feature)**
 
-| Approach        | Tokens             | Quality                   |
-| --------------- | ------------------ | ------------------------- |
-| No docs         | 0 tokens           | ❌ Hallucination risk     |
-| Paste full docs | 3000–15000 tokens  | ✅ Accurate but expensive |
-| **Context7**    | **200–800 tokens** | ✅ Accurate + cheap       |
+| Approach | Tokens | Quality |
+|----------|--------|---------|
+| No docs | 0 tokens | ❌ Hallucination risk |
+| Paste full docs | 3000–15000 tokens | ✅ Accurate but expensive |
+| **Context7** | **200–800 tokens** | ✅ Accurate + cheap |
 
 Context7 strips documentation down to **only what's relevant** — no filler, no examples you don't need, no navigation boilerplate.
 
 ### 4. **Semantic Understanding, Not Keyword Search**
+Traditional docs search returns pages. Context7 returns *answers*. The difference:
 
-Traditional docs search returns pages. Context7 returns _answers_. The difference:
-
-| Traditional Search                              | Context7                                                      |
-| ----------------------------------------------- | ------------------------------------------------------------- |
-| "TypeError: fetch failed" → Stack Overflow page | "TypeError: fetch failed" → specific error cause + fix        |
-| "Next.js middleware" → docs landing page        | "Next.js middleware" → code snippet for `middleware.ts`       |
-| "Prisma connect" → connection guide             | "Prisma connect" → connection string + error handling pattern |
+| Traditional Search | Context7 |
+|--------------------|----------|
+| "TypeError: fetch failed" → Stack Overflow page | "TypeError: fetch failed" → specific error cause + fix |
+| "Next.js middleware" → docs landing page | "Next.js middleware" → code snippet for `middleware.ts` |
+| "Prisma connect" → connection guide | "Prisma connect" → connection string + error handling pattern |
 
 ### 5. **Multi-Framework Awareness**
-
 Context7 indexes **hundreds of libraries** across:
-
 - **Frontend**: React, Next.js, Svelte, Vue, Astro, Tailwind
 - **Backend**: Express, Fastify, Hono, Prisma, Drizzle
 - **DevOps**: Docker, Terraform, Kubernetes, AWS CDK
@@ -156,7 +151,6 @@ Context7 indexes **hundreds of libraries** across:
 ## 🔄 MCP Mode vs CLI Mode
 
 ### MCP Mode (for AI Editors)
-
 ```json
 {
   "mcpServers": {
@@ -167,16 +161,13 @@ Context7 indexes **hundreds of libraries** across:
   }
 }
 ```
-
 **Pros**: Auto-injects into context, seamless, zero manual effort
 **Cons**: Requires MCP-compatible editor
 
 ### CLI Mode (for Terminal / Skills)
-
 ```bash
 npx ctx7 "how to use cookies in Next.js 16"
 ```
-
 **Pros**: Works everywhere, pipeable (`ctx7 "..." >> note.md`)
 **Cons**: Manual invocation, output to stdout
 
@@ -222,4 +213,4 @@ npx ctx7 "how to use cookies in Next.js 16"
 
 ---
 
-_Context7 MCP: Real-time docs, zero hallucinations, minimal tokens. | 2026-07-03_
+*Context7 MCP: Real-time docs, zero hallucinations, minimal tokens. | 2026-07-03*

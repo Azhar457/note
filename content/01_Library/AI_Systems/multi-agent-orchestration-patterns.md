@@ -1,15 +1,13 @@
 ---
-title: "Multi-Agent Orchestration Patterns — Routing, Parallel, Supervisor"
+title: Multi-Agent Orchestration Patterns — Routing, Parallel, Supervisor
 tags:
-  - agent
-  - orchestration
-  - multi-agent
-  - patterns
-  - mcp
-aliases:
-  - "multi-agent-orchestration-patterns"
-created: "2026-07-16"
-updated: "2026-07-16"
+- agent
+- orchestration
+- multi-agent
+- patterns
+- mcp
+created: '2026-07-16'
+updated: '2026-07-16'
 status: growing
 ---
 
@@ -31,14 +29,14 @@ status: growing
 
 Single LLM call punya limitasi fundamental:
 
-| Limitasi            | Single LLM                  | Multi-Agent                        |
-| ------------------- | --------------------------- | ---------------------------------- |
-| **Context window**  | Satu prompt terbatas        | Split across agents → efektif ∞    |
-| **Specialization**  | Satu model buat semua tugas | Agent spesifik per domain          |
-| **Debias**          | Satu perspektif             | Multiple agents → cross-check      |
-| **Tool access**     | Tool terbatas per call      | Setiap agent punya toolset sendiri |
-| **Fault tolerance** | Satu error → gagal total    | Redisign / fallback antar agent    |
-| **Observability**   | Satu trace                  | Sub-traces per agent               |
+| Limitasi | Single LLM | Multi-Agent |
+|----------|-----------|-------------|
+| **Context window** | Satu prompt terbatas | Split across agents → efektif ∞ |
+| **Specialization** | Satu model buat semua tugas | Agent spesifik per domain |
+| **Debias** | Satu perspektif | Multiple agents → cross-check |
+| **Tool access** | Tool terbatas per call | Setiap agent punya toolset sendiri |
+| **Fault tolerance** | Satu error → gagal total | Redisign / fallback antar agent |
+| **Observability** | Satu trace | Sub-traces per agent |
 
 **Prinsip: Jangan bikin agent yang ngelakuin semuanya. Bikin agent spesifik yang di-orchestrate.**
 
@@ -71,7 +69,7 @@ Single LLM call punya limitasi fundamental:
 ```python
 class Router:
     """Route task ke agent specialized berdasarkan intent."""
-
+    
     SYSTEM_PROMPT = """Kamu adalah router. Dari input user, tentukan agent yang handle:
 - coding: pertanyaan programming, debugging, code review
 - writing: menulis, editing, summarization
@@ -87,29 +85,26 @@ Output hanya 1 kata: nama agent."""
             max_tokens=10,
             temperature=0  # deterministic
         ).strip().lower()
-
+        
         return self.agents[classification]
-
+    
     async def handle(self, query: str) -> str:
         agent = self.route(query)
         return await agent.run(query)
 ```
 
 ### Kelebihan
-
 - ✅ **Simple** — satu LLM call untuk routing, satu untuk eksekusi
 - ✅ **Latency rendah** — 2 sequential calls
 - ✅ **Isolation** — agent gak saling ganggu
 - ✅ **Easy to debug** — jelas agent mana yang salah
 
 ### Kekurangan
-
 - ❌ Router error → request salah tangan
 - ❌ Gak bisa handle task yang butuh multiple domain (coding + writing)
 - ❌ Router gak punya context dari agent — klasifikasi pure dari query awal
 
 ### Kapan Pake
-
 - Support ticket routing
 - Intent-based chatbot
 - API gateway dengan backend LLM berbeda
@@ -157,7 +152,7 @@ class ParallelOrchestrator:
         # Fan-out: jalankan semua agent concurrently
         tasks = [agent.run(query) for agent in agents]
         results = await asyncio.gather(*tasks, return_exceptions=True)
-
+        
         # Handle partial failures
         successes = []
         for agent, result in zip(agents, results):
@@ -166,25 +161,22 @@ class ParallelOrchestrator:
                 successes.append(f"[{agent.name}]: ERROR — {str(result)}")
             else:
                 successes.append(f"[{agent.name}]: {result}")
-
+        
         # Reduce: gabung semua hasil jadi satu
         return self.reducer.merge(successes)
 ```
 
 ### Kelebihan
-
 - ✅ **Cepat** — total latency = agent paling lambat (bukan total)
 - ✅ **Coverage** — semua aspek di-cover
 - ✅ **Fault tolerant** — agent gagal, yang lain tetap jalan
 
 ### Kekurangan
-
 - ❌ **Context fragmentation** — tiap agent cuma lihat sebagian
 - ❌ **Merge complexity** — hasil dari agent bisa kontradiksi
 - ❌ **Cost** — N× token usage (tiap agent full LLM call)
 
 ### Kapan Pake
-
 - Research: cari info dari multiple source sekaligus
 - Analisis dari berbagai perspektif (pro/contra, tech/business)
 - Parallel validation — cross-check fakta dari berbagai angle
@@ -216,7 +208,7 @@ class ParallelOrchestrator:
 ```python
 class Supervisor:
     """Supervisor agent — menentukan langkah demi langkah."""
-
+    
     SYSTEM_PROMPT = """Kamu adalah supervisor agent. Tugasmu mengelola sub-agents untuk menyelesaikan task kompleks.
 
 Agents available:
@@ -234,41 +226,38 @@ Jika task selesai, output:
     async def run(self, task: str) -> str:
         messages = [{"role": "system", "content": self.SYSTEM_PROMPT},
                     {"role": "user", "content": task}]
-
+        
         max_steps = 10
         for step in range(max_steps):
             # Supervisor decide
             decision = self.llm.generate(messages, response_format="json")
-
+            
             if decision.get("done"):
                 return decision["final_answer"]
-
+            
             # Execute sub-agent
             agent = self.agents[decision["next"]]
             result = await agent.run(decision["input"])
-
+            
             # Give result back to supervisor
             messages.append({"role": "assistant", "content": str(decision)})
             messages.append({"role": "user", "content": f"Result: {result}"})
-
+        
         return "Max steps reached tanpa selesai."
 ```
 
 ### Kelebihan
-
 - ✅ **Flexible** — bisa handle task kompleks yang gak terstruktur
 - ✅ **Dynamic** — langkah ditentukan saat runtime, bukan fixed pipeline
 - ✅ **Error recovery** — supervisor bisa redirect kalau agent gagal
 - ✅ **Observability** — tiap langkah jelas kenapa
 
 ### Kekurangan
-
 - ❌ **Laten** — sequential loop, N langkah = N LLM calls
 - ❌ **Supervisor bottleneck** — supervisor decision error cascade ke bawah
 - ❌ **Token cost tinggi** — tiap loop bawa full history
 
 ### Kapan Pake
-
 - Task kompleks dengan sub-task interdependent
 - Research task yang butuh iterative refinement
 - Coding task: search → analyze → implement → test → fix
@@ -292,7 +281,7 @@ Jika task selesai, output:
 class Pipeline:
     def __init__(self, stages: list[Agent]):
         self.stages = stages
-
+    
     async def run(self, initial_input: str) -> str:
         current_input = initial_input
         for i, agent in enumerate(self.stages):
@@ -302,20 +291,17 @@ class Pipeline:
 ```
 
 ### Kelebihan
-
 - ✅ **Deterministic** — predictable flow
 - ✅ **Easy to debug** — tiap stage terdefinisi
 - ✅ **Simple** — implementasi paling mudah
 - ✅ **Testable** — tiap stage bisa di-test sendiri
 
 ### Kekurangan
-
 - ❌ **Rigid** — gak bisa skipping atau backtrack
 - ❌ **Latency cumulative** — N stages = N× latency
 - ❌ **Single point of failure** — stage gagal, pipeline berhenti
 
 ### Kapan Pake
-
 - RAG pipeline (rewrite → retrieve → rerank → generate)
 - Content generation pipeline (outline → draft → edit → format)
 - ETL pipeline dengan LLM (extract → transform → summarize → load)
@@ -351,22 +337,22 @@ class DebateAgent:
     async def generate_with_reflection(self, task: str, rounds: int = 3) -> str:
         generator = Agent("generator", "you are a creative problem solver")
         critic = Agent("critic", "you are a harsh but fair critic")
-
+        
         answer = await generator.run(task)
-
+        
         for i in range(rounds):
             # Critic
             critique = await critic.run(f"Task: {task}\n\nAnswer: {answer}\n\nCritique:")
-
+            
             # Decide if done
             if "APPROVED" in critique:
                 return answer
-
+            
             # Generator revise
             answer = await generator.run(
                 f"Task: {task}\nYour previous answer: {answer}\nCritique: {critique}\n\nRevised answer:"
             )
-
+        
         return answer
 ```
 
@@ -379,13 +365,11 @@ Agent B: "Tapi X punya risiko Y"  ──┘
 ```
 
 Efektif untuk:
-
 - **Factual checking** — 2 agent verifikasi dari sumber berbeda
 - **Decision making** — agent pro vs kontra
 - **Code review** — agent nulis code, agent lain review security
 
 ### Kapan Pake
-
 - **High-stakes decisions** — butuh cross-check
 - **Quality critical output** — yang gak bisa di-review manual
 - **Red-teaming** — satu agent attack, satu defend
@@ -450,20 +434,17 @@ response = client.run(
 ```
 
 ### Kelebihan
-
 - ✅ **Highly flexible** — arsitektur tumbuh sesuai kebutuhan
 - ✅ **Scalable** — agent bisa spawn sub-agent buat sub-task
 - ✅ **Natural** — mirror organisasi manusia (delegasi)
 
 ### Kekurangan
-
 - ❌ **Hard to debug** — graph bisa tumbuh unpredictable
 - ❌ **Loop risk** — agent A panggil B, B panggil A lagi → infinite loop
 - ❌ **Cost unpredictable** — jumlah agent calls gak terbatas
 - ❌ **Control problem** — siapa yang ngehandle kalau swarm diverging?
 
 ### Kapan Pake
-
 - Complex customer support (handoff antar department)
 - Autonomous coding agent yang bisa nulis file → run test → debug → fix
 - Research agent yang eksplorasi banyak jalur paralel
@@ -474,14 +455,14 @@ response = client.run(
 
 ### Perbandingan Framework Multi-Agent
 
-| Framework                        | Pattern Support                        | Bahasa    | Kompleksitas | Best For                          |
-| -------------------------------- | -------------------------------------- | --------- | ------------ | --------------------------------- |
-| **LangChain / LangGraph**        | Router, Supervisor, Pipeline, Parallel | Python    | Medium       | Production-grade, MCP integration |
-| **OpenAI Swarm**                 | Swarm (handoff)                        | Python    | Rendah       | Eksperimen cepat, prototyping     |
-| **AutoGen (Microsoft)**          | Supervisor, Debate, Swarm              | Python    | Medium       | Multi-agent conversation          |
-| **CrewAI**                       | Router, Pipeline, Parallel, Swarm      | Python    | Rendah       | Role-based agent teams            |
-| **Semantic Kernel**              | Router, Pipeline                       | C#/Python | Medium       | Enterprise Microsoft stack        |
-| **MCP (Model Context Protocol)** | Router (tool-based)                    | Any       | Medium       | Tool-agnostic agent communication |
+| Framework | Pattern Support | Bahasa | Kompleksitas | Best For |
+|-----------|---------------|--------|-------------|----------|
+| **LangChain / LangGraph** | Router, Supervisor, Pipeline, Parallel | Python | Medium | Production-grade, MCP integration |
+| **OpenAI Swarm** | Swarm (handoff) | Python | Rendah | Eksperimen cepat, prototyping |
+| **AutoGen (Microsoft)** | Supervisor, Debate, Swarm | Python | Medium | Multi-agent conversation |
+| **CrewAI** | Router, Pipeline, Parallel, Swarm | Python | Rendah | Role-based agent teams |
+| **Semantic Kernel** | Router, Pipeline | C#/Python | Medium | Enterprise Microsoft stack |
+| **MCP (Model Context Protocol)** | Router (tool-based) | Any | Medium | Tool-agnostic agent communication |
 
 ### LangGraph — Supervisor Pattern
 
@@ -549,14 +530,14 @@ Apakah task bisa di-split menjadi sub-task independent?
 
 ### Table Summary
 
-| Pattern        | Latency           | Cost              | Flexibility       | Fault Tolerance | Complexity        |
-| -------------- | ----------------- | ----------------- | ----------------- | --------------- | ----------------- |
-| **Router**     | Rendah            | Rendah            | Rendah            | Medium          | **Sangat rendah** |
-| **Parallel**   | Medium†           | Tinggi            | Medium            | **Tinggi**      | Rendah            |
-| **Supervisor** | Tinggi            | Tinggi            | **Tinggi**        | Tinggi          | Medium            |
-| **Pipeline**   | Medium            | Rendah            | Rendah            | Rendah          | **Sangat rendah** |
-| **Debate**     | Tinggi            | **Sangat tinggi** | Medium            | **Tinggi**      | Medium            |
-| **Swarm**      | **Sangat tinggi** | **Sangat tinggi** | **Sangat tinggi** | Medium          | **Tinggi**        |
+| Pattern | Latency | Cost | Flexibility | Fault Tolerance | Complexity |
+|---------|---------|------|-------------|-----------------|------------|
+| **Router** | Rendah | Rendah | Rendah | Medium | **Sangat rendah** |
+| **Parallel** | Medium† | Tinggi | Medium | **Tinggi** | Rendah |
+| **Supervisor** | Tinggi | Tinggi | **Tinggi** | Tinggi | Medium |
+| **Pipeline** | Medium | Rendah | Rendah | Rendah | **Sangat rendah** |
+| **Debate** | Tinggi | **Sangat tinggi** | Medium | **Tinggi** | Medium |
+| **Swarm** | **Sangat tinggi** | **Sangat tinggi** | **Sangat tinggi** | Medium | **Tinggi** |
 
 † Latency parallel = agent paling lambat, bukan total.
 
@@ -584,4 +565,4 @@ Apakah task bisa di-split menjadi sub-task independent?
 
 ---
 
-_Dibuat: 16 Juli 2026 — Panduan praktis multi-agent orchestration dari pattern sampai implementasi._
+*Dibuat: 16 Juli 2026 — Panduan praktis multi-agent orchestration dari pattern sampai implementasi.*

@@ -1,13 +1,11 @@
 ---
-title: "Blueteam Vs Enterprise C2"
+title: Blueteam Vs Enterprise C2
 tags:
-  - cyber-security
-  - endpoint-detection
-  - library
-aliases:
-  - "blueteam-vs-enterprise-c2"
-created: "2026-07-01"
-updated: "2026-07-01"
+- cyber-security
+- endpoint-detection
+- library
+created: '2026-07-01'
+updated: '2026-07-01'
 status: active
 ---
 
@@ -20,19 +18,16 @@ status: active
 ## 1. Melawan Multi-Tier Redirector (Nginx + Cloudflare)
 
 ### Kenapa Susah Dideteksi
-
 Traffic attacker masuk lewat Cloudflare/CDN dulu sebelum ke C2 asli. Block IP cuma block redirector, bukan core infrastructure. TLS 1.3 + domain legitimate membuat traffic keliatan normal.
 
 ### Mitigasi
 
 **Network Layer**
-
 - Deploy **SSL/TLS Inspection Proxy** (Zscaler, Palo Alto, Squid) — decrypt traffic sebelum keluar jaringan
 - **Passive DNS Monitoring** — track domain muda (< 30 hari), low Alexa rank, resolving ke Cloudflare/shared hosting
 - **Threat Intel Feed** otomatis — integrasikan URLhaus, abuse.ch, Emerging Threats ke firewall
 
 **Detection Rule (Zeek)**
-
 ```zeek
 # Deteksi domain baru yang tidak ada di baseline
 event dns_request(c: connection, msg: dns_msg, query: string, qtype: count, qclass: count) {
@@ -42,7 +37,6 @@ event dns_request(c: connection, msg: dns_msg, query: string, qtype: count, qcla
 ```
 
 **Sigma Rule — Suspicious Cloudflare-Fronted C2**
-
 ```yaml
 title: Outbound HTTPS to Recently Registered Domain
 status: experimental
@@ -63,13 +57,11 @@ level: medium
 ## 2. Melawan Beaconing (Check-in Reguler + Jitter)
 
 ### Kenapa Susah Dideteksi
-
 Interval 30–60 detik dengan jitter membuat traffic keliatan tidak mechanical. Pakai HTTPS ke domain legitimate-looking.
 
 ### Mitigasi
 
 **SIEM Query (Splunk)**
-
 ```spl
 index=proxy_logs
 | stats count, avg(bytes_out), stdev(interval) as jitter by src_ip, dest_host
@@ -78,7 +70,6 @@ index=proxy_logs
 ```
 
 **Zeek Beacon Detection**
-
 ```zeek
 # Hitung connection frequency per destination
 redef record Conn::Info += {
@@ -87,7 +78,6 @@ redef record Conn::Info += {
 ```
 
 **Sigma Rule — Beaconing Pattern**
-
 ```yaml
 title: Potential C2 Beaconing via HTTP/S
 logsource:
@@ -99,8 +89,8 @@ detection:
   condition: selection | count() by DestinationIp, SourceIp > 25
   filter:
     DestinationIp|cidr:
-      - "8.8.8.8/32"
-      - "1.1.1.1/32"
+      - '8.8.8.8/32'
+      - '1.1.1.1/32'
 falsepositives:
   - Telemetry software, update clients
 level: high
@@ -111,18 +101,15 @@ level: high
 ## 3. Melawan Registry Persistence
 
 ### Kenapa Susah Dideteksi
-
 `HKCU\...\Run` tidak butuh admin privilege. Jalan otomatis setiap user login. Bisa dibuat oleh proses user-level mana pun.
 
 ### Mitigasi
 
 **Endpoint Hardening**
-
 - Deploy **Autoruns baseline** — bandingkan terhadap golden image setiap minggu
 - **AppLocker/WDAC** — whitelist executable yang boleh jalan dari path non-standard
 
 **Sysmon Config (Event ID 13)**
-
 ```xml
 <RegistryEvent onmatch="include">
   <TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
@@ -132,7 +119,6 @@ level: high
 ```
 
 **Sigma Rule — Run Key Persistence**
-
 ```yaml
 title: Suspicious Registry Run Key Created by Non-Standard Process
 logsource:
@@ -161,13 +147,11 @@ tags:
 ## 4. Melawan WMI Event Subscription Persistence
 
 ### Kenapa Susah Dideteksi
-
 WMI subscription survive reboot, berjalan di background tanpa proses yang visible, sulit terdeteksi tanpa telemetri khusus.
 
 ### Mitigasi
 
 **Sysmon Event ID 19, 20, 21**
-
 ```xml
 <WmiEvent onmatch="include">
   <Operation condition="is">Created</Operation>
@@ -175,7 +159,6 @@ WMI subscription survive reboot, berjalan di background tanpa proses yang visibl
 ```
 
 **Sigma Rule**
-
 ```yaml
 title: WMI Event Subscription Created
 logsource:
@@ -195,7 +178,6 @@ tags:
 ```
 
 **Remediation Script**
-
 ```powershell
 # Audit semua WMI subscription
 Get-WMIObject -Namespace root\subscription -Class __EventFilter | Select Name, Query
@@ -212,18 +194,15 @@ $filter.Delete()
 ## 5. Melawan ETW/AMSI Bypass
 
 ### Kenapa Susah Dideteksi
-
 Kalau ETW di-patch di memory, EDR kehilangan visibility ke PowerShell dan CLR activity. AMSI bypass memungkinkan malicious script lolos dari AV scanning.
 
 ### Mitigasi
 
 **Kernel-Level Protection**
-
 - Deploy EDR dengan **kernel callbacks** (CrowdStrike Falcon, Cortex XDR, SentinelOne) — tidak bisa di-bypass dari userland
 - Enable **HVCI (Hypervisor-Protected Code Integrity)** di Windows Security settings
 
 **Deteksi Patching**
-
 ```yaml
 title: Suspicious Memory Write to Security DLL
 logsource:
@@ -235,7 +214,7 @@ detection:
     TargetImage|endswith:
       - '\amsi.dll'
       - '\ntdll.dll'
-    GrantedAccess: "0x40"
+    GrantedAccess: '0x40'
   condition: selection
 level: critical
 tags:
@@ -244,7 +223,6 @@ tags:
 ```
 
 **PowerShell Logging**
-
 ```powershell
 # Enable Script Block Logging
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" `
@@ -260,19 +238,16 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Mod
 ## 6. Melawan BYOVD (Bring Your Own Vulnerable Driver)
 
 ### Kenapa Susah Dideteksi
-
 Driver yang sudah signed bisa di-load oleh Windows, lalu dieksploitasi untuk Ring 0 access dan kill EDR process dari kernel level.
 
 ### Mitigasi
 
 **Preventive**
-
 - Enable **HVCI** — block loading driver yang tidak memenuhi code integrity policy
 - Maintain **driver blocklist** dari [loldrivers.io](https://www.loldrivers.io)
 - Enable **Secure Boot + TPM**
 
 **Sysmon Event ID 6 — Driver Load**
-
 ```xml
 <DriverLoad onmatch="include">
   <Signature condition="is not">Microsoft Windows</Signature>
@@ -281,7 +256,6 @@ Driver yang sudah signed bisa di-load oleh Windows, lalu dieksploitasi untuk Rin
 ```
 
 **Sigma Rule**
-
 ```yaml
 title: Known Vulnerable Driver Loaded
 logsource:
@@ -291,7 +265,7 @@ detection:
   selection:
     EventID: 6
     Hashes|contains:
-      - "SHA256=aca3081cf0289371a9492fe068a5da7e" # contoh hash driver vulnerable
+      - 'SHA256=aca3081cf0289371a9492fe068a5da7e' # contoh hash driver vulnerable
   condition: selection
 level: critical
 tags:
@@ -304,18 +278,15 @@ tags:
 ## 7. Melawan Data Exfiltration via HTTPS/Cloud
 
 ### Kenapa Susah Dideteksi
-
 Upload ke domain yang mimic CDN/Slack/OneDrive, encrypted, volume kecil tapi konsisten sulit dibedakan dari traffic normal.
 
 ### Mitigasi
 
 **DLP (Data Loss Prevention)**
-
 - Pasang DLP di proxy layer — inspect content-type, flag upload volume anomali
 - **CASB (Cloud Access Security Broker)** untuk visibility ke traffic ke SaaS (OneDrive, Slack, GitHub)
 
 **Network Anomaly Detection**
-
 ```spl
 index=proxy_logs action=upload
 | stats sum(bytes_out) as total_upload by src_ip, dest_host, _time span=1h
@@ -324,7 +295,6 @@ index=proxy_logs action=upload
 ```
 
 **DNS Exfil Detection (Zeek)**
-
 ```zeek
 # Flag high-entropy subdomain (indikasi DNS tunneling)
 event dns_request(c: connection, msg: dns_msg, query: string, ...) {
@@ -339,24 +309,20 @@ event dns_request(c: connection, msg: dns_msg, query: string, ...) {
 ## 8. Melawan RAG Poisoning via SharePoint/Confluence
 
 ### Kenapa Berbahaya
-
 Implant upload dokumen berisi prompt injection ke internal knowledge base. Internal LLM agent yang menggunakan RAG bisa ter-compromise dan bocorkan data atau jalankan perintah attacker.
 
 ### Mitigasi
 
 **Document Scanning**
-
 - Scan semua dokumen yang di-upload ke SharePoint/Confluence dengan pattern matching untuk instruksi mencurigakan
 - Flag dokumen yang mengandung: `ignore previous`, `you are now`, `disregard`, `new instruction`
 
 **AI/RAG Pipeline Hardening**
-
 - Implement **input sanitization** sebelum dokumen masuk ke vector database
 - **Privilege separation** — LLM agent hanya boleh akses data sesuai permission user yang query
 - **Output monitoring** — log dan review semua response dari internal AI yang mengandung sensitive keywords
 
 **SharePoint Audit**
-
 ```powershell
 # Monitor upload dari endpoint yang tidak biasa
 Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-1) `
@@ -409,17 +375,17 @@ Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-1) `
 
 ## 10. Tool Stack Rekomendasi
 
-| Layer           | Tool                                           |
-| --------------- | ---------------------------------------------- |
-| EDR             | CrowdStrike Falcon / SentinelOne / Cortex XDR  |
-| SIEM            | Splunk / Elastic Security / Microsoft Sentinel |
-| NDR             | Zeek + Suricata / Darktrace                    |
-| DNS             | Pi-hole + RPZ / Infoblox                       |
-| Proxy/DLP       | Zscaler / Palo Alto Prisma                     |
-| Threat Intel    | MISP + abuse.ch + URLhaus + loldrivers.io      |
-| Forensics       | Volatility + Velociraptor + Autopsy            |
-| Detection Rules | Sigma (portable ke semua SIEM)                 |
+| Layer | Tool |
+|---|---|
+| EDR | CrowdStrike Falcon / SentinelOne / Cortex XDR |
+| SIEM | Splunk / Elastic Security / Microsoft Sentinel |
+| NDR | Zeek + Suricata / Darktrace |
+| DNS | Pi-hole + RPZ / Infoblox |
+| Proxy/DLP | Zscaler / Palo Alto Prisma |
+| Threat Intel | MISP + abuse.ch + URLhaus + loldrivers.io |
+| Forensics | Volatility + Velociraptor + Autopsy |
+| Detection Rules | Sigma (portable ke semua SIEM) |
 
 ---
 
-_Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026_
+*Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026*

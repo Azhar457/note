@@ -1,14 +1,12 @@
 ---
-title: "Military Sigint Deepdive"
+title: Military Sigint Deepdive
 tags:
-  - library
-  - signal-intelligence
-aliases:
-  - "military-sigint-deepdive"
-created: "2026-05-29"
-updated: "2026-07-01"
+- library
+- signal-intelligence
+created: '2026-05-29'
+updated: '2026-07-01'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 📡 MILITARY SIGINT — Deep Dive: Dari RTL-SDR sampai Ekhelon
@@ -115,13 +113,13 @@ Efek di RTL-SDR:
 
 ### Teknologi Militer Spesifik
 
-| Teknologi      | Dipakai Di                    | Cara Kerja                                  | Bisa RTL-SDR?                          |
-| -------------- | ----------------------------- | ------------------------------------------- | -------------------------------------- |
-| **SINCGARS**   | Radio taktis infanteri AS     | FHSS 2-8 hop/detik, AES-256                 | Detect keberadaan, tidak bisa decode   |
-| **Have Quick** | Komunikasi aviasi militer     | FHSS di UHF (225-400 MHz)                   | Detect sesekali, tidak bisa follow     |
-| **Link 16**    | Data link taktis NATO         | TDMA + FHSS + enkripsi NSA                  | Sinyal terdeteksi, konten = impossible |
-| **MILSATCOM**  | Satelit militer (X-band, EHF) | Uplink frekuensi sangat tinggi, terenkripsi | RTL-SDR tidak cukup frekuensi range    |
-| **JTIDS/MIDS** | Joint Tactical Information    | FHSS 51 frekuensi, pseudo-random            | Hanya metadata timing bisa dianalisis  |
+| Teknologi | Dipakai Di | Cara Kerja | Bisa RTL-SDR? |
+|---|---|---|---|
+| **SINCGARS** | Radio taktis infanteri AS | FHSS 2-8 hop/detik, AES-256 | Detect keberadaan, tidak bisa decode |
+| **Have Quick** | Komunikasi aviasi militer | FHSS di UHF (225-400 MHz) | Detect sesekali, tidak bisa follow |
+| **Link 16** | Data link taktis NATO | TDMA + FHSS + enkripsi NSA | Sinyal terdeteksi, konten = impossible |
+| **MILSATCOM** | Satelit militer (X-band, EHF) | Uplink frekuensi sangat tinggi, terenkripsi | RTL-SDR tidak cukup frekuensi range |
+| **JTIDS/MIDS** | Joint Tactical Information | FHSS 51 frekuensi, pseudo-random | Hanya metadata timing bisa dianalisis |
 
 ---
 
@@ -155,24 +153,24 @@ Bahkan jika decode berhasil:
 
 ```
 NSA Type Classification:
-┌─────────────────────────────────────────────────────┐
-│ TYPE 1 — Classified Information Protection          │
-│ Algoritma rahasia, hardware-based (tidak bisa clone)│
-│ Dipakai: komunikasi Secret, Top Secret, SCI         │
-│ Contoh: KG-84, KYV-5, KIV-7M                      │
-│ AES-256 BUKAN Type 1 — Type 1 lebih classified     │
-├─────────────────────────────────────────────────────┤
-│ TYPE 2 — Sensitive but Unclassified                 │
-│ Algoritma yang sudah dipublikasi tapi tetap kuat    │
-│ Dipakai: FOUO, CUI, informasi sensitif non-classified│
-├─────────────────────────────────────────────────────┤
-│ TYPE 3 — Commercial COMSEC                          │
-│ AES-256, Suite B NSA — algoritma komersial kuat     │
+┌────────────────────────────────────────────────────────┐
+│ TYPE 1 — Classified Information Protection             │
+│ Algoritma rahasia, hardware-based (tidak bisa clone)   │
+│ Dipakai: komunikasi Secret, Top Secret, SCI            │
+│ Contoh: KG-84, KYV-5, KIV-7M                           │
+│ AES-256 BUKAN Type 1 — Type 1 lebih classified         │
+├────────────────────────────────────────────────────────┤
+│ TYPE 2 — Sensitive but Unclassified                    │
+│ Algoritma yang sudah dipublikasi tapi tetap kuat       │
+│ Dipakai: FOUO, CUI, informasi sensitif non-classified  │
+├────────────────────────────────────────────────────────┤
+│ TYPE 3 — Commercial COMSEC                             │
+│ AES-256, Suite B NSA — algoritma komersial kuat        │
 │ Dipakai: informasi tidak classified tapi perlu proteksi│
-├─────────────────────────────────────────────────────┤
-│ TYPE 4 — Unapproved Encryption                      │
-│ VPN komersial, enkripsi personal — TIDAK untuk militer│
-└─────────────────────────────────────────────────────┘
+├────────────────────────────────────────────────────────┤
+│ TYPE 4 — Unapproved Encryption                         │
+│ VPN komersial, enkripsi personal — TIDAK untuk militer │
+└────────────────────────────────────────────────────────┘
 ```
 
 ### Kenapa Tidak Bisa Brute Force
@@ -452,17 +450,17 @@ Deteksi:
 
 ### Perbandingan Lengkap
 
-| Aspek                           | RF Intercept (RTL-SDR)              | Endpoint Compromise (Pegasus)      |
-| ------------------------------- | ----------------------------------- | ---------------------------------- |
-| **Target**                      | Sinyal di udara                     | Perangkat fisik                    |
-| **Enkripsi bypassed?**          | Tidak                               | Ya (baca sebelum/sesudah enkripsi) |
-| **Real-time content**           | Hanya jika sinyal tidak terenkripsi | Ya, penuh                          |
-| **Geolocation**                 | Ya (dengan multiple sensor)         | Ya (GPS langsung)                  |
-| **Legal (di banyak negara)**    | Tergantung frekuensi                | Ilegal tanpa otoritas              |
-| **Biaya**                       | $15 (RTL-SDR)                       | $7-8 juta+ (Pegasus lisensi)       |
-| **Detectable?**                 | Tidak (passive)                     | Kadang (dengan forensik MVT)       |
-| **Butuh kedekatan fisik?**      | Ya (untuk sinyal lemah)             | Tidak (via internet)               |
-| **Terhadap sinyal terenkripsi** | Tidak efektif                       | Sangat efektif                     |
+| Aspek | RF Intercept (RTL-SDR) | Endpoint Compromise (Pegasus) |
+|---|---|---|
+| **Target** | Sinyal di udara | Perangkat fisik |
+| **Enkripsi bypassed?** | Tidak | Ya (baca sebelum/sesudah enkripsi) |
+| **Real-time content** | Hanya jika sinyal tidak terenkripsi | Ya, penuh |
+| **Geolocation** | Ya (dengan multiple sensor) | Ya (GPS langsung) |
+| **Legal (di banyak negara)** | Tergantung frekuensi | Ilegal tanpa otoritas |
+| **Biaya** | $15 (RTL-SDR) | $7-8 juta+ (Pegasus lisensi) |
+| **Detectable?** | Tidak (passive) | Kadang (dengan forensik MVT) |
+| **Butuh kedekatan fisik?** | Ya (untuk sinyal lemah) | Tidak (via internet) |
+| **Terhadap sinyal terenkripsi** | Tidak efektif | Sangat efektif |
 
 ---
 
@@ -476,7 +474,7 @@ ini seluruh spektrum operasi di domain elektromagnetik:
 │ ELECTRONIC SUPPORT (ES)                             │
 │ = Listen, detect, classify, locate                  │
 │ Passive — tidak memancarkan sinyal                  │
-│ Contoh: ELINT, SIGINT, RWR (Radar Warning Receiver)│
+│ Contoh: ELINT, SIGINT, RWR (Radar Warning Receiver) │
 │ RTL-SDR ada di level paling bawah kategori ini      │
 ├─────────────────────────────────────────────────────┤
 │ ELECTRONIC ATTACK (EA)                              │
@@ -642,17 +640,17 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 
 ---
 
-> [!tip] Bottom Line yang Jujur
-> Konten TikTok yang beredar **valid** — RTL-SDR memang tidak bisa tembus enkripsi militer. Tapi framing "tidak berguna" adalah salah. RTL-SDR adalah **tool observasi spektrum** yang luar biasa untuk: belajar RF, tracking pesawat/kapal sipil, cuaca satelit, analisis pola aktivitas (tanpa konten), dan direction finding kasar.
+>[!tip] Bottom Line yang Jujur
+>Konten TikTok yang beredar **valid** — RTL-SDR memang tidak bisa tembus enkripsi militer. Tapi framing "tidak berguna" adalah salah. RTL-SDR adalah **tool observasi spektrum** yang luar biasa untuk: belajar RF, tracking pesawat/kapal sipil, cuaca satelit, analisis pola aktivitas (tanpa konten), dan direction finding kasar.
 >
-> Untuk komunikasi militer terenkripsi: paradigma yang relevan adalah **endpoint compromise** (Pegasus-style), bukan intercept RF. Enkripsi modern terlalu kuat untuk diserang dari sisi RF — serang dari sisi manusia atau perangkatnya.
+>Untuk komunikasi militer terenkripsi: paradigma yang relevan adalah **endpoint compromise** (Pegasus-style), bukan intercept RF. Enkripsi modern terlalu kuat untuk diserang dari sisi RF — serang dari sisi manusia atau perangkatnya.
 
-> [!warning] Legal Context Indonesia
-> Intercept komunikasi tanpa izin = pelanggaran UU Telekomunikasi dan UU ITE.
-> Frekuensi militer/pemerintah = dilarang dimonitor kecuali untuk keperluan resmi.
-> RTL-SDR untuk frekuensi publik (ADS-B, cuaca, FM) = legal.
-> Direction finding terhadap instalasi militer = bisa dikategorikan spionase.
-> [Keyakinan tinggi] bahwa batas ini berlaku di Indonesia.
+>[!warning] Legal Context Indonesia
+>Intercept komunikasi tanpa izin = pelanggaran UU Telekomunikasi dan UU ITE.
+>Frekuensi militer/pemerintah = dilarang dimonitor kecuali untuk keperluan resmi.
+>RTL-SDR untuk frekuensi publik (ADS-B, cuaca, FM) = legal.
+>Direction finding terhadap instalasi militer = bisa dikategorikan spionase.
+>[Keyakinan tinggi] bahwa batas ini berlaku di Indonesia.
 
 ---
 
@@ -667,4 +665,4 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 
 ---
 
-_Military SIGINT Deep Dive | RTL-SDR Limits · FHSS · Type 1 Encryption · TDOA/AOA/FDOA · Pegasus vs RF · EW Triad · NSA Infrastructure_
+*Military SIGINT Deep Dive | RTL-SDR Limits · FHSS · Type 1 Encryption · TDOA/AOA/FDOA · Pegasus vs RF · EW Triad · NSA Infrastructure*

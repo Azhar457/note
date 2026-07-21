@@ -1,17 +1,14 @@
 ---
-title: "Systems Design Interview — Alex Xu"
+title: Systems Design Interview — Alex Xu
 tags:
-  - library
-  - systems-architecture
-aliases:
-  - "systems-design-interview-alex-xu"
-created: "2026-07-05"
-updated: "2026-07-05"
+- library
+- systems-architecture
+created: '2026-07-05'
+updated: '2026-07-05'
 status: active
 ---
 
 # 🧩 Systems Design Interview — An Insider's Guide
-
 > Alex Xu — 2021
 
 ## 📌 Kenapa Penting
@@ -30,30 +27,24 @@ Framework 4 langkah adalah sebuah metode yang dapat membantu dalam menghadapi sy
 4. **Wrap up** — what would you add with more time
 
 Contoh implementasi framework 4 langkah dapat dilihat pada contoh berikut:
-
 ```markdown
 # Contoh Implementasi Framework 4 Langkah
 
 ## 1. Understand the problem
-
 - Apa yang ingin dicapai?
 - Apa yang dibutuhkan?
 
 ## 2. High-level design
-
 - Diagram kotak + panah
 - Pilih core components
 
 ## 3. Deep dive
-
 - Detail bottlenecks
 - Trade-offs
 
 ## 4. Wrap up
-
 - What would you add with more time?
 ```
-
 Misalnya, kita ingin mendesain sistem untuk sebuah aplikasi e-commerce. Pada langkah pertama, kita perlu memahami apa yang ingin dicapai, yaitu menciptakan sistem yang dapat menangani transaksi online dengan aman dan efisien. Pada langkah kedua, kita perlu membuat diagram high-level design yang mencakup komponen-komponen utama seperti load balancer, web server, database, dan payment gateway.
 
 **2. Core Components Set**
@@ -68,7 +59,6 @@ Berikut adalah beberapa core components yang sering digunakan dalam system desig
 - **Blob storage** (S3, GCS)
 
 Contoh implementasi core components dapat dilihat pada contoh berikut:
-
 ```python
 # Contoh Implementasi Core Components
 
@@ -92,7 +82,6 @@ message_queue = "Kafka"
 # Blob storage
 blob_storage = "S3"
 ```
-
 Misalnya, kita ingin menggunakan load balancer HAProxy untuk mendistribusikan traffic ke beberapa web server. Kita perlu mengkonfigurasi HAProxy untuk melakukan load balancing dan mengarahkan traffic ke web server yang tersedia.
 
 ## 📊 Troubleshooting
@@ -100,33 +89,30 @@ Misalnya, kita ingin menggunakan load balancer HAProxy untuk mendistribusikan tr
 Troubleshooting adalah proses untuk mengidentifikasi dan memecahkan masalah yang terjadi dalam sistem. Berikut adalah beberapa contoh masalah yang sering terjadi dalam sistem dan cara untuk memecahkannya:
 
 - **Masalah 1: Load balancer tidak berfungsi**
-
-* Gejala: Traffic tidak terdistribusi dengan baik ke web server
-* Penyebab: Konfigurasi load balancer yang salah atau tidak lengkap
-* Solusi: Periksa konfigurasi load balancer dan pastikan bahwa semua web server telah terdaftar dan dapat diakses
+ + Gejala: Traffic tidak terdistribusi dengan baik ke web server
+ + Penyebab: Konfigurasi load balancer yang salah atau tidak lengkap
+ + Solusi: Periksa konfigurasi load balancer dan pastikan bahwa semua web server telah terdaftar dan dapat diakses
 
 - **Masalah 2: Database tidak dapat diakses**
-
-* Gejala: Aplikasi tidak dapat terhubung ke database
-* Penyebab: Konfigurasi database yang salah atau tidak lengkap
-* Solusi: Periksa konfigurasi database dan pastikan bahwa semua parameter telah diatur dengan benar
+ + Gejala: Aplikasi tidak dapat terhubung ke database
+ + Penyebab: Konfigurasi database yang salah atau tidak lengkap
+ + Solusi: Periksa konfigurasi database dan pastikan bahwa semua parameter telah diatur dengan benar
 
 ## 📈 Key Design Patterns
 
 Berikut adalah beberapa key design patterns yang sering digunakan dalam system design:
 
-| Problem           | Approach                                   |
-| ----------------- | ------------------------------------------ |
-| URL shortener     | Base62 encoding + key generation service   |
-| Chat system       | WebSocket + message sync + presence        |
-| Notification      | Event bus + fan-out + rate limiting        |
-| News feed         | Fan-out on write vs on read                |
-| Rate limiter      | Token bucket, leaky bucket, sliding window |
-| Proximity service | QuadTree / Geohash                         |
-| Distributed ID    | Snowflake (timestamp + worker + seq)       |
+| Problem | Approach |
+|---------|----------|
+| URL shortener | Base62 encoding + key generation service |
+| Chat system | WebSocket + message sync + presence |
+| Notification | Event bus + fan-out + rate limiting |
+| News feed | Fan-out on write vs on read |
+| Rate limiter | Token bucket, leaky bucket, sliding window |
+| Proximity service | QuadTree / Geohash |
+| Distributed ID | Snowflake (timestamp + worker + seq) |
 
 Contoh implementasi key design patterns dapat dilihat pada contoh berikut:
-
 ```java
 // Contoh Implementasi Key Design Patterns
 
@@ -150,7 +136,6 @@ public class ChatSystem {
     }
 }
 ```
-
 Misalnya, kita ingin mendesain sistem URL shortener yang dapat menghasilkan URL yang pendek dan unik. Kita perlu menggunakan base62 encoding untuk mengencode URL asli dan menghasilkan URL yang pendek.
 
 ## 📊 Back-of-the-envelope
@@ -167,7 +152,6 @@ Back-of-the-envelope adalah sebuah metode untuk melakukan estimasi cepat dan kas
   - Redis ~100000 ops/sec per node
 
 Contoh implementasi back-of-the-envelope dapat dilihat pada contoh berikut:
-
 ```python
 # Contoh Implementasi Back-of-the-envelope
 
@@ -183,25 +167,23 @@ storage_growth_per_year = storage_growth_per_day * 365
 # Bandwidth estimation
 bandwidth_estimation = 100KBps
 ```
-
 Misalnya, kita ingin mengestimasi jumlah requests per second untuk aplikasi e-commerce. Kita perlu menggunakan rumus `requests_per_second = daily_active_users / 86400` untuk menghasilkan estimasi yang kasar.
 
 ## 📖 Bab Penting
 
 Berikut adalah beberapa bab penting dalam buku ini:
 
-| Bab | Soal                       | Pelajaran                   |
-| --- | -------------------------- | --------------------------- |
-| 1   | URL Shortener              | Base62, key gen, 301 vs 302 |
-| 2   | Web Crawler                | BFS, politeness, dedup      |
-| 5   | Design Consistent Hashing  | **Wajib** — fundamental     |
-| 7   | Design Unique ID Generator | Snowflake                   |
-| 10  | Design Notification System | Fan-out, event bus          |
-| 12  | Design Chat System         | WebSocket, presence, sync   |
-| 13  | Design Search Autocomplete | Trie                        |
+| Bab | Soal | Pelajaran |
+|-----|------|-----------|
+| 1 | URL Shortener | Base62, key gen, 301 vs 302 |
+| 2 | Web Crawler | BFS, politeness, dedup |
+| 5 | Design Consistent Hashing | **Wajib** — fundamental |
+| 7 | Design Unique ID Generator | Snowflake |
+| 10 | Design Notification System | Fan-out, event bus |
+| 12 | Design Chat System | WebSocket, presence, sync |
+| 13 | Design Search Autocomplete | Trie |
 
 Contoh implementasi bab penting dapat dilihat pada contoh berikut:
-
 ```java
 // Contoh Implementasi Bab Penting
 
@@ -221,7 +203,6 @@ public class WebCrawler {
     }
 }
 ```
-
 Misalnya, kita ingin mendesain sistem URL shortener yang dapat menghasilkan URL yang pendek dan unik. Kita perlu menggunakan base62 encoding untuk mengencode URL asli dan menghasilkan URL yang pendek.
 
 ## ⚠️ Keterbatasan
@@ -239,7 +220,7 @@ Berikut adalah cara baca buku ini:
 
 1. Baca **chapter 1-5** buat framework + komponen dasar
 2. Lompat ke soal yang relevant (interview target)
-3. Coba _design yourself_ sebelum baca solusi — baru bandingkan
+3. Coba *design yourself* sebelum baca solusi — baru bandingkan
 
 ## 🔗 Koneksi
 

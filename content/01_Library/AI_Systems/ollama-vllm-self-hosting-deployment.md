@@ -45,15 +45,15 @@ cssclasses:
 
 ## 1. Kenapa Self-Host? — Cost vs Control
 
-| Aspek                  | Cloud API (OpenAI)                 | Self-Hosted (Ollama/vLLM)         |
-| ---------------------- | ---------------------------------- | --------------------------------- |
+| Aspek | Cloud API (OpenAI) | Self-Hosted (Ollama/vLLM) |
+|-------|-------------------|--------------------------|
 | **Cost per 1M tokens** | $2.50 (GPT-4o mini) - $15 (GPT-4o) | $0 (hardware capex) + electricity |
-| **Data privacy**       | Data ke cloud provider             | 100% local                        |
-| **Latency**            | 200-800ms (network round-trip)     | 10-50ms (localhost / LAN)         |
-| **Model choice**       | Provider-curated                   | Apapun dari HuggingFace           |
-| **Rate limit**         | TPM/RPM quota                      | Unlimited                         |
-| **Reliability**        | Provider-dependent                 | Bergantung hardware kamu          |
-| **GPU capex**          | $0                                 | RTX 3090: ~$700 (used)            |
+| **Data privacy** | Data ke cloud provider | 100% local |
+| **Latency** | 200-800ms (network round-trip) | 10-50ms (localhost / LAN) |
+| **Model choice** | Provider-curated | Apapun dari HuggingFace |
+| **Rate limit** | TPM/RPM quota | Unlimited |
+| **Reliability** | Provider-dependent | Bergantung hardware kamu |
+| **GPU capex** | $0 | RTX 3090: ~$700 (used) |
 
 **Break-even point:** Kalau infer >50M tokens/bulan, self-host lebih murah dalam 6-12 bulan.
 
@@ -61,14 +61,14 @@ cssclasses:
 
 ## 2. Hardware Prerequisites
 
-| GPU                     | VRAM  | Model (Quant)               | Throughput    |
-| ----------------------- | ----- | --------------------------- | ------------- |
-| **CPU-only (32GB RAM)** | N/A   | Llama 3.1 8B Q4_K_M (4.5GB) | 3-10 tok/s    |
-| **RTX 3060 12GB**       | 12 GB | 7B AWQ-4 (4GB)              | 40-70 tok/s   |
-| **RTX 3090 24GB**       | 24 GB | 7B FP16 / 13B AWQ           | 80-120 tok/s  |
-| **RTX 4090 24GB**       | 24 GB | 7B FP16 / 13B AWQ           | 120-160 tok/s |
-| **2× RTX 3090**         | 48 GB | 30B AWQ / 70B Q4_K_M        | 40-70 tok/s   |
-| **A100 80GB**           | 80 GB | 70B AWQ / 70B FP16          | 100-200 tok/s |
+| GPU | VRAM | Model (Quant) | Throughput |
+|-----|------|---------------|------------|
+| **CPU-only (32GB RAM)** | N/A | Llama 3.1 8B Q4_K_M (4.5GB) | 3-10 tok/s |
+| **RTX 3060 12GB** | 12 GB | 7B AWQ-4 (4GB) | 40-70 tok/s |
+| **RTX 3090 24GB** | 24 GB | 7B FP16 / 13B AWQ | 80-120 tok/s |
+| **RTX 4090 24GB** | 24 GB | 7B FP16 / 13B AWQ | 120-160 tok/s |
+| **2× RTX 3090** | 48 GB | 30B AWQ / 70B Q4_K_M | 40-70 tok/s |
+| **A100 80GB** | 80 GB | 70B AWQ / 70B FP16 | 100-200 tok/s |
 
 **Minimum viable:** RTX 3060 12GB = 7B AWQ model → good quality, fast enough.
 
@@ -96,7 +96,7 @@ cssclasses:
 ### 3.2 docker-compose.yml
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   ollama:
@@ -104,14 +104,14 @@ services:
     container_name: ollama
     restart: unless-stopped
     ports:
-      - "127.0.0.1:11434:11434" # BIND LOCALHOST ONLY — security!
+      - "127.0.0.1:11434:11434"  # BIND LOCALHOST ONLY — security!
     volumes:
-      - ./ollama-models:/root/.ollama # model storage persistent
+      - ./ollama-models:/root/.ollama  # model storage persistent
     environment:
-      - OLLAMA_KEEP_ALIVE=24h # keep model in VRAM
+      - OLLAMA_KEEP_ALIVE=24h          # keep model in VRAM
       - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_NUM_PARALLEL=4 # concurrent requests
-      - OLLAMA_MAX_LOADED_MODELS=2 # max models in VRAM
+      - OLLAMA_NUM_PARALLEL=4          # concurrent requests
+      - OLLAMA_MAX_LOADED_MODELS=2     # max models in VRAM
     deploy:
       resources:
         reservations:
@@ -130,9 +130,9 @@ services:
       - ./webui-data:/app/backend/data
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
-      - WEBUI_AUTH=true # enable auth
-      - WEBUI_SECRET_KEY=${WEBUI_SECRET} # from .env
-      - ENABLE_SIGNUP=false # admin-only user creation
+      - WEBUI_AUTH=true                # enable auth
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET}  # from .env
+      - ENABLE_SIGNUP=false            # admin-only user creation
     depends_on:
       - ollama
 
@@ -144,7 +144,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./certs:/etc/nginx/certs:ro # TLS certs
+      - ./certs:/etc/nginx/certs:ro   # TLS certs
     depends_on:
       - open-webui
 ```
@@ -201,12 +201,12 @@ docker exec -it ollama ollama list
 
 ### 4.1 Kenapa Hybrid?
 
-| Use Case                     | Engine              | Alasan                               |
-| ---------------------------- | ------------------- | ------------------------------------ |
-| **Chat UI (end-user)**       | Ollama + Open WebUI | Simple UI, multiple models           |
-| **API serving (production)** | vLLM                | High throughput, continuous batching |
-| **Edge / CPU-only**          | Ollama              | GGUF quantization, CPU inference     |
-| **Max throughput**           | vLLM                | PagedAttention, FP8 KV cache         |
+| Use Case | Engine | Alasan |
+|----------|--------|--------|
+| **Chat UI (end-user)** | Ollama + Open WebUI | Simple UI, multiple models |
+| **API serving (production)** | vLLM | High throughput, continuous batching |
+| **Edge / CPU-only** | Ollama | GGUF quantization, CPU inference |
+| **Max throughput** | vLLM | PagedAttention, FP8 KV cache |
 
 ### 4.2 docker-compose.yml — Hybrid
 
@@ -229,7 +229,7 @@ services:
       - "0.85"
       - "--enable-prefix-caching"
       - "--api-key"
-      - "${VLLM_API_KEY}" # dari .env
+      - "${VLLM_API_KEY}"  # dari .env
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
     deploy:
@@ -244,7 +244,7 @@ services:
     image: ollama/ollama:0.3.12
     # ... same as above
 
-  router: # Python inference router
+  router:  # Python inference router
     build: ./router
     container_name: llm-router
     restart: unless-stopped
@@ -302,6 +302,7 @@ async def chat(request: ChatRequest):
 WEBUI_SECRET=openssl_rand_hex_64
 VLLM_API_KEY=sk-self-hosted-vllm-key-2026
 ROUTER_API_KEY=sk-router-internal-only
+
 # NGINX basic auth untuk admin endpoint
 # htpasswd -c /etc/nginx/.htpasswd admin
 ```
@@ -429,12 +430,12 @@ Rotasi:
 
 ### 8.1 Cloud GPU Rental
 
-| Provider        | GPU       | $/hr     | Best For          |
-| --------------- | --------- | -------- | ----------------- |
-| **RunPod**      | RTX 3090  | $0.44/hr | Budget production |
-| **RunPod**      | A100 80GB | $1.89/hr | 70B models        |
-| **Vast.ai**     | RTX 3090  | $0.35/hr | Cheapest          |
-| **Vast.ai**     | RTX 4090  | $0.50/hr | Max perf/$        |
+| Provider | GPU | $/hr | Best For |
+|----------|-----|------|----------|
+| **RunPod** | RTX 3090 | $0.44/hr | Budget production |
+| **RunPod** | A100 80GB | $1.89/hr | 70B models |
+| **Vast.ai** | RTX 3090 | $0.35/hr | Cheapest |
+| **Vast.ai** | RTX 4090 | $0.50/hr | Max perf/$ |
 | **Lambda Labs** | A100 80GB | $1.10/hr | Reserved clusters |
 
 ### 8.2 RunPod Deployment Script
@@ -528,15 +529,15 @@ Alert Rules:
 
 ## 10. Troubleshooting
 
-| Problem                | Symptom                           | Fix                                                                            |
-| ---------------------- | --------------------------------- | ------------------------------------------------------------------------------ |
-| **Ollama OOM**         | `CUDA out of memory` di log       | Kurangi `OLLAMA_MAX_LOADED_MODELS=1`, unload model lain: `ollama stop <model>` |
-| **GPU not detected**   | `nvidia-smi` empty di container   | `docker run --gpus all` atau `nvidia-container-toolkit` tidak terinstall       |
-| **Model corruption**   | `checksum mismatch`               | Re-pull: `ollama rm <model> && ollama pull <model>`                            |
-| **Open WebUI blank**   | White screen, no JS               | Check `WEBUI_SECRET_KEY` di-set, clear browser cache                           |
-| **Slow inference**     | <5 tok/s                          | Check quantization: Q4_K_M instead of FP16. Set `OLLAMA_NUM_PARALLEL=1`        |
-| **TLS error**          | `NET::ERR_CERT_AUTHORITY_INVALID` | Renew cert: `certbot renew`, restart nginx                                     |
-| **Rate limit hitting** | 503 Service Unavailable           | Increase burst di nginx.conf, atau whitelist IP internal                       |
+| Problem | Symptom | Fix |
+|---------|---------|-----|
+| **Ollama OOM** | `CUDA out of memory` di log | Kurangi `OLLAMA_MAX_LOADED_MODELS=1`, unload model lain: `ollama stop <model>` |
+| **GPU not detected** | `nvidia-smi` empty di container | `docker run --gpus all` atau `nvidia-container-toolkit` tidak terinstall |
+| **Model corruption** | `checksum mismatch` | Re-pull: `ollama rm <model> && ollama pull <model>` |
+| **Open WebUI blank** | White screen, no JS | Check `WEBUI_SECRET_KEY` di-set, clear browser cache |
+| **Slow inference** | <5 tok/s | Check quantization: Q4_K_M instead of FP16. Set `OLLAMA_NUM_PARALLEL=1` |
+| **TLS error** | `NET::ERR_CERT_AUTHORITY_INVALID` | Renew cert: `certbot renew`, restart nginx |
+| **Rate limit hitting** | 503 Service Unavailable | Increase burst di nginx.conf, atau whitelist IP internal |
 
 ---
 
@@ -553,15 +554,15 @@ Alert Rules:
 
 ## Referensi
 
-- Ollama. _GitHub_. https://github.com/ollama/ollama
-- Open WebUI. _Self-Hosted LLM Chat_. https://github.com/open-webui/open-webui
-- vLLM. _Production Inference Engine_. https://docs.vllm.ai/en/latest/
-- NVIDIA DCGM. _GPU Monitoring_. https://developer.nvidia.com/dcgm
-- RunPod. _GPU Cloud_. https://www.runpod.io/
-- Vast.ai. _GPU Rental_. https://vast.ai/
-- HuggingFace. _GGUF Quantized Models_. https://huggingface.co/TheBloke
-- NGINX. _Rate Limiting_. https://nginx.org/en/docs/http/ngx_http_limit_req_module.html
+- Ollama. *GitHub*. https://github.com/ollama/ollama
+- Open WebUI. *Self-Hosted LLM Chat*. https://github.com/open-webui/open-webui
+- vLLM. *Production Inference Engine*. https://docs.vllm.ai/en/latest/
+- NVIDIA DCGM. *GPU Monitoring*. https://developer.nvidia.com/dcgm
+- RunPod. *GPU Cloud*. https://www.runpod.io/
+- Vast.ai. *GPU Rental*. https://vast.ai/
+- HuggingFace. *GGUF Quantized Models*. https://huggingface.co/TheBloke
+- NGINX. *Rate Limiting*. https://nginx.org/en/docs/http/ngx_http_limit_req_module.html
 
 ---
 
-_Dibuat: 19 Juli 2026 — Self-hosted LLM dari Docker Compose sampai monitoring production._
+*Dibuat: 19 Juli 2026 — Self-hosted LLM dari Docker Compose sampai monitoring production.*

@@ -1,18 +1,16 @@
 ---
-title: "📊 RAG Evaluation Framework — RAGAS, DeepEval, dan Metrik Retrieval & Generation"
+title: 📊 RAG Evaluation Framework — RAGAS, DeepEval, dan Metrik Retrieval & Generation
 tags:
-  - rag-evaluation
-  - ragas
-  - deepeval
-  - retrieval-metrics
-  - library
-aliases:
-  - "rag-evaluation-framework"
-created: "2026-07-16"
-updated: "2026-07-16"
+- rag-evaluation
+- ragas
+- deepeval
+- retrieval-metrics
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: operational
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 📊 RAG Evaluation Framework — RAGAS, DeepEval, dan Metrik Retrieval & Generation
@@ -293,11 +291,11 @@ def test_retrieval_regression():
 
 ## References
 
-1. RAGAS. _Documentation_. https://docs.ragas.io/
-2. DeepEval. _Documentation_. https://docs.confident-ai.com/
-3. RAGAS Paper. _S. Es et al. (2023)_. https://arxiv.org/abs/2309.15217
-4. ARES. _Automated RAG Evaluation_. https://github.com/lynnjones/ARES
-5. TruLens. _RAG Evaluation_. https://www.trulens.org/trulens/evaluation/rag/
+1. RAGAS. *Documentation*. https://docs.ragas.io/
+2. DeepEval. *Documentation*. https://docs.confident-ai.com/
+3. RAGAS Paper. *S. Es et al. (2023)*. https://arxiv.org/abs/2309.15217
+4. ARES. *Automated RAG Evaluation*. https://github.com/lynnjones/ARES
+5. TruLens. *RAG Evaluation*. https://www.trulens.org/trulens/evaluation/rag/
 
 > [!tip] Bottom Line
 > Evaluasi RAG punya 2 dimensi: **retrieval** (precision, recall, MRR) dan **generation** (faithfulness, relevancy). RAGAS adalah framework paling mature untuk generation metrics. Mulai dengan **10 golden queries** yang cover berbagai catatan vault → hitung recall@5 untuk retrieval → hitung faithfulness untuk generation. Otomatisasi dengan **CI regression test**: kalo recall turun >5%, block deploy. vault-rag belum punya eval pipeline — ini adalah **next step paling penting** setelah chunking dan search berfungsi.

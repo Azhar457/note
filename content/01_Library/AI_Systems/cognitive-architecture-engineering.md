@@ -16,7 +16,7 @@ cssclasses:
   - wide-table
 ---
 
-> [!abstract] Fase Keempat — _Cognitive Architecture Engineering_
+> [!abstract] Fase Keempat — *Cognitive Architecture Engineering* 
 > Prompt Engineering adalah tentang berbicara dengan model. Context Engineering tentang memberi model memori. Loop Engineering tentang memberi model kemampuan bertindak. Fase ini adalah tentang **bagaimana model berpikir tentang tindakannya, belajar dari pengalaman, dan berkolaborasi dalam sebuah masyarakat kognitif.** Ini bukan lagi tentang membangun satu agen, melainkan tentang membangun **ekosistem kognitif** yang mengatur dirinya sendiri. Dokumen ini adalah peta jalan untuk fase berikutnya, mensintesiskan semua yang telah Anda bangun di vault ini.
 
 ---
@@ -25,30 +25,27 @@ cssclasses:
 
 Setiap fase dalam evolusi ini memecahkan keterbatasan fundamental dari fase sebelumnya.
 
-| Era                                    | Pertanyaan Kunci                        | Tujuan                                                                                                             | Keterbatasan yang Diatasi                                                    |
-| :------------------------------------- | :-------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
-| **Prompt Engineering**                 | "Apa yang harus saya katakan?"          | Mengarahkan output model melalui instruksi statis.                                                                 | Model tidak tahu apa-apa di luar data pelatihan.                             |
-| **Context Engineering**                | "Apa yang harus model ketahui?"         | Memberi model akses ke data eksternal (RAG).                                                                       | Model tidak bisa berinteraksi dengan dunia.                                  |
-| **Loop Engineering**                   | "Apa yang harus model lakukan?"         | Memberi model kemampuan untuk bertindak (Tool Use), mengamati hasilnya, dan memperbaiki diri dalam siklus (ReAct). | Model tidak bisa mengelola tugas kompleks jangka panjang atau berkolaborasi. |
-| **Cognitive Architecture Engineering** | **"Bagaimana model harus _berpikir_?"** | **Merancang sistem kognitif yang terorkestrasi, sadar diri, dan mampu belajar secara kontinu.**                    | Model masih merupakan entitas tunggal yang terisolasi.                       |
+| Era | Pertanyaan Kunci | Tujuan | Keterbatasan yang Diatasi |
+| :--- | :--- | :--- | :--- |
+| **Prompt Engineering** | "Apa yang harus saya katakan?" | Mengarahkan output model melalui instruksi statis. | Model tidak tahu apa-apa di luar data pelatihan. |
+| **Context Engineering** | "Apa yang harus model ketahui?" | Memberi model akses ke data eksternal (RAG). | Model tidak bisa berinteraksi dengan dunia. |
+| **Loop Engineering** | "Apa yang harus model lakukan?" | Memberi model kemampuan untuk bertindak (Tool Use), mengamati hasilnya, dan memperbaiki diri dalam siklus (ReAct). | Model tidak bisa mengelola tugas kompleks jangka panjang atau berkolaborasi. |
+| **Cognitive Architecture Engineering** | **"Bagaimana model harus *berpikir*?"** | **Merancang sistem kognitif yang terorkestrasi, sadar diri, dan mampu belajar secara kontinu.** | Model masih merupakan entitas tunggal yang terisolasi. |
 
 ---
 
 ## 🏛️ Fondasi: Dari Loop ke Kognisi
 
-Sebuah _loop_ (ReAct) adalah unit dasar tindakan. Tetapi kecerdasan kompleks muncul dari interaksi banyak loop. Inilah fondasi yang membedakan _arsitektur kognitif_ dari _agen tunggal_.
+Sebuah *loop* (ReAct) adalah unit dasar tindakan. Tetapi kecerdasan kompleks muncul dari interaksi banyak loop. Inilah fondasi yang membedakan *arsitektur kognitif* dari *agen tunggal*.
 
 ### 1. Komposisi Hierarkis
-
-Tugas tingkat tinggi tidak bisa diselesaikan dengan satu loop. Ia perlu dipecah menjadi sub-tujuan, masing-masing dengan loop-nya sendiri, yang diorkestrasi oleh _meta-cognitive layer_.
+Tugas tingkat tinggi tidak bisa diselesaikan dengan satu loop. Ia perlu dipecah menjadi sub-tujuan, masing-masing dengan loop-nya sendiri, yang diorkestrasi oleh *meta-cognitive layer*.
 
 ### 2. Memori sebagai Pengalaman, Bukan Hanya Data
-
-Memori dalam arsitektur kognitif bukan hanya penyimpanan (vector DB) dan pengambilan (retrieval). Ia adalah akumulasi pengalaman yang membentuk _procedural knowledge_ ("Saya sudah mencoba cara A 3 kali dan selalu gagal karena X, jadi sekarang saya akan mencoba cara B").
+Memori dalam arsitektur kognitif bukan hanya penyimpanan (vector DB) dan pengambilan (retrieval). Ia adalah akumulasi pengalaman yang membentuk *procedural knowledge* ("Saya sudah mencoba cara A 3 kali dan selalu gagal karena X, jadi sekarang saya akan mencoba cara B").
 
 ### 3. Kognisi Kolektif
-
-Kecerdasan sejati seringkali bersifat sosial. Arsitektur ini memungkinkan spesialisasi agen, perdebatan, dan konsensus — sebuah _masyarakat agen_.
+Kecerdasan sejati seringkali bersifat sosial. Arsitektur ini memungkinkan spesialisasi agen, perdebatan, dan konsensus — sebuah *masyarakat agen*.
 
 ---
 
@@ -58,10 +55,10 @@ Kecerdasan sejati seringkali bersifat sosial. Arsitektur ini memungkinkan spesia
 
 - **Tugas Utama:** Menerima tujuan tingkat tinggi, mendelegasikan, mengalokasikan sumber daya, dan memonitor kemacetan.
 - **Arsitektur:**
-  - **Router / Arbiter:** Model cepat (System 1) yang mengklasifikasikan kompleksitas tugas. Jika sederhana, langsung ke LLM. Jika kompleks, aktifkan System 2 (ToT, PRM, Reflection).
-  - **Dynamic Compute Allocator:** Algoritma yang memutuskan berapa banyak "waktu berpikir" (test-time compute budget) yang dialokasikan untuk sebuah tugas. Ini adalah aplikasi praktis dari `test-time-compute-system2`.
-  - **Goal Decomposer:** Sebuah agen spesialis yang dilatih untuk memecah tujuan besar menjadi pohon tugas (task tree). Ini menggunakan pola dari `agentic-ai-mcp-architecture-deepdive` (Planner).
-  - **Recovery Orchestrator:** Memonitor semua agen yang berjalan. Jika ada yang macet, _infinite loop_, atau gagal, ia akan melakukan intervensi (restart, rollback, atau eskalasi ke manusia).
+    - **Router / Arbiter:** Model cepat (System 1) yang mengklasifikasikan kompleksitas tugas. Jika sederhana, langsung ke LLM. Jika kompleks, aktifkan System 2 (ToT, PRM, Reflection).
+    - **Dynamic Compute Allocator:** Algoritma yang memutuskan berapa banyak "waktu berpikir" (test-time compute budget) yang dialokasikan untuk sebuah tugas. Ini adalah aplikasi praktis dari `test-time-compute-system2`.
+    - **Goal Decomposer:** Sebuah agen spesialis yang dilatih untuk memecah tujuan besar menjadi pohon tugas (task tree). Ini menggunakan pola dari `agentic-ai-mcp-architecture-deepdive` (Planner).
+    - **Recovery Orchestrator:** Memonitor semua agen yang berjalan. Jika ada yang macet, *infinite loop*, atau gagal, ia akan melakukan intervensi (restart, rollback, atau eskalasi ke manusia).
 
 **State-of-the-art saat ini (dalam riset):** Proyek seperti "AI Scientist" atau "Devin" yang mencoba mengorkestrasi berbagai alat dan sub-agen untuk menyelesaikan tugas rekayasa perangkat lunak yang kompleks.
 
@@ -71,12 +68,12 @@ Kecerdasan sejati seringkali bersifat sosial. Arsitektur ini memungkinkan spesia
 
 **Ini adalah transisi dari "task-doer" ke "self-directed agent."**
 
-- **Goal Memory (Memory Tujuan):** Sebuah basis data vektor yang menyimpan tujuan jangka panjang, bukan hanya fakta. Agen dapat melakukan _retrieval_ pada tujuannya minggu lalu dan melanjutkannya.
-- **Self-Initiated Workflows:** Alih-alih menunggu prompt, agen proaktif. _Trigger-based Automation_: "Setiap jam 9 pagi, pindai laporan keamanan, buat ringkasan, dan kirim ke saluran yang relevan."
+- **Goal Memory (Memory Tujuan):** Sebuah basis data vektor yang menyimpan tujuan jangka panjang, bukan hanya fakta. Agen dapat melakukan *retrieval* pada tujuannya minggu lalu dan melanjutkannya.
+- **Self-Initiated Workflows:** Alih-alih menunggu prompt, agen proaktif. *Trigger-based Automation*: "Setiap jam 9 pagi, pindai laporan keamanan, buat ringkasan, dan kirim ke saluran yang relevan."
 - **Continual Learning Loop:**
-  1.  **Experience Logging:** Setiap penyelesaian tugas (berhasil atau gagal) dicatat sebagai "episode" dengan metrik, reasoning, dan hasilnya.
-  2.  **Pattern Extraction:** Secara berkala, sebuah _analyzer agent_ memproses log pengalaman untuk mengekstrak pelajaran baru.
-  3.  **Procedural Memory Update:** Pelajaran ini digunakan untuk memperbarui _system prompt_, _few-shot examples_, atau bahkan mem-_fine-tune_ LoRA (Low-Rank Adaptation) pada model spesialis. **Ini adalah jembatan antara `ai-engineering-stack-roadmap` (MLOps) dan `agentic-ai-mcp-roadmap` (Agen).**
+    1.  **Experience Logging:** Setiap penyelesaian tugas (berhasil atau gagal) dicatat sebagai "episode" dengan metrik, reasoning, dan hasilnya.
+    2.  **Pattern Extraction:** Secara berkala, sebuah *analyzer agent* memproses log pengalaman untuk mengekstrak pelajaran baru.
+    3.  **Procedural Memory Update:** Pelajaran ini digunakan untuk memperbarui *system prompt*, *few-shot examples*, atau bahkan mem-*fine-tune* LoRA (Low-Rank Adaptation) pada model spesialis. **Ini adalah jembatan antara `ai-engineering-stack-roadmap` (MLOps) dan `agentic-ai-mcp-roadmap` (Agen).**
 
 ---
 
@@ -84,16 +81,16 @@ Kecerdasan sejati seringkali bersifat sosial. Arsitektur ini memungkinkan spesia
 
 **Ini adalah "USB-C untuk Kecerdasan Kolektif."**
 
-MCP adalah protokol untuk _tool use_. Protokol baru diperlukan untuk _agent-to-agent_ (A2A). Anda sudah memiliki benih-benihnya di `ai-comm-protocol-deep-dive` (Gibberlink, GGWave) — tetapi untuk komunikasi semantik tingkat tinggi.
+MCP adalah protokol untuk *tool use*. Protokol baru diperlukan untuk *agent-to-agent* (A2A). Anda sudah memiliki benih-benihnya di `ai-comm-protocol-deep-dive` (Gibberlink, GGWave) — tetapi untuk komunikasi semantik tingkat tinggi.
 
 - **Agent-to-Agent Protocol (A2A):** Sebuah standar terbuka di mana agen bisa:
-  - `delegate_task(target_agent, task_spec)`
-  - `request_information(target_agent, query)`
-  - `negotiate(conflict_resolution_strategy)`
+    - `delegate_task(target_agent, task_spec)`
+    - `request_information(target_agent, query)`
+    - `negotiate(conflict_resolution_strategy)`
 - **Swarm Consensus:** Mekanisme untuk mencapai mufakat di antara banyak agen. Ini bisa berupa:
-  - **Voting:** Mayoritas sederhana, tetapi rentan terhadap _adversarial agent_.
-  - **Debate + Arbiter:** Dua agen atau lebih berdebat, dan agen ketiga (Arbiter) memberikan keputusan akhir. Pola ini lebih robust. **Ini adalah aplikasi langsung dari `test-time-compute-system2` (Reflection, PRM) dalam konteks multi-agen.**
-  - **Blackboard Architecture:** Sebuah ruang state bersama di mana agen-agen spesialis membaca dan menulis. Cocok untuk masalah kompleks yang membutuhkan kolaborasi longgar (mirip brainstorming manusia).
+    - **Voting:** Mayoritas sederhana, tetapi rentan terhadap *adversarial agent*.
+    - **Debate + Arbiter:** Dua agen atau lebih berdebat, dan agen ketiga (Arbiter) memberikan keputusan akhir. Pola ini lebih robust. **Ini adalah aplikasi langsung dari `test-time-compute-system2` (Reflection, PRM) dalam konteks multi-agen.**
+    - **Blackboard Architecture:** Sebuah ruang state bersama di mana agen-agen spesialis membaca dan menulis. Cocok untuk masalah kompleks yang membutuhkan kolaborasi longgar (mirip brainstorming manusia).
 
 ---
 
@@ -101,12 +98,12 @@ MCP adalah protokol untuk _tool use_. Protokol baru diperlukan untuk _agent-to-a
 
 **Ini adalah "Sistem Kekebalan" bagi Ekosistem Kognitif.**
 
-Dalam arsitektur tradisional, evaluasi adalah _afterthought_. Di sini, _Evaluator_ adalah komponen kritis yang berjalan secara paralel dan kontinu.
+Dalam arsitektur tradisional, evaluasi adalah *afterthought*. Di sini, *Evaluator* adalah komponen kritis yang berjalan secara paralel dan kontinu.
 
 - **Real-Time Hallucination Firewall:** Sebuah model verifikasi yang lebih kecil dan cepat yang memeriksa **setiap output faktual** sebelum dikirim ke pengguna. Ini melampaui guardrails sederhana. Jika ada klaim yang tidak bisa diverifikasi oleh basis pengetahuan internal, output diblokir atau ditandai.
 - **Adversarial Cognitive Agent (Red Team Internal):** Sebuah agen khusus yang tugasnya adalah terus-menerus mencoba membobol agen produksi Anda. Ia menggunakan teknik dari `llm-security-red-teaming-attack-surface-ai-layer` secara otomatis dan melaporkan kerentanan baru.
-- **Quality-of-Thought Monitor:** Menganalisis _trace_ reasoning (dari `test-time-compute-system2`) bukan hanya hasil akhirnya. Apakah model menggunakan jalan pintas yang salah? Apakah ia mengabaikan informasi penting? Monitor ini adalah penerapan dari **Process Reward Model (PRM) pada setiap langkah kognitif.**
-- **Feedback-Driven Refinement:** Umpan balik dari pengguna (langsung atau tidak langsung) tidak hanya disimpan, tetapi secara otomatis memicu _continual learning loop_ (dari Pilar 2) untuk memperbaiki perilaku di masa mendatang.
+- **Quality-of-Thought Monitor:** Menganalisis *trace* reasoning (dari `test-time-compute-system2`) bukan hanya hasil akhirnya. Apakah model menggunakan jalan pintas yang salah? Apakah ia mengabaikan informasi penting? Monitor ini adalah penerapan dari **Process Reward Model (PRM) pada setiap langkah kognitif.**
+- **Feedback-Driven Refinement:** Umpan balik dari pengguna (langsung atau tidak langsung) tidak hanya disimpan, tetapi secara otomatis memicu *continual learning loop* (dari Pilar 2) untuk memperbaiki perilaku di masa mendatang.
 
 ---
 
@@ -173,23 +170,23 @@ Dokumen ini adalah **MOC (Map of Content)** untuk fase keempat. Ini menghubungka
 
 ## 🚀 Visi: Autonomous System Engineering (Fase Kelima)
 
-Ke mana lagi setelah ini? Jika _Cognitive Architecture Engineering_ adalah tentang **merancang otak**, fase kelima, **Autonomous System Engineering**, adalah tentang **memberi otak itu tubuh, tujuan, dan tempat dalam masyarakat.**
+Ke mana lagi setelah ini? Jika *Cognitive Architecture Engineering* adalah tentang **merancang otak**, fase kelima, **Autonomous System Engineering**, adalah tentang **memberi otak itu tubuh, tujuan, dan tempat dalam masyarakat.**
 
 - **Embodied AI & Robotics:** Arsitektur kognitif ini tidak lagi hanya hidup di server. Ia akan mengendalikan robot (dari `embedded-systems`), drone, atau seluruh pabrik. Ini adalah penyatuan `cognitive-architecture-engineering` dengan `embedded-systems`.
-- **AI-Native Organizations (AI-NO):** Konsep di mana seluruh perusahaan atau proyek open-source dijalankan oleh sekumpulan agen otonom. Manusia memberikan visi tingkat tinggi, dan _AI-NO_ mengeksekusi, memelihara, dan berinovasi. Ini adalah puncak dari `agentic-ai-mcp-roadmap` (Fase 6) dan `ai-engineering-stack-roadmap`.
+- **AI-Native Organizations (AI-NO):** Konsep di mana seluruh perusahaan atau proyek open-source dijalankan oleh sekumpulan agen otonom. Manusia memberikan visi tingkat tinggi, dan *AI-NO* mengeksekusi, memelihara, dan berinovasi. Ini adalah puncak dari `agentic-ai-mcp-roadmap` (Fase 6) dan `ai-engineering-stack-roadmap`.
 - **Digital Sovereignty & AI Governance:** Ketika sistem ini menjadi terlalu kuat, pertanyaannya bukan lagi "bagaimana membangunnya," tapi "siapa yang mengendalikannya dan bagaimana kita memastikan ia selaras dengan nilai-nilai kemanusiaan?" Ini adalah perluasan dari `dual-use-spectrum-and-ethical-framework` ke ranah AI super-otonom.
 
 ---
 
 ## 📚 Referensi
 
-- Park, J. S., et al. (2023). _Generative Agents: Interactive Simulacra of Human Behavior_. (Konsep memori dan refleksi).
-- Yao, S., et al. (2023). _Tree of Thoughts: Deliberate Problem Solving with Large Language Models_.
-- Lightman, H., et al. (2023). _Let's Verify Step by Step_. (Process Reward Model).
-- Sumers, T., et al. (2023). _Cognitive Architectures for Language Agents_. (Survey komprehensif).
-- OpenAI. (2024). _Learning to Reason with LLMs_ (o1). (Meta-Cognition & Hidden Reasoning).
-- Google DeepMind. (2024). _Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters_. (Dynamic Compute Allocation).
+- Park, J. S., et al. (2023). *Generative Agents: Interactive Simulacra of Human Behavior*. (Konsep memori dan refleksi).
+- Yao, S., et al. (2023). *Tree of Thoughts: Deliberate Problem Solving with Large Language Models*.
+- Lightman, H., et al. (2023). *Let's Verify Step by Step*. (Process Reward Model).
+- Sumers, T., et al. (2023). *Cognitive Architectures for Language Agents*. (Survey komprehensif).
+- OpenAI. (2024). *Learning to Reason with LLMs* (o1). (Meta-Cognition & Hidden Reasoning).
+- Google DeepMind. (2024). *Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters*. (Dynamic Compute Allocation).
 
 ---
 
-_Cognitive Architecture Engineering | Fase 4 Evolusi AI | Dari Loop ke Masyarakat Kognitif_
+*Cognitive Architecture Engineering | Fase 4 Evolusi AI | Dari Loop ke Masyarakat Kognitif*

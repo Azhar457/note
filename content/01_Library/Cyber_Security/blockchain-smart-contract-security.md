@@ -1,16 +1,14 @@
 ---
-title: "Blockchain & Smart Contract Security — DeFi, Auditing & Crypto Forensics"
+title: Blockchain & Smart Contract Security — DeFi, Auditing & Crypto Forensics
 tags:
-  - blockchain
-  - smart-contract
-  - solidity
-  - defi
-  - crypto-forensics
-  - web3-security
-aliases:
-  - "blockchain-smart-contract-security"
-created: "2026-07-19"
-updated: "2026-07-19"
+- blockchain
+- smart-contract
+- solidity
+- defi
+- crypto-forensics
+- web3-security
+created: '2026-07-19'
+updated: '2026-07-19'
 status: growing
 ---
 
@@ -35,14 +33,14 @@ status: growing
 
 ### 1.1 Consensus Mechanisms
 
-| Mechanism     | Used By                    | Security Property         | Attack Vector                       |
-| ------------- | -------------------------- | ------------------------- | ----------------------------------- |
-| **PoW**       | Bitcoin, Ethereum (legacy) | Naka's chain selection    | 51% attack, selfish mining          |
-| **PoS**       | Ethereum, Solana           | Economic finality         | Long-range attack, nothing at stake |
-| **DPoS**      | EOS, Tron                  | Delegated voting          | Cartel formation, bribery           |
-| **PBFT**      | Hyperledger, Zilliqa       | Byzantine fault tolerance | <= 1/3 malicious nodes              |
-| **Avalanche** | Avalanche                  | Subsampled voting         | Liveness attack                     |
-| **PoH**       | Solana                     | Verifiable delay          | None (but centralized)              |
+| Mechanism | Used By | Security Property | Attack Vector |
+|-----------|---------|-------------------|---------------|
+| **PoW** | Bitcoin, Ethereum (legacy) | Naka's chain selection | 51% attack, selfish mining |
+| **PoS** | Ethereum, Solana | Economic finality | Long-range attack, nothing at stake |
+| **DPoS** | EOS, Tron | Delegated voting | Cartel formation, bribery |
+| **PBFT** | Hyperledger, Zilliqa | Byzantine fault tolerance | <= 1/3 malicious nodes |
+| **Avalanche** | Avalanche | Subsampled voting | Liveness attack |
+| **PoH** | Solana | Verifiable delay | None (but centralized) |
 
 ### 1.2 Blockchain Attack Taxonomy
 
@@ -108,13 +106,13 @@ contract Example {
 
 ### 2.3 Gas Economics & Attacks
 
-| Opcode         | Gas                      | Security Relevance                    |
-| -------------- | ------------------------ | ------------------------------------- |
-| `SLOAD`        | 2100 (warm), 2100 (cold) | Unbounded loops = out-of-gas          |
-| `SSTORE`       | 20000/2900               | Storage write cost → gas griefing     |
-| `CALL`         | 700 + 2300 stipend       | Reentrancy via insufficient gas       |
-| `DELEGATECALL` | 700                      | Storage layout vulnerability          |
-| `SELFDESTRUCT` | 5000                     | Contract destruction + force ETH send |
+| Opcode | Gas | Security Relevance |
+|--------|-----|-------------------|
+| `SLOAD` | 2100 (warm), 2100 (cold) | Unbounded loops = out-of-gas |
+| `SSTORE` | 20000/2900 | Storage write cost → gas griefing |
+| `CALL` | 700 + 2300 stipend | Reentrancy via insufficient gas |
+| `DELEGATECALL` | 700 | Storage layout vulnerability |
+| `SELFDESTRUCT` | 5000 | Contract destruction + force ETH send |
 
 ## 3. Solidity Security Patterns
 
@@ -124,7 +122,7 @@ contract Example {
 // VULNERABLE: Reentrancy
 contract VulnerableBank {
     mapping(address => uint) public balances;
-
+    
     function withdraw() public {
         uint bal = balances[msg.sender];
         require(bal > 0);
@@ -138,13 +136,13 @@ contract VulnerableBank {
 // ATTACKER: recursive withdraw
 contract Attacker {
     VulnerableBank bank;
-
+    
     fallback() external payable {
         if (address(bank).balance > 0) {
             bank.withdraw();  // Re-enter before balance=0
         }
     }
-
+    
     function attack() public payable {
         bank.deposit{value: 1 ether}();
         bank.withdraw();
@@ -153,7 +151,6 @@ contract Attacker {
 ```
 
 **Fix: Checks-Effects-Interactions pattern**
-
 ```solidity
 function withdraw() public {
     uint bal = balances[msg.sender];
@@ -167,7 +164,6 @@ function withdraw() public {
 ```
 
 **Or use ReentrancyGuard:**
-
 ```solidity
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
@@ -188,7 +184,7 @@ contract VulnerableLending {
         (uint reserve0, uint reserve1) = pair.getReserves();
         return reserve0 * tokenPrice / reserve1;  // Manipulable via flash loan
     }
-
+    
     function borrow(address token, uint amount) external {
         uint collateralValue = getCollateralValue(token);
         require(amount <= collateralValue * 80 / 100);  // LTV check
@@ -198,7 +194,6 @@ contract VulnerableLending {
 ```
 
 **Attack scenario:**
-
 1. Flash loan massive token A
 2. Swap on AMM → crash price
 3. Borrow all assets using inflated collateral
@@ -226,30 +221,30 @@ require(block.timestamp - updatedAt < 1 hours);  // Freshness check
 // 6. Keep profit!
 ```
 
-| Notable Flash Loan Attack | Year | Loss  | Technique                        |
-| ------------------------- | ---- | ----- | -------------------------------- |
-| bZx Protocol              | 2020 | $350K | First flash loan attack          |
-| Harvest Finance           | 2020 | $24M  | Curve pool manipulation          |
-| Cream Finance             | 2021 | $130M | ERC-777 reentrancy               |
-| Poly Network              | 2021 | $611M | Cross-chain key management flaw  |
-| Wormhole Bridge           | 2022 | $326M | Validator signature verification |
-| Ronin Bridge              | 2022 | $540M | Validator key compromise (5/9)   |
-| Nomad Bridge              | 2022 | $190M | Trusted root misconfiguration    |
+| Notable Flash Loan Attack | Year | Loss | Technique |
+|--------------------------|------|------|-----------|
+| bZx Protocol | 2020 | $350K | First flash loan attack |
+| Harvest Finance | 2020 | $24M | Curve pool manipulation |
+| Cream Finance | 2021 | $130M | ERC-777 reentrancy |
+| Poly Network | 2021 | $611M | Cross-chain key management flaw |
+| Wormhole Bridge | 2022 | $326M | Validator signature verification |
+| Ronin Bridge | 2022 | $540M | Validator key compromise (5/9) |
+| Nomad Bridge | 2022 | $190M | Trusted root misconfiguration |
 
 ### 3.4 Common Solidity Vulnerabilities
 
-| Vulnerability            | Example                             | Mitigation                              |
-| ------------------------ | ----------------------------------- | --------------------------------------- |
-| **Reentrancy**           | Recursive external call             | CEI pattern, ReentrancyGuard            |
-| **Access Control**       | `onlyOwner` misspelled, `tx.origin` | `msg.sender` not `tx.origin`            |
-| **Integer Overflow**     | Balance arithmetic                  | OpenZeppelin SafeMath (pre 0.8)         |
-| **Oracle Manipulation**  | Single AMM price                    | Chainlink TWAP, multi-source            |
-| **Front-running**        | MEV bots steal profit               | Commit-reveal, submarine send           |
-| **Uninitialized Proxy**  | `initialize()` callable by anyone   | Proxy admin check                       |
-| **Signature Replay**     | Signature used cross-chain          | Chain ID in EIP-712 domain              |
-| **Selfdestruct**         | Force ETH to contract               | Check `address(this).balance` invariant |
-| **Delegatecall**         | Storage collision                   | Same storage layout check               |
-| **Timestamp Dependence** | `block.timestamp` for RNG           | VRF (Chainlink Verifiable Random)       |
+| Vulnerability | Example | Mitigation |
+|---------------|---------|------------|
+| **Reentrancy** | Recursive external call | CEI pattern, ReentrancyGuard |
+| **Access Control** | `onlyOwner` misspelled, `tx.origin` | `msg.sender` not `tx.origin` |
+| **Integer Overflow** | Balance arithmetic | OpenZeppelin SafeMath (pre 0.8) |
+| **Oracle Manipulation** | Single AMM price | Chainlink TWAP, multi-source |
+| **Front-running** | MEV bots steal profit | Commit-reveal, submarine send |
+| **Uninitialized Proxy** | `initialize()` callable by anyone | Proxy admin check |
+| **Signature Replay** | Signature used cross-chain | Chain ID in EIP-712 domain |
+| **Selfdestruct** | Force ETH to contract | Check `address(this).balance` invariant |
+| **Delegatecall** | Storage collision | Same storage layout check |
+| **Timestamp Dependence** | `block.timestamp` for RNG | VRF (Chainlink Verifiable Random) |
 
 ## 4. DeFi Exploit Patterns
 
@@ -338,12 +333,12 @@ myth analyze src/Contract.sol --solc-json solc.json
 
 ### 5.3 Common Severity Classification
 
-| Severity     | Definition                            | Example                |
-| ------------ | ------------------------------------- | ---------------------- |
-| **Critical** | Direct loss of user/protocol funds    | Reentrancy on withdraw |
-| **High**     | Indirect fund loss, broken invariant  | Oracle manipulation    |
-| **Medium**   | Unexpected behavior, gas inefficiency | Unchecked return value |
-| **Low**      | Informational, best practices         | Floating pragma        |
+| Severity | Definition | Example |
+|----------|------------|---------|
+| **Critical** | Direct loss of user/protocol funds | Reentrancy on withdraw |
+| **High** | Indirect fund loss, broken invariant | Oracle manipulation |
+| **Medium** | Unexpected behavior, gas inefficiency | Unchecked return value |
+| **Low** | Informational, best practices | Floating pragma |
 
 ## 6. Cryptocurrency Forensics
 
@@ -393,18 +388,18 @@ Risk scoring:
 
 ### 6.3 Analysis Tools
 
-| Tool                        | Purpose                                     | Source      |
-| --------------------------- | ------------------------------------------- | ----------- |
-| **Chainalysis**             | Enterprise: AML, KYC, investigative         | Commercial  |
-| **Elliptic**                | Enterprise: compliance, risk scoring        | Commercial  |
-| **TRM Labs**                | Enterprise: real-time transaction screening | Commercial  |
-| **CipherTrace**             | Enterprise: crypto intelligence             | Commercial  |
-| **OXT**                     | Public blockchain explorer with clustering  | Open-source |
-| **Walletexplorer**          | Address clustering (Bitcoin)                | Open-source |
-| **Blockchain.com/explorer** | Basic tx viewing                            | Free        |
-| **Dune Analytics**          | SQL-based DeFi analysis                     | Free        |
-| **Etherscan**               | Ethereum tx explorer                        | Free        |
-| **Bitquery**                | GraphQL blockchain API                      | Freemium    |
+| Tool | Purpose | Source |
+|------|---------|--------|
+| **Chainalysis** | Enterprise: AML, KYC, investigative | Commercial |
+| **Elliptic** | Enterprise: compliance, risk scoring | Commercial |
+| **TRM Labs** | Enterprise: real-time transaction screening | Commercial |
+| **CipherTrace** | Enterprise: crypto intelligence | Commercial |
+| **OXT** | Public blockchain explorer with clustering | Open-source |
+| **Walletexplorer** | Address clustering (Bitcoin) | Open-source |
+| **Blockchain.com/explorer** | Basic tx viewing | Free |
+| **Dune Analytics** | SQL-based DeFi analysis | Free |
+| **Etherscan** | Ethereum tx explorer | Free |
+| **Bitquery** | GraphQL blockchain API | Freemium |
 
 ### 6.4 Taint Analysis
 
@@ -431,36 +426,36 @@ trace = [hack_contract]
 
 ### 7.1 Timeline
 
-| Year  | Event                           | Implication                           |
-| ----- | ------------------------------- | ------------------------------------- |
-| 1994  | Shor's algorithm discovered     | RSA/ECC broken in theory              |
-| 2019  | Google quantum supremacy (53q)  | "Computational" but not cryptanalytic |
-| 2024  | IBM 1121-qubit Condor           | Still not factoring RSA-2048          |
-| 2028+ | Expected: 4000+ logical qubits  | **Bitcoin ECDSA vulnerable**          |
-| 2035+ | Fault-tolerant quantum computer | All ECC/RSA broken                    |
+| Year | Event | Implication |
+|------|-------|-------------|
+| 1994 | Shor's algorithm discovered | RSA/ECC broken in theory |
+| 2019 | Google quantum supremacy (53q) | "Computational" but not cryptanalytic |
+| 2024 | IBM 1121-qubit Condor | Still not factoring RSA-2048 |
+| 2028+ | Expected: 4000+ logical qubits | **Bitcoin ECDSA vulnerable** |
+| 2035+ | Fault-tolerant quantum computer | All ECC/RSA broken |
 
 ### 7.2 Threats to Blockchain
 
-| Blockchain Component    | Algorithm         | Quantum Threat                           | Timeline                           |
-| ----------------------- | ----------------- | ---------------------------------------- | ---------------------------------- |
-| **Bitcoin/ETH address** | ECDSA secp256k1   | Shor: derive private key from public key | If attacker sees tx before confirm |
-| **Ethereum**            | ECDSA             | Same — exposed on signing                | Every signed tx exposes pubkey     |
-| **Most blockchains**    | ECDSA/EdDSA       | Vulnerable                               | ~10-15 years for fault-tolerant Q  |
-| **Mining**              | SHA-256 (Bitcoin) | Grover: 2x speedup only                  | Minor threat                       |
-| **Hashing**             | SHA-2, SHA-3      | Grover: sqrt(N) → not broken             | Quantum-resistant                  |
-| **PoS signatures**      | BLS (Ethereum)    | Critical (aggregated signatures)         | Need lattice-based BLS             |
+| Blockchain Component | Algorithm | Quantum Threat | Timeline |
+|---------------------|-----------|----------------|----------|
+| **Bitcoin/ETH address** | ECDSA secp256k1 | Shor: derive private key from public key | If attacker sees tx before confirm |
+| **Ethereum** | ECDSA | Same — exposed on signing | Every signed tx exposes pubkey |
+| **Most blockchains** | ECDSA/EdDSA | Vulnerable | ~10-15 years for fault-tolerant Q |
+| **Mining** | SHA-256 (Bitcoin) | Grover: 2x speedup only | Minor threat |
+| **Hashing** | SHA-2, SHA-3 | Grover: sqrt(N) → not broken | Quantum-resistant |
+| **PoS signatures** | BLS (Ethereum) | Critical (aggregated signatures) | Need lattice-based BLS |
 
 ## 8. Koneksi ke Vault
 
-| Note                               | Hubungan                                           |
-| ---------------------------------- | -------------------------------------------------- |
-| [[cryptography-biometrics]]        | Post-quantum crypto relevance, ECDSA analysis      |
-| [[exploit-development]]            | Smart contract exploitation, bytecode injection    |
+| Note | Hubungan |
+|------|----------|
+| [[cryptography-biometrics]] | Post-quantum crypto relevance, ECDSA analysis |
+| [[exploit-development]] | Smart contract exploitation, bytecode injection |
 | [[fuzzing-vulnerability-research]] | Echidna property-based fuzzing for smart contracts |
-| [[comprehensive-threat-directory]] | Web3 threat actors, smart contract malware         |
-| [[underground-knowledge]]          | Dark web marketplace analysis, crypto mixing       |
-| [[digital-privacy-anonymity]]      | Crypto scam awareness, phishing prevention         |
-| [[quantum-cryptography-deepdive]]  | Post-quantum signatures for blockchain future      |
+| [[comprehensive-threat-directory]] | Web3 threat actors, smart contract malware |
+| [[underground-knowledge]] | Dark web marketplace analysis, crypto mixing |
+| [[digital-privacy-anonymity]] | Crypto scam awareness, phishing prevention |
+| [[quantum-cryptography-deepdive]] | Post-quantum signatures for blockchain future |
 
 ---
 

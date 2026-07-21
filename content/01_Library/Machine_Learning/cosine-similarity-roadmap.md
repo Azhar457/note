@@ -1,15 +1,14 @@
 ---
-title: "Vector Similarity Learning Roadmap — Cosine, Euclidean, and Dot Product Search Engine"
+title: Vector Similarity Learning Roadmap — Cosine, Euclidean, and Dot Product Search
+  Engine
 tags:
-  - machine-learning
-  - vector-search
-  - mathematics
-  - numpy
-  - roadmap
-aliases:
-  - "cosine-similarity-roadmap"
-created: "2026-07-19"
-updated: "2026-07-19"
+- machine-learning
+- vector-search
+- mathematics
+- numpy
+- roadmap
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
@@ -59,9 +58,7 @@ Nilai Cosine Similarity berkisar antara $[-1, 1]$. Untuk representasi teks (embe
 ## 3. Fase 2: Menulis Fungsi Kesamaan Kustom di Python & NumPy
 
 ### 3.1 Implementasi Pure Python (Tanpa Pustaka Eksternal)
-
 Berguna untuk memahami logika kalkulasi di balik abstraksi library:
-
 ```python
 import math
 
@@ -80,9 +77,7 @@ def custom_cosine_similarity(a, b):
 ```
 
 ### 3.2 Implementasi NumPy (Vektorisasi SIMD)
-
 NumPy mempercepat komputasi dengan memanggil instruksi paralel prosesor:
-
 ```python
 import numpy as np
 
@@ -101,14 +96,12 @@ def numpy_cosine_similarity(a, b):
 ## 4. Fase 3: Mengapa Sudut Lebih Penting daripada Magnitudo
 
 Pertimbangkan masalah **Pencarian Teks**:
-
-- Dokumen 1: _"keamanan siber"_ (panjang: 2 kata).
-- Dokumen 2: _"keamanan siber keamanan siber keamanan siber"_ (panjang: 6 kata).
+- Dokumen 1: *"keamanan siber"* (panjang: 2 kata).
+- Dokumen 2: *"keamanan siber keamanan siber keamanan siber"* (panjang: 6 kata).
 
 Kedua dokumen memiliki fokus topik yang sama persis.
-
 - **Euclidean Distance**: Akan menilai kedua dokumen sangat **berjauhan** (karena Dokumen 2 memiliki magnitudo frekuensi kata yang jauh lebih besar).
-- **Cosine Similarity**: Menghasilkan nilai **1.0** (kesamaan sempurna) karena arah sudut vektornya sejajar, mengabaikan perbedaan panjang dokumen (_invarian terhadap panjang teks_).
+- **Cosine Similarity**: Menghasilkan nilai **1.0** (kesamaan sempurna) karena arah sudut vektornya sejajar, mengabaikan perbedaan panjang dokumen (*invarian terhadap panjang teks*).
 
 ---
 
@@ -128,10 +121,10 @@ class VectorSearchEngine:
     def add_document(self, doc_text, vector):
         assert len(vector) == self.dimension, "Dimensi vektor tidak cocok"
         self.database.append(doc_text)
-
+        
         # Normalisasi vektor terlebih dahulu (L2 normalize)
         normalized_vector = vector / np.linalg.norm(vector)
-
+        
         if self.vectors is None:
             self.vectors = np.array([normalized_vector])
         else:
@@ -140,17 +133,17 @@ class VectorSearchEngine:
     def search(self, query_vector, k=3):
         if self.vectors is None:
             return []
-
+            
         # 1. Normalisasi kueri input
         q_norm = query_vector / np.linalg.norm(query_vector)
-
+        
         # 2. Karena data di DB sudah ternormalisasi, Cosine Sim cukup dihitung dengan Dot Product perkalian matriks!
         # Rumus: Scores (N x 1) = Vectors (N x D) * Q_norm (D x 1)
         scores = np.dot(self.vectors, q_norm)
-
+        
         # 3. Urutkan dari nilai tertinggi ke terendah
         top_indices = np.argsort(scores)[::-1][:k]
-
+        
         results = []
         for idx in top_indices:
             results.append({
@@ -165,14 +158,11 @@ class VectorSearchEngine:
 ## 6. Kumpulan Soal Latihan & Solusi
 
 ### Soal 1
-
 Diberikan tiga vektor berikut:
-
 - Kueri $Q = [1.0, 0.0]$
 - Dokumen $A = [1.0, 1.0]$
 - Dokumen $B = [0.0, 5.0]$
-  Hitunglah:
-
+Hitunglah:
 1. Cosine similarity antara $Q$ dengan $A$ dan $B$.
 2. Euclidean distance antara $Q$ dengan $A$ dan $B$.
 3. Berdasarkan hasil di atas, dokumen mana yang lebih dekat dengan kueri jika menggunakan Cosine vs Euclidean?
@@ -180,23 +170,21 @@ Diberikan tiga vektor berikut:
 **Solusi**
 
 Kalkulasi Cosine Similarity:
-
 - $\text{Cos}(Q, A) = \frac{1(1) + 0(1)}{\sqrt{1}\sqrt{2}} = \frac{1}{\sqrt{2}} \approx 0.707$
 - $\text{Cos}(Q, B) = \frac{1(0) + 0(5)}{\sqrt{1}\sqrt{25}} = 0.0$
-- _Hasil Cosine_: Dokumen A lebih mirip dengan Q daripada Dokumen B.
+- *Hasil Cosine*: Dokumen A lebih mirip dengan Q daripada Dokumen B.
 
 Kalkulasi Euclidean Distance:
-
 - $\text{Dist}(Q, A) = \sqrt{(1-1)^2 + (0-1)^2} = \sqrt{1} = 1.0$
 - $\text{Dist}(Q, B) = \sqrt{(1-0)^2 + (0-5)^2} = \sqrt{1 + 25} = \sqrt{26} \approx 5.099$
-- _Hasil Euclidean_: Dokumen A lebih dekat dengan Q daripada Dokumen B.
+- *Hasil Euclidean*: Dokumen A lebih dekat dengan Q daripada Dokumen B.
 
 ---
 
 ## 7. Koneksi ke Vault
 
-| Catatan                                  | Hubungan                                                                            |
-| ---------------------------------------- | ----------------------------------------------------------------------------------- |
-| [[cosine-similarity-deepdive]]           | Teori dasar, pembuktian matematis formula kosinus, dan analisis performa.           |
-| [[cosine-vs-euclidean-vs-dot]]           | Perbandingan komprehensif metrik jarak untuk sistem RAG.                            |
+| Catatan | Hubungan |
+|------|----------|
+| [[cosine-similarity-deepdive]] | Teori dasar, pembuktian matematis formula kosinus, dan analisis performa. |
+| [[cosine-vs-euclidean-vs-dot]] | Perbandingan komprehensif metrik jarak untuk sistem RAG. |
 | [[embedding-model-selection-finetuning]] | Pemilihan model penghasil vektor representasi (embedding) untuk pencarian semantik. |

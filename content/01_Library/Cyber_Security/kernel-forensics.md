@@ -1,21 +1,19 @@
 ---
-title: "Kernel Forensics — Memory Analysis of Compromised Systems"
+title: Kernel Forensics — Memory Analysis of Compromised Systems
 tags:
-  - forensics
-  - kernel
-  - memory-analysis
-  - volatility
-  - rootkit
-  - blue-team
-aliases:
-  - "kernel-forensics"
-created: "2026-07-19"
-updated: "2026-07-19"
+- forensics
+- kernel
+- memory-analysis
+- volatility
+- rootkit
+- blue-team
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Analisis memori tingkat kernel adalah garis pertahanan terakhir dalam mendeteksi _stealth rootkit_ dan _kernel-mode malware_ yang berjalan dengan hak akses tertinggi (Ring 0). Catatan ini melengkapi pembahasan [[endpoint-detection-playbook]] dengan memberikan panduan praktis analisis forensik memori.
+> Analisis memori tingkat kernel adalah garis pertahanan terakhir dalam mendeteksi *stealth rootkit* dan *kernel-mode malware* yang berjalan dengan hak akses tertinggi (Ring 0). Catatan ini melengkapi pembahasan [[endpoint-detection-playbook]] dengan memberikan panduan praktis analisis forensik memori.
 
 ## Daftar Isi
 
@@ -48,7 +46,7 @@ Dalam sistem operasi modern, memori dibagi secara tegas untuk mencegah aplikasi 
 └─────────────────────────────────────────────────────────┘
 ```
 
-Jika _rootkit_ berhasil masuk ke dalam **Kernel Space (Ring 0)**, ia dapat memanipulasi informasi apa pun sebelum diserahkan ke _User Space_ (misalnya menyembunyikan file, proses, atau koneksi jaringan dari aplikasi antivirus/EDR yang berjalan di Ring 3).
+Jika *rootkit* berhasil masuk ke dalam **Kernel Space (Ring 0)**, ia dapat memanipulasi informasi apa pun sebelum diserahkan ke *User Space* (misalnya menyembunyikan file, proses, atau koneksi jaringan dari aplikasi antivirus/EDR yang berjalan di Ring 3).
 
 ---
 
@@ -57,14 +55,12 @@ Jika _rootkit_ berhasil masuk ke dalam **Kernel Space (Ring 0)**, ia dapat meman
 Ketika aplikasi di Ring 3 memanggil fungsi seperti membaca file (`ReadFile` / `sys_read`), CPU beralih ke Ring 0 dan menggunakan tabel indeks untuk mencari alamat fungsi kernel yang sesuai.
 
 ### 2.1 SSDT Hooking (Windows)
-
 **System Service Descriptor Table (SSDT)** adalah tabel pointer fungsi yang digunakan kernel Windows untuk memetakan nomor panggilan sistem (System Call ID) ke alamat fungsi internal di `ntoskrnl.exe`.
 
 - **Mechanism**: Rootkit mengubah alamat pointer di SSDT untuk mengarah ke kode rootkit terlebih dahulu.
 - **Example**: Meng-hook `NtQuerySystemInformation` agar menyaring proses milik penyerang sebelum mengembalikan daftar proses ke Task Manager.
 
 ### 2.2 Linux System Call Table Hooking
-
 Pada Linux kernel module (LKM) rootkit, penyerang menulis ulang alamat fungsi di dalam array `sys_call_table`:
 
 ```c
@@ -87,18 +83,17 @@ write_cr0(read_cr0() | 0x10000); // Aktifkan kembali WP
 
 ## 3. Integritas IDT dan GDT
 
-- **IDT (Interrupt Descriptor Table)**: Tabel yang mendefinisikan _Interrupt Service Routines_ (ISR) untuk menangani interupsi perangkat keras dan perangkat lunak. Meng-hook IDT memungkinkan rootkit menangkap input keyboard langsung di level kernel sebelum diproses oleh OS.
+- **IDT (Interrupt Descriptor Table)**: Tabel yang mendefinisikan *Interrupt Service Routines* (ISR) untuk menangani interupsi perangkat keras dan perangkat lunak. Meng-hook IDT memungkinkan rootkit menangkap input keyboard langsung di level kernel sebelum diproses oleh OS.
 - **GDT (Global Descriptor Table)**: Mendefinisikan segmen memori dan hak aksesnya (Privilege Ring). Manipulasi GDT dapat digunakan untuk melakukan eskalasi hak akses Ring 3 ke Ring 0 secara langsung.
 
 ---
 
 ## 4. DKOM (Direct Kernel Object Manipulation)
 
-**DKOM** adalah teknik manipulasi struktur data kernel internal secara dinamis di memori untuk menyembunyikan jejak serangan tanpa merubah kode fungsi (menghindari deteksi berbasis _integrity check_).
+**DKOM** adalah teknik manipulasi struktur data kernel internal secara dinamis di memori untuk menyembunyikan jejak serangan tanpa merubah kode fungsi (menghindari deteksi berbasis *integrity check*).
 
 ### 4.1 Mekanisme Penyembunyian Proses di Windows
-
-Pada Windows, setiap proses diwakili oleh struktur data di kernel bernama `_EPROCESS`. Struktur ini mengandung tautan ganda (_double-linked list_) bernama `ActiveProcessLinks` (`LIST_ENTRY`) yang menghubungkan satu proses dengan proses lainnya.
+Pada Windows, setiap proses diwakili oleh struktur data di kernel bernama `_EPROCESS`. Struktur ini mengandung tautan ganda (*double-linked list*) bernama `ActiveProcessLinks` (`LIST_ENTRY`) yang menghubungkan satu proses dengan proses lainnya.
 
 ```
 Proses A (_EPROCESS)          Proses B (Malicious)          Proses C (_EPROCESS)
@@ -122,8 +117,7 @@ Proses A (_EPROCESS)                                        Proses C (_EPROCESS)
                                │ Blink (X)    │
                                └──────────────┘
 ```
-
-**Akibat**: Proses B tetap berjalan di CPU karena penjadwalan CPU (_thread scheduling_) menggunakan rantai data yang berbeda, namun tidak akan muncul di Task Manager, Process Explorer, atau API Ring 3 karena proses tersebut telah dikeluarkan dari rantai `ActiveProcessLinks`.
+**Akibat**: Proses B tetap berjalan di CPU karena penjadwalan CPU (*thread scheduling*) menggunakan rantai data yang berbeda, namun tidak akan muncul di Task Manager, Process Explorer, atau API Ring 3 karena proses tersebut telah dikeluarkan dari rantai `ActiveProcessLinks`.
 
 ---
 
@@ -169,9 +163,9 @@ python3 vol.py -f linux.raw linux.lsmod
 
 ## 6. Koneksi ke Vault
 
-| Catatan                         | Hubungan                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------- |
-| [[endpoint-detection-playbook]] | Strategi deteksi EDR Ring 3 yang dilewati oleh kernel rootkit melalui DKOM/SSDT.        |
-| [[hardware-hacking-re]]         | Ekstraksi firmware dan anatomis low-level memori hardware.                              |
+| Catatan | Hubungan |
+|------|----------|
+| [[endpoint-detection-playbook]] | Strategi deteksi EDR Ring 3 yang dilewati oleh kernel rootkit melalui DKOM/SSDT. |
+| [[hardware-hacking-re]] | Ekstraksi firmware dan anatomis low-level memori hardware. |
 | [[incident-response-framework]] | Prosedur akuisisi memori RAM secara aman (LiME, FTK Imager) sebelum dilakukan analisis. |
-| [[unified-threat-ontology]]     | Penjelasan ancaman siber Ring 0 pada tataran Layer 1 & 2 sistem operasi.                |
+| [[unified-threat-ontology]] | Penjelasan ancaman siber Ring 0 pada tataran Layer 1 & 2 sistem operasi. |

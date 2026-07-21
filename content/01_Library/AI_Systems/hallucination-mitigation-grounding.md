@@ -1,19 +1,17 @@
 ---
-title: "🛡️ Hallucination Mitigation & Grounding — CRAG, Self-RAG, dan Verifikasi Faktual"
+title: 🛡️ Hallucination Mitigation & Grounding — CRAG, Self-RAG, dan Verifikasi Faktual
 tags:
-  - hallucination
-  - rag
-  - grounding
-  - crag
-  - self-rag
-  - library
-aliases:
-  - "hallucination-mitigation-grounding"
-created: "2026-07-16"
-updated: "2026-07-16"
+- hallucination
+- rag
+- grounding
+- crag
+- self-rag
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: operational
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🛡️ Hallucination Mitigation & Grounding — CRAG, Self-RAG, dan Verifikasi Faktual
@@ -38,13 +36,13 @@ cssclasses:
 
 ## 1. Kenapa LLM Hallucinate di RAG?
 
-| Penyebab                | Penjelasan                                            | Contoh                                                                    |
-| ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------- |
-| **Context Ignorance**   | LLM gak baca/peduli konteks yang dikasih              | Konteks bilang "SYN flood = layer 4" tapi jawaban bilang "layer 7"        |
-| **Retrieval Gap**       | Konteks gak cukup untuk jawab, LLM "nambahin"         | Pertanyaannya spesifik, tapi cuma dapet konteks umum                      |
-| **Chunk Fragmentation** | Konteks kepotong, LLM nebak sisanya                   | Child chunk tanpa parent context                                          |
-| **Parametric Bias**     | LLM lebih percaya internal knowledge daripada konteks | LLM udah "tahu" jawaban dari training data, malah ngaco kalo konteks beda |
-| **Instruction Drift**   | Prompt gak cukup kuat untuk grounding                 | "Jawab berdasarkan konteks" vs "Jawab dengan detail" — kontradiksi        |
+| Penyebab | Penjelasan | Contoh |
+|----------|-----------|--------|
+| **Context Ignorance** | LLM gak baca/peduli konteks yang dikasih | Konteks bilang "SYN flood = layer 4" tapi jawaban bilang "layer 7" |
+| **Retrieval Gap** | Konteks gak cukup untuk jawab, LLM "nambahin" | Pertanyaannya spesifik, tapi cuma dapet konteks umum |
+| **Chunk Fragmentation** | Konteks kepotong, LLM nebak sisanya | Child chunk tanpa parent context |
+| **Parametric Bias** | LLM lebih percaya internal knowledge daripada konteks | LLM udah "tahu" jawaban dari training data, malah ngaco kalo konteks beda |
+| **Instruction Drift** | Prompt gak cukup kuat untuk grounding | "Jawab berdasarkan konteks" vs "Jawab dengan detail" — kontradiksi |
 
 ### 1.1 Jenis Hallucination di RAG
 
@@ -64,21 +62,21 @@ Konteks: [Artikel tentang TCP handshake dan SYN flood mitigation]
 
 ### 2.1 Retrieval-Level
 
-| Teknik                    | Cara                                             | Efek                     |
-| ------------------------- | ------------------------------------------------ | ------------------------ |
-| **Parent-Child Chunking** | Child untuk search, parent untuk context         | ✅ Konteks lebih lengkap |
-| **Reranking**             | Filter chunk yang relevan sebelum dikirim ke LLM | ✅ Noise berkurang       |
-| **Hybrid Search**         | Dense + BM25 — lebih banyak sinyal               | ✅ Coverage meningkat    |
-| **Query Transformation**  | Multi-Query, HyDE — improve retrieval            | ✅ Context lebih relevan |
+| Teknik | Cara | Efek |
+|--------|------|------|
+| **Parent-Child Chunking** | Child untuk search, parent untuk context | ✅ Konteks lebih lengkap |
+| **Reranking** | Filter chunk yang relevan sebelum dikirim ke LLM | ✅ Noise berkurang |
+| **Hybrid Search** | Dense + BM25 — lebih banyak sinyal | ✅ Coverage meningkat |
+| **Query Transformation** | Multi-Query, HyDE — improve retrieval | ✅ Context lebih relevan |
 
 ### 2.2 Generation-Level
 
-| Teknik                    | Cara                                                             | Efek                              |
-| ------------------------- | ---------------------------------------------------------------- | --------------------------------- |
-| **Prompt Grounding**      | "Hanya jawab dari konteks. Jika gak ada, bilang tidak tahu."     | ✅ Sederhana, cukup efektif       |
-| **CRAG**                  | Self-evaluasi relevansi → rewrite kalo gagal                     | ✅ Adaptive                       |
-| **Self-RAG**              | Generate + evaluasi sendiri — "apakah jawaban didukung konteks?" | ✅ Lebih akurat                   |
-| **Chain-of-Verification** | Generate dulu → verifikasi tiap klaim → revisi                   | ✅ Paling akurat, tapi 3x latency |
+| Teknik | Cara | Efek |
+|--------|------|------|
+| **Prompt Grounding** | "Hanya jawab dari konteks. Jika gak ada, bilang tidak tahu." | ✅ Sederhana, cukup efektif |
+| **CRAG** | Self-evaluasi relevansi → rewrite kalo gagal | ✅ Adaptive |
+| **Self-RAG** | Generate + evaluasi sendiri — "apakah jawaban didukung konteks?" | ✅ Lebih akurat |
+| **Chain-of-Verification** | Generate dulu → verifikasi tiap klaim → revisi | ✅ Paling akurat, tapi 3x latency |
 
 ---
 
@@ -134,14 +132,14 @@ def corrective_rag(query, llm, retriever):
 
 ## 4. Perbandingan
 
-| Teknik                    | Kompleksitas     | Latency   | Akurasi | vault-rag                      |
-| ------------------------- | ---------------- | --------- | ------- | ------------------------------ |
-| **Prompt grounding**      | 🟢 Rendah        | 🟢 +0ms   | 🟡 70%  | ✅ Prompt template             |
-| **Parent-Child**          | 🟡 Sedang        | 🟢 +0ms   | 🟢 85%  | ✅ Implemented                 |
-| **Reranking**             | 🟡 Sedang        | 🟡 +200ms | 🟢 85%  | ✅ Ada (opsional)              |
-| **CRAG**                  | 🔴 Tinggi        | 🔴 +500ms | 🟢 90%  | ✅ `scripts/corrective_rag.py` |
-| **Self-RAG**              | 🔴 Tinggi        | 🔴 +1s    | 🟢 93%  | ❌ Belum                       |
-| **Chain-of-Verification** | 🔴 Sangat Tinggi | 🔴 +3s    | 🟢 95%  | ❌ Belum                       |
+| Teknik | Kompleksitas | Latency | Akurasi | vault-rag |
+|--------|-------------|---------|---------|-----------|
+| **Prompt grounding** | 🟢 Rendah | 🟢 +0ms | 🟡 70% | ✅ Prompt template |
+| **Parent-Child** | 🟡 Sedang | 🟢 +0ms | 🟢 85% | ✅ Implemented |
+| **Reranking** | 🟡 Sedang | 🟡 +200ms | 🟢 85% | ✅ Ada (opsional) |
+| **CRAG** | 🔴 Tinggi | 🔴 +500ms | 🟢 90% | ✅ `scripts/corrective_rag.py` |
+| **Self-RAG** | 🔴 Tinggi | 🔴 +1s | 🟢 93% | ❌ Belum |
+| **Chain-of-Verification** | 🔴 Sangat Tinggi | 🔴 +3s | 🟢 95% | ❌ Belum |
 
 ---
 
@@ -157,9 +155,9 @@ def corrective_rag(query, llm, retriever):
 
 ## References
 
-1. CRAG Paper. _S. Yan et al. (2024)_. https://arxiv.org/abs/2401.15884
-2. Self-RAG. _A. Asai et al. (2023)_. https://arxiv.org/abs/2310.11511
-3. Chain-of-Verification. _S. Dhuliawala et al. (2023)_. https://arxiv.org/abs/2309.11495
+1. CRAG Paper. *S. Yan et al. (2024)*. https://arxiv.org/abs/2401.15884
+2. Self-RAG. *A. Asai et al. (2023)*. https://arxiv.org/abs/2310.11511
+3. Chain-of-Verification. *S. Dhuliawala et al. (2023)*. https://arxiv.org/abs/2309.11495
 4. RAGAS Hallucination. https://docs.ragas.io/en/latest/concepts/metrics/faithfulness.html
 
 > [!tip] Bottom Line

@@ -1,15 +1,13 @@
 ---
-title: "Great Cannon"
+title: Great Cannon
 tags:
-  - 07-nation-state-platforms
-  - library
-  - military-and-intelligence-tools
-aliases:
-  - "great-cannon"
-created: "2026-06-28"
-updated: "2026-07-01"
+- 07-nation-state-platforms
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -30,13 +28,13 @@ Great Cannon pertama kali diidentifikasi secara publik pada Maret 2015 ketika di
 
 ### Great Firewall vs Great Cannon
 
-|                   | Great Firewall (GFW)                                                            | Great Cannon                                                           |
-| ----------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Fungsi**        | Defensif: blokir, throttle, reset koneksi ke konten terlarang di dalam Tiongkok | Ofensif: serang target di luar Tiongkok dengan DDoS, injeksi, redirect |
-| **Target**        | Warga Tiongkok yang mengakses konten luar                                       | Server, website, dan individu di luar Tiongkok                         |
-| **Metode**        | DNS poisoning, IP blocking, TCP RST injection, DPI                              | HTTP injection, BGP hijack, traffic amplification                      |
-| **Infrastruktur** | Router ISP di perbatasan Tiongkok                                               | Infrastruktur yang sama, tetapi digunakan untuk ofensif                |
-| **Terungkap**     | Dikenal sejak awal 2000-an                                                      | Maret 2015 (serangan GitHub)                                           |
+| | Great Firewall (GFW) | Great Cannon |
+|---|---|---|
+| **Fungsi** | Defensif: blokir, throttle, reset koneksi ke konten terlarang di dalam Tiongkok | Ofensif: serang target di luar Tiongkok dengan DDoS, injeksi, redirect |
+| **Target** | Warga Tiongkok yang mengakses konten luar | Server, website, dan individu di luar Tiongkok |
+| **Metode** | DNS poisoning, IP blocking, TCP RST injection, DPI | HTTP injection, BGP hijack, traffic amplification |
+| **Infrastruktur** | Router ISP di perbatasan Tiongkok | Infrastruktur yang sama, tetapi digunakan untuk ofensif |
+| **Terungkap** | Dikenal sejak awal 2000-an | Maret 2015 (serangan GitHub) |
 
 ---
 
@@ -71,13 +69,13 @@ Great Cannon memanfaatkan posisi unik Tiongkok dalam arsitektur internet global:
 
 ### Komponen Teknis
 
-| Komponen                 | Fungsi                                                                                    |
-| ------------------------ | ----------------------------------------------------------------------------------------- |
-| **DPI Engine**           | Mendeteksi traffic target berdasarkan IP, cookie, atau pola browsing.                     |
-| **Injection Engine**     | Membuat dan mengirimkan respons palsu yang menang race condition dengan server asli.      |
+| Komponen | Fungsi |
+|----------|--------|
+| **DPI Engine** | Mendeteksi traffic target berdasarkan IP, cookie, atau pola browsing. |
+| **Injection Engine** | Membuat dan mengirimkan respons palsu yang menang race condition dengan server asli. |
 | **Amplification Engine** | Memanfaatkan bandwidth besar border router untuk membanjiri target dengan traffic (DDoS). |
-| **Redirect System**      | Mengalihkan target ke server exploit atau honeypot.                                       |
-| **Content Modification** | Memodifikasi file yang diunduh (software, dokumen) dengan menyisipkan malware.            |
+| **Redirect System** | Mengalihkan target ke server exploit atau honeypot. |
+| **Content Modification** | Memodifikasi file yang diunduh (software, dokumen) dengan menyisipkan malware. |
 
 ---
 
@@ -86,18 +84,15 @@ Great Cannon memanfaatkan posisi unik Tiongkok dalam arsitektur internet global:
 ### 1. GitHub DDoS (Maret 2015)
 
 **Kronologi:**
-
 - GitHub mengalami DDoS masif yang berasal dari **ratusan ribu IP di Tiongkok**.
 - Traffic bukan dari botnet tradisional, melainkan dari **border router GFW** yang membanjiri GitHub dengan permintaan.
 - Target: Proyek **GreatFire** dan **CN-NYTimes** (alat anti-sensor).
 
 **Metode Teknis:**
-
 - Setiap kali pengguna di Tiongkok mengakses website yang mengandung **JavaScript bait** (disisipkan oleh GFW), browser mereka tanpa sadar mengirimkan permintaan ke GitHub.
 - Jutaan pengguna Tiongkok secara tidak sengaja berpartisipasi dalam DDoS.
 
 **Dampak:**
-
 - GitHub lumpuh selama beberapa hari.
 - Ini adalah pertama kalinya sebuah negara menggunakan infrastruktur internet nasionalnya sebagai senjata DDoS.
 
@@ -121,14 +116,14 @@ Great Cannon adalah bagian dari **ekosistem alat ofensif** yang lebih besar yang
 
 ### Alat- Alat dalam GFW Arsenal
 
-| Nama                           | Fungsi                                                              | Status            |
-| ------------------------------ | ------------------------------------------------------------------- | ----------------- |
-| **Great Cannon**               | DDoS, HTTP injection, content modification                          | Terkonfirmasi     |
-| **Great Firewall** (defensif)  | Blokir, throttle, reset koneksi                                     | Terkonfirmasi     |
-| **DNS Poisoning System**       | Memalsukan respons DNS untuk mengarahkan traffic                    | Terkonfirmasi     |
-| **BGP Hijack Capability**      | Mengumumkan rute palsu untuk mengalihkan traffic internasional      | Diduga kuat       |
-| **QR Code Attack System**      | Menyisipkan URL berbahaya di QR code yang dipindai (WeChat, Alipay) | Laporan terbatas  |
-| **5G Network Slicing Exploit** | Memanfaatkan network slicing 5G untuk isolasi dan serangan          | Diduga (teoretis) |
+| Nama | Fungsi | Status |
+|------|--------|--------|
+| **Great Cannon** | DDoS, HTTP injection, content modification | Terkonfirmasi |
+| **Great Firewall** (defensif) | Blokir, throttle, reset koneksi | Terkonfirmasi |
+| **DNS Poisoning System** | Memalsukan respons DNS untuk mengarahkan traffic | Terkonfirmasi |
+| **BGP Hijack Capability** | Mengumumkan rute palsu untuk mengalihkan traffic internasional | Diduga kuat |
+| **QR Code Attack System** | Menyisipkan URL berbahaya di QR code yang dipindai (WeChat, Alipay) | Laporan terbatas |
+| **5G Network Slicing Exploit** | Memanfaatkan network slicing 5G untuk isolasi dan serangan | Diduga (teoretis) |
 
 ### Karakteristik Unik GFW Arsenal
 
@@ -175,30 +170,30 @@ Serangan GitHub 2015 adalah studi kasus sempurna untuk memahami Great Cannon:
 
 ### 1. Terhadap DDoS dari Great Cannon
 
-| Metode                         | Detail                                                                                                         |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| **Geographic Filtering**       | Blokir atau rate-limit traffic dari rentang IP Tiongkok (kontroversial, tapi efektif).                         |
-| **JavaScript Challenge**       | Gunakan CAPTCHA atau JS challenge untuk memvalidasi bahwa pengguna adalah manusia, bukan script bait.          |
-| **CDN dengan DDoS Protection** | Cloudflare, Akamai, AWS Shield — dapat menyerap traffic masif.                                                 |
-| **Anycast Network**            | Sebarkan traffic ke banyak titik global untuk mencegah satu titik lumpuh.                                      |
-| **Behavioral Analysis**        | Deteksi pola traffic yang tidak wajar (misal: ribuan GET ke URL yang sama dari IP berbeda dalam satu wilayah). |
+| Metode | Detail |
+|--------|--------|
+| **Geographic Filtering** | Blokir atau rate-limit traffic dari rentang IP Tiongkok (kontroversial, tapi efektif). |
+| **JavaScript Challenge** | Gunakan CAPTCHA atau JS challenge untuk memvalidasi bahwa pengguna adalah manusia, bukan script bait. |
+| **CDN dengan DDoS Protection** | Cloudflare, Akamai, AWS Shield — dapat menyerap traffic masif. |
+| **Anycast Network** | Sebarkan traffic ke banyak titik global untuk mencegah satu titik lumpuh. |
+| **Behavioral Analysis** | Deteksi pola traffic yang tidak wajar (misal: ribuan GET ke URL yang sama dari IP berbeda dalam satu wilayah). |
 
 ### 2. Terhadap HTTP Injection
 
-| Metode                            | Detail                                                                                                    |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **HTTPS + HSTS**                  | Enkripsi end-to-end mencegah modifikasi konten di tengah jalan. Preload HSTS.                             |
-| **Subresource Integrity (SRI)**   | Tag `<script integrity="sha384-...">` memungkinkan browser memverifikasi bahwa script tidak dimodifikasi. |
-| **Content Security Policy (CSP)** | Header CSP membatasi dari mana browser boleh memuat resource.                                             |
-| **Certificate Pinning**           | Mencegah MITM dengan memvalidasi sertifikat server secara ketat.                                          |
+| Metode | Detail |
+|--------|--------|
+| **HTTPS + HSTS** | Enkripsi end-to-end mencegah modifikasi konten di tengah jalan. Preload HSTS. |
+| **Subresource Integrity (SRI)** | Tag `<script integrity="sha384-...">` memungkinkan browser memverifikasi bahwa script tidak dimodifikasi. |
+| **Content Security Policy (CSP)** | Header CSP membatasi dari mana browser boleh memuat resource. |
+| **Certificate Pinning** | Mencegah MITM dengan memvalidasi sertifikat server secara ketat. |
 
 ### 3. Terhadap Content Modification
 
-| Metode                          | Detail                                                                                 |
-| ------------------------------- | -------------------------------------------------------------------------------------- |
-| **Code Signing**                | Semua software harus ditandatangani secara digital. OS memverifikasi sebelum eksekusi. |
-| **Checksum Verification**       | Sediakan hash SHA-256 untuk setiap file yang diunduh; verifikasi setelah download.     |
-| **Download via Torrent/Magnet** | Desentralisasi download untuk menghindari satu titik modifikasi.                       |
+| Metode | Detail |
+|--------|--------|
+| **Code Signing** | Semua software harus ditandatangani secara digital. OS memverifikasi sebelum eksekusi. |
+| **Checksum Verification** | Sediakan hash SHA-256 untuk setiap file yang diunduh; verifikasi setelah download. |
+| **Download via Torrent/Magnet** | Desentralisasi download untuk menghindari satu titik modifikasi. |
 
 ---
 
@@ -239,12 +234,12 @@ Great Cannon adalah contoh sempurna bagaimana infrastruktur defensif dapat denga
 
 ## 📚 Referensi
 
-- Marczak, B., et al. (2015). _China's Great Cannon_. Citizen Lab.
-- Goodin, D. (2015). _Meet the Great Cannon: The Chinese government's DDoS tool_. Ars Technica.
-- Recorded Future. _China's Offensive Cyber Capabilities: Great Cannon and Beyond_ (2020).
-- Cimpanu, C. (2020). _The Great Firewall of China: Technical Analysis_. ZDNet.
+- Marczak, B., et al. (2015). *China's Great Cannon*. Citizen Lab.
+- Goodin, D. (2015). *Meet the Great Cannon: The Chinese government's DDoS tool*. Ars Technica.
+- Recorded Future. *China's Offensive Cyber Capabilities: Great Cannon and Beyond* (2020).
+- Cimpanu, C. (2020). *The Great Firewall of China: Technical Analysis*. ZDNet.
 - MITRE ATT&CK: T1498 (Network Denial of Service), T1189 (Drive-by Compromise), T1583.004 (Acquire Infrastructure: Server).
 
 ---
 
-_Great Cannon / GFW Arsenal Deep Dive | China's Offensive Cyber Infrastructure | Nation-State DDoS & Traffic Injection_
+*Great Cannon / GFW Arsenal Deep Dive | China's Offensive Cyber Infrastructure | Nation-State DDoS & Traffic Injection*

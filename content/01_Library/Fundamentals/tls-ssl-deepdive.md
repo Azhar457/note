@@ -1,18 +1,17 @@
 ---
-title: "TLS/SSL — Deep Dive: Handshake, Cipher Suites, Certificate Chain, Attacks & Detection"
+title: 'TLS/SSL — Deep Dive: Handshake, Cipher Suites, Certificate Chain, Attacks
+  & Detection'
 tags:
-  - fundamentals
-  - networking
-  - tls
-  - ssl
-  - library
-aliases:
-  - "tls-ssl-deepdive"
-created: "2026-07-16"
-updated: "2026-07-16"
+- fundamentals
+- networking
+- tls
+- ssl
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: operational
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🔒 TLS/SSL — Deep Dive: Handshake, Cipher Suites, Certificate Chain, Attacks & Detection
@@ -46,15 +45,15 @@ cssclasses:
 
 ### Timeline SSL → TLS
 
-| Versi       | Tahun           | Status                   | Masalah                                                              |
-| ----------- | --------------- | ------------------------ | -------------------------------------------------------------------- |
-| **SSL 1.0** | 1994 (Netscape) | 🔴 Tidak pernah rilis    | Bugs parah                                                           |
-| **SSL 2.0** | 1995            | 🔴 Deprecated (RFC 6176) | Multiple security flaws: same key for auth+encryption, MD5, weak MAC |
-| **SSL 3.0** | 1996            | 🔴 Deprecated (RFC 7568) | POODLE attack (CVE-2014-3566)                                        |
-| **TLS 1.0** | 1999 (RFC 2246) | 🔴 Deprecated            | BEAST (CVE-2011-3389), Lucky13                                       |
-| **TLS 1.1** | 2006 (RFC 4346) | 🔴 Deprecated            | CBC timing attacks                                                   |
-| **TLS 1.2** | 2008 (RFC 5246) | 🟡 Masih dipake          | Masih aman dengan konfigurasi benar (AES-GCM, ECDHE)                 |
-| **TLS 1.3** | 2018 (RFC 8446) | 🟢 Recommended           | Forward secrecy wajib, 1-RTT handshake, hapus cipher lemah           |
+| Versi | Tahun | Status | Masalah |
+|-------|-------|--------|---------|
+| **SSL 1.0** | 1994 (Netscape) | 🔴 Tidak pernah rilis | Bugs parah |
+| **SSL 2.0** | 1995 | 🔴 Deprecated (RFC 6176) | Multiple security flaws: same key for auth+encryption, MD5, weak MAC |
+| **SSL 3.0** | 1996 | 🔴 Deprecated (RFC 7568) | POODLE attack (CVE-2014-3566) |
+| **TLS 1.0** | 1999 (RFC 2246) | 🔴 Deprecated | BEAST (CVE-2011-3389), Lucky13 |
+| **TLS 1.1** | 2006 (RFC 4346) | 🔴 Deprecated | CBC timing attacks |
+| **TLS 1.2** | 2008 (RFC 5246) | 🟡 Masih dipake | Masih aman dengan konfigurasi benar (AES-GCM, ECDHE) |
+| **TLS 1.3** | 2018 (RFC 8446) | 🟢 Recommended | Forward secrecy wajib, 1-RTT handshake, hapus cipher lemah |
 
 ### Kenapa TLS Bukan SSL?
 
@@ -62,16 +61,16 @@ SSL adalah nama lama (Netscape). Setelah diadopsi IETF, namanya diubah jadi TLS 
 
 ### What TLS Does (dan Tidak)
 
-| Lapisan                          | Dilindungi TLS? | Catatan                                                                      |
-| -------------------------------- | --------------- | ---------------------------------------------------------------------------- |
-| **URI/Path**                     | ❌ Tidak        | Hanya hostname yang di-enkripsi (SNI sebelumnya bocor, sekarang ECH/ESNI)    |
-| **Query Parameters**             | ✅ Ya           | Semua data HTTP body dan query di-enkripsi setelah TLS handshake             |
-| **Headers**                      | ✅ Ya           | Setelah TLS handshake selesai, HTTP headers ter-enkripsi                     |
-| **Server Certificate**           | 🟡 Sebagian     | Sertifikat server ter-enkripsi di TLS 1.3, bocor di TLS 1.2                  |
-| **Server IP**                    | ❌ Tidak        | IP tujuan selalu kelihatan (harus pakai VPN/Tor)                             |
-| **SNI (Server Name Indication)** | 🟡 Sebagian     | ECH (Encrypted Client Hello) baru mulai diadopsi — sebelum itu SNI plaintext |
-| **Traffic Length**               | ❌ Tidak        | Ukuran packet bocor — bisa dipakai traffic analysis (site fingerprinting)    |
-| **DNS Query**                    | ❌ Tidak        | DNS biasanya plaintext (kecuali DNS over HTTPS/TLS)                          |
+| Lapisan | Dilindungi TLS? | Catatan |
+|---------|----------------|---------|
+| **URI/Path** | ❌ Tidak | Hanya hostname yang di-enkripsi (SNI sebelumnya bocor, sekarang ECH/ESNI) |
+| **Query Parameters** | ✅ Ya | Semua data HTTP body dan query di-enkripsi setelah TLS handshake |
+| **Headers** | ✅ Ya | Setelah TLS handshake selesai, HTTP headers ter-enkripsi |
+| **Server Certificate** | 🟡 Sebagian | Sertifikat server ter-enkripsi di TLS 1.3, bocor di TLS 1.2 |
+| **Server IP** | ❌ Tidak | IP tujuan selalu kelihatan (harus pakai VPN/Tor) |
+| **SNI (Server Name Indication)** | 🟡 Sebagian | ECH (Encrypted Client Hello) baru mulai diadopsi — sebelum itu SNI plaintext |
+| **Traffic Length** | ❌ Tidak | Ukuran packet bocor — bisa dipakai traffic analysis (site fingerprinting) |
+| **DNS Query** | ❌ Tidak | DNS biasanya plaintext (kecuali DNS over HTTPS/TLS) |
 
 ---
 
@@ -97,26 +96,25 @@ SSL adalah nama lama (Netscape). Setelah diadopsi IETF, namanya diubah jadi TLS 
 ```
 
 **Kenapa pake intermediate, bukan langsung dari Root?**
-
 - Root CA private key disimpan offline (air-gapped) — jarang dipake
 - Intermediate bisa di-revoke tanpa revoke Root
 - Kalo intermediate compromised, Root masih aman — bisa revoke intermediate dan terbitkan baru
 
 ### Certificate Fields
 
-| Field                               | Contoh                                            | Fungsi                                                                   |
-| ----------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Subject**                         | `CN=*.example.com, O=Example Corp, C=US`          | Identitas pemilik sertifikat                                             |
-| **Subject Alternative Names (SAN)** | `DNS:example.com, DNS:*.example.com`              | **Domain yang dilindungi** — modern browser cuma lihat SAN, gak lihat CN |
-| **Issuer**                          | `CN=R3, O=Let's Encrypt`                          | CA yang nerbitin                                                         |
-| **Validity**                        | `Not Before: Jul 15 2026, Not After: Oct 15 2026` | Masa berlaku — 90 hari untuk Let's Encrypt (Auto Renew)                  |
-| **Public Key**                      | `RSA 2048-bit` atau `ECDSA P-256`                 | Kunci publik milik server                                                |
-| **Signature Algorithm**             | `sha256WithRSAEncryption`                         | Algoritma yang dipake CA untuk sign cert                                 |
-| **Key Usage**                       | `Digital Signature, Key Encipherment`             | Cara kunci boleh dipake                                                  |
-| **Extended Key Usage**              | `TLS Web Server Authentication`                   | Konteks penggunaan                                                       |
-| **CRL Distribution Points**         | `http://crl.example.com/root.crl`                 | Lokasi daftar sertifikat yang di-revoke                                  |
-| **OCSP Responder**                  | `http://ocsp.example.com`                         | Endpoint pengecekan status real-time                                     |
-| **Fingerprint (SHA-256)**           | `a1:b2:c3:...`                                    | Hash sertifikat — identifier unik                                        |
+| Field | Contoh | Fungsi |
+|-------|--------|--------|
+| **Subject** | `CN=*.example.com, O=Example Corp, C=US` | Identitas pemilik sertifikat |
+| **Subject Alternative Names (SAN)** | `DNS:example.com, DNS:*.example.com` | **Domain yang dilindungi** — modern browser cuma lihat SAN, gak lihat CN |
+| **Issuer** | `CN=R3, O=Let's Encrypt` | CA yang nerbitin |
+| **Validity** | `Not Before: Jul 15 2026, Not After: Oct 15 2026` | Masa berlaku — 90 hari untuk Let's Encrypt (Auto Renew) |
+| **Public Key** | `RSA 2048-bit` atau `ECDSA P-256` | Kunci publik milik server |
+| **Signature Algorithm** | `sha256WithRSAEncryption` | Algoritma yang dipake CA untuk sign cert |
+| **Key Usage** | `Digital Signature, Key Encipherment` | Cara kunci boleh dipake |
+| **Extended Key Usage** | `TLS Web Server Authentication` | Konteks penggunaan |
+| **CRL Distribution Points** | `http://crl.example.com/root.crl` | Lokasi daftar sertifikat yang di-revoke |
+| **OCSP Responder** | `http://ocsp.example.com` | Endpoint pengecekan status real-time |
+| **Fingerprint (SHA-256)** | `a1:b2:c3:...` | Hash sertifikat — identifier unik |
 
 ### Chain Validation
 
@@ -136,14 +134,14 @@ Browser saat connect ke `https://example.com`:
 
 ### Certificate Validation Failures
 
-| Error                 | Arti                               | Penyebab Umum                                       |
-| --------------------- | ---------------------------------- | --------------------------------------------------- |
-| **Self-signed cert**  | Certificate Authority gak dikenal  | Dev server, internal tools                          |
+| Error | Arti | Penyebab Umum |
+|-------|------|---------------|
+| **Self-signed cert** | Certificate Authority gak dikenal | Dev server, internal tools |
 | **Hostname mismatch** | SAN gak cocok dengan domain di URL | Wildcard gak cover subdomain, cert buat server beda |
-| **Expired cert**      | Melewati Not After                 | Gak renew tepat waktu                               |
-| **Revoked cert**      | CA udah revoke                     | Private key compromised, domain ganti               |
-| **Incomplete chain**  | Intermediate gak dikirim server    | Server config salah                                 |
-| **Unknown issuer**    | Root gak ada di trust store        | Root CA baru, atau fake cert                        |
+| **Expired cert** | Melewati Not After | Gak renew tepat waktu |
+| **Revoked cert** | CA udah revoke | Private key compromised, domain ganti |
+| **Incomplete chain** | Intermediate gak dikirim server | Server config salah |
+| **Unknown issuer** | Root gak ada di trust store | Root CA baru, atau fake cert |
 
 ### Let's Encrypt & ACME Protocol
 
@@ -172,14 +170,14 @@ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
  1    2     3      4     5     6
 ```
 
-| Komponen                       | Contoh        | Fungsi                                                      | Opsi Umum                     |
-| ------------------------------ | ------------- | ----------------------------------------------------------- | ----------------------------- |
-| **1. Protokol**                | `TLS`         | Protocol                                                    | TLS                           |
-| **2. Key Exchange**            | `ECDHE`       | Pertukaran kunci — cara client & server sepakat session key | RSA, DH, DHE, ECDHE, PSK      |
-| **3. Authentication**          | `RSA`         | Autentikasi server — verifikasi identitas via cert          | RSA, ECDSA, DSS               |
-| **4. Encryption**              | `AES_128_GCM` | Enkripsi data setelah handshake                             | AES-GCM, AES-CBC, ChaCha20    |
-| **5. MAC/Hash**                | `SHA256`      | Integrity check — verifikasi data gak diubah                | SHA, SHA256, SHA384, Poly1305 |
-| **6. Key Exchange** (opsional) | —             | Beberapa format include `_` untuk variasi                   | —                             |
+| Komponen | Contoh | Fungsi | Opsi Umum |
+|----------|--------|--------|-----------|
+| **1. Protokol** | `TLS` | Protocol | TLS |
+| **2. Key Exchange** | `ECDHE` | Pertukaran kunci — cara client & server sepakat session key | RSA, DH, DHE, ECDHE, PSK |
+| **3. Authentication** | `RSA` | Autentikasi server — verifikasi identitas via cert | RSA, ECDSA, DSS |
+| **4. Encryption** | `AES_128_GCM` | Enkripsi data setelah handshake | AES-GCM, AES-CBC, ChaCha20 |
+| **5. MAC/Hash** | `SHA256` | Integrity check — verifikasi data gak diubah | SHA, SHA256, SHA384, Poly1305 |
+| **6. Key Exchange** (opsional) | — | Beberapa format include `_` untuk variasi | — |
 
 ### TLS 1.3 — Simplified
 
@@ -254,23 +252,21 @@ Client (browser)                               Server (nginx)
 ### Detail Message
 
 **ClientHello:**
-
 ```yaml
 Version: TLS 1.2 (0x0303)
 Random: 32-byte random (client_random)
 Session ID: (untuk resumption)
 Cipher Suites: [TLS_AES_128_GCM_SHA256, TLS_CHACHA20_POLY1305, ...]
-Compression: [null] # null-satu-satunya yang aman
+Compression: [null]  # null-satu-satunya yang aman
 Extensions:
   - SNI: "example.com"
   - ALPN: ["h2", "http/1.1"]
-  - Supported Groups: [x25519, secp256r1, secp384r1] # ECDHE curves
+  - Supported Groups: [x25519, secp256r1, secp384r1]  # ECDHE curves
   - Signature Algorithms: [rsa_pss_rsae_sha256, ecdsa_secp256r1_sha256]
   - Key Share (TLS 1.3): ...
 ```
 
 **ServerHello:**
-
 ```yaml
 Version: TLS 1.2
 Random: 32-byte (server_random)
@@ -326,18 +322,18 @@ Client                                          Server
 
 **Perbedaan utama TLS 1.2 vs 1.3:**
 
-| Aspek                     | TLS 1.2                                | TLS 1.3                                         |
-| ------------------------- | -------------------------------------- | ----------------------------------------------- |
-| **Handshake RTT**         | 2 RTT (full)                           | 1 RTT (full), 0-RTT (resumption)                |
-| **Certificate delivery**  | Plaintext (bocor)                      | Encrypted                                       |
-| **Forward secrecy**       | Opsional                               | ✅ **Wajib**                                    |
-| **Cipher suites**         | 37+ kombinasi                          | 5 AEAD-only                                     |
-| **Key exchange**          | RSA, DH, DHE, ECDHE                    | ECDHE, (EC)DHE only                             |
+| Aspek | TLS 1.2 | TLS 1.3 |
+|-------|---------|---------|
+| **Handshake RTT** | 2 RTT (full) | 1 RTT (full), 0-RTT (resumption) |
+| **Certificate delivery** | Plaintext (bocor) | Encrypted |
+| **Forward secrecy** | Opsional | ✅ **Wajib** |
+| **Cipher suites** | 37+ kombinasi | 5 AEAD-only |
+| **Key exchange** | RSA, DH, DHE, ECDHE | ECDHE, (EC)DHE only |
 | **Algorithm negotiation** | ClientHello → ServerHello (sequential) | ClientHello → ServerHello + KeyShare (parallel) |
-| **Session resumption**    | Session ID, Session Ticket             | PSK (Pre-Shared Key)                            |
-| **Compression**           | Ada (risk)                             | ❌ Dihapus                                      |
-| **Renegotiation**         | Ada (risk)                             | ❌ Dihapus                                      |
-| **ChangeCipherSpec**      | Explicit message                       | Implicit (hapus dari spec)                      |
+| **Session resumption** | Session ID, Session Ticket | PSK (Pre-Shared Key) |
+| **Compression** | Ada (risk) | ❌ Dihapus |
+| **Renegotiation** | Ada (risk) | ❌ Dihapus |
+| **ChangeCipherSpec** | Explicit message | Implicit (hapus dari spec) |
 
 ### 0-RTT (Early Data)
 
@@ -354,7 +350,6 @@ Client (pernah connect sebelumnya)            Server
 ```
 
 **⚠️ Risiko 0-RTT:**
-
 - **Replay attack** — attacker bisa intercept dan kirim ulang early data yang sama. Server harus implement replay protection (key idempotent request seperti GET, atau nonce).
 - **Forward secrecy** — data 0-RTT dienkripsi dengan PSK, bukan ephemeral key. Kalo PSK bocor, data 0-RTT bisa di-dekripsi.
 
@@ -394,7 +389,6 @@ Evolusi dari session ticket. Client kirim PSK identity, server match, langsung 1
 HTTP/2 **tidak mewajibkan** TLS secara spesifik (spec bilang "encryption optional"), tapi semua browser cuma implement HTTP/2 over TLS — jadi praktisnya HTTP/2 = HTTPS.
 
 **ALPN (Application-Layer Protocol Negotiation):**
-
 ```
 ClientHello: ALPN = ["h2", "http/1.1"]
 ServerHello: ALPN = "h2"  → client & server pake HTTP/2
@@ -423,7 +417,6 @@ HTTP/3 = HTTP over QUIC. QUIC menggabungkan **TLS 1.3 built-in** — bukan layer
 ### Konsep
 
 Setiap client TLS (browser, curl, Go net/http, Python requests, Cobalt Strike beacon) mengirim ClientHello dengan **kombinasi unik** dari:
-
 - TLS version yang didukung
 - Cipher suites (urutan)
 - Extensions (tipe + urutan)
@@ -447,15 +440,14 @@ ClientHello dari Chrome 130:
 
 ### Penggunaan Security
 
-| Use Case                    | Cara                                                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **C2 detection**            | Cobalt Strike HTTPS beacon punya JA3 signature yang dikenal (51c64c77f60c4b6b...). Block JA3 = block C2 |
-| **Malware detection**       | Malware pake library TLS sendiri → JA3 unik yang gak cocok browser normal                               |
-| **Impersonation detection** | Attacker pake curl dengan user-agent "Chrome" tapi JA3 curl beda sama JA3 Chrome asli                   |
-| **Bot detection**           | Bot/scraper punya JA3 beda dari browser real                                                            |
+| Use Case | Cara |
+|----------|------|
+| **C2 detection** | Cobalt Strike HTTPS beacon punya JA3 signature yang dikenal (51c64c77f60c4b6b...). Block JA3 = block C2 |
+| **Malware detection** | Malware pake library TLS sendiri → JA3 unik yang gak cocok browser normal |
+| **Impersonation detection** | Attacker pake curl dengan user-agent "Chrome" tapi JA3 curl beda sama JA3 Chrome asli |
+| **Bot detection** | Bot/scraper punya JA3 beda dari browser real |
 
-**Keterbatasan:**
-
+**Keterbatasan:** 
 - JA3 bisa diubah dengan memodifikasi TLS library (Cobalt Strike sudah support JA3 randomization sejak v4.7)
 - JA3 yang sama dari dua tools berbeda bisa terjadi collision
 - Private library bisa generate JA3 baru yang belum dikenal
@@ -480,27 +472,27 @@ tshark -r capture.pcap -Y "tls.handshake.type == 1" -T fields \
 
 ### Downgrade Attacks
 
-| Attack                   | Target           | Cara Kerja                                              | TLS 1.3 Mitigasi?                       |
-| ------------------------ | ---------------- | ------------------------------------------------------- | --------------------------------------- |
-| **POODLE** (SSL 3.0)     | CBC mode         | Exploit padding oracle di SSL 3.0                       | ✅ (SSL 3.0 dihapus)                    |
-| **BEAST** (TLS 1.0)      | CBC mode         | Predict IV via block chaining                           | ✅ (AEAD-only)                          |
-| **CRIME**                | Compression      | Inject known plaintext → ukur perubahan ukuran kompresi | ✅ (kompresi dihapus)                   |
-| **Lucky13**              | CBC mode         | Timing oracle dari CBC padding                          | ✅ (AEAD-only)                          |
-| **Logjam**               | DHE export       | Force DHE ke export-grade (512-bit)                     | ✅ (export cipher dihapus)              |
-| **FREAK**                | RSA export       | Force RSA ke export-grade (512-bit)                     | ✅ (export cipher dihapus)              |
-| **ROBOT**                | RSA key exchange | Return of Bleichenbacher oracle (CVE-2017-17305)        | ✅ (RSA key exchange dihapus)           |
-| **Downgrade to TLS 1.2** | Protocol version | Forced downgrade via network MITM                       | 🟡 Sebagian (downgrade protection SCSV) |
+| Attack | Target | Cara Kerja | TLS 1.3 Mitigasi? |
+|--------|--------|-----------|-------------------|
+| **POODLE** (SSL 3.0) | CBC mode | Exploit padding oracle di SSL 3.0 | ✅ (SSL 3.0 dihapus) |
+| **BEAST** (TLS 1.0) | CBC mode | Predict IV via block chaining | ✅ (AEAD-only) |
+| **CRIME** | Compression | Inject known plaintext → ukur perubahan ukuran kompresi | ✅ (kompresi dihapus) |
+| **Lucky13** | CBC mode | Timing oracle dari CBC padding | ✅ (AEAD-only) |
+| **Logjam** | DHE export | Force DHE ke export-grade (512-bit) | ✅ (export cipher dihapus) |
+| **FREAK** | RSA export | Force RSA ke export-grade (512-bit) | ✅ (export cipher dihapus) |
+| **ROBOT** | RSA key exchange | Return of Bleichenbacher oracle (CVE-2017-17305) | ✅ (RSA key exchange dihapus) |
+| **Downgrade to TLS 1.2** | Protocol version | Forced downgrade via network MITM | 🟡 Sebagian (downgrade protection SCSV) |
 
 **Mitigasi utama:** Nonaktifkan semua protokol sebelum TLS 1.2, pake cipher AEAD-only, disable compression, disable renegotiation (client-side renego).
 
 ### Certificate Attacks
 
-| Attack                        | Cara                                               | Mitigasi                                                     |
-| ----------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
-| **MITM dengan fake CA**       | Install fake Root CA di device korban              | Certificate Pinning, CRL, OCSP                               |
-| **Certificate Spoofing**      | Compromise CA → terbitkan cert palsu               | Certificate Transparency (CT logs) — deteksi cert aneh       |
-| **OCSP Bypass**               | Block OCSP responder → browser gak bisa cek status | OCSP Stapling (server yang ngasih timestamped OCSP response) |
-| **Revoked cert masih dipake** | Browser offline → gak bisa OCSP                    | CRLSet (Chrome), OneCRL (Firefox) — distributed CRL          |
+| Attack | Cara | Mitigasi |
+|--------|------|----------|
+| **MITM dengan fake CA** | Install fake Root CA di device korban | Certificate Pinning, CRL, OCSP |
+| **Certificate Spoofing** | Compromise CA → terbitkan cert palsu | Certificate Transparency (CT logs) — deteksi cert aneh |
+| **OCSP Bypass** | Block OCSP responder → browser gak bisa cek status | OCSP Stapling (server yang ngasih timestamped OCSP response) |
+| **Revoked cert masih dipake** | Browser offline → gak bisa OCSP | CRLSet (Chrome), OneCRL (Firefox) — distributed CRL |
 
 ### TLS Renegotiation Attack
 
@@ -516,18 +508,18 @@ Sebelum ECH (Encrypted Client Hello), SNI dikirim **plaintext** — attacker bis
 
 ### Indicators of Malicious TLS
 
-| Indicator                              | Kemungkinan                                             | Detection                                |
-| -------------------------------------- | ------------------------------------------------------- | ---------------------------------------- |
-| **JA3 tidak dikenal**                  | Custom TLS stack (malware, C2)                          | JA3 blocklist / allowlist (browser-only) |
-| **Cipher suite tidak wajar**           | Malware pake cipher tua (RC4, CBC) karena library lawas | Suricata: `tls.ciphers` rule             |
-| **TLS version tua**                    | Malware pake OpenSSL lama → TLS 1.0/1.1                 | Log `tls.version`                        |
-| **Self-signed cert**                   | C2 server pake self-signed                              | Alert `tls.certificate.self_signed`      |
-| **Certificate mismatch**               | C2 domain gak cocok sama CN/SAN                         | Suricata: `tls.certificate.issuer`       |
-| **Unusual cert issuer**                | C2 pake cert dari CA gak dikenal                        | Threat intel feed                        |
-| **Beacon interval + TLS**              | Koneksi TLS periodik ke IP asing                        | Zeek conn.log + time pattern             |
-| **TLS handshake ke IP (bukan domain)** | C2 langsung ke IP tanpa SNI                             | Suricata: `tls.sni` kosong               |
-| **Large cert**                         | Custom CA yang generate cert gede >2KB                  | `tls.certificate.length`                 |
-| **No ALPN**                            | C2 gak negotiate HTTP/2 — langsung                      | `tls.alpn` kosong                        |
+| Indicator | Kemungkinan | Detection |
+|-----------|-------------|-----------|
+| **JA3 tidak dikenal** | Custom TLS stack (malware, C2) | JA3 blocklist / allowlist (browser-only) |
+| **Cipher suite tidak wajar** | Malware pake cipher tua (RC4, CBC) karena library lawas | Suricata: `tls.ciphers` rule |
+| **TLS version tua** | Malware pake OpenSSL lama → TLS 1.0/1.1 | Log `tls.version` |
+| **Self-signed cert** | C2 server pake self-signed | Alert `tls.certificate.self_signed` |
+| **Certificate mismatch** | C2 domain gak cocok sama CN/SAN | Suricata: `tls.certificate.issuer` |
+| **Unusual cert issuer** | C2 pake cert dari CA gak dikenal | Threat intel feed |
+| **Beacon interval + TLS** | Koneksi TLS periodik ke IP asing | Zeek conn.log + time pattern |
+| **TLS handshake ke IP (bukan domain)** | C2 langsung ke IP tanpa SNI | Suricata: `tls.sni` kosong |
+| **Large cert** | Custom CA yang generate cert gede >2KB | `tls.certificate.length` |
+| **No ALPN** | C2 gak negotiate HTTP/2 — langsung | `tls.alpn` kosong |
 
 ### Detection Tool
 
@@ -622,28 +614,28 @@ ssl_stapling_verify on;
 
 ## References
 
-1. IETF. _RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3_. 2018. https://datatracker.ietf.org/doc/rfc8446/
-2. IETF. _RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2_. 2008.
-3. IETF. _RFC 6066: TLS Extensions (SNI, ALPN, etc)_. 2011.
-4. IETF. _RFC 7301: ALPN_. 2014.
-5. IETF. _RFC 8879: TLS Certificate Compression_. 2021.
-6. Mozilla. _Security/Server Side TLS_. https://wiki.mozilla.org/Security/Server_Side_TLS
-7. Mozilla. _SSL Configuration Generator_. https://ssl-config.mozilla.org/
-8. Qualys SSL Labs. _SSL Server Test_. https://www.ssllabs.com/ssltest/
-9. Qualys SSL Labs. _SSL/TLS Deployment Best Practices_. https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices
-10. Cloudflare. _TLS 1.3 Overview_. https://www.cloudflare.com/learning-resources/tls-1-3/
-11. Cloudflare. _What is SNI?_ https://www.cloudflare.com/learning/ssl/what-is-sni/
-12. Cloudflare. _ECH — Encrypted Client Hello_. https://blog.cloudflare.com/encrypted-client-hello/
-13. Let's Encrypt. _ACME Protocol_. https://letsencrypt.org/docs/acme-protocol/
-14. Certificate Transparency. _RFC 6962_. https://certificate.transparency.dev/
-15. JA3. _JA3 Fingerprinting_. https://github.com/salesforce/ja3
-16. Suricata. _TLS/SSL Detection Rules_. https://suricata.readthedocs.io/en/latest/rules/tls-keywords.html
-17. Zeek. _SSL/TLS Logging_. https://docs.zeek.org/en/current/scripts/base/protocols/ssl/main.zeek.html
-18. Cipherli.st. _Strong Ciphers for Apache, nginx, etc_. https://cipherli.st/
-19. OpenSSL. _OpenSSL Documentation_. https://www.openssl.org/docs/
-20. BoringSSL. _BoringSSL Documentation_. https://boringssl.googlesource.com/boringssl/
-21. Google. _TLS 1.3 0-RTT Replay Attack_. https://www.rfc-editor.org/rfc/rfc9001.html
-22. sslLabs. _SSL/TLS Attack History_. https://github.com/ssllabs/research/wiki/SSL-and-TLS-Attacks
+1. IETF. *RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3*. 2018. https://datatracker.ietf.org/doc/rfc8446/
+2. IETF. *RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2*. 2008.
+3. IETF. *RFC 6066: TLS Extensions (SNI, ALPN, etc)*. 2011.
+4. IETF. *RFC 7301: ALPN*. 2014.
+5. IETF. *RFC 8879: TLS Certificate Compression*. 2021.
+6. Mozilla. *Security/Server Side TLS*. https://wiki.mozilla.org/Security/Server_Side_TLS
+7. Mozilla. *SSL Configuration Generator*. https://ssl-config.mozilla.org/
+8. Qualys SSL Labs. *SSL Server Test*. https://www.ssllabs.com/ssltest/
+9. Qualys SSL Labs. *SSL/TLS Deployment Best Practices*. https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices
+10. Cloudflare. *TLS 1.3 Overview*. https://www.cloudflare.com/learning-resources/tls-1-3/
+11. Cloudflare. *What is SNI?* https://www.cloudflare.com/learning/ssl/what-is-sni/
+12. Cloudflare. *ECH — Encrypted Client Hello*. https://blog.cloudflare.com/encrypted-client-hello/
+13. Let's Encrypt. *ACME Protocol*. https://letsencrypt.org/docs/acme-protocol/
+14. Certificate Transparency. *RFC 6962*. https://certificate.transparency.dev/
+15. JA3. *JA3 Fingerprinting*. https://github.com/salesforce/ja3
+16. Suricata. *TLS/SSL Detection Rules*. https://suricata.readthedocs.io/en/latest/rules/tls-keywords.html
+17. Zeek. *SSL/TLS Logging*. https://docs.zeek.org/en/current/scripts/base/protocols/ssl/main.zeek.html
+18. Cipherli.st. *Strong Ciphers for Apache, nginx, etc*. https://cipherli.st/
+19. OpenSSL. *OpenSSL Documentation*. https://www.openssl.org/docs/
+20. BoringSSL. *BoringSSL Documentation*. https://boringssl.googlesource.com/boringssl/
+21. Google. *TLS 1.3 0-RTT Replay Attack*. https://www.rfc-editor.org/rfc/rfc9001.html
+22. sslLabs. *SSL/TLS Attack History*. https://github.com/ssllabs/research/wiki/SSL-and-TLS-Attacks
 
 > [!tip] Bottom Line
 > TLS adalah **fondasi keamanan transport modern** — tapi bukan solusi ajaib. TLS mengamankan isi percakapan, tapi metadata (IP, panjang packet, timing) tetap bocor. Buat security engineer: (1) **Cipher suite pilih AEAD + ECDHE** — jangan sentuh CBC, jangan sentuh RSA key exchange. (2) **TLS 1.3 wajib** — lebih cepat, lebih aman, lebih sederhana. (3) **JA3 fingerprinting** adalah alat deteksi C2 yang powerful tapi harus dipahami keterbatasannya — attacker bisa JA3 randomization. (4) **Certificate Transparency** mengubah sertifikat dari "trust based on secrecy" menjadi "trust based on transparency" — setiap cert yang diterbitkan untuk domain lo tanpa sepengetahuan lo = indikasi compromise. (5) **Forward secrecy** mengubah dampak private key leakage dari "semua masa lalu terbaca" jadi "hanya masa depan" — ini bukan opsi, ini wajib.

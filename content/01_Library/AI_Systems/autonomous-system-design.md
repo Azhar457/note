@@ -24,13 +24,13 @@ cssclasses:
 
 ## 🧬 Prinsip Inti: Dari Reaktif ke Proaktif
 
-| Karakteristik        | Agen Tradisional (Loop-Based)                           | **Sistem Otonom (Life-Long)**                                                        |
-| :------------------- | :------------------------------------------------------ | :----------------------------------------------------------------------------------- |
-| **Tujuan**           | Diberikan oleh prompt, jangka pendek.                   | **Persisten, hirarkis**, dan bisa **didefinisikan sendiri**.                         |
-| **Inisiasi Tugas**   | Reaktif (menunggu perintah).                            | **Proaktif** (menjalankan tugas berdasarkan kalender, pemicu, atau rasa ingin tahu). |
-| **Pembelajaran**     | Episodik (dalam satu sesi).                             | **Kontinu** (belajar dari sesi sebelumnya dan memperbarui pengetahuannya).           |
-| **Manajemen Memori** | Jangka pendek (Context Window) + Long-Term (Vector DB). | **Pengalaman (Episodic), Prosedural (Skill), dan Semantik (Fakta)** terintegrasi.    |
-| **Sumber Daya**      | Tidak terkelola.                                        | **Sadar diri** terhadap _compute budget_, batas waktu, dan biaya API.                |
+| Karakteristik | Agen Tradisional (Loop-Based) | **Sistem Otonom (Life-Long)** |
+| :--- | :--- | :--- |
+| **Tujuan** | Diberikan oleh prompt, jangka pendek. | **Persisten, hirarkis**, dan bisa **didefinisikan sendiri**. |
+| **Inisiasi Tugas** | Reaktif (menunggu perintah). | **Proaktif** (menjalankan tugas berdasarkan kalender, pemicu, atau rasa ingin tahu). |
+| **Pembelajaran** | Episodik (dalam satu sesi). | **Kontinu** (belajar dari sesi sebelumnya dan memperbarui pengetahuannya). |
+| **Manajemen Memori** | Jangka pendek (Context Window) + Long-Term (Vector DB). | **Pengalaman (Episodic), Prosedural (Skill), dan Semantik (Fakta)** terintegrasi. |
+| **Sumber Daya** | Tidak terkelola. | **Sadar diri** terhadap *compute budget*, batas waktu, dan biaya API. |
 
 ---
 
@@ -38,7 +38,7 @@ cssclasses:
 
 ### 1. Manajemen Tujuan (Goal Management)
 
-Ini adalah lapisan tertinggi. Tanpa ini, agen hanyalah _script_ yang berjalan selamanya.
+Ini adalah lapisan tertinggi. Tanpa ini, agen hanyalah *script* yang berjalan selamanya.
 
 **Struktur Tujuan Hierarkis:**
 
@@ -55,7 +55,6 @@ Goal: "Kelola Keamanan Siber Rumah"
 ```
 
 Setiap Sub-Goal memiliki **status eksplisit**:
-
 - `ACTIVE` — sedang dikerjakan.
 - `BLOCKED` — menunggu input atau prasyarat selesai.
 - `COMPLETED` — selesai, hasil disimpan di Episodic Memory.
@@ -68,7 +67,7 @@ Setiap Sub-Goal memiliki **status eksplisit**:
 
 2. **Pemicu Peristiwa (Event Trigger):** "Jika peringatan_keamanan(dari_sensor) == True, jalankan protokol_escalation()." Agen tidak menunggu perintah; ia bereaksi terhadap perubahan state dunia nyata.
 
-3. **Pemicu "Intuisi" (Curiosity Trigger):** Sebuah probabilistic trigger. "Saya sudah lama tidak memeriksa sumber_berita_x. Mungkin ada informasi baru." Ini mencegah agen terjebak dalam rutinitas statis. Diimplementasikan sebagai _novelty detector_: jika waktu sejak eksplorasi terakhir melebihi threshold, jadwalkan eksplorasi baru.
+3. **Pemicu "Intuisi" (Curiosity Trigger):** Sebuah probabilistic trigger. "Saya sudah lama tidak memeriksa sumber_berita_x. Mungkin ada informasi baru." Ini mencegah agen terjebak dalam rutinitas statis. Diimplementasikan sebagai *novelty detector*: jika waktu sejak eksplorasi terakhir melebihi threshold, jadwalkan eksplorasi baru.
 
 ### 2. Memori sebagai Catatan Kehidupan (Life-Long Memory)
 
@@ -174,15 +173,15 @@ Jika sebuah sub-tujuan terus gagal dan menghabiskan sumber daya, Goal Manager ha
 
 ## 🔗 Koneksi ke Vault
 
-| Konsep                        | Dokumen Pendukung                                            |
-| :---------------------------- | :----------------------------------------------------------- |
-| Episodic & Procedural Memory  | [[agentic-ai-mcp-architecture-deepdive]] (Memory Hierarchy)  |
-| Self-Fine-Tuning & MLOps      | [[ai-engineering-stack-roadmap]] (MLOps, Continual Training) |
-| System 1/2 Allocation         | [[test-time-compute-system2]] (Dynamic Compute)              |
-| Goal Decomposition & Planning | [[cognitive-architecture-engineering]] (Pilar 1)             |
-| Evaluation Loop               | [[ai-evaluation-framework]] (RAGAS, DeepEval)                |
-| Keamanan Agent                | [[llm-security-red-teaming-attack-surface-ai-layer]]         |
+| Konsep | Dokumen Pendukung |
+| :--- | :--- |
+| Episodic & Procedural Memory | [[agentic-ai-mcp-architecture-deepdive]] (Memory Hierarchy) |
+| Self-Fine-Tuning & MLOps | [[ai-engineering-stack-roadmap]] (MLOps, Continual Training) |
+| System 1/2 Allocation | [[test-time-compute-system2]] (Dynamic Compute) |
+| Goal Decomposition & Planning | [[cognitive-architecture-engineering]] (Pilar 1) |
+| Evaluation Loop | [[ai-evaluation-framework]] (RAGAS, DeepEval) |
+| Keamanan Agent | [[llm-security-red-teaming-attack-surface-ai-layer]] |
 
 ---
 
-_Desain Sistem Otonom — 2026-07-09_
+*Desain Sistem Otonom — 2026-07-09*

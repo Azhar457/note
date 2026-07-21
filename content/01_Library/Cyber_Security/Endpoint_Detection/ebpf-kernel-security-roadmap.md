@@ -1,21 +1,19 @@
 ---
-title: "eBPF Kernel Security Learning Roadmap — From Hello World to eBPF Rootkit Auditing"
+title: eBPF Kernel Security Learning Roadmap — From Hello World to eBPF Rootkit Auditing
 tags:
-  - ebpf
-  - kernel-security
-  - linux-kernel
-  - observability
-  - rootkit-detection
-  - roadmap
-aliases:
-  - "ebpf-kernel-security-roadmap"
-created: "2026-07-19"
-updated: "2026-07-19"
+- ebpf
+- kernel-security
+- linux-kernel
+- observability
+- rootkit-detection
+- roadmap
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Extended Berkeley Packet Filter (eBPF) mengubah cara tim keamanan melakukan pemantauan (_observability_) sistem operasi Linux tanpa menyentuh kode sumber kernel. Catatan ini menyediakan kurikulum terstruktur untuk menulis, mengompilasi, dan menganalisis program eBPF, sebagai pasangan praktis dari berkas teoritis [[ebpf-kernel-security]].
+> Extended Berkeley Packet Filter (eBPF) mengubah cara tim keamanan melakukan pemantauan (*observability*) sistem operasi Linux tanpa menyentuh kode sumber kernel. Catatan ini menyediakan kurikulum terstruktur untuk menulis, mengompilasi, dan menganalisis program eBPF, sebagai pasangan praktis dari berkas teoritis [[ebpf-kernel-security]].
 
 ## Daftar Isi
 
@@ -44,10 +42,9 @@ Peta jalan belajar ini menuntun Anda dari pemrograman kernel dasar hingga teknik
 
 ## 2. Fase 1: Konsep Dasar eBPF & Program Pertama (kprobe Hello World)
 
-eBPF memungkinkan kita menjalankan program di dalam mesin virtual (_in-kernel VM_) terisolasi di dalam kernel Linux secara aman saat interupsi sistem (_events_) terjadi.
+eBPF memungkinkan kita menjalankan program di dalam mesin virtual (*in-kernel VM*) terisolasi di dalam kernel Linux secara aman saat interupsi sistem (*events*) terjadi.
 
 ### 2.1 Menulis Program Kernel C (`hello.c`)
-
 Berikut adalah kode program kernel sederhana untuk memantau pemanggilan fungsi sistem `sys_clone` (proses pembuatan thread/anak proses baru):
 
 ```c
@@ -58,7 +55,7 @@ Berikut adalah kode program kernel sederhana untuk memantau pemanggilan fungsi s
 SEC("kprobe/sys_clone")
 int hello_clone(void *ctx) {
     char msg[] = "jarsWAF Alert: sys_clone dipanggil!";
-
+    
     // Tulis pesan ke trace buffer kernel (/sys/kernel/debug/tracing/trace_pipe)
     bpf_trace_printk(msg, sizeof(msg));
     return 0;
@@ -68,9 +65,7 @@ char LICENSE[] SEC("license") = "GPL";
 ```
 
 ### 2.2 Kompilasi menggunakan Clang/LLVM
-
 Biner eBPF harus dikompilasi menggunakan target LLVM khusus untuk menghasilkan instruksi bytecode eBPF:
-
 ```bash
 clang -target bpf -O2 -g -c hello.c -o hello.o
 ```
@@ -80,16 +75,13 @@ clang -target bpf -O2 -g -c hello.c -o hello.o
 ## 3. Fase 2: Mekanisme Verifikator & Komunikasi Data (eBPF Maps)
 
 ### 3.1 eBPF Verifier
-
-Sebelum memuat (_loading_) biner `hello.o` ke dalam kernel menggunakan system call `sys_bpf`, kernel menjalankan **Verifier** untuk menjamin keamanan sistem:
-
-- Menolak program yang mengandung perulangan tak terbatas (_infinite loop_) yang dapat memicu pembekuan kernel (_kernel panic_).
-- Memastikan tidak ada akses pointer memori ilegal (_out-of-bounds memory access_).
+Sebelum memuat (*loading*) biner `hello.o` ke dalam kernel menggunakan system call `sys_bpf`, kernel menjalankan **Verifier** untuk menjamin keamanan sistem:
+- Menolak program yang mengandung perulangan tak terbatas (*infinite loop*) yang dapat memicu pembekuan kernel (*kernel panic*).
+- Memastikan tidak ada akses pointer memori ilegal (*out-of-bounds memory access*).
 - Ukuran program tidak boleh melampaui batas maksimum instruksi (biasanya 1 juta instruksi).
 
 ### 3.2 Berbagi Informasi menggunakan Maps
-
-Program eBPF di kernel berkomunikasi dengan aplikasi pemantau di _user space_ (seperti skrip Python/Go) menggunakan struktur data terenkapsulasi bernama **eBPF Maps**:
+Program eBPF di kernel berkomunikasi dengan aplikasi pemantau di *user space* (seperti skrip Python/Go) menggunakan struktur data terenkapsulasi bernama **eBPF Maps**:
 
 ```c
 // Mendeklarasikan Map untuk merekam jumlah panggilan sys_clone per User ID (UID)
@@ -106,25 +98,21 @@ struct {
 ## 4. Fase 3: Pemantauan Keamanan Sistem & Filter Jaringan (XDP)
 
 ### 4.1 Pemantauan Syscall Execve
-
 Keamanan endpoint memantau eksekusi file biner baru dengan meng-hook tracepoint `sys_enter_execve`:
-
 ```c
 SEC("tracepoint/syscalls/sys_enter_execve")
 int trace_execve(struct trace_event_raw_sys_enter* ctx) {
     char filename[128];
     // Baca argumen nama file biner dari memori user space secara aman
     bpf_probe_read_user_str(&filename, sizeof(filename), (void *)ctx->args[0]);
-
+    
     // Kirim data filename ke user space agent untuk dicocokkan ke database EDR
     return 0;
 }
 ```
 
 ### 4.2 XDP (eXpress Data Path)
-
-XDP memproses paket jaringan langsung di lapisan terbawah pemrosesan jaringan _driver_ kartu jaringan (NIC), sebelum paket dialokasikan ke memori kernel `sk_buff`. Sangat efisien untuk mitigasi serangan **DDoS**:
-
+XDP memproses paket jaringan langsung di lapisan terbawah pemrosesan jaringan *driver* kartu jaringan (NIC), sebelum paket dialokasikan ke memori kernel `sk_buff`. Sangat efisien untuk mitigasi serangan **DDoS**:
 ```c
 SEC("xdp")
 int xdp_drop_malicious(struct xdp_md *ctx) {
@@ -138,16 +126,13 @@ int xdp_drop_malicious(struct xdp_md *ctx) {
 
 ## 5. Fase 4: Deteksi & Pencegahan eBPF Rootkit (bpftool Audit)
 
-Penyerang tingkat tinggi memanfaatkan eBPF untuk menyembunyikan aktivitas jahat (_eBPF rootkit_).
+Penyerang tingkat tinggi memanfaatkan eBPF untuk menyembunyikan aktivitas jahat (*eBPF rootkit*).
 
 ### 5.1 Mekanisme Manipulasi eBPF Rootkit
-
-eBPF rootkit menggunakan fungsi pembantu _helper function_ `bpf_probe_write_user` untuk menulis ulang memori user space selama pemanggilan system call berjalan.
-
+eBPF rootkit menggunakan fungsi pembantu *helper function* `bpf_probe_write_user` untuk menulis ulang memori user space selama pemanggilan system call berjalan.
 - **Contoh**: Mengubah data yang dikembalikan dari `getdents64` (fungsi pembaca isi folder) sebelum diserahkan ke user space, sehingga file malware tersembunyi dari perintah `ls` atau `find`.
 
 ### 5.2 Audit Cluster menggunakan `bpftool`
-
 Sebagai pembela Blue Team, Anda wajib memeriksa status program eBPF yang aktif di dalam kernel secara berkala:
 
 ```bash
@@ -167,12 +152,10 @@ sudo bpftool prog dump xlated id 42
 ## 6. Kumpulan Soal Latihan & Solusi
 
 ### Soal 1
-
 Mengapa Verifikator eBPF membatasi keras penggunaan pointer aritmatika dan bagaimana cara mematuhinya saat memparsing paket jaringan?
 
 **Solusi**
 Pointer aritmatika berisiko memicu akses memori ilegal di luar batas struktur paket data, merusak data kernel penting. Untuk mematuhinya, kita wajib melakukan **pemeriksaan batas ukuran manual** sebelum membaca memori di program eBPF:
-
 ```c
 void *data = (void *)(long)ctx->data;
 void *data_end = (void *)(long)ctx->data_end;
@@ -180,7 +163,7 @@ void *data_end = (void *)(long)ctx->data_end;
 struct ethhdr *eth = data;
 // Jika pointer melebihi batas data_end, hentikan program. Verifikator akan meluluskan kode ini.
 if ((void*)(eth + 1) > data_end) {
-    return XDP_PASS;
+    return XDP_PASS; 
 }
 // Aman mengakses eth->h_proto setelah pemeriksaan di atas
 ```
@@ -189,8 +172,8 @@ if ((void*)(eth + 1) > data_end) {
 
 ## 7. Koneksi ke Vault
 
-| Catatan                       | Hubungan                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------ |
-| [[ebpf-kernel-security]]      | Teori dasar, penjelas dynamic tracing, dan arsitektur deteksi Falco.                       |
-| [[kernel-forensics]]          | Penyelidikan insiden memori ketika rootkit memodifikasi pemanggilan system call di Ring 0. |
-| [[blueteam-detection-matrix]] | Pengintegrasian event log eBPF untuk audit alert sistem pertahanan.                        |
+| Catatan | Hubungan |
+|------|----------|
+| [[ebpf-kernel-security]] | Teori dasar, penjelas dynamic tracing, dan arsitektur deteksi Falco. |
+| [[kernel-forensics]] | Penyelidikan insiden memori ketika rootkit memodifikasi pemanggilan system call di Ring 0. |
+| [[blueteam-detection-matrix]] | Pengintegrasian event log eBPF untuk audit alert sistem pertahanan. |

@@ -18,14 +18,13 @@ cssclasses:
 ---
 
 > [!abstract] Satu Agen adalah Alat, Banyak Agen adalah Sistem
-> Di sinilah kita melangkah dari _tool use_ ke _team management_. Meta-Agen bukanlah agen yang melakukan tugas. Ia adalah **orkestrator** yang memahami kapabilitas agen spesialis, mendelegasikan tugas, mengelola konflik, dan mensintesis hasil. Jika agen adalah karyawan, Meta-Agen adalah Manajer, Arsitek, dan Juri dalam satu paket.
+> Di sinilah kita melangkah dari *tool use* ke *team management*. Meta-Agen bukanlah agen yang melakukan tugas. Ia adalah **orkestrator** yang memahami kapabilitas agen spesialis, mendelegasikan tugas, mengelola konflik, dan mensintesis hasil. Jika agen adalah karyawan, Meta-Agen adalah Manajer, Arsitek, dan Juri dalam satu paket.
 
 ---
 
 ## 🏛️ Mengapa Meta-Agen Diperlukan?
 
 Agen tunggal punya keterbatasan mendasar:
-
 1. **Context Window:** Satu agen tidak bisa menangani semua konteks sekaligus.
 2. **Spesialisasi:** Model yang jago coding belum tentu jago security analysis.
 3. **Resiliensi:** Jika satu agen gagal, seluruh tugas gagal. Dengan Meta-Agen, kegagalan bisa dialihkan.
@@ -42,14 +41,13 @@ Meta-Agen tidak boleh memiliki daftar agen yang di-hardcode. Agen spesialis haru
 **Self-Describing Agents:**
 
 Setiap agen spesialis mendeskripsikan dirinya saat mendaftar:
-
 ```json
 {
   "agent_id": "agent-code-reviewer-v2",
   "capabilities": ["code_review", "refactor", "lint"],
   "languages": ["Python", "JavaScript", "Rust"],
   "max_context": 10000,
-  "cost_per_1k_tokens": 0.1,
+  "cost_per_1k_tokens": 0.10,
   "status": "healthy"
 }
 ```
@@ -115,7 +113,6 @@ Ketika banyak agen memberikan input, bagaimana Meta-Agen menghasilkan satu outpu
 **Blackboard Integration (Papan Tulis Bersama):**
 
 Semua agen menulis hasil mereka ke struktur data bersama (blackboard). Blackboard ini berisi:
-
 - `shared_context`: fakta yang sudah diverifikasi oleh minimal satu agen.
 - `disputed_facts`: klaim yang kontradiktif antar agen.
 - `pending_verification`: klaim yang baru diajukan, belum diperiksa.
@@ -139,12 +136,11 @@ Meta-Agen secara konstan memindai blackboard untuk kontradiksi: jika `Agent-A` m
 
 **Horizontal Scaling:**
 
-Jika antrian tugas untuk "analisis sentimen" sedang panjang (antrian > 10 tugas), Meta-Agen bisa meminta sistem untuk _spawn_ (menghidupkan) lebih banyak instance `Agent-Sentiment-Analyzer`. Ini adalah _auto-scaling_ untuk agen — persis seperti Kubernetes menambah pod. Threshold scaling: antrian > N tugas selama > 60 detik.
+Jika antrian tugas untuk "analisis sentimen" sedang panjang (antrian > 10 tugas), Meta-Agen bisa meminta sistem untuk *spawn* (menghidupkan) lebih banyak instance `Agent-Sentiment-Analyzer`. Ini adalah *auto-scaling* untuk agen — persis seperti Kubernetes menambah pod. Threshold scaling: antrian > N tugas selama > 60 detik.
 
 **Health Monitoring:**
 
 Meta-Agen memonitor tiga metrik utama setiap agen:
-
 - **Latency:** Waktu respons rata-rata. Jika > 30 detik, tandai WARNING.
 - **Error Rate:** Persentase tugas gagal. Jika > 10%, tandai UNHEALTHY.
 - **Hallucination Rate:** (Diperiksa oleh Quality Gate) Jika skor faithfulness < 0.7, tandai UNHEALTHY.
@@ -195,15 +191,15 @@ Agen `UNHEALTHY` tidak lagi diberi tugas sampai pulih — dan penyebabnya dicata
 
 ## 🔗 Koneksi ke Vault
 
-| Konsep                       | Dokumen Pendukung                                                      |
-| :--------------------------- | :--------------------------------------------------------------------- |
-| Multi-Agent Framework        | [[agentic-ai-mcp-roadmap]] (Fase 5: Multi-Agent)                       |
-| Agent Communication Protocol | [[ai-comm-protocol-deep-dive]] (A2A, Gibberlink)                       |
-| Orchestration Pillar         | [[cognitive-architecture-engineering]] (Pilar 1, 3)                    |
-| Goal Management              | [[autonomous-system-design]] (Goal Tree Manager)                       |
-| Evaluator as First-Class     | [[ai-evaluation-framework]], [[test-time-compute-system2]] (PRM)       |
-| Agent Security               | [[llm-security-red-teaming-attack-surface-ai-layer]] (Tool Sandboxing) |
-| MCP Integration              | [[agentic-ai-mcp-architecture-deepdive]] (Tool Use, MCP)               |
+| Konsep | Dokumen Pendukung |
+| :--- | :--- |
+| Multi-Agent Framework | [[agentic-ai-mcp-roadmap]] (Fase 5: Multi-Agent) |
+| Agent Communication Protocol | [[ai-comm-protocol-deep-dive]] (A2A, Gibberlink) |
+| Orchestration Pillar | [[cognitive-architecture-engineering]] (Pilar 1, 3) |
+| Goal Management | [[autonomous-system-design]] (Goal Tree Manager) |
+| Evaluator as First-Class | [[ai-evaluation-framework]], [[test-time-compute-system2]] (PRM) |
+| Agent Security | [[llm-security-red-teaming-attack-surface-ai-layer]] (Tool Sandboxing) |
+| MCP Integration | [[agentic-ai-mcp-architecture-deepdive]] (Tool Use, MCP) |
 
 ---
 
@@ -221,4 +217,4 @@ Agen `UNHEALTHY` tidak lagi diberi tugas sampai pulih — dan penyebabnya dicata
 
 ---
 
-_Orkestrasi Meta-Agen — 2026-07-09_
+*Orkestrasi Meta-Agen — 2026-07-09*
