@@ -1,13 +1,13 @@
 ---
 title: Graykey
 tags:
-- 05-hardware-forensics-and-tactical-devices
-- library
-- military-and-intelligence-tools
-created: '2026-06-27'
-updated: '2026-07-01'
+  - 05-hardware-forensics-and-tactical-devices
+  - library
+  - military-and-intelligence-tools
+created: "2026-06-27"
+updated: "2026-07-01"
 status: operational
-cssclasses: ''
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -23,17 +23,17 @@ GrayKey berbentuk kotak kecil (seukuran router Wi-Fi) dengan dua slot konektor L
 
 ### Perbandingan GrayKey vs Cellebrite UFED (Unlock)
 
-| Aspek | GrayKey (Grayshift) | Cellebrite UFED Premium |
-|-------|---------------------|--------------------------|
-| **Fokus** | Hanya unlock passcode | Ekstraksi data penuh + unlock sebagai langkah awal |
-| **Metode Unlock** | Hardware brute-force via Secure Enclave (serial protocol) | Software/exploit-based brute-force (bootrom/kernel exploit) |
-| **Koneksi** | Kabel Lightning ke slot khusus | Kabel USB ke UFED Touch/PC |
-| **Kecepatan (4-digit)** | ~6 menit | ~beberapa menit (dengan exploit) |
-| **Kecepatan (6-digit)** | ~11 jam (rata-rata) | ~jam (dengan exploit) |
+| Aspek                    | GrayKey (Grayshift)                                         | Cellebrite UFED Premium                                          |
+| ------------------------ | ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Fokus**                | Hanya unlock passcode                                       | Ekstraksi data penuh + unlock sebagai langkah awal               |
+| **Metode Unlock**        | Hardware brute-force via Secure Enclave (serial protocol)   | Software/exploit-based brute-force (bootrom/kernel exploit)      |
+| **Koneksi**              | Kabel Lightning ke slot khusus                              | Kabel USB ke UFED Touch/PC                                       |
+| **Kecepatan (4-digit)**  | ~6 menit                                                    | ~beberapa menit (dengan exploit)                                 |
+| **Kecepatan (6-digit)**  | ~11 jam (rata-rata)                                         | ~jam (dengan exploit)                                            |
 | **Dukungan iOS terbaru** | Ya, tanpa perlu exploit (mengandalkan hardware brute-force) | Memerlukan exploit; terbatas pada versi iOS yang ada exploit-nya |
-| **Efektivitas** | Semua iPhone (karena interface Secure Enclave standar) | Bergantung pada kerentanan yang tersedia |
-| **Harga** | $15,000 – $30,000 (lisensi tahunan) | Termasuk dalam langganan Premium (lebih mahal) |
-| **Produksi** | Grayshift (AS) | Cellebrite (Israel) |
+| **Efektivitas**          | Semua iPhone (karena interface Secure Enclave standar)      | Bergantung pada kerentanan yang tersedia                         |
+| **Harga**                | $15,000 – $30,000 (lisensi tahunan)                         | Termasuk dalam langganan Premium (lebih mahal)                   |
+| **Produksi**             | Grayshift (AS)                                              | Cellebrite (Israel)                                              |
 
 GrayKey bekerja dengan berkomunikasi langsung ke **Secure Enclave Processor (SEP)** melalui antarmuka serial yang tersedia pada port Lightning. Karena ini adalah serangan hardware, ia tidak bergantung pada bug perangkat lunak dan sulit ditambal sepenuhnya oleh Apple.
 
@@ -68,6 +68,7 @@ Tidak ada tombol fisik. Semua operasi dikendalikan dari antarmuka web.
 ### Model Lisensi
 
 GrayKey dijual dengan model **lisensi tahunan** yang mencakup:
+
 - Dukungan untuk semua iOS terbaru.
 - Pembaruan firmware untuk menangani mitigasi baru Apple.
 - Akses ke "GrayKey Cloud" untuk crack yang lebih cepat (cloud-assisted).
@@ -82,6 +83,7 @@ GrayKey dijual dengan model **lisensi tahunan** yang mencakup:
 Apple merancang Secure Enclave (SEP) untuk menangani verifikasi passcode secara independen dari prosesor aplikasi (AP). SEP memiliki antarmuka komunikasi serial (UART) yang terhubung ke konektor Lightning. GrayKey mengeksploitasi antarmuka ini untuk mengirimkan kode PIN langsung ke SEP, mem-bypass iOS sepenuhnya.
 
 Karena komunikasi langsung ke SEP, GrayKey:
+
 - Tidak memerlukan exploit kernel.
 - Tidak peduli apakah iOS di-patch atau tidak.
 - Tidak terpengaruh oleh USB Restricted Mode (karena USB Restricted Mode membatasi komunikasi data melalui AP, tetapi antarmuka serial SEP mungkin tetap aktif untuk keperluan diagnostik). Apple telah berusaha menonaktifkan antarmuka ini setelah perangkat terkunci lama, tetapi GrayKey terus menemukan cara.
@@ -89,6 +91,7 @@ Karena komunikasi langsung ke SEP, GrayKey:
 ### Bypass Escalating Time Delay
 
 Secara default, SEP menerapkan penundaan yang meningkat:
+
 - 5 upaya gagal → 1 menit.
 - 6 → 5 menit.
 - 7 → 15 menit.
@@ -98,13 +101,13 @@ Ini akan membuat brute-force 10.000 PIN memakan waktu berbulan-bulan. GrayKey me
 
 ### Kecepatan dan Waktu Crack
 
-| Panjang PIN | Jumlah Kombinasi | Waktu GrayKey (estimasi) |
-|-------------|------------------|--------------------------|
-| 4-digit numeric | 10.000 | ~6–12 menit |
-| 6-digit numeric | 1.000.000 | ~11–24 jam |
-| 4-character alphanumeric (lowercase+digit) | 36^4 = 1,6 juta | ~1–2 hari |
-| 6-character alphanumeric (lowercase) | 36^6 = 2,1 miliar | Bertahun-tahun (tidak praktis) |
-| 8+ character random | Entropi tinggi | Tidak mungkin |
+| Panjang PIN                                | Jumlah Kombinasi  | Waktu GrayKey (estimasi)       |
+| ------------------------------------------ | ----------------- | ------------------------------ |
+| 4-digit numeric                            | 10.000            | ~6–12 menit                    |
+| 6-digit numeric                            | 1.000.000         | ~11–24 jam                     |
+| 4-character alphanumeric (lowercase+digit) | 36^4 = 1,6 juta   | ~1–2 hari                      |
+| 6-character alphanumeric (lowercase)       | 36^6 = 2,1 miliar | Bertahun-tahun (tidak praktis) |
+| 8+ character random                        | Entropi tinggi    | Tidak mungkin                  |
 
 Operator GrayKey sering menggunakan **wordlist attack** untuk password alfanumerik, mencoba kata-kata umum, pola keyboard, dan data pribadi target (tanggal lahir, nama, dll.).
 
@@ -187,13 +190,13 @@ sesuai hukum              terorisme                suara kritis
 
 ## 📚 Referensi
 
-- Grayshift, *GrayKey Technical Overview & User Manual* (2024)
-- Apple, *Platform Security: Secure Enclave* (2024)
-- NIST, *Mobile Device Forensics: Tools and Techniques* (2023)
-- EFF, *GrayKey and the Fourth Amendment* (2019)
-- Motherboard (Vice), *GrayKey: The Box That Unlocks iPhones* (2018)
+- Grayshift, _GrayKey Technical Overview & User Manual_ (2024)
+- Apple, _Platform Security: Secure Enclave_ (2024)
+- NIST, _Mobile Device Forensics: Tools and Techniques_ (2023)
+- EFF, _GrayKey and the Fourth Amendment_ (2019)
+- Motherboard (Vice), _GrayKey: The Box That Unlocks iPhones_ (2018)
 - MITRE ATT&CK: T1588.001 (Obtain Capabilities: Malware), T1056.001 (Input Capture: Keylogging)
 
 ---
 
-*GrayKey Deep Dive | iPhone Passcode Hardware Brute-Force | Mobile Forensics Unlock Tool*
+_GrayKey Deep Dive | iPhone Passcode Hardware Brute-Force | Mobile Forensics Unlock Tool_

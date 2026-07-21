@@ -59,6 +59,7 @@ Bayangkan lo baca kalimat: **"Kucing itu mengejar tikus sampai **dia** lelah."**
 Siapa "dia"? Kucing? Atau tikus?
 
 Sebagai manusia, lo pake konteks:
+
 - "mengejar" → subjeknya kucing → "dia" kemungkinan besar kucing
 - Tapi kalau "tikus lari sampai dia lelah" → "dia" = tikus
 
@@ -89,12 +90,12 @@ Attention(Q, K, V) = softmax(Q · K^T / √dₖ) · V
 
 ### Komponen
 
-| Simbol | Nama | Bentuk | Fungsi |
-|--------|------|--------|--------|
-| Q | Query | (seq_len_q, dₖ) | Apa yang "ditanyakan" — token saat ini |
-| K | Key | (seq_len_k, dₖ) | "Indeks" dari semua token — untuk dicocokkan |
-| V | Value | (seq_len_k, dv) | Informasi yang akan diambil |
-| dₖ | Dimensi key/query | skalar | Scaling factor |
+| Simbol | Nama              | Bentuk          | Fungsi                                       |
+| ------ | ----------------- | --------------- | -------------------------------------------- |
+| Q      | Query             | (seq_len_q, dₖ) | Apa yang "ditanyakan" — token saat ini       |
+| K      | Key               | (seq_len_k, dₖ) | "Indeks" dari semua token — untuk dicocokkan |
+| V      | Value             | (seq_len_k, dv) | Informasi yang akan diambil                  |
+| dₖ     | Dimensi key/query | skalar          | Scaling factor                               |
 
 ### Langkah demi Langkah
 
@@ -176,6 +177,7 @@ Attn(q2, K, V) → token "cats" paling berbobot → "cinta" berikutnya
 ```
 
 Digunakan di:
+
 - Seq2Seq Transformer (T5, BART)
 - Image captioning (Q dari decoder text, KV dari encoder vision)
 - Multimodal (LLaVA: Q dari teks, KV dari image encoder)
@@ -189,20 +191,21 @@ MultiHead(Q,K,V) = concat(head₁,...,headₕ) · Wᴼ
 dimana headᵢ = Attention(Q·WᵢQ, K·WᵢK, V·WᵢV)
 ```
 
-| Head | Fokus |
-|------|-------|
-| Head 1 | Relasi sintaksis (subjek-verb) |
-| Head 2 | Relasi jarak jauh (pronoun-antecedent) |
-| Head 3 | Relasi semantik (entitas-terkait) |
-| Head 4-8 | Mixed patterns |
+| Head     | Fokus                                  |
+| -------- | -------------------------------------- |
+| Head 1   | Relasi sintaksis (subjek-verb)         |
+| Head 2   | Relasi jarak jauh (pronoun-antecedent) |
+| Head 3   | Relasi semantik (entitas-terkait)      |
+| Head 4-8 | Mixed patterns                         |
 
 **h=8 atau h=16** di model modern. Masing-masing head punya `dₖ = d_model / h`.
 
-**Peringatan:** Interpretasi head attention harus hati-hati. Head gak selalu punya peran yang konsisten antar random seed. *Attention is not explanation* (Jain & Wallace, 2019).
+**Peringatan:** Interpretasi head attention harus hati-hati. Head gak selalu punya peran yang konsisten antar random seed. _Attention is not explanation_ (Jain & Wallace, 2019).
 
 ### 4.4 Causal / Masked Attention
 
 Untuk **autoregressive decoding** (GPT, LLama):
+
 ```
 Attention(Q,K,V) = softmax(Q·K^T/√dₖ + M) · V
 
@@ -216,14 +219,14 @@ Ini yang memastikan model gak "mencontek" token yang belum di-generate.
 
 Untuk sequence super panjang (>8K token), full O(n²) gak muat:
 
-| Varian | Pola | Kompleksitas | Model Contoh |
-|--------|------|-------------|--------------|
-| Sliding Window | Hanya tetangga ±w | O(n·w) | Longformer, Mistral |
-| Dilated Sliding | Seperti CNN dilated | O(n·w) | Longformer |
-| Global+Sliding | Token khusus punya akses global | O(n·w + n·g) | BigBird |
-| Strided Block | Blok-blok lokal teratur | O(n√n) | Sparse Transformer |
-| Sinkhorn Sorting | Sortir blok dulu | O(n·k) | Sinkhorn Transformer |
-| ReLA (Recurrence) | Cache + sliding | O(n) | RecurrentGemma |
+| Varian            | Pola                            | Kompleksitas | Model Contoh         |
+| ----------------- | ------------------------------- | ------------ | -------------------- |
+| Sliding Window    | Hanya tetangga ±w               | O(n·w)       | Longformer, Mistral  |
+| Dilated Sliding   | Seperti CNN dilated             | O(n·w)       | Longformer           |
+| Global+Sliding    | Token khusus punya akses global | O(n·w + n·g) | BigBird              |
+| Strided Block     | Blok-blok lokal teratur         | O(n√n)       | Sparse Transformer   |
+| Sinkhorn Sorting  | Sortir blok dulu                | O(n·k)       | Sinkhorn Transformer |
+| ReLA (Recurrence) | Cache + sliding                 | O(n)         | RecurrentGemma       |
 
 **Kapan sparse attention gagal:** Kalau informasi yang dibutuhkan lintas blok dan gak cukup dengan sliding window + global token. Contoh: reasoning multi-hop yang perlu referensi antar bab terpisah.
 
@@ -241,6 +244,7 @@ PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
 ```
 
 **Sifat unik:**
+
 - Setiap posisi punya encoding unik
 - Jarak relatif bisa di-generalize: `PE(pos+k)` linear function dari `PE(pos)`
 - Gak perlu dipelajari — hanya 1 baris kode
@@ -248,6 +252,7 @@ PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
 ### Relative Positional Encoding
 
 Untuk generalization ke panjang sequence yang lebih panjang dari training:
+
 - **RoPE (Rotary PE)**: Q, K di-rotate berdasarkan posisi — dipakai di Llama, Mistral, GPT-NeoX. Biaya tambahan minimal, ekstrak kemampuan length generalization.
 - **ALiBi**: Tambah bias linear ke attention score berdasarkan jarak. Lebih simpel dari RoPE, tapi performanya sedikit lebih rendah di equivalen model size.
 - **T5's Relative Bias**: Learned bias per posisi bucket — simpel, efektif.
@@ -269,27 +274,28 @@ def apply_rope(x, positions, d_model):
 
 Alasan kenapa attention dominan tapi bermasalah:
 
-| Arsitektur | Kompleksitas per Layer | Memori per Layer (n=4096) |
-|-----------|----------------------|---------------------------|
-| RNN | O(n · d²) | O(d) — linear |
-| CNN | O(k · n · d) | O(n · d) |
-| Transformer (Full) | **O(n² · d)** | **O(n²)** — 16M float |
-| Linear Attention | O(n · d²) | O(d²) |
-| Sparse Attention | O(n · w · d) | O(n · w) |
+| Arsitektur         | Kompleksitas per Layer | Memori per Layer (n=4096) |
+| ------------------ | ---------------------- | ------------------------- |
+| RNN                | O(n · d²)              | O(d) — linear             |
+| CNN                | O(k · n · d)           | O(n · d)                  |
+| Transformer (Full) | **O(n² · d)**          | **O(n²)** — 16M float     |
+| Linear Attention   | O(n · d²)              | O(d²)                     |
+| Sparse Attention   | O(n · w · d)           | O(n · w)                  |
 
 Untuk n=100K (RAG context), full attention butuh 10M token matriks — mustahil.
 
 ### Optimasi untuk Long Context
 
-| Teknik | Cara | Model |
-|--------|------|-------|
-| FlashAttention | Tiling + kernel fusion GPU | Semua model modern |
-| Ring Attention | Distributed attention across GPUs | RingAttention paper |
-| Strided/Block Sparse | Skip pattern | Mistral, Mixtral |
-| Context Caching | Cache KV dari prompt | Sistem RAG |
-| H2O (Heavy Hitter) | Cache cuma top-k attention heads | Quantization-aware |
+| Teknik               | Cara                              | Model               |
+| -------------------- | --------------------------------- | ------------------- |
+| FlashAttention       | Tiling + kernel fusion GPU        | Semua model modern  |
+| Ring Attention       | Distributed attention across GPUs | RingAttention paper |
+| Strided/Block Sparse | Skip pattern                      | Mistral, Mixtral    |
+| Context Caching      | Cache KV dari prompt              | Sistem RAG          |
+| H2O (Heavy Hitter)   | Cache cuma top-k attention heads  | Quantization-aware  |
 
 **FlashAttention** sendiri sudah jadi standar:
+
 ```
 Standard: O(n²) HBM reads/writes → baca tulis matriks n×n dari VRAM
 FlashAttention: O(n²) compute + O(n) HBM → tiling, gak pernah materialize matriks penuh
@@ -338,6 +344,7 @@ Causal attention (decoder internal):
 ### 7.4 Mixture of Experts (MoE)
 
 MoE ganti FFN dengan multiple "expert" networks + router:
+
 ```
 Input → router → softmax → top-2 experts → weighted sum
 ```
@@ -349,6 +356,7 @@ Attention layer tetap sama. Hanya FFN yang di-MoE-kan. Tapi karena routing butuh
 ### 7.5 Mamba / State Space Models
 
 Alternatif ke attention:
+
 ```
 SSM: h' = A·h + B·x
      y  = C·h + D·x
@@ -372,6 +380,7 @@ Fix: stabilkan dengan sink token khusus atau re-normalisasi.
 ### Key-Value (KV) Cache
 
 Pas inference autoregressive:
+
 ```
 Step 1: compute K1, V1 for token 1 → cache [K1, V1]
 Step 2: compute K2, V2 for token 2 → cache [K1, K2, V1, V2]
@@ -381,6 +390,7 @@ Step n: reuse cache → compute cuma K_n, V_n
 **Masalah:** KV cache buat 100K context = 100K × d_model × n_layers × 2 (K+V) × precision. Untuk Llama 70B dengan context 32K: ~12GB VRAM cuma buat KV cache.
 
 **Solusi:**
+
 - GQA (Grouped Query Attention): beberapa query head share 1 key/value head — dipakai di Llama 2 70B, Mistral
 - MQA (Multi-Query Attention): semua query head share 1 key/value head — dipakai di Falcon, PaLM
 - KV cache quantization: turunkan precision K/V jadi FP8/INT4
@@ -389,6 +399,7 @@ Step n: reuse cache → compute cuma K_n, V_n
 ### Sparse MoE + Attention
 
 Mixtral 8x7B: 46.7B parameter, tapi cuma 12.9B aktif per forward pass.
+
 ```
 Attention: shared di semua expert
 FFN: 8 experts → router pilih top-2 → weighted sum
@@ -404,14 +415,14 @@ Ini bikin model bisa besar tapi inference tetap efisien.
 
 Paper Vaswani et al. 2017 bukan cuma ngasih model baru — tapi **mengubah paradigma**:
 
-| Sebelum Transformer | Sesudah Transformer |
-|---------------------|--------------------|
-| RNN/LSTM untuk sequence | Hanya attention |
-| Training sequential 🐌 | Training parallel 🚀 |
-| BERT (encoder-attention) | GPT (decoder-attention) |
-| Transfer learning terbatas | Pre-train + fine-tune dominan |
-| NLP dominan | Multimodal (ViT, CLIP, Whisper) |
-| 100M parameter maks | 1T+ parameter (MoE) |
+| Sebelum Transformer        | Sesudah Transformer             |
+| -------------------------- | ------------------------------- |
+| RNN/LSTM untuk sequence    | Hanya attention                 |
+| Training sequential 🐌     | Training parallel 🚀            |
+| BERT (encoder-attention)   | GPT (decoder-attention)         |
+| Transfer learning terbatas | Pre-train + fine-tune dominan   |
+| NLP dominan                | Multimodal (ViT, CLIP, Whisper) |
+| 100M parameter maks        | 1T+ parameter (MoE)             |
 
 ### Kenapa Transformer Menang?
 
@@ -426,6 +437,7 @@ Paper Vaswani et al. 2017 bukan cuma ngasih model baru — tapi **mengubah parad
 ### Encoder Stack
 
 Each encoder layer = 2 sublayers:
+
 1. Multi-Head Self-Attention (MHA)
 2. Feed-Forward Network (FFN) — SwiGLU in modern models
 
@@ -437,6 +449,7 @@ x = LayerNorm(x + FFN(x))
 ### Decoder Stack
 
 Each decoder layer = 3 sublayers:
+
 1. Masked Self-Attention (causal + padding mask)
 2. Cross-Attention (Q from decoder, KV from encoder)
 3. FFN
@@ -449,34 +462,34 @@ x = LayerNorm(x + FFN(x))
 
 ### Dimension Flow (Base Transformer, d=512)
 
-| Layer | Input → Output | Parameter Shape | Count |
-|-------|---------------|-----------------|-------|
-| Embedding | V × d_model | (V, 512) | 16M (V=32K) |
-| MHA (8 heads, d_k=64) | 512→512 | 3×512×512+3 bias | ~1.6M |
-| FFN (d_ff=2048) | 512→2048→512 | 512×2048+2048×512 | ~3.1M |
-| LayerNorm | 512→512 | 512×2 (affine) | 1K |
-| Output proj | 512→V | (512, V) | 16M |
+| Layer                 | Input → Output | Parameter Shape   | Count       |
+| --------------------- | -------------- | ----------------- | ----------- |
+| Embedding             | V × d_model    | (V, 512)          | 16M (V=32K) |
+| MHA (8 heads, d_k=64) | 512→512        | 3×512×512+3 bias  | ~1.6M       |
+| FFN (d_ff=2048)       | 512→2048→512   | 512×2048+2048×512 | ~3.1M       |
+| LayerNorm             | 512→512        | 512×2 (affine)    | 1K          |
+| Output proj           | 512→V          | (512, V)          | 16M         |
 
 ~65M parameters for base transformer. ~213M for large (d=1024). Llama 70B: d=8192, 80 layers, 64 heads.
 
 ### Pre-LN vs Post-LN
 
-| Scheme | Formula | Stability | Used By |
-|--------|---------|-----------|---------|
-| Post-LN (original) | x' = LN(x + Sublayer(x)) | Unstable, needs >20K warmup | Original Transformer |
-| Pre-LN | x' = x + Sublayer(LN(x)) | Stable, 1-2K warmup | GPT, BERT, Llama |
-| Sandwich norm | LN(x + Sublayer(LN(x))) | Very stable, ultra-deep | DeepNet (>1000 layers) |
-| Parallel attn+FFN | x + Attn(LN(x)) + FFN(LN(x)) | Fast (15% speedup) | PaLM |
+| Scheme             | Formula                      | Stability                   | Used By                |
+| ------------------ | ---------------------------- | --------------------------- | ---------------------- |
+| Post-LN (original) | x' = LN(x + Sublayer(x))     | Unstable, needs >20K warmup | Original Transformer   |
+| Pre-LN             | x' = x + Sublayer(LN(x))     | Stable, 1-2K warmup         | GPT, BERT, Llama       |
+| Sandwich norm      | LN(x + Sublayer(LN(x)))      | Very stable, ultra-deep     | DeepNet (>1000 layers) |
+| Parallel attn+FFN  | x + Attn(LN(x)) + FFN(LN(x)) | Fast (15% speedup)          | PaLM                   |
 
 ### FFN Activation Comparison
 
-| Activation | Formula | Param Count | Used In |
-|-----------|---------|------------|---------|
-| ReLU | max(0, xW) | 2 weight matrices | Original Transformer |
-| GELU | x·Φ(x) | 2 weight | BERT, GPT-3 |
-| SwiGLU | Swish(xW1) ⊗ xW3 × W2 | **3** weight | Llama, Mistral, PaLM |
-| ReGLU | ReLU(xW1) ⊗ xW3 × W2 | 3 weight | T5 |
-| GeGLU | GELU(xW1) ⊗ xW3 × W2 | 3 weight | PaLM |
+| Activation | Formula               | Param Count       | Used In              |
+| ---------- | --------------------- | ----------------- | -------------------- |
+| ReLU       | max(0, xW)            | 2 weight matrices | Original Transformer |
+| GELU       | x·Φ(x)                | 2 weight          | BERT, GPT-3          |
+| SwiGLU     | Swish(xW1) ⊗ xW3 × W2 | **3** weight      | Llama, Mistral, PaLM |
+| ReGLU      | ReLU(xW1) ⊗ xW3 × W2  | 3 weight          | T5                   |
+| GeGLU      | GELU(xW1) ⊗ xW3 × W2  | 3 weight          | PaLM                 |
 
 SwiGLU (Llama, Mistral) uses 3 weight matrices — d_ff = 8/3·d_model instead of 4·d_model. Equal parameter count but better performance than ReLU/GELU.
 
@@ -487,18 +500,21 @@ SwiGLU (Llama, Mistral) uses 3 weight matrices — d_ff = 8/3·d_model instead o
 ### Motivation
 
 In autoregressive inference, KV cache stores key-value pairs for every token:
+
 - MHA (standard): KV cache = 2 × n_layers × n_heads × d_k × seq_len × precision
 - For Llama 70B, 32K context: ~107 GB for KV cache alone (FP16)
 
 ### MQA (Multi-Query Attention)
 
 All query heads share 1 KV head:
+
 - KV cache: 1/n_heads of MHA → ~1.7 GB for same setup
 - Quality: -2% perplexity penalty — noticeable but acceptable
 
 ### GQA (Grouped Query Attention)
 
 Compromise: divide query heads into groups, each group shares 1 KV head:
+
 - KV cache: n_groups / n_heads of MHA
 - Quality: -0.5% perplexity penalty — almost lossless
 
@@ -526,6 +542,7 @@ V = V.repeat_interleave(n_groups, dim=1)
 ### The IO Problem
 
 Standard attention:
+
 1. Read Q, K from HBM (high bandwidth memory, ~1.5 TB/s on A100)
 2. Compute S = QK^T → write S to HBM (O(n²) writes)
 3. Read S from HBM → softmax → write P to HBM
@@ -552,12 +569,12 @@ for block:
 
 ### Performance (A100, n=8192)
 
-| Method | Time (ms) | VRAM (GB) | Speedup |
-|--------|-----------|-----------|---------|
-| Standard | 67 | 2.0 (just S) | 1× |
-| FlashAttn v1 | 27 | 0.1 | 2.5× |
-| FlashAttn v2 | 21 | 0.05 | 3.2× |
-| FlashAttn v3 (H100) | 8 | 0.02 | 8.4× |
+| Method              | Time (ms) | VRAM (GB)    | Speedup |
+| ------------------- | --------- | ------------ | ------- |
+| Standard            | 67        | 2.0 (just S) | 1×      |
+| FlashAttn v1        | 27        | 0.1          | 2.5×    |
+| FlashAttn v2        | 21        | 0.05         | 3.2×    |
+| FlashAttn v3 (H100) | 8         | 0.02         | 8.4×    |
 
 ---
 
@@ -575,6 +592,7 @@ PE(pos, 2i+1) = cos(pos / 10000^(2i/d))
 ```
 
 Properties:
+
 - Each position has unique encoding
 - Relative: PE(pos+k) = linear function of PE(pos)
 - No learned parameters
@@ -590,6 +608,7 @@ score = q_rotated · k_rotated  # depends only on (pos - pos')
 ```
 
 Advantages:
+
 - **Relative positioning** — score depends on distance, not absolute position
 - **Extrapolatable** — can extend to longer sequences (with NTK-aware scaling)
 - **Zero inference overhead** — applied once during KV computation
@@ -605,20 +624,21 @@ Simplest method. Best extrapolation. Used in some training-efficient models.
 
 ### Comparison Matrix
 
-| Method | Type | Learned Params | Extrapolation | Compute Overhead | Used By |
-|--------|------|---------------|---------------|-----------------|---------|
-| Sinusoidal | Absolute | 0 | Poor | None | Original Transformer |
-| Learned absolute | Absolute | O(n) | None | None | BERT |
-| Learned relative | Relative bias | O(n) | Limited | Minimal | T5 |
-| RoPE | Relative | 0 (freq fixed) | Good (with NTK) | Minimal | Llama, Mistral, GPT-4 |
-| ALiBi | Relative bias | 0 (slopes fixed) | Excellent | Minimal | BLOOM, MPT |
-| xPos | Relative | 0 | Good | Same as RoPE | Some research |
+| Method           | Type          | Learned Params   | Extrapolation   | Compute Overhead | Used By               |
+| ---------------- | ------------- | ---------------- | --------------- | ---------------- | --------------------- |
+| Sinusoidal       | Absolute      | 0                | Poor            | None             | Original Transformer  |
+| Learned absolute | Absolute      | O(n)             | None            | None             | BERT                  |
+| Learned relative | Relative bias | O(n)             | Limited         | Minimal          | T5                    |
+| RoPE             | Relative      | 0 (freq fixed)   | Good (with NTK) | Minimal          | Llama, Mistral, GPT-4 |
+| ALiBi            | Relative bias | 0 (slopes fixed) | Excellent       | Minimal          | BLOOM, MPT            |
+| xPos             | Relative      | 0                | Good            | Same as RoPE     | Some research         |
 
 ### NTK-Aware Scaling / YaRN
 
 Problem: RoPE trained at 4K context → used at 32K. Rotation frequencies too fast at long positions → loss of discrimination.
 
 Solutions:
+
 1. **NTK-aware:** Scale frequency base (10000 → 10000×α) for high frequencies → slower rotation
 2. **YaRN:** NTK scaling + attention temperature scaling
 3. **Position interpolation:** Map new positions into old range (but loses position resolution)
@@ -642,19 +662,20 @@ K_fp16 = K_int8.to(torch.float16) * scale
 
 ### Compression Ratios
 
-| Method | Bits | Ratio vs FP16 | Quality Impact | Hardware Support |
-|--------|------|---------------|---------------|------------------|
-| FP16 | 16 | 1× | None | All |
-| INT8 | 8 | 2× | Negligible | All |
-| FP8 | 8 | 2× | Negligible | H100 native |
-| INT4 | 4 | 4× | Small (+0.3 ppl) | Requires dequant |
-| NF4 | 4 | 4× | Minimal | QLoRA-style |
-| KIVI 2-bit | 2 | 8× | Moderate (+1 ppl) | Research |
-| KV sparsity | variable | 2-10× | Depends | Attention sink based |
+| Method      | Bits     | Ratio vs FP16 | Quality Impact    | Hardware Support     |
+| ----------- | -------- | ------------- | ----------------- | -------------------- |
+| FP16        | 16       | 1×            | None              | All                  |
+| INT8        | 8        | 2×            | Negligible        | All                  |
+| FP8         | 8        | 2×            | Negligible        | H100 native          |
+| INT4        | 4        | 4×            | Small (+0.3 ppl)  | Requires dequant     |
+| NF4         | 4        | 4×            | Minimal           | QLoRA-style          |
+| KIVI 2-bit  | 2        | 8×            | Moderate (+1 ppl) | Research             |
+| KV sparsity | variable | 2-10×         | Depends           | Attention sink based |
 
 ### Attention Sink + Window
 
 Observation: initial tokens (attention sinks) get disproportionate attention weight. KV cache can drop:
+
 - Non-sink tokens in the middle
 - Keep first N (sink) + last M (window) tokens
 - StreamingLLM: drop everything except sink + recent window
@@ -665,16 +686,17 @@ Observation: initial tokens (attention sinks) get disproportionate attention wei
 
 ### Scaling to 32K-128K
 
-| Method | Base | Extended | Training Tokens | Quality |
-|--------|------|----------|-----------------|---------|
-| Position Interpolation | 2K | 8K | 10B | Retains |
-| NTK-aware | 2K | 32K | 1B | Good |
-| YaRN | 4K | 128K | 500M | Excellent |
-| Linear scaling | 4K | 32K | 500M | Moderate |
+| Method                 | Base | Extended | Training Tokens | Quality   |
+| ---------------------- | ---- | -------- | --------------- | --------- |
+| Position Interpolation | 2K   | 8K       | 10B             | Retains   |
+| NTK-aware              | 2K   | 32K      | 1B              | Good      |
+| YaRN                   | 4K   | 128K     | 500M            | Excellent |
+| Linear scaling         | 4K   | 32K      | 500M            | Moderate  |
 
 ### Data Requirements
 
 Long context training needs data with genuine long-range dependencies:
+
 - Books (PG-19, BookCorpus) — narrative coherence >10K tokens
 - Code repositories — inter-function dependencies
 - Math proofs (ProofPile) — multi-step reasoning
@@ -706,9 +728,11 @@ for i, expert in enumerate(expert_list):
 ### Load Balancing
 
 Auxiliary loss prevents router collapse (all tokens to 1 expert):
+
 ```
 L_balance = α · n_experts · Σᵢ (f_i · P_i)
 ```
+
 f_i = fraction of tokens to expert i, P_i = average router probability for expert i.
 α=0.01 typical.
 
@@ -716,10 +740,10 @@ f_i = fraction of tokens to expert i, P_i = average router probability for exper
 
 capacity = ceil(cf × tokens_per_batch / n_experts)
 
-| cf | Effect | Best For |
-|----|--------|----------|
+| cf       | Effect                           | Best For                    |
+| -------- | -------------------------------- | --------------------------- |
 | 1.0~1.25 | Efficient compute, risk overflow | Training with large batches |
-| 1.5~2.0 | Waste compute, safe | Inference, variable length |
+| 1.5~2.0  | Waste compute, safe              | Inference, variable length  |
 
 **Overflow:** tokens that exceed capacity are discarded (output = input). In practice, <1% overflow at cf=1.25.
 
@@ -733,18 +757,19 @@ Distribute experts across GPUs: each GPU has subset of experts. Tokens routed to
 
 ### Computation-Proximity Tradeoff
 
-| Method | Complexity | Effective Range | Used By |
-|--------|-----------|----------------|---------|
-| Full attention | O(n²) | Unlimited | GPT-4 (partially) |
-| Sliding window (±w) | O(n·w) | w=4096 | Mistral, Longformer |
-| Dilated sliding | O(n·w) | w×dilation | Longformer |
-| Global tokens | O(n·w + n·g) | Unlimited via global | BigBird, Longformer |
-| Strided/block | O(n√n) | Block-aligned | Sparse Transformer |
-| Sink + window | O(n·w) | w + initial N | StreamingLLM |
+| Method              | Complexity   | Effective Range      | Used By             |
+| ------------------- | ------------ | -------------------- | ------------------- |
+| Full attention      | O(n²)        | Unlimited            | GPT-4 (partially)   |
+| Sliding window (±w) | O(n·w)       | w=4096               | Mistral, Longformer |
+| Dilated sliding     | O(n·w)       | w×dilation           | Longformer          |
+| Global tokens       | O(n·w + n·g) | Unlimited via global | BigBird, Longformer |
+| Strided/block       | O(n√n)       | Block-aligned        | Sparse Transformer  |
+| Sink + window       | O(n·w)       | w + initial N        | StreamingLLM        |
 
 ### Mistral's Sliding Window
 
 Mistral uses sliding window attention with w=4096 for each layer. But with 32 layers, effective receptive field = w × n_layers = 4096 × 32 = 128K:
+
 - Layer 1: sees 4K tokens
 - Layer 2: sees 4K of layer 1 output (already contextualized) → sees 8K indirectly
 - Layer 32: sees 128K tokens
@@ -763,22 +788,22 @@ This makes sliding window effectively global for deep models.
 
 ### Hyperparameter Defaults
 
-| Model | d_model | n_layers | n_heads | d_ff | LR | Batch (tokens) | Warmup |
-|-------|---------|----------|---------|------|----|----------------|--------|
-| Base (65M) | 512 | 6 | 8 | 2048 | 3e-4 | 32K | 2K |
-| Large (350M) | 1024 | 12 | 16 | 4096 | 1e-4 | 64K | 4K |
-| Llama 3 8B | 4096 | 32 | 32 | 11008 | 3e-5 | 4M | 2K |
-| Llama 3 70B | 8192 | 80 | 64 | 28672 | 3e-5 | 4M | 20K |
+| Model        | d_model | n_layers | n_heads | d_ff  | LR   | Batch (tokens) | Warmup |
+| ------------ | ------- | -------- | ------- | ----- | ---- | -------------- | ------ |
+| Base (65M)   | 512     | 6        | 8       | 2048  | 3e-4 | 32K            | 2K     |
+| Large (350M) | 1024    | 12       | 16      | 4096  | 1e-4 | 64K            | 4K     |
+| Llama 3 8B   | 4096    | 32       | 32      | 11008 | 3e-5 | 4M             | 2K     |
+| Llama 3 70B  | 8192    | 80       | 64      | 28672 | 3e-5 | 4M             | 20K    |
 
 ### Common Training Failures
 
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| Loss → NaN in first 100 steps | High LR + no warmup | Add warmup, reduce LR |
-| Slow convergence | Attention logit scale wrong | Check √d_k scaling |
-| Attention entropy collapse | All attention focused on 1-2 tokens | Add regularization, dropout |
-| Excessive memory | KV cache blowup | GQA, FlashAttention, quantization |
-| Poor length generalization | PE not designed for long context | YaRN/NTK scaling |
+| Symptom                       | Cause                               | Fix                               |
+| ----------------------------- | ----------------------------------- | --------------------------------- |
+| Loss → NaN in first 100 steps | High LR + no warmup                 | Add warmup, reduce LR             |
+| Slow convergence              | Attention logit scale wrong         | Check √d_k scaling                |
+| Attention entropy collapse    | All attention focused on 1-2 tokens | Add regularization, dropout       |
+| Excessive memory              | KV cache blowup                     | GQA, FlashAttention, quantization |
+| Poor length generalization    | PE not designed for long context    | YaRN/NTK scaling                  |
 
 ### Implementation Checklist
 
@@ -794,12 +819,14 @@ This makes sliding window effectively global for deep models.
 Alternative to next-token prediction: predict next N tokens simultaneously.
 
 **How it works:**
+
 - Each block has N output heads, each predicting one future token
 - Loss = Σ loss(t+n) for n=1..N
 - Training: all N predictions supervised
 - Inference: only first prediction used (or can branch)
 
 **Why it matters for attention:**
+
 - Forces attention to plan ahead — not just local pattern matching
 - Improves long-range attention coherence
 - Used in Llama 4, GPT-5 rumored
@@ -809,31 +836,34 @@ Alternative to next-token prediction: predict next N tokens simultaneously.
 ### Attention in Vision: Vit, DETR
 
 Vision Transformer (ViT) applies self-attention to image patches:
+
 - Image → 16×16 patches → linear projection → positional encoding → transformer
 - Patch embeddings treat as token sequence
 - Classification via [CLS] token
 
 **Why vision attention works:**
+
 - Global receptive field from layer 1 (CNN needs 30+ layers)
 - Flexible to different input sizes (with proper PE)
 - Scales with compute (scaling laws apply)
 
 **Key differences:**
+
 - Patches are 2D → need 2D position encoding
 - Higher resolution = quadratic blowup in tokens
 - Swin Transformer: local windows + shifted windows to reduce O(n²)
 
 ### Concise Reference Table: All Attention Variants
 
-| Variant | Complexity | Params | Context Length | KV Cache | Best For |
-|---------|-----------|--------|---------------|----------|----------|
-| Full MHA | O(n²·d) | 4d² | Unlimited | 2·n·h·dₖ | Quality-first, short ctx |
-| Multi-Query (MQA) | O(n²·d) | ~3d² | Unlimited | 2·n·1·dₖ | Fast inference |
-| GQA (8 groups) | O(n²·d) | ~3.5d² | Unlimited | 2·n·g·dₖ | Balanced |
-| Sliding Window | O(n·w·d) | 4d² | w·layers | 2·w·h·dₖ | Long docs |
-| Linear Attention | O(n·d²) | 4d² | Unlimited | None | Extreme length |
-| FlashAttention | O(n²·d) | 4d² | Unlimited | None (tiled) | All modern training |
-| Sparse (Strided) | O(n√n·d) | 4d² | Unlimited | 2·√n·h·dₖ | Mid-length, efficient |
+| Variant           | Complexity | Params | Context Length | KV Cache     | Best For                 |
+| ----------------- | ---------- | ------ | -------------- | ------------ | ------------------------ |
+| Full MHA          | O(n²·d)    | 4d²    | Unlimited      | 2·n·h·dₖ     | Quality-first, short ctx |
+| Multi-Query (MQA) | O(n²·d)    | ~3d²   | Unlimited      | 2·n·1·dₖ     | Fast inference           |
+| GQA (8 groups)    | O(n²·d)    | ~3.5d² | Unlimited      | 2·n·g·dₖ     | Balanced                 |
+| Sliding Window    | O(n·w·d)   | 4d²    | w·layers       | 2·w·h·dₖ     | Long docs                |
+| Linear Attention  | O(n·d²)    | 4d²    | Unlimited      | None         | Extreme length           |
+| FlashAttention    | O(n²·d)    | 4d²    | Unlimited      | None (tiled) | All modern training      |
+| Sparse (Strided)  | O(n√n·d)   | 4d²    | Unlimited      | 2·√n·h·dₖ    | Mid-length, efficient    |
 
 - [ ] Weight init: variance scaling per layer (not uniform)
 - [ ] Gradient clipping: max_norm=1.0
@@ -879,6 +909,7 @@ yt = C·ht + D·xt
 ### Hybrid Architectures (Jamba, Mamba-Transformer)
 
 Use attention for some layers (every 4th or 8th), Mamba for others:
+
 ```
 Layer 1-3: Mamba (efficient)
 Layer 4: Attention (long-range reasoning)
@@ -891,9 +922,11 @@ Best of both: 3× throughput with 95%+ of pure attention quality.
 ### Linear Attention
 
 Replace softmax attention with kernel trick:
+
 ```
 Attention(Q,K,V) = φ(Q) · φ(K)^T · V
 ```
+
 where φ is a feature map (e.g., elu+1).
 
 Complexity O(n), but quality lags behind softmax for complex reasoning.
@@ -903,6 +936,7 @@ Complexity O(n), but quality lags behind softmax for complex reasoning.
 ## 21. Cognitive Pathway
 
 Baca juga:
+
 - [[backpropagation-deepdive]] — gradien attention mengalir lewat softmax + QKV projections
 - [[cosine-similarity-deepdive]] — dot product dalam attention = unnormalized cosine
 - [[llm-wiki]] — aplikasi attention di LLM skala besar
@@ -912,13 +946,13 @@ Baca juga:
 
 ## Referensi
 
-- Vaswani, A. et al. (2017). *Attention Is All You Need.* NeurIPS. — **Paper paling berpengaruh di era deep learning modern.**
-- Devlin, J. et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.* NAACL. — Encoder-only attention.
-- Brown, T.B. et al. (2020). *Language Models are Few-Shot Learners.* NeurIPS. — Decoder-only scaling laws, GPT-3.
-- Bahdanau, D. et al. (2015). *Neural Machine Translation by Jointly Learning to Align and Translate.* ICLR. — Attention orisinal.
-- Dao, T. et al. (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness.* NeurIPS. — GPU optimization standar.
-- Gu, A., Dao, T. (2023). *Mamba: Linear-Time Sequence Modeling with Selective State Spaces.* — Alternatif tanpa attention.
-- Raffel, C. et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer.* JMLR. — T5: encoder-decoder + MoE scaling.
-- Shazeer, N. (2020). *GLU Variants Improve Transformer.* — SwiGLU activation, dipakai Llama.
-- Su, J. et al. (2024). *RoFormer: Enhanced Transformer with Rotary Position Embedding.* — RoPE, standar posisi encoding modern.
-- Fedus, W. et al. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity.* JMLR. — MoE di Transformer.
+- Vaswani, A. et al. (2017). _Attention Is All You Need._ NeurIPS. — **Paper paling berpengaruh di era deep learning modern.**
+- Devlin, J. et al. (2019). _BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding._ NAACL. — Encoder-only attention.
+- Brown, T.B. et al. (2020). _Language Models are Few-Shot Learners._ NeurIPS. — Decoder-only scaling laws, GPT-3.
+- Bahdanau, D. et al. (2015). _Neural Machine Translation by Jointly Learning to Align and Translate._ ICLR. — Attention orisinal.
+- Dao, T. et al. (2022). _FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness._ NeurIPS. — GPU optimization standar.
+- Gu, A., Dao, T. (2023). _Mamba: Linear-Time Sequence Modeling with Selective State Spaces._ — Alternatif tanpa attention.
+- Raffel, C. et al. (2020). _Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer._ JMLR. — T5: encoder-decoder + MoE scaling.
+- Shazeer, N. (2020). _GLU Variants Improve Transformer._ — SwiGLU activation, dipakai Llama.
+- Su, J. et al. (2024). _RoFormer: Enhanced Transformer with Rotary Position Embedding._ — RoPE, standar posisi encoding modern.
+- Fedus, W. et al. (2022). _Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity._ JMLR. — MoE di Transformer.

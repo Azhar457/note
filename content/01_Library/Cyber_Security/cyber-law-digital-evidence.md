@@ -1,14 +1,14 @@
 ---
 title: Cyber Law & Digital Evidence — Legal Frameworks for Security Operations
 tags:
-- cyber-law
-- digital-evidence
-- chain-of-custody
-- gdpr
-- legal
-- forensics
-created: '2026-07-19'
-updated: '2026-07-19'
+  - cyber-law
+  - digital-evidence
+  - chain-of-custody
+  - gdpr
+  - legal
+  - forensics
+created: "2026-07-19"
+updated: "2026-07-19"
 status: growing
 ---
 
@@ -56,17 +56,18 @@ CHAIN_OF_CUSTODY = {
 
 ## 2. Legal Frameworks
 
-| Law | Region | Key Provisions | Impact on IR |
-|-----|--------|----------------|-------------|
-| **GDPR** | EU | Data breach notification within 72h, right to deletion | Must notify — limits investigation window |
-| **UU ITE** | Indonesia | Articles 27-37: illegal access, data theft, defamation | Criminal law basis for cyber crime |
-| **CFAA** | US | Computer Fraud and Abuse Act — "authorized access" | Defines hacking as federal crime |
-| **Data Protection Act** | UK | Similar to GDPR post-Brexit | Same constraints |
-| **PCI DSS** | Global | Cardholder data breach handling | Mandatory forensic investigation |
+| Law                     | Region    | Key Provisions                                         | Impact on IR                              |
+| ----------------------- | --------- | ------------------------------------------------------ | ----------------------------------------- |
+| **GDPR**                | EU        | Data breach notification within 72h, right to deletion | Must notify — limits investigation window |
+| **UU ITE**              | Indonesia | Articles 27-37: illegal access, data theft, defamation | Criminal law basis for cyber crime        |
+| **CFAA**                | US        | Computer Fraud and Abuse Act — "authorized access"     | Defines hacking as federal crime          |
+| **Data Protection Act** | UK        | Similar to GDPR post-Brexit                            | Same constraints                          |
+| **PCI DSS**             | Global    | Cardholder data breach handling                        | Mandatory forensic investigation          |
 
 ---
 
 ### 📚 Referensi
+
 1. NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response
 2. ISO 27037: Digital evidence handling guidelines
 3. "Digital Forensics and Cyber Law" — ACME publications

@@ -80,12 +80,12 @@ cssclasses:
 
 ### 1.2 LXC Resource Allocation (8GB Host)
 
-| LXC | Purpose | RAM | Disk | CPU |
-|-----|---------|-----|------|-----|
-| **100** | Nextcloud + PostgreSQL + Redis | 2 GB | 32 GB | 2 cores |
-| **101** | Docker (Portainer, Ollama, Grafana) | 3 GB | 40 GB | 2 cores |
-| **102** | Suricata IDS (inline) | 1 GB | 16 GB | 1 core |
-| **Reserved** | Proxmox host overhead | 2 GB | N/A | N/A |
+| LXC          | Purpose                             | RAM  | Disk  | CPU     |
+| ------------ | ----------------------------------- | ---- | ----- | ------- |
+| **100**      | Nextcloud + PostgreSQL + Redis      | 2 GB | 32 GB | 2 cores |
+| **101**      | Docker (Portainer, Ollama, Grafana) | 3 GB | 40 GB | 2 cores |
+| **102**      | Suricata IDS (inline)               | 1 GB | 16 GB | 1 core  |
+| **Reserved** | Proxmox host overhead               | 2 GB | N/A   | N/A     |
 
 ---
 
@@ -139,7 +139,7 @@ EOF
 ### 3.1 docker-compose.yml
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -404,13 +404,13 @@ STEP 6: Restore file-level data dari cloud backup (rclone)
 
 ### 7.2 Recovery Time Objective (RTO)
 
-| Component | Time to Recover | Notes |
-|-----------|----------------|-------|
-| Proxmox OS | 15 min | Fresh install from USB |
-| LXC restore | 5 min each (zstd) | Fast karena snapshot restore |
-| Cloudflare tunnel | 5 min | Reinstall cloudflared + re-auth |
-| Full Nextcloud data | 1-2 hours | Dari rclone offsite backup |
-| **Total RTO** | **~2-3 hours** | Bisa 30min tanpa full data restore |
+| Component           | Time to Recover   | Notes                              |
+| ------------------- | ----------------- | ---------------------------------- |
+| Proxmox OS          | 15 min            | Fresh install from USB             |
+| LXC restore         | 5 min each (zstd) | Fast karena snapshot restore       |
+| Cloudflare tunnel   | 5 min             | Reinstall cloudflared + re-auth    |
+| Full Nextcloud data | 1-2 hours         | Dari rclone offsite backup         |
+| **Total RTO**       | **~2-3 hours**    | Bisa 30min tanpa full data restore |
 
 ---
 
@@ -518,22 +518,22 @@ pct exec 102 -- systemctl restart suricata
 
 ## 11. Cheat Sheet — Quick Reference
 
-| Task | Command |
-|------|---------|
-| **Container status** | `pct list` |
-| **Container start/stop** | `pct start 100` / `pct stop 100` |
-| **Container console** | `pct enter 100` |
-| **Backup (snapshot)** | `vzdump 100 --mode snapshot --compress zstd` |
-| **Restore** | `pct restore 100 /path/to/vzdump-lxc-100-*.tar.zst` |
-| **Docker status** | `pct exec 101 -- docker ps` |
-| **Docker compose up** | `pct exec 101 -- docker compose -f /opt/docker/docker-compose.yml up -d` |
-| **Nextcloud OCC** | `pct exec 100 -- docker exec nextcloud-app php occ` |
-| **Cloudflare restart** | `systemctl restart cloudflared` |
-| **Suricata logs** | `pct exec 102 -- tail -f /var/log/suricata/eve.json \| jq .` |
-| **Suricata restart** | `pct exec 102 -- systemctl restart suricata` |
-| **Health check** | `/usr/local/bin/whats-up.sh` |
-| **Disk resize** | `pct resize <CTID> rootfs <SIZE>G` |
-| **SSH to container** | `ssh root@<lxc-ip>` |
+| Task                     | Command                                                                  |
+| ------------------------ | ------------------------------------------------------------------------ |
+| **Container status**     | `pct list`                                                               |
+| **Container start/stop** | `pct start 100` / `pct stop 100`                                         |
+| **Container console**    | `pct enter 100`                                                          |
+| **Backup (snapshot)**    | `vzdump 100 --mode snapshot --compress zstd`                             |
+| **Restore**              | `pct restore 100 /path/to/vzdump-lxc-100-*.tar.zst`                      |
+| **Docker status**        | `pct exec 101 -- docker ps`                                              |
+| **Docker compose up**    | `pct exec 101 -- docker compose -f /opt/docker/docker-compose.yml up -d` |
+| **Nextcloud OCC**        | `pct exec 100 -- docker exec nextcloud-app php occ`                      |
+| **Cloudflare restart**   | `systemctl restart cloudflared`                                          |
+| **Suricata logs**        | `pct exec 102 -- tail -f /var/log/suricata/eve.json \| jq .`             |
+| **Suricata restart**     | `pct exec 102 -- systemctl restart suricata`                             |
+| **Health check**         | `/usr/local/bin/whats-up.sh`                                             |
+| **Disk resize**          | `pct resize <CTID> rootfs <SIZE>G`                                       |
+| **SSH to container**     | `ssh root@<lxc-ip>`                                                      |
 
 ---
 
@@ -553,13 +553,13 @@ pct exec 102 -- systemctl restart suricata
 
 ## Referensi
 
-- Proxmox VE. *Administration Guide*. https://pve.proxmox.com/wiki/Main_Page
-- Nextcloud. *Admin Manual*. https://docs.nextcloud.com/server/latest/admin_manual/
-- Cloudflare. *Zero Trust Tunnel*. https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
-- Suricata. *Inline IPS Mode*. https://suricata.readthedocs.io/en/suricata-7.0.0/setting-up-ipsinline-for-linux/
-- OWASP. *ModSecurity Core Rule Set*. https://coreruleset.org/
-- Backblaze B2. *Cloud Backup Pricing*. https://www.backblaze.com/cloud-storage/pricing
+- Proxmox VE. _Administration Guide_. https://pve.proxmox.com/wiki/Main_Page
+- Nextcloud. _Admin Manual_. https://docs.nextcloud.com/server/latest/admin_manual/
+- Cloudflare. _Zero Trust Tunnel_. https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+- Suricata. _Inline IPS Mode_. https://suricata.readthedocs.io/en/suricata-7.0.0/setting-up-ipsinline-for-linux/
+- OWASP. _ModSecurity Core Rule Set_. https://coreruleset.org/
+- Backblaze B2. _Cloud Backup Pricing_. https://www.backblaze.com/cloud-storage/pricing
 
 ---
 
-*Dibuat: 19 Juli 2026 — Synthesis dari 6 chat-log phase-1: homelab end-to-end architecture siap copy-paste deploy.*
+_Dibuat: 19 Juli 2026 — Synthesis dari 6 chat-log phase-1: homelab end-to-end architecture siap copy-paste deploy._

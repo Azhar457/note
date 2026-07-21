@@ -15,8 +15,8 @@ created: 2026-07-14
 status: operational
 cssclasses:
   - wide-table
-
 ---
+
 # 📊 AI GOVERNANCE & ETHICS — The Architecture of Responsibility
 
 **Dari Preferensi Manusia ke Kepatuhan Hukum: Sebuah Sintesis Etika dan Teknik**
@@ -58,7 +58,7 @@ Dokumen ini adalah perwujudan etis dari seluruh pengetahuan Anda. Ia tidak bisa 
 | **[[llm-security-red-teaming-attack-surface-ai-layer]]** | Serangan pada LLM bukanlah sekadar bug; ia adalah konsekuensi langsung dari kegagalan alignment. Prompt injection adalah eksploitasi dari "kebenaran" yang tidak diinginkan.                           |
 | **[[synthetic-data-privacy]]**                           | Differential Privacy adalah jaminan matematis privasi. Ia adalah perwujudan etis dari prinsip "data minimization" dalam bentuk kode.                                                                   |
 | **[[ai-engineering-stack-roadmap]]**                     | CI/CD untuk AI (MLOps) tanpa tata kelola adalah pipa menuju bencana. Setiap deployment harus melewati gerbang evaluasi tidak hanya untuk akurasi, tetapi juga untuk keadilan, keamanan, dan kepatuhan. |
-| **[[cognitive-architecture-engineering]]**               | Sebuah Meta-Agent yang mengorkestrasi agen lain harus memiliki "konstitusi" internal. Tata kelola adalah *system prompt* untuk seluruh organisasi Anda.                                                |
+| **[[cognitive-architecture-engineering]]**               | Sebuah Meta-Agent yang mengorkestrasi agen lain harus memiliki "konstitusi" internal. Tata kelola adalah _system prompt_ untuk seluruh organisasi Anda.                                                |
 
 ---
 
@@ -70,7 +70,7 @@ Regulasi adalah upaya masyarakat untuk mengkodifikasi etika menjadi hukum yang d
 
 EU AI Act membangun piramida risiko. Ini bukan sekadar kategorisasi; ia adalah **arsitektur kontrol sosial** yang mencerminkan nilai-nilai Eropa tentang martabat manusia dan privasi.
 
-- **Unacceptable Risk (Prohibited):** Ini adalah "Ring 0" dari keamanan AI. Larangan mutlak. Contoh: *Social scoring* oleh pemerintah. Ini adalah bentuk penindasan algoritmik yang tidak dapat ditawar.
+- **Unacceptable Risk (Prohibited):** Ini adalah "Ring 0" dari keamanan AI. Larangan mutlak. Contoh: _Social scoring_ oleh pemerintah. Ini adalah bentuk penindasan algoritmik yang tidak dapat ditawar.
 - **High Risk (Strict Requirements):** Ini adalah "Ring 1". Di sinilah sebagian besar aplikasi B2B yang serius berada. Persyaratannya berat tetapi dapat dikelola: manajemen risiko berkelanjutan, tata kelola data yang ketat, dokumentasi teknis, transparansi, dan pengawasan manusia. Ini adalah target utama untuk pekerjaan kepatuhan.
 - **Limited Risk (Transparency):** Ini adalah "Ring 2". Kewajiban utamanya adalah pengungkapan. "Anda sedang berbicara dengan AI." "Konten ini dihasilkan oleh AI." Ini adalah kebersihan informasi.
 - **Minimal Risk (Code of Conduct):** Ini adalah "Ring 3", area abu-abu yang diatur sendiri oleh industri. Di sinilah inovasi dapat bernapas lega.
@@ -82,7 +82,7 @@ Jika EU AI Act adalah "apa", NIST AI RMF adalah "bagaimana". Kerangka kerja ini 
 | Karakteristik NIST              | Definisi Operasional                                  | Koneksi Vault                                                                          |
 | :------------------------------ | :---------------------------------------------------- | :------------------------------------------------------------------------------------- |
 | **Valid & Reliable**            | Berfungsi seperti yang diharapkan, konsisten.         | **[[machine-learning-classical-hierarchy]]** (Metrik), **[[ai-evaluation-framework]]** |
-| **Safe**                        | Tidak mengancam kehidupan, properti, atau lingkungan. | **[[site-reability-engineering]]** (Error Budget, Fail-Safe)                                                  |
+| **Safe**                        | Tidak mengancam kehidupan, properti, atau lingkungan. | **[[site-reability-engineering]]** (Error Budget, Fail-Safe)                           |
 | **Secure & Resilient**          | Tahan terhadap serangan adversarial.                  | **[[llm-security-red-teaming-attack-surface-ai-layer]]**, **[[countermeasure-stack]]** |
 | **Accountable & Transparent**   | Jejak audit yang lengkap, dokumentasi.                | **[[software-engineering]]** (Version Control), **[[cicd-guide]]** (Pipeline)          |
 | **Explainable & Interpretable** | Keputusan dapat dipahami manusia.                     | **[[neurosymbolic-ai]]** (XAI, SHAP, TCAV)                                             |
@@ -116,11 +116,12 @@ def bradley_terry_loss(r_theta, prompt, y_w, y_l):
 
 Direct Preference Optimization (DPO) adalah lompatan konseptual yang signifikan. Ia mendasari dirinya pada sebuah wawasan matematis yang elegan: **kebijakan optimal (policy) dapat diekspresikan secara langsung dalam bentuk data preferensi, tanpa perlu melatih model reward terpisah.**
 `Loss_DPO = -log( sigma( beta * (log(π_θ(y_w)/π_ref(y_w)) - log(π_θ(y_l)/π_ref(y_l))) ) )`
-Ini adalah loss klasifikasi biner yang sangat sederhana. Ia pada dasarnya bertanya, "Apakah model kita memberikan probabilitas yang relatif lebih tinggi pada respons yang disukai dibandingkan dengan model referensi?" Dengan menghilangkan model reward, DPO menghilangkan seluruh permukaan serangan untuk *reward hacking* dan secara dramatis menyederhanakan pipeline pelatihan. Ini adalah contoh sempurna dari **Occam's Razor** dalam aksi.
+Ini adalah loss klasifikasi biner yang sangat sederhana. Ia pada dasarnya bertanya, "Apakah model kita memberikan probabilitas yang relatif lebih tinggi pada respons yang disukai dibandingkan dengan model referensi?" Dengan menghilangkan model reward, DPO menghilangkan seluruh permukaan serangan untuk _reward hacking_ dan secara dramatis menyederhanakan pipeline pelatihan. Ini adalah contoh sempurna dari **Occam's Razor** dalam aksi.
 
 ### 3.3 Beyond RLHF and DPO: The Unfinished Symphony
 
 Baik RLHF maupun DPO hanyalah langkah pertama. Keduanya masih bergulat dengan masalah mendasar:
+
 - **Preference Collapse:** Melatih model untuk menyenangkan sekelompok kecil pemberi label dapat menghilangkan keragaman pemikiran dan perspektif budaya yang sah.
 - **Sycophancy:** Model belajar untuk menjadi penjilat, mengatakan apa yang ingin didengar oleh pengguna, bukan apa yang benar.
 - **Value Drift:** Seiring model berinteraksi dengan dunia setelah deployment, alignment-nya dapat melenceng.
@@ -137,28 +138,28 @@ Keselamatan bukanlah sebuah ide; ia adalah sebuah praktik rekayasa.
 
 Menerapkan prinsip **[[countermeasure-stack]]** yang sudah dikenal dalam keamanan informasi ke AI. Tidak ada satu lapisan pun yang cukup.
 
-| Lapisan Pertahanan | Fungsi dalam Keamanan AI | Teknologi Implementasi |
-| :--- | :--- | :--- |
-| **Data Layer** | Mencegah data beracun masuk ke pelatihan. | Filtering, deduplication, PII removal. |
-| **Training Layer** | Menyelaraskan model dengan nilai-nilai yang diinginkan. | RLHF, DPO, Adversarial Training. |
-| **Deployment Layer** | Memvalidasi dan membersihkan input/output. | Guardrails (NeMo), Content Classifiers, PII Scanners. |
-| **Monitoring Layer** | Mendeteksi anomali, drift, dan serangan. | Observability (Langfuse), Fairness Metrics, Drift Detection. |
-| **Governance Layer** | Memastikan akuntabilitas dan kepatuhan. | Audit Trails, Model Cards, Compliance Checklists. |
+| Lapisan Pertahanan   | Fungsi dalam Keamanan AI                                | Teknologi Implementasi                                       |
+| :------------------- | :------------------------------------------------------ | :----------------------------------------------------------- |
+| **Data Layer**       | Mencegah data beracun masuk ke pelatihan.               | Filtering, deduplication, PII removal.                       |
+| **Training Layer**   | Menyelaraskan model dengan nilai-nilai yang diinginkan. | RLHF, DPO, Adversarial Training.                             |
+| **Deployment Layer** | Memvalidasi dan membersihkan input/output.              | Guardrails (NeMo), Content Classifiers, PII Scanners.        |
+| **Monitoring Layer** | Mendeteksi anomali, drift, dan serangan.                | Observability (Langfuse), Fairness Metrics, Drift Detection. |
+| **Governance Layer** | Memastikan akuntabilitas dan kepatuhan.                 | Audit Trails, Model Cards, Compliance Checklists.            |
 
 ### 4.2 Red Teaming: Penetration Testing untuk Pikiran
 
 Sama seperti Anda melakukan penetrasi pada jaringan, Anda harus melakukan penetrasi pada pikiran model Anda. Ini bukanlah sekadar menjalankan daftar periksa; ini adalah proses kreatif dan adversarial.
-Struktur data `RED_TEAM_CATEGORIES` di dokumen Anda adalah fondasi yang sangat baik. Untuk setiap kategori (Harmful Content, Jailbreak, Bias, Hallucination), tantangannya bukan hanya menemukan prompt yang berbahaya, tetapi **mensistematiskan penemuannya** dan mengintegrasikannya kembali ke dalam loop pelatihan (DPO, data filtering) untuk membuat model kebal terhadapnya. Ini adalah siklus *Purple Teaming* untuk AI.
+Struktur data `RED_TEAM_CATEGORIES` di dokumen Anda adalah fondasi yang sangat baik. Untuk setiap kategori (Harmful Content, Jailbreak, Bias, Hallucination), tantangannya bukan hanya menemukan prompt yang berbahaya, tetapi **mensistematiskan penemuannya** dan mengintegrasikannya kembali ke dalam loop pelatihan (DPO, data filtering) untuk membuat model kebal terhadapnya. Ini adalah siklus _Purple Teaming_ untuk AI.
 
 ### 4.3 Fairness: Melampaui Angka Tunggal
 
 Keadilan bukanlah satu metrik; ia adalah sekumpulan definisi yang seringkali saling bertentangan. Memilih metrik yang salah adalah kesalahan rekayasa yang fatal.
 
-| Metrik Keadilan | Pertanyaan yang Dijawab | Analogi dalam SRE/Keamanan |
-| :--- | :--- | :--- |
-| **Demographic Parity** | "Apakah tingkat hasil sama untuk semua grup?" | **Load Balancing:** Memastikan semua server mendapat jumlah permintaan yang sama. Ini mengabaikan kapasitas/kualifikasi. |
-| **Equal Opportunity** | "Apakah sistem sama baiknya dalam menemukan *true positives* untuk semua grup?" | **Recall Symmetry:** Memastikan tingkat deteksi ancaman sama untuk semua segmen jaringan. |
-| **Predictive Parity** | "Jika sistem membuat prediksi positif, apakah akurasinya sama untuk semua grup?" | **Precision Symmetry:** Memastikan bahwa ketika alarm berbunyi, tingkat positif palsunya sama. |
+| Metrik Keadilan        | Pertanyaan yang Dijawab                                                          | Analogi dalam SRE/Keamanan                                                                                               |
+| :--------------------- | :------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
+| **Demographic Parity** | "Apakah tingkat hasil sama untuk semua grup?"                                    | **Load Balancing:** Memastikan semua server mendapat jumlah permintaan yang sama. Ini mengabaikan kapasitas/kualifikasi. |
+| **Equal Opportunity**  | "Apakah sistem sama baiknya dalam menemukan _true positives_ untuk semua grup?"  | **Recall Symmetry:** Memastikan tingkat deteksi ancaman sama untuk semua segmen jaringan.                                |
+| **Predictive Parity**  | "Jika sistem membuat prediksi positif, apakah akurasinya sama untuk semua grup?" | **Precision Symmetry:** Memastikan bahwa ketika alarm berbunyi, tingkat positif palsunya sama.                           |
 
 Sistem yang adil secara demografis bisa jadi tidak adil secara prediktif, dan sebaliknya. Pilihannya adalah etis, bukan teknis. Di sinilah tata kelola bertemu dengan matematika.
 
@@ -168,11 +169,11 @@ Sistem yang adil secara demografis bisa jadi tidak adil secara prediktif, dan se
 
 Dokumen ini adalah inti dari "kenapa" di balik semua yang Anda bangun. Ia menghubungkan arsitektur, keamanan, dan kognisi ke dalam satu tujuan etis.
 
-| Disiplin Vault | Perwujudan dalam Tata Kelola AI |
-| :--- | :--- |
-| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | Red teaming adalah mesin pengujian untuk keamanan model. Setiap kerentanan yang ditemukan di sini menjadi input untuk pelatihan alignment (DPO) dan aturan guardrail. |
-| **[[neurosymbolic-ai]]** | XAI (SHAP, TCAV) adalah lapisan transparansi untuk audit. AI Kausal membantu menjawab *mengapa* model membuat keputusan yang bias. |
-| **[[synthetic-data-privacy]]** | Differential Privacy adalah perisai teknis untuk melindungi data individu dalam set pelatihan, sebuah persyaratan NIST dan EU AI Act. |
-| **[[ai-engineering-stack-roadmap]]** | MLOps adalah pipa kepatuhan. Tanpa versioning, logging, dan monitoring, tidak ada jejak audit, dan karenanya tidak ada akuntabilitas. |
-| **[[cognitive-architecture-engineering]]** | Sebuah Meta-Agent membutuhkan "konstitusi" untuk mengorkestrasi sub-agen. Tata kelola adalah proses mendefinisikan, mengimplementasikan, dan menegakkan konstitusi itu. |
-| **[[site-reability-engineering]]** | Keandalan AI adalah bagian dari keamanan AI. Error budget dapat dan harus mencakup metrik keadilan dan keamanan, bukan hanya uptime. |
+| Disiplin Vault                                           | Perwujudan dalam Tata Kelola AI                                                                                                                                         |
+| :------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | Red teaming adalah mesin pengujian untuk keamanan model. Setiap kerentanan yang ditemukan di sini menjadi input untuk pelatihan alignment (DPO) dan aturan guardrail.   |
+| **[[neurosymbolic-ai]]**                                 | XAI (SHAP, TCAV) adalah lapisan transparansi untuk audit. AI Kausal membantu menjawab _mengapa_ model membuat keputusan yang bias.                                      |
+| **[[synthetic-data-privacy]]**                           | Differential Privacy adalah perisai teknis untuk melindungi data individu dalam set pelatihan, sebuah persyaratan NIST dan EU AI Act.                                   |
+| **[[ai-engineering-stack-roadmap]]**                     | MLOps adalah pipa kepatuhan. Tanpa versioning, logging, dan monitoring, tidak ada jejak audit, dan karenanya tidak ada akuntabilitas.                                   |
+| **[[cognitive-architecture-engineering]]**               | Sebuah Meta-Agent membutuhkan "konstitusi" untuk mengorkestrasi sub-agen. Tata kelola adalah proses mendefinisikan, mengimplementasikan, dan menegakkan konstitusi itu. |
+| **[[site-reability-engineering]]**                       | Keandalan AI adalah bagian dari keamanan AI. Error budget dapat dan harus mencakup metrik keadilan dan keamanan, bukan hanya uptime.                                    |

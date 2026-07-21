@@ -1,14 +1,14 @@
 ---
 title: Quantum Cryptography Learning Roadmap — From Qubits to BB84 Protocol Simulation
 tags:
-- quantum-cryptography
-- quantum-computing
-- cryptography
-- qiskit
-- physics
-- roadmap
-created: '2026-07-19'
-updated: '2026-07-19'
+  - quantum-cryptography
+  - quantum-computing
+  - cryptography
+  - qiskit
+  - physics
+  - roadmap
+created: "2026-07-19"
+updated: "2026-07-19"
 status: operational
 ---
 
@@ -57,20 +57,23 @@ Sebelum mempelajari kriptografi kuantum, Anda wajib menguasai representasi matem
 BB84 (ditemukan oleh Charles Bennett dan Gilles Brassard pada tahun 1984) adalah protokol distribusi kunci pertama yang memanfaatkan prinsip hukum fisika kuantum untuk menjamin kerahasiaan:
 
 ### 3.1 Hukum Fisika Pendukung
+
 - **No-Cloning Theorem**: Menyatakan bahwa tidak mungkin membuat salinan identik yang sempurna dari status kuantum yang tidak dikenal. Penyadap (Eve) tidak bisa menduplikasi qubit tanpa mengubah keadaannya.
-- **Efek Pengukuran**: Pengukuran terhadap status superposisi akan memaksa qubit runtuh (*collapse*) ke salah satu keadaan basis secara permanen.
+- **Efek Pengukuran**: Pengukuran terhadap status superposisi akan memaksa qubit runtuh (_collapse_) ke salah satu keadaan basis secara permanen.
 
 ### 3.2 Alur Protokol BB84
+
 1. Alice mengirimkan serangkaian foton yang dipolarisasi secara acak menggunakan salah satu dari dua basis: **Rektilinear (+)** atau **Diagonal (x)**.
 2. Bob mengukur foton yang diterima menggunakan basis pilihan acaknya sendiri.
 3. Melalui saluran publik klasik, Alice dan Bob mencocokkan basis yang mereka gunakan (tanpa menyebutkan hasil pengukurannya).
-4. Mereka membuang pengukuran yang basisnya tidak cocok, menyisakan rentetan bit kunci rahasia (*Raw Key*).
+4. Mereka membuang pengukuran yang basisnya tidak cocok, menyisakan rentetan bit kunci rahasia (_Raw Key_).
 
 ---
 
 ## 4. Fase 3: Transisi Kriptografi Pasca-Kuantum (PQC)
 
 Perbedaan mendasar antara QKD dan PQC:
+
 - **QKD (Hardware)**: Membutuhkan infrastruktur fisik serat optik khusus untuk mentransmisikan foton tunggal (sangat mahal).
 - **PQC (Software)**: Algoritma matematika baru yang aman dari serangan komputer kuantum dan dapat langsung dijalankan di atas jaringan internet TCP/IP standar saat ini (seperti ML-KEM).
 
@@ -88,7 +91,7 @@ def simulate_bb84(num_bits=100):
     # 1. Alice menghasilkan bit klasik acak dan basis acak
     alice_bits = [random.randint(0, 1) for _ in range(num_bits)]
     alice_bases = [random.choice(['+', 'x']) for _ in range(num_bits)]
-    
+
     # 2. Alice menyiapkan sirkuit kuantum untuk mentransmisikan qubit
     qubits = []
     for bit, basis in zip(alice_bits, alice_bases):
@@ -98,30 +101,30 @@ def simulate_bb84(num_bits=100):
         if basis == 'x':
             qc.h(0) # Hadamard gate untuk mengubah ke basis diagonal
         qubits.append(qc)
-        
+
     # 3. Bob memilih basis pengukurannya secara acak
     bob_bases = [random.choice(['+', 'x']) for _ in range(num_bits)]
-    
+
     # 4. Bob melakukan pengukuran terhadap sirkuit kuantum yang diterima
     bob_bits = []
     backend = Aer.get_backend('qasm_simulator')
-    
+
     for i, qc in enumerate(qubits):
         if bob_bases[i] == 'x':
             qc.h(0) # Kembalikan ke basis rektilinear jika Bob memilih x
         qc.measure(0, 0)
-        
+
         result = execute(qc, backend, shots=1).result()
         counts = result.get_counts()
         measured_bit = int(list(counts.keys())[0])
         bob_bits.append(measured_bit)
-        
+
     # 5. Pencocokan Basis (Sifting)
     shared_key = []
     for i in range(num_bits):
         if alice_bases[i] == bob_bases[i]:
             shared_key.append(bob_bits[i])
-            
+
     return shared_key
 
 # Jalankan simulasi
@@ -134,20 +137,22 @@ print(f"Kunci Rahasia Hasil Kesepakatan: {key}")
 ## 6. Kumpulan Soal Latihan & Solusi
 
 ### Soal 1
+
 Bagaimana Alice dan Bob mendeteksi keberadaan penyadap (Eve) yang mencoba mengintersepsi foton di tengah transmisi protokol BB84?
 
 **Solusi**
 Alice dan Bob menyisihkan sebagian kecil kunci hasil sifting mereka (misal 10%) untuk dicocokkan secara terbuka di saluran publik.
-- Jika tidak ada penyadap: Kesalahan bit (*Bit Error Rate* - BER) harusnya mendekati 0%.
+
+- Jika tidak ada penyadap: Kesalahan bit (_Bit Error Rate_ - BER) harusnya mendekati 0%.
 - Jika Eve menguping: Karena Eve tidak tahu basis yang digunakan Alice, ia terpaksa menebak basis untuk mengukur dan mengirim ulang foton ke Bob. Tindakan ini memicu runtuhnya keadaan kuantum secara acak.
-Bob akan mendeteksi peningkatan nilai BER mendekati **25%** pada bit verifikasi. Jika BER > ambang batas tertentu (misal 11%), Alice dan Bob menyimpulkan saluran telah disadap, membuang seluruh kunci, dan membuat ulang kunci baru.
+  Bob akan mendeteksi peningkatan nilai BER mendekati **25%** pada bit verifikasi. Jika BER > ambang batas tertentu (misal 11%), Alice dan Bob menyimpulkan saluran telah disadap, membuang seluruh kunci, dan membuat ulang kunci baru.
 
 ---
 
 ## 7. Koneksi ke Vault
 
-| Catatan | Hubungan |
-|------|----------|
-| [[quantum-cryptography-deepdive]] | Analisis teoretis mendalam mengenai komputasi kuantum, gerbang logika kuantum, dan algoritma Shor/Grover. |
-| [[post-quantum-tls-implementation]] | Strategi penerapan algoritma asimetris pasca-kuantum untuk enkripsi web TLS 1.3. |
-| [[pqc-implementation-rust]] | Struktur penulisan kode Rust untuk algoritma lattice-based cryptography. |
+| Catatan                             | Hubungan                                                                                                  |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [[quantum-cryptography-deepdive]]   | Analisis teoretis mendalam mengenai komputasi kuantum, gerbang logika kuantum, dan algoritma Shor/Grover. |
+| [[post-quantum-tls-implementation]] | Strategi penerapan algoritma asimetris pasca-kuantum untuk enkripsi web TLS 1.3.                          |
+| [[pqc-implementation-rust]]         | Struktur penulisan kode Rust untuk algoritma lattice-based cryptography.                                  |

@@ -1,23 +1,23 @@
 ---
-title: '🤖 Coding Agent Harness — Feedforward & Feedback Controls: Agent Skills sebagai
-  Modular Instruction & Deterministic Quality Gates untuk Self-Correction'
+title: "🤖 Coding Agent Harness — Feedforward & Feedback Controls: Agent Skills sebagai
+  Modular Instruction & Deterministic Quality Gates untuk Self-Correction"
 tags:
-- agent-skills
-- feedback-sensors
-- coding-agent
-- harness-engineering
-- feedforward-control
-- feedback-control
-- thoughtworks-radar-vol-34
-- library
+  - agent-skills
+  - feedback-sensors
+  - coding-agent
+  - harness-engineering
+  - feedforward-control
+  - feedback-control
+  - thoughtworks-radar-vol-34
+  - library
 aliases:
-- coding-agent-harness-engineering
-- feedforward-feedback-control-coding-agent
-created: '2026-07-19'
-updated: '2026-07-19'
+  - coding-agent-harness-engineering
+  - feedforward-feedback-control-coding-agent
+created: "2026-07-19"
+updated: "2026-07-19"
 status: growing
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🤖 Coding Agent Harness — Feedforward & Feedback Controls
@@ -27,6 +27,7 @@ cssclasses:
 > Coding agents susut nilai ketika manusia keluar dari loop. Tapi terus-menerus mengawasi 24/7 juga tak realistis. Dua mekanisme — **feedforward** (Agent Skills: modular instructions injected sebelum aksi) dan **feedback** (deterministic sensors: linter/compiler/test yang trigger auto-correction setelah aksi) — membentuk **harness engineering** yang membuat agent tetap aman dan produktif. Catatan ini membedah keduanya, dari foundation control theory sampai implementasi Hermes skill system dan CI-level feedback loop, merujuk langsung ThoughtWorks Radar Vol.34 (April 2026) blip #7 Agent Skills dan #9 Feedback Sensors.
 
 > [!info] Hubungan ke Vault
+>
 > - [[agentic-ai-mcp-architecture-deepdive]] — fondasi agent + MCP architecture; harness adalah lapis kontrol di atas MCP
 > - [[meta-agent-orchestration]] — orchestrator sebagai pemilih skill sebelum invoke agent
 > - [[cognitive-architecture-engineering]] — context engineering sebagai feedforward layer kognitif
@@ -56,12 +57,12 @@ cssclasses:
 
 Control theory bicara soal dua mekanisme yang membuat sistem tetap di jalur yang diinginkan:
 
-| Mekanisme | Saat di-apply | Analogi Coding Agent | Mitigasi Kegagalan |
-|-----------|---------------|----------------------|--------------------|
-| **Feedforward** | Sebelum aksi (sebelum agent menulis kode) | Agent Skills: modular instructions dimuat just-in-time | Agent keluar domain → instructions kurang relevan/tak dimuat |
-| **Feedback** | Setelah aksi (kode udah di-generate) | Deterministic sensors: compiler, linter, type-checker, test suite | Sensor true-negative (test pass tapi logic salah) → over-reliance pada test coverage |
-| **Open-loop** | Tanpa kontrol | "Vibe coding" — agent generate, human ship | Drift, cognitive debt, codebase rot |
-| **Closed-loop** | Input pada output | Agent + sensor + auto-correction, human review only on sensor failure | Sensor noise → agent repair phantom issues |
+| Mekanisme       | Saat di-apply                             | Analogi Coding Agent                                                  | Mitigasi Kegagalan                                                                   |
+| --------------- | ----------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Feedforward** | Sebelum aksi (sebelum agent menulis kode) | Agent Skills: modular instructions dimuat just-in-time                | Agent keluar domain → instructions kurang relevan/tak dimuat                         |
+| **Feedback**    | Setelah aksi (kode udah di-generate)      | Deterministic sensors: compiler, linter, type-checker, test suite     | Sensor true-negative (test pass tapi logic salah) → over-reliance pada test coverage |
+| **Open-loop**   | Tanpa kontrol                             | "Vibe coding" — agent generate, human ship                            | Drift, cognitive debt, codebase rot                                                  |
+| **Closed-loop** | Input pada output                         | Agent + sensor + auto-correction, human review only on sensor failure | Sensor noise → agent repair phantom issues                                           |
 
 **Plot twist pertama:** feedforward dan feedback bukan pesaing. Mereka **koma-kompositional** — feedforward mengurangi expected work, feedback mengeliminasi unexpected errors. Skip feedforward → agent banyak `trial-and-error` untuk masalah yang udah solved (instruction udah ada ditulis di skill). Skip feedback → agent `over-confidently ship broken code` meski skill udah di-load.
 
@@ -75,7 +76,7 @@ Analogi konkret: imagine mobil self-driving. High-definition map (ter-embed di r
 
 ### Agent Skills sebagai Feedforward Control
 
-**Definisi (ThoughtWorks Radar Vol.34 blip #7):** *"Agent Skills—curated, modular sets of instructions that can be loaded into an agent's context on demand—have emerged as a major advancement. They allow teams to modularize instructions and conventions, loading them just in time rather than dumping everything into a single monolithic system prompt."*
+**Definisi (ThoughtWorks Radar Vol.34 blip #7):** _"Agent Skills—curated, modular sets of instructions that can be loaded into an agent's context on demand—have emerged as a major advancement. They allow teams to modularize instructions and conventions, loading them just in time rather than dumping everything into a single monolithic system prompt."_
 
 #### Arsitektur: Monolithic System Prompt vs Modular Skills
 
@@ -106,14 +107,14 @@ Sebuah Agent Skill punya 3 komponen wajib sesuai Hermes Agent & Anthropic Claude
 
 1. **`SKILL.md`** — frontmatter YAML + body markdown. Frontmatter fields:
 
-| Field | Required | Fungsi |
-|-------|----------|--------|
-| `name` | ✅ | Lowercase, hyphen-separated, max 64 char |
-| `description` | ✅ | Trigger condition sebagai natural language — agent router baca ini untuk match user intent |
-| `platforms` | no | OS filter (linux/macos/windows) |
-| `tags` | no | Multi-tag untuk discovery |
-| `metadata` | no | Extended attributes objek |
-| `related_skills` | no | Cross-skill navigation hint |
+| Field            | Required | Fungsi                                                                                     |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------ |
+| `name`           | ✅       | Lowercase, hyphen-separated, max 64 char                                                   |
+| `description`    | ✅       | Trigger condition sebagai natural language — agent router baca ini untuk match user intent |
+| `platforms`      | no       | OS filter (linux/macos/windows)                                                            |
+| `tags`           | no       | Multi-tag untuk discovery                                                                  |
+| `metadata`       | no       | Extended attributes objek                                                                  |
+| `related_skills` | no       | Cross-skill navigation hint                                                                |
 
 ```yaml
 ---
@@ -145,19 +146,19 @@ platforms: [linux]
 
 ### Feedback Sensors sebagai Deterministic Quality Gates
 
-**Definisi (Radar blip #9):** *"To make coding agents more effective and reduce the need for human supervision, teams are integrating deterministic quality gates—compilers, linters, type checkers, and test suites—directly into agent workflows so failures trigger auto-correction before human review."**
+**Definisi (Radar blip #9):** _"To make coding agents more effective and reduce the need for human supervision, teams are integrating deterministic quality gates—compilers, linters, type checkers, and test suites—directly into agent workflows so failures trigger auto-correction before human review."_*
 
 #### Taxonomy of Sensors
 
-| Kategori | Mekanisme | Contoh | Latensi | False Positive |
-|----------|-----------|--------|--------|----------------|
-| **Static analysis** | Parse AST tanpa execute | Rust analyzer, ESLint, mypy, typer | ms-second | Rendah |
-| **Type check** | Compile-time type inference | cargo check, tsc, pyright | second | Sangat rendah |
-| **Unit/Integration test** | Execute code dengan fixtures | pytest, cargo test, Jest | second-minute | Moderate (mock drift) |
-| **Mutation testing** | Inject bug ke codebase, cek test catch | cargo-mutants (Radar blip #71), mutmut, Stryker | minute-hour | Tinggi (early signal) |
-| **Fuzz testing** | Generate malformed input | WuppieFuzz (Radar blip #96), AFL, libFuzzer | hour-day | Tinggi (novel paths) |
-| **Static quality metrics** | Code complexity, duplication | CodeScene (Radar blip #81), SonarQube | second-minute | Moderate |
-| **Formal verification** | Mathematical proof of property | Dafny, Coq, Lean, Kani (Rust) | hour-day | Sangat rendah |
+| Kategori                   | Mekanisme                              | Contoh                                          | Latensi       | False Positive        |
+| -------------------------- | -------------------------------------- | ----------------------------------------------- | ------------- | --------------------- |
+| **Static analysis**        | Parse AST tanpa execute                | Rust analyzer, ESLint, mypy, typer              | ms-second     | Rendah                |
+| **Type check**             | Compile-time type inference            | cargo check, tsc, pyright                       | second        | Sangat rendah         |
+| **Unit/Integration test**  | Execute code dengan fixtures           | pytest, cargo test, Jest                        | second-minute | Moderate (mock drift) |
+| **Mutation testing**       | Inject bug ke codebase, cek test catch | cargo-mutants (Radar blip #71), mutmut, Stryker | minute-hour   | Tinggi (early signal) |
+| **Fuzz testing**           | Generate malformed input               | WuppieFuzz (Radar blip #96), AFL, libFuzzer     | hour-day      | Tinggi (novel paths)  |
+| **Static quality metrics** | Code complexity, duplication           | CodeScene (Radar blip #81), SonarQube           | second-minute | Moderate              |
+| **Formal verification**    | Mathematical proof of property         | Dafny, Coq, Lean, Kani (Rust)                   | hour-day      | Sangat rendah         |
 
 **Plot twist kedua:** Mutation testing lebih jujur dari coverage. Coverage 100% dengan weak assertions = theater. Mutation testing inject bug, jika test gak catch → assertion lemah. Ini yang membuat Radar Vol.34 meng-Adopt Mutation Testing (#11 Trial) sebagai bagian dari feedback sensor stack.
 
@@ -255,9 +256,10 @@ Hermes Agent secara native mengimplementasikan Agent Skills. Setiap skill adalah
 
 ### Agent Instruction Bloat (Radar #34, Caution)
 
-> *"Context files such as AGENTS.md and CLAUDE.md tend to grow organically, accumulating outdated instructions, contradictory directives, and scope creep. Over time, this degrades agent performance because the agent wastes tokens processing stale or irrelevant rules."*
+> _"Context files such as AGENTS.md and CLAUDE.md tend to grow organically, accumulating outdated instructions, contradictory directives, and scope creep. Over time, this degrades agent performance because the agent wastes tokens processing stale or irrelevant rules."_
 
 **Mitigasi:** splits + aliases, bukan grow monolit. Vault Azhar pakai self-skill system:
+
 - `~/.hermes/skills/hermes-agent/SKILL.md` — only hermes-agent mechanics
 - `~/.hermes/skills/9router-web-fetch/SKILL.md` — only web fetch via specific platform
 - Agent instruction hanya load skill spesifik saat trigger condition match
@@ -266,9 +268,10 @@ Hermes Agent secara native mengimplementasikan Agent Skills. Setiap skill adalah
 
 ### Progressive Context Disclosure (Radar #12, Trial)
 
-> *"Progressive context disclosure is a technique within agent harness engineering where the agent receives minimal context initially, then requests or loads more as needed based on the task's progression."*
+> _"Progressive context disclosure is a technique within agent harness engineering where the agent receives minimal context initially, then requests or loads more as needed based on the task's progression."_
 
 Ini mengubah Agent Skills dari "static load" ke "just-enough just-in-time" 2-arah:
+
 1. Agent menerima trigger keyword + skill **name only** (summary)
 2. Agent decide apakah skill relevant
 3. Kalau relevant, agent invoke loader untuk dapat **full skill content**
@@ -278,9 +281,10 @@ Hermes skill system sudah menerapkan pattern ini via `skill_view(name)` tanpa `f
 
 ### MCP by Default (Radar #40, Caution)
 
-> *"As the Model Context Protocol (MCP) gains traction, teams reach for it as the default integration mechanism. But MCP exposes the agent to external systems and data — each tool is an attack surface. Not every integration needs to be an MCP server."*
+> _"As the Model Context Protocol (MCP) gains traction, teams reach for it as the default integration mechanism. But MCP exposes the agent to external systems and data — each tool is an attack surface. Not every integration needs to be an MCP server."_
 
 **Agent Skills sebagai controlled alternative:**
+
 - MCP server = **runtime integration**, agent bisa invoke external system anytime → lethal trifecta (private data + untrusted content + external action)
 - Agent Skill = **compile-time instruction**, agent lebih constrained karena hanya baca, tidak invoke arbitrary external system
 
@@ -296,13 +300,13 @@ Skill bukan cuma untuk agent — bisa juga jadi single source of truth untuk onb
 
 ## Case Studies
 
-| Studi Kasus | Konteks | Temuan Kunci | Mitigasi Diimplementasi |
-|-------------|---------|--------------|------------------------|
-| Hermes Agent `hermes-agent` skill | Skill built-in yang laod setiap session untuk mendokumentasikan hermes CLI mechanics | Skill frontmatter description di-jadikan trigger untuk prompt soal "configuring hermes", "troubleshooting hermes tools" | Pemisahan `description` (trigger hint, 1 kalimat) vs body (numbered commands) — router match cepat, skill body loading just-in-time |
-| Superpowers + Claude Code plugin marketplace | ThoughtWorks Radar blip #72 (Trial) #115 Superpowers catalog | Distribusi skill via plugin marketplace → skill journey dari author → consumer. Testing skill requires sandboxed environment | Skill packaging dengan `manifest.json`, versioning semver, trust establishment via maintainer repo + checksum verification |
-| cargo-mutants in Rust CI loop | ThoughtWorks Radar blip #71 (Trial) — mutation testing untuk Rust | Coverage 100% but weak assertions. cargo-mutants inject bug → identify test tidak catch. False positive tinggi early-stage, filter via baseline needed | Integration sebagai weekly CI job (bukan per-commit) untuk turunkan noise. Threshold: mutasi caught > 80% |
-| WuppieFuzz untuk REST API agent output | ThoughtWorks Radar blip #96 (Assess) — fuzzer untuk REST APIs | Agent yang generate curl commands ke API butuh fuzzing untuk ensure response schema tidak hallucinated | WuppieFuzz sebagai post-action sensor: agent invoke API → WuppieFuzz re-invoke dengan mutated input → compare response, alert kalau mismatch |
-| OpenClaw akibat Codebase Cognitive Debt | ThoughtWorks Radar blip #97 (Caution) + #36 Codebase Cognitive Debt | Open-source autonomous agent proyek — kode di-generate cepat tapi gap pemahaman pengembang akumulasi → maintainer struggle debug | Force plugin marketplace dengan mandatory `RATIONALE.md` per submission; mutation testing untuk catch weak assertions; skills-based modularization bukan monolithic agent |
+| Studi Kasus                                  | Konteks                                                                              | Temuan Kunci                                                                                                                                           | Mitigasi Diimplementasi                                                                                                                                                   |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hermes Agent `hermes-agent` skill            | Skill built-in yang laod setiap session untuk mendokumentasikan hermes CLI mechanics | Skill frontmatter description di-jadikan trigger untuk prompt soal "configuring hermes", "troubleshooting hermes tools"                                | Pemisahan `description` (trigger hint, 1 kalimat) vs body (numbered commands) — router match cepat, skill body loading just-in-time                                       |
+| Superpowers + Claude Code plugin marketplace | ThoughtWorks Radar blip #72 (Trial) #115 Superpowers catalog                         | Distribusi skill via plugin marketplace → skill journey dari author → consumer. Testing skill requires sandboxed environment                           | Skill packaging dengan `manifest.json`, versioning semver, trust establishment via maintainer repo + checksum verification                                                |
+| cargo-mutants in Rust CI loop                | ThoughtWorks Radar blip #71 (Trial) — mutation testing untuk Rust                    | Coverage 100% but weak assertions. cargo-mutants inject bug → identify test tidak catch. False positive tinggi early-stage, filter via baseline needed | Integration sebagai weekly CI job (bukan per-commit) untuk turunkan noise. Threshold: mutasi caught > 80%                                                                 |
+| WuppieFuzz untuk REST API agent output       | ThoughtWorks Radar blip #96 (Assess) — fuzzer untuk REST APIs                        | Agent yang generate curl commands ke API butuh fuzzing untuk ensure response schema tidak hallucinated                                                 | WuppieFuzz sebagai post-action sensor: agent invoke API → WuppieFuzz re-invoke dengan mutated input → compare response, alert kalau mismatch                              |
+| OpenClaw akibat Codebase Cognitive Debt      | ThoughtWorks Radar blip #97 (Caution) + #36 Codebase Cognitive Debt                  | Open-source autonomous agent proyek — kode di-generate cepat tapi gap pemahaman pengembang akumulasi → maintainer struggle debug                       | Force plugin marketplace dengan mandatory `RATIONALE.md` per submission; mutation testing untuk catch weak assertions; skills-based modularization bukan monolithic agent |
 
 ---
 

@@ -1,13 +1,13 @@
 ---
 title: Chinese Apt Toolchain
 tags:
-- 07-nation-state-platforms
-- library
-- military-and-intelligence-tools
-created: '2026-06-28'
-updated: '2026-07-01'
+  - 07-nation-state-platforms
+  - library
+  - military-and-intelligence-tools
+created: "2026-06-28"
+updated: "2026-07-01"
 status: operational
-cssclasses: ''
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -19,14 +19,14 @@ cssclasses: ''
 
 Ekosistem Advanced Persistent Threat (APT) Tiongkok bukanlah kumpulan operasi terisolasi, melainkan **toolchain terpadu** yang dikembangkan dan dioperasikan oleh unit-unit di bawah **Ministry of State Security (MSS)** dan **People's Liberation Army (PLA)**. Unit-unit terkenal meliputi:
 
-| Unit | Nama Publik | Fokus Target | Tools Utama |
-|------|-------------|--------------|-------------|
-| **PLA Unit 61398** | APT1 / Comment Crew | Intellectual property, aerospace, tech | PlugX, Poison Ivy, Gh0st RAT |
-| **PLA Unit 61486** | APT3 / Gothic Panda | Industri pertahanan, pemerintahan | Winnti, ShadowPad, PlugX |
-| **MSS** | APT27 / Emissary Panda | Perusahaan teknologi, telekomunikasi | PlugX, Gh0st RAT |
-| **PLA Unit 68020** | APT10 / Stone Panda | Managed service providers, cloud | PlugX, RedLeaves, Quarian |
-| **MSS** | APT17 / Deputy Dog | Industri penerbangan, legal | BlackCoffin, PlugX |
-| **PLA Strategic Support Force** | APT40 / Leviathan | Maritim, energi, pemerintahan | Winnti, PlugX, China Chopper |
+| Unit                            | Nama Publik            | Fokus Target                           | Tools Utama                  |
+| ------------------------------- | ---------------------- | -------------------------------------- | ---------------------------- |
+| **PLA Unit 61398**              | APT1 / Comment Crew    | Intellectual property, aerospace, tech | PlugX, Poison Ivy, Gh0st RAT |
+| **PLA Unit 61486**              | APT3 / Gothic Panda    | Industri pertahanan, pemerintahan      | Winnti, ShadowPad, PlugX     |
+| **MSS**                         | APT27 / Emissary Panda | Perusahaan teknologi, telekomunikasi   | PlugX, Gh0st RAT             |
+| **PLA Unit 68020**              | APT10 / Stone Panda    | Managed service providers, cloud       | PlugX, RedLeaves, Quarian    |
+| **MSS**                         | APT17 / Deputy Dog     | Industri penerbangan, legal            | BlackCoffin, PlugX           |
+| **PLA Strategic Support Force** | APT40 / Leviathan      | Maritim, energi, pemerintahan          | Winnti, PlugX, China Chopper |
 
 Meskipun banyak alat digunakan, **PlugX** adalah benang merah yang menghubungkan hampir semua operasi — sering disebut sebagai "Swiss Army knife" APT Tiongkok.
 
@@ -65,6 +65,7 @@ PlugX sering di-deliver melalui spear-phishing (lampiran .doc/.xls dengan exploi
 ```
 
 **Teknik Evasion:**
+
 - **DLL Side-Loading**: Memanfaatkan aplikasi sah yang memuat DLL dari direktori kerjanya. PlugX menaruh DLL jahat di direktori yang sama, sehingga aplikasi sah tanpa sadar memuatnya.
 - **Komunikasi C2**: HTTP dengan request seperti `GET /status?id={random}`. Data dikompresi (zlib) dan dienkripsi (XOR dengan kunci statis atau RC4).
 - **Persistence**: Scheduled task, registry Run key, atau service.
@@ -72,6 +73,7 @@ PlugX sering di-deliver melalui spear-phishing (lampiran .doc/.xls dengan exploi
 ### Varian Modern: PlugX RAT 3.x
 
 Versi terbaru (2021-2024) memiliki:
+
 - **Domain Generation Algorithm (DGA)** untuk fallback C2
 - **HTTPS dengan sertifikat palsu** untuk kamuflase
 - **Reflective DLL loading** — tidak butuh file di disk
@@ -87,13 +89,13 @@ Winnti adalah keluarga malware yang pertama kali terdeteksi pada 2011 ketika dig
 
 ### Karakteristik Teknis
 
-| Fitur | Detail |
-|-------|--------|
-| **Delivery** | Spear-phishing, supply chain compromise (misal: CCleaner insiden 2017) |
-| **Persistence** | Kernel driver (ditandatangani dengan sertifikat curian) atau service |
-| **Komunikasi C2** | TCP/HTTP dengan enkripsi kustom (XOR + AES) |
-| **Payload** | DLL yang diinjeksi ke proses sah (lsass.exe, svchost.exe) |
-| **Modul** | Keylogger, file browser, reverse shell, port scanner |
+| Fitur             | Detail                                                                 |
+| ----------------- | ---------------------------------------------------------------------- |
+| **Delivery**      | Spear-phishing, supply chain compromise (misal: CCleaner insiden 2017) |
+| **Persistence**   | Kernel driver (ditandatangani dengan sertifikat curian) atau service   |
+| **Komunikasi C2** | TCP/HTTP dengan enkripsi kustom (XOR + AES)                            |
+| **Payload**       | DLL yang diinjeksi ke proses sah (lsass.exe, svchost.exe)              |
+| **Modul**         | Keylogger, file browser, reverse shell, port scanner                   |
 
 ### Kill Chain Winnti
 
@@ -186,13 +188,13 @@ TibetanFox   → Surveillance (mic, webcam), specific targeting
 
 ### IOC Umum APT Tiongkok
 
-| Artefak | Indikator |
-|---------|-----------|
-| **File** | Nama file DLL yang tidak cocok dengan aplikasi (misal: `mfc42loc.dll` di folder Kaspersky). |
-| **Registry** | Key di `HKLM\SYSTEM\CurrentControlSet\Services` untuk driver Winnti. |
-| **Network** | Koneksi HTTP ke IP/domain dengan pola `/status?id=...` (PlugX). |
-| **DNS** | Query DNS dengan subdomain acak untuk DGA (PlugX 3.x). |
-| **Certificate** | Driver kernel ditandatangani dengan sertifikat curian (misal: D-Link, Realtek). |
+| Artefak         | Indikator                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| **File**        | Nama file DLL yang tidak cocok dengan aplikasi (misal: `mfc42loc.dll` di folder Kaspersky). |
+| **Registry**    | Key di `HKLM\SYSTEM\CurrentControlSet\Services` untuk driver Winnti.                        |
+| **Network**     | Koneksi HTTP ke IP/domain dengan pola `/status?id=...` (PlugX).                             |
+| **DNS**         | Query DNS dengan subdomain acak untuk DGA (PlugX 3.x).                                      |
+| **Certificate** | Driver kernel ditandatangani dengan sertifikat curian (misal: D-Link, Realtek).             |
 
 ### YARA Rule Contoh (PlugX)
 
@@ -209,23 +211,23 @@ rule plugx_dll_side_loading {
 
 ### Countermeasures
 
-| Lapisan | Tindakan |
-|---------|----------|
-| **Email** | Blokir lampiran .docm, .xlsm, .iso, .img. Gunakan sandbox untuk detonasi. |
+| Lapisan      | Tindakan                                                                          |
+| ------------ | --------------------------------------------------------------------------------- |
+| **Email**    | Blokir lampiran .docm, .xlsm, .iso, .img. Gunakan sandbox untuk detonasi.         |
 | **Endpoint** | Monitor DLL side-loading (Sysmon Event ID 7, image load dari path tidak standar). |
-| **Network** | Blokir IOC APT Tiongkok di proxy/firewall. Monitor beaconing ke IP tidak dikenal. |
-| **AD** | Terapkan tiered access, LAPS, Credential Guard. Deteksi DCSync (Event ID 4662). |
+| **Network**  | Blokir IOC APT Tiongkok di proxy/firewall. Monitor beaconing ke IP tidak dikenal. |
+| **AD**       | Terapkan tiered access, LAPS, Credential Guard. Deteksi DCSync (Event ID 4662).   |
 
 ---
 
 ## 📚 Referensi
 
-- Mandiant, *APT1: Exposing One of China's Cyber Espionage Units* (2013).
-- CrowdStrike, *Global Threat Report: China Adversaries* (2021).
-- Kaspersky, *Winnti: More than just a game* (2013).
-- Recorded Future, *Chinese State-Sponsored Cyber Operations* (2023).
+- Mandiant, _APT1: Exposing One of China's Cyber Espionage Units_ (2013).
+- CrowdStrike, _Global Threat Report: China Adversaries_ (2021).
+- Kaspersky, _Winnti: More than just a game_ (2013).
+- Recorded Future, _Chinese State-Sponsored Cyber Operations_ (2023).
 - MITRE ATT&CK: T1071.001 (Web Protocols), T1055.001 (Process Injection), T1003.001 (OS Credential Dumping).
 
 ---
 
-*Chinese APT Toolchain Deep Dive | PlugX, Winnti, RedLeaves, TibetanFox | Nation-State Cyber Ecosystem*
+_Chinese APT Toolchain Deep Dive | PlugX, Winnti, RedLeaves, TibetanFox | Nation-State Cyber Ecosystem_

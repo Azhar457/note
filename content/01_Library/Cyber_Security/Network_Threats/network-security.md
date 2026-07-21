@@ -1,21 +1,21 @@
 ---
 tags:
-- network-security
-- blue-team
-- red-team
-- OSI
-- firewall
-- social-engineering
+  - network-security
+  - blue-team
+  - red-team
+  - OSI
+  - firewall
+  - social-engineering
 aliases:
-- Network Security
-- OSI Layer Hierarchy
-- Network OSI
+  - Network Security
+  - OSI Layer Hierarchy
+  - Network OSI
 created: 2026-04-25
 status: operational
 cssclasses:
-- wide-table
+  - wide-table
 title: Network Security
-updated: '2026-07-01'
+updated: "2026-07-01"
 ---
 
 # 🌐 NETWORK SECURITY — OSI Layer 1–8
@@ -70,4 +70,4 @@ Layer 8  │ ← MANUSIA DI SINI → Phishing bypass semua layer di atas
 
 ---
 
-*Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer*
+_Network Security | OSI Layer 1–8 · Blue Team vs Red Team per Layer_

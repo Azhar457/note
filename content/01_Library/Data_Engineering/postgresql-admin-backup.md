@@ -1,17 +1,17 @@
 ---
 title: PostgreSQL Administrasi Backup
 tags:
-- data-engineering
-- database
-- postgresql
-- backup
-- devops
+  - data-engineering
+  - database
+  - postgresql
+  - backup
+  - devops
 aliases:
-- PG Backup Restore
-created: '2026-07-11'
-updated: '2026-07-11'
+  - PG Backup Restore
+created: "2026-07-11"
+updated: "2026-07-11"
 status: active
-cssclasses: ''
+cssclasses: ""
 ---
 
 # 🐘 PostgreSQL — Administrasi & Disaster Recovery
@@ -36,12 +36,12 @@ cssclasses: ''
         └─────────┘ └─────────┘ └─────────┘
 ```
 
-| Komponen | Fungsi |
-|----------|--------|
-| **WAL (Write-Ahead Log)** | Semua perubahan ditulis ke WAL dulu sebelum data page. Ini jaminan crash recovery |
-| **Checkpoint** | Flush dirty buffers ke disk. Frekuensi diatur `checkpoint_timeout` (default 5 menit) |
-| **Autovacuum** | Membersihkan dead tuples — MVVC遗产. Kalau mati → bloat |
-| **Replication Slot** | Menjamin WAL gak dihapus sebelum replica menerimanya |
+| Komponen                  | Fungsi                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| **WAL (Write-Ahead Log)** | Semua perubahan ditulis ke WAL dulu sebelum data page. Ini jaminan crash recovery    |
+| **Checkpoint**            | Flush dirty buffers ke disk. Frekuensi diatur `checkpoint_timeout` (default 5 menit) |
+| **Autovacuum**            | Membersihkan dead tuples — MVVC遗产. Kalau mati → bloat                              |
+| **Replication Slot**      | Menjamin WAL gak dihapus sebelum replica menerimanya                                 |
 
 ---
 
@@ -52,12 +52,13 @@ cssclasses: ''
 
 ### Lapisan 1 — Logical Backup (`pg_dump` / `pg_dumpall`)
 
-| Tool | Untuk | Kelemahan |
-|------|-------|-----------|
-| `pg_dump` | 1 database | Lambat untuk DB >50GB |
+| Tool         | Untuk                                          | Kelemahan                           |
+| ------------ | ---------------------------------------------- | ----------------------------------- |
+| `pg_dump`    | 1 database                                     | Lambat untuk DB >50GB               |
 | `pg_dumpall` | Semua DB + global objects (roles, tablespaces) | Output campur aduk, butuh filtering |
 
 **Command aman:**
+
 ```bash
 # Single DB
 pg_dump -h localhost -U postgres -d mydb \
@@ -84,10 +85,10 @@ pg_basebackup -h primary -U replicator \
   -X stream --progress --verbose
 ```
 
-| Metode | Recovery Point | Ukuran | Kecepatan Restore |
-|--------|---------------|--------|------------------|
-| `pg_dump` | Saat eksekusi | Kecil (SQL) | Lambat (replay SQL) |
-| `pg_basebackup` | + WAL archive | Besar (binary) | Cepat (copy file) |
+| Metode          | Recovery Point | Ukuran         | Kecepatan Restore   |
+| --------------- | -------------- | -------------- | ------------------- |
+| `pg_dump`       | Saat eksekusi  | Kecil (SQL)    | Lambat (replay SQL) |
+| `pg_basebackup` | + WAL archive  | Besar (binary) | Cepat (copy file)   |
 
 ### Lapisan 3 — WAL Archiving (Continuous Archiving)
 
@@ -110,7 +111,7 @@ archive_command = 'cp %p /backup/wal/%f'
 # docker-compose.yml
 services:
   postgres:
-    image: postgis/postgis:16-3.4  # PG16 + PostGIS
+    image: postgis/postgis:16-3.4 # PG16 + PostGIS
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./backup:/backup
@@ -125,39 +126,39 @@ services:
 
 ### Version Migration (PG14 → PG16)
 
-| Step | Command | Catatan |
-|------|---------|--------|
-| 1. Dump old | `pg_dumpall -c \| gzip > old.sql.gz` | Di PG14 |
-| 2. Spin up new | Container PG16 + volume kosong | |
+| Step           | Command                                          | Catatan           |
+| -------------- | ------------------------------------------------ | ----------------- |
+| 1. Dump old    | `pg_dumpall -c \| gzip > old.sql.gz`             | Di PG14           |
+| 2. Spin up new | Container PG16 + volume kosong                   |                   |
 | 3. Adjust dump | `zcat old.sql.gz \| grep -v '^\\\\' > clean.sql` | Buang `\restrict` |
-| 4. Restore | `psql -f clean.sql postgres` | Error toleran |
-| 5. Verify | `\dt+`, row count sample | Jangan percuma |
+| 4. Restore     | `psql -f clean.sql postgres`                     | Error toleran     |
+| 5. Verify      | `\dt+`, row count sample                         | Jangan percuma    |
 
 ---
 
 ## Performance Tuning Dasar
 
-| Parameter | Default | Recommended | Notes |
-|-----------|---------|-------------|-------|
-| `shared_buffers` | 128MB | 25% RAM | Buffer cache PG |
-| `effective_cache_size` | 4GB | 75% RAM | Estimasi OS cache |
-| `work_mem` | 4MB | 8-16MB | Per sort operation |
-| `maintenance_work_mem` | 64MB | 10% RAM | Untuk VACUUM, index |
-| `max_connections` | 100 | 20-50 | Setiap koneksi makan RAM |
-| `random_page_cost` | 4.0 | 1.1 (SSD) | Biar PG prefer index scan |
-| `autovacuum` | ON | ON | Jangan matikan |
+| Parameter              | Default | Recommended | Notes                     |
+| ---------------------- | ------- | ----------- | ------------------------- |
+| `shared_buffers`       | 128MB   | 25% RAM     | Buffer cache PG           |
+| `effective_cache_size` | 4GB     | 75% RAM     | Estimasi OS cache         |
+| `work_mem`             | 4MB     | 8-16MB      | Per sort operation        |
+| `maintenance_work_mem` | 64MB    | 10% RAM     | Untuk VACUUM, index       |
+| `max_connections`      | 100     | 20-50       | Setiap koneksi makan RAM  |
+| `random_page_cost`     | 4.0     | 1.1 (SSD)   | Biar PG prefer index scan |
+| `autovacuum`           | ON      | ON          | Jangan matikan            |
 
 ---
 
 ## Common Failures & Fixes
 
-| Gejala | Penyebab | Fix |
-|--------|----------|-----|
-| Connection refused | Port gak terbuka / service mati | `systemctl status postgresql` atau `podman logs` |
-| Too many connections | `max_connections` penuh | Kurangi pool size di app, atau naikkan `max_connections` |
-| WAL full (disk 100%) | Archive gagal / replication lag | Cek `pg_stat_replication`, bersihin WAL dengan `pg_archivecleanup` |
-| Bloat besar | Autovacuum gak jalan | `SELECT pg_stat_progress_vacuum`; `VACUUM VERBOSE` |
-| Role does not exist | Backup tanpa `--no-owner` di env beda | Restore dengan `--no-owner` atau create role dulu |
+| Gejala               | Penyebab                              | Fix                                                                |
+| -------------------- | ------------------------------------- | ------------------------------------------------------------------ |
+| Connection refused   | Port gak terbuka / service mati       | `systemctl status postgresql` atau `podman logs`                   |
+| Too many connections | `max_connections` penuh               | Kurangi pool size di app, atau naikkan `max_connections`           |
+| WAL full (disk 100%) | Archive gagal / replication lag       | Cek `pg_stat_replication`, bersihin WAL dengan `pg_archivecleanup` |
+| Bloat besar          | Autovacuum gak jalan                  | `SELECT pg_stat_progress_vacuum`; `VACUUM VERBOSE`                 |
+| Role does not exist  | Backup tanpa `--no-owner` di env beda | Restore dengan `--no-owner` atau create role dulu                  |
 
 ---
 
@@ -169,12 +170,12 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 1. Thinking Type yang Digunakan
 
-| Type | Kenapa | Bagian |
-|------|--------|--------|
-| **Analytical Thinking** | Memecah backup strategy jadi 3 lapis (logical, physical, WAL), membandingkan tradeoff tiap opsi | Backup Strategy, Performance Tuning |
-| **Systems Thinking** | Memetakan interaksi komponen PG — WAL→checkpoint→archive, bagaimana satu kegagalan (archive gagal) menyebabkan WAL full | Arsitektur Dasar, Common Failures |
-| **Concrete Thinking** | Menyusun command exact untuk backup, restore, migrasi — step-by-step tanpa asumsi | Container Deployment, Migration Steps |
-| **Critical Thinking** | Mempertanyakan asumsi umum — "backup is useless unless verified", `\\restrict` trap PG14→16 | Aturan Emas, Migration warnings |
+| Type                    | Kenapa                                                                                                                  | Bagian                                |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **Analytical Thinking** | Memecah backup strategy jadi 3 lapis (logical, physical, WAL), membandingkan tradeoff tiap opsi                         | Backup Strategy, Performance Tuning   |
+| **Systems Thinking**    | Memetakan interaksi komponen PG — WAL→checkpoint→archive, bagaimana satu kegagalan (archive gagal) menyebabkan WAL full | Arsitektur Dasar, Common Failures     |
+| **Concrete Thinking**   | Menyusun command exact untuk backup, restore, migrasi — step-by-step tanpa asumsi                                       | Container Deployment, Migration Steps |
+| **Critical Thinking**   | Mempertanyakan asumsi umum — "backup is useless unless verified", `\\restrict` trap PG14→16                             | Aturan Emas, Migration warnings       |
 
 ### 2. Background Knowledge (Pra-Penulisan)
 
@@ -186,12 +187,12 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 3. RAG Vault — Dokumen yang Dikonsultasi
 
-| Dokumen | Kontribusi |
-|---------|-----------|
-| [[cicd-guide|CI/CD Pipeline Guide]] | PG + Podman deployment context, environment variables pattern |
-| [[devops|DevOps Roadmap]] | Container deployment patterns, Docker Compose structure |
-| [[data-engineering|Data Engineering Roadmap]] | Posisi PG dalam pipeline data secara umum |
-| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — PG jadi salah satu service |
+| Dokumen                        | Kontribusi                     |
+| ------------------------------ | ------------------------------ |
+| [[cicd-guide                   | CI/CD Pipeline Guide]]         | PG + Podman deployment context, environment variables pattern |
+| [[devops                       | DevOps Roadmap]]               | Container deployment patterns, Docker Compose structure       |
+| [[data-engineering             | Data Engineering Roadmap]]     | Posisi PG dalam pipeline data secara umum                     |
+| [[infrastructure-administrator | Infrastructure Administrator]] | Server layout — PG jadi salah satu service                    |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 

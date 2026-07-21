@@ -34,7 +34,7 @@ cssclasses:
 - [[#3. Attack Payloads — Real-World Scenarios]]
 - [[#4. Detection — Dari WAF Perspective]]
 - [[#5. Defense — Layer by Layer]]
-- [[#6. Relationship: Mass Assignment ⊂ BAC]]
+- [[#6. Relationship]]
 - [[#7. Exploitation Chain — Attack Flow]]
 - [[#8. Defensive Code — Per Framework 🔐]]
 - [[#9. WAF Ruleset — CRS/Suricata/Sigma]]
@@ -57,19 +57,19 @@ POST /api/users              Auto-bind to User model       UPDATE users
 }
                                                     `is_admin = true`
                                                     tersimpan ⚠️
-                                          
+
 PROBLEM: Backend membaca body => body di-set ke model => model.save()
          Tanpa filter field => client bebas set atribut apa pun.
 ```
 
-| Framework | Default Auto-bind | Berbahaya? | Skema Mitigasi |
-|-----------|------------------|-----------|----------------|
-| Django Python | ✅ Ya | Ya, kalau tidak pakai `exclude` atau `fields` di serializer | DRF `Meta.fields`, `Meta.exclude`, `serializer.validated_data` |
-| Spring Boot (Java) | ✅ Ya | Ya, kalau `@ModelAttribute` | `@JsonProperty(access = READ_ONLY)`, DTO pattern, `@Valid` + `@JsonIgnore` |
-| Express.js (Node) | ✅ Default `req.body` → langsung bind | Sering — via Mongoose ODM atau langsung | DTO validasi, whitelist fields via Joi/Zod |
-| Ruby on Rails | ✅ Yes! (default sejak 2005) | Sangat bila no strong params | `params.require(:user).permit(:name, :email)` |
-| Laravel (PHP) | ✅ Eloquent mass assignment protection | Tidak — protection built-in | `$fillable` / `$guarded` di Model |
-| ASP.NET Core | ✅ Auto-bind via `[FromBody]` | Kalau DTO gak ada whitelist | `[BindRequired]` + `[JsonIgnore]` |
+| Framework          | Default Auto-bind                      | Berbahaya?                                                  | Skema Mitigasi                                                             |
+| ------------------ | -------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Django Python      | ✅ Ya                                  | Ya, kalau tidak pakai `exclude` atau `fields` di serializer | DRF `Meta.fields`, `Meta.exclude`, `serializer.validated_data`             |
+| Spring Boot (Java) | ✅ Ya                                  | Ya, kalau `@ModelAttribute`                                 | `@JsonProperty(access = READ_ONLY)`, DTO pattern, `@Valid` + `@JsonIgnore` |
+| Express.js (Node)  | ✅ Default `req.body` → langsung bind  | Sering — via Mongoose ODM atau langsung                     | DTO validasi, whitelist fields via Joi/Zod                                 |
+| Ruby on Rails      | ✅ Yes! (default sejak 2005)           | Sangat bila no strong params                                | `params.require(:user).permit(:name, :email)`                              |
+| Laravel (PHP)      | ✅ Eloquent mass assignment protection | Tidak — protection built-in                                 | `$fillable` / `$guarded` di Model                                          |
+| ASP.NET Core       | ✅ Auto-bind via `[FromBody]`          | Kalau DTO gak ada whitelist                                 | `[BindRequired]` + `[JsonIgnore]`                                          |
 
 ### 1.2 Tiga Syarat Agar Exploitable
 
@@ -105,6 +105,7 @@ class UserSerializer(serializers.ModelSerializer):
 ```
 
 **Exploit:**
+
 ```http
 PATCH /api/users/me/ HTTP/1.1
 Content-Type: application/json
@@ -118,6 +119,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIs...
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "username": "attacker",
@@ -158,6 +160,7 @@ public class UserController {
 ```
 
 **Exploit:**
+
 ```http
 PUT /api/users/2 HTTP/1.1
 Content-Type: application/json
@@ -173,14 +176,15 @@ Content-Type: application/json
 
 ```javascript
 // ❌ Berbahaya — Mongoose langsung
-app.put('/api/users/:id', async (req, res) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+app.put("/api/users/:id", async (req, res) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
   //                                      ^^^^^^^^ semua field dari req.body
-  res.json(user);
-});
+  res.json(user)
+})
 ```
 
 **Payload:**
+
 ```json
 {
   "role": "admin",
@@ -206,6 +210,7 @@ end
 ```
 
 **Payload bypass:**
+
 ```JSON
 PUT /users/42.json
 {"user": {"username": "attacker", "email": "attacker@evil.com", "role": "admin"}}
@@ -300,6 +305,7 @@ Mass Assignment ──── sub-kategori dari ──── Broken Access Contro
 ```
 
 Berbeda:
+
 - **Mass Assignment** = client terlalu banyak field di-overwrite (atribut-level)
 - **IDOR / Horizontal BAC** = client ganti id → data user lain (record-level)
 - **Vertical BAC** = client tanpa admin role akses admin panel
@@ -324,6 +330,7 @@ Step 4: Trigger stored XSS → pengguna admin lain execute → token ter-curi
 ### 5.1 Layer 1: Backend — Prevent (Data Layer)
 
 #### Django REST (Python)
+
 ```python
 # ✅ Whitelist approach — Metafields
 class UserSerializer(serializers.ModelSerializer):
@@ -339,6 +346,7 @@ class UserSerializer(serializers.ModelSerializer):
 ```
 
 #### Spring Boot savefy
+
 ```java
 // ✅ DTO Pattern — Structural whitelist
 @RestController
@@ -358,15 +366,19 @@ public record UserUpdateDTO(String username, String email) {}
 ```
 
 #### Node.js + Mongoose Protected
+
 ```javascript
-router.patch('/api/users/:id', async (req, res) => {
-  const allowedFields = ['username', 'email', 'phone']
+router.patch("/api/users/:id", async (req, res) => {
+  const allowedFields = ["username", "email", "phone"]
   const updateFields = Object.keys(req.body)
-    .filter(key => allowedFields.includes(key))
-    .reduce((acc, key) => { acc[key] = req.body[key]; return acc }, {})
+    .filter((key) => allowedFields.includes(key))
+    .reduce((acc, key) => {
+      acc[key] = req.body[key]
+      return acc
+    }, {})
 
   if (Object.keys(updateFields).length === 0) {
-    return res.status(400).json({ error: 'No valid fields provided' })
+    return res.status(400).json({ error: "No valid fields provided" })
   }
 
   await User.findByIdAndUpdate(req.params.id, updateFields, { runValidators: true })
@@ -378,12 +390,14 @@ router.patch('/api/users/:id', async (req, res) => {
 ### 5.2 Layer 2: WAF — Detection Rules
 
 #### CRS (OWASP ModSecurity) — Rule 942150
+
 ```
 # CRS rule 942150 menangkap ARGS:role, ARGS:admin, perms di HTTP body
 # Belum spesifik Mass Assignment — berlakunya untuk semua SQLi/xpath
 ```
 
 #### Custom WAF— Coraza/Apache fails
+
 ```coraza
 requestBodyAccess On
 
@@ -402,7 +416,7 @@ SecRule REQUEST_BODY "(\"?(isadmin|permissions|roleaccount|auditlaff\b)" \
 3. Coba tambahkan field yang tidak ada di form
    payload = original_response | jq '. + {is_admin: true, role: "admin"}'
 4. Kirim balik sebagai PUT/PATCH
-   curl -X PATCH https://api.target.com/api/users/me/ 
+   curl -X PATCH https://api.target.com/api/users/me/
         -H "Authorization: Bearer USER_TOKEN"
         -d '{"name": "user", "is_admin": true}'
 5. Verifikasi: GET /api/users/me/ API, jika is_admin yang di terima→vulnerable
@@ -414,12 +428,12 @@ SecRule REQUEST_BODY "(\"?(isadmin|permissions|roleaccount|auditlaff\b)" \
 
 ### 6.1 Rapih
 
-| WAF | Rule ID | Deskripsi | Fields Detected |
-|-----|---------|-----------|-----------------|
-| **CRS (core)** | 921150 | HTTP Parameter Pollution (bypass) | Jenis parameter+body |
-| **Crop CRS 3.x** | 920480 | Mass Assignment attempt (custom) | `is_admin`, `role`|
-| **Cloudflare WAF** | Custom | Mass assignment (business logic) | Budget, discount, role |
-| **AWS WAF** | Custom | Rate-based+payload block | Semua field request |
+| WAF                | Rule ID | Deskripsi                         | Fields Detected        |
+| ------------------ | ------- | --------------------------------- | ---------------------- |
+| **CRS (core)**     | 921150  | HTTP Parameter Pollution (bypass) | Jenis parameter+body   |
+| **Crop CRS 3.x**   | 920480  | Mass Assignment attempt (custom)  | `is_admin`, `role`     |
+| **Cloudflare WAF** | Custom  | Mass assignment (business logic)  | Budget, discount, role |
+| **AWS WAF**        | Custom  | Rate-based+payload block          | Semua field request    |
 
 ### 6.2 Sigma Rule
 
@@ -432,11 +446,11 @@ logsource:
   category: webserver
 detection:
   selection:
-    cs-method: ['PATCH', 'POST', 'PUT']
-    cs-uri-query: ['/api/users/', '/api/profile/', '/api/account/']
+    cs-method: ["PATCH", "POST", "PUT"]
+    cs-uri-query: ["/api/users/", "/api/profile/", "/api/account/"]
     cs-body|contains:
-      - 'is_admin'
-      - 'isAdmin'
+      - "is_admin"
+      - "isAdmin"
       - '"role'
       - '"username'
       - '"permissions'
@@ -490,6 +504,7 @@ level: medium
 ## 8. Defensive Code — Untuk Setiap Framework
 
 ### Laravel
+
 ```php
 // Model Whitelist
 class User extends Model {
@@ -503,20 +518,19 @@ User::find($id)->update($request->only('name', 'email'));
 ```
 
 ### Next.js / tRPC (TypeScript)
+
 ```typescript
 const schema = z.object({
   username: z.string().min(3),
-  email: z.string().email()
+  email: z.string().email(),
 })
 // Auto memahami field lainnya; explicit
-export const updateUser = protectedProcedure
-  .input(schema)
-  .mutation(async ({ ctx, input }) => {
-    return db.user.update({
-      where: { id: ctx.session.user.id },
-      data: input  // ini hanya akan menjadi `username` dan `email`
-    })
+export const updateUser = protectedProcedure.input(schema).mutation(async ({ ctx, input }) => {
+  return db.user.update({
+    where: { id: ctx.session.user.id },
+    data: input, // ini hanya akan menjadi `username` dan `email`
   })
+})
 ```
 
 ---
@@ -524,6 +538,7 @@ export const updateUser = protectedProcedure
 ## 9. WAF Logs — Arti Session
 
 Ketika WAF menangkap mass assignment:
+
 ```
 [05/Dec/2025:14:23:45 +0000] "PATCH /api/users/me/ HTTP/1.1" 403 98 "-"
 [req payload] {"username":"attacker","email":"attacker@evil.com","is_admin":true}
@@ -564,7 +579,7 @@ Rule triggered: 942230 fields in body (role, is_admin, permissions)
 
 ## Referensi
 
-- OWASP. *Testing for Mass Assignment*. https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_Mass_Assignment
+- OWASP. _Testing for Mass Assignment_. https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_Mass_Assignment
 - CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes. https://cwe.mitre.org/data/definitions/915.html
 - OWASP API Security Top 10 2019-2024: https://owasp.org/API-Security/
 - Django DRF Fields: https://www.django-rest-framework.org/api-guide/serializers/#specify-ofields-in-serializers
@@ -573,4 +588,4 @@ Rule triggered: 942230 fields in body (role, is_admin, permissions)
 
 ---
 
-*Dibuat: 19 Juli 2026 — Deep dive attack mass assignment & OWASP Broken Access Control architecture.*
+_Dibuat: 19 Juli 2026 — Deep dive attack mass assignment & OWASP Broken Access Control architecture._
