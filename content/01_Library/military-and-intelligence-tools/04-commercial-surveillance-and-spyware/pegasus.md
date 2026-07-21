@@ -1,31 +1,32 @@
 ---
 title: Pegasus
 tags:
-  - 04-commercial-surveillance-and-spyware
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-27"
-updated: "2026-07-01"
+- 04-commercial-surveillance-and-spyware
+- library
+- military-and-intelligence-tools
+created: '2026-06-27'
+updated: '2026-07-01'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] KONTEKS ETIS & LEGAL
 > Seluruh informasi di bawah bersumber dari publikasi terbuka: Citizen Lab, Amnesty International, Google Project Zero, Apple security updates, dan dokumen forensik publik. Pembahasan ini murni **edukasional dan defensif**. Penulisan ini tidak mendorong, mengajarkan, atau memfasilitasi pembuatan, distribusi, atau penggunaan spyware. Penggunaan teknologi serupa tanpa otorisasi eksplisit adalah ilegal di hampir seluruh yurisdiksi. Deteksi yang dijelaskan bertujuan untuk melindungi individu yang menjadi target.
 
+
 ## 🧬 Arsitektur Modular Pegasus
 
 Pegasus bukan sekadar satu malware, melainkan **platform modular** dengan komponen terpisah:
 
-| Komponen                         | Fungsi                                                                                                                          | Karakteristik                                                                                         |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **Exploit Delivery**             | Mengirim 0-click exploit via iMessage, WhatsApp, FaceTime, SMS, atau network injection.                                         | Zero-interaction; korban tidak perlu membuka apapun.                                                  |
-| **Stage 1 – “Finder”**           | Mengambil alih proses media (IMTranscoderAgent/SpringBoard) dan mengeksekusi shellcode via arbitrary code execution.            | Dipicu saat notifikasi pesan masuk memproses attachment (JBIG2, PDF, GIF).                            |
-| **Stage 2 – “Jailbreak”**        | Eksploitasi kernel untuk privilege escalation ke root, melewati kode signing (AMFI), sandbox, dan KPP/KTRR.                     | Sering menggunakan bug di XNU kernel, IOKit, atau kelemahan PAC bypass.                               |
-| **Stage 3 – “Agent Injector”**   | Memuat payload utama ke dalam proses tepercaya (trustd, CommCenter, SpringBoard) via dylib injection atau `dlopen` dari memori. | Menggunakan entitlement abuse (com.apple.security.iokit-user-client-class) untuk menghindari deteksi. |
-| **Agent Core**                   | Modul permanen: keylogger, mic/camera capture, GPS tracking, kontak, message, email, file exfiltration, live calls.             | Berjalan sebagai daemon tersembunyi, berkomunikasi dengan C2 via TLS dengan domain fronting.          |
-| **C2 Infrastructure**            | Server relay di cloud (AWS, Azure, Google) dan di negara dengan regulasi lemah.                                                 | Menggunakan protokol seperti XMPP, HTTP dengan header mimikri, dan kadang terowongan VPN.             |
-| **Network Injection (Opsional)** | Memaksa target mengunduh exploit melalui BGP hijack atau kolusi ISP, bahkan tanpa mengirim pesan.                               | Memerlukan akses ke backbone atau ISP lokal.                                                          |
+| Komponen | Fungsi | Karakteristik |
+|----------|--------|---------------|
+| **Exploit Delivery** | Mengirim 0-click exploit via iMessage, WhatsApp, FaceTime, SMS, atau network injection. | Zero-interaction; korban tidak perlu membuka apapun. |
+| **Stage 1 – “Finder”** | Mengambil alih proses media (IMTranscoderAgent/SpringBoard) dan mengeksekusi shellcode via arbitrary code execution. | Dipicu saat notifikasi pesan masuk memproses attachment (JBIG2, PDF, GIF). |
+| **Stage 2 – “Jailbreak”** | Eksploitasi kernel untuk privilege escalation ke root, melewati kode signing (AMFI), sandbox, dan KPP/KTRR. | Sering menggunakan bug di XNU kernel, IOKit, atau kelemahan PAC bypass. |
+| **Stage 3 – “Agent Injector”** | Memuat payload utama ke dalam proses tepercaya (trustd, CommCenter, SpringBoard) via dylib injection atau `dlopen` dari memori. | Menggunakan entitlement abuse (com.apple.security.iokit-user-client-class) untuk menghindari deteksi. |
+| **Agent Core** | Modul permanen: keylogger, mic/camera capture, GPS tracking, kontak, message, email, file exfiltration, live calls. | Berjalan sebagai daemon tersembunyi, berkomunikasi dengan C2 via TLS dengan domain fronting. |
+| **C2 Infrastructure** | Server relay di cloud (AWS, Azure, Google) dan di negara dengan regulasi lemah. | Menggunakan protokol seperti XMPP, HTTP dengan header mimikri, dan kadang terowongan VPN. |
+| **Network Injection (Opsional)** | Memaksa target mengunduh exploit melalui BGP hijack atau kolusi ISP, bahkan tanpa mengirim pesan. | Memerlukan akses ke backbone atau ISP lokal. |
 
 ---
 
@@ -127,7 +128,6 @@ MVT (dikembangkan Amnesty) membandingkan konten backup (enkripsi atau iTunes/Fin
 ### Indikator Jaringan dan IOC
 
 Citizen Lab mempublikasikan ribuan IOC: domain, IP, sertifikat TLS, dan JA3 hash. Beberapa domain yang pernah digunakan:
-
 - `*.icloud-analysis.com`
 - `*.whitepacket.com`
 - `*.net-fx.info`
@@ -180,13 +180,13 @@ Pegasus dipasarkan oleh NSO Group sebagai alat **law enforcement dan intelijen**
 
 ## 📚 Referensi & Bacaan Lanjut
 
-- Citizen Lab, _Pegasus Project_ (2021–2023)
-- Google Project Zero, _FORCEDENTRY: Sandbox Escape & 0-Click iMessage_ (CVE-2021-30860) – Ian Beer & Samuel Groß
-- Amnesty International, _Forensic Methodology Report: Detecting Pegasus with MVT_
-- Apple Security Engineering, _Lockdown Mode Technical Brief_ (2022)
-- Siguza, _iOS Kernel Exploitation: Advanced PAC Bypass_ (2023)
-- NSO Group, _Transparency Report_ (hanya klaim legal, tidak ada detail teknis)
+- Citizen Lab, *Pegasus Project* (2021–2023)
+- Google Project Zero, *FORCEDENTRY: Sandbox Escape & 0-Click iMessage* (CVE-2021-30860) – Ian Beer & Samuel Groß
+- Amnesty International, *Forensic Methodology Report: Detecting Pegasus with MVT*
+- Apple Security Engineering, *Lockdown Mode Technical Brief* (2022)
+- Siguza, *iOS Kernel Exploitation: Advanced PAC Bypass* (2023)
+- NSO Group, *Transparency Report* (hanya klaim legal, tidak ada detail teknis)
 
 ---
 
-_Pegasus Spyware Deep Dive | FORCEDENTRY Kill Chain | Mobile Surveillance Defensive Framework_
+*Pegasus Spyware Deep Dive | FORCEDENTRY Kill Chain | Mobile Surveillance Defensive Framework*

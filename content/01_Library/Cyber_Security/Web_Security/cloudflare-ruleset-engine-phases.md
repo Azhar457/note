@@ -1,13 +1,13 @@
 ---
 title: Cloudflare Ruleset Engine — Phase Architecture
 tags:
-  - cyber-security
-  - library
-  - web-security
-created: "2026-07-02"
-updated: "2026-07-02"
+- cyber-security
+- library
+- web-security
+created: '2026-07-02'
+updated: '2026-07-02'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 # ☁️ Cloudflare Ruleset Engine — Phase Architecture
@@ -16,7 +16,6 @@ cssclasses: ""
 > Ruleset Engine adalah blueprint processing pipeline yang menginspirasi arsitektur jarsWAF. Konsep phase-based evaluation di sini terkait dengan [[ids-ips-waf-nsm-comparison]] dan [[network-security]]. Untuk logging & SIEM integration, lihat [[blueteam-detection-matrix]] dan [[cgnat-attribution-deepdive]].
 
 ## Daftar Isi
-
 1. [Overview](#overview)
 2. [Core Concepts](#core-concepts)
 3. [Arsitektur Ruleset Engine](#arsitektur-ruleset-engine)
@@ -39,12 +38,12 @@ cssclasses: ""
 
 Data dari Cloudflare Docs (sumber utama note ini):
 
-| Layer                 | Jumlah Phase                     |
-| --------------------- | -------------------------------- |
-| Network Layer         | **5**                            |
-| Application: Request  | **17** (termasuk 3 internal/N/A) |
-| Application: Response | **6** (termasuk 2 internal/N/A)  |
-| **Total**             | **28**                           |
+| Layer | Jumlah Phase |
+|-------|-------------|
+| Network Layer | **5** |
+| Application: Request | **17** (termasuk 3 internal/N/A) |
+| Application: Response | **6** (termasuk 2 internal/N/A) |
+| **Total** | **28** |
 
 > Setiap phase punya **phase entry point ruleset** — root ruleset yang nge-hold aturan untuk phase itu. Custom rulesets bisa di-execute dari entry point ini.
 
@@ -65,11 +64,11 @@ Response dari Origin → [Phase R1] → [Phase R2] → ... → [Phase RN] → ke
 
 **Ruleset** = versioned set of rules. Ada dua jenis:
 
-| Type                  | Kind      | Deployable?                 | Deskripsi                                                                         |
-| --------------------- | --------- | --------------------------- | --------------------------------------------------------------------------------- |
-| **Phase Entry Point** | `root`    | Ya, ke satu phase           | Ruleset utama di setiap phase. Defines rules yang execute custom/managed rulesets |
-| **Custom Ruleset**    | `custom`  | Di-execute dari entry point | Ruleset reusable yang bisa dipasang di banyak phase entry points                  |
-| **Managed Ruleset**   | (managed) | Dari Cloudflare             | Ruleset pre-built dari Cloudflare (WAF, DDoS, Bot Mgmt)                           |
+| Type | Kind | Deployable? | Deskripsi |
+|------|------|-------------|-----------|
+| **Phase Entry Point** | `root` | Ya, ke satu phase | Ruleset utama di setiap phase. Defines rules yang execute custom/managed rulesets |
+| **Custom Ruleset** | `custom` | Di-execute dari entry point | Ruleset reusable yang bisa dipasang di banyak phase entry points |
+| **Managed Ruleset** | (managed) | Dari Cloudflare | Ruleset pre-built dari Cloudflare (WAF, DDoS, Bot Mgmt) |
 
 ### Rule
 
@@ -160,16 +159,15 @@ action: "block" | "execute" | "skip" | "rewrite" | ...
 
 5 phase untuk **packet-level filtering** — berlaku di Cloudflare Network Firewall / Magic Transit.
 
-| #   | Phase Name                  | Product/Feature             | Fungsi                                                      |
-| --- | --------------------------- | --------------------------- | ----------------------------------------------------------- |
-| 1   | `ddos_l4`                   | L4 DDoS Attack Protection   | Filter serangan DDoS di layer 4 (SYN flood, UDP flood, dll) |
-| 2   | `magic_transit`             | Cloudflare Network Firewall | Packet filtering — allow/block berdasarkan IP/port/protocol |
-| 3   | `magic_transit_managed`     | Managed Rulesets (Network)  | Ruleset pre-built untuk traffic network                     |
-| 4   | `magic_transit_ratelimit`   | Rate Limiting (Network)     | Rate limit per source IP di layer jaringan                  |
-| 5   | `magic_transit_ids_managed` | Intrusion Detection System  | IDS signature-based detection di layer network              |
+| # | Phase Name | Product/Feature | Fungsi |
+|---|------------|-----------------|--------|
+| 1 | `ddos_l4` | L4 DDoS Attack Protection | Filter serangan DDoS di layer 4 (SYN flood, UDP flood, dll) |
+| 2 | `magic_transit` | Cloudflare Network Firewall | Packet filtering — allow/block berdasarkan IP/port/protocol |
+| 3 | `magic_transit_managed` | Managed Rulesets (Network) | Ruleset pre-built untuk traffic network |
+| 4 | `magic_transit_ratelimit` | Rate Limiting (Network) | Rate limit per source IP di layer jaringan |
+| 5 | `magic_transit_ids_managed` | Intrusion Detection System | IDS signature-based detection di layer network |
 
 **Karakteristik Network Layer:**
-
 - Operates on raw packets, bukan HTTP
 - Tidak punya konsep URI, headers, cookies
 - Fields: `ip.src`, `ip.dst`, `ip.proto`, `tcp.srcport`, `tcp.dstport`, `udp.srcport`, `udp.dstport`
@@ -181,28 +179,28 @@ action: "block" | "execute" | "skip" | "rewrite" | ...
 
 17 phase untuk **HTTP request processing** — dari redirect hingga cache.
 
-| #   | Phase Name                       | Product/Feature           | Evaluates                                    |
-| --- | -------------------------------- | ------------------------- | -------------------------------------------- |
-| 1   | `http_request_dynamic_redirect`  | Single Redirects          | URL, query string — redirect decision        |
-| 2   | `http_request_sanitize`          | URL Normalization         | URL encoding, path normalization             |
-| 3   | `http_request_transform`         | URL Rewrite Rules         | URL path, query params — rewrite             |
-| —   | _(internal)_                     | Waiting Room Rules        | Queue management                             |
-| 4   | `http_request_api_gateway_early` | API Shield (early)        | Schema validation, mTLS API tokens           |
-| 5   | `http_config_settings`           | Configuration Rules       | Zone config overrides (per-URL)              |
-| 6   | `http_request_origin`            | Origin Rules              | Origin server, SNI, DNS resolution           |
-| 7   | `ddos_l7`                        | HTTP DDoS Protection      | L7 DDoS — rate, pattern, fingerprint         |
-| 8   | `http_request_firewall_custom`   | WAF Custom Rules          | User-defined WAF rules                       |
-| 9   | `http_ratelimit`                 | Rate Limiting Rules       | Request rate per threshold                   |
-| 10  | `http_request_api_gateway_late`  | API Shield (late)         | Schema + token validation (after rate limit) |
-| 11  | `http_request_firewall_managed`  | WAF Managed Rules         | Cloudflare-managed WAF rulesets              |
-| 12  | `http_request_sbfm`              | Super Bot Fight Mode      | Bot detection — verified vs suspicious       |
-| —   | _(internal)_                     | Cloudflare Access         | Zero Trust auth check (Access policies)      |
-| 13  | `http_request_redirect`          | Bulk Redirects            | Many-to-many URL redirects                   |
-| —   | _(internal)_                     | Managed Transforms        | Automatic header transforms                  |
-| 14  | `http_request_late_transform`    | Response Header Transform | Modify response headers before cache         |
-| 15  | `http_request_cache_settings`    | Cache Rules               | Cache key, TTL, bypass rules                 |
-| 16  | `http_request_snippets`          | Snippets                  | Cloudflare Workers-lite scripts              |
-| 17  | `http_request_cloud_connector`   | Cloud Connector           | Third-party cloud integration                |
+| # | Phase Name | Product/Feature | Evaluates |
+|---|------------|-----------------|-----------|
+| 1 | `http_request_dynamic_redirect` | Single Redirects | URL, query string — redirect decision |
+| 2 | `http_request_sanitize` | URL Normalization | URL encoding, path normalization |
+| 3 | `http_request_transform` | URL Rewrite Rules | URL path, query params — rewrite |
+| — | *(internal)* | Waiting Room Rules | Queue management |
+| 4 | `http_request_api_gateway_early` | API Shield (early) | Schema validation, mTLS API tokens |
+| 5 | `http_config_settings` | Configuration Rules | Zone config overrides (per-URL) |
+| 6 | `http_request_origin` | Origin Rules | Origin server, SNI, DNS resolution |
+| 7 | `ddos_l7` | HTTP DDoS Protection | L7 DDoS — rate, pattern, fingerprint |
+| 8 | `http_request_firewall_custom` | WAF Custom Rules | User-defined WAF rules |
+| 9 | `http_ratelimit` | Rate Limiting Rules | Request rate per threshold |
+| 10 | `http_request_api_gateway_late` | API Shield (late) | Schema + token validation (after rate limit) |
+| 11 | `http_request_firewall_managed` | WAF Managed Rules | Cloudflare-managed WAF rulesets |
+| 12 | `http_request_sbfm` | Super Bot Fight Mode | Bot detection — verified vs suspicious |
+| — | *(internal)* | Cloudflare Access | Zero Trust auth check (Access policies) |
+| 13 | `http_request_redirect` | Bulk Redirects | Many-to-many URL redirects |
+| — | *(internal)* | Managed Transforms | Automatic header transforms |
+| 14 | `http_request_late_transform` | Response Header Transform | Modify response headers before cache |
+| 15 | `http_request_cache_settings` | Cache Rules | Cache key, TTL, bypass rules |
+| 16 | `http_request_snippets` | Snippets | Cloudflare Workers-lite scripts |
+| 17 | `http_request_cloud_connector` | Cloud Connector | Third-party cloud integration |
 
 ### Urutan Logis Request Phase
 
@@ -218,12 +216,12 @@ URL in → Normalize → Rewrite → API Shield → Config → Origin → DDoS
 
 Fields tertentu hanya available di phase-phase tertentu:
 
-| Phase                                   | HTTP Headers | URI Path | Query String | Request Body | Response Fields | Geolocation |
-| --------------------------------------- | ------------ | -------- | ------------ | ------------ | --------------- | ----------- |
-| Early (redirect, sanitize, transform)   | ✅           | ✅       | ✅           | ❌           | ❌              | ✅          |
-| Mid (firewall, ratelimit, managed)      | ✅           | ✅       | ✅           | ✅ (some)    | ❌              | ✅          |
-| Late (cache, snippets, cloud connector) | ✅           | ✅       | ✅           | ✅           | ❌              | ✅          |
-| Response phases                         | ✅           | ❌       | ❌           | ❌           | ✅              | ✅          |
+| Phase | HTTP Headers | URI Path | Query String | Request Body | Response Fields | Geolocation |
+|-------|-------------|----------|-------------|-------------|----------------|-------------|
+| Early (redirect, sanitize, transform) | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Mid (firewall, ratelimit, managed) | ✅ | ✅ | ✅ | ✅ (some) | ❌ | ✅ |
+| Late (cache, snippets, cloud connector) | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| Response phases | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 
 > Request body fields (`http.request.body.*`) tersedia mulai phase `http_request_firewall_custom`.
 
@@ -233,15 +231,15 @@ Fields tertentu hanya available di phase-phase tertentu:
 
 6 phase untuk **HTTP response processing** — dari error page hingga logging.
 
-| #   | Phase Name                        | Product/Feature           | Fungsi                                                        |
-| --- | --------------------------------- | ------------------------- | ------------------------------------------------------------- |
-| 1   | `http_custom_errors`              | Custom Errors             | Ganti error page (500, 502, 1xxx errors) dengan konten kustom |
-| —   | _(internal)_                      | Managed Transforms        | Transform response headers otomatis                           |
-| 2   | `http_response_headers_transform` | Response Header Transform | Set/add/remove response headers                               |
-| 3   | `http_ratelimit`                  | Rate Limiting (response)  | Rate limit berdasarkan response attributes (status code)      |
-| 4   | `http_response_compression`       | Compression Rules         | Kontrol kompresi Brotli/gzip per content type                 |
-| 5   | `http_response_firewall_managed`  | Sensitive Data Detection  | DLP — deteksi credit card, SSN, API key di response body      |
-| 6   | `http_log_custom_fields`          | Logpush Custom Fields     | Add custom fields ke logpush                                  |
+| # | Phase Name | Product/Feature | Fungsi |
+|---|------------|-----------------|--------|
+| 1 | `http_custom_errors` | Custom Errors | Ganti error page (500, 502, 1xxx errors) dengan konten kustom |
+| — | *(internal)* | Managed Transforms | Transform response headers otomatis |
+| 2 | `http_response_headers_transform` | Response Header Transform | Set/add/remove response headers |
+| 3 | `http_ratelimit` | Rate Limiting (response) | Rate limit berdasarkan response attributes (status code) |
+| 4 | `http_response_compression` | Compression Rules | Kontrol kompresi Brotli/gzip per content type |
+| 5 | `http_response_firewall_managed` | Sensitive Data Detection | DLP — deteksi credit card, SSN, API key di response body |
+| 6 | `http_log_custom_fields` | Logpush Custom Fields | Add custom fields ke logpush |
 
 ### Response Phase Flow
 
@@ -363,28 +361,28 @@ Account-level:
 
 Setiap rule bisa punya action berikut:
 
-| Action                     | Deskripsi                                | Use Case                     |
-| -------------------------- | ---------------------------------------- | ---------------------------- |
-| **block**                  | Return error response (403/4xx/5xx)      | Block malicious requests     |
-| **challenge**              | Show CAPTCHA                             | Suspicious traffic           |
-| **managed_challenge**      | Adaptive challenge (CAPTCHA/JS/No-op)    | Bot detection                |
-| **allow**                  | Skip semua phase selanjutnya             | Whitelist legitimate traffic |
-| **execute**                | Execute another ruleset (custom/managed) | Run rule collection          |
-| **skip**                   | Skip specified phases/rulesets           | Bypass certain checks        |
-| **rewrite**                | Modify URI/headers                       | URL normalization            |
-| **redirect**               | URL redirect                             | URL forwarding               |
-| **log**                    | Log only, no action                      | Monitoring                   |
-| **set_config**             | Override zone settings                   | Per-request config           |
-| **force_connection_close** | Close TCP connection                     | Mitigation                   |
-| **compress_response**      | Set compression type                     | Response optimization        |
+| Action | Deskripsi | Use Case |
+|--------|-----------|----------|
+| **block** | Return error response (403/4xx/5xx) | Block malicious requests |
+| **challenge** | Show CAPTCHA | Suspicious traffic |
+| **managed_challenge** | Adaptive challenge (CAPTCHA/JS/No-op) | Bot detection |
+| **allow** | Skip semua phase selanjutnya | Whitelist legitimate traffic |
+| **execute** | Execute another ruleset (custom/managed) | Run rule collection |
+| **skip** | Skip specified phases/rulesets | Bypass certain checks |
+| **rewrite** | Modify URI/headers | URL normalization |
+| **redirect** | URL redirect | URL forwarding |
+| **log** | Log only, no action | Monitoring |
+| **set_config** | Override zone settings | Per-request config |
+| **force_connection_close** | Close TCP connection | Mitigation |
+| **compress_response** | Set compression type | Response optimization |
 
 ### Action: Allow vs Skip
 
-| Aspek              | Allow                     | Skip                               |
-| ------------------ | ------------------------- | ---------------------------------- |
-| **Effect**         | Skip ALL remaining phases | Skip specific phases/rulesets      |
-| **Origin request** | Always passes to origin   | Request continues processing       |
-| **Use case**       | Trusted traffic bypass    | Skip certain checks but not others |
+| Aspek | Allow | Skip |
+|-------|-------|------|
+| **Effect** | Skip ALL remaining phases | Skip specific phases/rulesets |
+| **Origin request** | Always passes to origin | Request continues processing |
+| **Use case** | Trusted traffic bypass | Skip certain checks but not others |
 
 ### Action: Execute
 
@@ -417,29 +415,29 @@ Cloudflare pakai **Wirefilter syntax** — mirip Wireshark display filter.
 
 ### Field Categories
 
-| Category                | Contoh Fields                                                                                         |
-| ----------------------- | ----------------------------------------------------------------------------------------------------- |
-| **HTTP**                | `http.request.uri`, `http.request.method`, `http.request.headers.*`, `http.cookie`, `http.user_agent` |
-| **IP**                  | `ip.src`, `ip.dst`, `ip.geoip.country`                                                                |
-| **TCP**                 | `tcp.srcport`, `tcp.dstport`                                                                          |
-| **SSL/TLS**             | `ssl`, `ssl.protocol`, `ssl.certificate`                                                              |
-| **Cloudflare-specific** | `cf.bot_management.score`, `cf.waf.score`, `cf.threat_score`, `cf.zone.plan`                          |
-| **Rate Limiting**       | `cf.ratelimit.remaining`, `cf.rl.action`                                                              |
+| Category | Contoh Fields |
+|----------|---------------|
+| **HTTP** | `http.request.uri`, `http.request.method`, `http.request.headers.*`, `http.cookie`, `http.user_agent` |
+| **IP** | `ip.src`, `ip.dst`, `ip.geoip.country` |
+| **TCP** | `tcp.srcport`, `tcp.dstport` |
+| **SSL/TLS** | `ssl`, `ssl.protocol`, `ssl.certificate` |
+| **Cloudflare-specific** | `cf.bot_management.score`, `cf.waf.score`, `cf.threat_score`, `cf.zone.plan` |
+| **Rate Limiting** | `cf.ratelimit.remaining`, `cf.rl.action` |
 
 ### Operators
 
-| Operator        | Contoh                                                                   |
-| --------------- | ------------------------------------------------------------------------ |
-| **eq**          | `http.request.uri.path eq "/login"`                                      |
-| **ne**          | `ip.src ne 1.1.1.1`                                                      |
-| **contains**    | `http.request.uri.path contains "/wp-admin"`                             |
-| **starts_with** | `starts_with(http.request.uri.path, "/api")`                             |
-| **ends_with**   | `ends_with(http.request.uri.path, ".php")`                               |
-| **in**          | `ip.src in { 10.0.0.0/8 192.168.0.0/16 }`                                |
-| **matches**     | `http.request.uri.path matches "^/admin"` (regex)                        |
-| **and**         | `ip.src eq 1.1.1.1 and http.request.method eq "POST"`                    |
-| **or**          | `http.request.uri.path eq "/admin" or http.request.uri.path eq "/login"` |
-| **not**         | `not ip.geoip.country in { "RU" "CN" }`                                  |
+| Operator | Contoh |
+|----------|--------|
+| **eq** | `http.request.uri.path eq "/login"` |
+| **ne** | `ip.src ne 1.1.1.1` |
+| **contains** | `http.request.uri.path contains "/wp-admin"` |
+| **starts_with** | `starts_with(http.request.uri.path, "/api")` |
+| **ends_with** | `ends_with(http.request.uri.path, ".php")` |
+| **in** | `ip.src in { 10.0.0.0/8 192.168.0.0/16 }` |
+| **matches** | `http.request.uri.path matches "^/admin"` (regex) |
+| **and** | `ip.src eq 1.1.1.1 and http.request.method eq "POST"` |
+| **or** | `http.request.uri.path eq "/admin" or http.request.uri.path eq "/login"` |
+| **not** | `not ip.geoip.country in { "RU" "CN" }` |
 
 ### Example Complex Expression
 
@@ -456,10 +454,10 @@ Cloudflare pakai **Wirefilter syntax** — mirip Wireshark display filter.
 
 ### Zone-level vs Account-level
 
-| Level             | Scope      | Use Case                                |
-| ----------------- | ---------- | --------------------------------------- |
-| **Zone-level**    | Per domain | Zone-specific WAF rules, page rules     |
-| **Account-level** | All zones  | Enterprise-wide policy, shared rulesets |
+| Level | Scope | Use Case |
+|-------|-------|----------|
+| **Zone-level** | Per domain | Zone-specific WAF rules, page rules |
+| **Account-level** | All zones | Enterprise-wide policy, shared rulesets |
 
 ### Phase Entry Point Deployment
 
@@ -499,16 +497,16 @@ PUT /zones/{zone_id}/rulesets/phases/{phase_name}/entrypoint
 
 ### Apa yang bisa diadopsi
 
-| Konsep Cloudflare               | Implementasi di jarsWAF                                                                                                                         |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Phase pipeline**              | Pipeline processing dengan urutan fixed — setiap phase punya tanggung jawab spesifik (parsing → sanitasi → WAF → rate limit → cache → response) |
-| **Entry point ruleset**         | Root ruleset per phase yang mengeksekusi filter chain — memisahkan "what to check" dari "what to do when match"                                 |
-| **Multiple actions**            | Actions: block, challenge, allow, log, rewrite — nggak cuma allow/deny                                                                          |
-| **Expression language**         | DSL untuk aturan firewall — field-based, composable (eq, contains, starts_with, regex, CIDR)                                                    |
-| **Skip action**                 | Bypass phase tertentu — berguna buat trust list tanpa harus disable WAF entirely                                                                |
-| **Score-based bot detection**   | Machine learning score instead of binary block — prinsip risk-based decision                                                                    |
-| **Phase field visibility**      | Fields tertentu hanya available di phase tertentu — desain yang mencegah misuse                                                                 |
-| **Account-level vs zone-level** | Multi-tenant policy separation — each tenant punya ruleset sendiri                                                                              |
+| Konsep Cloudflare | Implementasi di jarsWAF |
+|-------------------|------------------------|
+| **Phase pipeline** | Pipeline processing dengan urutan fixed — setiap phase punya tanggung jawab spesifik (parsing → sanitasi → WAF → rate limit → cache → response) |
+| **Entry point ruleset** | Root ruleset per phase yang mengeksekusi filter chain — memisahkan "what to check" dari "what to do when match" |
+| **Multiple actions** | Actions: block, challenge, allow, log, rewrite — nggak cuma allow/deny |
+| **Expression language** | DSL untuk aturan firewall — field-based, composable (eq, contains, starts_with, regex, CIDR) |
+| **Skip action** | Bypass phase tertentu — berguna buat trust list tanpa harus disable WAF entirely |
+| **Score-based bot detection** | Machine learning score instead of binary block — prinsip risk-based decision |
+| **Phase field visibility** | Fields tertentu hanya available di phase tertentu — desain yang mencegah misuse |
+| **Account-level vs zone-level** | Multi-tenant policy separation — each tenant punya ruleset sendiri |
 
 ### Arsitektur jarsWAF yang Terinspirasi
 
@@ -609,15 +607,15 @@ impl Pipeline {
 
 ### Perbedaan Utama jarsWAF vs Cloudflare
 
-| Aspek              | Cloudflare                   | jarsWAF                         |
-| ------------------ | ---------------------------- | ------------------------------- |
-| **Arsitektur**     | Global reverse proxy network | Single Rust binary (Pingora)    |
-| **Scaling**        | Multi-region anycast         | Horizontal per-instance         |
-| **Phase config**   | API-driven (REST + JSON)     | Config file / YAML / TOML       |
-| **Ruleset format** | Cloudflare Wirefilter DSL    | Custom DSL + CRS compatibility  |
-| **Multi-tenancy**  | Account + Zone hierarchy     | Tenant via config/namespace     |
-| **Deployment**     | Cloud-only (SaaS)            | On-prem / edge / cloud-agnostic |
-| **Network layer**  | Magic Transit (proprietary)  | eBPF XDP + iptables/nftables    |
+| Aspek | Cloudflare | jarsWAF |
+|-------|-----------|---------|
+| **Arsitektur** | Global reverse proxy network | Single Rust binary (Pingora) |
+| **Scaling** | Multi-region anycast | Horizontal per-instance |
+| **Phase config** | API-driven (REST + JSON) | Config file / YAML / TOML |
+| **Ruleset format** | Cloudflare Wirefilter DSL | Custom DSL + CRS compatibility |
+| **Multi-tenancy** | Account + Zone hierarchy | Tenant via config/namespace |
+| **Deployment** | Cloud-only (SaaS) | On-prem / edge / cloud-agnostic |
+| **Network layer** | Magic Transit (proprietary) | eBPF XDP + iptables/nftables |
 
 ---
 
@@ -625,7 +623,6 @@ impl Pipeline {
 
 > [!tip] Bottom Line
 > Ruleset Engine Cloudflare adalah referensi utama buat desain pipeline jarsWAF:
->
 > 1. **28 phase** terbagi rapi — network (5), request (17), response (6)
 > 2. Setiap phase punya entry point ruleset → clean separation of concerns
 > 3. Actions: block, allow, skip, execute, rewrite, log — beyond binary allow/deny

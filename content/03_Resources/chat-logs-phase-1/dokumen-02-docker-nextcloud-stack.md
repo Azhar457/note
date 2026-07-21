@@ -1,20 +1,20 @@
 ---
 tags:
-  - Docker
-  - Nextcloud
-  - MariaDB
-  - IaC
-  - Compose
-  - Cloud-Native
-  - Persistence
+- Docker
+- Nextcloud
+- MariaDB
+- IaC
+- Compose
+- Cloud-Native
+- Persistence
 aliases:
-  - Nextcloud Stack
-  - Docker Compose
-  - Infrastructure as Code
+- Nextcloud Stack
+- Docker Compose
+- Infrastructure as Code
 status: operational
 created: 2026-04-24
 title: Dokumen 02 Docker Nextcloud Stack
-updated: "2026-07-01"
+updated: '2026-07-01'
 ---
 
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage
@@ -158,7 +158,7 @@ cd /opt/nextcloud
 sudo docker compose up -d
 ```
 
-Perintah ini akan menarik (_pull_) image MariaDB, Nextcloud, dan Cloudflared dari Docker Hub, lalu menyalakannya di background sebagai daemon.
+Perintah ini akan menarik (*pull*) image MariaDB, Nextcloud, dan Cloudflared dari Docker Hub, lalu menyalakannya di background sebagai daemon.
 
 Verifikasi status:
 

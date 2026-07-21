@@ -1,13 +1,13 @@
 ---
 title: Security Chaos Engineering — Resilience Testing & Antifragile Systems
 tags:
-  - chaos-engineering
-  - resilience
-  - antifragile
-  - security-testing
-  - sre
-created: "2026-07-19"
-updated: "2026-07-19"
+- chaos-engineering
+- resilience
+- antifragile
+- security-testing
+- sre
+created: '2026-07-19'
+updated: '2026-07-19'
 status: growing
 ---
 
@@ -39,19 +39,18 @@ def run_experiment():
 
 ### 1.2 Security Chaos Experiments
 
-| Experiment         | Injection           | Expected Behavior                 |
-| ------------------ | ------------------- | --------------------------------- |
-| **WAF Failure**    | Disable WAF         | Backend auth should block attacks |
-| **Cert Expiry**    | Expire TLS cert     | Proper error, no fallback to HTTP |
-| **Log Drop**       | Stop log shipping   | Alert, buffer, no crash           |
-| **Auth Down**      | Kill auth service   | Cached auth, graceful degradation |
-| **DNS Fail**       | Block DNS           | Cached resolution, no data leak   |
+| Experiment | Injection | Expected Behavior |
+|-----------|-----------|-------------------|
+| **WAF Failure** | Disable WAF | Backend auth should block attacks |
+| **Cert Expiry** | Expire TLS cert | Proper error, no fallback to HTTP |
+| **Log Drop** | Stop log shipping | Alert, buffer, no crash |
+| **Auth Down** | Kill auth service | Cached auth, graceful degradation |
+| **DNS Fail** | Block DNS | Cached resolution, no data leak |
 | **Rate Limit Off** | Remove rate limiter | DDoS: backend should still defend |
 
 ---
 
 ### 📚 Referensi
-
 1. "Chaos Engineering" — Rosenthal, Jones
 2. Principles of Chaos: [https://principlesofchaos.org/](https://principlesofchaos.org/)
 3. Security Chaos Engineering: [https://securitychaos.com/](https://securitychaos.com/)

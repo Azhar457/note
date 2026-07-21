@@ -1,19 +1,18 @@
 ---
-title: "AI-Assisted Software Engineering — Deep Dive: Spec-Driven Dev, AI Code Review,
-  Agent Workflow, Toolchain Comparison"
+title: 'AI-Assisted Software Engineering — Deep Dive: Spec-Driven Dev, AI Code Review,
+  Agent Workflow, Toolchain Comparison'
 tags:
-  - ai
-  - software-engineering
-  - vibe-coding
-  - dev-workflow
-  - agentic-coding
-created: "2026-07-18"
-updated: "2026-07-18"
+- ai
+- software-engineering
+- vibe-coding
+- dev-workflow
+- agentic-coding
+created: '2026-07-18'
+updated: '2026-07-18'
 status: operational
 cssclasses:
-  - wide-table
+- wide-table
 ---
-
 # 🤖 AI-Assisted Software Engineering — Deep Dive: Spec-Driven Dev, AI Code Review, Agent Workflow, Toolchain Comparison
 
 > Panduan komprehensif workflow software engineering modern dengan AI sebagai pair programmer. Mencakup paradigm shift dari manual-write ke spec-driven development, AI code review (apa yang AI bisa vs tidak bisa deteksi), prompt patterns untuk coding (spec→code, refactor, test-first, explain), perbandingan toolchain (Claude Code, Cursor, Copilot, Aider, Continue.dev), pitfalls AI-generated code, dan workflow rekomendasi untuk solo developer dan team. Vault udah punya [[clean-code-robert-martin]], [[design-patterns-gof]], [[refactoring-martin-fowler]], [[the-pragmatic-programmer]] — semua buku klasik tentang software engineering yang tetap relevan. Catatan ini melengkapi dengan **bagaimana tools baru (AI) mengubah cara kita menerapkan prinsip-prinsip itu**.
@@ -41,7 +40,6 @@ cssclasses:
 ### Pergeseran Tanggung Jawab
 
 **Dulu (Manual-Write):**
-
 ```
 Developer: Requirements → Design → Write Code → Test → Debug → Deploy
                                ↓                        ↑
@@ -49,7 +47,6 @@ Developer: Requirements → Design → Write Code → Test → Debug → Deploy
 ```
 
 **Sekarang (Spec-Driven):**
-
 ```
 Developer: Requirements → Spec → Review Spec → AI Implement → Review Code → Test → Deploy
                                ↓                             ↑
@@ -81,12 +78,12 @@ Performance:
 
 ### Kenapa Spec-Driven Lebih Cepat?
 
-| Aktivitas       | Manual-Write      | Spec-Driven                                     | Efisiensi          |
-| --------------- | ----------------- | ----------------------------------------------- | ------------------ |
-| Nulis kode baru | 30-60 menit       | 2-5 menit (nulis spec) + 30 detik (AI generate) | 10-20x lebih cepat |
-| Refactor        | 1-3 jam           | 10-15 menit (spec perubahan + AI)               | 6-12x              |
-| Debug           | 30 menit - 1 hari | 5-10 menit (deskripsi bug + spec fix)           | 3-48x              |
-| Generate test   | 15-30 menit       | 2-5 menit (review hasil AI)                     | 3-6x               |
+| Aktivitas | Manual-Write | Spec-Driven | Efisiensi |
+|-----------|-------------|-------------|-----------|
+| Nulis kode baru | 30-60 menit | 2-5 menit (nulis spec) + 30 detik (AI generate) | 10-20x lebih cepat |
+| Refactor | 1-3 jam | 10-15 menit (spec perubahan + AI) | 6-12x |
+| Debug | 30 menit - 1 hari | 5-10 menit (deskripsi bug + spec fix) | 3-48x |
+| Generate test | 15-30 menit | 2-5 menit (review hasil AI) | 3-6x |
 
 > [!warning] Spec yang Buruk = Kode yang Buruk
 > Garbage in, garbage out. Spec yang ambigu menghasilkan kode yang salah. Semakin detail spec, semakin bagus hasil AI. **Lo tetap perlu domain expertise untuk menulis spec yang benar.**
@@ -95,29 +92,28 @@ Performance:
 
 ### Yang AI Bagus Deteksi
 
-| Kategori                | Contoh                                                             | Tools                          |
-| ----------------------- | ------------------------------------------------------------------ | ------------------------------ |
-| **Code smells**         | Duplicate code, long method, magic numbers, dead code              | Copilot review, CodeRabbit     |
-| **Security flaws**      | SQL injection, XSS, hardcoded credentials, SSRF, command injection | Semgrep, CodeQL                |
-| **Performance issues**  | N+1 query, unnecessary allocation, sync-in-async                   | Copilot, SonarLint             |
-| **Style & consistency** | Formatting, naming convention, import order                        | Prettier, ESLint, AI formatter |
-| **API misuse**          | Wrong API call, deprecated function, wrong params                  | Copilot inline, Cursor         |
+| Kategori | Contoh | Tools |
+|----------|--------|-------|
+| **Code smells** | Duplicate code, long method, magic numbers, dead code | Copilot review, CodeRabbit |
+| **Security flaws** | SQL injection, XSS, hardcoded credentials, SSRF, command injection | Semgrep, CodeQL |
+| **Performance issues** | N+1 query, unnecessary allocation, sync-in-async | Copilot, SonarLint |
+| **Style & consistency** | Formatting, naming convention, import order | Prettier, ESLint, AI formatter |
+| **API misuse** | Wrong API call, deprecated function, wrong params | Copilot inline, Cursor |
 
 ### Yang AI LEMAH Deteksi (masih perlu human)
 
-| Kategori                       | Kenapa AI Gagal                              | Contoh                                                          |
-| ------------------------------ | -------------------------------------------- | --------------------------------------------------------------- |
-| **Business logic correctness** | AI tau syntax, gak tau domain rules          | "Apakah perhitungan diskon ini benar sesuai kebijakan pricing?" |
-| **Architectural fit**          | AI gak tau system constraints jangka panjang | "Apakah dependency injection di sini akan menyulitkan testing?" |
-| **Trade-off judgment**         | Tidak ada konteks prioritas bisnis           | "Keamanan ekstra vs user experience — mana yang dikorbankan?"   |
-| **Security design**            | AI gak punya threat model untuk system ini   | "Apakah arsitektur ini memenuhi compliance requirement?"        |
+| Kategori | Kenapa AI Gagal | Contoh |
+|----------|-----------------|--------|
+| **Business logic correctness** | AI tau syntax, gak tau domain rules | "Apakah perhitungan diskon ini benar sesuai kebijakan pricing?" |
+| **Architectural fit** | AI gak tau system constraints jangka panjang | "Apakah dependency injection di sini akan menyulitkan testing?" |
+| **Trade-off judgment** | Tidak ada konteks prioritas bisnis | "Keamanan ekstra vs user experience — mana yang dikorbankan?" |
+| **Security design** | AI gak punya threat model untuk system ini | "Apakah arsitektur ini memenuhi compliance requirement?" |
 
 > **Golden Rule:** Gunakan AI untuk **what** (apa yang salah) dan **how** (bagaimana memperbaiki). Jangan gunakan untuk **why** (kenapa keputusan diambil) — itu still human domain.
 
 ## Prompt Patterns untuk Coding
 
 ### Pattern 1: Spec → Code
-
 ```
 Buat fungsi Python dengan spec berikut:
 [tempel spec]
@@ -128,7 +124,6 @@ Buat fungsi Python dengan spec berikut:
 ```
 
 ### Pattern 2: Refactor with Constraints
-
 ```
 Refactor kode ini dengan constraint:
 - Jangan ubah public API signature — backward compatible
@@ -141,7 +136,6 @@ Refactor kode ini dengan constraint:
 ```
 
 ### Pattern 3: Test-First
-
 ```
 Buat unit test untuk fungsi ini dengan pytest
 Coverage requirements:
@@ -154,7 +148,6 @@ Coverage requirements:
 ```
 
 ### Pattern 4: Explain & Improve
-
 ```
 Jelaskan apa yang kode ini lakukan, baris per baris.
 Terus kasi saran improvement (prioritas: performance > security > readability).
@@ -164,7 +157,6 @@ Jangan rewrite — cukup explain + suggest.
 ```
 
 ### Pattern 5: Debug with Hypothesis
-
 ```
 Kode ini menghasilkan [error/output salah].
 Hypothesis: [tebak akar masalah].
@@ -177,15 +169,15 @@ Kasih 2 opsi solusi sebelum implementasi.
 
 ## Toolchain & IDE Integration
 
-| Tool             | Mode               | Bahasa | Autonomous       | Kelebihan                                          | Kekurangan                        |
-| ---------------- | ------------------ | ------ | ---------------- | -------------------------------------------------- | --------------------------------- |
-| **Claude Code**  | Terminal agent     | All    | ✅ Full agent    | Multi-file edit, git-aware, reasoning              | Kadang over-engineering, API cost |
-| **Aider**        | Terminal           | All    | ✅ Full agent    | Open source, multi-model (local + cloud), map repo | CLI-only, no GUI                  |
-| **Cursor**       | IDE (VS Code fork) | All    | ✅ Agent mode    | Inline edit, tab completion, composer              | Proprietary, lock-in              |
-| **Copilot**      | IDE plugin         | All    | ❌ Chat + inline | Mature, code review built-in                       | Kurang bagus refactor besar       |
-| **Continue.dev** | IDE plugin         | All    | ❌ Chat + inline | Open source, local model, custom rules             | Setup complex                     |
-| **Codex CLI**    | Terminal           | All    | ✅ Semi-agent    | OpenAI, sandboxed execution                        | New, masih beta                   |
-| **CodeGemini**   | IDE plugin         | All    | ❌ Chat          | Google integration, free tier                      | Fitur terbatas                    |
+| Tool | Mode | Bahasa | Autonomous | Kelebihan | Kekurangan |
+|------|------|--------|-----------|-----------|------------|
+| **Claude Code** | Terminal agent | All | ✅ Full agent | Multi-file edit, git-aware, reasoning | Kadang over-engineering, API cost |
+| **Aider** | Terminal | All | ✅ Full agent | Open source, multi-model (local + cloud), map repo | CLI-only, no GUI |
+| **Cursor** | IDE (VS Code fork) | All | ✅ Agent mode | Inline edit, tab completion, composer | Proprietary, lock-in |
+| **Copilot** | IDE plugin | All | ❌ Chat + inline | Mature, code review built-in | Kurang bagus refactor besar |
+| **Continue.dev** | IDE plugin | All | ❌ Chat + inline | Open source, local model, custom rules | Setup complex |
+| **Codex CLI** | Terminal | All | ✅ Semi-agent | OpenAI, sandboxed execution | New, masih beta |
+| **CodeGemini** | IDE plugin | All | ❌ Chat | Google integration, free tier | Fitur terbatas |
 
 ### Memilih Tool
 
@@ -203,7 +195,6 @@ Multi-file refactor   Claude Code / Cursor Composer
 ## Pitfalls — Kode yang Terlihat Benar Tapi Salah
 
 ### 1. Halusinasi Dependency
-
 ```python
 # ❌ AI kadang pake library yang gak exist
 from super_fast_library import process_data  # ImportError!
@@ -212,7 +203,6 @@ from super_fast_library import process_data  # ImportError!
 ```
 
 ### 2. Security Blindspot
-
 ```python
 # ❌ AI generate kode tanpa sanitasi
 exec(user_input)  # RCE — attacker inject perintah OS
@@ -221,7 +211,6 @@ exec(user_input)  # RCE — attacker inject perintah OS
 ```
 
 ### 3. Over-Engineering
-
 ```python
 # ❌ AI suka bikin abstraksi gak perlu
 class AbstractSortingStrategyFactory:
@@ -232,15 +221,12 @@ class AbstractSortingStrategyFactory:
 ```
 
 ### 4. Context Amnesia
-
 AI lupa constraint di awal setelah beberapa round. Solusi:
-
 - Simpan spec di file terpisah (`spec.md`), re-attach tiap prompt
 - Gunakan git commit checkpoint — rollback kalau AI ngaco
 - Satu prompt = satu intent (jangan multitask)
 
 ### 5. Hallucinated Security
-
 ```python
 # ❌ AI generate "security" yang salah
 hashlib.md5(password.encode()).hexdigest()  # MD5 untuk password!
@@ -252,7 +238,6 @@ hashlib.md5(password.encode()).hexdigest()  # MD5 untuk password!
 ## Workflow Rekomendasi
 
 ### Solo Developer (1 orang)
-
 ```
 1. Tulis spec di .md (5-10 menit)
 2. Generate implementasi (30 detik - 2 menit)
@@ -260,11 +245,9 @@ hashlib.md5(password.encode()).hexdigest()  # MD5 untuk password!
 4. AI code review — fokus logic & edge case (5 menit)
 5. Commit
 ```
-
 Total: ~20 menit untuk fitur yang dulu butuh 1 jam.
 
 ### Security-First Workflow (production)
-
 ```
 1. Threat model → spec → AI generate kode
 2. SAST scan (Semgrep/CodeQL) — automated gate
@@ -275,7 +258,6 @@ Total: ~20 menit untuk fitur yang dulu butuh 1 jam.
 ```
 
 ### Code Review Checklist untuk AI-Generated Code
-
 - [ ] Apakah spec terpenuhi? (tidak kurang, tidak lebih)
 - [ ] Apakah ada hallucinated dependency?
 - [ ] Apakah ada security issue? (injection, XSS, hardcoded secret)
@@ -287,14 +269,14 @@ Total: ~20 menit untuk fitur yang dulu butuh 1 jam.
 
 ## Yang Tetap Sama — Prinsip yang Bertahan
 
-| Prinsip                             | Kenapa Masih Relevan                             | Adaptasi AI                                              |
-| ----------------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
-| **DRY** (Don't Repeat Yourself)     | AI bisa generate duplicate code — lo yang review | Minta AI: "Hapus duplicate, extract ke fungsi bersama"   |
-| **KISS** (Keep It Simple)           | AI suka over-engineer — lo yang simplify         | Spec: "Minimal implementation, no patterns"              |
-| **YAGNI** (You Ain't Gonna Need It) | AI suka add feature yang gak diminta             | Spec: "Fitur ini ONLY, jangan tambah prep untuk future"  |
-| **Single Responsibility**           | AI campur logika dalam 1 fungsi                  | Spec: "Satu fungsi = satu tanggung jawab"                |
-| **Separation of Concerns**          | AI campur business logic + IO                    | Spec: "Domain logic pure function, IO di layer terpisah" |
-| **Testing**                         | AI generate test yang lemah                      | Spec test coverage: happy, edge, error, property-based   |
+| Prinsip | Kenapa Masih Relevan | Adaptasi AI |
+|---------|---------------------|-------------|
+| **DRY** (Don't Repeat Yourself) | AI bisa generate duplicate code — lo yang review | Minta AI: "Hapus duplicate, extract ke fungsi bersama" |
+| **KISS** (Keep It Simple) | AI suka over-engineer — lo yang simplify | Spec: "Minimal implementation, no patterns" |
+| **YAGNI** (You Ain't Gonna Need It) | AI suka add feature yang gak diminta | Spec: "Fitur ini ONLY, jangan tambah prep untuk future" |
+| **Single Responsibility** | AI campur logika dalam 1 fungsi | Spec: "Satu fungsi = satu tanggung jawab" |
+| **Separation of Concerns** | AI campur business logic + IO | Spec: "Domain logic pure function, IO di layer terpisah" |
+| **Testing** | AI generate test yang lemah | Spec test coverage: happy, edge, error, property-based |
 
 ---
 

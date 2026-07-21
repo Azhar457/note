@@ -2,13 +2,13 @@
 title: Incident Response Framework — NIST CSF, SANS PICERL, Detection Engineering
   & Post-Mortem
 tags:
-  - sops
-  - cyber-security
-  - incident-response
-created: "2026-07-15"
-updated: "2026-07-15"
+- sops
+- cyber-security
+- incident-response
+created: '2026-07-15'
+updated: '2026-07-15'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🚨 Incident Response Framework — NIST CSF, SANS PICERL, Detection Engineering & Post-Mortem
@@ -37,60 +37,60 @@ cssclasses: ""
 
 Tanpa framework, incident response cenderung reaktif, tidak konsisten, dan sulit diukur efektivitasnya. Framework memberikan:
 
-| Manfaat           | Deskripsi                                                     |
-| ----------------- | ------------------------------------------------------------- |
-| **Struktur**      | Fase jelas: apa yang dilakukan, kapan, oleh siapa             |
-| **Konsistensi**   | Setiap incident ditangani dengan proses yang sama             |
-| **Efisiensi**     | Mengurangi waktu pengambilan keputusan (decision fatigue)     |
-| **Akuntabilitas** | Setiap tindakan tercatat dan bisa diaudit                     |
-| **Improvement**   | Post-mortem → feedback loop → perbaikan berkelanjutan         |
-| **Compliance**    | Memenuhi persyaratan regulasi (PCI DSS, ISO 27001, GDPR, PBI) |
+| Manfaat | Deskripsi |
+|---------|-----------|
+| **Struktur** | Fase jelas: apa yang dilakukan, kapan, oleh siapa |
+| **Konsistensi** | Setiap incident ditangani dengan proses yang sama |
+| **Efisiensi** | Mengurangi waktu pengambilan keputusan (decision fatigue) |
+| **Akuntabilitas** | Setiap tindakan tercatat dan bisa diaudit |
+| **Improvement** | Post-mortem → feedback loop → perbaikan berkelanjutan |
+| **Compliance** | Memenuhi persyaratan regulasi (PCI DSS, ISO 27001, GDPR, PBI) |
 
 ### Dua Framework Utama
 
 #### NIST SP 800-61 Rev. 2 — Computer Security Incident Handling Guide
 
-| Fase                                       | Deskripsi                                               | Output                                               |
-| ------------------------------------------ | ------------------------------------------------------- | ---------------------------------------------------- |
-| **1. Preparation**                         | Siapkan tools, playbook, training, communication plan   | IR plan, toolkit, contact list, SLAs                 |
-| **2. Detection & Analysis**                | Deteksi, verifikasi, triage, dan analisis awal incident | Incident ticket, severity score, preliminary scope   |
-| **3. Containment, Eradication & Recovery** | Isolasi, bersihkan, dan pulihkan sistem                 | Containment plan, eradication log, recovery timeline |
-| **4. Post-Incident Activity**              | Post-mortem, lessons learned, report                    | Incident report, action items, updated playbook      |
+| Fase | Deskripsi | Output |
+|------|-----------|--------|
+| **1. Preparation** | Siapkan tools, playbook, training, communication plan | IR plan, toolkit, contact list, SLAs |
+| **2. Detection & Analysis** | Deteksi, verifikasi, triage, dan analisis awal incident | Incident ticket, severity score, preliminary scope |
+| **3. Containment, Eradication & Recovery** | Isolasi, bersihkan, dan pulihkan sistem | Containment plan, eradication log, recovery timeline |
+| **4. Post-Incident Activity** | Post-mortem, lessons learned, report | Incident report, action items, updated playbook |
 
 #### SANS PICERL (6 Fase Praktis)
 
-| Fase  | Nama                | Tujuan Utama                               | Waktu Target                             |
-| ----- | ------------------- | ------------------------------------------ | ---------------------------------------- |
-| **P** | **Preparation**     | Siapkan tools, training, team              | Berkelanjutan                            |
-| **I** | **Identification**  | Deteksi, triage, tentukan scope & severity | <15 menit (severity), <1 jam (scope)     |
-| **C** | **Containment**     | Isolasi — stop the bleeding                | Short-term: <30 menit; Long-term: <4 jam |
-| **E** | **Eradication**     | Hapus root cause, malware, backdoor        | 1-24 jam tergantung severity             |
-| **R** | **Recovery**        | Kembalikan operasi normal, validasi        | 1-48 jam                                 |
-| **L** | **Lessons Learned** | Post-mortem, update playbook, training     | 1-14 hari pasca-incident                 |
+| Fase | Nama | Tujuan Utama | Waktu Target |
+|------|------|-------------|-------------|
+| **P** | **Preparation** | Siapkan tools, training, team | Berkelanjutan |
+| **I** | **Identification** | Deteksi, triage, tentukan scope & severity | <15 menit (severity), <1 jam (scope) |
+| **C** | **Containment** | Isolasi — stop the bleeding | Short-term: <30 menit; Long-term: <4 jam |
+| **E** | **Eradication** | Hapus root cause, malware, backdoor | 1-24 jam tergantung severity |
+| **R** | **Recovery** | Kembalikan operasi normal, validasi | 1-48 jam |
+| **L** | **Lessons Learned** | Post-mortem, update playbook, training | 1-14 hari pasca-incident |
 
 Perbandingan: NIST lebih **strategic** (cocok untuk management dan compliance), PICERL lebih **operational** (cocok untuk SOC dan responder).
 
 ### Severity Classification
 
-| Level     | Warna       | Kriteria                                                       | Contoh                             | Response Time     |
-| --------- | ----------- | -------------------------------------------------------------- | ---------------------------------- | ----------------- |
-| **SEV-1** | 🔴 Critical | Data breach, ransomware, system-wide outage, PII exfiltrated   | Ransomware encrypting file servers | <15 menit         |
-| **SEV-2** | 🟠 High     | Lateral movement detected, malware outbreak di segmen terbatas | Emotet infection di 3 workstation  | <1 jam            |
-| **SEV-3** | 🟡 Medium   | Single host compromise, phishing success tanpa lateral         | Malware downloaded (blocked by AV) | <4 jam            |
-| **SEV-4** | 🔵 Low      | Scanning, probe, phishing attempt gagal                        | Port scan dari external IP         | <24 jam           |
-| **SEV-5** | ⚪ Info     | False positive, user reported suspicious email                 | Phishing email reported (no click) | Next business day |
+| Level | Warna | Kriteria | Contoh | Response Time |
+|-------|-------|----------|--------|---------------|
+| **SEV-1** | 🔴 Critical | Data breach, ransomware, system-wide outage, PII exfiltrated | Ransomware encrypting file servers | <15 menit |
+| **SEV-2** | 🟠 High | Lateral movement detected, malware outbreak di segmen terbatas | Emotet infection di 3 workstation | <1 jam |
+| **SEV-3** | 🟡 Medium | Single host compromise, phishing success tanpa lateral | Malware downloaded (blocked by AV) | <4 jam |
+| **SEV-4** | 🔵 Low | Scanning, probe, phishing attempt gagal | Port scan dari external IP | <24 jam |
+| **SEV-5** | ⚪ Info | False positive, user reported suspicious email | Phishing email reported (no click) | Next business day |
 
 ### IR Team Structure (RACI)
 
-| Role                        | Tanggung Jawab                                  | SEV-1        | SEV-2     | SEV-3/4   |
-| --------------------------- | ----------------------------------------------- | ------------ | --------- | --------- |
-| **Incident Commander (IC)** | Decision maker, coordinator                     | On-call 24/7 | Lead      | Lead      |
-| **SME — Network**           | Network containment, firewall                   | On-call      | Available | Available |
-| **SME — Endpoint**          | Host forensics, EDR                             | On-call      | Lead      | Available |
-| **SME — Cloud**             | Cloud IR, IAM, CSPM                             | On-call      | Available | Consult   |
-| **Legal & Compliance**      | Regulatory obligation, data breach notification | On-call      | Consult   | Available |
-| **Communications**          | Internal comms, PR                              | On-call      | Available | —         |
-| **Management**              | Resource allocation, business decisions         | Informed     | Informed  | Informed  |
+| Role | Tanggung Jawab | SEV-1 | SEV-2 | SEV-3/4 |
+|------|---------------|-------|-------|---------|
+| **Incident Commander (IC)** | Decision maker, coordinator | On-call 24/7 | Lead | Lead |
+| **SME — Network** | Network containment, firewall | On-call | Available | Available |
+| **SME — Endpoint** | Host forensics, EDR | On-call | Lead | Available |
+| **SME — Cloud** | Cloud IR, IAM, CSPM | On-call | Available | Consult |
+| **Legal & Compliance** | Regulatory obligation, data breach notification | On-call | Consult | Available |
+| **Communications** | Internal comms, PR | On-call | Available | — |
+| **Management** | Resource allocation, business decisions | Informed | Informed | Informed |
 
 ---
 
@@ -178,15 +178,15 @@ steps:
 
 #### Sumber Deteksi
 
-| Sumber             | Contoh Alert                                          | Kecepatan      | False Positive Rate |
-| ------------------ | ----------------------------------------------------- | -------------- | ------------------- |
-| **EDR**            | Behavioral detection, process injection, LSASS access | Real-time      | Medium              |
-| **SIEM**           | Correlation rule — multiple failed logon + success    | Near real-time | Medium-High         |
-| **Network**        | DNS sinkhole hit, C2 beacon pattern                   | Real-time      | Low                 |
-| **Cloud**          | GuardDuty, IAM anomaly, S3 public access              | Real-time      | Low-Medium          |
-| **User report**    | Phishing report, unusual behavior                     | Manual         | Medium              |
-| **3rd party**      | Takedown notice, threat intel feed                    | Hours-days     | Low                 |
-| **Threat hunting** | Hypothesis-driven search                              | Proactive      | Variable            |
+| Sumber | Contoh Alert | Kecepatan | False Positive Rate |
+|--------|-------------|-----------|-------------------|
+| **EDR** | Behavioral detection, process injection, LSASS access | Real-time | Medium |
+| **SIEM** | Correlation rule — multiple failed logon + success | Near real-time | Medium-High |
+| **Network** | DNS sinkhole hit, C2 beacon pattern | Real-time | Low |
+| **Cloud** | GuardDuty, IAM anomaly, S3 public access | Real-time | Low-Medium |
+| **User report** | Phishing report, unusual behavior | Manual | Medium |
+| **3rd party** | Takedown notice, threat intel feed | Hours-days | Low |
+| **Threat hunting** | Hypothesis-driven search | Proactive | Variable |
 
 #### Triage — Diamond Model
 
@@ -208,12 +208,12 @@ Setiap incident harus dipetakan ke **Diamond Model** untuk memahami konteks:
                 Victim
 ```
 
-| Sisi Diamond       | Pertanyaan Kunci                                    |
-| ------------------ | --------------------------------------------------- |
-| **Adversary**      | Siapa? Known group? Motivasi? TTPs?                 |
-| **Capability**     | Apa yang digunakan? Malware, exploit, phishing?     |
-| **Infrastructure** | IP, domain, C2 server? Hosting provider?            |
-| **Victim**         | Siapa yang terkena dampak? Data apa yang terekspos? |
+| Sisi Diamond | Pertanyaan Kunci |
+|-------------|------------------|
+| **Adversary** | Siapa? Known group? Motivasi? TTPs? |
+| **Capability** | Apa yang digunakan? Malware, exploit, phishing? |
+| **Infrastructure** | IP, domain, C2 server? Hosting provider? |
+| **Victim** | Siapa yang terkena dampak? Data apa yang terekspos? |
 
 #### Initial Triage Checklist (15 Menit)
 
@@ -232,21 +232,20 @@ Setiap incident harus dipetakan ke **Diamond Model** untuk memahami konteks:
 
 #### Containment Strategies per Skenario
 
-| Skenario                            | Short-Term Containment                                    | Long-Term Containment                           |
-| ----------------------------------- | --------------------------------------------------------- | ----------------------------------------------- |
-| **Ransomware (single host)**        | Network isolation + EDR kill process                      | Reimage host from known-good image              |
-| **Ransomware (network-wide)**       | Disable AD accounts + block SMB outbound + firewall block | Restore from backup + rotate all credentials    |
-| **C2 Beacon**                       | Network block C2 IP/domain at firewall                    | Forensik host → remove persistence → reimage    |
-| **Data exfiltration (in progress)** | Block outbound traffic to unknown IPs + revoke IAM keys   | IAM audit + S3 bucket policy lockdown           |
-| **Phishing credential theft**       | Force password reset + revoke session tokens              | MFA enrollment for all affected + investigation |
-| **Insider threat**                  | Suspend AD account + revoke access + preserve evidence    | HR + Legal involved, forensic imaging           |
-| **DDoS**                            | Blackhole routing + scrubbing center                      | WAF + rate limiting + CDN failover              |
-| **Supply chain compromise**         | Disconnect affected vendor integrations                   | Vendor risk assessment + alternative vendor     |
+| Skenario | Short-Term Containment | Long-Term Containment |
+|----------|----------------------|----------------------|
+| **Ransomware (single host)** | Network isolation + EDR kill process | Reimage host from known-good image |
+| **Ransomware (network-wide)** | Disable AD accounts + block SMB outbound + firewall block | Restore from backup + rotate all credentials |
+| **C2 Beacon** | Network block C2 IP/domain at firewall | Forensik host → remove persistence → reimage |
+| **Data exfiltration (in progress)** | Block outbound traffic to unknown IPs + revoke IAM keys | IAM audit + S3 bucket policy lockdown |
+| **Phishing credential theft** | Force password reset + revoke session tokens | MFA enrollment for all affected + investigation |
+| **Insider threat** | Suspend AD account + revoke access + preserve evidence | HR + Legal involved, forensic imaging |
+| **DDoS** | Blackhole routing + scrubbing center | WAF + rate limiting + CDN failover |
+| **Supply chain compromise** | Disconnect affected vendor integrations | Vendor risk assessment + alternative vendor |
 
 #### Containment Commands — Quick Reference
 
 **Linux:**
-
 ```bash
 # Kill process
 kill -9 $(pgrep -f malicious_process)
@@ -260,7 +259,6 @@ rm -rf ~/.ssh/authorized_keys
 ```
 
 **Windows:**
-
 ```powershell
 # Kill process
 Stop-Process -Name "malicious" -Force
@@ -276,33 +274,33 @@ Disable-ADAccount -Identity "compromised_user"
 
 Setiap evidence yang dikumpulkan harus memiliki chain of custody:
 
-| Field             | Isi                                       |
-| ----------------- | ----------------------------------------- |
-| **Evidence ID**   | E-001                                     |
-| **Description**   | Memory dump host CORP-WKS-045             |
-| **Source**        | IP 10.0.45.22, hostname CORP-WKS-045      |
-| **Acquired by**   | J. Analyst (SOC Lead)                     |
-| **Date/Time**     | 2026-07-15 14:30 UTC                      |
-| **Method**        | winpmem_x64.exe mem.dmp                   |
-| **Hash (MD5)**    | a1b2c3d4e5f6...                           |
-| **Hash (SHA256)** | f9e8d7c6b5a4...                           |
-| **Location**      | NAS://cases/IR-2026-007/evidence/         |
-| **Transfer log**  | File copied via rsync to NAS at 14:35 UTC |
-| **Handover to**   | A. Forensics Analyst (15:00 UTC, signed)  |
+| Field | Isi |
+|-------|-----|
+| **Evidence ID** | E-001 |
+| **Description** | Memory dump host CORP-WKS-045 |
+| **Source** | IP 10.0.45.22, hostname CORP-WKS-045 |
+| **Acquired by** | J. Analyst (SOC Lead) |
+| **Date/Time** | 2026-07-15 14:30 UTC |
+| **Method** | winpmem_x64.exe mem.dmp |
+| **Hash (MD5)** | a1b2c3d4e5f6... |
+| **Hash (SHA256)** | f9e8d7c6b5a4... |
+| **Location** | NAS://cases/IR-2026-007/evidence/ |
+| **Transfer log** | File copied via rsync to NAS at 14:35 UTC |
+| **Handover to** | A. Forensics Analyst (15:00 UTC, signed) |
 
 ### Phase 4 — Eradication
 
 Eradication berarti **menghilangkan root cause** dari lingkungan — bukan hanya mengembalikan sistem ke state operational.
 
-| Root Cause                  | Eradication Action                                    |
-| --------------------------- | ----------------------------------------------------- |
-| **Malware dropper**         | Reimage host, clean all shared drives                 |
-| **Weak credential**         | Force password reset + enable MFA                     |
-| **Unpatched vulnerability** | Apply patch + verify other hosts same vulnerability   |
-| **Misconfiguration**        | Fix config + IaC policy update + CSPM rule            |
-| **Phishing**                | Block sender domain + training + email security rule  |
-| **Insider**                 | Revoke access + HR action + forensic preservation     |
-| **Supply chain**            | Remove vendor integration + incident report to vendor |
+| Root Cause | Eradication Action |
+|------------|-------------------|
+| **Malware dropper** | Reimage host, clean all shared drives |
+| **Weak credential** | Force password reset + enable MFA |
+| **Unpatched vulnerability** | Apply patch + verify other hosts same vulnerability |
+| **Misconfiguration** | Fix config + IaC policy update + CSPM rule |
+| **Phishing** | Block sender domain + training + email security rule |
+| **Insider** | Revoke access + HR action + forensic preservation |
+| **Supply chain** | Remove vendor integration + incident report to vendor |
 
 ### Phase 5 — Recovery
 
@@ -330,7 +328,6 @@ Post-mortem harus dilakukan **dalam 1-14 hari** setelah incident — semakin cep
 # Post-Mortem Incident IR-2026-007
 
 ## Metadata
-
 - **Incident ID:** IR-2026-007
 - **Severity:** SEV-1 (Critical)
 - **Date:** 2026-07-15
@@ -340,66 +337,64 @@ Post-mortem harus dilakukan **dalam 1-14 hari** setelah incident — semakin cep
 
 ## Timeline
 
-| Time (UTC) | Event                                                    |
-| ---------- | -------------------------------------------------------- |
-| 14:30      | EDR alert: Ransomware behavior detected on CORP-WKS-045  |
-| 14:32      | IC assigned, severity upgraded to SEV-1                  |
-| 14:35      | Host network-isolated                                    |
-| 14:40      | Block C2 IP at firewall                                  |
-| 14:50      | Memory + disk imaging started                            |
-| 15:10      | IC determines: single host, no lateral movement detected |
-| 15:30      | EDR scans all endpoints — 0 additional detections        |
-| 16:00      | Containment confirmed successful                         |
-| 16:30      | Forensic analysis: initial access via phishing email     |
-| 17:00      | Host reimaged from known-good ISO                        |
-| 17:30      | User credentials rotated + MFA enforced                  |
-| 17:54      | Recovery verified — host back in production              |
+| Time (UTC) | Event |
+|------------|-------|
+| 14:30 | EDR alert: Ransomware behavior detected on CORP-WKS-045 |
+| 14:32 | IC assigned, severity upgraded to SEV-1 |
+| 14:35 | Host network-isolated |
+| 14:40 | Block C2 IP at firewall |
+| 14:50 | Memory + disk imaging started |
+| 15:10 | IC determines: single host, no lateral movement detected |
+| 15:30 | EDR scans all endpoints — 0 additional detections |
+| 16:00 | Containment confirmed successful |
+| 16:30 | Forensic analysis: initial access via phishing email |
+| 17:00 | Host reimaged from known-good ISO |
+| 17:30 | User credentials rotated + MFA enforced |
+| 17:54 | Recovery verified — host back in production |
 
 ## Root Cause Analysis
 
 ### Teknis
-
 - **Initial Access:** Spear-phishing email dengan malicious Excel macro
 - **Execution:** PowerShell download cradle → .NET assembly loaded in memory (fileless)
 - **Persistence:** Scheduled task "OneDrive Sync" setiap 30 menit
 - **Impact:** Single host encrypted (files di %USERPROFILE%), tidak ada network share terenkripsi
 
 ### Process
-
 - Email security rule tidak menangkap phishing karena sender domain legitimate (compromised vendor account)
 - User tidak melaporkan email (trained? no — user belum training phishing dalam 6 bulan)
 
 ## Action Items
 
-| ID    | Action                                                        | Owner          | Due Date   | Status         |
-| ----- | ------------------------------------------------------------- | -------------- | ---------- | -------------- |
-| AI-01 | Update email security rule: block macro from external senders | Email Sec Team | 2026-07-20 | ✅ Done        |
-| AI-02 | Mandatory phishing training untuk semua user                  | HR + IT Sec    | 2026-08-01 | 🟡 In Progress |
-| AI-03 | Deploy ASR rule: block Office child process creation          | Endpoint Team  | 2026-07-18 | ✅ Done        |
-| AI-04 | Update ransomware playbook (IR-PB-001)                        | IR Lead        | 2026-07-25 | 🔴 Not Started |
+| ID | Action | Owner | Due Date | Status |
+|----|--------|-------|----------|--------|
+| AI-01 | Update email security rule: block macro from external senders | Email Sec Team | 2026-07-20 | ✅ Done |
+| AI-02 | Mandatory phishing training untuk semua user | HR + IT Sec | 2026-08-01 | 🟡 In Progress |
+| AI-03 | Deploy ASR rule: block Office child process creation | Endpoint Team | 2026-07-18 | ✅ Done |
+| AI-04 | Update ransomware playbook (IR-PB-001) | IR Lead | 2026-07-25 | 🔴 Not Started |
 
 ## Metrics
 
-| Metric                                  | Value                                |
-| --------------------------------------- | ------------------------------------ |
-| Time to detection (from initial access) | 24 minutes                           |
-| Time to containment                     | 20 minutes                           |
-| Time to eradication                     | 1h 30m                               |
-| Time to recovery                        | 3h 24m                               |
-| Business impact                         | None (single host, no customer data) |
-| False positives                         | 0 (alert was accurate)               |
+| Metric | Value |
+|--------|-------|
+| Time to detection (from initial access) | 24 minutes |
+| Time to containment | 20 minutes |
+| Time to eradication | 1h 30m |
+| Time to recovery | 3h 24m |
+| Business impact | None (single host, no customer data) |
+| False positives | 0 (alert was accurate) |
 ```
 
 #### IR Metrics Penting
 
-| Metric                            | Target                          | Rumus                                     |
-| --------------------------------- | ------------------------------- | ----------------------------------------- |
-| **MTTD** (Mean Time to Detect)    | <30 menit untuk SEV-1           | Total waktu deteksi / jumlah incident     |
-| **MTTC** (Mean Time to Contain)   | <1 jam untuk SEV-1              | Total waktu containment / jumlah incident |
-| **MTTE** (Mean Time to Eradicate) | <4 jam untuk SEV-1              | Total waktu eradication / jumlah incident |
-| **MTTR** (Mean Time to Recover)   | <8 jam untuk SEV-1              | Total waktu recovery / jumlah incident    |
-| **False Positive Rate**           | <30% dari all alerts            | Total FP / total alerts                   |
-| **Post-mortem completion**        | 100% untuk SEV-1/2 dalam 7 hari | Rata-rata hari penyelesaian               |
+| Metric | Target | Rumus |
+|--------|--------|-------|
+| **MTTD** (Mean Time to Detect) | <30 menit untuk SEV-1 | Total waktu deteksi / jumlah incident |
+| **MTTC** (Mean Time to Contain) | <1 jam untuk SEV-1 | Total waktu containment / jumlah incident |
+| **MTTE** (Mean Time to Eradicate) | <4 jam untuk SEV-1 | Total waktu eradication / jumlah incident |
+| **MTTR** (Mean Time to Recover) | <8 jam untuk SEV-1 | Total waktu recovery / jumlah incident |
+| **False Positive Rate** | <30% dari all alerts | Total FP / total alerts |
+| **Post-mortem completion** | 100% untuk SEV-1/2 dalam 7 hari | Rata-rata hari penyelesaian |
 
 ---
 
@@ -450,34 +445,34 @@ description: Mendeteksi pola download PowerShell dari URL — sering digunakan o
 references:
   - https://thedfirreport.com/2024/07/powershell-cradle/
 tags:
-  - attack.t1059.001 # PowerShell
-  - attack.t1105 # Ingress Tool Transfer
+  - attack.t1059.001  # PowerShell
+  - attack.t1105      # Ingress Tool Transfer
 logsource:
   product: windows
   category: ps_script
-  definition: "Requires PowerShell Script Block Logging (EnableScriptBlockLogging)"
+  definition: 'Requires PowerShell Script Block Logging (EnableScriptBlockLogging)'
 detection:
   selection_download:
     ScriptBlockText|contains:
-      - "System.Net.WebClient"
-      - "Invoke-WebRequest"
-      - "Invoke-RestMethod"
-      - "Start-BitsTransfer"
+      - 'System.Net.WebClient'
+      - 'Invoke-WebRequest'
+      - 'Invoke-RestMethod'
+      - 'Start-BitsTransfer'
   selection_bypass:
     ScriptBlockText|contains:
-      - "Bypass"
-      - "-ExecutionPolicy"
-      - "EncodedCommand"
+      - 'Bypass'
+      - '-ExecutionPolicy'
+      - 'EncodedCommand'
   selection_obfuscation:
     ScriptBlockText|contains:
-      - "[System.Text.Encoding]::UTF8.GetString"
-      - "[System.Convert]::FromBase64String"
-      - "-join"
+      - '[System.Text.Encoding]::UTF8.GetString'
+      - '[System.Convert]::FromBase64String'
+      - '-join'
   condition: (selection_download and selection_bypass) or (selection_download and selection_obfuscation)
 level: high
 falsepositives:
-  - "Admin menggunakan PowerShell untuk legitimate download (rare)"
-  - "Software update scripts"
+  - 'Admin menggunakan PowerShell untuk legitimate download (rare)'
+  - 'Software update scripts'
 ```
 
 ### Atomic Red Team — Simulation Testing
@@ -511,7 +506,7 @@ Purple Team Exercise Cycle:
 2. Red Team execute attack technique
 3. Blue Team observe: apakah detection rule triggered?
    ┌─ Yes → dokumentasikan sebagai "detected"
-   └─ No  → identifikasi gap:
+   └─ No  → identifikasi gap: 
            ├─ Log source tidak tersedia?
            ├─ Log source ada tapi rule tidak tertulis?
            └─ Rule ada tapi threshold tidak cocok?
@@ -522,34 +517,34 @@ Purple Team Exercise Cycle:
 
 ### Maturity Model — IR Capability Assessment
 
-| Level       | Nama       | Karakteristik                                                                                                         |
-| ----------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Level 0** | Ad-hoc     | Tidak ada playbook, incident ditangani "by heroes", dokumentasi minim                                                 |
-| **Level 1** | Initial    | Ada IR policy dasar, satu dua orang tahu prosedur, tools tidak terintegrasi                                           |
-| **Level 2** | Defined    | IR policy tertulis, playbook untuk SEV-1/2, basic SIEM + EDR                                                          |
-| **Level 3** | Managed    | Metrics dikumpulkan (MTTD, MTTR), purple team exercise berkala, SOAR untuk SEV-3/4                                    |
+| Level | Nama | Karakteristik | 
+|-------|------|--------------|
+| **Level 0** | Ad-hoc | Tidak ada playbook, incident ditangani "by heroes", dokumentasi minim |
+| **Level 1** | Initial | Ada IR policy dasar, satu dua orang tahu prosedur, tools tidak terintegrasi |
+| **Level 2** | Defined | IR policy tertulis, playbook untuk SEV-1/2, basic SIEM + EDR |
+| **Level 3** | Managed | Metrics dikumpulkan (MTTD, MTTR), purple team exercise berkala, SOAR untuk SEV-3/4 |
 | **Level 4** | Optimizing | Detection engineering lifecycle berjalan, threat intel feed integrated, automated IR untuk SEV-3/4, join ISAC/FS-ISAC |
 
 **Assessment:** Gunakan checklist NIST CSF untuk self-assessment tiap kuartal.
 
 ### Mapping SOP di Vault ke Fase IR
 
-| SOP / Note                                        | Fase IR                                 | Tujuan                                                           |
-| ------------------------------------------------- | --------------------------------------- | ---------------------------------------------------------------- |
-| [[arp-spoofing-mitigation]]                       | **C** — Containment                     | Isolasi serangan ARP spoofing di jaringan lokal                  |
-| [[forensic-imaging-analysis]]                     | **I** — Identification                  | Akuisisi bit-stream untuk analisis forensik                      |
-| [[hpa-exorcism]]                                  | **E** — Eradication                     | Bersihkan HPA/DCO dari media penyimpanan                         |
-| [[systemrescue-recovery]]                         | **R** — Recovery                        | Recovery OS dari SystemRescue live CD                            |
-| [[storage-refurbishing]]                          | **E** — Eradication (then R — Recovery) | Wipe & recondition storage media                                 |
-| [[laptop-qc-procurement]]                         | **P** — Preparation                     | Standardisasi hardware sebelum deploy (reduce supply chain risk) |
-| [[printer-maintenance-reset]]                     | **R** — Recovery                        | Reset printer (low-severity but operational IT)                  |
-| [[quartz-setup-windows]]                          | **P** — Preparation                     | Setup Quartz engine untuk monitoring                             |
-| [[endpoint-detection-playbook]]                   | **I** — Identification                  | Triage endpoint — RAM dump, Volatility, persistence              |
-| [[blueteam-detection-matrix]]                     | **I** — Identification                  | Detection rules dan C2 detection matrix                          |
-| [[blueteam-vs-enterprise-c2]]                     | **I** — Identification                  | Deteksi C2 enterprise-grade                                      |
-| [[malware-analysis-reverse-engineering-playbook]] | **A** — Analysis (cross-phase)          | Analisis malware: triage, static, dynamic, memory, RE            |
-| [[threat-modeling-deepdive]]                      | **P** — Preparation                     | Identifikasi ancaman preventif sebelum incident                  |
-| [[comprehensive-threat-directory]]                | **P** — Preparation                     | Threat intel knowledge base                                      |
+| SOP / Note | Fase IR | Tujuan |
+|-----------|---------|--------|
+| [[arp-spoofing-mitigation]] | **C** — Containment | Isolasi serangan ARP spoofing di jaringan lokal |
+| [[forensic-imaging-analysis]] | **I** — Identification | Akuisisi bit-stream untuk analisis forensik |
+| [[hpa-exorcism]] | **E** — Eradication | Bersihkan HPA/DCO dari media penyimpanan |
+| [[systemrescue-recovery]] | **R** — Recovery | Recovery OS dari SystemRescue live CD |
+| [[storage-refurbishing]] | **E** — Eradication (then R — Recovery) | Wipe & recondition storage media |
+| [[laptop-qc-procurement]] | **P** — Preparation | Standardisasi hardware sebelum deploy (reduce supply chain risk) |
+| [[printer-maintenance-reset]] | **R** — Recovery | Reset printer (low-severity but operational IT) |
+| [[quartz-setup-windows]] | **P** — Preparation | Setup Quartz engine untuk monitoring |
+| [[endpoint-detection-playbook]] | **I** — Identification | Triage endpoint — RAM dump, Volatility, persistence |
+| [[blueteam-detection-matrix]] | **I** — Identification | Detection rules dan C2 detection matrix |
+| [[blueteam-vs-enterprise-c2]] | **I** — Identification | Deteksi C2 enterprise-grade |
+| [[malware-analysis-reverse-engineering-playbook]] | **A** — Analysis (cross-phase) | Analisis malware: triage, static, dynamic, memory, RE |
+| [[threat-modeling-deepdive]] | **P** — Preparation | Identifikasi ancaman preventif sebelum incident |
+| [[comprehensive-threat-directory]] | **P** — Preparation | Threat intel knowledge base |
 
 ### Detection Engineering — KQL Query Examples
 
@@ -582,8 +577,8 @@ dns
 | where timestamp > ago(1h)
 | extend domain_length = strlen(query)
 | where domain_length >= 8 and domain_length <= 20
-| extend entropy =
-    countof(query, @'[a-z]') * 0.4 +
+| extend entropy = 
+    countof(query, @'[a-z]') * 0.4 + 
     countof(query, @'[0-9]') * 0.6
 | where entropy > 0.6
 | summarize count() by query
@@ -594,13 +589,13 @@ dns
 
 ## Case Studies
 
-| Studi Kasus                                   | Fase IR                  | Temuan Kunci                                                                                                                                                                                                                                                                                                         | Action Items                                                                                             |
-| --------------------------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| **Ransomware LockBit (Skenario Single Host)** | I → C → E → R            | 1. Detection: EDR alert process injection → svchost.exe unusual child. 2. Containment: 20 menit — network isolate. 3. Eradication: reimage from ISO. 4. Recovery: restore user profile from backup. 5. Post-mortem: initial access via Excel macro.                                                                  | 1. Block Office child process. 2. User phishing training. 3. Enhance email security rule.                |
-| **Data Exfiltration via Cloud (2023)**        | I → C → E → R            | 1. Detection: Cloud DLP alert — 10GB data upload ke non-corporate cloud storage. 2. Containment: revoke IAM keys + disable user account. 3. Eradication: remove unauthorized IAM user + cross-account role. 4. Recovery: enable CloudTrail + GuardDuty. 5. Post-mortem: compromised contractor credentials — no MFA. | 1. MFA enforce ALL external users. 2. SCP untuk restrict data exfil. 3. DLP policy: block upload >100MB. |
-| **APT29 (Nobelium) Supply Chain (2020)**      | Full PICERL, multi-month | 1. Detection: threat intel — SolarWinds Orion signature. 2. Containment: disconnect Orion from network. 3. Eradication: reimage all affected servers + rotate golden SAML key. 4. Recovery: months-long remediation. 5. Lessons: zero-trust, federated identity monitoring, SBOM.                                    | 1. SLSA 3+ build pipeline. 2. Federated identity anomaly detection. 3. Supply chain vendor SLA.          |
-| **Insider Threat — IP Theft**                 | I → C → L                | 1. Detection: VPN session from unusual location + bulk download dari code repository. 2. Containment: suspend AD account, revoke VPN certificate. 3. Eradication: not applicable (data already exfiltrated). 4. Recovery: not applicable. 5. Lessons: DLP data classification maturity.                              | 1. Data classification + DLP. 2. UEBA untuk user behavior. 3. Just-in-Time access untuk sensitive repo.  |
-| **Web App Compromise (SQL Injection)**        | I → C → E → R            | 1. Detection: WAF alert — SQL injection pattern. 2. Containment: WAF block rule + temporary application takedown. 3. Eradication: SAST menemukan query concatenation. 4. Recovery: deploy fix + verify via DAST. 5. Lessons: no parameterized query in CI gate.                                                      | 1. SAST pipeline block. 2. WAF managed SQL injection rule. 3. DAST in staging.                           |
+| Studi Kasus | Fase IR | Temuan Kunci | Action Items |
+|-------------|---------|--------------|--------------|
+| **Ransomware LockBit (Skenario Single Host)** | I → C → E → R | 1. Detection: EDR alert process injection → svchost.exe unusual child. 2. Containment: 20 menit — network isolate. 3. Eradication: reimage from ISO. 4. Recovery: restore user profile from backup. 5. Post-mortem: initial access via Excel macro. | 1. Block Office child process. 2. User phishing training. 3. Enhance email security rule. |
+| **Data Exfiltration via Cloud (2023)** | I → C → E → R | 1. Detection: Cloud DLP alert — 10GB data upload ke non-corporate cloud storage. 2. Containment: revoke IAM keys + disable user account. 3. Eradication: remove unauthorized IAM user + cross-account role. 4. Recovery: enable CloudTrail + GuardDuty. 5. Post-mortem: compromised contractor credentials — no MFA. | 1. MFA enforce ALL external users. 2. SCP untuk restrict data exfil. 3. DLP policy: block upload >100MB. |
+| **APT29 (Nobelium) Supply Chain (2020)** | Full PICERL, multi-month | 1. Detection: threat intel — SolarWinds Orion signature. 2. Containment: disconnect Orion from network. 3. Eradication: reimage all affected servers + rotate golden SAML key. 4. Recovery: months-long remediation. 5. Lessons: zero-trust, federated identity monitoring, SBOM. | 1. SLSA 3+ build pipeline. 2. Federated identity anomaly detection. 3. Supply chain vendor SLA. |
+| **Insider Threat — IP Theft** | I → C → L | 1. Detection: VPN session from unusual location + bulk download dari code repository. 2. Containment: suspend AD account, revoke VPN certificate. 3. Eradication: not applicable (data already exfiltrated). 4. Recovery: not applicable. 5. Lessons: DLP data classification maturity. | 1. Data classification + DLP. 2. UEBA untuk user behavior. 3. Just-in-Time access untuk sensitive repo. |
+| **Web App Compromise (SQL Injection)** | I → C → E → R | 1. Detection: WAF alert — SQL injection pattern. 2. Containment: WAF block rule + temporary application takedown. 3. Eradication: SAST menemukan query concatenation. 4. Recovery: deploy fix + verify via DAST. 5. Lessons: no parameterized query in CI gate. | 1. SAST pipeline block. 2. WAF managed SQL injection rule. 3. DAST in staging. |
 
 ---
 
@@ -630,31 +625,31 @@ dns
 
 ## Referensi
 
-1. NIST. _SP 800-61 Rev. 2: Computer Security Incident Handling Guide_. 2012. https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
-2. NIST. _SP 800-86: Guide to Integrating Forensic Techniques into Incident Response_. 2006. https://csrc.nist.gov/publications/detail/sp/800-86/final
-3. SANS Institute. _Incident Handling Steps (PICERL)_. https://www.sans.org/white-papers/incident-handlers-handbook/
-4. FIRST. _PSIRT Services Framework_. https://www.first.org/standards/frameworks/psirts/psirt_services_framework_v1.1
-5. MITRE ATT&CK. _Enterprise Matrix_. https://attack.mitre.org/
-6. MITRE ATT&CK. _Detection, Response, and Recovery Framework_. https://attack.mitre.org/resources/getting-started/
-7. NIST. _CSF 2.0: Cybersecurity Framework_. 2024. https://www.nist.gov/cyberframework
-8. SANS. _SEC504: Hacker Techniques, Exploits & Incident Handling_. https://www.sans.org/cyber-security-courses/hacker-techniques-incident-handling/
-9. The DFIR Report. _Real Intrusion Incidents_. https://thedfirreport.com/
-10. Red Canary. _Atomic Red Team_. https://atomicredteam.io/
-11. Sigma HQ. _Sigma Detection Rules_. https://github.com/SigmaHQ/sigma
-12. Elastic. _Security Detection Rules_. https://github.com/elastic/detection-rules
-13. Splunk. _Security Essentials_. https://www.splunk.com/en_us/software/splunk-security-essentials.html
-14. CrowdStrike. _Incident Response Services_. https://www.crowdstrike.com/services/incident-response/
-15. Mandiant. _Incident Response Services_. https://www.mandiant.com/services/incident-response
-16. Velocidex. _Velociraptor — Endpoint Visibility_. https://docs.velociraptor.app/
-17. KAPE (Kroll). _Kroll Artifact Parser and Extractor_. https://www.kroll.com/en/services/cyber-risk/incident-response-forensics/kape
-18. Plaso (log2timeline). _Plaso Documentation_. https://plaso.readthedocs.io/en/latest/
-19. TheHive Project. _TheHive — IR Platform_. https://thehive-project.org/
-20. Shuffle. _Shuffle SOAR_. https://shuffler.io/
-21. CISA. _Incident Response Training_. https://www.cisa.gov/incident-response
-22. Verizon. _2024 Data Breach Investigations Report_. https://www.verizon.com/business/resources/reports/dbir/
-23. OWASP. _Incident Response Guide_. https://owasp.org/www-project-incident-response-guide/
-24. ENISA. _Incident Response in the EU_. https://www.enisa.europa.eu/topics/incident-response
-25. FIRST. _CVSS v4.0 Calculator_. https://www.first.org/cvss/calculator/4.0
+1. NIST. *SP 800-61 Rev. 2: Computer Security Incident Handling Guide*. 2012. https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf
+2. NIST. *SP 800-86: Guide to Integrating Forensic Techniques into Incident Response*. 2006. https://csrc.nist.gov/publications/detail/sp/800-86/final
+3. SANS Institute. *Incident Handling Steps (PICERL)*. https://www.sans.org/white-papers/incident-handlers-handbook/
+4. FIRST. *PSIRT Services Framework*. https://www.first.org/standards/frameworks/psirts/psirt_services_framework_v1.1
+5. MITRE ATT&CK. *Enterprise Matrix*. https://attack.mitre.org/
+6. MITRE ATT&CK. *Detection, Response, and Recovery Framework*. https://attack.mitre.org/resources/getting-started/
+7. NIST. *CSF 2.0: Cybersecurity Framework*. 2024. https://www.nist.gov/cyberframework
+8. SANS. *SEC504: Hacker Techniques, Exploits & Incident Handling*. https://www.sans.org/cyber-security-courses/hacker-techniques-incident-handling/
+9. The DFIR Report. *Real Intrusion Incidents*. https://thedfirreport.com/
+10. Red Canary. *Atomic Red Team*. https://atomicredteam.io/
+11. Sigma HQ. *Sigma Detection Rules*. https://github.com/SigmaHQ/sigma
+12. Elastic. *Security Detection Rules*. https://github.com/elastic/detection-rules
+13. Splunk. *Security Essentials*. https://www.splunk.com/en_us/software/splunk-security-essentials.html
+14. CrowdStrike. *Incident Response Services*. https://www.crowdstrike.com/services/incident-response/
+15. Mandiant. *Incident Response Services*. https://www.mandiant.com/services/incident-response
+16. Velocidex. *Velociraptor — Endpoint Visibility*. https://docs.velociraptor.app/
+17. KAPE (Kroll). *Kroll Artifact Parser and Extractor*. https://www.kroll.com/en/services/cyber-risk/incident-response-forensics/kape
+18. Plaso (log2timeline). *Plaso Documentation*. https://plaso.readthedocs.io/en/latest/
+19. TheHive Project. *TheHive — IR Platform*. https://thehive-project.org/
+20. Shuffle. *Shuffle SOAR*. https://shuffler.io/
+21. CISA. *Incident Response Training*. https://www.cisa.gov/incident-response
+22. Verizon. *2024 Data Breach Investigations Report*. https://www.verizon.com/business/resources/reports/dbir/
+23. OWASP. *Incident Response Guide*. https://owasp.org/www-project-incident-response-guide/
+24. ENISA. *Incident Response in the EU*. https://www.enisa.europa.eu/topics/incident-response
+25. FIRST. *CVSS v4.0 Calculator*. https://www.first.org/cvss/calculator/4.0
 
 > [!tip] Bottom Line
 > Incident Response bukan tentang tool canggih — ini tentang **proses yang terstruktur, dilatih, dan terus diperbaiki**. Kunci IR yang efektif: (1) **Preparation adalah fase termahal jika diabaikan** — playbook harus ditulis, dilatih, dan diuji dengan simulasi (tabletop atau Atomic Red Team). (2) **Containment adalah fase paling penting** — stop the bleeding sebelum mencari root cause. (3) **Post-mortem adalah investasi** — tanpa lessons learned, Anda hanya mengulang incident yang sama setiap 6 bulan. (4) **Semua SOP di vault ini terikat ke satu siklus IR** — masing-masing punya tempat dan waktunya dalam fase PICERL. Gunakan framework ini sebagai "map" untuk menavigasi incident — dari preparation hingga recovery — dan jadikan post-mortem sebagai alat untuk mendorong perbaikan organisasi secara kontinu.

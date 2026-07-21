@@ -1,7 +1,7 @@
 ---
 title: 📦 Portfolio & Public Output
-created: "2026-07-06"
-updated: "2026-07-06"
+created: '2026-07-06'
+updated: '2026-07-06'
 status: active
 ---
 
@@ -19,21 +19,21 @@ status: active
 ## Tools / Scripts
 
 | Tool | Deskripsi | Status | Repo |
-| ---- | --------- | ------ | ---- |
-| —    | —         | —      | —    |
+|------|-----------|--------|------|
+| — | — | — | — |
 
 ## Artikel / Catatan Publik
 
 | Judul | Platform | Status | Link |
-| ----- | -------- | ------ | ---- |
-| —     | —        | —      | —    |
+|-------|----------|--------|------|
+| — | — | — | — |
 
 ## Sertifikasi
 
 | Sertifikasi | Tahun | Status |
-| ----------- | ----- | ------ |
-| —           | —     | —      |
+|-------------|-------|--------|
+| — | — | — |
 
 ---
 
-_Last updated: 2026-07-01_
+*Last updated: 2026-07-01*

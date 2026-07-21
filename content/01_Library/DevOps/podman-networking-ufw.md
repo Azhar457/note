@@ -38,12 +38,12 @@ cssclasses: ""
         └──────────┘         └──────────┘
 ```
 
-| Network Mode         | IP Access                  | Port Mapping                | Use Case                                |
-| -------------------- | -------------------------- | --------------------------- | --------------------------------------- |
-| **bridge** (default) | Container punya IP sendiri | `-p HostPort:ContainerPort` | Isolasi antar container                 |
-| **host**             | Container pake IP host     | Port langsung expose        | Performance critical, gak butuh isolasi |
-| **macvlan**          | IP dari subnet fisik       | Langsung ke LAN             | Container sebagai "device" sendiri      |
-| **none**             | Loopback-only              | Gak ada                     | Testing/isolasi total                   |
+| Network Mode | IP Access | Port Mapping | Use Case |
+|-------------|-----------|-------------|----------|
+| **bridge** (default) | Container punya IP sendiri | `-p HostPort:ContainerPort` | Isolasi antar container |
+| **host** | Container pake IP host | Port langsung expose | Performance critical, gak butuh isolasi |
+| **macvlan** | IP dari subnet fisik | Langsung ke LAN | Container sebagai "device" sendiri |
+| **none** | Loopback-only | Gak ada | Testing/isolasi total |
 
 ---
 
@@ -90,11 +90,11 @@ sysctl net.ipv4.ip_forward=1
     External client ───────────▶ Container app (:3000)
 ```
 
-| Yang Dibutuhkan    | Command                                                                |
-| ------------------ | ---------------------------------------------------------------------- |
-| Buka port di host  | `ufw allow 8080/tcp`                                                   |
+| Yang Dibutuhkan | Command |
+|----------------|---------|
+| Buka port di host | `ufw allow 8080/tcp` |
 | Route ke container | `ufw route allow in on eth0 out on podman0 to any port 8080 proto tcp` |
-| Jalankan container | `podman run -p 8080:3000 app`                                          |
+| Jalankan container | `podman run -p 8080:3000 app` |
 
 ---
 
@@ -122,25 +122,25 @@ podman network connect frontend web
 
 ## Common Failures
 
-| Gejala                                                              | Penyebab                            | Fix                                                 |
-| ------------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------- |
-| Container bisa akses internet, tapi port gak bisa diakses dari luar | Kurang `ufw route allow`            | Tambah rule route allow                             |
-| `ufw enable` bikin SSH drop                                         | Lupa `ufw allow ssh` sebelum enable | Console/VNC, `ufw allow ssh`                        |
-| Container gak bisa resolve DNS                                      | DNS resolver blokir                 | `ufw allow out on podman0 to any port 53 proto udp` |
-| Port conflict                                                       | 2 container pake host port sama     | Ganti port mapping `-p 8081:3000`                   |
-| Podman default network gak ada                                      | Rootless podman                     | Rootless pake slirp4netns, beda behavior            |
+| Gejala | Penyebab | Fix |
+|--------|----------|-----|
+| Container bisa akses internet, tapi port gak bisa diakses dari luar | Kurang `ufw route allow` | Tambah rule route allow |
+| `ufw enable` bikin SSH drop | Lupa `ufw allow ssh` sebelum enable | Console/VNC, `ufw allow ssh` |
+| Container gak bisa resolve DNS | DNS resolver blokir | `ufw allow out on podman0 to any port 53 proto udp` |
+| Port conflict | 2 container pake host port sama | Ganti port mapping `-p 8081:3000` |
+| Podman default network gak ada | Rootless podman | Rootless pake slirp4netns, beda behavior |
 
 ---
 
 ## Rootless vs Rootful Podman
 
-| Aspek            | Rootful (`sudo podman`)        | Rootless (`podman`)                               |
-| ---------------- | ------------------------------ | ------------------------------------------------- |
-| **Port binding** | Bisa <1024                     | >1024 (via `net.ipv4.ip_unprivileged_port_start`) |
-| **Network**      | Bridge (podman0)               | slirp4netns (NAT)                                 |
-| **Volume mount** | Bebas                          | Terbatas (user namespace)                         |
-| **UFW routing**  | `ufw route allow` works        | Lebih kompleks (pakai `-p`)                       |
-| **Use case**     | Production / system containers | Development / user apps                           |
+| Aspek | Rootful (`sudo podman`) | Rootless (`podman`) |
+|-------|------------------------|---------------------|
+| **Port binding** | Bisa <1024 | >1024 (via `net.ipv4.ip_unprivileged_port_start`) |
+| **Network** | Bridge (podman0) | slirp4netns (NAT) |
+| **Volume mount** | Bebas | Terbatas (user namespace) |
+| **UFW routing** | `ufw route allow` works | Lebih kompleks (pakai `-p`) |
+| **Use case** | Production / system containers | Development / user apps |
 
 ---
 
@@ -152,12 +152,12 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 1. Thinking Type yang Digunakan
 
-| Type                    | Kenapa                                                                                                                            | Bagian                                    |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Type | Kenapa | Bagian |
+|------|--------|--------|
 | **Analytical Thinking** | Memecah arsitektur Podman network jadi 4 mode (bridge, host, macvlan, none) + menganalisis mengapa UFW perlu route allow terpisah | Network Architecture, Rootless vs Rootful |
-| **Systems Thinking**    | Memetakan jalur traffic: client → eth0 → UFW → podman0 bridge → container; cascade failure kalau satu link missing                | UFW + Podman Pattern, Port Mapping Logic  |
-| **Concrete Thinking**   | Step-by-step command untuk UFW routing — urutan penting (SSH dulu!). Exact syntax yang bisa di-copy                               | Step-by-step, Commands                    |
-| **Critical Thinking**   | Mengapa `ufw enable` langsung tanpa route allow bikin container mati? Forward policy default DROP — ini jarang diketahui          | Peringatan Danger                         |
+| **Systems Thinking** | Memetakan jalur traffic: client → eth0 → UFW → podman0 bridge → container; cascade failure kalau satu link missing | UFW + Podman Pattern, Port Mapping Logic |
+| **Concrete Thinking** | Step-by-step command untuk UFW routing — urutan penting (SSH dulu!). Exact syntax yang bisa di-copy | Step-by-step, Commands |
+| **Critical Thinking** | Mengapa `ufw enable` langsung tanpa route allow bikin container mati? Forward policy default DROP — ini jarang diketahui | Peringatan Danger |
 
 ### 2. Background Knowledge (Pra-Penulisan)
 
@@ -169,12 +169,12 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 3. RAG Vault — Dokumen yang Dikonsultasi
 
-| Dokumen                        | Kontribusi                     |
-| ------------------------------ | ------------------------------ |
-| [[cicd-guide                   | CI/CD Pipeline Guide]]         | Container deployment context, environment yang perlu expose |
-| [[devops                       | DevOps Roadmap]]               | Docker vs Podman positioning, container skill progression   |
-| [[infrastructure-administrator | Infrastructure Administrator]] | Server layout — di folder mana container jalan              |
-| [[cloud-infrastructure         | Infrastruktur Cloud]]          | Container orchestration scale, network isolation            |
+| Dokumen | Kontribusi |
+|---------|-----------|
+| [[cicd-guide|CI/CD Pipeline Guide]] | Container deployment context, environment yang perlu expose |
+| [[devops|DevOps Roadmap]] | Docker vs Podman positioning, container skill progression |
+| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — di folder mana container jalan |
+| [[cloud-infrastructure|Infrastruktur Cloud]] | Container orchestration scale, network isolation |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 

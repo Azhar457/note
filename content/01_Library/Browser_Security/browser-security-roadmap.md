@@ -2,19 +2,19 @@
 title: Browser Security and Exploitation Learning Roadmap — From SOP Bypass to V8
   Enclave Shellcode
 tags:
-  - browser-security
-  - vulnerability-research
-  - exploitation
-  - v8
-  - sandbox-escape
-  - roadmap
-created: "2026-07-19"
-updated: "2026-07-19"
+- browser-security
+- vulnerability-research
+- exploitation
+- v8
+- sandbox-escape
+- roadmap
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Peramban web modern adalah salah satu permukaan serangan (_attack surface_) paling kompleks karena mengeksekusi kode tidak tepercaya dari internet di mesin lokal. Catatan ini menyediakan kurikulum terstruktur untuk mempelajari proteksi browser dan eksploitasi kerentanan memori, sebagai pasangan praktis dari berkas teoritis [[browser-security-exploitation-deepdive]].
+> Peramban web modern adalah salah satu permukaan serangan (*attack surface*) paling kompleks karena mengeksekusi kode tidak tepercaya dari internet di mesin lokal. Catatan ini menyediakan kurikulum terstruktur untuk mempelajari proteksi browser dan eksploitasi kerentanan memori, sebagai pasangan praktis dari berkas teoritis [[browser-security-exploitation-deepdive]].
 
 ## Daftar Isi
 
@@ -45,7 +45,7 @@ Peta jalan belajar ini membimbing Anda dari eksploitasi logic web hingga perusak
 
 Sebelum mengeksploitasi kode C++ browser, Anda wajib memahami kontrol keamanan logical di level aplikasi web:
 
-- **Same-Origin Policy (SOP)**: Aturan dasar yang membatasi dokumen/script dari satu asal (_origin_ - kombinasi protokol, domain, port) untuk membaca atau memodifikasi data dari asal lain.
+- **Same-Origin Policy (SOP)**: Aturan dasar yang membatasi dokumen/script dari satu asal (*origin* - kombinasi protokol, domain, port) untuk membaca atau memodifikasi data dari asal lain.
 - **Cross-Origin Resource Sharing (CORS)**: Mekanisme header HTTP yang memperbolehkan server menyatakan asal luar mana yang diizinkan memotong batas SOP.
 - **Content Security Policy (CSP)**: Lapisan deteksi dan mitigasi tambahan untuk mencegah serangan injeksi data seperti XSS (Cross-Site Scripting) dengan membatasi asal pemuatan skrip eksekusi dan memblokir inline script.
 
@@ -82,10 +82,8 @@ Browser modern (seperti Chromium) tidak berjalan sebagai proses tunggal. Mereka 
 Sebagian besar eksploitasi browser berfokus pada manipulasi memori di dalam mesin JavaScript V8 yang ditulis dalam C++.
 
 ### 4.1 Type Confusion (Kekacauan Tipe)
-
 Kerentanan ini terjadi ketika engine mengasumsikan objek memori memiliki tipe data $A$, padahal memori tersebut telah dimodifikasi menjadi tipe data $B$.
-
-- **Contoh**: Meng-hook properti array sehingga optimizer JIT (TurboFan) mengabaikan pemeriksaan tipe (_Type Check_) saat penulisan, membiarkan nilai integer ditulis langsung ke memori yang seharusnya berisi pointer objek. Penyerang mendapatkan kemampuan manipulasi memori primitif: membaca dan menulis alamat memori secara acak (_Arbitrary Read/Write_).
+- **Contoh**: Meng-hook properti array sehingga optimizer JIT (TurboFan) mengabaikan pemeriksaan tipe (*Type Check*) saat penulisan, membiarkan nilai integer ditulis langsung ke memori yang seharusnya berisi pointer objek. Penyerang mendapatkan kemampuan manipulasi memori primitif: membaca dan menulis alamat memori secara acak (*Arbitrary Read/Write*).
 
 ---
 
@@ -94,7 +92,6 @@ Kerentanan ini terjadi ketika engine mengasumsikan objek memori memiliki tipe da
 Fase akhir adalah merangkai kerentanan V8 untuk mengendalikan eksekusi sistem secara penuh:
 
 ### 5.1 Siklus Eksploitasi Rantai Penuh (Full Chain Exploit)
-
 1. **RCE (Remote Code Execution)**: Menggunakan kerentanan JIT V8 untuk mengalokasikan area memori RWX (Read-Write-Execute) atau memanipulasi pointer instruksi CPU (Instruction Pointer RIP) untuk menjalankan shellcode di dalam proses Renderer.
 2. **Sandbox Escape**: Dari dalam Renderer Process yang dikunci sandbox, shellcode mengirimkan payload eksploitasi Mojo IPC ke Browser Process untuk memicu kerentanan perusakan memori di level privilege tinggi.
 3. **Sistem Kompromi**: Eksekusi perintah sistem luar (misalnya meluncurkan `calc.exe` atau membuka terminal `/bin/sh`).
@@ -104,11 +101,9 @@ Fase akhir adalah merangkai kerentanan V8 untuk mengendalikan eksekusi sistem se
 ## 6. Kumpulan Soal Latihan & Solusi
 
 ### Soal 1
-
 Jelaskan perbedaan dampak eksploitasi jika penyerang berhasil mendapatkan celah **RCE pada Renderer Process** vs celah **Sandbox Escape**!
 
 **Solusi**
-
 - **RCE pada Renderer Process**: Penyerang hanya menguasai memori di dalam batas tab browser. Penyerang dapat mencuri cookie, kredensial, atau history tab tersebut, namun **tidak dapat** membaca file lokal di komputer korban (karena diblokir seccomp/sandbox OS) dan tidak dapat menginstal malware persistensi di OS host.
 - **Sandbox Escape**: Penyerang berhasil menembus batas karantina sandbox dan mengeksekusi instruksi di level hak akses user sistem operasi. Penyerang kini memiliki kemampuan penuh untuk membaca seluruh harddisk, menginstal malware trojan, atau mengambil alih kendali komputer secara permanen.
 
@@ -116,8 +111,8 @@ Jelaskan perbedaan dampak eksploitasi jika penyerang berhasil mendapatkan celah 
 
 ## 7. Koneksi ke Vault
 
-| Catatan                                    | Hubungan                                                                            |
-| ------------------------------------------ | ----------------------------------------------------------------------------------- |
-| [[browser-security-exploitation-deepdive]] | Analisis detail kerentanan V8, debugging CVE, dan bypass mitigasi ASLR/DEP.         |
-| [[browser-engine-architecture]]            | Pemahaman dasar layout rendering pipeline dan hidden classes V8 yang dieksploitasi. |
-| [[exploit-development]]                    | Teori dasar eksploitasi binary C++ seperti ROP chain dan heap feng-shui.            |
+| Catatan | Hubungan |
+|------|----------|
+| [[browser-security-exploitation-deepdive]] | Analisis detail kerentanan V8, debugging CVE, dan bypass mitigasi ASLR/DEP. |
+| [[browser-engine-architecture]] | Pemahaman dasar layout rendering pipeline dan hidden classes V8 yang dieksploitasi. |
+| [[exploit-development]] | Teori dasar eksploitasi binary C++ seperti ROP chain dan heap feng-shui. |

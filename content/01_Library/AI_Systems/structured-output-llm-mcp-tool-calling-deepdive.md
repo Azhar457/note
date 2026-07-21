@@ -1,22 +1,22 @@
 ---
-title: "🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts:
-  Schema-Constrained Decoding untuk Agent Communication yang Reliable"
+title: '🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts:
+  Schema-Constrained Decoding untuk Agent Communication yang Reliable'
 tags:
-  - structured-output
-  - json-mode
-  - function-calling
-  - mcp
-  - tool-calling
-  - constrained-decoding
-  - thoughtworks-radar-vol-34
-  - library
+- structured-output
+- json-mode
+- function-calling
+- mcp
+- tool-calling
+- constrained-decoding
+- thoughtworks-radar-vol-34
+- library
 aliases:
-  - json-mode-function-calling-deepdive
-created: "2026-07-19"
-updated: "2026-07-19"
+- json-mode-function-calling-deepdive
+created: '2026-07-19'
+updated: '2026-07-19'
 status: growing
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts
@@ -26,7 +26,6 @@ cssclasses:
 > LLM secara default menghasilkan text bebas — narasi, paragraf, kode prose. Tapi sistem downstream (tool executor, RAG pipeline, agent router) butuh payload yang predictable: JSON valid dgn field konsisten, tipe data benar, schema contracts jelas. **Structured output** adalah teknik yang mengkonstrain model untuk menghasilkan output yang conforming ke schema — paling sering JSON — sehingga parsing failure bisa dieliminasi. ThoughtWorks Radar Vol.34 (April 2026) memindahkan blip #5 "Structured output from LLMs" ke ring **Adopt** karena sudah dipakai production lintas tool-calling, agent communication, dan M2M pipelines. Catatan ini membedah tiga lapisan pendekatan: JSON mode, function calling, dan constrained decoding — plus pola implementasi untuk MCP tool contracts, error handling, dan integrasi Hermes/OmniRouter stack.
 
 > [!info] Hubungan ke Vault
->
 > - [[agentic-ai-mcp-architecture-deepdive]] — MCP adalah rentang utama structured output; tool definitions di MCP pake JSON Schema
 > - [[unified-mcp-server]] — MCP server implementation skill draft punya tool inputSchema
 > - [[context7-mcp-deepdive]] — MCP server production example
@@ -56,11 +55,11 @@ cssclasses:
 
 "Structured output" suara sederhana: minta model menghasilkan JSON, bukan text bebas. Tapi implementasinya punya tiga lapisan distinct yang sering di-conflate:
 
-| Layer                    | Apa yang dikonstrain             | Dimana enforcement                        | Cost                    | Reliability                                                                                             |
-| ------------------------ | -------------------------------- | ----------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------- |
-| **JSON mode**            | Output must be valid JSON        | Server-side parsing (post-hoc validation) | Rendah (prompt hint)    | Moderate — model bisa generate syntactically valid tapi semantically invalid (field Salah, tipe Hilang) |
-| **Function calling**     | Output must match tool signature | Provider API (server-side grammar)        | Sedang                  | Tinggi — provider validasi tool call payload dgn schema                                                 |
-| **Constrained decoding** | Output must match BNF/grammar    | Token-level logit mask (di decoder)       | Tinggi (~10-20% slower) | Sangat tinggi — model tidak bisa menghasilkan token yang melanggar grammar                              |
+| Layer | Apa yang dikonstrain | Dimana enforcement | Cost | Reliability |
+|-------|---------------------|--------------------|------|-------------|
+| **JSON mode** | Output must be valid JSON | Server-side parsing (post-hoc validation) | Rendah (prompt hint) | Moderate — model bisa generate syntactically valid tapi semantically invalid (field Salah, tipe Hilang) |
+| **Function calling** | Output must match tool signature | Provider API (server-side grammar) | Sedang | Tinggi — provider validasi tool call payload dgn schema |
+| **Constrained decoding** | Output must match BNF/grammar | Token-level logit mask (di decoder) | Tinggi (~10-20% slower) | Sangat tinggi — model tidak bisa menghasilkan token yang melanggar grammar |
 
 Analogi: bayangkan REST API.
 
@@ -117,14 +116,14 @@ USER PROMPT
 
 **Tabel komparasi provider:**
 
-| Provider               | JSON mode                                                          | Function calling        | Constrained decoding                | API                              |
-| ---------------------- | ------------------------------------------------------------------ | ----------------------- | ----------------------------------- | -------------------------------- |
-| OpenAI (GPT-4o)        | `response_format: {type: "json_object"}` / `{type: "json_schema"}` | `tools` + `tool_choice` | Tidak native                        | `/v1/chat/completions`           |
-| Anthropic (Claude 4.x) | `(if text + "respond with JSON")`                                  | `tools` API             | Tidak native                        | `/v1/messages`                   |
-| Google (Gemini)        | `responseMimeType: "application/json"` + `responseSchema`          | `functionDeclarations`  | Tidak native                        | `/v1beta/models:generateContent` |
-| vLLM + Outlines        | Tidak native                                                       | Tidak native            | Native BNF/JSON schema              | `/v1/completions`                |
-| llama.cpp              | Tidak native                                                       | Tidak native            | GBNF grammar file                   | `/v1/chat/completions`           |
-| Hermes (via provider)  | Inherit provider                                                   | Inherit provider        | Via Outlines adapter (lagi develop) | Wrapper                          |
+| Provider | JSON mode | Function calling | Constrained decoding | API |
+|----------|-----------|------------------|----------------------|-----|
+| OpenAI (GPT-4o) | `response_format: {type: "json_object"}` / `{type: "json_schema"}` | `tools` + `tool_choice` | Tidak native | `/v1/chat/completions` |
+| Anthropic (Claude 4.x) | `(if text + "respond with JSON")` | `tools` API | Tidak native | `/v1/messages` |
+| Google (Gemini) | `responseMimeType: "application/json"` + `responseSchema` | `functionDeclarations` | Tidak native | `/v1beta/models:generateContent` |
+| vLLM + Outlines | Tidak native | Tidak native | Native BNF/JSON schema | `/v1/completions` |
+| llama.cpp | Tidak native | Tidak native | GBNF grammar file | `/v1/chat/completions` |
+| Hermes (via provider) | Inherit provider | Inherit provider | Via Outlines adapter (lagi develop) | Wrapper |
 
 ### Schema Definition Patterns
 
@@ -136,9 +135,9 @@ Tiga pendekatan populer buat define schema:
 {
   "type": "object",
   "properties": {
-    "file_path": { "type": "string" },
-    "content": { "type": "string" },
-    "create_dirs": { "type": "boolean", "default": true }
+    "file_path": {"type": "string"},
+    "content": {"type": "string"},
+    "create_dirs": {"type": "boolean", "default": true}
   },
   "required": ["file_path", "content"]
 }
@@ -161,23 +160,23 @@ schema = WriteFileArgs.model_json_schema()
 **3. Zod (TypeScript)** — runtime + static type in one:
 
 ```typescript
-import { z } from "zod"
+import { z } from "zod";
 
 const writeArgsSchema = z.object({
   file_path: z.string().describe("Path to file"),
   content: z.string().describe("Content"),
-  create_dirs: z.boolean().default(true),
-})
+  create_dirs: z.boolean().default(true)
+});
 
-type WriteArgs = z.infer<typeof writeArgsSchema>
+type WriteArgs = z.infer<typeof writeArgsSchema>;
 ```
 
-| Format               | Bahasa | Runtime check                      | Integrasi MCP                            | Use case                                           |
-| -------------------- | ------ | ---------------------------------- | ---------------------------------------- | -------------------------------------------------- |
-| **JSON Schema**      | Any    | Manual validator (ajv, jsonschema) | First-class (`inputSchema` field di MCP) | Cross-language APIs, MCP servers, contract testing |
-| **Pydantic v2**      | Python | Automatic                          | Auto-convert via `.model_json_schema()`  | FastAPI, LangChain tools, Python MCP servers       |
-| **Zod**              | TS/JS  | Automatic                          | Manual pipe via `toJSONSchema()`         | Next.js, Deno, Bun MCP servers                     |
-| **TypeScript types** | TS     | Compile-time only                  | Tidak cukup (need runtime check)         | Internal boundaries, non-network                   |
+| Format | Bahasa | Runtime check | Integrasi MCP | Use case |
+|--------|--------|----------------|----------------|----------|
+| **JSON Schema** | Any | Manual validator (ajv, jsonschema) | First-class (`inputSchema` field di MCP) | Cross-language APIs, MCP servers, contract testing |
+| **Pydantic v2** | Python | Automatic | Auto-convert via `.model_json_schema()` | FastAPI, LangChain tools, Python MCP servers |
+| **Zod** | TS/JS | Automatic | Manual pipe via `toJSONSchema()` | Next.js, Deno, Bun MCP servers |
+| **TypeScript types** | TS | Compile-time only | Tidak cukup (need runtime check) | Internal boundaries, non-network |
 
 **Pilihan utama untuk MCP server author:** Pydantic (Python) atau Zod (TS), otomatis convert ke JSON Schema untuk `inputSchema`. Hindari hand-rolled JSON Schema kecuali sangat spesifik.
 
@@ -194,9 +193,9 @@ MCP `tools/list` response = beberapa tool definitions, masing-masing punya `inpu
       "inputSchema": {
         "type": "object",
         "properties": {
-          "file_path": { "type": "string", "description": "Absolute path target" },
-          "content": { "type": "string" },
-          "create_dirs": { "type": "boolean", "default": true }
+          "file_path": {"type": "string", "description": "Absolute path target"},
+          "content": {"type": "string"},
+          "create_dirs": {"type": "boolean", "default": true}
         },
         "required": ["file_path", "content"]
       }
@@ -207,9 +206,9 @@ MCP `tools/list` response = beberapa tool definitions, masing-masing punya `inpu
       "inputSchema": {
         "type": "object",
         "properties": {
-          "pattern": { "type": "string" },
-          "path": { "type": "string", "default": "." },
-          "output_mode": { "enum": ["content", "files_only", "count"], "default": "content" }
+          "pattern": {"type": "string"},
+          "path": {"type": "string", "default": "."},
+          "output_mode": {"enum": ["content","files_only","count"], "default": "content"}
         },
         "required": ["pattern"]
       }
@@ -320,7 +319,7 @@ llama.cpp support grammar-based constrained decoding via `.gbnf` file:
 ```
 # example.gbnf - grammar untuk WriteFileArgs
 root ::= "{" ws "\"file_path\":" ws string "," ws "\"content\":" ws string ("," ws "\"create_dirs\":" ws boolean)? ws "}"
-string ::= "\"" ([^"\\] | "\\" .)* "\""
+string ::= "\"" ([^"\\] | "\\" .)* "\"" 
 boolean ::= "true" | "false"
 ws ::= [ \t\n]*
 ```
@@ -330,12 +329,10 @@ Invoke dengan `extra_body: {grammar: grammar_str}`. Output dijamin cocok grammar
 ### Outlines / lm-format-enforcer
 
 Untuk vLLM dan text-generation-inference, library dominan:
-
 - **Outlines** — Python library, support JSON schema, Pydantic, regex, choice. Compatible dengan transformers, vLLM, llama.cpp.
 - **lm-format-enforcer** — lebih ketat performant tapi limited grammar.
 
 Pakai Outlines di vLLM:
-
 ```python
 # Start vLLM dgn Outlines integration
 # Then make request dengan --guided-json-schema arg:
@@ -356,7 +353,6 @@ Untuk implementasi custom: in inference time, sebelum sampllng, mask logit sesua
 ### Hallucination Mitigation via Schema
 
 Schema bukan cuma format enforcement — bisa juga semantik validator:
-
 - `enum` untuk konstrain ke valid values
 - `pattern` regex (JSON Schema) → force format email, UUID, IP
 - `minimum`/`maximum` → konstrain range numerik
@@ -368,13 +364,13 @@ ThoughtWorks Radar Vol.34 themes bicara soal **codebase cognitive debt** (#36, C
 
 ## Case Studies
 
-| Studi Kasus                          | Konteks                                                                                                    | Temuan Kunci                                                                                                                            | Mitigasi Diimplementasi                                                                                                             |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Anthropic Claude tool_use production | Provider Anthropic menambah native `tools` API. Claude tetap bisa hallucinate field yang tak ada di schema | Provider validate sebelum return; downstream MCP server tetap harus re-validate karena agent bisa invoke external system via OmniRouter | Hermes MCP server pattern: validate ulang dgn `jsonschema.validate()` sebelum execute. Log error + fallback kalau validation gagal  |
-| OpenAI function calling scale issues | Production deployments with 50+ tools; prompt overhead too large                                           | Embedding-based tool retrieval — dapatkan top-k tools relevan dengan prompt sebelum attach ke context                                   | Hermes skill_router (lihat [[unified-mcp-server]] pattern) — router MCP server untuk dynamic skill discovery                        |
-| Hermes MCP tool contract pattern     | Hermes tools `write_file`, `search_files` exposed via /api/mcp/sse                                         | OpenAPI-generated tools sering ambigu: `path` vs `file_path` vs `uri`                                                                   | Konsisten naming convention di MCP server; require `file_path` absolute path; `pattern` regex; dokumentasi di `description` panjang |
-| Cursor agent structured output       | Cursor IDE menghasilkan structured plan, file edits sebagai JSON patch                                     | Output patch harus valid `diff` format, bukan text bebas                                                                                | Retry loop with JSON Schema contract; fallback ke prompt user manual copy paste kalau agent stuck                                   |
-| RAG JSON extraction dari PDF         | Pipeline untuk extract metadata dari paper (title, authors, abstract, keywords)                            | Free-form extraction → field tak konsisten (title ada abstrak masuk abstract, keywords jadi comma string)                               | Strict JSON Schema: `authors: list[str]`, `abstract: string`, `keywords: list[str]`. Retry dengan parser fail-loud                  |
+| Studi Kasus | Konteks | Temuan Kunci | Mitigasi Diimplementasi |
+|-------------|---------|--------------|------------------------|
+| Anthropic Claude tool_use production | Provider Anthropic menambah native `tools` API. Claude tetap bisa hallucinate field yang tak ada di schema | Provider validate sebelum return; downstream MCP server tetap harus re-validate karena agent bisa invoke external system via OmniRouter | Hermes MCP server pattern: validate ulang dgn `jsonschema.validate()` sebelum execute. Log error + fallback kalau validation gagal |
+| OpenAI function calling scale issues | Production deployments with 50+ tools; prompt overhead too large | Embedding-based tool retrieval — dapatkan top-k tools relevan dengan prompt sebelum attach ke context | Hermes skill_router (lihat [[unified-mcp-server]] pattern) — router MCP server untuk dynamic skill discovery |
+| Hermes MCP tool contract pattern | Hermes tools `write_file`, `search_files` exposed via /api/mcp/sse | OpenAPI-generated tools sering ambigu: `path` vs `file_path` vs `uri` | Konsisten naming convention di MCP server; require `file_path` absolute path; `pattern` regex; dokumentasi di `description` panjang |
+| Cursor agent structured output | Cursor IDE menghasilkan structured plan, file edits sebagai JSON patch | Output patch harus valid `diff` format, bukan text bebas | Retry loop with JSON Schema contract; fallback ke prompt user manual copy paste kalau agent stuck |
+| RAG JSON extraction dari PDF | Pipeline untuk extract metadata dari paper (title, authors, abstract, keywords) | Free-form extraction → field tak konsisten (title ada abstrak masuk abstract, keywords jadi comma string) | Strict JSON Schema: `authors: list[str]`, `abstract: string`, `keywords: list[str]`. Retry dengan parser fail-loud |
 
 ---
 

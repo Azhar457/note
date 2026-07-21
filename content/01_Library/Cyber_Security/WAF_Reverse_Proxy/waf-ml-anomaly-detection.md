@@ -1,19 +1,19 @@
 ---
 title: AI/ML Anomaly Detection for WAF — ONNX & Feature Engineering
 tags:
-  - jarswaf
-  - machine-learning
-  - onnx
-  - anomaly-detection
-  - feature-engineering
-  - rust
-created: "2026-07-19"
-updated: "2026-07-19"
+- jarswaf
+- machine-learning
+- onnx
+- anomaly-detection
+- feature-engineering
+- rust
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Deteksi berbasis tanda tangan (signature-based) memiliki keterbatasan terhadap serangan _zero-day_ dan teknik obfuskasi kompleks. Catatan ini mendefinisikan arsitektur deteksi anomali berbasis kecerdasan buatan (AI/ML) yang diintegrasikan langsung ke dalam data plane [[waf-reverse-proxy-deepdive]] menggunakan model kuantisasi ONNX di Rust.
+> Deteksi berbasis tanda tangan (signature-based) memiliki keterbatasan terhadap serangan *zero-day* dan teknik obfuskasi kompleks. Catatan ini mendefinisikan arsitektur deteksi anomali berbasis kecerdasan buatan (AI/ML) yang diintegrasikan langsung ke dalam data plane [[waf-reverse-proxy-deepdive]] menggunakan model kuantisasi ONNX di Rust.
 
 ## Daftar Isi
 
@@ -73,12 +73,12 @@ impl WafMlEngine {
             .with_name("jarswaf-ml")
             .with_log_level(LoggingLevel::Warning)
             .build()?);
-
+        
         let session = SessionBuilder::new(&env)?
             .with_optimization_level(ort::GraphOptimizationLevel::Level3)?
             .with_intra_threads(2)? // Mengunci core pemrosesan agar latensi stabil
             .with_model_from_file(model_path)?;
-
+            
         Ok(Self { session })
     }
 
@@ -89,11 +89,11 @@ impl WafMlEngine {
             ndarray::Array2::from_shape_vec((1, features.len()), features.to_vec())
                 .unwrap(),
         )?;
-
+        
         let outputs = self.session.run(inputs!["input_features" => input_tensor]?)?;
         let output_tensor = outputs["anomaly_score"].try_extract::<f32>()?;
         let view = output_tensor.view();
-
+        
         Ok(view[(0, 0)]) // Mengembalikan nilai skor anomali antara 0.0 s.d 1.0
     }
 }
@@ -103,21 +103,21 @@ impl WafMlEngine {
 
 ## 2. Feature Engineering untuk HTTP Traffic
 
-Model ML tidak dapat memproses teks mentah HTTP secara langsung. Teks request harus direduksi menjadi representasi numerik (_vectorization_) berdimensi tetap (_fixed size_).
+Model ML tidak dapat memproses teks mentah HTTP secara langsung. Teks request harus direduksi menjadi representasi numerik (*vectorization*) berdimensi tetap (*fixed size*).
 
 ### 2.1 Fitur yang Diekstrak
 
-| Kategori    | Nama Fitur        | Deskripsi                                          | Signifikansi Keamanan                           |
-| ----------- | ----------------- | -------------------------------------------------- | ----------------------------------------------- |
-| **URI**     | `uri_length`      | Panjang total string URI                           | Deteksi buffer overflow / path traversal        |
-|             | `entropy_uri`     | Shannon entropy dari string URI                    | Deteksi payload ter-enkripsi/obfuskasi          |
-|             | `spec_char_count` | Jumlah karakter khusus (`../`, `'`, `"`, `%`, `<`) | Sinyal kuat injeksi (SQLi, XSS, Path Traversal) |
-| **Headers** | `header_count`    | Jumlah header dalam request                        | Deteksi HTTP request smuggling / scraping       |
-|             | `content_len`     | Nilai dari Content-Length header                   | Deteksi payload jumbo (DoS)                     |
-|             | `user_agent_len`  | Panjang string User-Agent                          | Deteksi anomali User-Agent bot otomatis         |
-| **Payload** | `body_length`     | Panjang total request body                         | Deteksi upload data besar                       |
-|             | `entropy_body`    | Shannon entropy dari request body                  | Deteksi upload file terenkripsi / shellcode     |
-| **Timing**  | `req_rate_10s`    | Frekuensi request dari IP dalam 10 detik           | Deteksi brute force / L7 DDoS                   |
+| Kategori | Nama Fitur | Deskripsi | Signifikansi Keamanan |
+|----------|------------|-----------|------------------------|
+| **URI** | `uri_length` | Panjang total string URI | Deteksi buffer overflow / path traversal |
+| | `entropy_uri` | Shannon entropy dari string URI | Deteksi payload ter-enkripsi/obfuskasi |
+| | `spec_char_count` | Jumlah karakter khusus (`../`, `'`, `"`, `%`, `<`) | Sinyal kuat injeksi (SQLi, XSS, Path Traversal) |
+| **Headers**| `header_count` | Jumlah header dalam request | Deteksi HTTP request smuggling / scraping |
+| | `content_len` | Nilai dari Content-Length header | Deteksi payload jumbo (DoS) |
+| | `user_agent_len`| Panjang string User-Agent | Deteksi anomali User-Agent bot otomatis |
+| **Payload**| `body_length` | Panjang total request body | Deteksi upload data besar |
+| | `entropy_body` | Shannon entropy dari request body | Deteksi upload file terenkripsi / shellcode |
+| **Timing** | `req_rate_10s` | Frekuensi request dari IP dalam 10 detik | Deteksi brute force / L7 DDoS |
 
 ### 2.2 Algoritma Penghitung Shannon Entropy (Rust)
 
@@ -146,11 +146,11 @@ fn calculate_shannon_entropy(data: &str) -> f32 {
 
 Tiga pendekatan model unsupervised/semi-supervised utama yang dipertimbangkan untuk di-deploy pada edge node:
 
-| Model                            | Latensi Inferensi          | Memory Footprint        | Kelebihan                                                  | Kelemahan                                               |
-| -------------------------------- | -------------------------- | ----------------------- | ---------------------------------------------------------- | ------------------------------------------------------- |
-| **Isolation Forest (iForest)**   | **Sangat Rendah (<0.5ms)** | Sangat Ringan (<5MB)    | Cepat, efisien pada resource terbatas, tidak butuh GPU.    | Kurang peka terhadap urutan (sekuensial) data.          |
-| **Autoencoder (Neural Network)** | Sedang (~1.5ms)            | Ringan-Sedang (10-30MB) | Sangat baik mendeteksi korelasi non-linear antar header.   | Membutuhkan threshold tuning yang ketat.                |
-| **LSTM Autoencoder**             | Tinggi (>5ms)              | Berat (>100MB)          | Hebat dalam mendeteksi anomali runtun waktu (time-series). | Latensi inferensi terlalu lambat untuk inline blocking. |
+| Model | Latensi Inferensi | Memory Footprint | Kelebihan | Kelemahan |
+|-------|-------------------|------------------|-----------|-----------|
+| **Isolation Forest (iForest)** | **Sangat Rendah (<0.5ms)** | Sangat Ringan (<5MB) | Cepat, efisien pada resource terbatas, tidak butuh GPU. | Kurang peka terhadap urutan (sekuensial) data. |
+| **Autoencoder (Neural Network)**| Sedang (~1.5ms) | Ringan-Sedang (10-30MB) | Sangat baik mendeteksi korelasi non-linear antar header. | Membutuhkan threshold tuning yang ketat. |
+| **LSTM Autoencoder** | Tinggi (>5ms) | Berat (>100MB) | Hebat dalam mendeteksi anomali runtun waktu (time-series). | Latensi inferensi terlalu lambat untuk inline blocking. |
 
 **Rekomendasi untuk jarsWAF:** Gunakan **Isolation Forest** atau **Autoencoder** kuantisasi 8-bit (INT8) untuk menjaga performa inferensi tetap berada di bawah batasan <2ms.
 
@@ -158,7 +158,7 @@ Tiga pendekatan model unsupervised/semi-supervised utama yang dipertimbangkan un
 
 ## 4. Pipeline Pelatihan & Retraining
 
-Deteksi anomali rentan terhadap masalah _false positive_ akibat perubahan perilaku aplikasi (perubahan rilis software baru). Oleh karena itu, siklus pelatihan ulang model secara terus menerus (_retraining pipeline_) wajib diimplementasikan.
+Deteksi anomali rentan terhadap masalah *false positive* akibat perubahan perilaku aplikasi (perubahan rilis software baru). Oleh karena itu, siklus pelatihan ulang model secara terus menerus (*retraining pipeline*) wajib diimplementasikan.
 
 ```
                   jarsWAF Log Pipeline (Elastic/ClickHouse)
@@ -220,9 +220,9 @@ impl WafState {
 
 ## 5. Koneksi ke Vault
 
-| Catatan                                  | Hubungan                                                                                  |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [[waf-reverse-proxy-deepdive]]           | Dasar data plane reverse proxy tempat ONNX engine ini berjalan.                           |
-| [[machine-learning-classical-hierarchy]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest.                 |
-| [[adversarial-machine-learning]]         | Teknik penyerang untuk meracuni model anomali WAF (_model poisoning_ / _evasion attack_). |
-| [[jarswaf-plan]]                         | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1.          |
+| Catatan | Hubungan |
+|------|----------|
+| [[waf-reverse-proxy-deepdive]] | Dasar data plane reverse proxy tempat ONNX engine ini berjalan. |
+| [[machine-learning-classical-hierarchy]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest. |
+| [[adversarial-machine-learning]] | Teknik penyerang untuk meracuni model anomali WAF (*model poisoning* / *evasion attack*). |
+| [[jarswaf-plan]] | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1. |

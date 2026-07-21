@@ -1,15 +1,15 @@
 ---
 title: Advanced AI Algorithms & Breakthroughs
 tags:
-  - ai
-  - deep-learning
-  - attention
-  - diffusion
-  - rlhf
-  - world-model
-  - optimal-transport
-created: "2026-07-16"
-updated: "2026-07-16"
+- ai
+- deep-learning
+- attention
+- diffusion
+- rlhf
+- world-model
+- optimal-transport
+created: '2026-07-16'
+updated: '2026-07-16'
 status: growing
 ---
 
@@ -32,7 +32,7 @@ status: growing
 
 ### Inti Problem
 
-Standard attention (`softmax(QK^T)V`) punya _quadratic complexity_ O(N²) — tapi masalah yang lebih gede bukan compute-nya, **memory bandwidth bottleneck**. Setiap langkah attention baca-tulis attention matrix ukuran N×N dari HBM (High Bandwidth Memory) ke SRAM (on-chip cache) bolak-balik. GPU spend more time moving data than computing.
+Standard attention (`softmax(QK^T)V`) punya *quadratic complexity* O(N²) — tapi masalah yang lebih gede bukan compute-nya, **memory bandwidth bottleneck**. Setiap langkah attention baca-tulis attention matrix ukuran N×N dari HBM (High Bandwidth Memory) ke SRAM (on-chip cache) bolak-balik. GPU spend more time moving data than computing.
 
 ### Core Insight — Tiling + Recomputation
 
@@ -48,24 +48,24 @@ for Q_block in Q_blocks:
     for K_block, V_block in KV_blocks:  # KV loaded from HBM once
         # Compute partial S = Q_block @ K_block^T in SRAM
         S = Q_block @ K_block.T  # (B_r x d) @ (d x B_c)
-
+        
         # Online softmax — track running max & exp sum
         m_new = max(m, rowmax(S))
         diag = exp(S - m_new)
         P = diag / (exp(m - m_new) * l_seg + rowsum(diag))
-
+        
         # Accumulate output incrementally
         O_block = diag @ V_block + exp(m - m_new) * O_block  # rescale
 ```
 
 ### Varian & Evolusi
 
-| Version                   | Key Improvement                         | Tahun |
-| ------------------------- | --------------------------------------- | ----- |
-| FlashAttention            | Basic tiling + online softmax           | 2022  |
-| FlashAttention-2          | Better parallelism, less non-matmul ops | 2023  |
-| FlashAttention-3 (Hopper) | Async WGMMA, FP8 support                | 2024  |
-| FlashAttention-BERT       | Optimized for BERT-length sequences     | 2024  |
+| Version | Key Improvement | Tahun |
+|---------|----------------|-------|
+| FlashAttention | Basic tiling + online softmax | 2022 |
+| FlashAttention-2 | Better parallelism, less non-matmul ops | 2023 |
+| FlashAttention-3 (Hopper) | Async WGMMA, FP8 support | 2024 |
+| FlashAttention-BERT | Optimized for BERT-length sequences | 2024 |
 
 ### Kelebihan Konkret
 
@@ -117,12 +117,12 @@ MLA:
 
 ### Kenapa Ini Penting
 
-| Aspek              | Standard MHA           | MLA                                  |
-| ------------------ | ---------------------- | ------------------------------------ |
-| KV cache per token | `2 × n_heads × d_head` | `~2 × d_compressed`                  |
-| Ratio (typical)    | 1×                     | **0.125× - 0.25×**                   |
-| Context window     | limited by memory      | **128K+ jadi feasible**              |
-| Throughput         | baseline               | **~2× lebih tinggi** di long context |
+| Aspek | Standard MHA | MLA |
+|-------|-------------|-----|
+| KV cache per token | `2 × n_heads × d_head` | `~2 × d_compressed` |
+| Ratio (typical) | 1× | **0.125× - 0.25×** |
+| Context window | limited by memory | **128K+ jadi feasible** |
+| Throughput | baseline | **~2× lebih tinggi** di long context |
 
 ### Decoupled RoPE
 
@@ -151,7 +151,6 @@ MLA juga punya trik unik buat **decoupled rotary position encoding** — RoPE di
 ### Problem: Pixel Space Diffusion Gak Efisien
 
 Diffusion model pertama (DDPM, 2020) langsung generate pixel 256×256×3. Masalah:
-
 - Dimensi terlalu gede → compute mahal
 - Perceptual details (tekstur, bayangan) dan semantic content learning-nya campur aduk susah
 - Sampling lambat
@@ -161,14 +160,12 @@ Diffusion model pertama (DDPM, 2020) langsung generate pixel 256×256×3. Masala
 Latent Diffusion ([Rombach et al., 2022](https://arxiv.org/abs/2112.10752)) — yang jadi backbone Stable Diffusion — split proses jadi 2 stage:
 
 **Stage 1: VAE (Variational Autoencoder)**
-
 - Encoder: kompres gambar 512×512×3 → latent 64×64×4 (≈48× compression!)
 - Decoder: reconstruct latent balik ke pixel
 - VAE di-pretrain terpisah dengan perceptual loss + adversarial loss → hasil rekonstruksi bagus
-- **Kenapa ini works:** VAE ngurus _perceptual compression_ — detail visual (tekstur, warna). Diffusion cuma urus _semantic compression_ — apa yang ada di gambar.
+- **Kenapa ini works:** VAE ngurus *perceptual compression* — detail visual (tekstur, warna). Diffusion cuma urus *semantic compression* — apa yang ada di gambar.
 
 **Stage 2: Diffusion di Latent Space**
-
 - UNet (atau DiT — Diffusion Transformer di SD3/Sora) belajar denoise latent 64×64×4
 - 48× lebih kecil dari pixel 512×512×3 → jauh lebih cepat
 - Conditioning: text embedding dari CLIP/T5 di-cross-attention ke UNet
@@ -200,12 +197,12 @@ Ini yang bikin Stable Diffusion bisa text-to-image, image-to-image, inpainting, 
 
 ### Perkembangan: SD3 → Flux → DiT
 
-| Model  | Denoiser             | Tahun | Highlight                             |
-| ------ | -------------------- | ----- | ------------------------------------- |
-| SD1.5  | UNet + CLIP          | 2022  | Latent diffusion > breakthrough       |
-| SDXL   | UNet + CLIP + T5     | 2023  | Dual text encoder, bigger UNet        |
-| SD3    | DiT (MMDiT)          | 2024  | Rectified Flow, Diffusion Transformer |
-| Flux.1 | DiT + double CLIP+T5 | 2024  | 12B params, SOTA quality              |
+| Model | Denoiser | Tahun | Highlight |
+|-------|----------|-------|-----------|
+| SD1.5 | UNet + CLIP | 2022 | Latent diffusion > breakthrough |
+| SDXL | UNet + CLIP + T5 | 2023 | Dual text encoder, bigger UNet |
+| SD3 | DiT (MMDiT) | 2024 | Rectified Flow, Diffusion Transformer |
+| Flux.1 | DiT + double CLIP+T5 | 2024 | 12B params, SOTA quality |
 
 > Latent Diffusion mengubah ekonomi generasi gambar. Dengan cost minimum $600K training SD1.5 (vs jutaan $ buat DALL-E 2), open source bisa compete.
 
@@ -223,12 +220,11 @@ Diffusion model butuh banyak steps (50-1000) karena trajectory-nya acak — rand
 
 Flow Matching ([Lipman et al., 2023](https://arxiv.org/abs/2210.02747)) / Rectified Flow ([Liu et al., 2023](https://arxiv.org/abs/2209.03077)) punya pendekatan beda:
 
-**Bukan belajar score function (∇log p), tapi belajar _vector field_ yang straight-line dari noise ke data:**
+**Bukan belajar score function (∇log p), tapi belajar *vector field* yang straight-line dari noise ke data:**
 
 $$
 \text{Standard Diffusion: } dx_t = f(t)x_t dt + g(t)dw_t \quad \text{(random walk)}
 $$
-
 $$
 \text{Rectified Flow: } dx_t = v_\theta(x_t, t) dt \quad \text{(deterministic transport)}
 $$
@@ -243,7 +239,7 @@ Kuncinya: **rectification** — proses lurusin trajectory.
 
 ```
 Step 0: Noise ──╱╲──╱╲──╱╲── Data   (random trial)
-Step 1: Noise ───╱╲──╱╲─── Data     (1× rectified)
+Step 1: Noise ───╱╲──╱╲─── Data     (1× rectified)  
 Step 2: Noise ─────╱╲───── Data     (2× rectified)
 Step N: Noise ──────────── Data     (almost straight → 1-step sampling!)
 ```
@@ -274,24 +270,24 @@ Model belajar: $v_\theta(x_t, t) \approx u_t$ — dan **conditional objective in
 
 ### Perbandingan: Diffusion vs Flow Matching
 
-| Aspek              | Diffusion (DDPM/DDIM)   | Flow Matching              |
-| ------------------ | ----------------------- | -------------------------- |
-| Training objective | Score matching (∇log p) | Vector field regression    |
-| Sampling steps     | 50-1000                 | 1-50 (≥ 50 setara quality) |
-| Trajectory         | Curved, stochastic      | Straight, deterministic    |
-| Teori              | SDE-based               | ODE-based (simpler)        |
-| Kecepatan sampling | Slow                    | Fast (10-50×)              |
-| Model examples     | SD1.5, DALL-E 3         | SD3, Flux, Sora            |
+| Aspek | Diffusion (DDPM/DDIM) | Flow Matching |
+|-------|----------------------|---------------|
+| Training objective | Score matching (∇log p) | Vector field regression |
+| Sampling steps | 50-1000 | 1-50 (≥ 50 setara quality) |
+| Trajectory | Curved, stochastic | Straight, deterministic |
+| Teori | SDE-based | ODE-based (simpler) |
+| Kecepatan sampling | Slow | Fast (10-50×) |
+| Model examples | SD1.5, DALL-E 3 | SD3, Flux, Sora |
 
 ### Matriks Transport dan Optimal Transport (OT)
 
-Flow matching terkait erat dengan **Optimal Transport** — mencari _cost-minimizing path_ antara distribusi. OT memberikan:
+Flow matching terkait erat dengan **Optimal Transport** — mencari *cost-minimizing path* antara distribusi. OT memberikan:
 
 - **Non-crossing trajectories** — sample paths gak saling tabrak
 - **Efficiency** — shortest path in Wasserstein space
 - **Coupling** — natural pairing of noise and data
 
-> **ponytail:** Rectified Flow bisa dilihat sebagai _learned OT_ — model belajar sendiri jalur optimal tanpa perlu compute OT cost explicitly.
+> **ponytail:** Rectified Flow bisa dilihat sebagai *learned OT* — model belajar sendiri jalur optimal tanpa perlu compute OT cost explicitly.
 
 ---
 
@@ -302,7 +298,6 @@ Flow matching terkait erat dengan **Optimal Transport** — mencari _cost-minimi
 ### Problem: Robot Model Selama Ini Task-Specific
 
 Sebelum VLA, robot policy biasanya:
-
 - Trained per-task (grasping → one model, pushing → another)
 - Gak bisa generalisasi ke objek/scenario baru
 - Butuh ribuan demo per task
@@ -324,7 +319,7 @@ VLM Backbone (frozen/finetuned) → visual & text features
 Action Head (trained from scratch) → joint_positions, gripper_state
 ```
 
-**Key insight:** VLM udah ngerti objek, relasi spasial, instruksi bahasa. Yang ditambah cuma _how to act_.
+**Key insight:** VLM udah ngerti objek, relasi spasial, instruksi bahasa. Yang ditambah cuma *how to act*.
 
 ### Arsitektur VLA
 
@@ -369,15 +364,15 @@ Semua jadi satu sequence — action token special gak beda dari text token. **Un
 
 ### VLA Models Timeline
 
-| Model    | Tahun | Backbone    | Action Space             | Highlight                        |
-| -------- | ----- | ----------- | ------------------------ | -------------------------------- |
-| RT-1     | 2023  | Transformer | Discretized 256 bins     | Multi-task robotics transformer  |
-| RT-2     | 2023  | PaLI-X 55B  | Discretized + text       | Web-scale VLM → robot policy     |
-| Octo     | 2024  | Transformer | Diffusion head           | Open-source, multi-embodiment    |
-| π₀       | 2024  | VLM + Flow  | Continuous flow matching | Flow action, efficient inference |
-| RoboCasa | 2024  | Diffusion   | Simulated                | Large-scale simulation data      |
+| Model | Tahun | Backbone | Action Space | Highlight |
+|-------|-------|----------|-------------|-----------|
+| RT-1 | 2023 | Transformer | Discretized 256 bins | Multi-task robotics transformer |
+| RT-2 | 2023 | PaLI-X 55B | Discretized + text | Web-scale VLM → robot policy |
+| Octo | 2024 | Transformer | Diffusion head | Open-source, multi-embodiment |
+| π₀ | 2024 | VLM + Flow | Continuous flow matching | Flow action, efficient inference |
+| RoboCasa | 2024 | Diffusion | Simulated | Large-scale simulation data |
 
-> **ponytail:** VLA trend mengarah ke _action token sebagai first-class citizen_ di arsitektur transformer — gak perlu nambahin modality-specific decoder.
+> **ponytail:** VLA trend mengarah ke *action token sebagai first-class citizen* di arsitektur transformer — gak perlu nambahin modality-specific decoder.
 
 ---
 
@@ -387,8 +382,7 @@ Semua jadi satu sequence — action token special gak beda dari text token. **Un
 
 ### Problem: Language Model Gak Tahu Mana yang "Baik"
 
-LLM pretrained cuma belajar _next token prediction_ dari internet — ngerti grammar, fakta, korelasi statistik. Tapi gak ngerti:
-
+LLM pretrained cuma belajar *next token prediction* dari internet — ngerti grammar, fakta, korelasi statistik. Tapi gak ngerti:
 - Mana jawaban yang helpful vs unhelpful
 - Mana yang harmless vs toxic
 - Mana yang honest vs hallucinated
@@ -400,14 +394,12 @@ LLM pretrained cuma belajar _next token prediction_ dari internet — ngerti gra
 RLHF ([Ouyang et al., 2022 — InstructGPT](https://arxiv.org/abs/2203.02155)) adalah 3-stage pipeline:
 
 #### Stage 1: SFT (Supervised Fine-Tuning)
-
 - Human demos: prompt + ideal response
 - Standard cross-entropy loss
 - Dapet model awal yang relatively helpful
 - **Tanpa SFT, RL langsung dari pretrained = model generate gibberish** (action space terlalu gede)
 
 #### Stage 2: Reward Modeling
-
 - Human rank beberapa responses dari prompt yang sama
 - **Reward model:** classifier yang predict "which response is better"
 - Train: pairwise ranking loss (Bradley-Terry model)
@@ -420,10 +412,9 @@ $$ \mathcal{L}_{RM} = -\mathbb{E}_{(x, y_w, y_l)} [\log \sigma(r_\theta(x, y_w) 
 - Reward model output: scalar → how good is this response
 
 **Kenapa reward model, bukan langsung human feedback?**
-
 - Human feedback expensive & slow
 - Reward model bisa di-deploy buat label otomatis
-- Jadi _dense reward_ — tiap token ada signal-nya
+- Jadi *dense reward* — tiap token ada signal-nya
 
 #### Stage 3: PPO Optimization
 
@@ -440,24 +431,20 @@ RL untuk LLM itu unik: action space = vocabulary (~32K-128K tokens), state space
 PPO buat LLM punya 4 components yang jalan bareng:
 
 **1. Policy (Actor) — LLM kita**:
-
 - Generate response given prompt
 - Loss: maximize expected reward MINUS KL penalty
 
 **2. Value function (Critic)**:
-
 - Predict expected future reward dari state sekarang
 - Trained dengan MSE terhadap actual return
 - Bantu ngurangin variance di gradient estimation
 
 **3. Reward signal**:
-
 - Dari reward model: $R(x, y)$
 - Ditambah **KL penalty**: $-\beta \cdot D_{KL}(\pi_{\text{new}} || \pi_{\text{ref}})$
 - KL penalty prevents model dari "reward hacking" — generate output yang dapet reward tinggi tapi gak meaningfully aligned (mis: nulis panjang banget)
 
 **4. Generalized Advantage Estimation (GAE)**:
-
 - Balances bias-variance tradeoff
 - $A_t = \sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{t+l}$ dimana $\delta_t = R_t + \gamma V(s_{t+1}) - V(s_t)$
 
@@ -466,25 +453,23 @@ PPO buat LLM punya 4 components yang jalan bareng:
 $$ L^{CLIP}(\theta) = \mathbb{E}_t[\min(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t)] $$
 
 dimana:
-
 - $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$ — probability ratio
 - clip($r_t, 1-\epsilon, 1+\epsilon$) — mencegah update terlalu agresif
 - $\hat{A}_t$ — estimated advantage
 
 **Kenapa clipping penting:**
-
 - Kalau policy tiba-tiba ngeboost probability token tertentu (karena dapet reward tinggi dari reward model yang noise), bisa collapse model
 - Clip memastikan update per step ≤ $\epsilon$ (biasanya 0.2)
 
 ### PPO vs Other RL Algorithms for LLM
 
-| Aspect              | PPO                                         | REINFORCE               | DPO                         |
-| ------------------- | ------------------------------------------- | ----------------------- | --------------------------- |
-| Sample efficiency   | ✅ Tinggi (on-policy + importance sampling) | ❌ Rendah (Monte Carlo) | ✅ Tinggi (offline)         |
-| Stability           | ✅ Clipping prevents collapse               | ❌ High variance        | ✅ Implicit                 |
-| Reward model needed | ✅ Yes                                      | ✅ Yes                  | ❌ No (preference langsung) |
-| Complexity          | Tinggi (actor + critic + RM)                | Medium                  | Rendah (1 stage)            |
-| Prevalence          | ✅ Standard RLHF                            | Rare                    | ✅ Popular alternative      |
+| Aspect | PPO | REINFORCE | DPO |
+|--------|-----|-----------|-----|
+| Sample efficiency | ✅ Tinggi (on-policy + importance sampling) | ❌ Rendah (Monte Carlo) | ✅ Tinggi (offline) |
+| Stability | ✅ Clipping prevents collapse | ❌ High variance | ✅ Implicit |
+| Reward model needed | ✅ Yes | ✅ Yes | ❌ No (preference langsung) |
+| Complexity | Tinggi (actor + critic + RM) | Medium | Rendah (1 stage) |
+| Prevalence | ✅ Standard RLHF | Rare | ✅ Popular alternative |
 
 ### RLHF + PPO: Total Loss
 
@@ -536,8 +521,7 @@ $$ \mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma \left( \be
 
 ### Definisi
 
-World model adalah **learned simulator of the environment's dynamics**:
-
+World model adalah **learned simulator of the environment's dynamics**: 
 - Input: state $s_t$ + action $a_t$
 - Predict: next state $s_{t+1}$, reward $r_{t+1}$, done $d_{t+1}$
 - Kadang juga predict: latent representation z_t tanpa perlu reconstruct raw observation
@@ -550,12 +534,12 @@ Bedanya sama model biasa: **bisa di-rollout untuk planning** — model di-"dream
 
 ### Kenapa World Model Penting
 
-| Problem                                      | Solution dengan World Model                                    |
-| -------------------------------------------- | -------------------------------------------------------------- |
-| RL butuh banyak trial di environment nyata   | Bisa trial di _dream_ environment — 1000× lebih cepat          |
-| Robotics experiments expensive (robot rusak) | Planning di latent space dulu baru execute                     |
-| Model-based RL kurang stabil                 | Dreamer family bikin stabil dengan recurrent state space model |
-| Planning butuh forward simulation            | World model = cheap forward simulator                          |
+| Problem | Solution dengan World Model |
+|---------|---------------------------|
+| RL butuh banyak trial di environment nyata | Bisa trial di *dream* environment — 1000× lebih cepat |
+| Robotics experiments expensive (robot rusak) | Planning di latent space dulu baru execute |
+| Model-based RL kurang stabil | Dreamer family bikin stabil dengan recurrent state space model |
+| Planning butuh forward simulation | World model = cheap forward simulator |
 
 ### Arsitektur World Model — DreamerV3
 
@@ -583,7 +567,6 @@ DreamerV3 ([Hafner et al., 2023](https://arxiv.org/abs/2301.04104)) adalah arsit
 ```
 
 RSSM components:
-
 - **Encoder:** $z_t \sim q_\phi(z_t | h_t, x_t)$ — image → latent
 - **Recurrent model:** $h_t = f_\phi(h_{t-1}, z_{t-1}, a_{t-1})$ — temporal dynamics
 - **Decoder:** $\hat{x}_t \sim p_\phi(x_t | h_t, z_t)$ — latent → reconstructed image
@@ -596,7 +579,7 @@ RSSM components:
 
 ```
 Dalam "dream" — latent rollout tanpa environment:
-
+  
   h₀, z₀ (dari real experience untuk seed)
      ↓
   a₀ ∼ π(a₀ | h₀, z₀)       ← Actor (policy)
@@ -619,21 +602,20 @@ Actor-critic loss: **Return** = predicted reward + λ × predicted value (bootst
 #### 3. Planning & Imagination
 
 Setelah world model trained:
-
 - **Imagination rollout:** generate ribuan trajectory di latent space (gak perlu render image — cuma latent)
 - **Plan:** cari action sequence dengan highest predicted return
 - **Execute:** apply action pertama dari plan, re-plan di step berikutnya (receding horizon / MPC)
 
 ### Evolusi World Model
 
-| Model                           | Tahun | Key Innovation                                                                         |
-| ------------------------------- | ----- | -------------------------------------------------------------------------------------- |
-| World Models (Ha & Schmidhuber) | 2018  | VAE + MDN-RNN + Controller — "dreaming" untuk training                                 |
-| PlaNet                          | 2019  | RSSM — deep planning network                                                           |
-| DreamerV1                       | 2020  | Actor-critic dalam latent space dream                                                  |
-| DreamerV3                       | 2023  | **Mastering diverse domains without tuning** — fixed hyperparameters across 200+ tasks |
-| DayDreamer                      | 2023  | DreamerV3 di **real robot** — no simulator needed                                      |
-| Genie (DeepMind)                | 2024  | **Foundation world model** — dari internet video tanpa action labels                   |
+| Model | Tahun | Key Innovation |
+|-------|-------|----------------|
+| World Models (Ha & Schmidhuber) | 2018 | VAE + MDN-RNN + Controller — "dreaming" untuk training |
+| PlaNet | 2019 | RSSM — deep planning network |
+| DreamerV1 | 2020 | Actor-critic dalam latent space dream |
+| DreamerV3 | 2023 | **Mastering diverse domains without tuning** — fixed hyperparameters across 200+ tasks |
+| DayDreamer | 2023 | DreamerV3 di **real robot** — no simulator needed |
+| Genie (DeepMind) | 2024 | **Foundation world model** — dari internet video tanpa action labels |
 
 ### Genie — Foundation World Model
 
@@ -664,18 +646,17 @@ Genie ([Bruce et al., 2024](https://arxiv.org/abs/2402.15391)) dari DeepMind:
 - ⠀⚠️ **Open-loop vs closed-loop** — rollout di world model gak bisa correct dari real observation
 - ⚠️ **Safety concern** — kalau world model jadi policy backbone, distribution shift bisa bahaya
 
-> **ponytail:** World model trending ke _foundation world model_ — pretrained dari internet video → finetune ke task-specific. Genie & GameGen adalah indikator awal.
+> **ponytail:** World model trending ke *foundation world model* — pretrained dari internet video → finetune ke task-specific. Genie & GameGen adalah indikator awal.
 
 ---
 
 ## 8. Schrödinger Bridges
 
-**Kelebihan:** **Optimal path antara noise dan data** — melampaui diffusion model dengan _principled interpolation_ antara arbitrary distributions. Bisa generate, translate, dan _unify_ berbagai generative modeling approaches.
+**Kelebihan:** **Optimal path antara noise dan data** — melampaui diffusion model dengan *principled interpolation* antara arbitrary distributions. Bisa generate, translate, dan *unify* berbagai generative modeling approaches.
 
 ### Problem: Diffusion Path-nya Belum Optimal
 
 Diffusion model:
-
 - Path dari noise → data **fixed by design** (misal: VP-SDE, VE-SDE, sub-VP)
 - Gak di-optimize — simple linear schedule dipilih biar analytically tractable
 - **Bukan path terpendek atau termurah** — ada jarak yang terbuang
@@ -687,31 +668,29 @@ Schrödinger Bridge ([Schrödinger, 1932](https://en.wikipedia.org/wiki/Schr%C3%
 > **Find the most likely path** between distributions p₀ (noise) and p₁ (data), given that the underlying process is a Brownian motion.
 
 **Intuisi fisik:**
-
 - Bayangin partikel yang bergerak secara random (Brownian motion)
 - Kita tahu distribusi partikel di t=0 (noise) dan t=1 (data)
 - Schrödinger Bridge: **find the most probable evolution** given these constraints
 
-$$
+$$ 
 \min_{p \in \mathcal{P}(p_0, p_1)} D_{KL}(p || q)
 $$
 
 dimana:
-
 - $p$: path distribution yang dicari (bridge)
 - $q$: reference path distribution (biasanya Brownian motion / diffusion reference)
 - $\mathcal{P}(p_0, p_1)$: set semua path yang mematuhi marginal p₀ dan p₁
 
 ### Schrödinger Bridge vs Diffusion
 
-| Aspek                 | Diffusion                              | Schrödinger Bridge                                   |
-| --------------------- | -------------------------------------- | ---------------------------------------------------- |
-| **Path**              | Fixed by design (linear schedule)      | **Optimized** — learn the best path                  |
-| **Boundary**          | Noise (fixed Gaussian) → data          | **Arbitrary distributions** — p₀ dan p₁ bisa apa aja |
-| **Optimality**        | Sub-optimal                            | **Entropic OT — optimal**                            |
-| **Cost**              | Path length fixed                      | **Minimum KL divergence**                            |
-| **Speed**             | Butuh banyak steps                     | **Path lebih lurus → fewer steps**                   |
-| **Image translation** | Gak bisa langsung (butuh conditioning) | **Langung: gambar↔gambar, domain↔domain**            |
+| Aspek | Diffusion | Schrödinger Bridge |
+|-------|-----------|-------------------|
+| **Path** | Fixed by design (linear schedule) | **Optimized** — learn the best path |
+| **Boundary** | Noise (fixed Gaussian) → data | **Arbitrary distributions** — p₀ dan p₁ bisa apa aja |
+| **Optimality** | Sub-optimal | **Entropic OT — optimal** |
+| **Cost** | Path length fixed | **Minimum KL divergence** |
+| **Speed** | Butuh banyak steps | **Path lebih lurus → fewer steps** |
+| **Image translation** | Gak bisa langsung (butuh conditioning) | **Langung: gambar↔gambar, domain↔domain** |
 
 ### Matematika: Dari Diffusion ke Schrödinger Bridge
 
@@ -732,7 +711,7 @@ dimana $\varphi$ dan $\hat{\varphi}$ adalah solusi dari **coupled PDEs** (HJB + 
 $$ \frac{\partial \varphi}{\partial t} = -\nabla \varphi^\top f - \frac{1}{2} \text{Tr}(gg^\top \nabla^2 \varphi) $$
 $$ \frac{\partial \hat{\varphi}}{\partial t} = -\nabla \cdot (\hat{\varphi} f) + \frac{1}{2} \nabla \cdot (gg^\top \nabla \hat{\varphi}) $$
 
-**Inti:** Schrödinger Bridge belajar _additional drift_ $\nabla_x \log \Psi$ yang mengarahkan path ke distribusi target.
+**Inti:** Schrödinger Bridge belajar *additional drift* $\nabla_x \log \Psi$ yang mengarahkan path ke distribusi target.
 
 ### Iterative Proportional Fitting (IPF) — Algoritma Praktis
 
@@ -786,24 +765,24 @@ Ini equivalent dengan [Diffusion Schrödinger Bridge](https://arxiv.org/abs/2106
 
 ### Schrödinger Bridge vs Flow Matching
 
-| Aspek             | Flow Matching                           | Schrödinger Bridge               |
-| ----------------- | --------------------------------------- | -------------------------------- |
-| Path              | Pre-defined (linear) → rectified        | **Optimized** by IPF             |
-| Objective         | Vector field regression + rectification | Forward-backward KL minimization |
-| Boundary          | Gaussian ↔ data                         | **Arbitrary** distributions      |
-| Theoretical depth | ODE / OT                                | **SDE / PDE / Entropic OT**      |
-| Maturity          | Production-ready (SD3, Flux)            | **Research frontier**            |
-| Complexity        | Low                                     | High (iterative training)        |
+| Aspek | Flow Matching | Schrödinger Bridge |
+|-------|--------------|-------------------|
+| Path | Pre-defined (linear) → rectified | **Optimized** by IPF |
+| Objective | Vector field regression + rectification | Forward-backward KL minimization |
+| Boundary | Gaussian ↔ data | **Arbitrary** distributions |
+| Theoretical depth | ODE / OT | **SDE / PDE / Entropic OT** |
+| Maturity | Production-ready (SD3, Flux) | **Research frontier** |
+| Complexity | Low | High (iterative training) |
 
 ### Recent Breakthroughs
 
-| Paper                              | Year | Key Idea                                                |
-| ---------------------------------- | ---- | ------------------------------------------------------- |
-| Diffusion Schrödinger Bridge (DSB) | 2021 | IPF + score matching                                    |
-| I²SB (Image-to-Image SB)           | 2022 | Unpaired translation dengan SB                          |
-| DSBM (Discrete SB)                 | 2023 | SB untuk discrete data                                  |
-| LightSB                            | 2024 | Fast SB via flow matching objective + SB regularization |
-| SB-Flow                            | 2024 | Unify flow matching & SB — one framework                |
+| Paper | Year | Key Idea |
+|-------|------|----------|
+| Diffusion Schrödinger Bridge (DSB) | 2021 | IPF + score matching |
+| I²SB (Image-to-Image SB) | 2022 | Unpaired translation dengan SB |
+| DSBM (Discrete SB) | 2023 | SB untuk discrete data |
+| LightSB | 2024 | Fast SB via flow matching objective + SB regularization |
+| SB-Flow | 2024 | Unify flow matching & SB — one framework |
 
 ### Kelebihan Konkret
 
@@ -826,16 +805,16 @@ Ini equivalent dengan [Diffusion Schrödinger Bridge](https://arxiv.org/abs/2106
 
 ## Perbandingan Seluruh Algoritma
 
-| #   | Algoritma                   | Domain Utama          | Kelebihan Paling Unik                                            | Tahun Breakout |
-| --- | --------------------------- | --------------------- | ---------------------------------------------------------------- | -------------- |
-| 1   | Flash Attention             | Attention / Training  | **Memory O(N) via IO-aware tiling** — 2-4× training speedup      | 2022           |
-| 2   | Multi-Head Latent Attention | Attention / Inference | **KV cache 75-90% lebih kecil** via latent compression           | 2024           |
-| 3   | Latent Diffusion            | Image Generation      | **Diffusion di 48× compressed space** — efficient & high quality | 2022           |
-| 4   | Flow Matching               | Generative Model      | **Straight-line trajectory** — 1-50 steps sampling vs 50-1000    | 2023           |
-| 5   | VLA                         | Robotics              | **Unified vision-language-action** — foundation model for robots | 2023           |
-| 6   | RLHF + PPO                  | LLM Alignment         | **Preference-based alignment** — helpful, harmless, honest       | 2022           |
-| 7   | World Model                 | RL / Planning         | **Dream-based planning** — 10-50× sample efficiency              | 2020-2023      |
-| 8   | Schrödinger Bridge          | Generative / OT       | **Optimal path between ANY distributions** — beyond diffusion    | 2021-2024      |
+| # | Algoritma | Domain Utama | Kelebihan Paling Unik | Tahun Breakout |
+|---|-----------|-------------|----------------------|----------------|
+| 1 | Flash Attention | Attention / Training | **Memory O(N) via IO-aware tiling** — 2-4× training speedup | 2022 |
+| 2 | Multi-Head Latent Attention | Attention / Inference | **KV cache 75-90% lebih kecil** via latent compression | 2024 |
+| 3 | Latent Diffusion | Image Generation | **Diffusion di 48× compressed space** — efficient & high quality | 2022 |
+| 4 | Flow Matching | Generative Model | **Straight-line trajectory** — 1-50 steps sampling vs 50-1000 | 2023 |
+| 5 | VLA | Robotics | **Unified vision-language-action** — foundation model for robots | 2023 |
+| 6 | RLHF + PPO | LLM Alignment | **Preference-based alignment** — helpful, harmless, honest | 2022 |
+| 7 | World Model | RL / Planning | **Dream-based planning** — 10-50× sample efficiency | 2020-2023 |
+| 8 | Schrödinger Bridge | Generative / OT | **Optimal path between ANY distributions** — beyond diffusion | 2021-2024 |
 
 ### Interconnections & Trends
 
@@ -851,7 +830,6 @@ Latent Diffusion ──→ Flow Matching ──→ Schrödinger Bridge
 ```
 
 **Big picture 2024-2026:**
-
 1. **Attention menjadi linear atau sub-quadratic** — Flash Attention → MLA → mungkin Mamba/state-space hybrid
 2. **Generative path menjadi optimal** — Diffusion → Flow Matching → Schrödinger Bridge
 3. **Unified foundation models** — VLM → VLA → World Foundation Models
@@ -861,19 +839,19 @@ Latent Diffusion ──→ Flow Matching ──→ Schrödinger Bridge
 
 ## Referensi
 
-1. Dao et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness." _NeurIPS 2022._
-2. DeepSeek-AI. (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model." _arXiv:2405.04434._
-3. Rombach et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." _CVPR 2022._
-4. Lipman et al. (2023). "Flow Matching for Generative Modeling." _ICLR 2023._
-5. Liu et al. (2023). "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow." _ICLR 2023._
-6. Brohan et al. (2023). "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control." _arXiv:2307.15818._
-7. Ouyang et al. (2022). "Training language models to follow instructions with human feedback." _NeurIPS 2022._
-8. Schulman et al. (2017). "Proximal Policy Optimization Algorithms." _arXiv:1707.06347._
-9. Hafner et al. (2023). "Mastering Diverse Domains through World Models." _arXiv:2301.04104._
-10. De Bortoli et al. (2021). "Diffusion Schrödinger Bridge with Applications to Score-Based Generative Modeling." _NeurIPS 2021._
-11. Rafailov et al. (2023). "Direct Preference Optimization: Your Language Model is Secretly a Reward Model." _NeurIPS 2023._
-12. Bruce et al. (2024). "Genie: Generative Interactive Environments." _arXiv:2402.15391._
+1. Dao et al. (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness." *NeurIPS 2022.*
+2. DeepSeek-AI. (2024). "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model." *arXiv:2405.04434.*
+3. Rombach et al. (2022). "High-Resolution Image Synthesis with Latent Diffusion Models." *CVPR 2022.*
+4. Lipman et al. (2023). "Flow Matching for Generative Modeling." *ICLR 2023.*
+5. Liu et al. (2023). "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow." *ICLR 2023.*
+6. Brohan et al. (2023). "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control." *arXiv:2307.15818.*
+7. Ouyang et al. (2022). "Training language models to follow instructions with human feedback." *NeurIPS 2022.*
+8. Schulman et al. (2017). "Proximal Policy Optimization Algorithms." *arXiv:1707.06347.*
+9. Hafner et al. (2023). "Mastering Diverse Domains through World Models." *arXiv:2301.04104.*
+10. De Bortoli et al. (2021). "Diffusion Schrödinger Bridge with Applications to Score-Based Generative Modeling." *NeurIPS 2021.*
+11. Rafailov et al. (2023). "Direct Preference Optimization: Your Language Model is Secretly a Reward Model." *NeurIPS 2023.*
+12. Bruce et al. (2024). "Genie: Generative Interactive Environments." *arXiv:2402.15391.*
 
 ---
 
-_Dibuat: 16 Juli 2026 — Sesi deep-dive 8 algoritma AI generatif & foundation model terkini._
+*Dibuat: 16 Juli 2026 — Sesi deep-dive 8 algoritma AI generatif & foundation model terkini.*

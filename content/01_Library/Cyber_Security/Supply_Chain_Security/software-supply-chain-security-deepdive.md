@@ -1,13 +1,13 @@
 ---
 title: Software Supply Chain Security Deepdive
 tags:
-  - cyber-security
-  - library
-  - supply-chain-security
-created: "2026-07-02"
-updated: "2026-07-02"
+- cyber-security
+- library
+- supply-chain-security
+created: '2026-07-02'
+updated: '2026-07-02'
 status: operational
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🔗 SOFTWARE SUPPLY CHAIN — Deep Dive: Dari `npm install` sampai State-Sponsored Backdoor
@@ -22,7 +22,7 @@ cssclasses: ""
 ## Daftar Isi
 
 - [[#Mengapa Supply Chain? — Kenapa Ini Vektor Paling Berbahaya]]
-- [[#Layer 0 — Attack Surface]]
+- [[#Layer 0 — Attack Surface: Titik Masuk Supply Chain]]
 - [[#Layer 1 — Dependency Confusion & Typosquatting]]
 - [[#Layer 2 — Compromised Package (Backdoor di Sumber)]]
 - [[#Layer 3 — Build Pipeline & CI/CD Poisoning]]
@@ -55,14 +55,14 @@ EFISIENSI ATTACKER:
   Contoh: event-stream (npm) — 8M download/minggu, injected by social engineering
 ```
 
-| Metrik                                    | Angka   |
-| ----------------------------------------- | ------- |
-| Rata-rata dependency per project (JS)     | 1.200+  |
-| Rata-rata dependency per project (Python) | 250+    |
-| Package baru per hari (npm)               | 1.700+  |
-| Package baru per hari (PyPI)              | 500+    |
-| % developer yang audit dependency         | < 5%    |
-| Supply chain attack increase (2020→2026)  | 5.000%+ |
+| Metrik | Angka |
+|--------|-------|
+| Rata-rata dependency per project (JS) | 1.200+ |
+| Rata-rata dependency per project (Python) | 250+ |
+| Package baru per hari (npm) | 1.700+ |
+| Package baru per hari (PyPI) | 500+ |
+| % developer yang audit dependency | < 5% |
+| Supply chain attack increase (2020→2026) | 5.000%+ |
 
 ---
 
@@ -89,14 +89,14 @@ DEVELOPER        → REPOSITORY     → BUILD → REGISTRY → DEPLOY → RUNTIM
 
 ### Klasifikasi Berdasarkan Entry Point
 
-| Layer | Entry Point           | Contoh Kasus                              | Tingkat Kesulitan Attacker |
-| ----- | --------------------- | ----------------------------------------- | -------------------------- |
-| 0     | Developer machine     | `npm` token dicuri, GPG signing key bocor | 🟢 Rendah—Sedang           |
-| 1     | Dependency resolution | Dependency confusion, typosquatting       | 🟢 Rendah                  |
-| 2     | Package content       | Backdoor di source code library           | 🟡 Sedang                  |
-| 3     | Build pipeline        | CI/CD script injection, cache poisoning   | 🟡 Sedang—Tinggi           |
-| 4     | Package registry      | Registry takeover, CDN cache poisoning    | 🔴 Tinggi—Sangat Tinggi    |
-| 5     | Vendor/Manufacturer   | Hardware backdoor, firmware implant       | 🔴🔴 State-level           |
+| Layer | Entry Point | Contoh Kasus | Tingkat Kesulitan Attacker |
+|-------|-------------|--------------|---------------------------|
+| 0 | Developer machine | `npm` token dicuri, GPG signing key bocor | 🟢 Rendah—Sedang |
+| 1 | Dependency resolution | Dependency confusion, typosquatting | 🟢 Rendah |
+| 2 | Package content | Backdoor di source code library | 🟡 Sedang |
+| 3 | Build pipeline | CI/CD script injection, cache poisoning | 🟡 Sedang—Tinggi |
+| 4 | Package registry | Registry takeover, CDN cache poisoning | 🔴 Tinggi—Sangat Tinggi |
+| 5 | Vendor/Manufacturer | Hardware backdoor, firmware implant | 🔴🔴 State-level |
 
 ---
 
@@ -145,8 +145,8 @@ ROOT CAUSE:
 {
   "dependencies": {
     "express": "^4.18.0",
-    "@internal/auth-sdk": "^1.0.0", // ← Nama bocor
-    "@internal/crypto-utils": "^2.0.0" // ← Attacker upload ke public
+    "@internal/auth-sdk": "^1.0.0",  // ← Nama bocor
+    "@internal/crypto-utils": "^2.0.0"  // ← Attacker upload ke public
   }
 }
 ```
@@ -170,13 +170,13 @@ EKSEKUSI SAAT INSTALL:
 
 #### Typosquatting Incident Tracker
 
-| Ekosistem | Paket Palsu              | Target            | Download | Tahun |
-| --------- | ------------------------ | ----------------- | -------- | ----- |
-| PyPI      | `urlib3`                 | `urllib3`         | 10.000+  | 2022  |
-| npm       | `crossenv`               | `cross-env`       | 50.000+  | 2021  |
-| npm       | `electron-native-notify` | Telegram phishing | 100.000+ | 2023  |
-| PyPI      | `requests-httpx`         | Credential theft  | 5.000+   | 2024  |
-| RubyGems  | `typhoeus` (homoglyph)   | `typhoeus` asli   | 3.000+   | 2023  |
+| Ekosistem | Paket Palsu | Target | Download | Tahun |
+|-----------|-------------|--------|----------|-------|
+| PyPI | `urlib3` | `urllib3` | 10.000+ | 2022 |
+| npm | `crossenv` | `cross-env` | 50.000+ | 2021 |
+| npm | `electron-native-notify` | Telegram phishing | 100.000+ | 2023 |
+| PyPI | `requests-httpx` | Credential theft | 5.000+ | 2024 |
+| RubyGems | `typhoeus` (homoglyph) | `typhoeus` asli | 3.000+ | 2023 |
 
 ### Mitigasi Layer 1
 
@@ -239,14 +239,14 @@ Satu backdoor di leaf package → compromise semua parent.
 
 ### Incident Besar
 
-| Incident                  | Ekosistem | Dampak                                      | Metode                                        | Tahun |
-| ------------------------- | --------- | ------------------------------------------- | --------------------------------------------- | ----- |
-| **event-stream**          | npm       | $8M/week download, Copay wallet drained $8M | Social engineering — attacker jadi maintainer | 2018  |
-| **colors.js + faker.js**  | npm       | Ribuan project broken                       | Maintainer sengaja corrupt library            | 2022  |
-| **SolarWinds Orion**      | Java/.NET | 18.000 organisasi, US Gov                   | Build pipeline compromise, signed trojan      | 2020  |
-| **Codecov Bash Uploader** | CI/CD     | 30.000+ customer                            | Docker image credential leakage               | 2021  |
-| **3CX Desktop App**       | Electron  | 600.000+ organisasi                         | Supply chain di library trading (Caddy)       | 2023  |
-| **XZ Utils (liblzma)**    | C/Linux   | SSH backdoor (near-miss CVE-2024-3094)      | 2 tahun social engineering maintainer         | 2024  |
+| Incident | Ekosistem | Dampak | Metode | Tahun |
+|----------|-----------|--------|--------|-------|
+| **event-stream** | npm | $8M/week download, Copay wallet drained $8M | Social engineering — attacker jadi maintainer | 2018 |
+| **colors.js + faker.js** | npm | Ribuan project broken | Maintainer sengaja corrupt library | 2022 |
+| **SolarWinds Orion** | Java/.NET | 18.000 organisasi, US Gov | Build pipeline compromise, signed trojan | 2020 |
+| **Codecov Bash Uploader** | CI/CD | 30.000+ customer | Docker image credential leakage | 2021 |
+| **3CX Desktop App** | Electron | 600.000+ organisasi | Supply chain di library trading (Caddy) | 2023 |
+| **XZ Utils (liblzma)** | C/Linux | SSH backdoor (near-miss CVE-2024-3094) | 2 tahun social engineering maintainer | 2024 |
 
 ### XZ Utils — Paling Berbahaya yang Pernah Nyaris Terjadi
 
@@ -329,13 +329,13 @@ TAHAPAN EKSPLOITASI BUILD PIPELINE:
 
 ### Contoh Nyata
 
-| Attack Vector                    | Contoh                                        | Dampak                                 |
-| -------------------------------- | --------------------------------------------- | -------------------------------------- |
-| **GitHub Action poisoning**      | `tj-actions/changed-files` compromised (2025) | 23.000+ repo terpapar credential leak  |
-| **Docker build cache poisoning** | Gunakan base image malicious                  | Setiap build ulang mengandung backdoor |
-| **Runner compromise**            | Access CI/CD agent → inject script            | Code execution di pipeline             |
-| **Artefact replacement**         | Ganti binary after build, before sign         | Signed malware                         |
-| **Pipeline-as-code hijack**      | PR → edit `.github/workflows/`                | Eksekusi arbitrary action              |
+| Attack Vector | Contoh | Dampak |
+|--------------|--------|--------|
+| **GitHub Action poisoning** | `tj-actions/changed-files` compromised (2025) | 23.000+ repo terpapar credential leak |
+| **Docker build cache poisoning** | Gunakan base image malicious | Setiap build ulang mengandung backdoor |
+| **Runner compromise** | Access CI/CD agent → inject script | Code execution di pipeline |
+| **Artefact replacement** | Ganti binary after build, before sign | Signed malware |
+| **Pipeline-as-code hijack** | PR → edit `.github/workflows/` | Eksekusi arbitrary action |
 
 ### Mitigasi Layer 3
 
@@ -379,13 +379,13 @@ PRINSIP:
 
 ### Registry Attack Vectors
 
-| Attack                         | Target                                                                | Dampak                            |
-| ------------------------------ | --------------------------------------------------------------------- | --------------------------------- |
-| **Account takeover**           | Nama organization yang sudah tidak aktif                              | Semua user yang trust package ini |
-| **Registry squatting**         | Nama package yang sudah tidak di-maintain                             | Auto-update → backdoor            |
-| **CDN Poisoning**              | jsDelivr, UNPKG, cdnjs                                                | Semua site yang load dari CDN     |
-| **Typosquat registry URL**     | `pypi-proxy.intenal.company.com` vs `pypi-proxy.internal.company.com` | Internal registry palsu           |
-| **Dependency proxy poisoning** | Artifactory/Nexus proxy ke public                                     | Cache proxy bisa di-poison        |
+| Attack | Target | Dampak |
+|--------|--------|--------|
+| **Account takeover** | Nama organization yang sudah tidak aktif | Semua user yang trust package ini |
+| **Registry squatting** | Nama package yang sudah tidak di-maintain | Auto-update → backdoor |
+| **CDN Poisoning** | jsDelivr, UNPKG, cdnjs | Semua site yang load dari CDN |
+| **Typosquat registry URL** | `pypi-proxy.intenal.company.com` vs `pypi-proxy.internal.company.com` | Internal registry palsu |
+| **Dependency proxy poisoning** | Artifactory/Nexus proxy ke public | Cache proxy bisa di-poison |
 
 ### Mitigasi Layer 4
 
@@ -436,41 +436,37 @@ FRAMEWORK DARI OpenSSF (Open Source Security Foundation):
 
 ### SLSA Levels
 
-| Level  | Nama              | Persyaratan Utama                                      | Proteksi Terhadap   |
-| ------ | ----------------- | ------------------------------------------------------ | ------------------- |
-| **L0** | No guarantees     | Dokumentasi build                                      | Tidak ada           |
-| **L1** | Build provenance  | Provenance otomatis (source + build)                   | Retrospective audit |
-| **L2** | Signed provenance | Provenance di-token/sign oleh build platform           | Tamper evidence     |
-| **L3** | Hardened build    | Build isolated, reproducible, no user-controlled steps | Tamper prevention   |
-| **L4** | Two-person review | L3 + setiap perubahan di-review oleh dua pihak         | Insider threat      |
+| Level | Nama | Persyaratan Utama | Proteksi Terhadap |
+|-------|------|-------------------|-------------------|
+| **L0** | No guarantees | Dokumentasi build | Tidak ada |
+| **L1** | Build provenance | Provenance otomatis (source + build) | Retrospective audit |
+| **L2** | Signed provenance | Provenance di-token/sign oleh build platform | Tamper evidence |
+| **L3** | Hardened build | Build isolated, reproducible, no user-controlled steps | Tamper prevention |
+| **L4** | Two-person review | L3 + setiap perubahan di-review oleh dua pihak | Insider threat |
 
 ### SLSA Build Provenance (format in-toto attestation)
 
 ```json
 {
   "type": "https://in-toto.io/Statement/v1",
-  "subject": [
-    {
-      "name": "app-linux-amd64",
-      "digest": { "sha256": "abcd1234..." }
-    }
-  ],
+  "subject": [{
+    "name": "app-linux-amd64",
+    "digest": {"sha256": "abcd1234..."}
+  }],
   "predicateType": "https://slsa.dev/provenance/v1",
   "predicate": {
     "buildType": "https://github.com/actions/build/gha/v1",
-    "builder": { "id": "https://github.com/org/repo/.github/workflows/build.yml" },
+    "builder": {"id": "https://github.com/org/repo/.github/workflows/build.yml"},
     "invocation": {
       "configSource": {
         "uri": "git+https://github.com/org/repo@refs/heads/main",
-        "digest": { "sha1": "deadbeef..." }
+        "digest": {"sha1": "deadbeef..."}
       }
     },
-    "materials": [
-      {
-        "uri": "git+https://github.com/org/repo",
-        "digest": { "sha1": "cafebabe..." }
-      }
-    ]
+    "materials": [{
+      "uri": "git+https://github.com/org/repo",
+      "digest": {"sha1": "cafebabe..."}
+    }]
   }
 }
 ```
@@ -518,23 +514,23 @@ STANDAR RESMI US GOVERNMENT — SP 800-218:
 
 ### SSDF Practices (Ringkasan)
 
-| ID   | Practice                               | Level         |
-| ---- | -------------------------------------- | ------------- |
-| PO.1 | Define security requirements           | Organization  |
-| PO.2 | Implement risk management              | Organization  |
-| PO.3 | Implement secure software supply chain | Organization  |
-| PS.1 | Protect all forms of code              | Code          |
-| PS.2 | Protect build pipeline                 | Build         |
-| PS.3 | Protect third-party components         | Dependency    |
-| PW.1 | Design software to be secure           | Design        |
-| PW.2 | Review design for security             | Design        |
-| PW.3 | Reuse secure code                      | Code          |
-| PW.4 | Identify and handle vulnerabilities    | Code          |
-| PW.5 | Verify software security               | Test          |
-| PW.6 | Provide security headers               | Deploy        |
-| RV.1 | Receive and analyze reports            | Operation     |
-| RV.2 | Respond to vulnerabilities             | Operation     |
-| RV.3 | Communicate results                    | Communication |
+| ID | Practice | Level |
+|----|----------|-------|
+| PO.1 | Define security requirements | Organization |
+| PO.2 | Implement risk management | Organization |
+| PO.3 | Implement secure software supply chain | Organization |
+| PS.1 | Protect all forms of code | Code |
+| PS.2 | Protect build pipeline | Build |
+| PS.3 | Protect third-party components | Dependency |
+| PW.1 | Design software to be secure | Design |
+| PW.2 | Review design for security | Design |
+| PW.3 | Reuse secure code | Code |
+| PW.4 | Identify and handle vulnerabilities | Code |
+| PW.5 | Verify software security | Test |
+| PW.6 | Provide security headers | Deploy |
+| RV.1 | Receive and analyze reports | Operation |
+| RV.2 | Respond to vulnerabilities | Operation |
+| RV.3 | Communicate results | Communication |
 
 > [!tip] SSDF vs SLSA
 > SSDF adalah **apa yang harus dilakukan** (framework kebijakan). SLSA adalah **bagaimana membuktikan bahwa kamu sudah melakukannya** (technical attestation). Keduanya komplementer.
@@ -566,38 +562,32 @@ FORMAT STANDAR:
   "version": 1,
   "metadata": {
     "timestamp": "2026-07-02T00:00:00Z",
-    "tools": [
-      {
-        "vendor": "Anchore",
-        "name": "Syft",
-        "version": "1.0.0"
-      }
-    ],
+    "tools": [{
+      "vendor": "Anchore",
+      "name": "Syft",
+      "version": "1.0.0"
+    }],
     "component": {
       "name": "myapp",
       "version": "1.0.0",
       "type": "application"
     }
   },
-  "components": [
-    {
-      "bom-ref": "pkg:pip/requests@2.31.0",
-      "name": "requests",
-      "version": "2.31.0",
-      "purl": "pkg:pip/requests@2.31.0",
-      "type": "library",
-      "supplier": {
-        "name": "Ken Reitz"
-      },
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ]
-    }
-  ]
+  "components": [{
+    "bom-ref": "pkg:pip/requests@2.31.0",
+    "name": "requests",
+    "version": "2.31.0",
+    "purl": "pkg:pip/requests@2.31.0",
+    "type": "library",
+    "supplier": {
+      "name": "Ken Reitz"
+    },
+    "licenses": [{
+      "license": {
+        "id": "Apache-2.0"
+      }
+    }]
+  }]
 }
 ```
 
@@ -690,18 +680,18 @@ cosign verify-attestation --type cyclonedx ghcr.io/username/myapp:latest
 
 ### Scanner Supply Chain
 
-| Tool                  | Fungsi                                     | Ekosistem            | Sumber     |
-| --------------------- | ------------------------------------------ | -------------------- | ---------- |
-| **Trivy**             | Universal scanner (image, fs, SBOM, repo)  | Semua                | OpenSource |
-| **Grype**             | Vulnerability scanner untuk SBOM/images    | Semua                | OpenSource |
-| **Syft**              | SBOM generation                            | Semua                | OpenSource |
-| **OpenSSF Scorecard** | Health check repo GitHub                   | GitHub               | OpenSource |
-| **Dependency Check**  | SCA untuk Java/.NET/Python                 | Java/.NET/Python     | OWASP      |
-| **Snyk**              | SCA + SAST + container                     | Semua                | Commercial |
-| **Socket.dev**        | Deteksi malware/typessquatting di npm/PyPI | npm, PyPI            | Commercial |
-| **Renovate**          | Auto update dependency + security PR       | Semua                | OpenSource |
-| **Dependabot**        | Auto dependency update (GitHub native)     | GitHub               | Free       |
-| **MurphySec**         | Platform SSCS dengan SBOM, CVE, license    | Java, Python, JS, Go | Commercial |
+| Tool | Fungsi | Ekosistem | Sumber |
+|------|--------|-----------|--------|
+| **Trivy** | Universal scanner (image, fs, SBOM, repo) | Semua | OpenSource |
+| **Grype** | Vulnerability scanner untuk SBOM/images | Semua | OpenSource |
+| **Syft** | SBOM generation | Semua | OpenSource |
+| **OpenSSF Scorecard** | Health check repo GitHub | GitHub | OpenSource |
+| **Dependency Check** | SCA untuk Java/.NET/Python | Java/.NET/Python | OWASP |
+| **Snyk** | SCA + SAST + container | Semua | Commercial |
+| **Socket.dev** | Deteksi malware/typessquatting di npm/PyPI | npm, PyPI | Commercial |
+| **Renovate** | Auto update dependency + security PR | Semua | OpenSource |
+| **Dependabot** | Auto dependency update (GitHub native) | GitHub | Free |
+| **MurphySec** | Platform SSCS dengan SBOM, CVE, license | Java, Python, JS, Go | Commercial |
 
 ### OpenSSF Scorecard — Cek Repositori Pihak Ketiga
 
@@ -824,17 +814,17 @@ LESSON:
 
 Supply chain security duduk di **persimpangan antara**:
 
-| Domain                      | Aspek Supply Chain                            |
-| --------------------------- | --------------------------------------------- |
-| 🔐 **Application Security** | SCA, dependency audit, SBOM                   |
-| 🏗️ **DevOps/Platform**      | SLSA, build provenance, CI/CD hardening       |
-| 🛡️ **Infrastructure**       | Registry security, eBPF runtime verification  |
-| ☁️ **Cloud Security**       | Sigstore, Fulcio OIDC, Rekor transparency log |
-| 📋 **Compliance**           | SSDF, Cyber Resilience Act, EO 14028          |
+| Domain | Aspek Supply Chain |
+|--------|-------------------|
+| 🔐 **Application Security** | SCA, dependency audit, SBOM |
+| 🏗️ **DevOps/Platform** | SLSA, build provenance, CI/CD hardening |
+| 🛡️ **Infrastructure** | Registry security, eBPF runtime verification |
+| ☁️ **Cloud Security** | Sigstore, Fulcio OIDC, Rekor transparency log |
+| 📋 **Compliance** | SSDF, Cyber Resilience Act, EO 14028 |
 
 ---
 
-> [!tip] Bottom Line
-> Supply chain security bukan tentang **trust** — trust akan selalu di-exploit. Ini tentang **verification di setiap langkah**: signed provenance untuk setiap build, SBOM di setiap release, dan kemampuan untuk audit seluruh dependency tree sampai leaf terakhir. Satu library yang tidak di-maintain di kedalaman tree adalah satu titik kegagalan yang menunggu untuk dieksploitasi.
+>[!tip] Bottom Line
+>Supply chain security bukan tentang **trust** — trust akan selalu di-exploit. Ini tentang **verification di setiap langkah**: signed provenance untuk setiap build, SBOM di setiap release, dan kemampuan untuk audit seluruh dependency tree sampai leaf terakhir. Satu library yang tidak di-maintain di kedalaman tree adalah satu titik kegagalan yang menunggu untuk dieksploitasi.
 >
-> Di era 2026, jika kamu tidak punya SBOM untuk aplikasi kamu — **kamu tidak tahu apa yang berjalan di production kamu.**
+>Di era 2026, jika kamu tidak punya SBOM untuk aplikasi kamu — **kamu tidak tahu apa yang berjalan di production kamu.**

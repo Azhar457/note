@@ -1,11 +1,11 @@
 ---
 tags:
-  - jarswaf
-  - roadmap
-  - planning
-  - security
+- jarswaf
+- roadmap
+- planning
+- security
 aliases:
-  - strategic-plan
+- strategic-plan
 status: draft
 created: 2026-07-14
 ---
@@ -22,7 +22,7 @@ Berikut adalah area-area strategis yang layak untuk dikembangkan lebih lanjut.
 
 **Apa yang belum ada:** JARSWAF saat ini murni berbasis aturan (signature-based) dan reputasi IP. Ini sangat handal untuk serangan yang sudah dikenal, tapi lemah terhadap **zero-day attacks** dan **serangan yang berevolusi**.
 
-- **Standar Industri:** WAF modern seperti **Shibuya** sudah mengintegrasikan **Dual ML Engine** (ONNX untuk deteksi anomali + Random Forest untuk klasifikasi SQLi/XSS/RCE). Cloudflare dan F5 juga mulai mengandalkan _machine learning_ untuk deteksi anomali perilaku.
+- **Standar Industri:** WAF modern seperti **Shibuya** sudah mengintegrasikan **Dual ML Engine** (ONNX untuk deteksi anomali + Random Forest untuk klasifikasi SQLi/XSS/RCE). Cloudflare dan F5 juga mulai mengandalkan *machine learning* untuk deteksi anomali perilaku.
 - **Yang Bisa Dibangun:**
   - **Anomaly Detection Engine:** Model ML (ONNX runtime di Rust) yang belajar dari traffic normal dan memberi skor anomali pada request.
   - **Adaptive Rule Engine:** ML yang secara otomatis menyesuaikan threshold rate limiting berdasarkan pola traffic historis (bukan static config).
@@ -142,10 +142,10 @@ Berikut adalah area-area strategis yang layak untuk dikembangkan lebih lanjut.
 
 Berdasarkan nilai tambah vs effort, berikut adalah prioritas pengembangan:
 
-| Prioritas | Fitur                                | Alasan                                                |
-| :-------- | :----------------------------------- | :---------------------------------------------------- |
-| **1**     | **AI/ML Anomaly Detection**          | Zero-day protection adalah value proposition terbesar |
-| **2**     | **API Security (GraphQL + OpenAPI)** | API adalah attack surface #1 di 2025                  |
-| **3**     | **WASM Extensibility**               | Membuka ecosystem—developer bisa kontribusi plugin    |
-| **4**     | **Zero Trust Integration**           | Tren enterprise yang tidak bisa dihindari             |
-| **5**     | **Automated Red Team Lab**           | Bikin user percaya dengan produk                      |
+| Prioritas | Fitur | Alasan |
+|:---|:---|:---|
+| **1** | **AI/ML Anomaly Detection** | Zero-day protection adalah value proposition terbesar |
+| **2** | **API Security (GraphQL + OpenAPI)** | API adalah attack surface #1 di 2025 |
+| **3** | **WASM Extensibility** | Membuka ecosystem—developer bisa kontribusi plugin |
+| **4** | **Zero Trust Integration** | Tren enterprise yang tidak bisa dihindari |
+| **5** | **Automated Red Team Lab** | Bikin user percaya dengan produk |

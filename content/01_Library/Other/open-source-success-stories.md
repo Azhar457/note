@@ -1,15 +1,14 @@
 ---
 title: Open Source Success Stories
 tags:
-  - library
-  - other
-created: "2026-07-01"
-updated: "2026-07-01"
+- library
+- other
+created: '2026-07-01'
+updated: '2026-07-01'
 status: active
 ---
 
 # 🚀 SUCCESS STORIES: Dari Open Source ke Karir Sukses
-
 ## "Kalau Mereka Bisa, Kenapa Kamu Tidak?"
 
 > **Filosofi:** Setiap project open source yang sukses dimulai dari satu orang yang frustasi dengan tools existing dan memutuskan untuk build sendiri. Yang membedakan "project mati" dan "project sukses" adalah konsistensi, komunitas, dan positioning.
@@ -60,7 +59,6 @@ status: active
 ```
 
 **Relevansi untuk Anda:**
-
 - Santiago bukan CS degree — Industrial Engineer yang tidak lulus
 - Tidak punya funding — bootstrap dari nol
 - Tidak punya experience bisnis — belajar on the job
@@ -117,7 +115,6 @@ status: active
 ```
 
 **Relevansi untuk Anda:**
-
 - Loris create **2 tools legendaris**: Wireshark + Falco
 - Pattern: "Build tool yang saya sendiri butuhkan"
 - eBPF = teknologi yang sama dengan Aegis (Anda di jalur yang benar!)
@@ -158,7 +155,6 @@ status: active
 ```
 
 **Relevansi untuk Anda:**
-
 - Leonardo = contoh paling mirip dengan posisi Anda sekarang
 - Build tool di waktu luang → di-notice oleh company besar → hired
 - **Tidak apply kerja — company yang reach out ke dia!**
@@ -381,16 +377,16 @@ status: active
 
 ## 📊 Perbandingan Path
 
-| Aspek            | Path A (Employee)  | Path B (Hired by Big Co) | Path C (Startup)     |
-| ---------------- | ------------------ | ------------------------ | -------------------- |
-| **Timeline**     | 6-12 bulan         | 12-18 bulan              | 3-5 tahun            |
-| **Risk**         | Low                | Medium                   | High                 |
-| **Reward**       | Stable income      | High salary + prestige   | Uncapped             |
-| **Control**      | Low (boss decides) | Medium (team decides)    | High (you decide)    |
-| **Skill needed** | Technical          | Technical + visibility   | Technical + business |
-| **Aegis role**   | Portfolio          | Magnet                   | Product              |
-| **Probability**  | 70%                | 20%                      | 10%                  |
-| **Best for**     | Stability          | Recognition              | Independence         |
+| Aspek | Path A (Employee) | Path B (Hired by Big Co) | Path C (Startup) |
+|-------|-------------------|-------------------------|------------------|
+| **Timeline** | 6-12 bulan | 12-18 bulan | 3-5 tahun |
+| **Risk** | Low | Medium | High |
+| **Reward** | Stable income | High salary + prestige | Uncapped |
+| **Control** | Low (boss decides) | Medium (team decides) | High (you decide) |
+| **Skill needed** | Technical | Technical + visibility | Technical + business |
+| **Aegis role** | Portfolio | Magnet | Product |
+| **Probability** | 70% | 20% | 10% |
+| **Best for** | Stability | Recognition | Independence |
 
 ---
 
@@ -398,49 +394,49 @@ status: active
 
 ### Minggu Ini (Week 1)
 
-| #   | Action                             | Output                   |
-| --- | ---------------------------------- | ------------------------ |
-| 1   | Buat GitHub repo: `aegis-security` | Repository publik        |
-| 2   | Tulis README dengan vision         | 500+ words               |
-| 3   | Design logo (simple)               | `assets/logo.png`        |
-| 4   | Setup project structure            | Cargo + Go + React       |
-| 5   | Tulis blog post #1                 | "Why I'm building Aegis" |
+| # | Action | Output |
+|---|--------|--------|
+| 1 | Buat GitHub repo: `aegis-security` | Repository publik |
+| 2 | Tulis README dengan vision | 500+ words |
+| 3 | Design logo (simple) | `assets/logo.png` |
+| 4 | Setup project structure | Cargo + Go + React |
+| 5 | Tulis blog post #1 | "Why I'm building Aegis" |
 
 ### Bulan Ini (Month 1)
 
-| #   | Action                     | Output                                  |
-| --- | -------------------------- | --------------------------------------- |
-| 1   | eBPF Hello World (TC mode) | Working code                            |
-| 2   | WAF skeleton (Axum)        | Reverse proxy works                     |
-| 3   | Manager API (Gin)          | Basic endpoints                         |
-| 4   | Dashboard shell (React)    | Navigation works                        |
-| 5   | Blog post #2               | "eBPF for Security: A Beginner's Guide" |
-| 6   | Share di Reddit/HN         | 100+ views                              |
+| # | Action | Output |
+|---|--------|--------|
+| 1 | eBPF Hello World (TC mode) | Working code |
+| 2 | WAF skeleton (Axum) | Reverse proxy works |
+| 3 | Manager API (Gin) | Basic endpoints |
+| 4 | Dashboard shell (React) | Navigation works |
+| 5 | Blog post #2 | "eBPF for Security: A Beginner's Guide" |
+| 6 | Share di Reddit/HN | 100+ views |
 
 ### Semester Ini (3 bulan)
 
-| #   | Action                | Output          |
-| --- | --------------------- | --------------- |
-| 1   | Aegis v1.0 MVP        | Working product |
-| 2   | 5+ blog posts         | Content library |
-| 3   | 100+ GitHub stars     | Social proof    |
-| 4   | 10+ users (homelab)   | Validation      |
-| 5   | Sertifikasi Security+ | Credential      |
+| # | Action | Output |
+|---|--------|--------|
+| 1 | Aegis v1.0 MVP | Working product |
+| 2 | 5+ blog posts | Content library |
+| 3 | 100+ GitHub stars | Social proof |
+| 4 | 10+ users (homelab) | Validation |
+| 5 | Sertifikasi Security+ | Credential |
 
 ---
 
 ## 💡 Golden Rules dari Success Stories
 
-| Rule                         | Contoh                                   | Aplikasi untuk Anda                |
-| ---------------------------- | ---------------------------------------- | ---------------------------------- |
-| **Build what you need**      | Wireshark (Loris butuh network analyzer) | Aegis (Anda butuh homelab defense) |
-| **Open source dari hari 1**  | Falco, Wazuh                             | Publish ke GitHub sejak scaffold   |
-| **Blog about journey**       | Daniel Brandao                           | 1 post/minggu minimum              |
-| **Community first**          | Wazuh 100K users gratis                  | Discord/Slack untuk users          |
-| **Don't charge for core**    | Wazuh GPL v2                             | MIT/Apache license                 |
-| **Monetize services**        | Wazuh SaaS + support                     | Aegis Cloud (v2.0)                 |
-| **Persistence > Perfection** | Suricata 15+ years                       | Consistent 6-12 bulan              |
-| **Hire slow, fire fast**     | Wazuh Argentina team                     | Solo dulu, hire saat revenue       |
+| Rule | Contoh | Aplikasi untuk Anda |
+|------|--------|---------------------|
+| **Build what you need** | Wireshark (Loris butuh network analyzer) | Aegis (Anda butuh homelab defense) |
+| **Open source dari hari 1** | Falco, Wazuh | Publish ke GitHub sejak scaffold |
+| **Blog about journey** | Daniel Brandao | 1 post/minggu minimum |
+| **Community first** | Wazuh 100K users gratis | Discord/Slack untuk users |
+| **Don't charge for core** | Wazuh GPL v2 | MIT/Apache license |
+| **Monetize services** | Wazuh SaaS + support | Aegis Cloud (v2.0) |
+| **Persistence > Perfection** | Suricata 15+ years | Consistent 6-12 bulan |
+| **Hire slow, fire fast** | Wazuh Argentina team | Solo dulu, hire saat revenue |
 
 ---
 
@@ -457,6 +453,6 @@ BEDANYA: Mereka execute. Anda juga bisa execute.
 
 ---
 
-_Document Version: 1.0_  
-_Last Updated: 2026-06-17_  
-_Purpose: Motivation + roadmap dari success stories open source cybersecurity_
+*Document Version: 1.0*  
+*Last Updated: 2026-06-17*  
+*Purpose: Motivation + roadmap dari success stories open source cybersecurity*

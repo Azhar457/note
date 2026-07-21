@@ -1,13 +1,13 @@
 ---
 title: Hierarchy Network Security
 tags:
-  - atlas
-  - network-security
-  - OSI
-  - blue-team
-  - red-team
-created: "2026-07-17"
-updated: "2026-07-17"
+- atlas
+- network-security
+- OSI
+- blue-team
+- red-team
+created: '2026-07-17'
+updated: '2026-07-17'
 status: active
 ---
 
@@ -22,15 +22,15 @@ status: active
 
 ## Tabel Utama — OSI Layer 1 sampai Layer 8
 
-| 🌐 Layer                               | 🧠 Zona & Apa yang Beroperasi di Sini                                                                                                            | ⚡ Contoh Threat                                                                                                     | 🛡️ Kontrol Defender Khas                                                                                                  | 🎯 Real-World Case                                                                                                                                                                    |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Layer 1** — Physical                 | Kabel tembaga, sinyal elektrik, gelombang radio, **hardware interface fisik**. Semua data pada akhirnya adalah pulsa elektrik atau foton di sini | LAN Tap (Throwing Star), USB Rubber Ducky, O.MG Cable, evil maid attack, rogue device di switch port                 | CCTV rack server, port lock USB, tamper-evident seal, physical access control (biometric + card), grounded cabinet        | NSA ANT Catalog (COTTONMOUTH) — implant hardware yang aktif dari kabel jaringan. Target embassy AS di seluruh dunia                                                                   |
-| **Layer 2** — Data Link                | MAC address, frame switch, **subnetwork local**. ARP bekerja di sini — protokol yang memetakan IP ke MAC                                         | ARP Poisoning, MAC Flooding, VLAN Hopping, rogue DHCP server, STP manipulation                                       | 802.1X NAC, Dynamic ARP Inspection (DAI), port security, private VLAN, DHCP snooping                                      | Kapsel病毒 Hauri (2008) — worm yang exploit ARP poisoning di korporat Korea. Serangan data center besar pertama yang terdokumentasi lewat L2                                          |
-| **Layer 3** — Network                  | IP address, routing packet antar subnet, **pintu gerbang internet**. BGP, OSPF, RIP bekerja di sini                                              | IP Spoofing, BGP Hijack (China Telecom 2010 incident), ICMP Tunnel (exfil lewat ping), route poisoning, smurf attack | Firewall stateful, BCP38 ingress filtering, RPKI + BGP route filtering, Unicast RPF                                       | China Telecom BGP hijack incident (2010) — 15% traffic internet dialihkan selama 18 menit termasuk ke situs pemerintah AS. Begitulah kekuatan satu route poisoning                    |
-| **Layer 4** — Transport                | TCP/UDP port, **koneksi end-to-end**. SYN/ACK handshake, sesi stateful                                                                           | TCP SYN Flood, UDP amplification DDoS, port scanning, session hijacking, Mirai botnet                                | SYN Cookie, rate limiting, Anycast DDoS mitigation, IPS (Suricata, Snort), connection state tracking                      | Mirai botnet (2016) — 1.2 Tbps DDoS via 145.000 kamera IP & DVR compromised. Serangan terbesar saat itu, target Dyn (down Twitter, Reddit, GitHub, Netflix)                           |
-| **Layer 5–6** — Session / Presentation | TLS handshake, sesi SSH, **enkripsi in-transit**. Sertifikat digital bekerja di sini                                                             | SSL Stripping (sslstrip2), TLS Downgrade Attack, rogue certificate, BEAST attack, POODLE                             | HSTS Preload, certificate pinning, TLS 1.3 only enforcement, Certificate Transparency log monitoring                      | DigiNotar (2011) — Root CA Belanda dikompromi, 531 sertifikat palsu diterbitkan termasuk untuk domain Google. Seluruh Certificate Trust chain runtuh untuk CA itu                     |
-| **Layer 7** — Application              | HTTP, SQL, API call, **business logic**. Di sini tempat 90% bug bounty terjadi                                                                   | SQLi, XSS, RCE, SSRF, deserialization bug, API abuse, Log4Shell (CVE-2021-44228)                                     | WAF (ModSecurity, Cloudflare), SAST/DAST (Semgrep, ZAP), input validation, bug bounty program, patch management SLA       | Log4Shell (Desember 2021) — single vulnerability di logging library dipakai seluruh Java ecosystem. Exploited dalam 72 jam dari disclosure. CVE score 10.0                            |
-| **☠️ Layer 8** — Human _(tidak resmi)_ | Otak manusia, **trust yang dieksploitasi**. Bukan layer teknis tapi paling sering jadi entry point                                               | Phishing, vishing, pretexting, BEC (Business Email Compromise), SMS phishing (smishing), QR phishing (quishing)      | Security awareness training, MFA wajib, anti-phishing gateway, internal phishing simulation, principle of least privilege | Twitter hack 2020 — social engineering terhadap karyawan via phone. Akun Obama, Musk, Gates, Apple official ditweet "give Bitcoin, get 2x back." Total USD 120.000 kerugian dalam jam |
+| 🌐 Layer | 🧠 Zona & Apa yang Beroperasi di Sini | ⚡ Contoh Threat | 🛡️ Kontrol Defender Khas | 🎯 Real-World Case |
+|---|---|---|---|---|
+| **Layer 1** — Physical | Kabel tembaga, sinyal elektrik, gelombang radio, **hardware interface fisik**. Semua data pada akhirnya adalah pulsa elektrik atau foton di sini | LAN Tap (Throwing Star), USB Rubber Ducky, O.MG Cable, evil maid attack, rogue device di switch port | CCTV rack server, port lock USB, tamper-evident seal, physical access control (biometric + card), grounded cabinet | NSA ANT Catalog (COTTONMOUTH) — implant hardware yang aktif dari kabel jaringan. Target embassy AS di seluruh dunia |
+| **Layer 2** — Data Link | MAC address, frame switch, **subnetwork local**. ARP bekerja di sini — protokol yang memetakan IP ke MAC | ARP Poisoning, MAC Flooding, VLAN Hopping, rogue DHCP server, STP manipulation | 802.1X NAC, Dynamic ARP Inspection (DAI), port security, private VLAN, DHCP snooping | Kapsel病毒 Hauri (2008) — worm yang exploit ARP poisoning di korporat Korea. Serangan data center besar pertama yang terdokumentasi lewat L2 |
+| **Layer 3** — Network | IP address, routing packet antar subnet, **pintu gerbang internet**. BGP, OSPF, RIP bekerja di sini | IP Spoofing, BGP Hijack (China Telecom 2010 incident), ICMP Tunnel (exfil lewat ping), route poisoning, smurf attack | Firewall stateful, BCP38 ingress filtering, RPKI + BGP route filtering, Unicast RPF | China Telecom BGP hijack incident (2010) — 15% traffic internet dialihkan selama 18 menit termasuk ke situs pemerintah AS. Begitulah kekuatan satu route poisoning |
+| **Layer 4** — Transport | TCP/UDP port, **koneksi end-to-end**. SYN/ACK handshake, sesi stateful | TCP SYN Flood, UDP amplification DDoS, port scanning, session hijacking, Mirai botnet | SYN Cookie, rate limiting, Anycast DDoS mitigation, IPS (Suricata, Snort), connection state tracking | Mirai botnet (2016) — 1.2 Tbps DDoS via 145.000 kamera IP & DVR compromised. Serangan terbesar saat itu, target Dyn (down Twitter, Reddit, GitHub, Netflix) |
+| **Layer 5–6** — Session / Presentation | TLS handshake, sesi SSH, **enkripsi in-transit**. Sertifikat digital bekerja di sini | SSL Stripping (sslstrip2), TLS Downgrade Attack, rogue certificate, BEAST attack, POODLE | HSTS Preload, certificate pinning, TLS 1.3 only enforcement, Certificate Transparency log monitoring | DigiNotar (2011) — Root CA Belanda dikompromi, 531 sertifikat palsu diterbitkan termasuk untuk domain Google. Seluruh Certificate Trust chain runtuh untuk CA itu |
+| **Layer 7** — Application | HTTP, SQL, API call, **business logic**. Di sini tempat 90% bug bounty terjadi | SQLi, XSS, RCE, SSRF, deserialization bug, API abuse, Log4Shell (CVE-2021-44228) | WAF (ModSecurity, Cloudflare), SAST/DAST (Semgrep, ZAP), input validation, bug bounty program, patch management SLA | Log4Shell (Desember 2021) — single vulnerability di logging library dipakai seluruh Java ecosystem. Exploited dalam 72 jam dari disclosure. CVE score 10.0 |
+| **☠️ Layer 8** — Human _(tidak resmi)_ | Otak manusia, **trust yang dieksploitasi**. Bukan layer teknis tapi paling sering jadi entry point | Phishing, vishing, pretexting, BEC (Business Email Compromise), SMS phishing (smishing), QR phishing (quishing) | Security awareness training, MFA wajib, anti-phishing gateway, internal phishing simulation, principle of least privilege | Twitter hack 2020 — social engineering terhadap karyawan via phone. Akun Obama, Musk, Gates, Apple official ditweet "give Bitcoin, get 2x back." Total USD 120.000 kerugian dalam jam |
 
 ---
 
@@ -82,28 +82,28 @@ Contoh: Serangan SQL Injection di Layer 7 → database bocor → admin credentia
 
 ### 3. Defense-in-Depth = Setiap Layer Punya Kontrol
 
-| Layer Satu | Kontrol Tunggal (Murah) | Stack Defense-in-Depth (Mahal)                                                          |
-| ---------- | ----------------------- | --------------------------------------------------------------------------------------- |
-| Layer 1    | Kunci rack              | Kunci + CCTV + tamper seal + biometric +警備                                            |
-| Layer 2    | Port security di switch | Port security + 802.1X + NAC + DAI + DHCP snooping + private VLAN                       |
-| Layer 3    | iptables DROP rule      | Firewall stateful + IPS + RPKI + BGP filter + RTBH                                      |
-| Layer 4    | `fail2ban`              | IPS + SYN cookie + Anycast DDoS mitigation + rate limiting + WAF                        |
-| Layer 5-6  | HTTPS only              | HSTS + CT log monitoring + cert pinning + TLS 1.3 only + HPKP (deprecated)              |
-| Layer 7    | Input validation        | WAF + SAST + DAST + bug bounty + patch SLA + secure SDLC                                |
-| Layer 8    | Email filter            | Phishing simulation + awareness training + MFA + principle least privilege + zero trust |
+| Layer Satu | Kontrol Tunggal (Murah) | Stack Defense-in-Depth (Mahal) |
+|---|---|---|
+| Layer 1 | Kunci rack | Kunci + CCTV + tamper seal + biometric +警備 |
+| Layer 2 | Port security di switch | Port security + 802.1X + NAC + DAI + DHCP snooping + private VLAN |
+| Layer 3 | iptables DROP rule | Firewall stateful + IPS + RPKI + BGP filter + RTBH |
+| Layer 4 | `fail2ban` | IPS + SYN cookie + Anycast DDoS mitigation + rate limiting + WAF |
+| Layer 5-6 | HTTPS only | HSTS + CT log monitoring + cert pinning + TLS 1.3 only + HPKP (deprecated) |
+| Layer 7 | Input validation | WAF + SAST + DAST + bug bounty + patch SLA + secure SDLC |
+| Layer 8 | Email filter | Phishing simulation + awareness training + MFA + principle least privilege + zero trust |
 
 Naik hierarki → setiap kontrol tambah mahal. Tapi **kontrol di layer yang lebih rendah mungkin lebih efektif** (Layer 3 firewall RPKI > Layer 7 WAF untuk serangan BGP hijack). Pilih kontrol berdasarkan threat yang relevan.
 
 ### 4. Threat Model Bergantung pada Serangan Layer Mana
 
-| Target / Industri               | Layer Prioritas Pertahanan                                                                       |
-| ------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Personal / Rumahan**          | Layer 4 (Windows Firewall) + Layer 7 (browser extension uBlock Origin) + Layer 8 (anti-phishing) |
-| **SMB / UKM**                   | + Layer 3 (next-gen firewall) + Layer 7 (WAF) + MFA wajib                                        |
-| **E-commerce**                  | + Layer 5-6 (TLS 1.3 enforcement, CT monitoring) + Layer 7 (SAST/DAST, bug bounty)               |
-| **Enterprise / Korporat**       | + Layer 2 (NAC 802.1X) + Layer 3 (BGP filtering kalau BGP sendiri) + SIEM + SOC 24/7             |
-| **Government / Critical Infra** | + Layer 1 (air-gap untuk system paling sensitif) + TEMPEST shielding + classified network        |
-| **Telecom / ISP**               | + Layer 3 (BGP security RPKI wajib) + DDoS scrubbing + cross-connect monitoring                  |
+| Target / Industri | Layer Prioritas Pertahanan |
+|---|---|
+| **Personal / Rumahan** | Layer 4 (Windows Firewall) + Layer 7 (browser extension uBlock Origin) + Layer 8 (anti-phishing) |
+| **SMB / UKM** | + Layer 3 (next-gen firewall) + Layer 7 (WAF) + MFA wajib |
+| **E-commerce** | + Layer 5-6 (TLS 1.3 enforcement, CT monitoring) + Layer 7 (SAST/DAST, bug bounty) |
+| **Enterprise / Korporat** | + Layer 2 (NAC 802.1X) + Layer 3 (BGP filtering kalau BGP sendiri) + SIEM + SOC 24/7 |
+| **Government / Critical Infra** | + Layer 1 (air-gap untuk system paling sensitif) + TEMPEST shielding + classified network |
+| **Telecom / ISP** | + Layer 3 (BGP security RPKI wajib) + DDoS scrubbing + cross-connect monitoring |
 
 Naik hierarki organisasi → coverage eksponensial. Tapi tidak semua organisasi butuh Layer 1 TEMPEST shielding — kecuali kalau threat model spesifik.
 
@@ -162,13 +162,13 @@ Hanya [[endpoint-security|CPU Ring & Boot Chain]] → [[cryptography-biometrics]
 
 ## Perbandingan Pendekatan Defense
 
-| Pendekatan                     | Layer Coverage              | Trade-off                       | Contoh                                           |
-| ------------------------------ | --------------------------- | ------------------------------- | ------------------------------------------------ |
-| **Default OS Firewall**        | Layer 3-4                   | User-friendly, insufficient     | Windows Defender Firewall default                |
-| **Enterprise Firewall (NGFW)** | Layer 3, 4, 7               | Mahal, performance cost         | Palo Alto, Fortinet, Cisco Firepower             |
-| **Zero Trust Network Access**  | Layer 7 + identity          | Complex setup, butuh mature IAM | Zscaler ZIA, Cloudflare Access, Tailscale + Auth |
-| **Defense-in-Depth Stack**     | Semua layer kecuali Layer 8 | Mahal, butuh tim besar          | Bank, financial institution, military            |
-| **Human-First Security**       | Layer 8 + minimum Layer 7   | Behavioral change paling susah  | KnowBe4, Cofense phishing simulation + MFA wajib |
+| Pendekatan | Layer Coverage | Trade-off | Contoh |
+|---|---|---|---|
+| **Default OS Firewall** | Layer 3-4 | User-friendly, insufficient | Windows Defender Firewall default |
+| **Enterprise Firewall (NGFW)** | Layer 3, 4, 7 | Mahal, performance cost | Palo Alto, Fortinet, Cisco Firepower |
+| **Zero Trust Network Access** | Layer 7 + identity | Complex setup, butuh mature IAM | Zscaler ZIA, Cloudflare Access, Tailscale + Auth |
+| **Defense-in-Depth Stack** | Semua layer kecuali Layer 8 | Mahal, butuh tim besar | Bank, financial institution, military |
+| **Human-First Security** | Layer 8 + minimum Layer 7 | Behavioral change paling susah | KnowBe4, Cofense phishing simulation + MFA wajib |
 
 Defense-in-Depth adalah gold standard tapi cost eksponensial naik per layer. Kebanyakan organisasi target coverage Layer 3, 4, 7 (firewall + IPS + WAF) + Layer 8 (security awareness). Layer 2 dan Layer 5-6 sering under-covered sampaiincident terjadi.
 
@@ -176,14 +176,14 @@ Defense-in-Depth adalah gold standard tapi cost eksponensial naik per layer. Keb
 
 ## Rekomendasi per Profil
 
-| Profil                           | Layer Coverage Minimum                                                                             | Tambahan Jika Budget Ada                                                      |
-| -------------------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **Personal / Rumahan**           | Layer 4 (OS firewall) + Layer 7 (uBlock Origin) + Layer 8 (phishing awareness)                     | Layer 3 (router dengan firewall configurable) + VPN ke seluruh traffic        |
-| **SMB / UKM**                    | + Layer 3 (NGFW tier-1) + Layer 7 (WAF Cloudflare/AWS Shield)                                      | Layer 2 (managed switch 802.1X) + EDR                                         |
-| **Mid-Market Enterprise**        | + Layer 5-6 (TLS 1.3 enforcement, CT monitoring) + SIEM 24/7 + Layer 8 (phishing simulation rutin) | + Zero Trust (Zscaler, Cloudflare Access) + NAC mature                        |
-| **Regulated / Finance / Health** | Di atas + Layer 1 (locked server room) + compliance PCI-DSS/HIPAA + audit trail kuat               | + Air-gap untuk system paling sensitif + dedicated SOC                        |
-| **Critical Infrastructure**      | + Layer 1-2 OT segmentation + ICS/SCADA specialized tooling                                        | + Air-gap untuk safety-critical control + unidirectional gateway (data diode) |
-| **Government / Defense**         | + Layer 1 TEMPEST shielding + classified network + physical security berlapis                      | + custom hardware + proprietary protocol + national crypto module             |
+| Profil | Layer Coverage Minimum | Tambahan Jika Budget Ada |
+|---|---|---|
+| **Personal / Rumahan** | Layer 4 (OS firewall) + Layer 7 (uBlock Origin) + Layer 8 (phishing awareness) | Layer 3 (router dengan firewall configurable) + VPN ke seluruh traffic |
+| **SMB / UKM** | + Layer 3 (NGFW tier-1) + Layer 7 (WAF Cloudflare/AWS Shield) | Layer 2 (managed switch 802.1X) + EDR |
+| **Mid-Market Enterprise** | + Layer 5-6 (TLS 1.3 enforcement, CT monitoring) + SIEM 24/7 + Layer 8 (phishing simulation rutin) | + Zero Trust (Zscaler, Cloudflare Access) + NAC mature |
+| **Regulated / Finance / Health** | Di atas + Layer 1 (locked server room) + compliance PCI-DSS/HIPAA + audit trail kuat | + Air-gap untuk system paling sensitif + dedicated SOC |
+| **Critical Infrastructure** | + Layer 1-2 OT segmentation + ICS/SCADA specialized tooling | + Air-gap untuk safety-critical control + unidirectional gateway (data diode) |
+| **Government / Defense** | + Layer 1 TEMPEST shielding + classified network + physical security berlapis | + custom hardware + proprietary protocol + national crypto module |
 
 Naik profil → coverage Layer 1 naik secara predictable, karena cost fisik (CCTV, sealed port, security guard) dominan di top-tier organizations.
 
@@ -204,4 +204,4 @@ Naik profil → coverage Layer 1 naik secara predictable, karena cost fisik (CCT
 
 > Begitu paham hierarki network, lo paham **di mana** satu kontrol efektif, **di mana** ia sia-sia, dan **layer mana** yang harus diperkuat pertama berdasarkan threat model spesifik organisasi lo. Tanpa pemahaman hierarki, network security jadi tambal sulam reaktif — biaya mahal, hasil tak menentu.
 
-_Network Security Hierarchy | Layer 1 (Kabel) → Layer 7 (Aplikasi) → Layer 8 (Manusia) · Inversi Kontrol-Teknis vs Manipulasi-Psikologis_
+*Network Security Hierarchy | Layer 1 (Kabel) → Layer 7 (Aplikasi) → Layer 8 (Manusia) · Inversi Kontrol-Teknis vs Manipulasi-Psikologis*

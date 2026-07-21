@@ -1,22 +1,22 @@
 ---
-title: "Database Internals: Indexing, MVCC & Query Planning"
+title: 'Database Internals: Indexing, MVCC & Query Planning'
 tags:
-  - database
-  - postgresql
-  - indexing
-  - mvcc
-  - query-optimization
-  - internals
-  - library
+- database
+- postgresql
+- indexing
+- mvcc
+- query-optimization
+- internals
+- library
 aliases:
-  - db-indexing-deepdive
-  - query-planning-execution
-  - mvcc-concurrency-control
-created: "2026-07-15"
-updated: "2026-07-15"
+- db-indexing-deepdive
+- query-planning-execution
+- mvcc-concurrency-control
+created: '2026-07-15'
+updated: '2026-07-15'
 status: draft
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🗄️ Database Internals: Indexing, MVCC & Query Planning
@@ -69,7 +69,6 @@ Index (B-Tree):
 ```
 
 **Konsekuensi:**
-
 - INSERT cepat — tulis di blok mana aja yang ada free space
 - UPDATE mahal — mark row as dead (xmax), tulis row baru di blok lain
 - Sequential scan — baca semua blok, filter yang visible (via MVCC)
@@ -93,13 +92,13 @@ Compaction:
   Major: merge SSTable level N dengan N+1 (lambat, I/O intensive)
 ```
 
-| Aspek               | B-Tree (PostgreSQL)                 | LSM-Tree (Cassandra)            |
-| ------------------- | ----------------------------------- | ------------------------------- |
-| Write throughput    | 🟡 Random I/O ke heap               | 🟢 Sequential write ke SSTable  |
-| Read (point lookup) | 🟢 O(log N) via index               | 🟡 Check multiple SSTables      |
-| Read (range scan)   | 🟢 B-Tree leaf node linked list     | 🟡 Bloom filter + merge         |
+| Aspek | B-Tree (PostgreSQL) | LSM-Tree (Cassandra) |
+|-------|-------------------|---------------------|
+| Write throughput | 🟡 Random I/O ke heap | 🟢 Sequential write ke SSTable |
+| Read (point lookup) | 🟢 O(log N) via index | 🟡 Check multiple SSTables |
+| Read (range scan) | 🟢 B-Tree leaf node linked list | 🟡 Bloom filter + merge |
 | Space amplification | 🟡 Pages dengan dead tuples (bloat) | 🟢 SSTable immutable, compacted |
-| Write amplification | 🟢 Minimal (update langsung)        | 🟡 Compaction I/O               |
+| Write amplification | 🟢 Minimal (update langsung) | 🟡 Compaction I/O |
 
 ### 1.3 Kapan Pilih Yang Mana?
 
@@ -129,7 +128,6 @@ Leaf Pages (doubly linked):
 ```
 
 **Karakteristik penting:**
-
 - **Height = 3-4** untuk tabel dengan miliaran baris (karena branching factor tinggi)
 - **Leaf nodes** adalah doubly linked list — range scan pindah dari leaf ke leaf via pointer (gak perlu balik ke root)
 - **Page size**: 8KB default. Branching factor ≈ (page_size - header) / (key_size + pointer_size) ≈ 200-300 untuk key 32 byte
@@ -243,13 +241,13 @@ SELECT * FROM logs WHERE created_at >= '2026-07-01' AND created_at < '2026-07-02
 
 ### 2.5 Perbandingan Index Types
 
-| Type       | Ukuran              | Write Overhead | Query Types                                | Use Case                    |
-| ---------- | ------------------- | -------------- | ------------------------------------------ | --------------------------- |
-| **B-Tree** | 30% dari table      | Moderate       | =, <, >, BETWEEN, ORDER BY, LIKE 'prefix%' | General purpose (90% kasus) |
-| **Hash**   | Kecil               | Rendah         | = only                                     | Sama jarang dipake di PG    |
-| **GiST**   | Besar               | Tinggi         | Full-text, geometri, range overlap         | Spatial, FTS                |
-| **GIN**    | Besar               | Tinggi         | JSONB contains, array overlap, tsvector    | JSONB, full-text, arrays    |
-| **BRIN**   | Sangat kecil (0.1%) | Sangat rendah  | Range scan (data correlated)               | Time-series, logs           |
+| Type | Ukuran | Write Overhead | Query Types | Use Case |
+|------|--------|---------------|-------------|----------|
+| **B-Tree** | 30% dari table | Moderate | =, <, >, BETWEEN, ORDER BY, LIKE 'prefix%' | General purpose (90% kasus) |
+| **Hash** | Kecil | Rendah | = only | Sama jarang dipake di PG |
+| **GiST** | Besar | Tinggi | Full-text, geometri, range overlap | Spatial, FTS |
+| **GIN** | Besar | Tinggi | JSONB contains, array overlap, tsvector | JSONB, full-text, arrays |
+| **BRIN** | Sangat kecil (0.1%) | Sangat rendah | Range scan (data correlated) | Time-series, logs |
 
 ---
 
@@ -290,7 +288,6 @@ EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) SELECT * FROM orders
 ```
 
 **Cara membaca:**
-
 - Baca dari **dalam ke luar** (children → parent)
 - `cost=12.34..45.67` = estimated start-up..total cost (unit = arbitrary, biasanya page I/O + CPU)
 - `actual time=0.123..0.456` = real execution time (ms)
@@ -300,16 +297,16 @@ EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) SELECT * FROM orders
 
 ### 3.3 Plan Node Types
 
-| Node                 | Ketika Muncul                                                                           |
-| -------------------- | --------------------------------------------------------------------------------------- |
-| **Seq Scan**         | Full table scan — biasanya karena gak ada index, atau selectivity terlalu rendah (< 5%) |
-| **Index Scan**       | Pake index → fetch dari heap. Cepat kalo selectivity tinggi                             |
-| **Index Only Scan**  | Semua data ada di index (covering index) — tanpa fetch heap. Paling cepat               |
-| **Bitmap Heap Scan** | Kombinasi index + bitmap. Berguna untuk kombinasi beberapa index                        |
-| **Nested Loop**      | Untuk join kecil. O(n * m) — bagus kalo salah satu tabel kecil                          |
-| **Hash Join**        | Hash satu tabel → probe. O(n + m) — bagus untuk equi-join                               |
-| **Merge Join**       | Sort + merge. O(n log n + m log m) — bagus untuk data yang sudah sorted                 |
-| **Sort**             | ORDER BY / DISTINCT / Merge Join                                                        |
+| Node | Ketika Muncul |
+|------|---------------|
+| **Seq Scan** | Full table scan — biasanya karena gak ada index, atau selectivity terlalu rendah (< 5%) |
+| **Index Scan** | Pake index → fetch dari heap. Cepat kalo selectivity tinggi |
+| **Index Only Scan** | Semua data ada di index (covering index) — tanpa fetch heap. Paling cepat |
+| **Bitmap Heap Scan** | Kombinasi index + bitmap. Berguna untuk kombinasi beberapa index |
+| **Nested Loop** | Untuk join kecil. O(n * m) — bagus kalo salah satu tabel kecil |
+| **Hash Join** | Hash satu tabel → probe. O(n + m) — bagus untuk equi-join |
+| **Merge Join** | Sort + merge. O(n log n + m log m) — bagus untuk data yang sudah sorted |
+| **Sort** | ORDER BY / DISTINCT / Merge Join |
 
 ### 3.4 Statistik Planner
 
@@ -353,7 +350,6 @@ Cost: O(n * m) — worst case
 ```
 
 **Kapan efektif:**
-
 - Satu tabel sangat kecil (< 100 baris)
 - Ada index unik di inner table yang bisa di-index lookup
 - Query dengan LIMIT yang kecil
@@ -380,7 +376,6 @@ Cost: O(n + m) — linear, more predictable
 ```
 
 **Kapan efektif:**
-
 - Equi-join (`=`) — tidak bekerja untuk range join
 - Salah satu tabel cukup kecil untuk hash table di memory
 - Data tidak sorted (tidak perlu expensive sort)
@@ -403,18 +398,17 @@ Cost: O(n log n + m log m) — sorting dominant
 ```
 
 **Kapan efektif:**
-
 - Data sudah sorted (misal oleh ORDER BY yang sama)
 - Range join (`>` , `<`, `BETWEEN`)
 - Large tables yang bisa di-sort dalam memory
 
 ### 4.4 Perbandingan Join Strategies
 
-| Join            | Best Case         | Worst Case             | Memory               | Use Case                         |
-| --------------- | ----------------- | ---------------------- | -------------------- | -------------------------------- |
-| **Nested Loop** | O(n) via index    | O(n*m)                 | Minimal              | One small table, index available |
-| **Hash Join**   | O(n+m)            | O(n+m) + disk spilling | Hash table in memory | Equi-join, mid-size tables       |
-| **Merge Join**  | O(n+m) pre-sorted | O(n log n + m log m)   | Sort buffer          | Range join, large sorted tables  |
+| Join | Best Case | Worst Case | Memory | Use Case |
+|------|-----------|------------|--------|----------|
+| **Nested Loop** | O(n) via index | O(n*m) | Minimal | One small table, index available |
+| **Hash Join** | O(n+m) | O(n+m) + disk spilling | Hash table in memory | Equi-join, mid-size tables |
+| **Merge Join** | O(n+m) pre-sorted | O(n log n + m log m) | Sort buffer | Range join, large sorted tables |
 
 ---
 
@@ -458,7 +452,6 @@ SELECT txid_current(), txid_snapshot_xmin(txid_current_snapshot()),
 ```
 
 **Visibility rules:**
-
 - xmin < txid_snapshot_xmin → visible (sudah committed sebelum snapshot)
 - xmin in snapshot → NOT visible (masih running saat snapshot)
 - xmax < txid_snapshot_xmin → deleted (tidak visible)
@@ -477,7 +470,6 @@ Secondary: SELECT * FROM users WHERE id = 1;      → visible (xmin < snapshot)
 ```
 
 **Conflict scenarios:**
-
 - `VACUUM` di primary → remove dead tuples
 - `VACUUM` di secondary → wait for queries to finish
 - Long-running query di secondary = blokir vacuum
@@ -488,12 +480,12 @@ Secondary: SELECT * FROM users WHERE id = 1;      → visible (xmin < snapshot)
 
 ### 6.1 Definisi Isolation Levels
 
-| Level            | Dirty Read | Non-Repeatable Read | Phantom Read                        | Serialization Anomaly |
-| ---------------- | ---------- | ------------------- | ----------------------------------- | --------------------- |
-| Read Uncommitted | Mungkin    | Mungkin             | Mungkin                             | Mungkin               |
-| Read Committed   | ✅ Tidak   | Mungkin             | Mungkin                             | Mungkin               |
-| Repeatable Read  | ✅ Tidak   | ✅ Tidak            | Mungkin di SQL std., ✅ Tidak di PG | Mungkin               |
-| Serializable     | ✅ Tidak   | ✅ Tidak            | ✅ Tidak                            | ✅ Tidak              |
+| Level | Dirty Read | Non-Repeatable Read | Phantom Read | Serialization Anomaly |
+|-------|-----------|---------------------|--------------|----------------------|
+| Read Uncommitted | Mungkin | Mungkin | Mungkin | Mungkin |
+| Read Committed | ✅ Tidak | Mungkin | Mungkin | Mungkin |
+| Repeatable Read | ✅ Tidak | ✅ Tidak | Mungkin di SQL std., ✅ Tidak di PG | Mungkin |
+| Serializable | ✅ Tidak | ✅ Tidak | ✅ Tidak | ✅ Tidak |
 
 **Catatan PostgreSQL:** Read Uncommitted = Read Committed (PG gak support dirty read).
 
@@ -550,11 +542,11 @@ BEGIN ISOLATION LEVEL SERIALIZABLE;
 
 ### 6.3 When to Use Which
 
-| Isolation       | Latency | Correctness | Use Case                    |
-| --------------- | ------- | ----------- | --------------------------- |
-| Read Committed  | Rendah  | Lemah       | Dashboard read-only, logs   |
-| Repeatable Read | Sedang  | Moderate    | Reporting, analytics        |
-| Serializable    | Tinggi  | Guaranteed  | Financial, inventory, kuota |
+| Isolation | Latency | Correctness | Use Case |
+|-----------|---------|-------------|----------|
+| Read Committed | Rendah | Lemah | Dashboard read-only, logs |
+| Repeatable Read | Sedang | Moderate | Reporting, analytics |
+| Serializable | Tinggi | Guaranteed | Financial, inventory, kuota |
 
 ---
 
@@ -699,17 +691,17 @@ Gunakan [[postgresql-performance-triage]] untuk checklist troubleshooting.
 
 ## 9. Tools untuk Database Internals
 
-| Tool                   | Fungsi                                         |
-| ---------------------- | ---------------------------------------------- |
-| `pg_stat_statements`   | Tracking query performance historis            |
-| `pg_stat_user_tables`  | Statistik tabel (live/dead tuples, scan count) |
-| `pg_stat_user_indexes` | Index usage (scan count, tuple fetch)          |
-| `pageinspect`          | Melihat page-level data (blok, tuple)          |
-| `pg_buffercache`       | Melihat shared buffer cache                    |
-| `pg_repack`            | Online table rebuild (tanpa lock, Hapus bloat) |
-| `explain.depesz.com`   | Visual EXPLAIN analyzer                        |
-| `pgMustard`            | EXPLAIN analyzer dengan saran index            |
-| `pganalyze`            | Performance monitoring SaaS                    |
+| Tool | Fungsi |
+|------|--------|
+| `pg_stat_statements` | Tracking query performance historis |
+| `pg_stat_user_tables` | Statistik tabel (live/dead tuples, scan count) |
+| `pg_stat_user_indexes` | Index usage (scan count, tuple fetch) |
+| `pageinspect` | Melihat page-level data (blok, tuple) |
+| `pg_buffercache` | Melihat shared buffer cache |
+| `pg_repack` | Online table rebuild (tanpa lock, Hapus bloat) |
+| `explain.depesz.com` | Visual EXPLAIN analyzer |
+| `pgMustard` | EXPLAIN analyzer dengan saran index |
+| `pganalyze` | Performance monitoring SaaS |
 
 ---
 

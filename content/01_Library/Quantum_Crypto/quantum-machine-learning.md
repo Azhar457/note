@@ -50,15 +50,15 @@ cssclasses:
 
 ### Sumber Quantum Advantage
 
-| Area                                  | Classical Complexity | Quantum Speedup | Kenapa?                                                           |
-| ------------------------------------- | -------------------- | --------------- | ----------------------------------------------------------------- |
-| **Linear Algebra** (matrix inversion) | $O(n^3)$             | $O(\log n)$*    | HHL algorithm — quantum superposition untuk solve linear system   |
-| **Inner Product** (kernel)            | $O(n)$               | $O(\log n)$*    | Quantum feature map → dot product dalam ruang Hilbert besar       |
-| **Optimization** (combinatorial)      | Exponential          | Polynomial*     | QAOA, VQE — parallel exploration of solution space                |
-| **Sampling** (distribution)           | Intractable          | Efficient*      | Quantum circuits bisa sample dari distribusi yang classical sulit |
-| **Gradient Estimation**               | $O(p)$               | $O(1)$*         | Parameter shift rule — bisa parallelize gradient per parameter    |
+| Area | Classical Complexity | Quantum Speedup | Kenapa? |
+|------|--------------------|-----------------|---------|
+| **Linear Algebra** (matrix inversion) | $O(n^3)$ | $O(\log n)$* | HHL algorithm — quantum superposition untuk solve linear system |
+| **Inner Product** (kernel) | $O(n)$ | $O(\log n)$* | Quantum feature map → dot product dalam ruang Hilbert besar |
+| **Optimization** (combinatorial) | Exponential | Polynomial* | QAOA, VQE — parallel exploration of solution space |
+| **Sampling** (distribution) | Intractable | Efficient* | Quantum circuits bisa sample dari distribusi yang classical sulit |
+| **Gradient Estimation** | $O(p)$ | $O(1)$* | Parameter shift rule — bisa parallelize gradient per parameter |
 
-\* _Teoritis — tergantung problem dan implementasi. Di NISQ era, belum terbukti unconditional advantage._
+\* *Teoritis — tergantung problem dan implementasi. Di NISQ era, belum terbukti unconditional advantage.*
 
 ### Kapan QML Berpotensi Unggul?
 
@@ -86,14 +86,14 @@ Satu qubit bisa representasi **superposisi** dua state. $n$ qubit = superposisi 
 
 ### Gerbang Quantum Penting
 
-| Gerbang                 | Matriks                                                          | Efek                             |
-| ----------------------- | ---------------------------------------------------------------- | -------------------------------- |
-| **Hadamard (H)**        | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$  | Buat superposisi: $              | 0\rangle \to \frac{ | 0\rangle+ | 1\rangle}{\sqrt{2}}$ |
-| **Pauli-X (NOT)**       | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$                     | Flip: $                          | 0\rangle \to        | 1\rangle$ |
-| **Pauli-Y**             | $\begin{bmatrix}0 & -i \\ i & 0\end{bmatrix}$                    | Rotasi sumbu Y                   |
-| **Pauli-Z**             | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$                    | Phase flip: $                    | 1\rangle \to -      | 1\rangle$ |
-| **CNOT (CX)**           | $\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}$ | Entanglement: control-target XOR |
-| **Rotasi (RX, RY, RZ)** | $e^{-i\theta P/2}$                                               | Rotasi kontinu — parameterizable |
+| Gerbang | Matriks | Efek |
+|---------|---------|------|
+| **Hadamard (H)** | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$ | Buat superposisi: $|0\rangle \to \frac{|0\rangle+|1\rangle}{\sqrt{2}}$ |
+| **Pauli-X (NOT)** | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$ | Flip: $|0\rangle \to |1\rangle$ |
+| **Pauli-Y** | $\begin{bmatrix}0 & -i \\ i & 0\end{bmatrix}$ | Rotasi sumbu Y |
+| **Pauli-Z** | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$ | Phase flip: $|1\rangle \to -|1\rangle$ |
+| **CNOT (CX)** | $\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}$ | Entanglement: control-target XOR |
+| **Rotasi (RX, RY, RZ)** | $e^{-i\theta P/2}$ | Rotasi kontinu — parameterizable |
 
 ### Parameterized Quantum Circuit (PQC)
 
@@ -133,7 +133,6 @@ VQE adalah algoritma hybrid klasikal-kuantum untuk mencari **eigenvalue minimum*
 ```
 
 **Langkah:**
-
 1. Siapkan ansatz state $|\psi(\theta)\rangle = U(\theta)|0\rangle$
 2. Ukur expectation value $\langle H \rangle = \langle \psi(\theta)| H |\psi(\theta)\rangle$
 3. Classical optimizer update $\theta$ untuk minimalkan $\langle H \rangle$
@@ -143,12 +142,12 @@ VQE adalah algoritma hybrid klasikal-kuantum untuk mencari **eigenvalue minimum*
 
 Ansatz adalah "tebakan" struktur sirkuit. Pilihan ansatz sangat mempengaruhi konvergensi.
 
-| Ansatz                 | Qubit             | Gerbang                             | Depth      | Kapan                                 |
-| ---------------------- | ----------------- | ----------------------------------- | ---------- | ------------------------------------- |
-| **Hardware-Efficient** | Bebas             | RX, RY, RZ, CNOT (nearest-neighbor) | Rendah     | Default — cocok untuk hardware noise  |
-| **UCCSD** (chemistry)  | 2 × orbital       | Fermionic excitation                | Tinggi     | Quantum chemistry — physical accuracy |
-| **QAOA**               | Problem-dependent | Phase + Mixer                       | Bervariasi | Combinatorial optimization            |
-| **HEA (Alternating)**  | Bebas             | Layer RX+CNOT+RY+CNOT               | Sedang     | General purpose QML                   |
+| Ansatz | Qubit | Gerbang | Depth | Kapan |
+|--------|-------|---------|-------|-------|
+| **Hardware-Efficient** | Bebas | RX, RY, RZ, CNOT (nearest-neighbor) | Rendah | Default — cocok untuk hardware noise |
+| **UCCSD** (chemistry) | 2 × orbital | Fermionic excitation | Tinggi | Quantum chemistry — physical accuracy |
+| **QAOA** | Problem-dependent | Phase + Mixer | Bervariasi | Combinatorial optimization |
+| **HEA (Alternating)** | Bebas | Layer RX+CNOT+RY+CNOT | Sedang | General purpose QML |
 
 ### Contoh — VQE untuk H₂ Molecule
 
@@ -210,12 +209,12 @@ DATA ENCODING        VARIATIONAL LAYERS       MEASUREMENT
 
 Cara memasukkan data classical ke quantum state — **sangat mempengaruhi performa**.
 
-| Method                   | Deskripsi                               | Qubit per Feature | Complexity        |
-| ------------------------ | --------------------------------------- | ----------------- | ----------------- |
-| **Angle Encoding**       | $x_i \to RY(x_i)$                       | 1                 | $O(n)$            |
-| **Amplitude Encoding**   | $x \to \sum x_i                         | i\rangle$         | $\log n$          | $O(2^n)$ circuit depth |
-| **IQP Encoding**         | $x \to e^{i\sum x_i Z_i} H^{\otimes n}$ | 1                 | $O(n)$            |
-| **Hamiltonian Encoding** | $x \to e^{-iH(x)t}$                     | 1-$n$             | Problem-dependent |
+| Method | Deskripsi | Qubit per Feature | Complexity |
+|--------|-----------|-------------------|------------|
+| **Angle Encoding** | $x_i \to RY(x_i)$ | 1 | $O(n)$ |
+| **Amplitude Encoding** | $x \to \sum x_i |i\rangle$ | $\log n$ | $O(2^n)$ circuit depth |
+| **IQP Encoding** | $x \to e^{i\sum x_i Z_i} H^{\otimes n}$ | 1 | $O(n)$ |
+| **Hamiltonian Encoding** | $x \to e^{-iH(x)t}$ | 1-$n$ | Problem-dependent |
 
 **Angle Encoding — Paling Sederhana:**
 
@@ -372,15 +371,15 @@ $n$ = jumlah qubit. Untuk 20 qubit, gradient variance sudah mencapai floating-po
 
 ### Solusi
 
-| Approach                     | Cara Kerja                                            | Efektivitas                      |
-| ---------------------------- | ----------------------------------------------------- | -------------------------------- |
-| **Pretraining**              | Latih layer-by-layer                                  | Medium — problem-dependent       |
-| **Circuit shaping**          | Batasi expressivity, kurangi entanglement             | High — terbukti efektif          |
-| **Gradient-free optimizers** | COBYLA, Nelder-Mead                                   | Medium — skalabilitas terbatas   |
-| **Layer-wise training**      | Tambah 1 layer, train, freeze, repeat                 | Medium                           |
-| **Adaptive ansatz**          | Grow circuit secara adaptif                           | High — ADAPT-VQE, butuh overhead |
-| **Correlated parameters**    | Kelompokkan parameter yang berkorelasi                | Early research                   |
-| **Classical pre-solve**      | Gunakan classical approximation sebagai initial point | Praktis                          |
+| Approach | Cara Kerja | Efektivitas |
+|----------|------------|-------------|
+| **Pretraining** | Latih layer-by-layer | Medium — problem-dependent |
+| **Circuit shaping** | Batasi expressivity, kurangi entanglement | High — terbukti efektif |
+| **Gradient-free optimizers** | COBYLA, Nelder-Mead | Medium — skalabilitas terbatas |
+| **Layer-wise training** | Tambah 1 layer, train, freeze, repeat | Medium |
+| **Adaptive ansatz** | Grow circuit secara adaptif | High — ADAPT-VQE, butuh overhead |
+| **Correlated parameters** | Kelompokkan parameter yang berkorelasi | Early research |
+| **Classical pre-solve** | Gunakan classical approximation sebagai initial point | Praktis |
 
 **Circuit shaping — aturan praktis:**
 
@@ -397,15 +396,15 @@ $n$ = jumlah qubit. Untuk 20 qubit, gradient variance sudah mencapai floating-po
 
 ## Framework & Tools
 
-| Framework               | Backend                  | QML Features                      | Bahasa     | Produksi? |
-| ----------------------- | ------------------------ | --------------------------------- | ---------- | --------- |
-| **PennyLane**           | Simulator + hardware     | Full QML (QNN, kernel, VQE, QGAN) | Python     | ✅        |
-| **Qiskit (IBM)**        | IBM Quantum + simulator  | Qiskit ML (QSVM, QGAN)            | Python     | ✅        |
-| **TensorFlow Quantum**  | Cirq backend             | Integrasi TF/Keras                | Python     | ⚠️        |
-| **Braket (AWS)**        | Simulator + IonQ/Rigetti | Hybrid jobs                       | Python     | ✅        |
-| **Cirq**                | Google simulator         | Low-level, TFQ integration        | Python     | ⚠️        |
-| **PennyLane-Lightning** | GPU simulator            | High-performance, multi-GPU       | C++/Python | ✅        |
-| **Strawberry Fields**   | Photonic quantum         | Continuous-variable QML           | Python     | ⚠️        |
+| Framework | Backend | QML Features | Bahasa | Produksi? |
+|-----------|---------|-------------|--------|-----------|
+| **PennyLane** | Simulator + hardware | Full QML (QNN, kernel, VQE, QGAN) | Python | ✅ |
+| **Qiskit (IBM)** | IBM Quantum + simulator | Qiskit ML (QSVM, QGAN) | Python | ✅ |
+| **TensorFlow Quantum** | Cirq backend | Integrasi TF/Keras | Python | ⚠️ |
+| **Braket (AWS)** | Simulator + IonQ/Rigetti | Hybrid jobs | Python | ✅ |
+| **Cirq** | Google simulator | Low-level, TFQ integration | Python | ⚠️ |
+| **PennyLane-Lightning** | GPU simulator | High-performance, multi-GPU | C++/Python | ✅ |
+| **Strawberry Fields** | Photonic quantum | Continuous-variable QML | Python | ⚠️ |
 
 ---
 
@@ -432,10 +431,10 @@ def circuit(x, params):
     # Encoding
     for i in range(min(len(x), n_qubits)):
         qml.RX(x[i], wires=i)
-
+    
     # Variational layers
     qml.BasicEntanglerLayers(params, wires=range(n_qubits))
-
+    
     # Measurement
     return qml.expval(qml.PauliZ(0))
 
@@ -504,7 +503,6 @@ def qaoa_ansatz(params, graph):
 ```
 
 **Mengapa hybrid?**
-
 - **Pre-process**: Classical dimension reduction (PCA) → kurangi qubit needed
 - **Feature extract**: Classical NN extract feature → quantum classify
 - **Post-process**: Classical ensemble voting dari multiple quantum circuits
@@ -514,24 +512,24 @@ def qaoa_ansatz(params, graph):
 
 ## Open Problems & Frontier
 
-| Problem                           | Status                             | Impact if Solved                   |
-| --------------------------------- | ---------------------------------- | ---------------------------------- |
-| **Barren Plateau** proof          | Partial (conjecture + some proofs) | Enable deep QNN                    |
-| **Quantum advantage** for ML      | NOT YET PROVEN                     | Justify quantum investment         |
-| **Efficient gradient estimation** | Parameter shift rule works         | But $O(p)$ circuits per step       |
-| **Error mitigation** at scale     | ZNE, PEC work for                  | < 100 qubits                       |
-| **Quantum data loading**          | QRAM not built yet                 | Bottleneck for amplitude encoding  |
-| **Feature map design theory**     | Heuristic only                     | Systematic QML architecture search |
-| **Trainability guarantees**       | Open                               | Predict if QNN will converge       |
+| Problem | Status | Impact if Solved |
+|---------|--------|-----------------|
+| **Barren Plateau** proof | Partial (conjecture + some proofs) | Enable deep QNN |
+| **Quantum advantage** for ML | NOT YET PROVEN | Justify quantum investment |
+| **Efficient gradient estimation** | Parameter shift rule works | But $O(p)$ circuits per step |
+| **Error mitigation** at scale | ZNE, PEC work for | < 100 qubits |
+| **Quantum data loading** | QRAM not built yet | Bottleneck for amplitude encoding |
+| **Feature map design theory** | Heuristic only | Systematic QML architecture search |
+| **Trainability guarantees** | Open | Predict if QNN will converge |
 
 ### Peta Jalan Realistis
 
-| Tahun         | Milestone                                                   |
-| ------------- | ----------------------------------------------------------- |
+| Tahun | Milestone |
+|-------|-----------|
 | **2026-2027** | NISQ devices 1000+ qubits (IBM), error-corrected prototypes |
-| **2028-2029** | QML beats classical on **synthetic** quantum data           |
-| **2030+**     | Fault-tolerant quantum → Shor + Grover-scale                |
-| **?**         | QML beats classical on **real-world** classical data        |
+| **2028-2029** | QML beats classical on **synthetic** quantum data |
+| **2030+** | Fault-tolerant quantum → Shor + Grover-scale |
+| **?** | QML beats classical on **real-world** classical data |
 
 ---
 

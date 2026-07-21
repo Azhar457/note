@@ -88,13 +88,13 @@ SELECT dblink_exec('SELECT current_database()');
 
 ### 1.6 Defense Per Layer
 
-| Layer           | Teknik                                   | Implementasi                                                                                                                         |
-| --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| **Application** | Parameterized query / prepared statement | `cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))`                                                                    |
-| **ORM**         | Query builder — never raw concatenation  | Django: `User.objects.filter(id=user_id)`, Hibernate: `entityManager.createQuery("FROM User WHERE id = :id").setParameter("id", id)` |
-| **Database**    | Input type enforcement                   | PostgreSQL: `id::integer` cast, `pg_input_is_valid()`                                                                                |
-| **WAF**         | libinjection fingerprint                 | CRS rules 942100, 942110, 942120 — detect SQLi tokens                                                                                |
-| **Monitoring**  | Slow query log + anomaly detection       | pg_stat_statements + `auto_explain` untuk query di luar pola normal                                                                  |
+| Layer | Teknik | Implementasi |
+|-------|--------|-------------|
+| **Application** | Parameterized query / prepared statement | `cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))` |
+| **ORM** | Query builder — never raw concatenation | Django: `User.objects.filter(id=user_id)`, Hibernate: `entityManager.createQuery("FROM User WHERE id = :id").setParameter("id", id)` |
+| **Database** | Input type enforcement | PostgreSQL: `id::integer` cast, `pg_input_is_valid()` |
+| **WAF** | libinjection fingerprint | CRS rules 942100, 942110, 942120 — detect SQLi tokens |
+| **Monitoring** | Slow query log + anomaly detection | pg_stat_statements + `auto_explain` untuk query di luar pola normal |
 
 ### 1.7 Prepared Statement — Why It Works
 
@@ -117,10 +117,10 @@ SELECT dblink_exec('SELECT current_database()');
 
 ```javascript
 // ❌ Vulnerable — langsung concat body ke query
-app.post("/api/login", async (req, res) => {
-  const user = await db.collection("users").findOne({
+app.post('/api/login', async (req, res) => {
+  const user = await db.collection('users').findOne({
     username: req.body.username,
-    password: req.body.password,
+    password: req.body.password
   })
 })
 
@@ -130,24 +130,23 @@ app.post("/api/login", async (req, res) => {
 ```
 
 **Semua operator MongoDB yang bisa di-inject:**
-
-| Operator  | Efek                                | Payload                       |
-| --------- | ----------------------------------- | ----------------------------- |
-| `$ne`     | Not equal — bypass equality check   | `{"password": {"$ne": ""}}`   |
-| `$gt`     | Greater than — bypass numeric limit | `{"age": {"$gt": 18}}`        |
-| `$regex`  | Regex match — blind extraction      | `{"token": {"$regex": "^a"}}` |
-| `$where`  | JavaScript execution — RCE          | `{"$where": "sleep(5000)      |     | true"}` |
-| `$exists` | Field existence check               | `{"role": {"$exists": true}}` |
+| Operator | Efek | Payload |
+|----------|------|---------|
+| `$ne` | Not equal — bypass equality check | `{"password": {"$ne": ""}}` |
+| `$gt` | Greater than — bypass numeric limit | `{"age": {"$gt": 18}}` |
+| `$regex` | Regex match — blind extraction | `{"token": {"$regex": "^a"}}` |
+| `$where` | JavaScript execution — RCE | `{"$where": "sleep(5000) || true"}` |
+| `$exists` | Field existence check | `{"role": {"$exists": true}}` |
 
 ### 2.2 MongoDB Defense
 
 ```javascript
 // ✅ Type-check semua input sebelum query
-const Joi = require("joi")
+const Joi = require('joi')
 
 const schema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30).required(),
-  password: Joi.string().min(8).required(),
+  password: Joi.string().min(8).required()
 })
 
 const { error, value } = schema.validate(req.body)
@@ -155,16 +154,16 @@ if (error) return res.status(400).json({ error: error.message })
 
 // ✅ Sanitasi operator — strip $ prefix dari keys
 function sanitize(obj) {
-  if (typeof obj !== "object" || obj === null) return obj
+  if (typeof obj !== 'object' || obj === null) return obj
   for (let key of Object.keys(obj)) {
-    if (key.startsWith("$")) delete obj[key]
+    if (key.startsWith('$')) delete obj[key]
     else sanitize(obj[key])
   }
   return obj
 }
 
 const clean = sanitize(req.body)
-const user = await db.collection("users").findOne(clean)
+const user = await db.collection('users').findOne(clean)
 ```
 
 ### 2.3 Elasticsearch — Script Injection
@@ -515,9 +514,9 @@ detection:
   selection:
     command: SELECT
     statement|contains:
-      - "dblink_connect"
-      - "dblink_exec"
-      - "dblink_send_query"
+      - 'dblink_connect'
+      - 'dblink_exec'
+      - 'dblink_send_query'
   condition: selection
 level: high
 ```
@@ -546,15 +545,15 @@ auditLog:
 
 ### 9.1 CRS Ruleset (ModSecurity / Coraza)
 
-| Rule ID    | Phase | Deskripsi                        |
-| ---------- | ----- | -------------------------------- |
-| **942100** | 2     | SQLi basic — `' OR 1=1 --`       |
-| **942110** | 2     | SQLi advanced — blind/time-based |
-| **942120** | 2     | SQLi — UNION SELECT              |
-| **942150** | 2     | SQLi — INTO OUTFILE / DUMPFILE   |
-| **942200** | 2     | SQLi — WAITFOR DELAY             |
-| **942370** | 2     | SQLi — classic `' OR '1'='1`     |
-| **942430** | 2     | SQLi — restricted characters     |
+| Rule ID | Phase | Deskripsi |
+|---------|-------|-----------|
+| **942100** | 2 | SQLi basic — `' OR 1=1 --` |
+| **942110** | 2 | SQLi advanced — blind/time-based |
+| **942120** | 2 | SQLi — UNION SELECT |
+| **942150** | 2 | SQLi — INTO OUTFILE / DUMPFILE |
+| **942200** | 2 | SQLi — WAITFOR DELAY |
+| **942370** | 2 | SQLi — classic `' OR '1'='1` |
+| **942430** | 2 | SQLi — restricted characters |
 
 ### 9.2 Rust-based WAF: libinjection in jarsWAF
 
@@ -565,7 +564,7 @@ use libinjection::{sqli, Libinjection};
 fn detect_sqli(input: &str) -> bool {
     let state = Libinjection::new();
     let result = state.sqli(input);
-
+    
     if result.is_sqli() {
         log::warn!("SQLi detected in input: fingerprint={:?}", result.fingerprint);
         true
@@ -613,17 +612,17 @@ Database Security Audit:
 
 ## Referensi
 
-- OWASP. _SQL Injection Prevention Cheat Sheet_. https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
-- PostgreSQL. _Row Security Policies_. https://www.postgresql.org/docs/current/ddl-rowsecurity.html
-- MongoDB. _Injection Prevention_. https://www.mongodb.com/docs/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection
-- pgaudit. _PostgreSQL Audit Extension_. https://github.com/pgaudit/pgaudit
-- CRS. _SQL Injection Rules_. https://coreruleset.org/docs/rules/sqli/
-- libinjection. _SQLi Detection Library_. https://github.com/libinjection/libinjection
-- ProxySQL. _Query Firewall_. https://proxysql.com/documentation/query-rules/
-- PostgreSQL. _TLS Configuration_. https://www.postgresql.org/docs/current/ssl-tcp.html
+- OWASP. *SQL Injection Prevention Cheat Sheet*. https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+- PostgreSQL. *Row Security Policies*. https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+- MongoDB. *Injection Prevention*. https://www.mongodb.com/docs/manual/faq/fundamentals/#how-does-mongodb-address-sql-or-query-injection
+- pgaudit. *PostgreSQL Audit Extension*. https://github.com/pgaudit/pgaudit
+- CRS. *SQL Injection Rules*. https://coreruleset.org/docs/rules/sqli/
+- libinjection. *SQLi Detection Library*. https://github.com/libinjection/libinjection
+- ProxySQL. *Query Firewall*. https://proxysql.com/documentation/query-rules/
+- PostgreSQL. *TLS Configuration*. https://www.postgresql.org/docs/current/ssl-tcp.html
 - CWE-89: Improper Neutralization of Special Elements used in an SQL Command. https://cwe.mitre.org/data/definitions/89.html
 - CWE-943: Improper Neutralization of Special Elements in Data Query Logic (NoSQLi). https://cwe.mitre.org/data/definitions/943.html
 
 ---
 
-_Dibuat: 19 Juli 2026 — Database security dari injection defense sampai RLS dan audit._
+*Dibuat: 19 Juli 2026 — Database security dari injection defense sampai RLS dan audit.*

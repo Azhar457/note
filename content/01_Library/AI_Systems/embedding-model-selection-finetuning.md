@@ -2,16 +2,16 @@
 title: 🧠 Embedding Model Selection & Fine-Tuning — Dari text-embedding-3-small ke
   Model Domain-Spesifik
 tags:
-  - embedding
-  - rag
-  - fine-tuning
-  - retrieval
-  - library
-created: "2026-07-16"
-updated: "2026-07-16"
+- embedding
+- rag
+- fine-tuning
+- retrieval
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: operational
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🧠 Embedding Model Selection & Fine-Tuning — Dari text-embedding-3-small ke Model Domain-Spesifik
@@ -47,12 +47,12 @@ Embedding model mengubah teks menjadi vektor angka (float array) di ruang dimens
 "resep nasi goreng" → [-0.12, 0.55, -0.33, ..., 0.01] (similarity: 0.12)
 ```
 
-| Konsep             | Penjelasan                                                                         |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| **Dimensi**        | Panjang vector. Makin tinggi → makin detail (tapi makin mahal storage & compute)   |
-| **Pooling**        | Cara model menggabungkan token embeddings jadi satu vector (CLS, mean, max)        |
-| **Normalization**  | Vector dinormalisasi ke unit length (L2 norm) biar cosine similarity = dot product |
-| **Context length** | Maks token yang bisa diproses sekaligus. > context length → truncation             |
+| Konsep | Penjelasan |
+|--------|-----------|
+| **Dimensi** | Panjang vector. Makin tinggi → makin detail (tapi makin mahal storage & compute) |
+| **Pooling** | Cara model menggabungkan token embeddings jadi satu vector (CLS, mean, max) |
+| **Normalization** | Vector dinormalisasi ke unit length (L2 norm) biar cosine similarity = dot product |
+| **Context length** | Maks token yang bisa diproses sekaligus. > context length → truncation |
 
 ### 1.2 Context Length Penting buat Chunking
 
@@ -64,28 +64,28 @@ Kalo embedding model punya context length 512 token, chunk lo harus ≤512 token
 
 ### 2.1 Model Matrix
 
-| Model                        | Dimensi                        | Context | MTEB* | Harga             | Open Source      | Catatan Vault                      |
-| ---------------------------- | ------------------------------ | ------- | ----- | ----------------- | ---------------- | ---------------------------------- |
-| **text-embedding-3-small**   | 1536 (dapat 256/512/1024)      | 8191    | 62.3  | 💲 $0.02/1M token | ❌               | **Saat ini dipake vault-rag**      |
-| **text-embedding-3-large**   | 3072 (dapat 256/512/1024/1536) | 8191    | 64.6  | 💲 $0.13/1M token | ❌               | Lebih akurat, 6.5x lebih mahal     |
-| **Cohere Embed v3**          | 1024                           | 512     | 62.0  | 💲 $0.10/1M       | ❌               | Binary quantization built-in       |
-| **BGE-M3**                   | 1024                           | 8192    | 64.0  | 🆓 Gratis         | ✅ Multi-lingual | Bisa multi-vector (sparse + dense) |
-| **BGE-large-en-v1.5**        | 1024                           | 512     | 63.0  | 🆓 Gratis         | ✅               | Best open-source English           |
-| **E5-mistral-7b-instruct**   | 4096                           | 4096    | 66.6  | 🆓 Gratis         | ✅               | Best overall, tapi butuh GPU 16GB+ |
-| **Jina-embeddings-v3**       | 1024                           | 8192    | 64.2  | 🆓 Gratis         | ✅               | Multi-lingual, task-specific LoRA  |
-| **GTE-Qwen2-7B**             | 3584                           | 8192    | 64.8  | 🆓 Gratis         | ✅               | Best open-source China             |
-| **Snowflake Arctic-embed-m** | 768                            | 512     | 61.0  | 🆓 Gratis         | ✅               | Ringan, cocok buat produksi        |
+| Model | Dimensi | Context | MTEB* | Harga | Open Source | Catatan Vault |
+|-------|---------|---------|-------|-------|-------------|---------------|
+| **text-embedding-3-small** | 1536 (dapat 256/512/1024) | 8191 | 62.3 | 💲 $0.02/1M token | ❌ | **Saat ini dipake vault-rag** |
+| **text-embedding-3-large** | 3072 (dapat 256/512/1024/1536) | 8191 | 64.6 | 💲 $0.13/1M token | ❌ | Lebih akurat, 6.5x lebih mahal |
+| **Cohere Embed v3** | 1024 | 512 | 62.0 | 💲 $0.10/1M | ❌ | Binary quantization built-in |
+| **BGE-M3** | 1024 | 8192 | 64.0 | 🆓 Gratis | ✅ Multi-lingual | Bisa multi-vector (sparse + dense) |
+| **BGE-large-en-v1.5** | 1024 | 512 | 63.0 | 🆓 Gratis | ✅ | Best open-source English |
+| **E5-mistral-7b-instruct** | 4096 | 4096 | 66.6 | 🆓 Gratis | ✅ | Best overall, tapi butuh GPU 16GB+ |
+| **Jina-embeddings-v3** | 1024 | 8192 | 64.2 | 🆓 Gratis | ✅ | Multi-lingual, task-specific LoRA |
+| **GTE-Qwen2-7B** | 3584 | 8192 | 64.8 | 🆓 Gratis | ✅ | Best open-source China |
+| **Snowflake Arctic-embed-m** | 768 | 512 | 61.0 | 🆓 Gratis | ✅ | Ringan, cocok buat produksi |
 
 \*MTEB = Massive Text Embedding Benchmark (rata-rata dari 56 dataset). Makin tinggi = makin baik.
 
 ### 2.2 Trade-off untuk Vault Ini
 
-| Skenario                   | Model Rekomendasi                            | Alasan                                                            |
-| -------------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
-| **Saat ini (9Router API)** | `text-embedding-3-small` (256d)              | OK. Cukup untuk production. Turunin dimensi ke 256 via Matryoshka |
-| **Local / offline**        | `BGE-M3` atau `Snowflake Arctic-embed-m`     | Open source, multilingual (BGE-M3), ringan                        |
-| **Max akurasi (ada GPU)**  | `E5-mistral-7b-instruct` atau `gte-Qwen2-7B` | Skor MTEB tertinggi                                               |
-| **Multi-lingual (EN+ID)**  | `BGE-M3` atau `Jina-embeddings-v3`           | Dukungan bahasa Indonesia                                         |
+| Skenario | Model Rekomendasi | Alasan |
+|----------|------------------|--------|
+| **Saat ini (9Router API)** | `text-embedding-3-small` (256d) | OK. Cukup untuk production. Turunin dimensi ke 256 via Matryoshka |
+| **Local / offline** | `BGE-M3` atau `Snowflake Arctic-embed-m` | Open source, multilingual (BGE-M3), ringan |
+| **Max akurasi (ada GPU)** | `E5-mistral-7b-instruct` atau `gte-Qwen2-7B` | Skor MTEB tertinggi |
+| **Multi-lingual (EN+ID)** | `BGE-M3` atau `Jina-embeddings-v3` | Dukungan bahasa Indonesia |
 
 ---
 
@@ -109,11 +109,11 @@ response = openai.embeddings.create(
 **Trade-off dimensi:**
 
 | Dimensi | Ukuran Index (1M vektor) | Performa Search | Akurasi (relatif) |
-| ------- | ------------------------ | --------------- | ----------------- |
-| 256     | ~200 MB                  | 🟢 Sangat cepat | 97% dari 1536     |
-| 512     | ~400 MB                  | 🟢 Cepat        | 99%               |
-| 1024    | ~800 MB                  | 🟡 Normal       | 99.8%             |
-| 1536    | ~1.2 GB                  | 🟡 Normal       | 100%              |
+|---------|-------------------------|-----------------|-------------------|
+| 256 | ~200 MB | 🟢 Sangat cepat | 97% dari 1536 |
+| 512 | ~400 MB | 🟢 Cepat | 99% |
+| 1024 | ~800 MB | 🟡 Normal | 99.8% |
+| 1536 | ~1.2 GB | 🟡 Normal | 100% |
 
 **Untuk vault-rag:** Bisa turunin ke 256d tanpa kehilangan akurasi signifikan → index sqlite-vec lebih kecil, query lebih cepat.
 
@@ -123,12 +123,12 @@ response = openai.embeddings.create(
 
 ### 4.1 Kapan Perlu?
 
-| Situasi                             | Fine-Tuning?   | Contoh                                                |
-| ----------------------------------- | -------------- | ----------------------------------------------------- |
-| Domain umum (Wikipedia, Reddit)     | ❌ Tidak perlu | Vault ini masih tahap ini                             |
-| Domain teknis sempit (hukum, medis) | 🟡 Mungkin     | Kode hukum, terminologi medis                         |
-| Bahasa/slang spesifik               | 🟡 Mungkin     | Bahasa Indonesia campur Inggris vault ini? Perlu test |
-| Query-doc distribution mismatch     | ✅ Ya          | Query pendek → dokumen panjang. Atau sebaliknya       |
+| Situasi | Fine-Tuning? | Contoh |
+|---------|-------------|--------|
+| Domain umum (Wikipedia, Reddit) | ❌ Tidak perlu | Vault ini masih tahap ini |
+| Domain teknis sempit (hukum, medis) | 🟡 Mungkin | Kode hukum, terminologi medis |
+| Bahasa/slang spesifik | 🟡 Mungkin | Bahasa Indonesia campur Inggris vault ini? Perlu test |
+| Query-doc distribution mismatch | ✅ Ya | Query pendek → dokumen panjang. Atau sebaliknya |
 
 **Untuk vault ini sekarang:** `text-embedding-3-small` sudah OK karena vault membahas topik mainstream (cybersecurity, networking, Linux). Fine-tuning baru perlu kalo vault mulai masuk ke niche teknis yang embedding model umum gak nangkep (misal: istilah lokal Indonesia, singkatan internal).
 
@@ -212,12 +212,12 @@ def eval_embedding(model_name, dimension=256):
 ## References
 
 1. MTEB Leaderboard. https://huggingface.co/spaces/mteb/leaderboard
-2. OpenAI. _Embeddings API_. https://platform.openai.com/docs/guides/embeddings
+2. OpenAI. *Embeddings API*. https://platform.openai.com/docs/guides/embeddings
 3. BGE-M3. https://huggingface.co/BAAI/bge-m3
 4. E5-mistral-7b-instruct. https://huggingface.co/intfloat/e5-mistral-7b-instruct
 5. Jina Embeddings v3. https://huggingface.co/jinaai/jina-embeddings-v3
-6. Sentence Transformers. _Training Overview_. https://www.sbert.net/docs/training/overview.html
-7. Matryoshka Embeddings. _OpenAI Cookbook_. https://cookbook.openai.com/examples/vector_store/using_matteyoshka_embeddings
+6. Sentence Transformers. *Training Overview*. https://www.sbert.net/docs/training/overview.html
+7. Matryoshka Embeddings. *OpenAI Cookbook*. https://cookbook.openai.com/examples/vector_store/using_matteyoshka_embeddings
 
 > [!tip] Bottom Line
 > Embedding model menentukan kualitas semantic search. Buat vault ini: **`text-embedding-3-small` (256d via Matryoshka) sudah OK.** Open source alternatif: **BGE-M3** (multilingual, sparse support) atau **Snowflake Arctic-embed-m** (ringan). Fine-tuning belum diperlukan — vault belum cukup niche. Eval berkala dengan query riil vault untuk deteksi kapan butuh upgrade atau fine-tuning.

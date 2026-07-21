@@ -1,14 +1,14 @@
 ---
 title: WASM Plugin System for WAF — Proxy-WASM & Sandboxed Extensibility
 tags:
-  - jarswaf
-  - webassembly
-  - proxy-wasm
-  - sandboxing
-  - rust
-  - extensibility
-created: "2026-07-19"
-updated: "2026-07-19"
+- jarswaf
+- webassembly
+- proxy-wasm
+- sandboxing
+- rust
+- extensibility
+created: '2026-07-19'
+updated: '2026-07-19'
 status: operational
 ---
 
@@ -48,7 +48,6 @@ status: operational
 Berikut adalah contoh filter WAF sederhana berbasis Rust yang memindai header `X-Custom-Bypass` untuk mendeteksi bypassing upaya ilegal.
 
 ### 2.1 Konfigurasi `Cargo.toml`
-
 Untuk meng-compile menjadi modul WASM, gunakan tipe library `cdylib`:
 
 ```toml
@@ -118,9 +117,7 @@ impl HttpContext for WafHttpContext {
 ```
 
 ### 2.3 Kompilasi Modul WASM
-
 Lakukan kompilasi ke target arsitektur `wasm32-wasi` atau `wasm32-unknown-unknown`:
-
 ```bash
 rustup target add wasm32-wasi
 cargo build --target wasm32-wasi --release
@@ -135,24 +132,24 @@ Kemampuan utama dari arsitektur WASM di jarsWAF adalah **hot-loading**—memperb
 
 1. **File Watcher**: jarsWAF memantau direktori khusus `/var/lib/jarswaf/plugins/` untuk mendeteksi file `.wasm` baru atau yang dimodifikasi.
 2. **Dynamic Instantiation**: Menggunakan runtime WASM (Wasmtime atau Wasmer), jarsWAF mengompilasi biner WASM baru ke mesin instruksi native (JIT) dan menginisialisasi instance engine virtual baru.
-3. **Atomic State Transition**: Koneksi HTTP baru diarahkan ke instance virtual baru melalui mekanisme penukaran pointer atomik, sementara koneksi lama yang masih memproses request tetap dilayani oleh instance modul lama hingga selesai (_graceful draining_).
+3. **Atomic State Transition**: Koneksi HTTP baru diarahkan ke instance virtual baru melalui mekanisme penukaran pointer atomik, sementara koneksi lama yang masih memproses request tetap dilayani oleh instance modul lama hingga selesai (*graceful draining*).
 
 ---
 
 ## 4. Isolasi Keamanan Sandbox WASM
 
-Menjalankan kode pihak ketiga berisiko tinggi. Namun, WebAssembly memberikan isolasi yang kuat melalui pendekatan _software-based fault isolation_ (SFI):
+Menjalankan kode pihak ketiga berisiko tinggi. Namun, WebAssembly memberikan isolasi yang kuat melalui pendekatan *software-based fault isolation* (SFI):
 
-- **Memory Sandboxing**: Modul WASM hanya memiliki akses ke memori linier miliknya sendiri yang didefinisikan oleh host. Modul WASM tidak dapat membaca atau menulis ke memori proses host jarsWAF (menghindari kerentanan _buffer overflow_ atau _out-of-bounds read_ pada level proxy).
+- **Memory Sandboxing**: Modul WASM hanya memiliki akses ke memori linier miliknya sendiri yang didefinisikan oleh host. Modul WASM tidak dapat membaca atau menulis ke memori proses host jarsWAF (menghindari kerentanan *buffer overflow* atau *out-of-bounds read* pada level proxy).
 - **System Call Restriction**: Secara default, WASM tidak memiliki akses ke sistem operasi (file system, network sockets, env vars). Semua interaksi harus melalui fungsi host yang dideklarasikan secara ketat dalam Proxy-WASM ABI. Modul filter tidak bisa membuka koneksi keluar sendiri tanpa izin host.
-- **Resource Limits (Watchdog)**: Host membatasi konsumsi memori dan waktu eksekusi CPU modul WASM. Jika plugin WASM mengalami infinite loop, interpreter JIT host akan menghentikan eksekusi secara paksa setelah melewati alokasi instruksi maksimum (_gas limit_), mencegah serangan DoS internal.
+- **Resource Limits (Watchdog)**: Host membatasi konsumsi memori dan waktu eksekusi CPU modul WASM. Jika plugin WASM mengalami infinite loop, interpreter JIT host akan menghentikan eksekusi secara paksa setelah melewati alokasi instruksi maksimum (*gas limit*), mencegah serangan DoS internal.
 
 ---
 
 ## 5. Koneksi ke Vault
 
-| Catatan                            | Hubungan                                                                           |
-| ---------------------------------- | ---------------------------------------------------------------------------------- |
-| [[waf-reverse-proxy-deepdive]]     | Platform proxy utama yang mengintegrasikan subsystem WASM runtime ini.             |
+| Catatan | Hubungan |
+|------|----------|
+| [[waf-reverse-proxy-deepdive]] | Platform proxy utama yang mengintegrasikan subsystem WASM runtime ini. |
 | [[platform-technologies-overview]] | Rincian arsitektur virtualisasi tingkat rendah dan perbandingan WASM vs Container. |
-| [[jarswaf-plan]]                   | Rencana integrasi sistem plugin WASM sebagai prioritas #3.                         |
+| [[jarswaf-plan]] | Rencana integrasi sistem plugin WASM sebagai prioritas #3. |
