@@ -1,6 +1,5 @@
 ---
-title: "🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts:
-  Schema-Constrained Decoding untuk Agent Communication yang Reliable"
+title: "🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts: Schema-Constrained Decoding untuk Agent Communication yang Reliable"
 tags:
   - structured-output
   - json-mode
@@ -12,8 +11,8 @@ tags:
   - library
 aliases:
   - json-mode-function-calling-deepdive
-created: "2026-07-19"
-updated: "2026-07-19"
+created: 2026-07-19
+updated: 2026-07-19
 status: growing
 cssclasses:
   - wide-table
@@ -86,17 +85,17 @@ USER PROMPT
     │
     ▼
 ┌────────────────────────────────────────┐
-│  Strategy A: JSON Mode (OpenAI)         │  ←─────────────────────┐
-│  - Prompt: "Respond with valid JSON..." │                       │
+│  Strategy A: JSON Mode (OpenAI)        │  ←─────────────────────┐
+│  - Prompt: "Respond with valid JSON..."│                       │
 │  - API param: response_format=json     │                       │
 │  - Post-hoc: parse & validate          │                       │
-│  - Risk: syntactically valid, semantic  │                       │
+│  - Risk: syntactically valid, semantic │                       │
 │    drift                               │                       │
 └────────────────┬───────────────────────┘                       │
                  │                                               │
                  ▼                                               │
 ┌────────────────────────────────────────┐                       │
-│  Strategy B: Function Calling (Provider)│                       │
+│  Strategy B: Function Calling (Provider)│                      │
 │  - Tool list passed to API             │                       │
 │  - Model selects tool + args           │                       │
 │  - Provider ensures args match schema  │                       │
