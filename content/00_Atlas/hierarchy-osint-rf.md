@@ -159,7 +159,7 @@ OSINT Level 4 (Shodan)          RF Level 0 (RTL-SDR)
 - [[hierarchy-search|Search Hierarchy]]
 - [[hierarchy-ai-levels|AI Levels Hierarchy]]
 - [[military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]]
-- [[military-intelligence-tools-hierarchy|military-and-intelligence-tools Hierarchy]]
+- [[hierarchy-military-intel-tools|military-and-intelligence-tools Hierarchy]]
 
 ---
 

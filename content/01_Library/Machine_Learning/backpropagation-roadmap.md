@@ -227,8 +227,8 @@ print(f"df/dy: {y.grad}")          # -1.0
 
 ## 7. Koneksi ke Vault
 
-| Catatan                                  | Hubungan                                                                      |
-| ---------------------------------------- | ----------------------------------------------------------------------------- |
-| [[backpropagation-deepdive]]             | Dasar teori, representasi graf komputasi, dan kalkulus balik _backward pass_. |
-| [[attention-mechanism-deepdive]]         | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
-| [[machine-learning-classical-hierarchy]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien.            |
+| Catatan                               | Hubungan                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| [[backpropagation-deepdive]]          | Dasar teori, representasi graf komputasi, dan kalkulus balik _backward pass_. |
+| [[attention-mechanism-deepdive]]      | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
+| [[hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien.            |

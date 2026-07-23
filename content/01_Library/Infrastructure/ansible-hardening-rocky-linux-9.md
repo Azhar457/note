@@ -324,5 +324,5 @@ ansible-playbook -i inventory/production.ini playbooks/site.yml
 - [[podman-networking-ufw]] — Konteks networking host Fedora (control node)
 - [[cicd-guide]] — Pattern CI/CD untuk enforcement hardening check
 - [[observability-stack-prometheus-grafana]] — Observability stack pasca-hardening (auditd → Wazuh/Prometheus)
-- [[it-domain-hierarchy]] — Atlas konteks Infrastructure domain
+- [[hierarchy-it-domain]] — Atlas konteks Infrastructure domain
 - [[obsidian-vault-padding|SOP Vault Padding]] — Pola penulisan catatan ringkas tapi dalam

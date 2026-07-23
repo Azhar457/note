@@ -810,7 +810,7 @@ LESSON:
 [[web-hacking-exploitation]]
   → Dependency confusion sebagai vektor serangan ke web app
 
-[[it-domain-hierarchy]]
+[[hierarchy-it-domain]]
   → Supply Chain Security sebagai sub-domain dari IT Security:
     Application Security → SCA / SBOM / Dependency Mgmt
     Infrastructure Security → Build / CICD Security

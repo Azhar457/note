@@ -137,7 +137,7 @@ Output:
 
 Input: "Apa itu Kubernetes?"
 Output:
-  TL;DR: Orchestrator container — kayak Docker Compus tapi untuk banyak server.
+  TL;DR: Orchestrator container — kayak Docker Compos tapi untuk banyak server.
   Detail:
     - ...
 

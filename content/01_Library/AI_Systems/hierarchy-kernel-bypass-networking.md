@@ -25,7 +25,7 @@ cssclasses:
 
 # Kernel Bypass Networking: From DPDK to eBPF Vector Cache
 
-> **TL;DR:** Kernel bypass adalah teknik melewatkan kernel network stack untuk mengeliminasi context switch, packet copy, dan syscall overhead. Teknik ini memungkinkan packet processing pada 10-50 Mpps (million packets per second) — dua orde magnitudo di atas kernel stack tradisional (~1-2 Mpps). Di ranah vector search, kernel bypass memungkinkan eBVC (eBPF Vector Cache) memproses query vector search di kernel-space dalam <50 µs — 100× lebih cepat dari userspace vector DB. Catatan ini membedah DPDK, AF_XDP, XDP_TX, io_uring networking, SmartNIC/DPU, dan bagaimana masing-masing beroperasi di hierarki Ring (lihat [[hierarchy-recursive-ring-deepdive]]).
+> [!tip] Kernel bypass adalah teknik melewatkan kernel network stack untuk mengeliminasi context switch, packet copy, dan syscall overhead. Teknik ini memungkinkan packet processing pada 10-50 Mpps (million packets per second) — dua orde magnitudo di atas kernel stack tradisional (~1-2 Mpps). Di ranah vector search, kernel bypass memungkinkan eBVC (eBPF Vector Cache) memproses query vector search di kernel-space dalam <50 µs — 100× lebih cepat dari userspace vector DB. Catatan ini membedah DPDK, AF_XDP, XDP_TX, io_uring networking, SmartNIC/DPU, dan bagaimana masing-masing beroperasi di hierarki Ring (lihat [[hierarchy-recursive-ring-deepdive]]).
 
 ---
 
@@ -635,12 +635,12 @@ Userspace round-trip (if miss)  ~5-500 µs (fallback)
 
 ## Koneksi ke Vault
 
-| Catatan                                           | Koneksi                                                                                              |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| [[hierarchy-recursive-ring-deepdive]]             | Ring hierarchy — io_uring (Ring 1), AF_XDP (Ring 0→2), XDP_TX (Ring 0), SmartNIC (Ring -1)           |
-| [[binary-quantization-hamming-popcount-deepdive]] | eBPF POPCNT limitation — mengapa kernel-space vector search butuh binary quantization (integer-only) |
-| [[ebpf-kernel-security]]                          | XDP hook, eBPF verifier constraints — bounded loops, no FPU, verified programs                       |
-| [[ebpf-beyond-security]]                          | XDP DDoS case study (Cilium 10+ Mpps), networking at Ring 0                                          |
-| [[vector-database-internals-optimization]]        | sqlite-vec (Ring 3) → FAISS (Ring 2) → io_uring (Ring 1) → eBVC (Ring 0)                             |
-| [[ebvc-daemon/src/main.rs]]                       | eBVC userspace daemon — AF_XDP or XDP_TX mode configuration                                          |
-| [[ebvc-ebpf/src/main.rs]]                         | eBVC kernel XDP program — XDP_TX reflection + BPF MAPS                                               |
+| Catatan                                            | Koneksi                                                                                              |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [[hierarchy-recursive-ring-deepdive]]              | Ring hierarchy — io_uring (Ring 1), AF_XDP (Ring 0→2), XDP_TX (Ring 0), SmartNIC (Ring -1)           |
+| [[hierarchy-binary-quantization-hamming-popcount]] | eBPF POPCNT limitation — mengapa kernel-space vector search butuh binary quantization (integer-only) |
+| [[ebpf-kernel-security]]                           | XDP hook, eBPF verifier constraints — bounded loops, no FPU, verified programs                       |
+| [[ebpf-beyond-security]]                           | XDP DDoS case study (Cilium 10+ Mpps), networking at Ring 0                                          |
+| [[vector-database-internals-optimization]]         | sqlite-vec (Ring 3) → FAISS (Ring 2) → io_uring (Ring 1) → eBVC (Ring 0)                             |
+| [[ebvc-daemon/src/main.rs]]                        | eBVC userspace daemon — AF_XDP or XDP_TX mode configuration                                          |
+| [[ebvc-ebpf/src/main.rs]]                          | eBVC kernel XDP program — XDP_TX reflection + BPF MAPS                                               |

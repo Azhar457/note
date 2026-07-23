@@ -19,7 +19,7 @@ cssclasses:
 > Panduan komprehensif differential privacy dari konsep epsilon sampai implementasi DP-SGD. Mencakup mekanisme DP (Laplace, Gaussian, Exponential), RAPPOR untuk federated data collection, PATE untuk private model training, DP-SGD untuk deep learning, dan perbandingan library (OpenDP, Opacus, diffprivlib, SmartNoise). Vault udah punya [[cryptography-biometrics]] (teori kriptografi Level 6: ZKP, FHE), [[digital-privacy-anonymity]] (Tor/I2P di network layer), [[synthetic-data-privacy]] (data sintetik), dan [[ai-governance-ethics]] (regulatory framework). Catatan ini mengisi gap: **implementasi praktis privacy-preserving tech** yang jadi jembatan antara teori dan production.
 
 > [!info] Posisi di Vault
-> Nota ini terkait dengan [[cryptography-biometrics]] (DP adalah implementasi praktis dari privacy tech yang dibahas di Level 6), [[digital-privacy-anonymity]] (DP melengkapi privacy di data layer — network layer sudah dibahas Tor/I2P), [[synthetic-data-privacy]] (data sintetik sering dikombinasikan dengan DP), [[ai-governance-ethics]] (EU AI Act mewajibkan privacy-preserving techniques untuk high-risk AI), [[adversarial-machine-learning]] (membership inference attack adalah motivasi utama DP), dan [[machine-learning-classical-hierarchy]] (DP-SGD bisa diterapkan di semua model).
+> Nota ini terkait dengan [[cryptography-biometrics]] (DP adalah implementasi praktis dari privacy tech yang dibahas di Level 6), [[digital-privacy-anonymity]] (DP melengkapi privacy di data layer — network layer sudah dibahas Tor/I2P), [[synthetic-data-privacy]] (data sintetik sering dikombinasikan dengan DP), [[ai-governance-ethics]] (EU AI Act mewajibkan privacy-preserving techniques untuk high-risk AI), [[adversarial-machine-learning]] (membership inference attack adalah motivasi utama DP), dan [[hierarchy-classical-ml-algorithms]] (DP-SGD bisa diterapkan di semua model).
 
 ---
 
@@ -280,5 +280,5 @@ For each batch:
 - [[synthetic-data-privacy]] — Data sintetik + DP = privacy guarantee yang provable
 - [[ai-governance-ethics]] — EU AI Act: DP adalah technical requirement untuk high-risk AI
 - [[adversarial-machine-learning]] — Membership inference attack: motivasi utama differential privacy
-- [[machine-learning-classical-hierarchy]] — DP-SGD bisa diterapkan di supervised & unsupervised
+- [[hierarchy-classical-ml-algorithms]] — DP-SGD bisa diterapkan di supervised & unsupervised
 - [[ai-engineering-stack-roadmap]] — Posisi privacy dalam AI engineering stack

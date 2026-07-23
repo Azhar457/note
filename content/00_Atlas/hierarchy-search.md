@@ -223,6 +223,6 @@ Bandwidth exit node sangat besar karena setiap user Tor yang exit melalui node k
 - [[hierarchy-ai-levels|AI Levels Hierarchy]]
 - [[cheatsheet|Cheat Engine]]
 - [[military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]]
-- [[military-intelligence-tools-hierarchy|military-and-intelligence-tools Hierarchy]]
+- [[hierarchy-military-intel-tools|military-and-intelligence-tools Hierarchy]]
 
 Dalam menggunakan layanan online, pengguna perlu berhati-hati dan memahami risiko yang terkait. Dengan memahami hierarki pencarian informasi, pengguna dapat lebih baik dalam mengakses informasi yang mereka butuhkan. Selain itu, pengguna juga perlu memahami cara mengakses setiap level dan menggunakan teknik yang tepat untuk meningkatkan keamanan dan anonimitas.

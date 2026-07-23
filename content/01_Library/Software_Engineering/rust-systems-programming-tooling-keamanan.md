@@ -31,7 +31,7 @@ cssclasses:
 
 - [[#1. Kenapa Rust untuk Security Tooling?]]
 - [[#2. Toolchain & Setup]]
-- [[#3. Ownership, Borrowing, Lifetime — TL;DR untuk Engineer]]
+- [[#3. Ownership, Borrowing, Lifetime untuk Engineer]]
 - [[#4. Unsafe Rust — Kapan & Kenapa]]
 - [[#5. Network Tooling — TCP Scanner Async]]
 - [[#6. Binary Parsing — Zero-Copy dengan nom]]
@@ -190,7 +190,7 @@ cargo doc --open
 
 ---
 
-## 3. Ownership, Borrowing, Lifetime — TL;DR untuk Engineer
+## 3. Ownership, Borrowing, Lifetime — untuk Engineer
 
 ### 3.1 Ownership Rules
 

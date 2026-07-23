@@ -13,7 +13,7 @@ status: operational
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Reinforcement Learning (RL) adalah cabang pembelajaran mesin yang berfokus pada pengambilan keputusan sekuensial (_sequential decision-making_) guna memaksimalkan akumulasi hadiah (_cumulative reward_). Catatan ini melengkapi pembahasan teori klasik di [[machine-learning-classical-hierarchy]] dan integrasinya untuk keamanan siber.
+> Reinforcement Learning (RL) adalah cabang pembelajaran mesin yang berfokus pada pengambilan keputusan sekuensial (_sequential decision-making_) guna memaksimalkan akumulasi hadiah (_cumulative reward_). Catatan ini melengkapi pembahasan teori klasik di [[hierarchy-classical-ml-algorithms]] dan integrasinya untuk keamanan siber.
 
 ## Daftar Isi
 
@@ -104,8 +104,8 @@ Penggunaan RL di domain cybersecurity mengubah paradigma analisis dari statis me
 
 ## 6. Koneksi ke Vault
 
-| Catatan                                  | Hubungan                                                                                        |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [[machine-learning-classical-hierarchy]] | Klasifikasi metodologi RL dalam peta jalan kecerdasan buatan.                                   |
-| [[adversarial-machine-learning]]         | Teknik memanipulasi input observasi agen RL agar mengambil keputusan salah (_evasion attacks_). |
-| [[blueteam-detection-matrix]]            | Pengenalan taktik pertahanan yang didefinisikan sebagai penalti pada reward function agen RL.   |
+| Catatan                               | Hubungan                                                                                        |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [[hierarchy-classical-ml-algorithms]] | Klasifikasi metodologi RL dalam peta jalan kecerdasan buatan.                                   |
+| [[adversarial-machine-learning]]      | Teknik memanipulasi input observasi agen RL agar mengambil keputusan salah (_evasion attacks_). |
+| [[blueteam-detection-matrix]]         | Pengenalan taktik pertahanan yang didefinisikan sebagai penalti pada reward function agen RL.   |

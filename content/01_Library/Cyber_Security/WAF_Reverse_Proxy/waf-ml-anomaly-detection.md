@@ -220,9 +220,9 @@ impl WafState {
 
 ## 5. Koneksi ke Vault
 
-| Catatan                                  | Hubungan                                                                                  |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [[waf-reverse-proxy-deepdive]]           | Dasar data plane reverse proxy tempat ONNX engine ini berjalan.                           |
-| [[machine-learning-classical-hierarchy]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest.                 |
-| [[adversarial-machine-learning]]         | Teknik penyerang untuk meracuni model anomali WAF (_model poisoning_ / _evasion attack_). |
-| [[jarswaf-plan]]                         | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1.          |
+| Catatan                               | Hubungan                                                                                  |
+| ------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [[waf-reverse-proxy-deepdive]]        | Dasar data plane reverse proxy tempat ONNX engine ini berjalan.                           |
+| [[hierarchy-classical-ml-algorithms]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest.                 |
+| [[adversarial-machine-learning]]      | Teknik penyerang untuk meracuni model anomali WAF (_model poisoning_ / _evasion attack_). |
+| [[jarswaf-plan]]                      | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1.          |

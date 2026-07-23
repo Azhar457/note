@@ -532,5 +532,5 @@ query = np.random.randn(1024).astype(np.float32)
 | [[cosine-similarity-deepdive]]             | Transisi metrik Cosine → Hamming; referensi silang implementasi cosine                    |
 | [[jina-embeddings-v5-mrl-adapters]]        | Jina v5 1024-dim — binary quantization sebagai search tier                                |
 | [[hierarchy-recursive-ring-deepdive]]      | Phase transition: cosine→hamming sebagai descent Ring 3→Ring 0                            |
-| [[kernel-bypass-networking-deepdive]]      | Keterbatasan eBPF POPCNT — mengapa kernel-space vector search butuh hardware acceleration |
+| [[hierarchy-kernel-bypass-networking]]     | Keterbatasan eBPF POPCNT — mengapa kernel-space vector search butuh hardware acceleration |
 | [[ebpf-kernel-security]]                   | Kendala eBPF verifier — bounded loops untuk manual popcount                               |

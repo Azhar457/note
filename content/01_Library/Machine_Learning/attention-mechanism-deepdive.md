@@ -18,7 +18,7 @@ updated: 2026-07-11
 
 # Attention Mechanism: Revolusi Representasi Sequence
 
-> **TL;DR**: Attention = mekanisme yang memungkinkan model memfokuskan "perhatian" pada bagian input yang relevan, dengan bobot dinamis yang dihitung dari kesesuaian (compatibility) antara query dan key. Ini fondasi Transformer. Tanpa attention, LLM, GPT, BERT, dan semua model sequence modern tidak ada.
+> [!tip] Attention = mekanisme yang memungkinkan model memfokuskan "perhatian" pada bagian input yang relevan, dengan bobot dinamis yang dihitung dari kesesuaian (compatibility) antara query dan key. Ini fondasi Transformer. Tanpa attention, LLM, GPT, BERT, dan semua model sequence modern tidak ada.
 
 ---
 

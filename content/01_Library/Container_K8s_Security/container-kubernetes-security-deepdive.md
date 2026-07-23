@@ -14,7 +14,7 @@ cssclasses: ""
 > Panduan komprehensif — dari container runtime hardening hingga Kubernetes cluster defense. Mencakup attack surface, image security, runtime monitoring, RBAC, network policies, supply chain SLSA, admission control, secrets management, studi kasus nyata, dan tooling audit.
 
 > [!INFO] Navigasi Vault
-> Topik ini terkait erat dengan [[cicd-shiftleft-shiftright]] (DevSecOps pipeline), [[ebpf-kernel-security]] (eBPF-based runtime defense), [[comprehensive-threat-directory]] (threat taxonomy), [[web-hacking-exploitation]] (web-layer attacks yang kerap menjadi entry point ke K8s), dan [[it-domain-hierarchy]] (domain trust model).
+> Topik ini terkait erat dengan [[cicd-shiftleft-shiftright]] (DevSecOps pipeline), [[ebpf-kernel-security]] (eBPF-based runtime defense), [[comprehensive-threat-directory]] (threat taxonomy), [[web-hacking-exploitation]] (web-layer attacks yang kerap menjadi entry point ke K8s), dan [[hierarchy-it-domain]] (domain trust model).
 
 ---
 
@@ -941,7 +941,7 @@ kubescape scan framework nsa --format html -o report.html
 > - [[ebpf-kernel-security]] — eBPF, XDP, and kernel security mechanisms
 > - [[cicd-shiftleft-shiftright]] — DevSecOps pipeline implementation
 > - [[web-hacking-exploitation]] — common web attacks leading to K8s compromise
-> - [[it-domain-hierarchy]] — enterprise domain trust and privilege model
+> - [[hierarchy-it-domain]] — enterprise domain trust and privilege model
 >
 > **Dokumentasi resmi:**
 >

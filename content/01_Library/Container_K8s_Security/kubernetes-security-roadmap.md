@@ -293,4 +293,4 @@ Untuk cluster production yang sudah jalan dan mau di-hardening:
 - [[homelab-security-architecture-synthesis]] — Pattern deploy K8s di homelab
 - [[cosign-pipeline]] (planned) — Image signing + admission enforcement
 - [[pod-security-standards]] (planned) — Episode pendek PSA `privileged|basedline|restricted`
-- [[it-domain-hierarchy]] — Ontology cluster / K8s dalam hierarki IT domain
+- [[hierarchy-it-domain]] — Ontology cluster / K8s dalam hierarki IT domain

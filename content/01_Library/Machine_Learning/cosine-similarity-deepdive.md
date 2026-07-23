@@ -16,7 +16,7 @@ updated: 2026-07-11
 
 # Cosine Similarity: Mengukur Kedekatan Vektor
 
-> **TL;DR**: Cosine similarity mengukur sudut antara dua vektor — seberapa "searah" mereka terlepas dari panjang/ magnitude-nya. Rentang [-1, 1]. 1 = identik arah, 0 = ortogonal, -1 = berlawanan.
+> [!tip] Cosine similarity mengukur sudut antara dua vektor — seberapa "searah" mereka terlepas dari panjang/ magnitude-nya. Rentang [-1, 1]. 1 = identik arah, 0 = ortogonal, -1 = berlawanan.
 
 ---
 
