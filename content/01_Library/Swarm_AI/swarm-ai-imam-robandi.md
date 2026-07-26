@@ -589,6 +589,7 @@ print(nn.forward(X))
 | Fuzzy Logic → penilaian | [[software-quality-untung-yuhana]] (kualitas perangkat lunak)  |
 | NN → prediksi           | [[test-time-compute-system2]] (system 1 vs system 2)           |
 | Swarm → multi-agent     | [[meta-agent-orchestration]] (agent orchestration)             |
+| ACO → agent routing     | [[aco-agent-routing-deepdive]] (pheromone dispatch)            |
 | Emergent behavior       | [[cognitive-architecture-engineering]] (emergent cognition)    |
 
 ---
