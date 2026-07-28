@@ -28,7 +28,7 @@ cssclasses:
 ## Daftar Isi
 
 1. [[#1. Premise — Bunker Pengetahuan untuk Masa Depan]]
-2. [[#2. Kitab Suci — Buku yang Harus Ada]]
+2. [[#2. Buku Utama — Buku yang Harus Ada]]
 3. [[#3. Pertanian, Pangan & Botani (Level 0)]]
 4. [[#4. Teknologi Tepat Guna & Rekayasa (Level 1)]]
 5. [[#5. Kimia & Material Dasar (Level 2)]]
