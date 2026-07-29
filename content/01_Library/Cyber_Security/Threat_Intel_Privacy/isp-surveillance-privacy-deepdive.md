@@ -28,7 +28,7 @@ cssclasses:
 > Ringkasan satu-paragraf menjelaskan bahwa Internet Service Provider (ISP) memiliki kemampuan unik untuk memantau hampir seluruh aktivitas digital pengguna — mulai dari riwayat pencarian, data perbankan, hingga pergerakan fisik di dalam rumah melalui teknologi Wi-Fi Sensing. Panduan ini membahas mekanisme teknis surveillance ISP, dampak politik dari pencabutan aturan privasi FCC dan Net Neutrality, studi kasus penyalahgunaan kekuatan ISP, serta langkah-langkah konkret untuk melindungi privasi digital menggunakan VPN, DNS terenkripsi (DoH/DoT), dan Encrypted Client Hello (ECH).
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[network-security]] untuk lapisan deteksi dan enkripsi jaringan, [[threat-modeling-deepdive]] untuk analisis ancaman pada infrastruktur komunikasi, [[comprehensive-threat-directory]] untuk taksonomi surveillance dan data exfiltration, serta [[zero-trust-security]] untuk prinsip "never trust, always verify" pada setiap hop jaringan.
+> Catatan ini terkait dengan [[network-security]] untuk lapisan deteksi dan enkripsi jaringan, [[threat-modeling-deepdive]] untuk analisis ancaman pada infrastruktur komunikasi, [[comprehensive-threat-directory]] untuk taksonomi surveillance dan data exfiltration, serta [[zero-trust-security]] untuk prinsip "never trust, always verify" pada setiap hop jaringan.
 
 ---
 

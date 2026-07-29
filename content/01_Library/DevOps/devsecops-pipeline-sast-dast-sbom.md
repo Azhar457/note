@@ -15,7 +15,7 @@ cssclasses: ""
 > Panduan implementasi keamanan di pipeline CI/CD — dari Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), Software Composition Analysis (SCA), Software Bill of Materials (SBOM), hingga secret scanning. Mencakup toolchain konkret (Semgrep, CodeQL, ZAP, Trivy, Syft, Grype, Gitleaks), integrasi di GitHub Actions/GitLab CI, pipeline gates berdasarkan severity, serta strategi shift-left vs shift-right dalam konteks DevSecOps modern.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[cicd-shiftleft-shiftright]] untuk framework strategi keamanan di SDLC, [[cicd-guide]] sebagai panduan implementasi pipeline dasar, [[container-kubernetes-security-deepdive]] untuk container image scanning di pipeline (Trivy, cosign), [[cloud-security-posture-management]] untuk IaC scanning (Checkov, tfsec), [[software-supply-chain-security-deepdive]] untuk rantai pasok perangkat lunak, dan [[api-security-deep-dive]] untuk DAST fokus API.
+> Catatan ini terkait dengan [[cicd-shiftleft-shiftright]] untuk framework strategi keamanan di SDLC, [[cicd-guide]] sebagai panduan implementasi pipeline dasar, [[container-kubernetes-security-deepdive]] untuk container image scanning di pipeline (Trivy, cosign), [[cloud-security-posture-management]] untuk IaC scanning (Checkov, tfsec), [[software-supply-chain-security-deepdive]] untuk rantai pasok perangkat lunak, dan [[api-security-deep-dive]] untuk DAST fokus API.
 
 ---
 

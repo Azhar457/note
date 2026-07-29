@@ -16,7 +16,7 @@ cssclasses: ""
 > Panduan komprehensif infrastruktur keamanan Windows dan Active Directory — dari arsitektur Domain Services (AD DS), protokol autentikasi (Kerberos, NTLM, LDAP), struktur Group Policy, hingga attack surface yang dieksploitasi oleh C2 framework seperti Sliver, Cobalt Strike, dan Empire. Mencakup teknik post-exploitation Windows (token manipulation, DLL injection, LSASS dumping) serta deteksi dan hardening dari perspektif blue team.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[sliver]] dan [[cobalt-strike]] dan [[empire]] untuk memahami bagaimana C2 framework mengeksploitasi mekanisme Windows post-exploitation, [[blueteam-detection-matrix]] untuk deteksi lateral movement berbasis Windows event logs, [[endpoint-detection-playbook]] untuk triage forensik di host Windows, [[identity-and-access-management]] untuk fondasi IAM, dan [[zero-trust-security]] untuk prinsip least privilege akses AD.
+> Catatan ini terkait dengan [[sliver]] dan [[cobalt-strike]] dan [[empire]] untuk memahami bagaimana C2 framework mengeksploitasi mekanisme Windows post-exploitation, [[blueteam-detection-matrix]] untuk deteksi lateral movement berbasis Windows event logs, [[endpoint-detection-playbook]] untuk triage forensik di host Windows, [[identity-and-access-management]] untuk fondasi IAM, dan [[zero-trust-security]] untuk prinsip least privilege akses AD.
 
 ---
 

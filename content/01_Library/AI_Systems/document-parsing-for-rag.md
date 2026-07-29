@@ -28,7 +28,7 @@ cssclasses:
 > ThoughtWorks Technology Radar Vol.34 (April 2026) memasukkan **Docling** ke ring **Trial** sebagai unified document parser lintas format (PDF/DOCX/PPTX/HTML) yang dirilis IBM Research. Docling menyediakan `DoclingDocument` sebagai intermediate unified representation, output ke Markdown/JSON/DocTags, dan punya TableFormer model untuk table structure native. Untuk pipeline RAG yang butuh format beragam dan self-host, Docling jadi pilihan default untuk adopt tahun ini. Detail lengkap soal Docling, comparison table, dan implementasi kode lihat [[docling-deepdive]].
 
 > [!info] Hubungan ke Vault
-> Nota ini adalah **pintu masuk data eksternal** ke vault. Output parser (teks markdown terstruktur) adalah input untuk [[advanced-chunking-strategies-deepdive]] (parent-child chunking). Terkait dengan [[ai-engineering-stack-roadmap]] (Fase 2: Data Pipeline), [[encoding-serialization-compression-deepdive]] (encoding charset), dan [[linux-fundamentals-deepdive]] (filesystem path, encoding locales).
+> Catatan ini adalah **pintu masuk data eksternal** ke vault. Output parser (teks markdown terstruktur) adalah input untuk [[advanced-chunking-strategies-deepdive]] (parent-child chunking). Terkait dengan [[ai-engineering-stack-roadmap]] (Fase 2: Data Pipeline), [[encoding-serialization-compression-deepdive]] (encoding charset), dan [[linux-fundamentals-deepdive]] (filesystem path, encoding locales).
 
 ---
 

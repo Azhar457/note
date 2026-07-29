@@ -16,10 +16,10 @@ cssclasses:
 
 # 🔒 TLS/SSL — Deep Dive: Handshake, Cipher Suites, Certificate Chain, Attacks & Detection
 
-> Nota ini adalah panduan komprehensif Transport Layer Security — dari sejarah SSL sampai TLS 1.3. Mencakup handshake step-by-step (TLS 1.2 vs 1.3), cipher suite anatomy, Certificate Authority hierarchy & chain validation, key exchange (RSA vs DH vs ECDHE), forward secrecy, session resumption, TLS fingerprinting (JA3/JA3S), TLS in HTTP/2 and HTTP/3, downgrade attacks (BEAST, CRIME, POODLE, ROBOT), dan practical detection of malicious TLS (C2 beaconing, encrypted traffic analysis). TLS adalah **perimeter baru** setelah network perimeter hilang.
+> Catatan ini adalah panduan komprehensif Transport Layer Security — dari sejarah SSL sampai TLS 1.3. Mencakup handshake step-by-step (TLS 1.2 vs 1.3), cipher suite anatomy, Certificate Authority hierarchy & chain validation, key exchange (RSA vs DH vs ECDHE), forward secrecy, session resumption, TLS fingerprinting (JA3/JA3S), TLS in HTTP/2 and HTTP/3, downgrade attacks (BEAST, CRIME, POODLE, ROBOT), dan practical detection of malicious TLS (C2 beaconing, encrypted traffic analysis). TLS adalah **perimeter baru** setelah network perimeter hilang.
 
 > [!info] Posisi di Vault
-> Nota ini terkait dengan [[http-protocol-deepdive]] (HTTPS = HTTP + TLS), [[cryptography-biometrics]] (crypto primitives yang dipake TLS), [[networking-fundamentals-tcpip-bgp]] (TCP handshake yang terjadi sebelum TLS), [[waf-reverse-proxy-deepdive]] (TLS termination di reverse proxy), [[container-kubernetes-security-deepdive]] (mTLS di service mesh), [[cloudflare-ruleset-engine-phases]] (TLS inspection), [[cobalt-strike]] dan [[sliver]] (C2 HTTPS profiles, JA3 evasion), dan [[comprehensive-threat-directory]] (TLS attack taxonomy).
+> Catatan ini terkait dengan [[http-protocol-deepdive]] (HTTPS = HTTP + TLS), [[cryptography-biometrics]] (crypto primitives yang dipake TLS), [[networking-fundamentals-tcpip-bgp]] (TCP handshake yang terjadi sebelum TLS), [[waf-reverse-proxy-deepdive]] (TLS termination di reverse proxy), [[container-kubernetes-security-deepdive]] (mTLS di service mesh), [[cloudflare-ruleset-engine-phases]] (TLS inspection), [[cobalt-strike]] dan [[sliver]] (C2 HTTPS profiles, JA3 evasion), dan [[comprehensive-threat-directory]] (TLS attack taxonomy).
 
 ---
 

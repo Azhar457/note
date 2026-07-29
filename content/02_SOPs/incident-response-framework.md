@@ -13,10 +13,10 @@ cssclasses: ""
 
 # 🚨 Incident Response Framework — NIST CSF, SANS PICERL, Detection Engineering & Post-Mortem
 
-> Panduan komprehensif incident response (IR) yang menyatukan kerangka kerja standar (NIST CSF, SANS PICERL, MITRE ATT&CK), detection engineering lifecycle, playbook execution, forensic acquisition, hingga post-mortem analysis. Nota ini adalah **hub sentral** yang mengikat semua SOP yang ada di vault ke dalam satu siklus IR yang terstruktur — dari preparation hingga lessons learned. Bisa digunakan sebagai acuan untuk SOC tim, blue team drills, dan maturity assessment.
+> Panduan komprehensif incident response (IR) yang menyatukan kerangka kerja standar (NIST CSF, SANS PICERL, MITRE ATT&CK), detection engineering lifecycle, playbook execution, forensic acquisition, hingga post-mortem analysis. Catatan ini adalah **hub sentral** yang mengikat semua SOP yang ada di vault ke dalam satu siklus IR yang terstruktur — dari preparation hingga lessons learned. Bisa digunakan sebagai acuan untuk SOC tim, blue team drills, dan maturity assessment.
 
 > [!info] Hubungan ke Vault
-> Nota ini adalah **hub** yang mengikat: [[arp-spoofing-mitigation]] (containment), [[forensic-imaging-analysis]] (acquisition), [[hpa-exorcism]] dan [[systemrescue-recovery]] (recovery), [[storage-refurbishing]] (eradication), [[endpoint-detection-playbook]] (triage), [[blueteam-detection-matrix]] dan [[blueteam-vs-enterprise-c2]] (detection), [[malware-analysis-reverse-engineering-playbook]] (analysis), serta [[threat-modeling-deepdive]] dan [[comprehensive-threat-directory]] (threat intel). Setiap SOP di vault ini dipetakan ke fase IR tertentu.
+> Catatan ini adalah **hub** yang mengikat: [[arp-spoofing-mitigation]] (containment), [[forensic-imaging-analysis]] (acquisition), [[hpa-exorcism]] dan [[systemrescue-recovery]] (recovery), [[storage-refurbishing]] (eradication), [[endpoint-detection-playbook]] (triage), [[blueteam-detection-matrix]] dan [[blueteam-vs-enterprise-c2]] (detection), [[malware-analysis-reverse-engineering-playbook]] (analysis), serta [[threat-modeling-deepdive]] dan [[comprehensive-threat-directory]] (threat intel). Setiap SOP di vault ini dipetakan ke fase IR tertentu.
 
 ---
 

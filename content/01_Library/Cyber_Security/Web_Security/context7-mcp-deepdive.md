@@ -15,7 +15,7 @@ cssclasses: ""
 > Ringkasan satu-paragraf menjelaskan bahwa Context7 MCP adalah server Model Context Protocol (MCP) dari tim Upstash yang menyediakan dokumentasi kode _up-to-date_ dan _version-specific_ untuk LLM dan AI code editor. Panduan ini membahas cara membangun MCP server kustom untuk Digital Garden (Obsidian) dan mengadaptasi pola komponen seperti React Bits ke framework lain (Svelte) dengan memanfaatkan arsitektur MCP sebagai jembatan kontekstual antar ekosistem.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[threat-modeling-deepdive]] untuk prinsip keamanan dalam arsitektur sistem, [[comprehensive-threat-directory]] untuk ancaman pada integrasi AI-agent, serta [[devops]] dan [[system-design]] untuk pipeline CI/CD dan arsitektur serverless.
+> Catatan ini terkait dengan [[threat-modeling-deepdive]] untuk prinsip keamanan dalam arsitektur sistem, [[comprehensive-threat-directory]] untuk ancaman pada integrasi AI-agent, serta [[devops]] dan [[system-design]] untuk pipeline CI/CD dan arsitektur serverless.
 
 ---
 

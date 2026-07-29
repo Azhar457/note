@@ -24,7 +24,7 @@ cssclasses:
 > Ringkasan satu-paragraf menjelaskan bahwa 15 DSA (Data Structures & Algorithms) patterns adalah kumpulan pola fundamental yang muncul berulang kali dalam coding interviews dan competitive programming. Menguasai pola-pola ini memungkinkan programmer untuk mengidentifikasi solusi optimal dalam waktu singkat, mengurangi kompleksitas waktu dari O(n²) ke O(n) atau O(log n), dan menyelesaikan masalah yang tampaknya sulit dengan pendekatan yang terstruktur dan teruji.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[system-design]] untuk kompleksitas algoritmik dalam arsitektur sistem, [[comprehensive-threat-directory]] untuk analisis kompleksitas serangan kriptografis, serta [[devops]] untuk optimasi performa pipeline.
+> Catatan ini terkait dengan [[system-design]] untuk kompleksitas algoritmik dalam arsitektur sistem, [[comprehensive-threat-directory]] untuk analisis kompleksitas serangan kriptografis, serta [[devops]] untuk optimasi performa pipeline.
 
 ---
 

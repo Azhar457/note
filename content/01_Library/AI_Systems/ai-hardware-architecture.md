@@ -20,7 +20,7 @@ cssclasses:
 > Panduan komprehensif hardware khusus AI — dari GPU general-purpose sampai ASIC dedicated. Mencakup NPU (Neural Processing Unit) di mobile SoC (Apple Neural Engine, Qualcomm Hexagon, Samsung NPU, MediaTek APU), TPU (Tensor Processing Unit) Google untuk training & inference, GPU sebagai AI accelerator (NVIDIA H100/B200, AMD MI300X), ASIC custom (Cerebras Wafer-Scale, Groq, SambaNova, Tenstorrent), in-memory computing (memristor, ReRAM, PIM), dan metrik perbandingan (TOPS, TFLOPS, TOPS/W, latency, throughput). Vault udah punya [[gpu-programming-parallel-compute]] (CUDA/ROCm programming) dan [[embedded-systems]] (IoT hardware) — catatan ini melengkapi dari sisi AI accelerator silicon.
 
 > [!info] Posisi di Vault
-> Nota ini terkait dengan [[gpu-programming-parallel-compute]] (GPU arsitektur & programming — GPU adalah AI accelerator paling umum), [[production-model-serving-optimization]] (inference optimization di berbagai hardware), [[edge-computing-iot-security-architecture]] (NPU di edge device), [[computer-vision-deepdive]] (computer vision di embedded NPU), [[embedded-systems]] (SoC architecture), dan [[platform-technologies-overview]] (teknologi platform berkinerja tinggi).
+> Catatan ini terkait dengan [[gpu-programming-parallel-compute]] (GPU arsitektur & programming — GPU adalah AI accelerator paling umum), [[production-model-serving-optimization]] (inference optimization di berbagai hardware), [[edge-computing-iot-security-architecture]] (NPU di edge device), [[computer-vision-deepdive]] (computer vision di embedded NPU), [[embedded-systems]] (SoC architecture), dan [[platform-technologies-overview]] (teknologi platform berkinerja tinggi).
 
 ---
 

@@ -15,7 +15,7 @@ cssclasses: ""
 > Ringkasan satu-paragraf menjelaskan bahwa threat modeling adalah proses sistematis untuk mengidentifikasi, mengkuantifikasi, dan mengatasi risiko keamanan dalam sistem perangkat lunak atau infrastruktur melalui pendekatan berbasis struktur (seperti STRIDE, PASTA, attack tree) dan mengintegrasikannya ke dalam siklus hidup pengembangan (SDLC) maupun operasi keamanan.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[comprehensive-threat-directory]] untuk taksonomi ancaman, [[network-security]] dan [[endpoint-security]] untuk lapisan deteksi, serta [[system-design]] untuk arsitektur sistem yang dimodelkan.
+> Catatan ini terkait dengan [[comprehensive-threat-directory]] untuk taksonomi ancaman, [[network-security]] dan [[endpoint-security]] untuk lapisan deteksi, serta [[system-design]] untuk arsitektur sistem yang dimodelkan.
 
 ---
 

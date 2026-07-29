@@ -16,7 +16,7 @@ cssclasses: ""
 > Panduan komprehensif keamanan cloud-native mulai dari Cloud Security Posture Management (CSPM), Kubernetes admission control (OPA/Gatekeeper, Kyverno), AWS IAM policies & identity federation, cloud-native WAF (AWS WAF, Cloud Armor, Cloudflare WAF), hingga CIEM (Cloud Infrastructure Entitlement Management). Mencakup attack vectors spesifik cloud (S3 bucket misconfiguration, IAM privilege escalation, K8s RBAC abuse) serta tooling deteksi (CloudSploit, Prowler, Checkov, Kubescape).
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[cloud-infrastructure]] untuk gambaran arsitektur cloud secara umum, [[container-kubernetes-security-deepdive]] untuk fondasi keamanan container yang diperluas ke admission control dan cloud security posture, [[cicd-shiftleft-shiftright]] dan [[cicd-guide]] untuk DevSecOps pipeline placement, [[Note/01_Library/Cyber_Security/IAM/identity-and-access-management|identity-and-access-management]] untuk identitas dan akses, [[api-security-deep-dive]] dan [[waf-reverse-proxy-deepdive]] untuk WAF di perimeter cloud, serta [[zero-trust-security]] untuk prinsip zero trust di cloud.
+> Catatan ini terkait dengan [[cloud-infrastructure]] untuk gambaran arsitektur cloud secara umum, [[container-kubernetes-security-deepdive]] untuk fondasi keamanan container yang diperluas ke admission control dan cloud security posture, [[cicd-shiftleft-shiftright]] dan [[cicd-guide]] untuk DevSecOps pipeline placement, [[Note/01_Library/Cyber_Security/IAM/identity-and-access-management|identity-and-access-management]] untuk identitas dan akses, [[api-security-deep-dive]] dan [[waf-reverse-proxy-deepdive]] untuk WAF di perimeter cloud, serta [[zero-trust-security]] untuk prinsip zero trust di cloud.
 
 ---
 
