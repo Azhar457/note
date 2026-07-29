@@ -12,7 +12,7 @@ aliases:
   - CI/CD Pipeline Map
   - From Code to Production
   - DevOps Evolution Stack
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -10,7 +10,7 @@ tags:
   - pedagogy
 created: "2026-07-21"
 updated: "2026-07-21"
-status: operational
+status: pending
 cssclasses:
   - wide-table
 aliases:

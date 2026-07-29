@@ -10,7 +10,7 @@ aliases:
   - Vector Quantization and HNSW Tuning
   - HNSW Parameters
   - Vector Compression
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

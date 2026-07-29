@@ -11,7 +11,7 @@ aliases:
   - Dari Qubit ke Quantum Advantage
   - Quantum Stack Lengkap
   - Quantum Computing Researcher Reference
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -10,7 +10,7 @@ tags:
   - hardware
 created: "2026-07-18"
 updated: "2026-07-18"
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

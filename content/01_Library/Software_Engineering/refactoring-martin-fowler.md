@@ -7,7 +7,7 @@ tags:
   - software-engineering
 created: "2026-07-19"
 updated: "2026-07-19"
-status: operational
+status: pending
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault

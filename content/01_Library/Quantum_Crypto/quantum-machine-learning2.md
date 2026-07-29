@@ -10,7 +10,7 @@ aliases:
   - QML Architecture
   - Hybrid Classical-Quantum Intelligence
 created: 2026-07-14
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

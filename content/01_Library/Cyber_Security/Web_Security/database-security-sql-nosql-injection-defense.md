@@ -14,7 +14,7 @@ aliases:
   - "postgres-rls"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: active
+status: pending
 cssclasses:
   - wide-table
 ---

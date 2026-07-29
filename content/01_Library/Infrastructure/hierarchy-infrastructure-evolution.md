@@ -11,7 +11,7 @@ aliases:
   - Cloud to Edge Hierarchy
   - Infrastructure Layer Map
   - From Datacenter to AI-Native
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

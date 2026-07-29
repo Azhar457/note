@@ -6,7 +6,7 @@ tags:
   - retrieval
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Semantic search menggunakan meaning (embedding) bukan keyword matching.

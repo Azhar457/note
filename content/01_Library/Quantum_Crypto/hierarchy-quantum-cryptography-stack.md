@@ -12,7 +12,7 @@ aliases:
   - Classical to Post-Quantum to Quantum Migration
   - Crypto Roadmap Hierarchy
   - Cryptography Layer Map
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

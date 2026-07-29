@@ -5,7 +5,7 @@ tags:
   - resources
 created: "2026-04-24"
 updated: "2026-07-01"
-status: Final
+status: pending
 ---
 
 # Dokumen 01 — Persiapan Host & LXC

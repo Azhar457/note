@@ -5,7 +5,7 @@ tags:
   - platform-technologies
 created: "2026-05-29"
 updated: "2026-07-01"
-status: operational
+status: pending
 cssclasses: ""
 ---
 

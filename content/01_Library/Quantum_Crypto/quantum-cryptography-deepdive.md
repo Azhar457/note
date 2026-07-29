@@ -5,7 +5,7 @@ tags:
   - quantum-crypto
 created: "2026-07-02"
 updated: "2026-07-06"
-status: evergreen
+status: pending
 source: comprehensive-research
 confidence: high
 难度: advanced

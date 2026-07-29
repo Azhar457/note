@@ -14,7 +14,7 @@ aliases:
   - Rust Security Deep-Dive
   - Rust Soundness & UB
   - Rust Fuzzing Guide
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

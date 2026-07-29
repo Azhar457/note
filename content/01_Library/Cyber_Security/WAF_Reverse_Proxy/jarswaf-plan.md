@@ -6,7 +6,7 @@ tags:
   - security
 aliases:
   - strategic-plan
-status: draft
+status: pending
 created: 2026-07-14
 ---
 

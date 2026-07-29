@@ -13,7 +13,7 @@ aliases:
   - bgp-routing-attack-surface
 created: "2026-07-15"
 updated: "2026-07-15"
-status: draft
+status: pending
 cssclasses:
   - wide-table
 ---

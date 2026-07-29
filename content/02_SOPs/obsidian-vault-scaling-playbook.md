@@ -9,7 +9,7 @@ aliases:
   - SOP Obsidian Vault Scaling Playbook
   - Vault Hygiene Playbook
   - Vault Scaling Playbook
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

@@ -14,7 +14,7 @@ aliases:
   - LeetCode Patterns
 created: 2026-07-09
 updated: 2026-07-09
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

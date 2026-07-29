@@ -9,7 +9,7 @@ tags:
   - ai-red-teaming
 created: "2026-07-19"
 updated: "2026-07-19"
-status: growing
+status: pending
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault

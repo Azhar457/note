@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-side-channel"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # ⚡ HIERARKI SIDE-CHANNEL ATTACK — Dari Timing Observation (Level 0) sampai Quantum Side-Channel (Level 5)

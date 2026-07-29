@@ -7,7 +7,7 @@ tags:
   - embedding
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Perbandingan distance metrics untuk embedding search.

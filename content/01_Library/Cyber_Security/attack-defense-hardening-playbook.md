@@ -10,7 +10,7 @@ aliases:
   - "attack-defense-hardening-playbook"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # ⚔️ Attack-Defense Service Hardening & Competition Playbook

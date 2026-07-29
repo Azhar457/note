@@ -9,7 +9,7 @@ aliases:
   - PicoCTF RevEng
   - SHA256 Indexing Guide
 created: 2026-05-12
-status: operational
+status: pending
 title: Picoctf Section 5 Reverse Engineering
 updated: "2026-07-01"
 ---

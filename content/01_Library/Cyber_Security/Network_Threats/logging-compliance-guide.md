@@ -8,7 +8,7 @@ tags:
   - siem
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Panduan logging compliance sesuai regulasi Indonesia.

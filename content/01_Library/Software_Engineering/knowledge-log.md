@@ -6,7 +6,7 @@ tags:
   - productivity
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Knowledge log adalah weekly reflection tool.

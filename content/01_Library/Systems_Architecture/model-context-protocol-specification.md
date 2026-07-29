@@ -10,7 +10,7 @@ aliases:
   - Model Context Protocol Specification
   - MCP Spec
   - JSON-RPC Agent Protocol
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

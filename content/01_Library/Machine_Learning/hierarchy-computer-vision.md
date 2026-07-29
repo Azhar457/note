@@ -11,7 +11,7 @@ aliases:
   - CV Stack
   - From Pixels to Understanding
   - Image Processing Pipeline
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-supply-chain-security"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🔗 HIERARKI SUPPLY CHAIN SECURITY — Dari `npm install` (Level 0) sampai SLSA L4 + Formal Provenance (Level 5)

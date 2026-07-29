@@ -13,7 +13,7 @@ aliases:
   - How Context7 Makes AI Better
 created: 2026-07-03
 updated: 2026-07-03
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

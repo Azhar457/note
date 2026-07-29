@@ -1,7 +1,7 @@
 ---
 tags: [atlas, hierarchy, gap-analysis, knowledge-management, crosswalk]
 aliases: [Hierarchy Crosswalk, Hierarchy Gap Map, Neraca Hierarchy]
-status: draft
+status: pending
 created: 2026-07-26
 updated: 2026-07-26
 ---

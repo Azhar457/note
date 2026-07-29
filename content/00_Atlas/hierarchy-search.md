@@ -4,7 +4,7 @@ tags:
   - atlas
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 ### 🌐 Hierarki Pencarian Informasi — Surface sampai Beyond Dark Web

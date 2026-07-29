@@ -9,7 +9,7 @@ tags:
   - penetration-testing
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 🏆 CTF & Cyber Competition — Methodology & Strategy

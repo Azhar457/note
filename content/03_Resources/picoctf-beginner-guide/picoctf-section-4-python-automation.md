@@ -8,7 +8,7 @@ aliases:
   - PicoCTF Section 4
   - Python for CTF Basics
 created: 2026-05-12
-status: operational
+status: pending
 title: Picoctf Section 4 Python Automation
 updated: "2026-07-01"
 ---

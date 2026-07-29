@@ -7,7 +7,7 @@ tags:
   - information-gathering
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 # OSINT — Open Source Intelligence

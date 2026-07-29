@@ -8,7 +8,7 @@ tags:
   - red-team
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🌐 HIERARKI NETWORK SECURITY — Dari Kabel Fisik (Layer 1) sampai Manipulasi Psikologis (Layer 8)

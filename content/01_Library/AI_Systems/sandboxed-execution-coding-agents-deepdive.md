@@ -16,7 +16,7 @@ aliases:
   - code-agent-isolation
 created: "2026-07-19"
 updated: "2026-07-19"
-status: growing
+status: pending
 cssclasses:
   - wide-table
 ---

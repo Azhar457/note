@@ -13,7 +13,7 @@ aliases:
   - Hamming Distance Popcount
   - 1-bit Vector Quantization
   - Binary Embedding Search
-status: seedling
+status: pending
 created: 2026-07-22
 updated: 2026-07-22
 cssclasses:

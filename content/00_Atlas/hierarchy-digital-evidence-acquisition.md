@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-digital-evidence-acquisition"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 🔬 HIERARCHY DIGITAL EVIDENCE & FORENSIC ACQUISITION — Dari Volatile Memory sampai Persistent Cold Storage

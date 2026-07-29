@@ -6,7 +6,7 @@ tags:
   - library
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 🛡️ Blue Team Playbook — Melawan Enterprise C2 Infrastructure

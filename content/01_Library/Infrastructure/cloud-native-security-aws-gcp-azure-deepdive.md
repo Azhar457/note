@@ -14,7 +14,7 @@ aliases:
   - AWS GCP Azure Pentest
   - Cloud Native Attack & Defense
   - Cloud IAM Abuse
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

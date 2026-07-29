@@ -11,7 +11,7 @@ aliases:
   - jarsWAF Architecture
 created: 2026-07-09
 updated: 2026-07-09
-status: seed
+status: pending
 ---
 
 zhar# jarsWAF — Request Lifecycle & Architecture

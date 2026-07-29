@@ -12,7 +12,7 @@ aliases:
   - "SOC Automation Pipeline"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 cssclasses:
   - wide-table
 ---

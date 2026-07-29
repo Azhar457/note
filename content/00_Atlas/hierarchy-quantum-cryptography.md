@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-quantum-cryptography"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🔬 HIERARKI QUANTUM CRYPTOGRAPHY — Dari Qubit Theory (Level 0) sampai Full Quantum Supremacy (Level 7)

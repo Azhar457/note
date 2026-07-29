@@ -16,7 +16,7 @@ aliases:
   - "nextcloud-homelab"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

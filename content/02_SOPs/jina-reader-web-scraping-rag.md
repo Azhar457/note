@@ -10,7 +10,7 @@ aliases:
   - SOP Jina Reader Web Scraping
   - Jina Reader Web Scraping RAG
   - Automated Content Ingestion
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

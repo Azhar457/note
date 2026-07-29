@@ -5,7 +5,7 @@ tags:
   - systems-architecture
 created: "2026-07-05"
 updated: "2026-07-05"
-status: active
+status: pending
 ---
 
 # 🧩 Systems Design Interview — An Insider's Guide

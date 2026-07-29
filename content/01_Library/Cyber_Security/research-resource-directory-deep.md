@@ -11,7 +11,7 @@ aliases:
   - "research-resource-directory-deep"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 📚 Research Resource Directory — Deep Technical Sources

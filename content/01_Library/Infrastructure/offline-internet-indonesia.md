@@ -7,7 +7,7 @@ aliases:
   - "internet-offline-onno-purbo"
 created: "2026-07-05"
 updated: "2026-07-16"
-status: active
+status: pending
 ---
 
 # Offline Internet — Infrastruktur & Deployment Daerah Blank Spot (Ekspansi Teknis)

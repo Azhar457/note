@@ -5,7 +5,7 @@ tags:
   - library
 created: "2026-06-12"
 updated: "2026-07-01"
-status: operational
+status: pending
 ---
 
 # 💾 DATA RECOVERY & FORENSIK — Panduan Komprehensif

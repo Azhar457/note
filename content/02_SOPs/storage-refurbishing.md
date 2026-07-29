@@ -4,7 +4,7 @@ tags:
   - sops
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 💽 Master SOP — Storage Recovery & Refurbish

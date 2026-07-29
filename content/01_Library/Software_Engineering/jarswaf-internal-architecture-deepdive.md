@@ -12,7 +12,7 @@ aliases:
   - JarsWAF Internal Architecture
   - JarsWAF Deepdive
   - WAF Architecture
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

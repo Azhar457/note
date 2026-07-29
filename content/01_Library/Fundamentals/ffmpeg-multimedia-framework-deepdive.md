@@ -13,7 +13,7 @@ aliases:
   - Multimedia Framework
   - libavcodec libavformat
   - FFmpeg Pipeline
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

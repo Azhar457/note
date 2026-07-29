@@ -14,7 +14,7 @@ aliases:
   - Digital Plumbing Architecture
   - Pahlawan Tak Dikenal
   - Hidden Infrastructure Stack
-status: growing
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

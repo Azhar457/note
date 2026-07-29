@@ -9,7 +9,7 @@ aliases:
   - "hierarchy-threat-modeling"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🛡️ HIERARKI THREAT MODELING — Dari Intuisi Developer (Level 0) sampai Formal Verification (Level 5)
@@ -84,11 +84,9 @@ Kedua threat model menggunakan hirarki dan metodologi yang sama — hanya perspe
 > [!danger] Plot Twist 1: STRIDE Tidak Handle Business Logic
 > STRIDE excellent untuk ancaman teknis. Tapi business logic flaw (lo bisa transfer uang tanpa otorisasi karena race condition) bukan milik kategori STRIDE manapun. **Complement STRIDE dengan misuse case atau process flow analysis** untuk tangkap ancaman business logic.
 
-> [!tip] Plot Twist 2: Attack Tree (L2) Paling Efektif Untuk Komunikasi Dengan Bos Non-Teknis
-> Attack tree: visual, intuitif, langsung lihat "kalau attacker mau capai X, harus lewat jalur Y." Untuk presentasi ke CTO/CEO — attack tree mengalahkan STRIDE table mana pun. Tambahkan cost indikator ($$$ per node) untuk justifikasi budget security.
+> [!tip] Plot Twist 2: Attack Tree (L2) Paling Efektif Untuk Komunikasi Dengan Bos Non-Teknis Attack tree: visual, intuitif, langsung lihat "kalau attacker mau capai X, harus lewat jalur Y." Untuk presentasi ke CTO/CEO — attack tree mengalahkan STRIDE table mana pun. Tambahkan cost indikator ($$$ per node) untuk justifikasi budget security.
 
-> [!warning] Plot Twist 3: Formal Verification (L5) Digunakan NSA, Bukan Startup
-> ProVerif dan Tamarin dipakai untuk verifikasi protokol kripto TLS 1.3, Signal Protocol, WireGuard. **Butuh waktu bulan–tahun** untuk satu protokol. Untuk aplikasi web biasa, Level 5 adalah overshoot. Tapi untuk secure boot chain, HSM firmware, dan protokol kripto baru — L5 adalah satu-satunya cara untuk "pasti."
+> [!tip] Plot Twist 3: Formal Verification (L5) Digunakan NSA, Bukan Startup ProVerif dan Tamarin dipakai untuk verifikasi protokol kripto TLS 1.3, Signal Protocol, WireGuard. **Butuh waktu bulan–tahun** untuk satu protokol. Untuk aplikasi web biasa, Level 5 adalah overshoot. Tapi untuk secure boot chain, HSM firmware, dan protokol kripto baru — L5 adalah satu-satunya cara untuk "pasti."
 
 > [!info] Plot Twist 4: AI-Assisted Threat Modeling Sedang Muncul (2025+)
 > LLM-based TM tools mulai muncul: generate STRIDE dari arsitektur diagram, expand attack tree dari deskripsi, saran mitigasi dari CVE database. **Tapi belum bisa gantikan human reasoning** — untuk ancaman yang membutuhkan konteks bisnis spesifik atau zero-day technique, AI masih hallucinate. Level 4 (continuous TM) akan sangat terbantu AI untuk automasi rutin.

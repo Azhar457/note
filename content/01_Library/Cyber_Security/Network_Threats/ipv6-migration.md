@@ -7,7 +7,7 @@ tags:
   - networking
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > IPv6 migration sering mengaktifkan IPv6 tanpa monitoring.

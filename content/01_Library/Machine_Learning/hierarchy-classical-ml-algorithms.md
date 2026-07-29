@@ -11,7 +11,7 @@ aliases:
   - Machine Learning Algorithms
   - Traditional ML
 created: 2026-07-09
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

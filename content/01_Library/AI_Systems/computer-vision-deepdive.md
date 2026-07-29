@@ -8,7 +8,7 @@ tags:
   - object-detection
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Computer vision memberikan persepsi visual ke sistem AI. Digunakan di robotika, autonomous vehicle, dan security.

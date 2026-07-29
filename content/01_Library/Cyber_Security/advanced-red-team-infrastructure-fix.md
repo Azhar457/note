@@ -7,7 +7,7 @@ tags:
   - opsec
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 🕸️ Roadmap To Enterprise C2 — Advanced Red Team Infrastructure

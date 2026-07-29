@@ -2,7 +2,7 @@
 title: 📦 Portfolio & Public Output
 created: "2026-07-06"
 updated: "2026-07-06"
-status: active
+status: pending
 ---
 
 # 📦 Portfolio & Public Output

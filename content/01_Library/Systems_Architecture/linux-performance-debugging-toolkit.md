@@ -10,7 +10,7 @@ aliases:
   - Linux Performance Debugging Toolkit
   - Linux Perf Toolkit
   - Performance Debugging
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

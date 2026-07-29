@@ -5,7 +5,7 @@ tags:
   - resources
 created: "2026-05-12"
 updated: "2026-07-07"
-status: operational
+status: pending
 ---
 
 # 🚩 PICOCTF BEGINNER — Master Index & Roadmap

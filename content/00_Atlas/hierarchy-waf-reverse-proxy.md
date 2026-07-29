@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-waf-reverse-proxy"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🛡️ HIERARKI WAF & REVERSE PROXY — Dari Nginx Passthrough (Level 0) sampai Custom eBPF WAF (Level 6)

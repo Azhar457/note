@@ -16,7 +16,7 @@ aliases:
   - Zero-Copy Networking
   - Kernel Bypass Taxonomy
   - eBVC Networking Foundation
-status: seedling
+status: pending
 created: 2026-07-22
 updated: 2026-07-22
 cssclasses:

@@ -4,7 +4,7 @@ tags:
   - sops
 created: "2026-04-30"
 updated: "2026-07-01"
-status: active
+status: pending
 cssclasses: ""
 ---
 

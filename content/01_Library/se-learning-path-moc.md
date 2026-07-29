@@ -4,7 +4,7 @@ tags:
   - library
 created: "2026-07-05"
 updated: "2026-07-05"
-status: active
+status: pending
 ---
 
 # MOC — Software Engineering & Computer Science

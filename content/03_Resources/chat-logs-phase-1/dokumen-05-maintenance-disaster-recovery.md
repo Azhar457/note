@@ -5,7 +5,7 @@ tags:
   - resources
 created: "2026-04-24"
 updated: "2026-07-21"
-status: operational
+status: pending
 ---
 
 # Dokumen 05 — Maintenance, Disaster Recovery & Operasional

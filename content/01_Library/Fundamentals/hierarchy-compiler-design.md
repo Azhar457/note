@@ -11,7 +11,7 @@ aliases:
   - Compiler Architecture
   - From Source to Machine Code
   - Compiler Pipeline Stack
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-cloud-infrastructure"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # ☁️ HIERARKI INFRASTRUKTUR CLOUD — Dari Shared Hosting (Level 0) sampai Zero Trust Cloud Native (Level 8)

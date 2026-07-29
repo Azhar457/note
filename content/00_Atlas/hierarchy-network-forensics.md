@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-network-forensics"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 🌐 HIERARCHY NETWORK FORENSICS & PCAP ANALYSIS — Dari Wire-Level Bits sampai Application-Layer Reconstruction

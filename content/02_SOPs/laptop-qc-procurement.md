@@ -4,7 +4,7 @@ tags:
   - sops
 created: "2026-05-11"
 updated: "2026-07-01"
-status: operational
+status: pending
 ---
 
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide

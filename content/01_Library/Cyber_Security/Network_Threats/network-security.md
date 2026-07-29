@@ -11,7 +11,7 @@ aliases:
   - OSI Layer Hierarchy
   - Network OSI
 created: 2026-04-25
-status: operational
+status: pending
 cssclasses:
   - wide-table
 title: Network Security

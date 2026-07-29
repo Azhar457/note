@@ -11,7 +11,7 @@ aliases:
   - Global Defense Research Portal
   - Military Intelligence Resource Directory
   - Sumber Daya Intelijen Global
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -5,7 +5,7 @@ tags:
   - other
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 🚀 SUCCESS STORIES: Dari Open Source ke Karir Sukses

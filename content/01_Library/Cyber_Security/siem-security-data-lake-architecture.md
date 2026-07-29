@@ -9,7 +9,7 @@ tags:
   - splunk
 created: "2026-07-16"
 updated: "2026-07-16"
-status: growing
+status: pending
 ---
 
 ## Daftar Isi

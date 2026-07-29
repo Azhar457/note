@@ -18,7 +18,7 @@ aliases:
   - ring-theory-technology
 created: 2026-07-22
 updated: 2026-07-22
-status: growing
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -4,7 +4,7 @@ tags:
   - library
 created: "2026-07-06"
 updated: "2026-07-06"
-status: active
+status: pending
 ---
 
 # 📚 Learning Companion: Tiga Buku Teknologi

@@ -11,7 +11,7 @@ aliases:
   - Spektrum Nirkabel Hierarchy
 created: "2026-07-19"
 updated: "2026-07-19"
-status: active
+status: pending
 ---
 
 # 📡 Hierarchy Wireless — Hierarki Spektrum Nirkabel

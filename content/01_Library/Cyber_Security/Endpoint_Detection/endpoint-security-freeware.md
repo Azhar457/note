@@ -8,7 +8,7 @@ tags:
   - CPU-ring
 created: "2026-05-01"
 updated: "2026-07-17"
-status: operational
+status: pending
 ---
 
 # 🛡️ Endpoint Security Tools — Open Source & Freeware Edition

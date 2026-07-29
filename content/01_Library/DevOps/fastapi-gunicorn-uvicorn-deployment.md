@@ -1,7 +1,7 @@
 ---
 tags: [fastapi, gunicorn, uvicorn, deployment, production, asgi, wsgi, python]
 aliases: [FastAPI Deployment, Gunicorn Uvicorn, FastAPI Production]
-status: draft
+status: pending
 created: 2026-07-26
 updated: 2026-07-26
 source: https://medium.com/@iklobato/mastering-gunicorn-and-uvicorn-the-right-way-to-deploy-fastapi-applications-aaa06849841e

@@ -15,7 +15,7 @@ aliases:
   - parent-child-chunking
 created: "2026-07-16"
 updated: "2026-07-16"
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

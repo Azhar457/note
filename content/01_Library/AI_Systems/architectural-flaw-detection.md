@@ -5,7 +5,7 @@ tags:
   - library
 created: "2026-06-18"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 🔍 ARCHITECTURAL FLAW DETECTION — Mental Models, Taxonomy, and Methodologies

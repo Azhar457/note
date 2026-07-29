@@ -11,7 +11,7 @@ aliases:
   - "Wizard Book"
 created: 2026-07-05
 updated: 2026-07-05
-status: active
+status: pending
 ---
 
 # 🔬 Structure and Interpretation of Computer Programs

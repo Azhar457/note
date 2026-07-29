@@ -10,7 +10,7 @@ aliases:
   - "hierarchy-embedded-systems"
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🔌 HIERARKI EMBEDDED SYSTEMS — Dari GPIO Bare-Metal (Level 0) sampai Safety-Critical Certification (Level 7)

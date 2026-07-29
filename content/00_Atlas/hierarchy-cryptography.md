@@ -7,7 +7,7 @@ tags:
   - blue-team
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🔐 HIERARKI KRIPTOGRAFI — Dari Caesar Cipher (Level 0) sampai Post-Quantum (Level 7)

@@ -16,7 +16,7 @@ aliases:
   - Optimal Metric per Precision
   - Similarity Metric Taxonomy
   - Teori Transisi Metrik
-status: seedling
+status: pending
 created: 2026-07-22
 updated: 2026-07-23
 cssclasses:

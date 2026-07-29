@@ -11,7 +11,7 @@ aliases:
   - "hierarchy-cyber-range-adversary-emulation"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # ⚔️ HIERARCHY CYBER RANGE & ADVERSARY EMULATION — Dari VM Capture-the-Flag sampai Full-Scope Enterprise Adversary Simulation

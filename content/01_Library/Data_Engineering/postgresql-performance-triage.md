@@ -14,7 +14,7 @@ aliases:
   - "Slow Query Analysis"
 created: "2026-07-15"
 updated: "2026-07-15"
-status: active
+status: pending
 cssclasses: ""
 ---
 

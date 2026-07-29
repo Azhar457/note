@@ -5,7 +5,7 @@ tags:
   - military-and-intelligence-tools
 created: "2026-06-27"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # ☠️ MILITARY & INTELLIGENCE TOOLS — The Shadow Arsenal Hierarchy

@@ -11,7 +11,7 @@ aliases:
   - Jina Embeddings v5 MRL Adapters
   - Jina Embeddings v5
   - Matryoshka Representation Learning
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

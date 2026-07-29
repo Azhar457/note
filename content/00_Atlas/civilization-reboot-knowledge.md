@@ -12,7 +12,7 @@ aliases:
   - Civilization Reboot Manual
   - Post-Apocalyptic Knowledge Base
   - Vault-Tec Edition
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

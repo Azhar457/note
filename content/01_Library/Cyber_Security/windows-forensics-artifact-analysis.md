@@ -11,7 +11,7 @@ aliases:
   - "windows-forensics-artifact-analysis"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 🪟 Windows Forensics — Artifact Analysis & Investigation

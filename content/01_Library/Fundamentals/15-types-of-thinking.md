@@ -20,7 +20,7 @@ aliases:
   - Cognitive Architecture
   - How We Think
 created: 2026-07-09
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -13,7 +13,7 @@ aliases:
   - zlib zstd Deflate LZMA
   - Data Compression Internals
   - Lossless Compression Taxonomy
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

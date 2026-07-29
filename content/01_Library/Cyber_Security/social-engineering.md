@@ -8,7 +8,7 @@ tags:
   - vishing
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 # Social Engineering — Human Hacking

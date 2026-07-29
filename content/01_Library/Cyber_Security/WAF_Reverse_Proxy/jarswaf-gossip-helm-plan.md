@@ -1,7 +1,7 @@
 ---
 tags: [jarswaf, gossip, k8s, helm, architecture]
 aliases: [gossip-plan, helm-plan]
-status: draft
+status: pending
 created: 2026-07-13
 ---
 

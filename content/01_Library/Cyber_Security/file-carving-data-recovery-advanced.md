@@ -10,7 +10,7 @@ aliases:
   - "file-carving-data-recovery-advanced"
 created: "2026-07-28"
 updated: "2026-07-28"
-status: active
+status: pending
 ---
 
 # 🧩 File Carving & Data Recovery — Advanced Techniques

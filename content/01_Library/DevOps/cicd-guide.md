@@ -5,7 +5,7 @@ tags:
   - library
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # CI/CD Pipeline Guide

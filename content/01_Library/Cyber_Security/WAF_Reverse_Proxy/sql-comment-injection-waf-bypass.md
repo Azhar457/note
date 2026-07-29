@@ -1,7 +1,7 @@
 ---
 tags: [security, waf, sql-injection]
 aliases: [SQL Comment Injection WAF Bypass]
-status: operational
+status: pending
 created: 2026-07-24
 updated: 2026-07-24
 cssclasses: [wide-table]

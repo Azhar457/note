@@ -10,7 +10,7 @@ aliases:
   - SOP eBPF Runtime Security Auditing
   - eBPF Auditing System Calls
   - Cilium Tetragon Audit
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

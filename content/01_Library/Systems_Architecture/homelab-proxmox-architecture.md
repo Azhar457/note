@@ -10,7 +10,7 @@ aliases:
   - Homelab Proxmox Architecture
   - Proxmox Architecture
   - ZFS Homelab
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

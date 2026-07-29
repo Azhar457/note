@@ -10,7 +10,7 @@ aliases:
   - Rust Web Framework Comparison
   - Actix vs Axum vs Pingora
   - Web Framework Comparison
-status: evergreen
+status: pending
 created: 2026-07-21
 updated: 2026-07-21
 ---

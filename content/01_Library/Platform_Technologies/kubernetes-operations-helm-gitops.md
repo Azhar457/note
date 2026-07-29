@@ -13,7 +13,7 @@ aliases:
   - "k8s-production-practices"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: draft
+status: pending
 cssclasses:
   - wide-table
 ---

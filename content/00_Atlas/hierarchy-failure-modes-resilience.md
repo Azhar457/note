@@ -11,7 +11,7 @@ aliases:
   - Resilience Layer Map
   - Fault Taxonomy
   - Failure is Not an Option
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

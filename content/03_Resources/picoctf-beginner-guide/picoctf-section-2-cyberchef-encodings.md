@@ -8,7 +8,7 @@ aliases:
   - PicoCTF Section 2
   - Pattern Recognition for Encodings
 created: 2026-05-12
-status: operational
+status: pending
 title: Picoctf Section 2 Cyberchef Encodings
 updated: "2026-07-01"
 ---

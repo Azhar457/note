@@ -13,7 +13,7 @@ aliases:
   - TCP/IP Stack
   - Fundamental Networking Map
   - From Physical to Application
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -7,7 +7,7 @@ tags:
   - proactive-security
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Threat hunting adalah proaktif mencari threat sebelum alarm berbunyi.

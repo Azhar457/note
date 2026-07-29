@@ -15,7 +15,7 @@ aliases:
   - Typosquatting Package Attack
   - Supply Chain Attack Practical
   - Dependency Hijacking
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

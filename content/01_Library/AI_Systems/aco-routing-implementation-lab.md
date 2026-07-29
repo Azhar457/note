@@ -1,7 +1,7 @@
 ---
 tags: [aco, agent-routing, tutorial, lab, multi-agent, implementation]
 aliases: [ACO Lab, ACO Simulation Lab, Pheromone Routing Lab]
-status: draft
+status: pending
 created: 2026-07-26
 updated: 2026-07-26
 ---

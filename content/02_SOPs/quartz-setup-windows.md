@@ -4,7 +4,7 @@ tags:
   - 02-sops
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 ### SOP: Quartz v4 + GitHub Pages (Windows)

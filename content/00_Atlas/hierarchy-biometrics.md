@@ -8,7 +8,7 @@ tags:
   - zero-trust
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 🪪 HIERARKI BIOMETRIK & IDENTITAS — Dari Password (Level 0) sampai Neural/BCI (Level 7)

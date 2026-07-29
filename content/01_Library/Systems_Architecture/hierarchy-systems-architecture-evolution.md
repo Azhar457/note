@@ -12,7 +12,7 @@ aliases:
   - Architecture Style Map
   - Big System Design Hierarchy
   - From Monolith to AI Orchestration
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

@@ -4,7 +4,7 @@ tags:
   - resources
 created: "2026-04-30"
 updated: "2026-07-07"
-status: active
+status: pending
 ---
 
 # 🛠️ Master Interactive Tool Arsenal

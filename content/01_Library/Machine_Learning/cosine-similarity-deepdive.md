@@ -9,7 +9,7 @@ aliases:
   - Cosine Similarity
   - Similaritas Kosinus
   - Semantic Similarity
-status: seedling
+status: pending
 created: 2026-07-11
 updated: 2026-07-11
 ---

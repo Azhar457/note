@@ -7,7 +7,7 @@ tags:
   - hardware
 created: "2026-07-17"
 updated: "2026-07-17"
-status: active
+status: pending
 ---
 
 # 💾 HIERARKI DATA RECOVERY — Dari Sensorik Mata Telanjang (Level 0) sampai Kriptanalisis Kuantum (Level 7)

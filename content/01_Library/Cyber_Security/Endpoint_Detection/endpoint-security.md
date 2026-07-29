@@ -12,7 +12,7 @@ aliases:
   - CPU Ring Hierarchy
   - Virus Endpoint
 created: 2026-04-25
-status: operational
+status: pending
 cssclasses:
   - wide-table
 title: Endpoint Security

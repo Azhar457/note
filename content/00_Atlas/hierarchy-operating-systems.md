@@ -4,7 +4,7 @@ tags:
   - atlas
 created: "2026-04-26"
 updated: "2026-07-01"
-status: operational
+status: pending
 ---
 
 # 🖥️ HIERARKI OS — Dari Consumer sampai Military/Intelligence

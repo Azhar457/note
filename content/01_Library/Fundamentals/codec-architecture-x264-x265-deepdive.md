@@ -14,7 +14,7 @@ aliases:
   - x264 x265 Deep-Dive
   - H.264 H.265 Internals
   - Video Compression Pipeline
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

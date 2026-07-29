@@ -10,7 +10,7 @@ aliases:
   - Levels of Abstraction
   - Layer Cake Model
   - Cross Domain Abstraction Stack
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

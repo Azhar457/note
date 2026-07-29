@@ -14,7 +14,7 @@ aliases:
   - On-Prem AI Infrastructure
 created: "2026-05-29"
 updated: "2026-07-09"
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---

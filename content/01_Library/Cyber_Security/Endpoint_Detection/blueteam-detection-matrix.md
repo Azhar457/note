@@ -6,7 +6,7 @@ tags:
   - library
 created: "2026-07-01"
 updated: "2026-07-01"
-status: active
+status: pending
 ---
 
 # 🛡️ Blue Team Detection Matrix — C2 Level 0 sampai Level 4

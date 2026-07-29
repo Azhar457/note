@@ -7,7 +7,7 @@ tags:
   - detection
 created: "2026-07-19"
 updated: "2026-07-19"
-status: seedling
+status: pending
 ---
 
 > Deepfake detection adalah cat-and-mouse game antara generator dan detector.

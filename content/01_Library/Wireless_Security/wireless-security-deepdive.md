@@ -5,7 +5,7 @@ tags:
   - wireless-security
 created: "2026-07-02"
 updated: "2026-07-06"
-status: complete
+status: pending
 ---
 
 # 📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee

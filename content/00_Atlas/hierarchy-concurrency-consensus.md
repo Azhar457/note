@@ -11,7 +11,7 @@ aliases:
   - Parallelism Model Map
   - From Thread to Paxos
   - Concurrency Abstraction Stack
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

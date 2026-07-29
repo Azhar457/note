@@ -13,7 +13,7 @@ aliases:
   - LLM Stack Layers
   - AI Systems Map
   - LLM Production Stack
-status: growing
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

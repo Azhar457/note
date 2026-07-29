@@ -12,7 +12,7 @@ aliases:
   - Data Pipeline Stack
   - From Ingestion to Serving
   - Data Architecture Map
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

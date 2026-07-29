@@ -5,7 +5,7 @@ tags:
   - library
 created: "2026-07-05"
 updated: "2026-07-06"
-status: evergreen
+status: pending
 author: Hermes Agent → Azhar
 ---
 

@@ -11,7 +11,7 @@ aliases:
   - jarsWAF Lifecycle Master
 created: 2026-07-10
 updated: 2026-07-10
-status: seed
+status: pending
 ---
 
 # NAH Lifecycle — Peta Semua Lifecycle jarsWAF

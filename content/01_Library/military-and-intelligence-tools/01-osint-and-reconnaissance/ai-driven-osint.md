@@ -15,7 +15,7 @@ aliases:
   - LLM OSINT Framework
 created: 2026-07-14
 updated: 2026-07-14
-status: evergreen
+status: pending
 cssclasses:
   - wide-table
 ---

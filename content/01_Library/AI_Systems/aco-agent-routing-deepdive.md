@@ -1,7 +1,7 @@
 ---
 tags: [swarm-intelligence, agent-orchestration, routing, aco, multi-agent]
 aliases: [ACO Agent Routing, Ant Colony Agent Dispatch, Pheromone Routing]
-status: operational
+status: pending
 created: 2026-07-25
 updated: 2026-07-25
 cssclasses: [wide-table]

@@ -11,7 +11,7 @@ aliases:
   - From Anonymous to Sovereign Identity
   - Trust Model Map
   - Authentication Levels
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

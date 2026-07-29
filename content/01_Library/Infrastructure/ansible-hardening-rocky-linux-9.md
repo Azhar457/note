@@ -14,7 +14,7 @@ aliases:
   - CIS Rocky 9 Automation
 created: "2026-07-19"
 updated: "2026-07-19"
-status: active
+status: pending
 ---
 
 > [!abstract] Ringkasan

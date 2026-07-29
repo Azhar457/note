@@ -11,7 +11,7 @@ aliases:
   - SE Stack Layers
   - Code to Production Path
   - Engineering Discipline Map
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:

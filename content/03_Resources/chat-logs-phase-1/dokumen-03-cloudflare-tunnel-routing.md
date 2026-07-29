@@ -10,7 +10,7 @@ aliases:
   - Cloudflare Tunnel
   - Zero Trust Routing
 created: 2026-04-24
-status: operational
+status: pending
 title: Dokumen 03 Cloudflare Tunnel Routing
 updated: "2026-07-01"
 ---

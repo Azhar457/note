@@ -12,7 +12,7 @@ aliases:
   - Defense in Depth Hierarchy
   - Security Layer Map
   - Cyber Defense Stack
-status: seedling
+status: pending
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:
