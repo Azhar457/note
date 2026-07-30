@@ -25,6 +25,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. Bagaimana HPP Bekerja]]
 - [[#2. Parser Behavior per Server]]
 - [[#3. HPP + WAF Bypass]]
@@ -45,14 +46,14 @@ GET /api/users?id=1&id=2&id=3 HTTP/1.1
 
 ### Server Parsing
 
-| Server | Behavior | Result |
-|---|---|---|
-| Apache/PHP | Last wins | `id=3` |
-| ASP.NET/IIS | Concatenate | `id=1,2,3` |
-| Tomcat/JSP | First wins | `id=1` |
-| Python/Flask | First wins | `id=1` |
-| Node/Express | Array | `id=[1,2,3]` |
-| Perl/CGI | First wins | `id=1` |
+| Server       | Behavior    | Result       |
+| ------------ | ----------- | ------------ |
+| Apache/PHP   | Last wins   | `id=3`       |
+| ASP.NET/IIS  | Concatenate | `id=1,2,3`   |
+| Tomcat/JSP   | First wins  | `id=1`       |
+| Python/Flask | First wins  | `id=1`       |
+| Node/Express | Array       | `id=[1,2,3]` |
+| Perl/CGI     | First wins  | `id=1`       |
 
 ---
 

@@ -34,6 +34,7 @@ cssclasses:
 - **2026:** ~100+ kontributor aktif, di-port ke setiap arsitektur CPU (x86, ARM, RISC-V, MIPS, PowerPC)
 
 **Yang memakai FFmpeg:**
+
 - YouTube, Vimeo, Twitch (server-side transcoding)
 - Chromium, Firefox, Safari (HTML5 `<video>` — via FFmpeg WebCodecs)
 - Android (MediaCodec — FFmpeg di belakangnya)
@@ -46,14 +47,14 @@ cssclasses:
 
 ### 2.1 Enam Pustaka Inti
 
-| Library | Fungsi | File Penting | Digunakan di |
-|---------|--------|-------------|-------------|
-| **libavformat** | Demux/Mux kontainer | `avformat.h` | Baca/tulis MP4, MKV, AVI, FLV, TS |
-| **libavcodec** | Encoder/Decoder codec | `avcodec.h` | H.264, H.265, VP9, AV1, AAC, MP3 |
-| **libavfilter** | Filter graph | `avfilter.h` | Scale, crop, drawtext, volume |
-| **libavutil** | Utilitas (mem, math, log) | `avutil.h` | AVFrame, AVPacket, matematika |
-| **libswscale** | Konversi warna & scaling | `swscale.h` | YUV↔RGB, resolusi scaling |
-| **libswresample** | Resampling audio | `swresample.h` | 44.1KHz↔48KHz, mono↔stereo |
+| Library           | Fungsi                    | File Penting   | Digunakan di                      |
+| ----------------- | ------------------------- | -------------- | --------------------------------- |
+| **libavformat**   | Demux/Mux kontainer       | `avformat.h`   | Baca/tulis MP4, MKV, AVI, FLV, TS |
+| **libavcodec**    | Encoder/Decoder codec     | `avcodec.h`    | H.264, H.265, VP9, AV1, AAC, MP3  |
+| **libavfilter**   | Filter graph              | `avfilter.h`   | Scale, crop, drawtext, volume     |
+| **libavutil**     | Utilitas (mem, math, log) | `avutil.h`     | AVFrame, AVPacket, matematika     |
+| **libswscale**    | Konversi warna & scaling  | `swscale.h`    | YUV↔RGB, resolusi scaling         |
+| **libswresample** | Resampling audio          | `swresample.h` | 44.1KHz↔48KHz, mono↔stereo        |
 
 ### 2.2 Model Data — AVPacket & AVFrame
 
@@ -131,19 +132,20 @@ while (av_read_frame(fmt_ctx, pkt) >= 0) {
 
 FFmpeg mendeteksi format kontainer dengan **probing** — membaca beberapa byte pertama file lalu mencocokkan dengan signature yang dikenal:
 
-| Format | Magic Bytes | Ekstensi |
-|--------|------------|----------|
-| MP4/ISOBMFF | `ftyp` (4 byte) | .mp4, .m4a, .mov |
-| Matroska/WebM | `EBML` header | .mkv, .webm |
-| AVI | `RIFF` + `AVI ` | .avi |
-| FLV | `FLV` | .flv |
-| MPEG-TS | `0x47` sync byte | .ts, .m2ts |
-| Ogg | `OggS` | .ogg, .opus |
-| WAV | `RIFF` + `WAVE` | .wav |
+| Format        | Magic Bytes      | Ekstensi         |
+| ------------- | ---------------- | ---------------- |
+| MP4/ISOBMFF   | `ftyp` (4 byte)  | .mp4, .m4a, .mov |
+| Matroska/WebM | `EBML` header    | .mkv, .webm      |
+| AVI           | `RIFF` + `AVI `  | .avi             |
+| FLV           | `FLV`            | .flv             |
+| MPEG-TS       | `0x47` sync byte | .ts, .m2ts       |
+| Ogg           | `OggS`           | .ogg, .opus      |
+| WAV           | `RIFF` + `WAVE`  | .wav             |
 
 ### 3.2 Stream Discovery
 
 Setelah format terdeteksi, `avformat_find_stream_info()` membaca:
+
 - Jumlah streams (video, audio, subtitle, data)
 - Codec ID (H.264 = 27, AAC = 86017)
 - Resolution, framerate, bitrate
@@ -170,16 +172,16 @@ Setiap filter memiliki **pads** — input pad (masuk) dan output pad (keluar). F
 
 ### 4.2 Filter Populer & Kinerja
 
-| Filter | Fungsi | Kompleksitas | SIMD? |
-|--------|--------|-------------|-------|
-| `scale` | Ubah resolusi | O(width×height) | ✅ AVX-512, SSE, NEON |
-| `crop` | Potong frame | O(area) | ✅ Memory copy |
-| `yadif` | Deinterlace | O(area) | ✅ SSE2 |
-| `drawtext` | Tulis teks | O(area) | ❌ (CPU-bound) |
-| `fps` | Ubah framerate | O(1) per frame | — |
-| `volume` | Ubah volume audio | O(samples) | ✅ SIMD |
-| `atempo` | Ubah tempo audio | O(n) | ❌ WSOLA algorithm |
-| `equalizer` | Audio EQ | O(n) per band | ❌ IIR filter |
+| Filter      | Fungsi            | Kompleksitas    | SIMD?                 |
+| ----------- | ----------------- | --------------- | --------------------- |
+| `scale`     | Ubah resolusi     | O(width×height) | ✅ AVX-512, SSE, NEON |
+| `crop`      | Potong frame      | O(area)         | ✅ Memory copy        |
+| `yadif`     | Deinterlace       | O(area)         | ✅ SSE2               |
+| `drawtext`  | Tulis teks        | O(area)         | ❌ (CPU-bound)        |
+| `fps`       | Ubah framerate    | O(1) per frame  | —                     |
+| `volume`    | Ubah volume audio | O(samples)      | ✅ SIMD               |
+| `atempo`    | Ubah tempo audio  | O(n)            | ❌ WSOLA algorithm    |
+| `equalizer` | Audio EQ          | O(n) per band   | ❌ IIR filter         |
 
 ---
 
@@ -189,27 +191,27 @@ Setiap filter memiliki **pads** — input pad (masuk) dan output pad (keluar). F
 
 libswscale menangani konversi antar **pixel format**:
 
-| Format | Deskripsi | Bits per Pixel | Digunakan di |
-|--------|-----------|:---:|-------------|
-| YUV420P | YUV planar, chroma subsampled 4:2:0 | 12 | H.264, H.265 — standar video |
-| YUV422P | YUV planar, 4:2:2 | 16 | ProRes, broadcast |
-| YUV444P | YUV planar, 4:4:4 | 24 | High-end, screen capture |
-| NV12 | YUV semi-planar (Y + UV interleaved) | 12 | GPU, hardware decoder |
-| RGB24 | RGB packed | 24 | Screenshot, display |
-| BGRA | RGB + alpha, byte order B-G-R-A | 32 | OpenGL, compositor |
-| GRAY8 | Grayscale | 8 | Monochrome, depth maps |
+| Format  | Deskripsi                            | Bits per Pixel | Digunakan di                 |
+| ------- | ------------------------------------ | :------------: | ---------------------------- |
+| YUV420P | YUV planar, chroma subsampled 4:2:0  |       12       | H.264, H.265 — standar video |
+| YUV422P | YUV planar, 4:2:2                    |       16       | ProRes, broadcast            |
+| YUV444P | YUV planar, 4:4:4                    |       24       | High-end, screen capture     |
+| NV12    | YUV semi-planar (Y + UV interleaved) |       12       | GPU, hardware decoder        |
+| RGB24   | RGB packed                           |       24       | Screenshot, display          |
+| BGRA    | RGB + alpha, byte order B-G-R-A      |       32       | OpenGL, compositor           |
+| GRAY8   | Grayscale                            |       8        | Monochrome, depth maps       |
 
 ### 5.2 Algoritma Scaling
 
 libswscale menggunakan **filter scaling** dengan kualitas bervariasi:
 
-| Filter | Kualitas | Kecepatan | Digunakan |
-|--------|:--------:|:---------:|-----------|
-| Nearest neighbor | Rendah | Tercepat | Preview, pixel art |
-| Bilinear | Sedang | Cepat | Default |
-| Bicubic | Tinggi | Sedang | Transcoding kualitas |
-| Lanczos | Sangat tinggi | Lambat | Production broadcast |
-| Spline | Tertinggi | Terlambat | Mastering |
+| Filter           |   Kualitas    | Kecepatan | Digunakan            |
+| ---------------- | :-----------: | :-------: | -------------------- |
+| Nearest neighbor |    Rendah     | Tercepat  | Preview, pixel art   |
+| Bilinear         |    Sedang     |   Cepat   | Default              |
+| Bicubic          |    Tinggi     |  Sedang   | Transcoding kualitas |
+| Lanczos          | Sangat tinggi |  Lambat   | Production broadcast |
+| Spline           |   Tertinggi   | Terlambat | Mastering            |
 
 ---
 
@@ -235,18 +237,18 @@ Di YouTube, setiap video yang diupload melewati pipeline FFmpeg:
 ## References
 
 1. FFmpeg Documentation. https://ffmpeg.org/doxygen/trunk/index.html
-2. FFmpeg Wiki. *"H.264 Video Encoding Guide."* https://trac.ffmpeg.org/wiki/Encode/H.264
+2. FFmpeg Wiki. _"H.264 Video Encoding Guide."_ https://trac.ffmpeg.org/wiki/Encode/H.264
 3. Libavformat API. https://ffmpeg.org/doxygen/trunk/group__libavf.html
 4. Libavfilter API. https://ffmpeg.org/doxygen/trunk/group__lavfi.html
 5. Swscale Documentation. https://ffmpeg.org/doxygen/trunk/swscale_8h.html
-6. W. Fisher. *"Inside YouTube's Video Processing Pipeline."* (2019).
-7. Google. *"YouTube DASH Implementation."* (2013-2025).
+6. W. Fisher. _"Inside YouTube's Video Processing Pipeline."_ (2019).
+7. Google. _"YouTube DASH Implementation."_ (2013-2025).
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|---------|---------|
-| [[hierarchy-digital-plumbing]] | §3 Level 6 — Orkestrator FFmpeg |
+| Catatan                                   | Koneksi                                   |
+| ----------------------------------------- | ----------------------------------------- |
+| [[hierarchy-digital-plumbing]]            | §3 Level 6 — Orkestrator FFmpeg           |
 | [[codec-architecture-x264-x265-deepdive]] | Level 5 — codec video yang FFmpeg panggil |
-| [[forensic-imaging-analysis]] | FFmpeg ekstraksi frame CCTV, metadata |
-| [[deepfake-detection]] | Wajib tahu codec artifact vs AI artifact |
+| [[forensic-imaging-analysis]]             | FFmpeg ekstraksi frame CCTV, metadata     |
+| [[deepfake-detection]]                    | Wajib tahu codec artifact vs AI artifact  |

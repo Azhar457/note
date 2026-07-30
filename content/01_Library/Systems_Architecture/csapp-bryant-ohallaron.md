@@ -1,16 +1,18 @@
 ---
-title: 'Computer Systems: A Programmer''s Perspective (CS:APP)'
+title: "Computer Systems: A Programmer's Perspective (CS:APP)"
 tags:
-- library
-- systems-architecture
-created: '2026-07-05'
-updated: '2026-07-05'
+  - library
+  - systems-architecture
+created: "2026-07-05"
+updated: "2026-07-05"
 status: pending
 ---
+
 # 🖥 Computer Systems: A Programmer's Perspective
+
 > Randal E. Bryant & David R. O'Hallaron — 2003 (3rd ed 2015)
 
-**Tesis:** Programmer yang paham *bagaimana kodenya jalan di mesin* → bikin code yang lebih cepat, lebih aman, lebih bisa di-debug. Bukan soal jadi expert arsitektur — soal *jembatani gap* antara high-level language dan hardware.
+**Tesis:** Programmer yang paham _bagaimana kodenya jalan di mesin_ → bikin code yang lebih cepat, lebih aman, lebih bisa di-debug. Bukan soal jadi expert arsitektur — soal _jembatani gap_ antara high-level language dan hardware.
 
 ## 📌 Kenapa Penting
 
@@ -23,6 +25,7 @@ status: pending
 ## 🎯 Key Takeaways
 
 **1. Representasi Data — Bits, Bytes, Integers**
+
 - Little Endian vs Big Endian — penting buat networking
 - Two's complement — overflow behavior
 - Floating point — IEEE 754 — kenapa 0.1 + 0.2 != 0.3
@@ -32,6 +35,7 @@ status: pending
 - IEEE 754 adalah standar untuk representasi floating point yang digunakan dalam komputer modern.
 
 **2. Machine-Level Code — Assembly (x86-64)**
+
 - Register, stack, calling convention (System V ABI)
 - **Paling berguna buat debugging:** baca disassembly waktu crash
 - Control flow: conditional, loop, switch — gimana compiler optimize
@@ -41,6 +45,7 @@ status: pending
 - Compiler dapat mengoptimalkan kode dengan menggunakan control flow yang tepat.
 
 **3. Memory Hierarchy**
+
 - **CPU → L1 → L2 → L3 → RAM → Disk** — urutan kecepatan (1000x gap)
 - **Cache Locality** — spatial + temporal — bedanya 10-100x performance
   - Loop order matters: row-major > column-major
@@ -50,6 +55,7 @@ status: pending
 - Loop order yang tepat dapat mempengaruhi performa kode dengan mengurangi cache miss.
 
 **4. Linking**
+
 - Symbol resolution + relocation — kenapa linker errors
 - Static vs dynamic linking — trade-off size, security, startup time
 - Library interpositioning — LD_PRELOAD
@@ -58,6 +64,7 @@ status: pending
 - Static linking dan dynamic linking memiliki trade-off yang berbeda dalam hal ukuran, keamanan, dan waktu startup.
 
 **5. Exceptional Control Flow**
+
 - Interrupt, trap, fault, abort — bedanya
 - Context switch — proses scheduler preempt your code
 - Signals — asynchronous handling
@@ -67,6 +74,7 @@ status: pending
 - Signals adalah mekanisme yang digunakan untuk menangani peristiwa yang tidak diharapkan secara asynchronous.
 
 **6. Virtual Memory**
+
 - Page table — address translation via TLB
 - **MMU mismatch = performance killer** — TLB miss
 - mmap — memory-mapped files
@@ -77,6 +85,7 @@ status: pending
 - TLB (Translation Lookaside Buffer) adalah cache yang digunakan untuk mempercepat proses penerjemahan alamat.
 
 **7. System-Level I/O**
+
 - Unix file descriptors, buffer management
 - Non-blocking I/O, select, epoll
 - System-level I/O adalah mekanisme yang digunakan untuk melakukan input/output pada level sistem operasi.
@@ -85,6 +94,7 @@ status: pending
 - Non-blocking I/O adalah teknik yang digunakan untuk melakukan I/O tanpa memblokir proses yang sedang berjalan.
 
 **8. Concurrency**
+
 - Threads vs processes — sharing vs isolation
 - Mutex, semaphore, deadlock
 - Cache coherence — false sharing (performance killer)
@@ -95,13 +105,13 @@ status: pending
 
 ## 📖 Bab Penting
 
-| Bab | Judul | Mengapa |
-|-----|-------|---------|
-| 3 | Machine-Level Programming | Assembly + debugging — **wajib** |
-| 5 | Optimizing Program Performance | Loop optimization, branch prediction, cache |
-| 6 | Memory Hierarchy | **Kunci performance** — cache matters |
-| 9 | Virtual Memory | Soal kenapa RAM gak cukup → swap, mmap |
-| 12 | Concurrent Programming | Threads, locks, deadlock |
+| Bab | Judul                          | Mengapa                                     |
+| --- | ------------------------------ | ------------------------------------------- |
+| 3   | Machine-Level Programming      | Assembly + debugging — **wajib**            |
+| 5   | Optimizing Program Performance | Loop optimization, branch prediction, cache |
+| 6   | Memory Hierarchy               | **Kunci performance** — cache matters       |
+| 9   | Virtual Memory                 | Soal kenapa RAM gak cukup → swap, mmap      |
+| 12  | Concurrent Programming         | Threads, locks, deadlock                    |
 
 ## ⚠️ Tantangan
 
@@ -115,10 +125,11 @@ status: pending
 ## 🚦 Strategi Baca
 
 1. **Ch 1-3**: bits, assembly, debugging — pain point immediate
-2. **Ch 5-6**: performance optimization + cache — *biggest bang for buck*
+2. **Ch 5-6**: performance optimization + cache — _biggest bang for buck_
 3. **Ch 9**: virtual memory — paham kenapa proses terisolasi
 4. **Ch 12**: concurrency
 5. Lab resources di **csapp.cs.cmu.edu** — Bomb Lab highly recommended
+
 - Baca bab 1-3 untuk memahami dasar-dasar sistem komputer.
 - Baca bab 5-6 untuk memahami optimasi performa dan cache.
 - Baca bab 9 untuk memahami virtual memory.
@@ -128,7 +139,7 @@ status: pending
 ## 🔗 Koneksi
 
 - [[ostep-three-easy-pieces]] — OS bagian dari CS:APP, OSTEP cover lebih detail
-- [[clrs-introduction-to-algorithms]] — algoritma *logical*, CS:APP *mechanical*
+- [[clrs-introduction-to-algorithms]] — algoritma _logical_, CS:APP _mechanical_
 - [[clean-code-robert-martin]] — clean code gak cukup kalo gak paham hardware impact
 - Buku ini terkait dengan Operating System (OS) dan dapat dipelajari bersama dengan OSTEP.
 - Buku ini juga terkait dengan algoritma dan dapat dipelajari bersama dengan CLRS.
@@ -148,6 +159,7 @@ status: pending
 ### Contoh Kode
 
 Berikut adalah contoh kode yang dapat digunakan untuk memahami konsep yang dipelajari:
+
 ```c
 #include <stdio.h>
 
@@ -170,6 +182,7 @@ int main() {
     return 0;
 }
 ```
+
 Contoh kode di atas dapat digunakan untuk memahami konsep pointer dan struct.
 
 ### Kesimpulan

@@ -25,6 +25,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#S1 — IR Framework (NIST 800-61)]]
 - [[#S2 — Log Analysis Fast Track]]
 - [[#S3 — Threat Hunting dengan Osquery]]
@@ -43,7 +44,7 @@ Setiap soal IR di kompetisi mengikuti siklus NIST 800-61:
 
 ```
 1. PREPARATION    → Tools siap, playbook diingat
-2. DETECTION      ↓ 
+2. DETECTION      ↓
    & ANALYSIS     → Evidence diberikan, identifikasi insiden
         ↓
 3. CONTAINMENT    → Isolate host, block IP
@@ -55,14 +56,14 @@ Setiap soal IR di kompetisi mengikuti siklus NIST 800-61:
 
 ### Pertanyaan Kunci
 
-| Tahap | Pertanyaan Kompetisi | Evidence |
-|---|---|---|
-| Detection | "Kapan first compromise?" | Log timestamp, alert time |
-| Analysis | "Apa root cause?" | Vulnerability exploited, vector |
-| Analysis | "Apa malware yang dipakai?" | Hash, filename, C2 domain |
-| Containment | "IP attacker?" | Network log, firewall log |
-| Eradication | "Bagaimana cara hapus?" | Artifact cleanup steps |
-| Lesson | "Rekomendasi?" | Fix, prevent recurrence |
+| Tahap       | Pertanyaan Kompetisi        | Evidence                        |
+| ----------- | --------------------------- | ------------------------------- |
+| Detection   | "Kapan first compromise?"   | Log timestamp, alert time       |
+| Analysis    | "Apa root cause?"           | Vulnerability exploited, vector |
+| Analysis    | "Apa malware yang dipakai?" | Hash, filename, C2 domain       |
+| Containment | "IP attacker?"              | Network log, firewall log       |
+| Eradication | "Bagaimana cara hapus?"     | Artifact cleanup steps          |
+| Lesson      | "Rekomendasi?"              | Fix, prevent recurrence         |
 
 ---
 
@@ -101,13 +102,13 @@ index=windows EventCode=4625
 
 ### Log Sources Priority
 
-| Log Source | Windows | Linux |
-|---|---|---|
-| Authentication | Security (Event 4624/4625/4648) | `/var/log/auth.log` |
-| Process | Sysmon Event 1 | auditd |
-| Network | Sysmon Event 3 | `/var/log/syslog` |
-| File change | Sysmon Event 11 | auditd/inotify |
-| PowerShell | PowerShell Operational (Event 4104/4103) | N/A |
+| Log Source     | Windows                                  | Linux               |
+| -------------- | ---------------------------------------- | ------------------- |
+| Authentication | Security (Event 4624/4625/4648)          | `/var/log/auth.log` |
+| Process        | Sysmon Event 1                           | auditd              |
+| Network        | Sysmon Event 3                           | `/var/log/syslog`   |
+| File change    | Sysmon Event 11                          | auditd/inotify      |
+| PowerShell     | PowerShell Operational (Event 4104/4103) | N/A                 |
 
 ---
 
@@ -159,22 +160,22 @@ osqueryi "SELECT * FROM processes WHERE on_disk = 0;"
 
 ### Event ID Penting
 
-| Event ID | Deskripsi | Indikator |
-|---|---|---|
-| 4624 | Logon success | Successful authentication |
-| 4625 | Logon failure | Brute force attempt |
-| 4634 | Logoff | Session end time |
-| 4648 | Explicit credential | RunAs, scheduled task |
-| 4688 | Process creation | Execution timeline |
-| 4689 | Process exit | Termination time |
-| 4698 | Scheduled task created | Persistence |
-| 4700 | Scheduled task enabled | Persistence |
-| 4702 | Scheduled task updated | Modification |
-| 4720 | User account created | New user |
-| 4732 | User added to group | Privilege escalation |
-| 5156 | Connection allowed | Network connection |
-| 5157 | Connection blocked | Blocked connection |
-| 7045 | Service installed | New service (persistence) |
+| Event ID | Deskripsi              | Indikator                 |
+| -------- | ---------------------- | ------------------------- |
+| 4624     | Logon success          | Successful authentication |
+| 4625     | Logon failure          | Brute force attempt       |
+| 4634     | Logoff                 | Session end time          |
+| 4648     | Explicit credential    | RunAs, scheduled task     |
+| 4688     | Process creation       | Execution timeline        |
+| 4689     | Process exit           | Termination time          |
+| 4698     | Scheduled task created | Persistence               |
+| 4700     | Scheduled task enabled | Persistence               |
+| 4702     | Scheduled task updated | Modification              |
+| 4720     | User account created   | New user                  |
+| 4732     | User added to group    | Privilege escalation      |
+| 5156     | Connection allowed     | Network connection        |
+| 5157     | Connection blocked     | Blocked connection        |
+| 7045     | Service installed      | New service (persistence) |
 
 ### Timeline Analysis
 
@@ -243,15 +244,15 @@ regshot
 
 ### Malware Classification
 
-| Type | Tujuan | Indicator |
-|---|---|---|
-| Keylogger | Capture keystrokes | `SetWindowsHookEx`, `GetAsyncKeyState` |
-| Backdoor | Remote access | Reverse shell, port binding |
-| Ransomware | Encrypt files | File extension change, ransom note |
-| Downloader | Fetch payload | `URLDownloadToFile`, `WinHttpRequest` |
-| Miner | Crypto mining | High CPU, `stratum+tcp://` |
-| RAT | Full control | Persistence, keylogging, screen capture |
-| Infostealer | Credential theft | Browser profile access, `mail` |
+| Type        | Tujuan             | Indicator                               |
+| ----------- | ------------------ | --------------------------------------- |
+| Keylogger   | Capture keystrokes | `SetWindowsHookEx`, `GetAsyncKeyState`  |
+| Backdoor    | Remote access      | Reverse shell, port binding             |
+| Ransomware  | Encrypt files      | File extension change, ransom note      |
+| Downloader  | Fetch payload      | `URLDownloadToFile`, `WinHttpRequest`   |
+| Miner       | Crypto mining      | High CPU, `stratum+tcp://`              |
+| RAT         | Full control       | Persistence, keylogging, screen capture |
+| Infostealer | Credential theft   | Browser profile access, `mail`          |
 
 ---
 
@@ -284,16 +285,16 @@ mft2csv.py -f \$MFT -o mft_timeline.csv
 
 ### Key Artifact Timeline
 
-| Waktu | Artifact | Informasi |
-|---|---|---|
-| $STANDARD_INFORMATION | MFT | Bisa dimodifikasi oleh attacker |
-| $FILE_NAME | MFT | Tidak bisa dimodifikasi — source of truth |
-| Prefetch | File | Waktu eksekusi program |
-| USN Journal | Journal | Perubahan file berurutan |
-| Event Log | .evtx | Authentication, process, service |
-| Registry | Registry | System config change time |
-| Browser history | SQLite | URL access timeline |
-| ShellBags | Registry | Folder access time |
+| Waktu                 | Artifact | Informasi                                 |
+| --------------------- | -------- | ----------------------------------------- |
+| $STANDARD_INFORMATION | MFT      | Bisa dimodifikasi oleh attacker           |
+| $FILE_NAME            | MFT      | Tidak bisa dimodifikasi — source of truth |
+| Prefetch              | File     | Waktu eksekusi program                    |
+| USN Journal           | Journal  | Perubahan file berurutan                  |
+| Event Log             | .evtx    | Authentication, process, service          |
+| Registry              | Registry | System config change time                 |
+| Browser history       | SQLite   | URL access timeline                       |
+| ShellBags             | Registry | Folder access time                        |
 
 ---
 
@@ -303,35 +304,41 @@ Template writeup untuk soal IR kompetisi:
 
 ```markdown
 ## Incident Summary
+
 - **Title:** [Nama Insiden]
 - **Date:** [YYYY-MM-DD HH:MM]
 - **Severity:** [Critical/High/Medium/Low]
 - **Status:** [Resolved/Mitigated/In Progress]
 
 ## Timeline
-| Time | Event | Artifact |
-|---|---|---|
-| HH:MM | Initial compromise | [Log entry ref] |
-| HH:MM | Malware execution | [File hash] |
-| HH:MM | C2 beacon | [IP/Domain] |
-| HH:MM | Data exfiltration | [Size, destination] |
+
+| Time  | Event              | Artifact            |
+| ----- | ------------------ | ------------------- |
+| HH:MM | Initial compromise | [Log entry ref]     |
+| HH:MM | Malware execution  | [File hash]         |
+| HH:MM | C2 beacon          | [IP/Domain]         |
+| HH:MM | Data exfiltration  | [Size, destination] |
 
 ## Indicators of Compromise (IOCs)
+
 - **File:** [filename, hash]
 - **Network:** [IP, domain, URL]
 - **Registry:** [key, value]
 - **Process:** [PID, name, parent]
 
 ## Root Cause Analysis
+
 - **Vulnerability:** [CVE / misconfig]
 - **Attack vector:** [Email / web / remote exploit]
 - **Impact:** [What was compromised]
 
 ## Containment Steps
+
 1. [Aksi yang diambil]
 2. [Aksi yang diambil]
 
 ## Recommendations
+
 1. [Fix jangka pendek]
 2. [Fix jangka panjang]
 ```
@@ -340,18 +347,18 @@ Template writeup untuk soal IR kompetisi:
 
 ## S8 — Tool Priority Matrix
 
-| IR Task | Tool #1 | Tool #2 | Tool #3 |
-|---|---|---|---|
-| Log aggregation | ELK Stack | Splunk | Loki |
-| Endpoint query | Osquery | WMI/PowerShell | WinRM SSH |
-| Windows forensic | EZ Tools (Zimmerman) | Sysinternals Suite | KAPE |
-| Timeline | Plaso (log2timeline) | MFTECmd | Timeline Explorer |
-| Malware static | FLOSS | Detect It Easy (DiE) | pefile (Python) |
-| Malware dynamic | CAPE Sandbox | ProcMon + Wireshark | Any.Run |
-| Memory analysis | Volatility 3 | strings + grep | Rekall |
-| Threat intel | MISP | VirusTotal API | AbuseIPDB |
-| Network forensic | Wireshark | Zeek | tshark |
-| Log query | KQL (Elastic) | SPL (Splunk) | grep/awk/jq |
+| IR Task          | Tool #1              | Tool #2              | Tool #3           |
+| ---------------- | -------------------- | -------------------- | ----------------- |
+| Log aggregation  | ELK Stack            | Splunk               | Loki              |
+| Endpoint query   | Osquery              | WMI/PowerShell       | WinRM SSH         |
+| Windows forensic | EZ Tools (Zimmerman) | Sysinternals Suite   | KAPE              |
+| Timeline         | Plaso (log2timeline) | MFTECmd              | Timeline Explorer |
+| Malware static   | FLOSS                | Detect It Easy (DiE) | pefile (Python)   |
+| Malware dynamic  | CAPE Sandbox         | ProcMon + Wireshark  | Any.Run           |
+| Memory analysis  | Volatility 3         | strings + grep       | Rekall            |
+| Threat intel     | MISP                 | VirusTotal API       | AbuseIPDB         |
+| Network forensic | Wireshark            | Zeek                 | tshark            |
+| Log query        | KQL (Elastic)        | SPL (Splunk)         | grep/awk/jq       |
 
 ---
 

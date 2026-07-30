@@ -25,7 +25,8 @@ cssclasses:
 ---
 
 ## Daftar Isi
-- [[#1. Root Cause: Parsing Inconsistency]]
+
+- [[#1. Root Cause]]
 - [[#2. CL.TE — Content-Length vs Transfer-Encoding]]
 - [[#3. TE.CL — Transfer-Encoding vs Content-Length]]
 - [[#4. TE.TE — Obfuscated Transfer-Encoding]]
@@ -52,14 +53,14 @@ Ketika frontend dan backend menggunakan header yang berbeda untuk menentukan pan
 
 ### Perilaku Server
 
-| Server | Priority | Prefix |
-|---|---|---|
-| Apache HTTPD | Transfer-Encoding | TE |
-| Tomcat | Content-Length | CL |
-| Nginx | Content-Length | CL |
-| IIS | Transfer-Encoding | TE |
-| HAProxy | Transfer-Encoding | TE |
-| NetScaler | Transfer-Encoding | TE |
+| Server       | Priority          | Prefix |
+| ------------ | ----------------- | ------ |
+| Apache HTTPD | Transfer-Encoding | TE     |
+| Tomcat       | Content-Length    | CL     |
+| Nginx        | Content-Length    | CL     |
+| IIS          | Transfer-Encoding | TE     |
+| HAProxy      | Transfer-Encoding | TE     |
+| NetScaler    | Transfer-Encoding | TE     |
 
 ---
 
@@ -83,6 +84,7 @@ X-Ignore: X
 ```
 
 **Cara kerja:**
+
 1. **Frontend** (CL-based): lihat Content-Length: 44 → baca 44 bytes → body adalah semua setelah `chunked` → forward sebagai 1 request
 2. **Backend** (TE-based): lihat Transfer-Encoding: chunked → parse `0` (end of chunk)
 
@@ -110,6 +112,7 @@ x=1
 ```
 
 **Cara kerja:**
+
 1. **Frontend** (TE): parse chunk → `5c` (92 bytes) adalah semua termasuk request kedua → forward sebagai 1 request
 2. **Backend** (CL): lihat Content-Length: 4 → baca 4 bytes (`5c\r\n`) saja → sisanya dianggap request baru
 
@@ -156,6 +159,7 @@ Host: internal
 ```
 
 **Cara kerja:**
+
 1. **Frontend**: lihat `xchunked` → ignore (tidak kenal) → tidak ada chunk processing
 2. **Backend**: lihat `chunked` → parse chunk → `0` akhir chunk → request berikutnya adalah `GET /admin`
 
@@ -186,6 +190,7 @@ Host: internal
 ```
 
 **Cara kerja:**
+
 1. **Frontend** (HTTP/2): parse stream → forward ke backend via HTTP/1.1
 2. **Backend** (HTTP/1.1): melihat `Transfer-Encoding: chunked` → parse chunk
 3. Smuggled request tereksekusi
@@ -198,12 +203,12 @@ HTTP/2 body dihitung dari DATA frame length, bukan Content-Length. Tapi saat dow
 
 ## 6. Impact & Exploitation
 
-| Impact | Teknik | Contoh |
-|---|---|---|
-| **Session hijacking** | Smuggle request yang mencuri cookie | User request + Attacker request dalam 1 koneksi |
-| **Cache poisoning** | Smuggle request yang mencemari cache | Frontend cache menyimpan response attacker sebagai halaman legitimate |
-| **WAF bypass** | Smuggle attack payload yang tidak melewati WAF | WAF hanya lihat request pertama, request kedua adalah attack |
-| **Account takeover** | Smuggle credential reset | Request ke internal endpoint admin |
+| Impact                | Teknik                                         | Contoh                                                                |
+| --------------------- | ---------------------------------------------- | --------------------------------------------------------------------- |
+| **Session hijacking** | Smuggle request yang mencuri cookie            | User request + Attacker request dalam 1 koneksi                       |
+| **Cache poisoning**   | Smuggle request yang mencemari cache           | Frontend cache menyimpan response attacker sebagai halaman legitimate |
+| **WAF bypass**        | Smuggle attack payload yang tidak melewati WAF | WAF hanya lihat request pertama, request kedua adalah attack          |
+| **Account takeover**  | Smuggle credential reset                       | Request ke internal endpoint admin                                    |
 
 ### Cache Poisoning via Smuggling
 
@@ -268,36 +273,36 @@ echo -e "POST / HTTP/1.1\r\nHost: target.com\r\nContent-Length: 44\r\nTransfer-E
 
 ### Tool Detection
 
-| Tool | Fungsi |
-|---|---|
-| **Burp Suite** | HTTP Request Smuggler extension (PortSwigger) |
-| **Smuggler.py** | Auto-detect CL.TE, TE.CL, TE.TE |
-| **Python custom** | Kirim raw HTTP via socket |
+| Tool              | Fungsi                                        |
+| ----------------- | --------------------------------------------- |
+| **Burp Suite**    | HTTP Request Smuggler extension (PortSwigger) |
+| **Smuggler.py**   | Auto-detect CL.TE, TE.CL, TE.TE               |
+| **Python custom** | Kirim raw HTTP via socket                     |
 
 ---
 
 ## 8. Defense Strategy
 
-| Fix | Implementasi | Efektivitas |
-|---|---|---|
-| **HTTP/2 only** | Backend hanya terima HTTP/2 | Sangat tinggi |
-| **Normalize TE header** | Reject/malformed TE headers | Tinggi |
-| **Reject ambiguous request** | Jika CL + TE ada → 400 Bad Request | Tinggi |
-| **Frontend-backend konsisten** | Samakan parser behavior | Sangat tinggi |
-| **Disable HTTP/1.1 downgrade** | Jangan downgrade HTTP/2 ke HTTP/1.1 | Tinggi |
-| **WAF rule** | BLOCK jika ada CL + TE bersamaan | Sedang (SMUGGLE-001) |
+| Fix                            | Implementasi                        | Efektivitas          |
+| ------------------------------ | ----------------------------------- | -------------------- |
+| **HTTP/2 only**                | Backend hanya terima HTTP/2         | Sangat tinggi        |
+| **Normalize TE header**        | Reject/malformed TE headers         | Tinggi               |
+| **Reject ambiguous request**   | Jika CL + TE ada → 400 Bad Request  | Tinggi               |
+| **Frontend-backend konsisten** | Samakan parser behavior             | Sangat tinggi        |
+| **Disable HTTP/1.1 downgrade** | Jangan downgrade HTTP/2 ke HTTP/1.1 | Tinggi               |
+| **WAF rule**                   | BLOCK jika ada CL + TE bersamaan    | Sedang (SMUGGLE-001) |
 
 ### Implementasi: Reject Ambiguous
 
 ```javascript
 // Middleware: jika ada Content-Length AND Transfer-Encoding → reject
 function checkSmuggling(req, res, next) {
-  const cl = req.headers['content-length'];
-  const te = req.headers['transfer-encoding'];
-  if (cl && te && te.toLowerCase().includes('chunked')) {
-    return res.status(400).send('Bad Request');
+  const cl = req.headers["content-length"]
+  const te = req.headers["transfer-encoding"]
+  if (cl && te && te.toLowerCase().includes("chunked")) {
+    return res.status(400).send("Bad Request")
   }
-  next();
+  next()
 }
 ```
 
@@ -305,10 +310,10 @@ function checkSmuggling(req, res, next) {
 
 ```javascript
 // Hanya terima satu nilai TE yang valid
-const VALID_TE = ['chunked', 'identity'];
+const VALID_TE = ["chunked", "identity"]
 function validateTE(te) {
-  const normalized = te.toLowerCase().replace(/\s/g, '');
-  return VALID_TE.includes(normalized) ? normalized : null;
+  const normalized = te.toLowerCase().replace(/\s/g, "")
+  return VALID_TE.includes(normalized) ? normalized : null
 }
 ```
 
@@ -348,6 +353,7 @@ fn check_smuggle_002(req: &RequestInfo) -> bool {
 - OWASP CRS: `/mnt/data_d/Projects/Reference/owasp-coreruleset/rules/REQUEST-921-PROTOCOL-ATTACK.conf`
 
 **Cross-link vault:**
+
 - [[waf-reverse-proxy-deepdive]] — WAF arsitektur
 - [[api-security-deep-dive]] — API keamanan
 - [[web-security]] — web security umum

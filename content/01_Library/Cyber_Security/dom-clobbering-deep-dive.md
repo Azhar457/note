@@ -24,6 +24,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. Bagaimana DOM Clobbering Bekerja]]
 - [[#2. Clobbering Vectors]]
 - [[#3. Gadget-Based Exploitation]]
@@ -41,8 +42,9 @@ cssclasses:
 
 <!-- Di JavaScript: -->
 <script>
-  if (window.username) {  // true! username = <a> element, bukan undefined
-    showUser(window.username);  // Kirim element anchor ke function
+  if (window.username) {
+    // true! username = <a> element, bukan undefined
+    showUser(window.username) // Kirim element anchor ke function
   }
 </script>
 ```
@@ -51,7 +53,7 @@ cssclasses:
 
 ```
 form.id → window.formname
-img.name → window.imagename  
+img.name → window.imagename
 embed.name → window.embedname
 object.id → window.objectname
 a.id → window.anchor
@@ -66,7 +68,7 @@ a.id → window.anchor
 ```html
 <!-- Clobber window.config -->
 <form id="config">
-  <input name="api_key" value="HACKED">
+  <input name="api_key" value="HACKED" />
 </form>
 
 <!-- JavaScript: window.config.api_key → "HACKED" -->
@@ -78,16 +80,17 @@ a.id → window.anchor
 ```html
 <!-- Override window.location (anchor punya .href) -->
 <a id="location" href="https://evil.com/">
-  
-<!-- JavaScript: window.location → <a> element -->
-<!-- window.location.href → "https://evil.com/" -->
+  <!-- JavaScript: window.location → <a> element -->
+  <!-- window.location.href → "https://evil.com/" --></a
+>
 ```
 
 ### Embed/Object Clobbering
 
 ```html
 <object id="serverConfig" data="https://evil.com/config.json">
-<!-- JavaScript: window.serverConfig.data → "https://evil.com/config.json" -->
+  <!-- JavaScript: window.serverConfig.data → "https://evil.com/config.json" -->
+</object>
 ```
 
 ---
@@ -106,7 +109,7 @@ DOM Clobbering sering dipasangkan dengan **gadget** — kode legitimate yang men
 ### jQuery Gadget
 
 ```javascript
-// jQuery: window.jQuery = window.$ 
+// jQuery: window.jQuery = window.$
 // Jika ada <a id="$"> → $ jadi element, bukan function
 // → Error yang bisa diexploit
 ```
@@ -117,17 +120,17 @@ DOM Clobbering sering dipasangkan dengan **gadget** — kode legitimate yang men
 
 ```javascript
 // ✅ Safe: cek typeof sebelum akses
-if (typeof window.config !== 'string') {
+if (typeof window.config !== "string") {
   // Hanya string yang valid
 }
 
 // ✅ Safe: gunakan local scope
 function secure() {
-  let config = null;  // local variable, tidak ter-clobber
+  let config = null // local variable, tidak ter-clobber
 }
 
 // ✅ Safe: Object.create(null)
-const safeConfig = Object.create(null);  // no prototype chain
+const safeConfig = Object.create(null) // no prototype chain
 ```
 
 **Referensi:** `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/DOM Clobbering/`

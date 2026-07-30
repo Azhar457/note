@@ -25,6 +25,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. Mengapa Secrets Scanning Penting]]
 - [[#2. Perbandingan Tools]]
 - [[#3. Gitleaks — Git-Secrets Scanner]]
@@ -44,12 +45,12 @@ cssclasses:
 
 ### Dampak Kebocoran Secrets
 
-| Incident | Dampak | Year |
-|---|---|---|
+| Incident                       | Dampak                          | Year |
+| ------------------------------ | ------------------------------- | ---- |
 | AWS keys di GitHub public repo | $500K+ bill untuk mining crypto | 2022 |
-| Slack token leaked via .env | Full channel access | 2023 |
-| GitHub OAuth token di commit | Source code exfil | 2024 |
-| OpenAI API key di pastebin | $100K+ usage dalam 3 jam | 2024 |
+| Slack token leaked via .env    | Full channel access             | 2023 |
+| GitHub OAuth token di commit   | Source code exfil               | 2024 |
+| OpenAI API key di pastebin     | $100K+ usage dalam 3 jam        | 2024 |
 
 ### Statistik
 
@@ -69,16 +70,17 @@ Developer commit .env → GitHub → Attacker scrape commit → Key aktif → Ab
 
 ## 2. Perbandingan Tools
 
-| Tool | Bahasa | Git History | Regex | Entropy | ML | CI/CD |
-|---|---|---|---|---|---|---|
-| **Gitleaks** | Go | ✅ Full | ✅ Ya | ✅ Ya | ❌ | ✅ GitHub Actions, GitLab CI |
-| **truffleHog** | Python | ✅ Full | ✅ Ya | ✅ Ya | ✅ (v3+) | ✅ GitHub Action |
-| **detect-secrets** | Python | ⚠️ Diffs only | ✅ Ya | ✅ Ya | ❌ | ✅ (plugin) |
-| **ggshield** (GitGuardian) | Python | ✅ Full | ✅ Ya | ✅ Ya | ✅ Cloud | ✅ |
-| **SecretScanner** (Deepfence) | Go | ✅ Full | ✅ Ya | ✅ Ya | ❌ | ❌ Standalone |
-| **GitLeaks Enterprise** | SaaS | ✅ Full | Custom | AI | ✅ | ✅ |
+| Tool                          | Bahasa | Git History   | Regex  | Entropy | ML       | CI/CD                        |
+| ----------------------------- | ------ | ------------- | ------ | ------- | -------- | ---------------------------- |
+| **Gitleaks**                  | Go     | ✅ Full       | ✅ Ya  | ✅ Ya   | ❌       | ✅ GitHub Actions, GitLab CI |
+| **truffleHog**                | Python | ✅ Full       | ✅ Ya  | ✅ Ya   | ✅ (v3+) | ✅ GitHub Action             |
+| **detect-secrets**            | Python | ⚠️ Diffs only | ✅ Ya  | ✅ Ya   | ❌       | ✅ (plugin)                  |
+| **ggshield** (GitGuardian)    | Python | ✅ Full       | ✅ Ya  | ✅ Ya   | ✅ Cloud | ✅                           |
+| **SecretScanner** (Deepfence) | Go     | ✅ Full       | ✅ Ya  | ✅ Ya   | ❌       | ❌ Standalone                |
+| **GitLeaks Enterprise**       | SaaS   | ✅ Full       | Custom | AI      | ✅       | ✅                           |
 
 **Rekomendasi:**
+
 - **Gitleaks** — tool all-rounder, cepat (Go), CI/CD ready, komunitas besar
 - **truffleHog** — untuk scan deep git history dengan ML-enhanced detection
 - **detect-secrets** — untuk pre-commit hooks ringan
@@ -235,8 +237,8 @@ repos:
     rev: v1.4.0
     hooks:
       - id: detect-secrets
-        args: ['--baseline', '.secrets.baseline']
-        exclude: 'package-lock.json|yarn.lock|*.lock'
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: "package-lock.json|yarn.lock|*.lock"
 ```
 
 ---
@@ -258,7 +260,7 @@ repos:
     rev: v1.4.0
     hooks:
       - id: detect-secrets
-        args: ['--baseline', '.secrets.baseline']
+        args: ["--baseline", ".secrets.baseline"]
         exclude: '\.(lock|min\.js|map)$'
 ```
 
@@ -291,7 +293,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history untuk scan
+          fetch-depth: 0 # Full history untuk scan
 
       - name: Gitleaks Scan
         uses: gitleaks/gitleaks-action@v2
@@ -329,12 +331,12 @@ secrets-scan:
 
 ### Block Policy
 
-| Severity | Action |
-|---|---|
-| Verified secret | 🛑 **Block pipeline** |
-| Unverified high entropy | ⚠️ Warning + manual review |
-| Known false positive | ✅ Allow (via `.gitleaksignore`) |
-| Baseline secret | ✅ Allow (known) |
+| Severity                | Action                           |
+| ----------------------- | -------------------------------- |
+| Verified secret         | 🛑 **Block pipeline**            |
+| Unverified high entropy | ⚠️ Warning + manual review       |
+| Known false positive    | ✅ Allow (via `.gitleaksignore`) |
+| Baseline secret         | ✅ Allow (known)                 |
 
 ---
 
@@ -342,12 +344,12 @@ secrets-scan:
 
 ### Sumber False Positive
 
-| Sumber | Contoh | Mitigasi |
-|---|---|---|
-| Test fixtures | `test/fixtures/tokens.json` | `.gitleaksignore` |
-| Documentation | `README.md` contoh key | Path allowlist |
-| Binary/vendor | `node_modules/`, `vendor/` | `paths` di config |
-| Hash values | SHA256 di commit logs | Entropy threshold tuning |
+| Sumber        | Contoh                      | Mitigasi                 |
+| ------------- | --------------------------- | ------------------------ |
+| Test fixtures | `test/fixtures/tokens.json` | `.gitleaksignore`        |
+| Documentation | `README.md` contoh key      | Path allowlist           |
+| Binary/vendor | `node_modules/`, `vendor/`  | `paths` di config        |
+| Hash values   | SHA256 di commit logs       | Entropy threshold tuning |
 
 ### Entropy Threshold
 
@@ -429,18 +431,18 @@ openssl rand -base64 32
 
 ## 10. Secret Detection Regex Patterns
 
-| Secret Type | Pattern Example |
-|---|---|
-| AWS Access Key | `AKIA[0-9A-Z]{16}` |
-| GitHub Token | `ghp_[a-zA-Z0-9]{36}` |
-| GitLab Token | `glpat-[a-zA-Z0-9\-]{20,}` |
-| Slack Token | `xox[baprs]-[a-zA-Z0-9\-]{10,}` |
-| OpenAI API Key | `sk-[a-zA-Z0-9]{20,}` |
-| JWT Token | `eyJ[a-zA-Z0-9\-_]+\.eyJ[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+` |
-| Generic Base64 | `(?:[A-Za-z0-9+/]{40,}={0,2})` |
-| Private Key | `-----BEGIN (RSA|EC|OPENSSH|DSA) PRIVATE KEY-----` |
-| Password in URL | `https://user:password@host` |
-| .env assignment | `[A-Z_]+=[A-Za-z0-9\-_]{8,}` |
+| Secret Type     | Pattern Example                                           |
+| --------------- | --------------------------------------------------------- |
+| AWS Access Key  | `AKIA[0-9A-Z]{16}`                                        |
+| GitHub Token    | `ghp_[a-zA-Z0-9]{36}`                                     |
+| GitLab Token    | `glpat-[a-zA-Z0-9\-]{20,}`                                |
+| Slack Token     | `xox[baprs]-[a-zA-Z0-9\-]{10,}`                           |
+| OpenAI API Key  | `sk-[a-zA-Z0-9]{20,}`                                     |
+| JWT Token       | `eyJ[a-zA-Z0-9\-_]+\.eyJ[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+` |
+| Generic Base64  | `(?:[A-Za-z0-9+/]{40,}={0,2})`                            |
+| Private Key     | `-----BEGIN (RSA                                          | EC  | OPENSSH | DSA) PRIVATE KEY-----` |
+| Password in URL | `https://user:password@host`                              |
+| .env assignment | `[A-Z_]+=[A-Za-z0-9\-_]{8,}`                              |
 
 ---
 
@@ -491,6 +493,7 @@ vault kv get -field=DB_PASSWORD secret/myapp
 - **GitHub Secret Scanning:** https://docs.github.com/en/code-security/secret-scanning
 
 **Cross-link vault:**
+
 - [[devsecops-pipeline-sast-dast-sbom]] — CI/CD security framework
 - [[cicd-shiftleft-shiftright]] — shift-left security
 - [[cicd-guide]] — pipeline guide

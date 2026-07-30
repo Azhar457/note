@@ -1,13 +1,13 @@
 ---
 title: MCP (Model Context Protocol) Integration Guide — JSON-RPC and Custom Tools
 tags:
-- mcp
-- model-context-protocol
-- integration
-- ai-tools
-- software-engineering
-created: '2026-07-19'
-updated: '2026-07-19'
+  - mcp
+  - model-context-protocol
+  - integration
+  - ai-tools
+  - software-engineering
+created: "2026-07-19"
+updated: "2026-07-19"
 status: pending
 ---
 
@@ -59,7 +59,9 @@ Protokol ini berjalan menggunakan model hubungan Client-Server. AI Agent bertind
 Seluruh pertukaran pesan di dalam MCP menggunakan standar format **JSON-RPC 2.0**.
 
 ### 2.1 Request Listing Tools (`tools/list`)
+
 Client mengirimkan perintah ini saat mendeteksi server baru untuk mengetahui daftar tool yang tersedia:
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -70,7 +72,9 @@ Client mengirimkan perintah ini saat mendeteksi server baru untuk mengetahui daf
 ```
 
 ### 2.2 Response Listing Tools
+
 Server mengembalikan daftar spesifikasi skema input parameter dari tool menggunakan format JSON Schema:
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -97,7 +101,9 @@ Server mengembalikan daftar spesifikasi skema input parameter dari tool mengguna
 ```
 
 ### 2.3 Request Eksekusi Tool (`tools/call`)
+
 Client memanggil fungsi tertentu berdasarkan skema yang telah dilaporkan:
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -116,14 +122,14 @@ Client memanggil fungsi tertentu berdasarkan skema yang telah dilaporkan:
 
 ## 3. Perbandingan Transport: STDIO vs SSE (Server-Sent Events)
 
-MCP mendukung dua jenis saluran pengiriman data (*transports*):
+MCP mendukung dua jenis saluran pengiriman data (_transports_):
 
-| Kategori | STDIO Transport | SSE (Server-Sent Events) Transport |
-|----------|-----------------|-----------------------------------|
-| **Koneksi** | Jalur pipa input/output proses lokal | Koneksi HTTP stream (Remote) |
-| **Kelebihan** | Keamanan sangat tinggi, nihil konfigurasi jaringan, latensi minimal. | Mendukung arsitektur multi-node, server di-host secara terpusat di cloud. |
-| **Kelemahannya**| Server harus berjalan di mesin yang sama dengan client. | Lebih rentan terhadap ancaman intersepsi jaringan, perlu SSL/TLS + Auth token. |
-| **Gaya** | `stdin` dan `stdout` | HTTP POST (untuk client → server) & EventSource (server → client) |
+| Kategori         | STDIO Transport                                                      | SSE (Server-Sent Events) Transport                                             |
+| ---------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Koneksi**      | Jalur pipa input/output proses lokal                                 | Koneksi HTTP stream (Remote)                                                   |
+| **Kelebihan**    | Keamanan sangat tinggi, nihil konfigurasi jaringan, latensi minimal. | Mendukung arsitektur multi-node, server di-host secara terpusat di cloud.      |
+| **Kelemahannya** | Server harus berjalan di mesin yang sama dengan client.              | Lebih rentan terhadap ancaman intersepsi jaringan, perlu SSL/TLS + Auth token. |
+| **Gaya**         | `stdin` dan `stdout`                                                 | HTTP POST (untuk client → server) & EventSource (server → client)              |
 
 ---
 
@@ -132,7 +138,7 @@ MCP mendukung dua jenis saluran pengiriman data (*transports*):
 Server MCP dapat menyediakan tiga jenis aset informasi ke client:
 
 1. **Tools**: Fungsi asinkron yang dapat dieksekusi oleh AI Agent untuk merubah state atau mendapatkan informasi (misal: jalankan perintah bash, edit berkas).
-2. **Resources**: Data statis/dinamis berdimensi baca-saja (*read-only*) yang dapat dimasukkan langsung ke context window AI (misal: log file, schema database, API docs).
+2. **Resources**: Data statis/dinamis berdimensi baca-saja (_read-only_) yang dapat dimasukkan langsung ke context window AI (misal: log file, schema database, API docs).
 3. **Prompts**: Kumpulan template perintah yang telah dirancang sebelumnya untuk membantu pengguna merumuskan instruksi spesifik (misal: template "audit-code", "refactoring-helper").
 
 ---
@@ -142,7 +148,9 @@ Server MCP dapat menyediakan tiga jenis aset informasi ke client:
 Berikut adalah contoh praktis pembuatan server MCP menggunakan Python SDK resmi untuk mengekspos tool hash MD5/SHA-256.
 
 ### 5.1 Prasyarat Pustaka
+
 Instal SDK resmi menggunakan uv/pip:
+
 ```bash
 pip install mcp
 ```
@@ -161,14 +169,14 @@ mcp = FastMCP("HashHelper")
 def compute_hash(data: str, algorithm: str = "sha256") -> str:
     """
     Menghitung hash dari string input menggunakan algoritma tertentu.
-    
+
     Args:
         data: String teks mentah.
         algorithm: Pilihan algoritma: 'sha256', 'md5', atau 'sha1'.
     """
     algo = algorithm.lower()
     raw_bytes = data.encode('utf-8')
-    
+
     if algo == "sha256":
         return hashlib.sha256(raw_bytes).hexdigest()
     elif algo == "md5":
@@ -184,6 +192,7 @@ if __name__ == "__main__":
 ```
 
 Jalankan server melalui konfigurasi host AI Agent (misal: Claude Desktop Config):
+
 ```json
 {
   "mcpServers": {
@@ -199,8 +208,8 @@ Jalankan server melalui konfigurasi host AI Agent (misal: Claude Desktop Config)
 
 ## 6. Koneksi ke Vault
 
-| Catatan | Hubungan |
-|------|----------|
+| Catatan                                  | Hubungan                                                                  |
+| ---------------------------------------- | ------------------------------------------------------------------------- |
 | [[agentic-ai-mcp-architecture-deepdive]] | Kerangka kerja dasar multi-agent otonom yang mengkonsumsi server MCP ini. |
-| [[ai-comm-protocol-deep-dive]] | Penjelasan format protokol dan performa serialisasi antar agen. |
-| [[ai-assisted-dev-workflow]] | Penggunaan perkakas MCP untuk otomatisasi penulisan kode siber. |
+| [[ai-comm-protocol-deep-dive]]           | Penjelasan format protokol dan performa serialisasi antar agen.           |
+| [[ai-assisted-dev-workflow]]             | Penggunaan perkakas MCP untuk otomatisasi penulisan kode siber.           |

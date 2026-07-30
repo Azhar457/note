@@ -1,15 +1,15 @@
 ---
 title: Software Supply Chain Security — SLSA, In-toto, Sigstore & Dependency Attacks
 tags:
-- supply-chain
-- slsa
-- in-toto
-- sigstore
-- sbom
-- dependency-confusion
-- reproducible-builds
-created: '2026-07-19'
-updated: '2026-07-19'
+  - supply-chain
+  - slsa
+  - in-toto
+  - sigstore
+  - sbom
+  - dependency-confusion
+  - reproducible-builds
+created: "2026-07-19"
+updated: "2026-07-19"
 status: pending
 ---
 
@@ -53,17 +53,16 @@ Runtime
 
 ### 1.2 Attack Vectors per Phase
 
-| Phase | Attack | Example |
-|-------|--------|---------|
-| **Code** | Backdoor in source | SolarWinds (code injection in build) |
-| **Build** | Compromised build server | Codecov (build image poisoned) |
-| **Dependency** | Malicious package | Event-stream (copay wallet hijack) |
-| **Registry** | Account takeover | npm account hijack |
-| **Install** | Dependency confusion | Internal package vs public registry |
-| **Update** | Compromised update | CCleaner (signed trojan) |
-| **Runtime** | Dynamic loading | DLL sideloading |
-| **Hardware** | Firmware backdoor | Supermicro BMC |
-
+| Phase          | Attack                   | Example                              |
+| -------------- | ------------------------ | ------------------------------------ |
+| **Code**       | Backdoor in source       | SolarWinds (code injection in build) |
+| **Build**      | Compromised build server | Codecov (build image poisoned)       |
+| **Dependency** | Malicious package        | Event-stream (copay wallet hijack)   |
+| **Registry**   | Account takeover         | npm account hijack                   |
+| **Install**    | Dependency confusion     | Internal package vs public registry  |
+| **Update**     | Compromised update       | CCleaner (signed trojan)             |
+| **Runtime**    | Dynamic loading          | DLL sideloading                      |
+| **Hardware**   | Firmware backdoor        | Supermicro BMC                       |
 
 ## 2. SLSA Framework
 
@@ -71,32 +70,32 @@ Runtime
 
 SLSA (Supply-chain Levels for Software Artifacts) — framework untuk meningkatkan kepercayaan artifacts.
 
-| Level | Name | Requirements | Implication |
-|-------|------|-------------|-------------|
-| **L1** | Build provenance | Package has provenance (who, what, when built) | Minimal trust |
-| **L2** | Hosted build | Build runs on hosted CI (not dev machine) | Trust the build platform |
-| **L3** | Hardened build | Hermetic build + no user-controlled steps | Hard to tamper |
-| **L4** | Two-person review | All changes reviewed + reproducible build | Maximum assurance |
+| Level  | Name              | Requirements                                   | Implication              |
+| ------ | ----------------- | ---------------------------------------------- | ------------------------ |
+| **L1** | Build provenance  | Package has provenance (who, what, when built) | Minimal trust            |
+| **L2** | Hosted build      | Build runs on hosted CI (not dev machine)      | Trust the build platform |
+| **L3** | Hardened build    | Hermetic build + no user-controlled steps      | Hard to tamper           |
+| **L4** | Two-person review | All changes reviewed + reproducible build      | Maximum assurance        |
 
 ### 2.2 SLSA Build Provenance (In-toto format)
 
 ```json
 {
   "_type": "https://in-toto.io/Statement/v1",
-  "subject": [{"name": "app:v1.0.0", "digest": {"sha256": "abc123..."}}],
+  "subject": [{ "name": "app:v1.0.0", "digest": { "sha256": "abc123..." } }],
   "predicateType": "https://slsa.dev/provenance/v1",
   "predicate": {
-    "builder": {"id": "https://github.com/org/repo/.github/workflows/build.yml"},
+    "builder": { "id": "https://github.com/org/repo/.github/workflows/build.yml" },
     "buildType": "https://github.com/actions/workflow/v1",
     "invocation": {
       "configSource": {
         "uri": "git+https://github.com/org/repo.git@refs/heads/main",
-        "digest": {"sha1": "git-commit-hash-here"}
+        "digest": { "sha1": "git-commit-hash-here" }
       }
     },
     "materials": [
-      {"uri": "git+https://github.com/org/repo", "digest": {"sha1": "abc"}},
-      {"uri": "pkg:docker/alpine@3.19", "digest": {"sha256": "def"}}
+      { "uri": "git+https://github.com/org/repo", "digest": { "sha1": "abc" } },
+      { "uri": "pkg:docker/alpine@3.19", "digest": { "sha256": "def" } }
     ]
   }
 }
@@ -109,16 +108,16 @@ SLSA (Supply-chain Levels for Software Artifacts) — framework untuk meningkatk
 jobs:
   build:
     permissions:
-      id-token: write  # Needed for OIDC (keyless signing)
+      id-token: write # Needed for OIDC (keyless signing)
       contents: read
     steps:
-    - uses: actions/checkout@v4
-    
-    - uses: slsa-framework/slsa-github-generator/.github/actions/generate-provenance@v2
-      with:
-        base64-subjects: "${{ needs.build.outputs.digests }}"
-    
-    - uses: slsa-framework/slsa-github-generator/.github/actions/upload-provenance@v2
+      - uses: actions/checkout@v4
+
+      - uses: slsa-framework/slsa-github-generator/.github/actions/generate-provenance@v2
+        with:
+          base64-subjects: "${{ needs.build.outputs.digests }}"
+
+      - uses: slsa-framework/slsa-github-generator/.github/actions/upload-provenance@v2
 ```
 
 ## 3. In-toto Attestation
@@ -196,7 +195,7 @@ cosign sign ghcr.io/user/app:v1.0.0
 # Verify
 cosign verify ghcr.io/user/app:v1.0.0
 
-# Key-based signing 
+# Key-based signing
 cosign generate-key-pair
 cosign sign --key cosign.key ghcr.io/user/app:v1.0.0
 cosign verify --key cosign.pub ghcr.io/user/app:v1.0.0
@@ -210,13 +209,13 @@ cosign verify \
 
 ### 4.3 Comparison: Signing Methods
 
-| Method | Key Management | Trust Model | Best For |
-|--------|---------------|-------------|----------|
-| **GPG** | Manual key pairs | Web of trust | Open source projects |
-| **Cosign (key-based)** | Store keys securely | Key ownership | Internal/enterprise |
-| **Cosign (keyless)** | None (OIDC) | Identity-based | CI/CD pipelines |
-| **Notary** | TUF delegation | Signed timestamp | Docker content trust |
-| **Sig store** | KMS | Cloud HSM | High-security |
+| Method                 | Key Management      | Trust Model      | Best For             |
+| ---------------------- | ------------------- | ---------------- | -------------------- |
+| **GPG**                | Manual key pairs    | Web of trust     | Open source projects |
+| **Cosign (key-based)** | Store keys securely | Key ownership    | Internal/enterprise  |
+| **Cosign (keyless)**   | None (OIDC)         | Identity-based   | CI/CD pipelines      |
+| **Notary**             | TUF delegation      | Signed timestamp | Docker content trust |
+| **Sig store**          | KMS                 | Cloud HSM        | High-security        |
 
 ## 5. Dependency Confusion Attacks
 
@@ -306,14 +305,14 @@ Checksums-Sha256:
 
 ### 7.1 SBOM Format: CycloneDX vs SPDX
 
-| Aspect | CycloneDX | SPDX |
-|--------|-----------|------|
-| **Focus** | Security (vulns, pedigree) | Licensing, compliance |
-| **Components** | Direct + transitive dependencies | Same |
-| **Vulnerabilities** | Native vulnerability model | External reference |
-| **Formats** | JSON, XML, Protobuf | JSON, RDF, XLSX, tag:value |
-| **Tooling** | Syft, Trivy, Dependency-Track | FOSSology, SPDX tools |
-| **Ecosystem** | OWASP, OWTF | Linux Foundation |
+| Aspect              | CycloneDX                        | SPDX                       |
+| ------------------- | -------------------------------- | -------------------------- |
+| **Focus**           | Security (vulns, pedigree)       | Licensing, compliance      |
+| **Components**      | Direct + transitive dependencies | Same                       |
+| **Vulnerabilities** | Native vulnerability model       | External reference         |
+| **Formats**         | JSON, XML, Protobuf              | JSON, RDF, XLSX, tag:value |
+| **Tooling**         | Syft, Trivy, Dependency-Track    | FOSSology, SPDX tools      |
+| **Ecosystem**       | OWASP, OWTF                      | Linux Foundation           |
 
 ### 7.2 SBOM Generation Tools
 
@@ -357,54 +356,54 @@ pkg:pypi/requests@2.31.0
 
 ### 8.1 SolarWinds (SUNBURST) — 2020
 
-| Aspect | Detail |
-|--------|--------|
-| **Impact** | 18,000+ customers compromised (US gov, Fortune 500) |
-| **Method** | Build server compromise → inject trojan into Orion DLL |
-| **Persistence** | Signed with SolarWinds cert → bypass all security |
-| **Detection** | FireEye discovered after 8 months |
-| **Root cause** | Weak build server security, no SLSA provenance |
+| Aspect          | Detail                                                 |
+| --------------- | ------------------------------------------------------ |
+| **Impact**      | 18,000+ customers compromised (US gov, Fortune 500)    |
+| **Method**      | Build server compromise → inject trojan into Orion DLL |
+| **Persistence** | Signed with SolarWinds cert → bypass all security      |
+| **Detection**   | FireEye discovered after 8 months                      |
+| **Root cause**  | Weak build server security, no SLSA provenance         |
 
 ### 8.2 Log4j (Log4Shell) — 2021
 
-| Aspect | Detail |
-|--------|--------|
-| **Impact** | ~10M affected instances, CVSS 10.0 |
-| **Method** | JNDI injection via Log4j → RCE |
-| **Fix delay** | Months to patch entire supply chain |
+| Aspect              | Detail                                                     |
+| ------------------- | ---------------------------------------------------------- |
+| **Impact**          | ~10M affected instances, CVSS 10.0                         |
+| **Method**          | JNDI injection via Log4j → RCE                             |
+| **Fix delay**       | Months to patch entire supply chain                        |
 | **SBOM importance** | Organizations took weeks to inventory where Log4j was used |
 
 ### 8.3 xz-utils Backdoor — 2024
 
-| Aspect | Detail |
-|--------|--------|
-| **Impact** | Backdoor in SSH (Libsystem) — nearly shipped to millions |
-| **Method** | 2-year social engineering → malicious binary in test files |
-| **Detection** | Performance regression noticed by Microsoft engineer |
-| **SLSA** | Would have caught: no provenance, no reproducible build |
+| Aspect        | Detail                                                     |
+| ------------- | ---------------------------------------------------------- |
+| **Impact**    | Backdoor in SSH (Libsystem) — nearly shipped to millions   |
+| **Method**    | 2-year social engineering → malicious binary in test files |
+| **Detection** | Performance regression noticed by Microsoft engineer       |
+| **SLSA**      | Would have caught: no provenance, no reproducible build    |
 
 ### 8.4 Other Notable
 
-| Year | Attack | Method | Impact |
-|------|--------|--------|--------|
-| 2017 | CCleaner | Build server → signed trojan | 2.27M users infected |
-| 2018 | Event-stream | Malicious dependency (flatmap-stream) | Copay wallet hijack |
-| 2019 | Webmin | Backdoor in source code | 130K servers |
-| 2021 | Codecov | Docker image credential leak | All customers exposed |
-| 2022 | PyTorch | Dependency confusion (torch-nightly) | Build chain compromised |
-| 2024 | XZ | YEARS-long social engineering | Critical SSH backdoor |
+| Year | Attack       | Method                                | Impact                  |
+| ---- | ------------ | ------------------------------------- | ----------------------- |
+| 2017 | CCleaner     | Build server → signed trojan          | 2.27M users infected    |
+| 2018 | Event-stream | Malicious dependency (flatmap-stream) | Copay wallet hijack     |
+| 2019 | Webmin       | Backdoor in source code               | 130K servers            |
+| 2021 | Codecov      | Docker image credential leak          | All customers exposed   |
+| 2022 | PyTorch      | Dependency confusion (torch-nightly)  | Build chain compromised |
+| 2024 | XZ           | YEARS-long social engineering         | Critical SSH backdoor   |
 
 ## 9. Koneksi ke Vault
 
-| Note | Hubungan |
-|------|----------|
-| [[devsecops-pipeline-sast-dast-sbom]] | SAST/DAST/SCA + SBOM dalam pipeline CI/CD |
-| [[exploit-development]] | Supply chain attack sebagai initial access vector |
-| [[comprehensive-threat-directory]] | Threat actor profile (APT supply chain attacks) |
-| [[incident-response-framework]] | IR playbook untuk supply chain compromise |
-| [[zero-trust-security]] | Zero-trust untuk build and deploy pipeline |
-| [[cloud-security-posture-management]] | K8s admission control, image signing policy |
-| [[malware-analysis-reverse-engineering-playbook]] | Analyzing trojanized packages |
+| Note                                              | Hubungan                                          |
+| ------------------------------------------------- | ------------------------------------------------- |
+| [[devsecops-pipeline-sast-dast-sbom]]             | SAST/DAST/SCA + SBOM dalam pipeline CI/CD         |
+| [[exploit-development]]                           | Supply chain attack sebagai initial access vector |
+| [[comprehensive-threat-directory]]                | Threat actor profile (APT supply chain attacks)   |
+| [[incident-response-framework]]                   | IR playbook untuk supply chain compromise         |
+| [[zero-trust-security]]                           | Zero-trust untuk build and deploy pipeline        |
+| [[cloud-security-posture-management]]             | K8s admission control, image signing policy       |
+| [[malware-analysis-reverse-engineering-playbook]] | Analyzing trojanized packages                     |
 
 ---
 

@@ -24,6 +24,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. JavaScript Prototype Mechanism]]
 - [[#2. Attack Vectors — Merge/Assign/Clone]]
 - [[#3. Exploitation Scenarios]]
@@ -41,16 +42,16 @@ Setiap objek JavaScript memiliki `__proto__` yang merujuk ke prototype class-nya
 
 ```javascript
 // Normal object
-let obj = {a: 1, b: 2};
+let obj = { a: 1, b: 2 }
 
 // Prototype pollution
-obj.__proto__.admin = true;
+obj.__proto__.admin = true
 // atau
-Object.prototype.admin = true;
+Object.prototype.admin = true
 
 // Sekarang SEMUA objek punya admin: true
-let empty = {};
-console.log(empty.admin); // true!
+let empty = {}
+console.log(empty.admin) // true!
 ```
 
 ### Prototype Chain
@@ -74,10 +75,10 @@ Jika `Object.prototype` di-pollute, **semua objek** terpengaruh.
 function merge(target, source) {
   for (let key in source) {
     if (isObject(source[key])) {
-      if (!target[key]) target[key] = {};
-      merge(target[key], source[key]);
+      if (!target[key]) target[key] = {}
+      merge(target[key], source[key])
     } else {
-      target[key] = source[key];
+      target[key] = source[key]
     }
   }
 }
@@ -88,12 +89,12 @@ function merge(target, source) {
 
 ### Common Vulnerable Functions
 
-| Library | Fungsi | CVE |
-|---|---|---|
-| jQuery | `$.extend(true, {}, input)` | CVE-2019-11358 |
-| lodash | `_.defaultsDeep({}, input)` | CVE-2019-10744 |
-| Express | `body-parser` JSON parsing | — |
-| Socket.io | `socket.io` parser | — |
+| Library   | Fungsi                      | CVE            |
+| --------- | --------------------------- | -------------- |
+| jQuery    | `$.extend(true, {}, input)` | CVE-2019-11358 |
+| lodash    | `_.defaultsDeep({}, input)` | CVE-2019-10744 |
+| Express   | `body-parser` JSON parsing  | —              |
+| Socket.io | `socket.io` parser          | —              |
 
 ### Payload Vectors
 
@@ -119,7 +120,7 @@ Content-Type: application/json
 
 ```json
 // Pollute innerHTML default
-{"__proto__": {"innerHTML": "<img src=x onerror=alert(1)>"}}
+{ "__proto__": { "innerHTML": "<img src=x onerror=alert(1)>" } }
 
 // Jika aplikasi render objek tanpa sanitasi
 // → objek apapun yang di-render akan memiliki innerHTML jahat
@@ -153,7 +154,7 @@ Server-side PP lebih berbahaya karena bisa RCE.
 
 ```javascript
 // Express body-parser JSON parsing
-app.use(bodyParser.json()); // ← vulnerable jika tidak dibatasi depth
+app.use(bodyParser.json()) // ← vulnerable jika tidak dibatasi depth
 
 // Payload:
 // POST /api {"__proto__": {"admin": true}}
@@ -177,12 +178,12 @@ curl http://target.com/api/check
 
 ## 5. Tools & Automation
 
-| Tool | Fungsi |
-|---|---|
-| **PPFuzz** | Automated prototype pollution fuzzing |
-| **Burp Scanner** | Deteksi PP via passive/active scan |
-| **Server-Side PP Scanner** | Auto-detect server-side PP |
-| **Custom Node.js** | Manual testing via script |
+| Tool                       | Fungsi                                |
+| -------------------------- | ------------------------------------- |
+| **PPFuzz**                 | Automated prototype pollution fuzzing |
+| **Burp Scanner**           | Deteksi PP via passive/active scan    |
+| **Server-Side PP Scanner** | Auto-detect server-side PP            |
+| **Custom Node.js**         | Manual testing via script             |
 
 ### Manual Testing
 
@@ -231,14 +232,14 @@ static PROTO_POLLUTE_CONSTRUCTOR: Lazy<Regex> = Lazy::new(|| {
 
 ## 7. Defense Strategy
 
-| Defense | Implementasi |
-|---|---|
-| **Sanitasi input** | Strip `__proto__`, `constructor`, `prototype` dari input |
-| **Immutable merge** | Gunakan `Object.assign` atau spread operator (tidak recursive) |
-| **JSON.parse reviver** | Custom reviver untuk reject prototype keys |
-| **Schema validasi** | Validasi struktur input sebelum merge |
-| **Map instead of Object** | Gunakan `Map` untuk key-value storage |
-| **Object.create(null)** | Objek tanpa prototype chain |
+| Defense                   | Implementasi                                                   |
+| ------------------------- | -------------------------------------------------------------- |
+| **Sanitasi input**        | Strip `__proto__`, `constructor`, `prototype` dari input       |
+| **Immutable merge**       | Gunakan `Object.assign` atau spread operator (tidak recursive) |
+| **JSON.parse reviver**    | Custom reviver untuk reject prototype keys                     |
+| **Schema validasi**       | Validasi struktur input sebelum merge                          |
+| **Map instead of Object** | Gunakan `Map` untuk key-value storage                          |
+| **Object.create(null)**   | Objek tanpa prototype chain                                    |
 
 ### Safe JSON Parse
 
@@ -246,11 +247,11 @@ static PROTO_POLLUTE_CONSTRUCTOR: Lazy<Regex> = Lazy::new(|| {
 // Safe reviver — reject prototype pollution
 function safeJSONParse(str) {
   return JSON.parse(str, (key, value) => {
-    if (key === '__proto__' || key === 'constructor') {
-      throw new Error('Prototype pollution detected');
+    if (key === "__proto__" || key === "constructor") {
+      throw new Error("Prototype pollution detected")
     }
-    return value;
-  });
+    return value
+  })
 }
 ```
 
@@ -259,14 +260,14 @@ function safeJSONParse(str) {
 ```javascript
 function safeMerge(target, source) {
   for (const key of Object.keys(source)) {
-    if (key === '__proto__' || key === 'constructor') continue;
+    if (key === "__proto__" || key === "constructor") continue
     if (isObject(source[key])) {
-      target[key] = safeMerge(target[key] || {}, source[key]);
+      target[key] = safeMerge(target[key] || {}, source[key])
     } else {
-      target[key] = source[key];
+      target[key] = source[key]
     }
   }
-  return target;
+  return target
 }
 ```
 
@@ -278,8 +279,9 @@ function safeMerge(target, source) {
 - OWASP: Prototype Pollution Prevention Cheat Sheet
 
 **Cross-link vault:**
+
 - [[web-security]] — web security dasar
 - [[api-security-deep-dive]] — API security
 - [[browser-security-exploitation-deepdive]] — browser attack
 - [[web-hacking-exploitation]] — teknik exploit
-- [[vault:01_Library/Cyber_Security/Web_Security/]] — security references
+- [[vault]] — security references

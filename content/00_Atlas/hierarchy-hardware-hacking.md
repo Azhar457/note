@@ -10,7 +10,7 @@ tags:
 aliases:
   - "hierarchy-hardware-hacking"
 created: "2026-07-17"
-updated: '2026-07-17'
+updated: "2026-07-17"
 status: pending
 ---
 
@@ -25,16 +25,16 @@ status: pending
 
 ## Tabel Utama — Level 0 sampai Level 7
 
-| 🔩 Level | 🧠 Pendekatan | ⚡ Alat & Teknik | ☠️ Tembok Kematian | 🎯 Aplikasi Nyata |
-|---|---|---|---|---|
-| **Level 0** — Physical Recon | Multimeter, visual PCB inspection, **FCC ID lookup** (fccid.io — foto internal resmi dari sertifikasi FCC), magnifying glass | Buka casing, foto PCB, identifikasi chip marking. Cek continuity jalur, ukur voltase power rail. FCC ID lookup sering dapat foto internal sebelum lo buka sendiri | Chip marking sengaja dihapus. Komponen BGA tidak terlihat pin-nya tanpa X-ray | Identify target, cari UART/JTAG pad, reverse PCB layout awal |
-| **Level 1** — UART / Serial Console | USB-to-UART adapter (CH340G/CP2102), logic analyzer, PuTTY, minicom, screen | **Lubang debug paling umum**: 3-4 pad (TX, RX, GND, VCC). Sambung → sering langsung **root shell**. Identifikasi baud rate via logic analyzer atau brute force (1200–115200) | Vendor disable UART di production build atau require password. Baiknya identifikasi dulu pad mana yang UART | Root akses router/kamera IP, dump boot log, akses recovery mode |
-| **Level 2** — JTAG / SWD Debug | OpenOCD, JLink, CMSIS-DAP, UrJTAG, Black Magic Probe | **Interface debug industri**: pause execution, read/write memory, flash firmware, single-step. SWD: 2-pin lebih baru (ARM Cortex-M). OpenOCD: open-source controller | Banyak device **burn JTAG fuse** (disable permanen). Beberapa butuh autentikasi. Pad sering tidak di-label | Firmware dump, unlock bootloader, debug embedded, bypass secure boot |
-| **Level 3** — Flash Chip Dump | Flashrom, CH341A programmer, SOIC clip, Bus Pirate | Dump langsung dari chip flash SPI/NOR tanpa lewat CPU. CH341A ~Rp 50rb. SOIC clip jepit tanpa desolder. Flashrom support ratusan chip | Flash BGA = harus desolder. Chip dengan internal encryption = dump terenkripsi | Backup firmware sebelum mod, bypass write protection, recover brick |
-| **Level 4** — Side-Channel Attack | ChipWhisperer, oscilloscope, power analysis, EM probe, timing analysis | **Power Analysis**: monitor konsumsi daya CPU saat kripto → ekstrak kunci AES dari power trace. ChipWhisperer: platform open-source SCA. **EM Analysis**: probe antena kecil → baca emisi elektromagnetik. **Timing**: ukur waktu eksekusi untuk infer data | Butuh ribuan trace untuk DPA. Target dengan masking/jitter mitigation sangat resistan. Butuh statistik signal processing | Smart card attack, secure element research, IoT key extraction |
-| **Level 5** — Fault Injection | Voltage glitching (ChipShouter), clock glitching, laser fault injection (laser diode microscope), EM fault injection | **Voltage glitch**: spike voltase sesaat → corrupt instruksi — skip security check. **Clock glitch**: pulsa clock ekstra → execute instruksi ganda. **Laser FI**: tembak laser presisi ke die → flip bit di SRAM/register | FI mahal (laser FI puluhan juta). Modern chip punya voltage/frequency detector → zeroize jika anomali. Timing presisi nanosecond | Bypass secure boot, extract key dari HSM/TPM, jailbreak console, bypass PIN limit |
-| **Level 6** — PCB & Circuit RE | X-ray PCB, dye-and-pry, layer delamination, KiCad RE | **X-ray**: lihat layer PCB multi-layer non-destruktif. **Dye-and-pry**: celup PCB pewarna, cungkil BGA → lihat ball pattern. **Delamination**: kupas layer PCB satu per satu untuk trace semua jalur | X-ray butuh mesin industri. Delamination destruktif — tidak bisa diulang. Butuh skill PCB layout | RE produk kompetitor, security audit hardware proprietary, reverse supply chain |
-| **☠️ Level 7** — Silicon RE | Decap kimia (asam nitrat/sulfat), SEM imaging, FIB circuit edit, netlist reconstruction | Larutkan epoxy packaging → ekspos die. SEM: foto seluruh permukaan die per layer. **FIB**: potong & deposit logam di level atom — edit circuit fisik. Rekonstruksi netlist dari foto SEM → schematic chip full | Biaya per chip: Rp 50 juta–Rp 5 miliar. Destruktif total. Butuh lab cleanroom + operator expert | Military chip RE (DARPA TRUST), clone detection, backdoor search di chip kripto |
+| 🔩 Level                            | 🧠 Pendekatan                                                                                                                | ⚡ Alat & Teknik                                                                                                                                                                                                                                            | ☠️ Tembok Kematian                                                                                                               | 🎯 Aplikasi Nyata                                                                 |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Level 0** — Physical Recon        | Multimeter, visual PCB inspection, **FCC ID lookup** (fccid.io — foto internal resmi dari sertifikasi FCC), magnifying glass | Buka casing, foto PCB, identifikasi chip marking. Cek continuity jalur, ukur voltase power rail. FCC ID lookup sering dapat foto internal sebelum lo buka sendiri                                                                                           | Chip marking sengaja dihapus. Komponen BGA tidak terlihat pin-nya tanpa X-ray                                                    | Identify target, cari UART/JTAG pad, reverse PCB layout awal                      |
+| **Level 1** — UART / Serial Console | USB-to-UART adapter (CH340G/CP2102), logic analyzer, PuTTY, minicom, screen                                                  | **Lubang debug paling umum**: 3-4 pad (TX, RX, GND, VCC). Sambung → sering langsung **root shell**. Identifikasi baud rate via logic analyzer atau brute force (1200–115200)                                                                                | Vendor disable UART di production build atau require password. Baiknya identifikasi dulu pad mana yang UART                      | Root akses router/kamera IP, dump boot log, akses recovery mode                   |
+| **Level 2** — JTAG / SWD Debug      | OpenOCD, JLink, CMSIS-DAP, UrJTAG, Black Magic Probe                                                                         | **Interface debug industri**: pause execution, read/write memory, flash firmware, single-step. SWD: 2-pin lebih baru (ARM Cortex-M). OpenOCD: open-source controller                                                                                        | Banyak device **burn JTAG fuse** (disable permanen). Beberapa butuh autentikasi. Pad sering tidak di-label                       | Firmware dump, unlock bootloader, debug embedded, bypass secure boot              |
+| **Level 3** — Flash Chip Dump       | Flashrom, CH341A programmer, SOIC clip, Bus Pirate                                                                           | Dump langsung dari chip flash SPI/NOR tanpa lewat CPU. CH341A ~Rp 50rb. SOIC clip jepit tanpa desolder. Flashrom support ratusan chip                                                                                                                       | Flash BGA = harus desolder. Chip dengan internal encryption = dump terenkripsi                                                   | Backup firmware sebelum mod, bypass write protection, recover brick               |
+| **Level 4** — Side-Channel Attack   | ChipWhisperer, oscilloscope, power analysis, EM probe, timing analysis                                                       | **Power Analysis**: monitor konsumsi daya CPU saat kripto → ekstrak kunci AES dari power trace. ChipWhisperer: platform open-source SCA. **EM Analysis**: probe antena kecil → baca emisi elektromagnetik. **Timing**: ukur waktu eksekusi untuk infer data | Butuh ribuan trace untuk DPA. Target dengan masking/jitter mitigation sangat resistan. Butuh statistik signal processing         | Smart card attack, secure element research, IoT key extraction                    |
+| **Level 5** — Fault Injection       | Voltage glitching (ChipShouter), clock glitching, laser fault injection (laser diode microscope), EM fault injection         | **Voltage glitch**: spike voltase sesaat → corrupt instruksi — skip security check. **Clock glitch**: pulsa clock ekstra → execute instruksi ganda. **Laser FI**: tembak laser presisi ke die → flip bit di SRAM/register                                   | FI mahal (laser FI puluhan juta). Modern chip punya voltage/frequency detector → zeroize jika anomali. Timing presisi nanosecond | Bypass secure boot, extract key dari HSM/TPM, jailbreak console, bypass PIN limit |
+| **Level 6** — PCB & Circuit RE      | X-ray PCB, dye-and-pry, layer delamination, KiCad RE                                                                         | **X-ray**: lihat layer PCB multi-layer non-destruktif. **Dye-and-pry**: celup PCB pewarna, cungkil BGA → lihat ball pattern. **Delamination**: kupas layer PCB satu per satu untuk trace semua jalur                                                        | X-ray butuh mesin industri. Delamination destruktif — tidak bisa diulang. Butuh skill PCB layout                                 | RE produk kompetitor, security audit hardware proprietary, reverse supply chain   |
+| **☠️ Level 7** — Silicon RE         | Decap kimia (asam nitrat/sulfat), SEM imaging, FIB circuit edit, netlist reconstruction                                      | Larutkan epoxy packaging → ekspos die. SEM: foto seluruh permukaan die per layer. **FIB**: potong & deposit logam di level atom — edit circuit fisik. Rekonstruksi netlist dari foto SEM → schematic chip full                                              | Biaya per chip: Rp 50 juta–Rp 5 miliar. Destruktif total. Butuh lab cleanroom + operator expert                                  | Military chip RE (DARPA TRUST), clone detection, backdoor search di chip kripto   |
 
 ---
 
@@ -74,13 +74,13 @@ status: pending
 
 Software exploit butuh skill dan mungkin koneksi jaringan. Hardware exploit butuh: alat (CH340 ~Rp 15rb), akses fisik (atau supply chain), waktu (buka casing, solder, probe). Tapi:
 
-| Serangan Software | Serangan Hardware Sebanding |
-|---|---|
-| Remote code execution | UART root shell (L1) |
-| Debugger bypass | JTAG debug (L2) |
-| Memory dump | Flash dump (L3) |
-| Key extraction via Meltdown/Spectre | Side-channel power analysis (L4) |
-| Kernel exploit | Fault injection bypass secure boot (L5) |
+| Serangan Software                   | Serangan Hardware Sebanding             |
+| ----------------------------------- | --------------------------------------- |
+| Remote code execution               | UART root shell (L1)                    |
+| Debugger bypass                     | JTAG debug (L2)                         |
+| Memory dump                         | Flash dump (L3)                         |
+| Key extraction via Meltdown/Spectre | Side-channel power analysis (L4)        |
+| Kernel exploit                      | Fault injection bypass secure boot (L5) |
 
 Hardware attack tidak butuh bug di OS — dia menyerang **fisika** chip, bukan abstraksi software.
 
@@ -91,6 +91,7 @@ Produsen embedded device sering tinggalkan UART di production board untuk debugg
 ### 3. JTAG Fuse (L2) = Game of Trust
 
 Produsen yang serius soal security **burn JTAG fuse** di production: fuse fisik di chip yang memutus koneksi JTAG secara permanen. Tapi:
+
 - Kalau fuse tidak di-burn = JTAG terbuka lebar
 - Kalau di-burn dan ada bug di firmware → **tidak bisa debug** (chip brick forever)
 - Harga keamanan vs serviceability trade-off
@@ -100,6 +101,7 @@ Cara mengecek JTAG fusing: coba konek via JLink/OpenOCD. Kalau bisa detect targe
 ### 4. Supply Chain Attack Paling Powerful Ada di Hardware Level
 
 Menginfeksi supply chain di Level 6–7:
+
 - **Level 6**: Re-create PCB layout kompetitor + inject malicious chip
 - **Level 7**: FIB edit die di fabrikasi → hardware backdoor di transistor level (dideteksi Snowden docs: NSA menanam implant di hardware Cisco sebelum sampai customer)
 - **Level 3**: Infect SPI flash sebelum device sampai ke pengguna (BMC bom)
@@ -129,14 +131,14 @@ Hardware supply chain attack **tidak bisa dideteksi software** — satu-satunya 
 
 ## Perbandingan Level per Target
 
-| Target | Level Minimum | Saran Fokus |
-|---|---|---|
-| **Router rumah / CCTV** | L0–L3 | UART → flash dump → firmware RE |
-| **IoT smart home** | L1–L4 | JTAG + side-channel untuk key extraction |
-| **Secure element / smart card** | L4–L5 | Power analysis + FI untuk extract key |
-| **TPM / HSM** | L5–L7 | FI + decap untuk read silicon |
-| **Military chip** | L6–L7 | SEM + FIB + netlist RE (DARPA TRUST level) |
-| **Console gaming (jailbreak)** | L3–L5 | Flash dump + FI bypass signature check |
+| Target                          | Level Minimum | Saran Fokus                                |
+| ------------------------------- | ------------- | ------------------------------------------ |
+| **Router rumah / CCTV**         | L0–L3         | UART → flash dump → firmware RE            |
+| **IoT smart home**              | L1–L4         | JTAG + side-channel untuk key extraction   |
+| **Secure element / smart card** | L4–L5         | Power analysis + FI untuk extract key      |
+| **TPM / HSM**                   | L5–L7         | FI + decap untuk read silicon              |
+| **Military chip**               | L6–L7         | SEM + FIB + netlist RE (DARPA TRUST level) |
+| **Console gaming (jailbreak)**  | L3–L5         | Flash dump + FI bypass signature check     |
 
 ---
 
@@ -155,4 +157,4 @@ Hardware supply chain attack **tidak bisa dideteksi software** — satu-satunya 
 
 > Hardware hacking adalah **ilmu pasti paling "pasti" di security** — karena lo berinteraksi dengan fisika, bukan abstraksi. Tapi pastinya mahal. Pilih level yang sepadan dengan value target.
 
-*Hardware Hacking Hierarchy | Level 0 (Visual PCB) → Level 7 (Silicon RE/FIB) · Semakin Tinggi, Semakin Destruktif*
+_Hardware Hacking Hierarchy | Level 0 (Visual PCB) → Level 7 (Silicon RE/FIB) · Semakin Tinggi, Semakin Destruktif_

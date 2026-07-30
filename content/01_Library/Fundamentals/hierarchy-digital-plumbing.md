@@ -55,18 +55,18 @@ Digital Plumbing adalah tentang menjembatani representasi data. Dunia digital ad
 
 ### 1.2 Fondasi yang Tak Terlihat
 
-Mereka adalah fondasi yang tak terlihat. Kamu tidak pernah "membuka" `ffmpeg` seperti membuka browser. Mereka adalah *dependency* yang dipanggil oleh aplikasi lain. Saat kamu mengunggah video ke YouTube, `ffmpeg` yang bekerja di server. Saat kamu membuka file `.zip`, `libzip` yang mengeksekusi. Keandalan internet bergantung pada keandalan kode yang jarang kita lihat ini.
+Mereka adalah fondasi yang tak terlihat. Kamu tidak pernah "membuka" `ffmpeg` seperti membuka browser. Mereka adalah _dependency_ yang dipanggil oleh aplikasi lain. Saat kamu mengunggah video ke YouTube, `ffmpeg` yang bekerja di server. Saat kamu membuka file `.zip`, `libzip` yang mengeksekusi. Keandalan internet bergantung pada keandalan kode yang jarang kita lihat ini.
 
 ### 1.3 Digital Plumbing vs Application Software
 
-| Aspek | Aplikasi (Kamu Lihat) | Pipa Digital (Tak Terlihat) |
-|-------|----------------------|---------------------------|
-| **Pengguna** | Manusia (GUI/CLI) | Program lain (API/library) |
-| **Bahasa** | JavaScript, Python, Ruby | C, C++, Rust, Assembly |
-| **Umur** | ~2-5 tahun (framework churn) | ~20-40 tahun (zlib: 1995, libpng: 1995, ffmpeg: 2000) |
-| **Stabilitas** | API break setiap major version | ABI stabil selama dekade |
-| **Optimasi** | Cukup "cukup cepat" | Tiap siklus CPU diperjuangkan (SIMD, ASM) |
-| **Ekosistem** | Berganti tiap era | Selamanya — codec baru hanya ditambahkan, tidak mengganti |
+| Aspek          | Aplikasi (Kamu Lihat)          | Pipa Digital (Tak Terlihat)                               |
+| -------------- | ------------------------------ | --------------------------------------------------------- |
+| **Pengguna**   | Manusia (GUI/CLI)              | Program lain (API/library)                                |
+| **Bahasa**     | JavaScript, Python, Ruby       | C, C++, Rust, Assembly                                    |
+| **Umur**       | ~2-5 tahun (framework churn)   | ~20-40 tahun (zlib: 1995, libpng: 1995, ffmpeg: 2000)     |
+| **Stabilitas** | API break setiap major version | ABI stabil selama dekade                                  |
+| **Optimasi**   | Cukup "cukup cepat"            | Tiap siklus CPU diperjuangkan (SIMD, ASM)                 |
+| **Ekosistem**  | Berganti tiap era              | Selamanya — codec baru hanya ditambahkan, tidak mengganti |
 
 > [!tip] **Plot Twist:** Pustaka seperti `zlib` (dirilis 1995) masih menjadi tulang punggung kompresi HTTP di tahun 2026. Framework JavaScript yang kamu pakai tahun 2020 mungkin sudah mati. Tapi `zlib`? Masih kuat.
 
@@ -180,6 +180,7 @@ ffmpeg -i input.mp4 -c:v libx265 -c:a libopus -vf scale=1280:720 output.mkv
 ```
 
 Di belakang layar:
+
 1. Probe `input.mp4` → H.264 video, AAC audio
 2. Inisialisasi `h264_decode` + `aac_decode`
 3. Baca frame: untuk setiap paket → decode → raw frame
@@ -191,12 +192,12 @@ Di belakang layar:
 
 ### 3.4 Kinerja & Optimasi
 
-| Codec Path | Speed (fps) | CPU Usage | Kualitas Relatif |
-|-----------|-------------|-----------|-----------------|
-| H.264 → H.264 (copy stream) | 300-600 fps | ~5% | Lossless |
-| H.264 → H.265 (libx265) | 15-40 fps | ~80% | ~50% bitrate saving |
-| H.264 → AV1 (libaom) | 1-5 fps | ~100% | ~70% bitrate saving |
-| H.264 → VP9 (libvpx) | 8-20 fps | ~60% | ~60% bitrate saving |
+| Codec Path                  | Speed (fps) | CPU Usage | Kualitas Relatif    |
+| --------------------------- | ----------- | --------- | ------------------- |
+| H.264 → H.264 (copy stream) | 300-600 fps | ~5%       | Lossless            |
+| H.264 → H.265 (libx265)     | 15-40 fps   | ~80%      | ~50% bitrate saving |
+| H.264 → AV1 (libaom)        | 1-5 fps     | ~100%     | ~70% bitrate saving |
+| H.264 → VP9 (libvpx)        | 8-20 fps    | ~60%      | ~60% bitrate saving |
 
 ---
 
@@ -225,11 +226,11 @@ Semua video codec modern (H.264, H.265, VP9, AV1) menggunakan arsitektur yang sa
 
 **4.1.1 Frame Types**
 
-| Type | Nama | Kompresi | Deskripsi |
-|------|------|----------|-----------|
-| **I-frame** | Intra-frame | Terendah | Keyframe lengkap. Bisa di-decode sendiri. Seperti JPEG. |
-| **P-frame** | Predicted | Sedang | Hanya menyimpan perbedaan dari frame sebelumnya. |
-| **B-frame** | Bidirectional | Tertinggi | Menyimpan perbedaan dari frame SEBELUM dan SESUDAH. |
+| Type        | Nama          | Kompresi  | Deskripsi                                               |
+| ----------- | ------------- | --------- | ------------------------------------------------------- |
+| **I-frame** | Intra-frame   | Terendah  | Keyframe lengkap. Bisa di-decode sendiri. Seperti JPEG. |
+| **P-frame** | Predicted     | Sedang    | Hanya menyimpan perbedaan dari frame sebelumnya.        |
+| **B-frame** | Bidirectional | Tertinggi | Menyimpan perbedaan dari frame SEBELUM dan SESUDAH.     |
 
 **4.1.2 Motion Estimation**
 
@@ -262,11 +263,11 @@ DCT mengubah sinyal spasial (piksel) menjadi sinyal frekuensi. Energi terkonsent
 
 Opus (RFC 6716) adalah codec audio paling canggih yang pernah dibuat:
 
-| Mode | Bitrate | Sampling Rate | Use Case | Algoritma |
-|------|---------|---------------|----------|-----------|
-| SILK | 6-40 kbps | 8-12 kHz | Voice/VoIP | LPC (Linear Predictive Coding) |
-| CELT | 32-510 kbps | 8-48 kHz | Music | MDCT (Modified DCT) |
-| Hybrid | 6-64 kbps | 48 kHz | Voice+Music simultan | SILK low freq + CELT high freq |
+| Mode   | Bitrate     | Sampling Rate | Use Case             | Algoritma                      |
+| ------ | ----------- | ------------- | -------------------- | ------------------------------ |
+| SILK   | 6-40 kbps   | 8-12 kHz      | Voice/VoIP           | LPC (Linear Predictive Coding) |
+| CELT   | 32-510 kbps | 8-48 kHz      | Music                | MDCT (Modified DCT)            |
+| Hybrid | 6-64 kbps   | 48 kHz        | Voice+Music simultan | SILK low freq + CELT high freq |
 
 Opus bisa **switch mode dalam frame yang sama** — bagian awal lagu dengan SILK (vokal solo) lalu switch ke CELT (full band saat musik masuk). Ini SANGAT adaptif.
 
@@ -297,31 +298,32 @@ Kecepatan →  zstd(1)  lz4  snappy  zlib(1)  zstd(19)  xz  rar  7z  zpaq
 
 ### 5.2 Algoritma Inti
 
-| Algoritma | Tahun | Teknik Dasar | Package |
-|-----------|-------|-------------|---------|
-| **Deflate** | 1993 | LZ77 + Huffman coding | zlib, gzip, png, zip |
-| **LZMA** | 2001 | LZ77 + Range coding + Markov chain | 7z, xz |
-| **Brotli** | 2013 | LZ77 + Huffman + Context modeling | HTTP (Chrome, Firefox) |
-| **Zstandard** | 2015 | FSE (Finite State Entropy) + Dictionary | zstd (Facebook) |
-| **LZ4** | 2011 | LZ77 tanpa entropi — hanya match copy | Real-time, database |
+| Algoritma     | Tahun | Teknik Dasar                            | Package                |
+| ------------- | ----- | --------------------------------------- | ---------------------- |
+| **Deflate**   | 1993  | LZ77 + Huffman coding                   | zlib, gzip, png, zip   |
+| **LZMA**      | 2001  | LZ77 + Range coding + Markov chain      | 7z, xz                 |
+| **Brotli**    | 2013  | LZ77 + Huffman + Context modeling       | HTTP (Chrome, Firefox) |
+| **Zstandard** | 2015  | FSE (Finite State Entropy) + Dictionary | zstd (Facebook)        |
+| **LZ4**       | 2011  | LZ77 tanpa entropi — hanya match copy   | Real-time, database    |
 
 ### 5.3 Benchmark: `silesia.tar` (202 MB — corpus campuran)
 
-| Algoritma | Level | Size | Ratio | Compress | Decompress |
-|-----------|-------|------|-------|----------|-----------|
-| zlib (gzip -9) | 9 | 73 MB | 2.77× | 26.3 MB/s | 124.8 MB/s |
-| zstd (--fast) | 1 | 79 MB | 2.56× | 357.4 MB/s | 421.1 MB/s |
-| zstd | 19 | 55 MB | 3.67× | 4.3 MB/s | 175.2 MB/s |
-| xz | 9 | 45 MB | 4.49× | 1.2 MB/s | 22.7 MB/s |
-| bzip2 | 9 | 58 MB | 3.48× | 4.7 MB/s | 19.5 MB/s |
-| brotli | 11 | 52 MB | 3.88× | 0.8 MB/s | 82.3 MB/s |
-|*Sumber: lzbench, Intel i7-12700, single-thread* |
+| Algoritma                                        | Level | Size  | Ratio | Compress   | Decompress |
+| ------------------------------------------------ | ----- | ----- | ----- | ---------- | ---------- |
+| zlib (gzip -9)                                   | 9     | 73 MB | 2.77× | 26.3 MB/s  | 124.8 MB/s |
+| zstd (--fast)                                    | 1     | 79 MB | 2.56× | 357.4 MB/s | 421.1 MB/s |
+| zstd                                             | 19    | 55 MB | 3.67× | 4.3 MB/s   | 175.2 MB/s |
+| xz                                               | 9     | 45 MB | 4.49× | 1.2 MB/s   | 22.7 MB/s  |
+| bzip2                                            | 9     | 58 MB | 3.48× | 4.7 MB/s   | 19.5 MB/s  |
+| brotli                                           | 11    | 52 MB | 3.88× | 0.8 MB/s   | 82.3 MB/s  |
+| _Sumber: lzbench, Intel i7-12700, single-thread_ |
 
 ### 5.4 Zstd — The New Standard
 
 Zstandard (zstd) adalah algoritma kompresi modern dari Facebook (Y. Collet, 2015):
 
 **Keunggulan:**
+
 - **Adaptive:** Level 1 (cepat seperti LZ4) sampai level 19 (kuat seperti xz)
 - **Dictionary compression:** Pre-trained dictionary untuk domain spesifik (JSON, log, source code) — kompresi 2-4× lebih baik
 - **Trainable dictionary:** `zstd --train` belajar dari sampel data kamu
@@ -330,6 +332,7 @@ Zstandard (zstd) adalah algoritma kompresi modern dari Facebook (Y. Collet, 2015
 ### 5.5 Zlib — Tulang Punggung Internet
 
 zlib (1995) adalah **pustaka C yang paling banyak di-deploy di sejarah manusia**. Setiap:
+
 - Koneksi HTTPS (TLS compression — dulu)
 - Respons HTTP (Content-Encoding: gzip)
 - File PNG (IDAT chunk)
@@ -345,13 +348,13 @@ Menggunakan **Deflate** — kombinasi LZ77 (sliding window dictionary) + Huffman
 
 > Pahlawan Utama: `libjpeg-turbo`, `libpng`, `libwebp`, `libavif`
 
-| Codec | Tahun | Lossy/Lossless | Kasus | Ukuran Relatif (vs PNG) |
-|-------|-------|---------------|-------|----------------------|
-| JPEG | 1992 | Lossy | Foto, web | ~10-20% |
-| PNG | 1996 | Lossless | Screenshot, UI | 100% (baseline) |
-| WebP | 2010 | Keduanya | Web modern | ~25-30% |
-| AVIF | 2019 | Keduanya | Web next-gen | ~15-20% |
-| JPEG XL | 2021 | Keduanya | Universal future | ~10-15% |
+| Codec   | Tahun | Lossy/Lossless | Kasus            | Ukuran Relatif (vs PNG) |
+| ------- | ----- | -------------- | ---------------- | ----------------------- |
+| JPEG    | 1992  | Lossy          | Foto, web        | ~10-20%                 |
+| PNG     | 1996  | Lossless       | Screenshot, UI   | 100% (baseline)         |
+| WebP    | 2010  | Keduanya       | Web modern       | ~25-30%                 |
+| AVIF    | 2019  | Keduanya       | Web next-gen     | ~15-20%                 |
+| JPEG XL | 2021  | Keduanya       | Universal future | ~10-15%                 |
 
 ### 6.1 libjpeg-turbo — SIMD yang Menyelamatkan Web
 
@@ -381,6 +384,7 @@ PNG menggunakan **Deflate** (sama dengan zlib) untuk kompresi lossless. Tapi ada
 ### 7.1 libxml2 — Parser Terlama yang Masih Hidup
 
 libxml2 (1999) mem-parsing XML, HTML, dan SVG. Digunakan oleh:
+
 - **PHP** (SimpleXML, DOMDocument)
 - **Python** (lxml, minidom)
 - **Ruby** (libxml-ruby)
@@ -392,6 +396,7 @@ libxml2 (1999) mem-parsing XML, HTML, dan SVG. Digunakan oleh:
 ### 7.2 OpenSSL — Pipa Kriptografi
 
 OpenSSL bukan sekadar HTTPS. Ia menyediakan:
+
 - **Cipher:** AES, ChaCha20, DES, RC4, Camellia
 - **Hash:** SHA-1, SHA-256/512, SHA-3, BLAKE2
 - **Public key:** RSA, DSA, ECDSA, Ed25519
@@ -429,13 +434,13 @@ message SearchRequest {
 
 Untuk hash table, deduplikasi, checksum — hashing cepat LEBIH penting dari hashing aman:
 
-| Hash | Throughput (GB/s) | Collision Rate | Digunakan di |
-|------|------------------|---------------|-------------|
-| xxHash | 15-30 GB/s | Sangat rendah | Linux kernel, git, ZFS, RocksDB |
-| CityHash | 10-20 GB/s | Rendah | Google internal |
-| MurmurHash3 | 8-15 GB/s | Rendah | Cassandra, Hadoop, Elasticsearch |
-| BLAKE3 | 5-10 GB/s | Sangat rendah (kriptografis!) | Mesin, Sloth |
-| SHA-256 | 0.5-1 GB/s | Nol (kriptografis) | TLS, Bitcoin, Git |
+| Hash        | Throughput (GB/s) | Collision Rate                | Digunakan di                     |
+| ----------- | ----------------- | ----------------------------- | -------------------------------- |
+| xxHash      | 15-30 GB/s        | Sangat rendah                 | Linux kernel, git, ZFS, RocksDB  |
+| CityHash    | 10-20 GB/s        | Rendah                        | Google internal                  |
+| MurmurHash3 | 8-15 GB/s         | Rendah                        | Cassandra, Hadoop, Elasticsearch |
+| BLAKE3      | 5-10 GB/s         | Sangat rendah (kriptografis!) | Mesin, Sloth                     |
+| SHA-256     | 0.5-1 GB/s        | Nol (kriptografis)            | TLS, Bitcoin, Git                |
 
 ### 8.2 Base64 — Konversi Binary→ASCII
 
@@ -468,16 +473,16 @@ Validasi UTF-8 adalah overhead konstan di aplikasi web. Setiap input dari user h
 
 Dokumen ini adalah benang merah yang menghubungkan fondasi paling rendah ke puncak tertinggi di vault.
 
-| Domain Vault | Koneksi dengan Pipa Digital |
-|:---|:---|
-| [[math-and-algorithms]] | **Pondasi paling langsung.** Algoritma Huffman, LZ77, DCT, dan Rantai Markov adalah "jiwa" dari `zlib`, `x264`, dan `libopus` |
-| [[computer-science-foundations]] | **Implementasi SIMD.** Kecepatan `libjpeg-turbo` berasal dari instruksi SIMD di CPU |
-| [[hierarchy-osint-rf]] | **Transformasi Sinyal.** DCT dalam codec video adalah "sepupu" dari FFT untuk analisis sinyal RF |
-| [[forensic-imaging-analysis]] | **Senjata Forensik.** FFmpeg adalah alat wajib untuk memproses dan memulihkan file video rusak |
-| [[http-protocol-deepdive]] | **Kompresi Web.** `brotli` dan `gzip` adalah fondasi *content encoding* di HTTP |
-| [[llm-security-red-teaming-attack-surface-ai-layer]] | **Serangan pada Parser.** Kerentanan di `libxml2`, `libpng` adalah celah keamanan klasik |
-| [[encoding-serialization-compression-deepdive]] | **Keluarga dekat.** Encoding, serialisasi, kompresi — tiga sisi dari kubus yang sama |
-| [[embedding-model-selection-finetuning]] | **Tokenisasi.** Codec audio (Opus) punya prinsip yang sama dengan tokenizer LLM |
+| Domain Vault                                         | Koneksi dengan Pipa Digital                                                                                                   |
+| :--------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| [[math-and-algorithms]]                              | **Pondasi paling langsung.** Algoritma Huffman, LZ77, DCT, dan Rantai Markov adalah "jiwa" dari `zlib`, `x264`, dan `libopus` |
+| [[computer-science-foundations]]                     | **Implementasi SIMD.** Kecepatan `libjpeg-turbo` berasal dari instruksi SIMD di CPU                                           |
+| [[hierarchy-osint-rf]]                               | **Transformasi Sinyal.** DCT dalam codec video adalah "sepupu" dari FFT untuk analisis sinyal RF                              |
+| [[forensic-imaging-analysis]]                        | **Senjata Forensik.** FFmpeg adalah alat wajib untuk memproses dan memulihkan file video rusak                                |
+| [[http-protocol-deepdive]]                           | **Kompresi Web.** `brotli` dan `gzip` adalah fondasi _content encoding_ di HTTP                                               |
+| [[llm-security-red-teaming-attack-surface-ai-layer]] | **Serangan pada Parser.** Kerentanan di `libxml2`, `libpng` adalah celah keamanan klasik                                      |
+| [[encoding-serialization-compression-deepdive]]      | **Keluarga dekat.** Encoding, serialisasi, kompresi — tiga sisi dari kubus yang sama                                          |
+| [[embedding-model-selection-finetuning]]             | **Tokenisasi.** Codec audio (Opus) punya prinsip yang sama dengan tokenizer LLM                                               |
 
 ### Diagram Koneksi
 
@@ -502,15 +507,15 @@ hierarchy-digital-plumbing.md
 1. FFmpeg Documentation. https://ffmpeg.org/documentation.html
 2. zlib Manual. https://zlib.net/manual.html
 3. RFC 6716 — Definition of the Opus Audio Codec. https://datatracker.ietf.org/doc/html/rfc6716
-4. Y. Collet. *"Zstandard — Real-time data compression algorithm."* (2015). https://github.com/facebook/zstd
-5. P. Deutsch. *"DEFLATE Compressed Data Format Specification."* RFC 1951 (1996).
-6. I. Mironov. *"Rencently (xxHash) — Extremely fast non-cryptographic hash algorithm."* https://github.com/Cyan4973/xxHash
-7. Google. *"Protocol Buffers."* https://protobuf.dev/
-8. libjpeg-turbo. *"SIMD-accelerated JPEG codec."* https://libjpeg-turbo.org/
-9. *"The x264/x265 Video Codec."* VideoLAN. https://www.videolan.org/developers/x264.html
-10. J. L. Gailly, M. Adler. *"zlib 1.2.x Manual."* (1995-2025).
-11. W3C. *"WebP Image Format."* (2010-2025). https://developers.google.com/speed/webp
-12. AOM. *"AV1 — A New Video Coding Standard."* (2019-2025). https://aomedia.org/
-13. I. L. R. B. (Independent JPEG Group). *"libjpeg API Documentation."*
+4. Y. Collet. _"Zstandard — Real-time data compression algorithm."_ (2015). https://github.com/facebook/zstd
+5. P. Deutsch. _"DEFLATE Compressed Data Format Specification."_ RFC 1951 (1996).
+6. I. Mironov. _"Rencently (xxHash) — Extremely fast non-cryptographic hash algorithm."_ https://github.com/Cyan4973/xxHash
+7. Google. _"Protocol Buffers."_ https://protobuf.dev/
+8. libjpeg-turbo. _"SIMD-accelerated JPEG codec."_ https://libjpeg-turbo.org/
+9. _"The x264/x265 Video Codec."_ VideoLAN. https://www.videolan.org/developers/x264.html
+10. J. L. Gailly, M. Adler. _"zlib 1.2.x Manual."_ (1995-2025).
+11. W3C. _"WebP Image Format."_ (2010-2025). https://developers.google.com/speed/webp
+12. AOM. _"AV1 — A New Video Coding Standard."_ (2019-2025). https://aomedia.org/
+13. I. L. R. B. (Independent JPEG Group). _"libjpeg API Documentation."_
 14. RFC 1952 — GZIP file format specification version 4.3.
-15. W. Richard Stevens. *"TCP/IP Illustrated, Vol. 1."* Chapter: Content Encoding.
+15. W. Richard Stevens. _"TCP/IP Illustrated, Vol. 1."_ Chapter: Content Encoding.

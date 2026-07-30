@@ -111,17 +111,20 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 ```
 
 **Kelebihan:**
+
 - Compute efisien (resource split antar banyak user)
 - Lisensi tunggal, IT terpusat
 - Reliability tinggi (IBM mainframe 99.99% uptime)
 
 **Kekurangan:**
+
 - Vertical scaling mahal
 - Tidak ada interactive computing
 - Lock-in vendor satu
 - Hanya batch processing
 
 ### 3.2 Sistem Khas
+
 - IBM System/360, System/370
 - DEC VAX
 - Burroughs large systems
@@ -143,24 +146,26 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 ```
 
 **Kelebihan:**
+
 - Compute lokal di client (responsif UI)
 - Independent deployment client/server
 - PC murah = democratization
 
 **Kekurangan:**
+
 - Fat client → distribution problem
 - Network failure = local cache inconsistency
 - RPC versioning hell
 
 ### 4.2 Era's Stack
 
-| Layer | Teknologi |
-|-------|-----------|
-| Client | Windows 3.1/95, Mac OS, X11 |
-| Network | NetBEUI, IPX/SPX, TCP/IP |
-| Server | Novell NetWare, Windows NT, Unix |
-| Protocol | RPC, NetBIOS, SMB |
-| Middleware | ODBC, CORBA |
+| Layer      | Teknologi                        |
+| ---------- | -------------------------------- |
+| Client     | Windows 3.1/95, Mac OS, X11      |
+| Network    | NetBEUI, IPX/SPX, TCP/IP         |
+| Server     | Novell NetWare, Windows NT, Unix |
+| Protocol   | RPC, NetBIOS, SMB                |
+| Middleware | ODBC, CORBA                      |
 
 ---
 
@@ -183,23 +188,25 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 **Prinsip:** Separation of concerns. Setiap tier punya tanggung jawab jelas.
 
 **Kelebihan:**
+
 - Independent scaling per tier
 - Domain model testable tanpa UI
 - DB scaling specialist bisa fokus
 
 **Kekurangan:**
+
 - Monolith di tier bisnis (perubahan satu modul = redeploy semua)
 - Object-Relational impedance mismatch
 - Hard untuk reuse asset antar aplikasi
 
 ### 5.2 Era Java EE / .NET
 
-| Aspect | Java EE | .NET |
-|--------|---------|-----|
-| Container | App Server (WebLogic, JBoss) | IIS |
-| Component | EJB, JPA, JMS | WebForms, WCF, ADO.NET |
-| Transaction | JTA | MSDTC |
-| Messaging | JMS (Tibco, MQ) | MSMQ |
+| Aspect      | Java EE                      | .NET                   |
+| ----------- | ---------------------------- | ---------------------- |
+| Container   | App Server (WebLogic, JBoss) | IIS                    |
+| Component   | EJB, JPA, JMS                | WebForms, WCF, ADO.NET |
+| Transaction | JTA                          | MSDTC                  |
+| Messaging   | JMS (Tibco, MQ)              | MSMQ                   |
 
 ---
 
@@ -233,21 +240,23 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 6.3 Failure Modes
 
-| Failure | Penyebab |
-|---------|----------|
-| ESB bottleneck | Semua traffic melalui hub |
+| Failure                             | Penyebab                                   |
+| ----------------------------------- | ------------------------------------------ |
+| ESB bottleneck                      | Semua traffic melalui hub                  |
 | Protocol vendor lock-in (SAML/WS-*) | Standar kompleks, implementasi proprietary |
-| BPEL spaghetti | Process kompleks jadi tidak maintainable |
-| Service sprawl | 100 service tanpa owner jelas |
+| BPEL spaghetti                      | Process kompleks jadi tidak maintainable   |
+| Service sprawl                      | 100 service tanpa owner jelas              |
 
 ### 6.4 Lesson Learned
 
 **Yang berhasil:**
+
 - Standardisasi protokol (REST, JSON sukses menggantikan WS-*)
 - Decoupling via message bus (Kafka, RabbitMQ sukses menggantikan ESB)
 - Service ownership (Conway's Law: organisasi = arsitektur)
 
 **Yang gagal:**
+
 - Heavy WS-* stack (SOAP overhead)
 - Centralized ESB bottleneck
 - Spec-first tanpa observability
@@ -260,14 +269,14 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 7.1 Prinsip Microservices
 
-| Prinsip | Penjelasan |
-|---------|-----------|
-| **Single Responsibility** | 1 service = 1 bounded context |
-| **Independent Deploy** | Service deploy sendiri, tak ganggu service lain |
-| **Decentralized Data** | Tiap service punya DB sendiri |
-| **Smart Endpoints, Dumb Pipes** | Service berisi logic, transport sederhana |
-| **Failure Isolation** | 1 service down ≠ total system down |
-| **Observability** | Logging, metrics, traces by design |
+| Prinsip                         | Penjelasan                                      |
+| ------------------------------- | ----------------------------------------------- |
+| **Single Responsibility**       | 1 service = 1 bounded context                   |
+| **Independent Deploy**          | Service deploy sendiri, tak ganggu service lain |
+| **Decentralized Data**          | Tiap service punya DB sendiri                   |
+| **Smart Endpoints, Dumb Pipes** | Service berisi logic, transport sederhana       |
+| **Failure Isolation**           | 1 service down ≠ total system down              |
+| **Observability**               | Logging, metrics, traces by design              |
 
 ### 7.2 Karakteristik Teknis
 
@@ -285,12 +294,12 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 7.3 Trade-offs
 
-| Pro | Con |
-|-----|-----|
-| Independent deployment | Distributed complexity |
+| Pro                                 | Con                          |
+| ----------------------------------- | ---------------------------- |
+| Independent deployment              | Distributed complexity       |
 | Polyglot (bahasa cocok per service) | Network latency / unreliable |
-| Failure isolation | Data consistency harder |
-| Domain-aligned teams | Operational overhead × N |
+| Failure isolation                   | Data consistency harder      |
+| Domain-aligned teams                | Operational overhead × N     |
 
 ### 7.4 Lessons Learned (2025 Retrospektif)
 
@@ -327,20 +336,20 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 8.2 Pro & Con
 
-| Pro | Con |
-|-----|-----|
-| Zero ops — no servers managed | Cold start latency |
+| Pro                                   | Con                                         |
+| ------------------------------------- | ------------------------------------------- |
+| Zero ops — no servers managed         | Cold start latency                          |
 | Pay-per-invoke — cost zero untuk idle | Vendor lock-in (AWS Lambda → AWS ecosystem) |
-| Auto-scaling tak terbatas | Function timeout (15 min) |
-| Event-driven natively | Local testing kompleks |
+| Auto-scaling tak terbatas             | Function timeout (15 min)                   |
+| Event-driven natively                 | Local testing kompleks                      |
 
 ### 8.3 Use Case Ideal
 
-| Cocok | Kurang Cocok |
-|-------|--------------|
-| Event processor | Long-running processes |
-| API endpoint stateless | WebSocket |
-| Scheduled task (cron) | Stateful workflow |
+| Cocok                    | Kurang Cocok              |
+| ------------------------ | ------------------------- |
+| Event processor          | Long-running processes    |
+| API endpoint stateless   | WebSocket                 |
+| Scheduled task (cron)    | Stateful workflow         |
 | Glue code antara service | Hot-path latency-critical |
 
 ### 8.4 Trend 2026
@@ -358,13 +367,13 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 9.1 Prinsip
 
-| Prinsip | Penjelasan |
-|---------|-----------|
-| **Event as source of truth** | Semua perubahan dicatat sebagai event |
-| **Eventual consistency** | Service mungkin eventually consistent |
-| **CQRS** | Separate read & write model |
-| **Pub/Sub** | Producer tidak tau consumer |
-| **Idempotency** | Receiver handles duplicate via event ID |
+| Prinsip                      | Penjelasan                              |
+| ---------------------------- | --------------------------------------- |
+| **Event as source of truth** | Semua perubahan dicatat sebagai event   |
+| **Eventual consistency**     | Service mungkin eventually consistent   |
+| **CQRS**                     | Separate read & write model             |
+| **Pub/Sub**                  | Producer tidak tau consumer             |
+| **Idempotency**              | Receiver handles duplicate via event ID |
 
 ### 9.2 Topologi
 
@@ -376,23 +385,23 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 9.3 Pattern Penting
 
-| Pattern | Use Case |
-|---------|----------|
-| **Event Sourcing** | Replay-able history |
-| **CQRS** | Different read/write scaling needs |
-| **Saga** | Multi-service transaction |
-| **Outbox** | Reliable event publish |
-| **Choreography** | No orchestrator — emit + react |
-| **Orchestration** | Central workflow engine (Temporal, Camunda, Step Functions) |
+| Pattern            | Use Case                                                    |
+| ------------------ | ----------------------------------------------------------- |
+| **Event Sourcing** | Replay-able history                                         |
+| **CQRS**           | Different read/write scaling needs                          |
+| **Saga**           | Multi-service transaction                                   |
+| **Outbox**         | Reliable event publish                                      |
+| **Choreography**   | No orchestrator — emit + react                              |
+| **Orchestration**  | Central workflow engine (Temporal, Camunda, Step Functions) |
 
 ### 9.4 Trade-offs
 
-| Pro | Con |
-|-----|-----|
-| Loose coupling — producer/consumer independent | Eventual consistency tricky |
-| Replay-able history for audit/recovery | Schema evolution challenge |
-| Natural for streaming analytics | Idempotency + dedup mandatory |
-| Atomic single-source-o-truth | Higher complexity vs request/response |
+| Pro                                            | Con                                   |
+| ---------------------------------------------- | ------------------------------------- |
+| Loose coupling — producer/consumer independent | Eventual consistency tricky           |
+| Replay-able history for audit/recovery         | Schema evolution challenge            |
+| Natural for streaming analytics                | Idempotency + dedup mandatory         |
+| Atomic single-source-o-truth                   | Higher complexity vs request/response |
 
 ### 9.5 Trend 2026
 
@@ -429,12 +438,12 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 10.3 Kapan Pilih
 
-| Cocok | Kurang Cocok |
-|-------|--------------|
-| Tim size 5-30 | Tim size 100+ |
+| Cocok                                     | Kurang Cocok              |
+| ----------------------------------------- | ------------------------- |
+| Tim size 5-30                             | Tim size 100+             |
 | Domain bounded complex tapi tidak meledak | Domain yang sudah meledak |
-| Single-region deployment acceptable | Multi-region mandatory |
-| Startup stages, time-to-market critical | Established high-scale |
+| Single-region deployment acceptable       | Multi-region mandatory    |
+| Startup stages, time-to-market critical   | Established high-scale    |
 
 ### 10.4 Real-world Contoh
 
@@ -471,12 +480,12 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 
 ### 11.2 Use Case
 
-| Use Case | Edge Component | Cloud Component |
-|---------|---------------|-----------------|
-| Live video translation | Caption + translation | Heavy ML training |
-| IoT predictive maintenance | Local classification | Fleet-wide learning |
-| Multiplayer game | Sub-ms input | Matchmaking |
-| CDN edge compute | Image opt, auth | Origin full app |
+| Use Case                   | Edge Component        | Cloud Component     |
+| -------------------------- | --------------------- | ------------------- |
+| Live video translation     | Caption + translation | Heavy ML training   |
+| IoT predictive maintenance | Local classification  | Fleet-wide learning |
+| Multiplayer game           | Sub-ms input          | Matchmaking         |
+| CDN edge compute           | Image opt, auth       | Origin full app     |
 
 ### 11.3 Trend 2026
 
@@ -515,6 +524,7 @@ Setiap decade, **tekanan** muncul yang menuntut arsitektur baru:
 ### 12.2 MCP (Model Context Protocol)
 
 Standardized protocol untuk agent-tool communication:
+
 - **Tools** — agent-callable actions
 - **Resources** — application-controlled context
 - **Prompts** — user-controlled templates
@@ -529,14 +539,15 @@ Standardized protocol untuk agent-tool communication:
 
 ### 12.4 Risiko
 
-| Risiko | Mitigasi |
-|--------|----------|
+| Risiko                       | Mitigasi                                 |
+| ---------------------------- | ---------------------------------------- |
 | Hallucination → wrong action | Sandboxed execution + reversible actions |
-| Cost blowup (LLM API calls) | Cost limiter, batching |
-| Agent loop infinite | Max iteration + circuit breaker |
-| Auditability | Logged action trace dengan reasoning |
+| Cost blowup (LLM API calls)  | Cost limiter, batching                   |
+| Agent loop infinite          | Max iteration + circuit breaker          |
+| Auditability                 | Logged action trace dengan reasoning     |
 
 **Koneksi ke Vault:**
+
 - [[hierarchy-llm-ai-systems]] — Layer 5 (Agentic)
 - [[agentic-ai-mcp-architecture-deepdive]]
 - [[meta-agent-orchestration]]
@@ -580,7 +591,7 @@ Latency      ───→  Edge presence
                    /          \
                 Yes             No
                 │                │
-            Pure Edge         \                        
+            Pure Edge         \
             + Cloud Burst   Scale need?
                               /        \
                             >1M RPS     <1M RPS
@@ -596,63 +607,63 @@ Latency      ───→  Edge presence
 
 ### 13.3 Anti-pattern Decision
 
-| Anti-pattern | Tanda |
-|--------------|-------|
-| Distributed monolith | Microservices tightly coupled, deploy bareng |
-| Big-bang microservices | Langsung extract dari monolith tanpa stabilitas |
-| Premature FaaS | Cold-start hurts product |
-| Edge-over-everything | Latency bukan bottleneck utama |
-| Event-source everything | Read-before-write latency hurts |
+| Anti-pattern            | Tanda                                           |
+| ----------------------- | ----------------------------------------------- |
+| Distributed monolith    | Microservices tightly coupled, deploy bareng    |
+| Big-bang microservices  | Langsung extract dari monolith tanpa stabilitas |
+| Premature FaaS          | Cold-start hurts product                        |
+| Edge-over-everything    | Latency bukan bottleneck utama                  |
+| Event-source everything | Read-before-write latency hurts                 |
 
 ---
 
 ## 14. Trade-off Matrix per Gaya
 
-| Gaya | Complexity | Time-to-Market | Scalability | Vendor Lock | Team Size |
-|------|:----------:|:--------------:|:-----------:|:-----------:|:---------:|
-| Mainframe | High | Low | Vertical only | Total | 5-20 |
-| Client-Server | Medium | Medium | Limited | Medium | 5-50 |
-| 3-Tier | Low | High | Medium | Low | 5-100 |
-| SOA | High | Low | Medium | High (ESB) | 50+ |
-| Microservices | Very High | Medium (later fast) | Very High | Low | 50-500 |
-| Serverless | Low | Very High | Auto | Very High | 1-50 |
-| Event-Driven | High | Medium | Very High | Low | 20+ |
-| Modular Monolith | Low-Medium | High | Medium | None | 5-30 |
-| Edge-Cloud | High | Medium | High | Medium | 50+ |
-| AI-Orchestrated | High | High (later fast) | Auto | Medium | Variable |
+| Gaya             | Complexity |   Time-to-Market    |  Scalability  | Vendor Lock | Team Size |
+| ---------------- | :--------: | :-----------------: | :-----------: | :---------: | :-------: |
+| Mainframe        |    High    |         Low         | Vertical only |    Total    |   5-20    |
+| Client-Server    |   Medium   |       Medium        |    Limited    |   Medium    |   5-50    |
+| 3-Tier           |    Low     |        High         |    Medium     |     Low     |   5-100   |
+| SOA              |    High    |         Low         |    Medium     | High (ESB)  |    50+    |
+| Microservices    | Very High  | Medium (later fast) |   Very High   |     Low     |  50-500   |
+| Serverless       |    Low     |      Very High      |     Auto      |  Very High  |   1-50    |
+| Event-Driven     |    High    |       Medium        |   Very High   |     Low     |    20+    |
+| Modular Monolith | Low-Medium |        High         |    Medium     |    None     |   5-30    |
+| Edge-Cloud       |    High    |       Medium        |     High      |   Medium    |    50+    |
+| AI-Orchestrated  |    High    |  High (later fast)  |     Auto      |   Medium    | Variable  |
 
 ---
 
 ## 15. Cross-Reference ke Vault
 
-| Layer | Catatan Vault |
-|:-----:|---------------|
-| Era 1-2 | [[hierarchy-operating-systems]], [[embedded-systems]] |
-| Era 3 | [[cloud-infrastructure]] |
-| Era 4 | [[hierarchy-infrastructure-evolution]] (planned), [[distributed-systems]] |
-| Era 5 | [[distributed-systems]], [[system-design]], [[container-kubernetes-security-deepdive]] |
-| Era 6 | [[hierarchy-infrastructure-evolution]], [[cloud-infrastructure]] |
-| Era 7 | [[hierarchy-llm-ai-systems]] (Layer 4 RAG), [[llmops-ai-infrastructure]] |
-| Era 8 | [[hierarchy-software-engineering-paradigm]] |
-| Era 9 | [[hierarchy-kernel-bypass-networking]] (smartNIC + edge compute) |
-| Era 10 | [[hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]], [[ai-comm-protocol-deep-dive]] |
+|  Layer  | Catatan Vault                                                                                          |
+| :-----: | ------------------------------------------------------------------------------------------------------ |
+| Era 1-2 | [[hierarchy-operating-systems]], [[embedded-systems]]                                                  |
+|  Era 3  | [[cloud-infrastructure]]                                                                               |
+|  Era 4  | [[hierarchy-infrastructure-evolution]] (planned), [[distributed-systems]]                              |
+|  Era 5  | [[distributed-systems]], [[system-design]], [[container-kubernetes-security-deepdive]]                 |
+|  Era 6  | [[hierarchy-infrastructure-evolution]], [[cloud-infrastructure]]                                       |
+|  Era 7  | [[hierarchy-llm-ai-systems]] (Layer 4 RAG), [[llmops-ai-infrastructure]]                               |
+|  Era 8  | [[hierarchy-software-engineering-paradigm]]                                                            |
+|  Era 9  | [[hierarchy-kernel-bypass-networking]] (smartNIC + edge compute)                                       |
+| Era 10  | [[hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]], [[ai-comm-protocol-deep-dive]] |
 
 ---
 
 ## References
 
-1. F. Buschmann et al. *"Pattern-Oriented Software Architecture."* Wiley, 1996.
-2. T. Erl. *"Service-Oriented Architecture: Concepts, Technology and Design."* 2005.
-3. S. Newman. *"Building Microservices."* O'Reilly, 2021.
-4. S. Newman. *"Monolith to Microservices."* O'Reilly, 2019.
-5. C. Richardson. *"Microservices Patterns."* Manning, 2018.
-6. M. Ford et al. *"Building Evolutionary Architectures."* O'Reilly, 2017.
-7. C. Born. *"The Cloud-Native Attitude."* 2020.
-8. AWS. *"Serverless Application Lens."* (2024).
-9. M. Kleppmann. *"Designing Data-Intensive Applications."* O'Reilly, 2017.
-10. A. Chakrabarti. *"Enterprise Service Bus."* 2009.
-11. B. Stopford. *"Designing Event-Driven Systems."* Confluent, 2018.
-12. S. Tilkov et al. *"Modular Monoliths."* (2023). https://simonbrown.je/
-13. Microsoft. *"Azure Architecture Center."* https://learn.microsoft.com/azure/architecture/
-14. Red Hat. *"What Is an Event-Driven Architecture."* (2024).
-15. Gartner. *"Hype Cycle for Cloud Platform Services."* (2025).
+1. F. Buschmann et al. _"Pattern-Oriented Software Architecture."_ Wiley, 1996.
+2. T. Erl. _"Service-Oriented Architecture: Concepts, Technology and Design."_ 2005.
+3. S. Newman. _"Building Microservices."_ O'Reilly, 2021.
+4. S. Newman. _"Monolith to Microservices."_ O'Reilly, 2019.
+5. C. Richardson. _"Microservices Patterns."_ Manning, 2018.
+6. M. Ford et al. _"Building Evolutionary Architectures."_ O'Reilly, 2017.
+7. C. Born. _"The Cloud-Native Attitude."_ 2020.
+8. AWS. _"Serverless Application Lens."_ (2024).
+9. M. Kleppmann. _"Designing Data-Intensive Applications."_ O'Reilly, 2017.
+10. A. Chakrabarti. _"Enterprise Service Bus."_ 2009.
+11. B. Stopford. _"Designing Event-Driven Systems."_ Confluent, 2018.
+12. S. Tilkov et al. _"Modular Monoliths."_ (2023). https://simonbrown.je/
+13. Microsoft. _"Azure Architecture Center."_ https://learn.microsoft.com/azure/architecture/
+14. Red Hat. _"What Is an Event-Driven Architecture."_ (2024).
+15. Gartner. _"Hype Cycle for Cloud Platform Services."_ (2025).

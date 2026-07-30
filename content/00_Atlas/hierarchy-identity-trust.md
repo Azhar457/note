@@ -47,6 +47,7 @@ cssclasses:
 Tanpa identitas dan trust, internet adalah anarkisme murni — tidak bisa transaksi, tidak bisa authentication. Setiap layer identity trade-off: **privacy vs accountability**.
 
 **Spektrum:**
+
 ```
 Anonymous (0 trust, full privacy)
     ↓
@@ -91,13 +92,13 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 3.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Tidak ada persistent identifier |
-| **Linkability** | Sesi tidak bisa di-link ke sesi lain |
-| **Contoh** | Tor browsing, incognito mode, 4chan |
+| Aspek           | Deskripsi                             |
+| --------------- | ------------------------------------- |
+| **Identitas**   | Tidak ada persistent identifier       |
+| **Linkability** | Sesi tidak bisa di-link ke sesi lain  |
+| **Contoh**      | Tor browsing, incognito mode, 4chan   |
 | **Trust level** | 0 (semua dianggap potensial attacker) |
-| **Use case** | Whistleblower, censorship avoidance |
+| **Use case**    | Whistleblower, censorship avoidance   |
 
 ### 3.2 Risiko
 
@@ -111,12 +112,12 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 4.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Alias persistent di satu platform |
+| Aspek           | Deskripsi                                                |
+| --------------- | -------------------------------------------------------- |
+| **Identitas**   | Alias persistent di satu platform                        |
 | **Linkability** | Dalam platform bisa di-track, antar platform belum tentu |
-| **Contoh** | Reddit username, Discord handle, HN account |
-| **Trust level** | Low (bisa saja bot atau sockpuppet) |
+| **Contoh**      | Reddit username, Discord handle, HN account              |
+| **Trust level** | Low (bisa saja bot atau sockpuppet)                      |
 
 ### 4.2 Trade-off
 
@@ -129,11 +130,11 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 5.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Cryptographic key pair — bukan identitas legal |
-| **Linkability** | Semua transaksi keypair linkable |
-| **Contoh** | SSH key, Bitcoin address, GPG key |
+| Aspek           | Deskripsi                                          |
+| --------------- | -------------------------------------------------- |
+| **Identitas**   | Cryptographic key pair — bukan identitas legal     |
+| **Linkability** | Semua transaksi keypair linkable                   |
+| **Contoh**      | SSH key, Bitcoin address, GPG key                  |
 | **Trust level** | Medium (cryptographically verifiable, tapi anonim) |
 
 ### 5.2 Mitigasi
@@ -147,13 +148,13 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 6.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Legal identity verified (KYC, AML) |
-| **Linkability** | Bisa cross-platform |
-| **Contoh** | Bank account, exchange, government portal |
-| **Trust level** | High (verified by legal identity) |
-| **Biaya** | KYC procedure, document scan |
+| Aspek           | Deskripsi                                 |
+| --------------- | ----------------------------------------- |
+| **Identitas**   | Legal identity verified (KYC, AML)        |
+| **Linkability** | Bisa cross-platform                       |
+| **Contoh**      | Bank account, exchange, government portal |
+| **Trust level** | High (verified by legal identity)         |
+| **Biaya**       | KYC procedure, document scan              |
 
 ### 6.2 Regulasi
 
@@ -169,13 +170,13 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 7.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Bawa identitas dari penyedia ke aplikasi |
-| **Protocol** | OAuth 2.0, OIDC, SAML 2.0 |
-| **Provider** | Google, Apple, Microsoft, GitHub |
-| **Trust model** | Trust the provider (IdP) |
-| **Contoh** | "Login with Google", Azure AD SSO |
+| Aspek           | Deskripsi                                |
+| --------------- | ---------------------------------------- |
+| **Identitas**   | Bawa identitas dari penyedia ke aplikasi |
+| **Protocol**    | OAuth 2.0, OIDC, SAML 2.0                |
+| **Provider**    | Google, Apple, Microsoft, GitHub         |
+| **Trust model** | Trust the provider (IdP)                 |
+| **Contoh**      | "Login with Google", Azure AD SSO        |
 
 ### 7.2 Architecture
 
@@ -195,12 +196,12 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 8.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | Government-issued, legal name |
-| **Linkability** | Universal across all services |
-| **Contoh** | eIDAS (EU), Aadhaar (India), SingPass (SG), NIST 800-63 IAL3 |
-| **Trust level** | Highest (state-backed) |
+| Aspek           | Deskripsi                                                    |
+| --------------- | ------------------------------------------------------------ |
+| **Identitas**   | Government-issued, legal name                                |
+| **Linkability** | Universal across all services                                |
+| **Contoh**      | eIDAS (EU), Aadhaar (India), SingPass (SG), NIST 800-63 IAL3 |
+| **Trust level** | Highest (state-backed)                                       |
 
 ### 8.2 eIDAS 2.0 (EU, 2024)
 
@@ -212,10 +213,10 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 8.3 Risiko Sovereign
 
-| Risiko | Contoh |
-|--------|--------|
-| Surveillance | Government knows every login |
-| Data breach | Aadhaar breach (1.1B records) |
+| Risiko       | Contoh                          |
+| ------------ | ------------------------------- |
+| Surveillance | Government knows every login    |
+| Data breach  | Aadhaar breach (1.1B records)   |
 | No anonymity | Dissident cannot use his gov ID |
 
 ---
@@ -224,13 +225,13 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 9.1 Karakteristik
 
-| Aspek | Deskripsi |
-|-------|-----------|
-| **Identitas** | User-controlled, cryptographic |
-| **Linkability** | User decides what to share |
-| **Protocol** | Decentralized Identifiers (DID), Verifiable Credentials (VC) |
-| **Trust model** | Trust the cryptography (ZKP, BBS+) |
-| **Contoh** | ION (Sidetree on Bitcoin), cheqd, Hyperledger Indy |
+| Aspek           | Deskripsi                                                    |
+| --------------- | ------------------------------------------------------------ |
+| **Identitas**   | User-controlled, cryptographic                               |
+| **Linkability** | User decides what to share                                   |
+| **Protocol**    | Decentralized Identifiers (DID), Verifiable Credentials (VC) |
+| **Trust model** | Trust the cryptography (ZKP, BBS+)                           |
+| **Contoh**      | ION (Sidetree on Bitcoin), cheqd, Hyperledger Indy           |
 
 ### 9.2 SSI Triangle
 
@@ -252,26 +253,26 @@ Self-Sovereign (kontrol penuh user, kriptografi, ZKP)
 
 ### 9.3 Pro & Con SSI
 
-| Pro | Con |
-|-----|-----|
-| User controls own data | User must manage keys (risk of loss) |
+| Pro                          | Con                                                  |
+| ---------------------------- | ---------------------------------------------------- |
+| User controls own data       | User must manage keys (risk of loss)                 |
 | Selective disclosure via ZKP | Complex cryptographic standards (maturity 2024-2026) |
-| No central point of failure | Interoperability across DID methods (75+ DIDs) |
+| No central point of failure  | Interoperability across DID methods (75+ DIDs)       |
 
 ---
 
 ## 10. Trust Models Comparison
 
-| Model | Karakteristik | Contoh |
-|-------|---------------|--------|
-| **Direct** | A langsung tahu B | Face-to-face, pre-shared key |
-| **Third Party (PKI)** | CA memverifikasi | TLS, X.509 |
-| **Web of Trust (WoT)** | Collective signing | GPG, PGP |
-| **Federated** | IdP verifikasi | OIDC, SAML |
-| **Reputation** | History + rating | eBay, Airbnb |
-| **ZK Proof** | Prove tanpa reveal | SSI, anonymous credential |
-| **Zero Trust** | Never trust, always verify | BeyondCorp |
-| **Distributed (DLT)** | Blockchain consensus | Bitcoin, Ethereum |
+| Model                  | Karakteristik              | Contoh                       |
+| ---------------------- | -------------------------- | ---------------------------- |
+| **Direct**             | A langsung tahu B          | Face-to-face, pre-shared key |
+| **Third Party (PKI)**  | CA memverifikasi           | TLS, X.509                   |
+| **Web of Trust (WoT)** | Collective signing         | GPG, PGP                     |
+| **Federated**          | IdP verifikasi             | OIDC, SAML                   |
+| **Reputation**         | History + rating           | eBay, Airbnb                 |
+| **ZK Proof**           | Prove tanpa reveal         | SSI, anonymous credential    |
+| **Zero Trust**         | Never trust, always verify | BeyondCorp                   |
+| **Distributed (DLT)**  | Blockchain consensus       | Bitcoin, Ethereum            |
 
 ---
 
@@ -289,15 +290,16 @@ Never trust, always verify:
 
 ### 11.2 Implementasi
 
-| Komponen | Contoh |
-|----------|--------|
-| Identity-aware proxy | Cloudflare Access, Google IAP |
-| Device posture check | CrowdStrike, SentinelOne |
-| Context-aware policy | BeyondCorp, zscaler |
-| Microsegmentation | Cilium, Calico, NSX |
-| Continuous verification | Signal-based, risk score |
+| Komponen                | Contoh                        |
+| ----------------------- | ----------------------------- |
+| Identity-aware proxy    | Cloudflare Access, Google IAP |
+| Device posture check    | CrowdStrike, SentinelOne      |
+| Context-aware policy    | BeyondCorp, zscaler           |
+| Microsegmentation       | Cilium, Calico, NSX           |
+| Continuous verification | Signal-based, risk score      |
 
 **Koneksi ke Vault:**
+
 - [[hierarchy-cybersecurity-defense-architecture]] — L7 (IAM) L6 (Zero Trust) full alignment
 - [[hierarchy-llm-ai-systems]] — AI agent identity layer
 
@@ -305,29 +307,29 @@ Never trust, always verify:
 
 ## 12. Cross-Reference ke Vault
 
-| Layer | Catatan Vault Terkait |
-|:-----:|-----------------------|
-| **I0** | [[hierarchy-osi...rf]] — OSINT intelligence dari footprint anonim |
-| **I1** | [[hierarchy-offensive]] — Red team social engineering |
-| **I2** | [[hierarchy-cryptography]] — PKI key management |
-| **I3** | [[hierarchy-cybersecurity-defense-architecture]] — IAM L7 |
-| **I4** | [[hierarchy-it-domain]] — Federated identity di enterprise |
-| **I5** | [[hierarchy-cybersecurity-defense-architecture]] — Compliance L8 |
-| **I6** | (masih baru, cross-link ke self-sovereign jika ada) |
-| **ZT** | [[hierarchy-cybersecurity-defense-architecture]] — Zero Trust |
-| **All** | [[hierarchy-abstraction-layers]] — Identity di L9 (intent layer) |
+|  Layer  | Catatan Vault Terkait                                             |
+| :-----: | ----------------------------------------------------------------- |
+| **I0**  | [[hierarchy-osi...rf]] — OSINT intelligence dari footprint anonim |
+| **I1**  | [[hierarchy-offensive]] — Red team social engineering             |
+| **I2**  | [[hierarchy-cryptography]] — PKI key management                   |
+| **I3**  | [[hierarchy-cybersecurity-defense-architecture]] — IAM L7         |
+| **I4**  | [[hierarchy-it-domain]] — Federated identity di enterprise        |
+| **I5**  | [[hierarchy-cybersecurity-defense-architecture]] — Compliance L8  |
+| **I6**  | (masih baru, cross-link ke self-sovereign jika ada)               |
+| **ZT**  | [[hierarchy-cybersecurity-defense-architecture]] — Zero Trust     |
+| **All** | [[hierarchy-abstraction-layers]] — Identity di L9 (intent layer)  |
 
 ---
 
 ## References
 
-1. NIST SP 800-63-4. *"Digital Identity Guidelines."* 2023.
-2. NIST SP 800-207. *"Zero Trust Architecture."* 2020.
-3. C. Allen. *"The Path to Self-Sovereign Identity."* 2016.
-4. W3C. *"Decentralized Identifiers (DIDs) v1.0."* 2022.
-5. W3C. *"Verifiable Credentials Data Model v1.1."* 2022.
-6. eIDAS 2.0 Regulation (EU) 2024/... *"European Digital Identity."*
-7. Hardjono, T. *"Sovrin Architecture and DID Methods."* 2018.
-8. DIF. *"Decentralized Identity Foundation Specifications."* 2023.
-9. OpenID Foundation. *"OpenID Connect Core."* 2014.
-10. Internet Identity Workshop. *"SSI Meetup — DIDComm."* 2020-2024.
+1. NIST SP 800-63-4. _"Digital Identity Guidelines."_ 2023.
+2. NIST SP 800-207. _"Zero Trust Architecture."_ 2020.
+3. C. Allen. _"The Path to Self-Sovereign Identity."_ 2016.
+4. W3C. _"Decentralized Identifiers (DIDs) v1.0."_ 2022.
+5. W3C. _"Verifiable Credentials Data Model v1.1."_ 2022.
+6. eIDAS 2.0 Regulation (EU) 2024/... _"European Digital Identity."_
+7. Hardjono, T. _"Sovrin Architecture and DID Methods."_ 2018.
+8. DIF. _"Decentralized Identity Foundation Specifications."_ 2023.
+9. OpenID Foundation. _"OpenID Connect Core."_ 2014.
+10. Internet Identity Workshop. _"SSI Meetup — DIDComm."_ 2020-2024.

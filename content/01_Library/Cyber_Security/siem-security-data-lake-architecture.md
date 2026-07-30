@@ -1,14 +1,14 @@
 ---
 title: SIEM & Security Data Lake Architecture
 tags:
-- siem
-- security-data-lake
-- log-aggregation
-- wazuh
-- elastic
-- splunk
-created: '2026-07-16'
-updated: '2026-07-16'
+  - siem
+  - security-data-lake
+  - log-aggregation
+  - wazuh
+  - elastic
+  - splunk
+created: "2026-07-16"
+updated: "2026-07-16"
 status: pending
 ---
 
@@ -29,6 +29,7 @@ status: pending
 ## 1. Kenapa SIEM & Security Data Lake?
 
 Vault saat ini punya komponen keamanan per-layer:
+
 - **WAF:** jarsWAF, Cloudflare ([[waf-reverse-proxy-deepdive]])
 - **Endpoint:** eBPF, Suricata, detection playbook ([[endpoint-detection-playbook]])
 - **Response:** IR framework ([[incident-response-framework]])
@@ -52,6 +53,7 @@ Vault saat ini punya komponen keamanan per-layer:
 ```
 
 **Kenapa penting:**
+
 - **Korelasi:** Serangan biasanya terlihat di multiple source — tanpa SIEM, koneksi gak ketahuan
 - **Search:** Investigasi butuh query cepat (IP, timestamp, user) di petabytes data
 - **Retention:** Compliance (GDPR, PCI-DSS) butuh log retention 1-7 tahun
@@ -129,11 +131,11 @@ Vault saat ini punya komponen keamanan per-layer:
 
 ### 2.2 Storage Tier Strategy
 
-| Tier | Storage | Retention | Query Speed | Cost | Use Case |
-|------|---------|-----------|-------------|------|----------|
-| **Hot** | NVMe SSD | 7-30 hari | <1 detik | $$$ | Alerting, dashboards, active hunting |
-| **Warm** | SATA SSD / HDD | 1-6 bulan | 1-10 detik | $$ | Historical search, investigation |
-| **Cold** | S3 / Object | 1-7 tahun | 10-60 detik | $ | Compliance, forensic retrieval |
+| Tier     | Storage        | Retention | Query Speed | Cost | Use Case                             |
+| -------- | -------------- | --------- | ----------- | ---- | ------------------------------------ |
+| **Hot**  | NVMe SSD       | 7-30 hari | <1 detik    | $$$  | Alerting, dashboards, active hunting |
+| **Warm** | SATA SSD / HDD | 1-6 bulan | 1-10 detik  | $$   | Historical search, investigation     |
+| **Cold** | S3 / Object    | 1-7 tahun | 10-60 detik | $    | Compliance, forensic retrieval       |
 
 ---
 
@@ -174,7 +176,7 @@ filter {
             }
             convert => { "source.port" => "integer" }
         }
-        
+
         date {
             match => ["EdgeStartTimestamp", "ISO8601"]
             target => "@timestamp"
@@ -201,16 +203,16 @@ tags: ["cloudflare", "waf"]
 
 ### 3.3 Log Sources Yang Wajib Ada
 
-| Source | Data | Tools |
-|--------|------|-------|
-| **WAF / Reverse Proxy** | HTTP request, blocked attacks, rate limits | Cloudflare, Nginx, jarsWAF |
-| **Network IDS/IPS** | Packet-level threat detection | Suricata, Zeek, Snort |
-| **Endpoint** | Process, file, network events | eBPF, Falco, Wazuh agent, Sysmon |
-| **System auth** | SSH, sudo, user login | `auth.log`, `secure` |
-| **Cloud audit** | API calls, IAM changes, S3 access | AWS CloudTrail, GCP Audit Log |
-| **DNS** | Query logs, tunneling detection | BIND, Unbound, Pi-hole |
-| **Container** | K8s audit, pod events, container runtime | Falco, K8s Audit Log |
-| **Threat intel** | IOC feeds, known bad IPs | MISP, AlienVault OTX, CrowdSec |
+| Source                  | Data                                       | Tools                            |
+| ----------------------- | ------------------------------------------ | -------------------------------- |
+| **WAF / Reverse Proxy** | HTTP request, blocked attacks, rate limits | Cloudflare, Nginx, jarsWAF       |
+| **Network IDS/IPS**     | Packet-level threat detection              | Suricata, Zeek, Snort            |
+| **Endpoint**            | Process, file, network events              | eBPF, Falco, Wazuh agent, Sysmon |
+| **System auth**         | SSH, sudo, user login                      | `auth.log`, `secure`             |
+| **Cloud audit**         | API calls, IAM changes, S3 access          | AWS CloudTrail, GCP Audit Log    |
+| **DNS**                 | Query logs, tunneling detection            | BIND, Unbound, Pi-hole           |
+| **Container**           | K8s audit, pod events, container runtime   | Falco, K8s Audit Log             |
+| **Threat intel**        | IOC feeds, known bad IPs                   | MISP, AlienVault OTX, CrowdSec   |
 
 ---
 
@@ -229,7 +231,7 @@ PUT _index_template/security-logs
       "number_of_replicas": 1,
       "refresh_interval": "30s",
       "translog.durability": "async",
-      
+
       # Hot-warm-cold lifecycle
       "index.routing.allocation.require.data": "hot",
       "index.lifecycle.name": "security-lifecycle"
@@ -320,15 +322,15 @@ df.write \
 
 ### 4.4 Data Sizing Estimate
 
-| Source | Daily Volume | 30 Days | 1 Year |
-|--------|-------------|---------|--------|
-| WAF (1M req/day) | ~1 GB | 30 GB | 365 GB |
-| Suricata IDS | ~2 GB | 60 GB | 730 GB |
-| Endpoint (20 hosts) | ~500 MB | 15 GB | 185 GB |
-| System auth log | ~100 MB | 3 GB | 37 GB |
-| Cloud audit | ~200 MB | 6 GB | 73 GB |
-| DNS queries | ~200 MB | 6 GB | 73 GB |
-| **Total estimate** | **~4 GB/day** | **~120 GB** | **~1.5 TB** |
+| Source              | Daily Volume  | 30 Days     | 1 Year      |
+| ------------------- | ------------- | ----------- | ----------- |
+| WAF (1M req/day)    | ~1 GB         | 30 GB       | 365 GB      |
+| Suricata IDS        | ~2 GB         | 60 GB       | 730 GB      |
+| Endpoint (20 hosts) | ~500 MB       | 15 GB       | 185 GB      |
+| System auth log     | ~100 MB       | 3 GB        | 37 GB       |
+| Cloud audit         | ~200 MB       | 6 GB        | 73 GB       |
+| DNS queries         | ~200 MB       | 6 GB        | 73 GB       |
+| **Total estimate**  | **~4 GB/day** | **~120 GB** | **~1.5 TB** |
 
 ---
 
@@ -353,11 +355,11 @@ detection:
   selection:
     Image|endswith: '\powershell.exe'
     CommandLine|contains:
-      - '-enc'
-      - '-e '
-      - 'DownloadString'
-      - 'IEX'
-      - 'Invoke-Expression'
+      - "-enc"
+      - "-e "
+      - "DownloadString"
+      - "IEX"
+      - "Invoke-Expression"
   condition: selection
 
 falsepositives:
@@ -400,10 +402,10 @@ class CorrelationEngine:
     Detect multi-stage attack dengan correlating signals dari
     multiple source dalam timeline.
     """
-    
+
     def correlate_timeline(self, ip: str, window: timedelta = timedelta(hours=1)):
         events = self.search_all_sources(f"source.ip:{ip} OR dest.ip:{ip}")
-        
+
         stages = []
         for event in sorted(events, key=lambda e: e.timestamp):
             # Stage mapping
@@ -415,7 +417,7 @@ class CorrelationEngine:
                 stages.append(("BRUTE_FORCE", event.timestamp))
             elif event.type == "process_creation" and "nc.exe" in event.command:
                 stages.append(("C2_CONNECT", event.timestamp))
-        
+
         # Jika ada 3+ stages → high confidence incident
         if len(stages) >= 3:
             alert(f"Multi-stage attack: {stages}")
@@ -431,13 +433,13 @@ class CorrelationEngine:
 
 ```yaml
 # Beberapa prebuilt rules yang penting:
-- "Direct Outbound DNS Traffic"  # C2 detection
-- "Suspicious Process Creation"  # malware execution
-- "External IPs from Internal Network"  # data exfil
-- "Unusual SMB Traffic"  # lateral movement
-- "Windows Event Log Cleared"  # covering tracks
-- "Multiple Failed Auth Attempts"  # brute force
-- "WAF Blocked Requests Spike"  # web attack wave
+- "Direct Outbound DNS Traffic" # C2 detection
+- "Suspicious Process Creation" # malware execution
+- "External IPs from Internal Network" # data exfil
+- "Unusual SMB Traffic" # lateral movement
+- "Windows Event Log Cleared" # covering tracks
+- "Multiple Failed Auth Attempts" # brute force
+- "WAF Blocked Requests Spike" # web attack wave
 ```
 
 ---
@@ -481,13 +483,13 @@ GET dns-logs-*/_search
 
 ### 6.3 Prebuilt Hunting Queries
 
-| Hypothesis | Query Pattern | Source |
-|-----------|--------------|--------|
-| **Data exfil via DNS** | Query dengan entropy > 4.0 + TXT records panjang | DNS logs |
-| **Lateral movement** | New service creation + network connection dari host yang sama | Endpoint logs |
-| **Credential dumping** | lsass.exe process access dari non-system process | Sysmon / eBPF |
-| **Persistence via cron** | Crontab modification dari non-root user | auth.log + cron logs |
-| **Port scanning** | 100+ connections ke port beda dari satu IP dalam 1 menit | Suricata/Zeek |
+| Hypothesis               | Query Pattern                                                 | Source               |
+| ------------------------ | ------------------------------------------------------------- | -------------------- |
+| **Data exfil via DNS**   | Query dengan entropy > 4.0 + TXT records panjang              | DNS logs             |
+| **Lateral movement**     | New service creation + network connection dari host yang sama | Endpoint logs        |
+| **Credential dumping**   | lsass.exe process access dari non-system process              | Sysmon / eBPF        |
+| **Persistence via cron** | Crontab modification dari non-root user                       | auth.log + cron logs |
+| **Port scanning**        | 100+ connections ke port beda dari satu IP dalam 1 menit      | Suricata/Zeek        |
 
 ---
 
@@ -495,27 +497,27 @@ GET dns-logs-*/_search
 
 ### Feature Comparison
 
-| Feature | Wazuh (OSS) | ELK Security | Splunk ES | S1/Sentinel |
-|---------|-------------|-------------|-----------|-------------|
-| **Log ingestion** | ✅ Agent + Syslog | ✅ Beats + Syslog | ✅ UF + Syslog | ✅ Agent |
-| **FIM** | ✅ Built-in | ✅ Filebeat FIM | ⚠️ Add-on | ✅ |
-| **Vulnerability detection** | ✅ | ❌ | ⚠️ Add-on | ✅ (S1) |
-| **Correlation rules** | ✅ XML-based | ✅ EQL + rules | ✅ SPL | ✅ Native |
-| **SOAR / Automation** | ❌ (API only) | ⚠️ (Elastic Cases) | ✅ (Playbooks) | ✅ |
-| **Threat intel integration** | ✅ | ✅ | ✅ | ✅ Native |
-| **UEBA / ML** | ❌ | ✅ (Elastic ML) | ✅ | ✅ |
-| **Agent OS support** | Win, Linux, Mac | Win, Linux, Mac | Win, Linux, Mac | Win, Linux, Mac, mobile |
-| **Pricing** | **Free** | Free (basic) / Paid | $$$$ | $$$$$ |
-| **Self-hosted effort** | Medium | Medium | High | Cloud only |
+| Feature                      | Wazuh (OSS)       | ELK Security        | Splunk ES       | S1/Sentinel             |
+| ---------------------------- | ----------------- | ------------------- | --------------- | ----------------------- |
+| **Log ingestion**            | ✅ Agent + Syslog | ✅ Beats + Syslog   | ✅ UF + Syslog  | ✅ Agent                |
+| **FIM**                      | ✅ Built-in       | ✅ Filebeat FIM     | ⚠️ Add-on       | ✅                      |
+| **Vulnerability detection**  | ✅                | ❌                  | ⚠️ Add-on       | ✅ (S1)                 |
+| **Correlation rules**        | ✅ XML-based      | ✅ EQL + rules      | ✅ SPL          | ✅ Native               |
+| **SOAR / Automation**        | ❌ (API only)     | ⚠️ (Elastic Cases)  | ✅ (Playbooks)  | ✅                      |
+| **Threat intel integration** | ✅                | ✅                  | ✅              | ✅ Native               |
+| **UEBA / ML**                | ❌                | ✅ (Elastic ML)     | ✅              | ✅                      |
+| **Agent OS support**         | Win, Linux, Mac   | Win, Linux, Mac     | Win, Linux, Mac | Win, Linux, Mac, mobile |
+| **Pricing**                  | **Free**          | Free (basic) / Paid | $$$$            | $$$$$                   |
+| **Self-hosted effort**       | Medium            | Medium              | High            | Cloud only              |
 
 ### Recommendation
 
-| Scenario | Rekomendasi | Budget |
-|----------|------------|--------|
-| **Homelab / Indie** | Wazuh + OpenSearch | $0 (self-hosted) |
-| **Small-medium org** | ELK Security (free tier) + Wazuh agents | ~$500/month infra |
-| **Medium enterprise** | Elastic Security (Platinum) | ~$10k/month |
-| **Large enterprise** | Splunk ES / Sentinel | ~$50k+/month |
+| Scenario              | Rekomendasi                             | Budget            |
+| --------------------- | --------------------------------------- | ----------------- |
+| **Homelab / Indie**   | Wazuh + OpenSearch                      | $0 (self-hosted)  |
+| **Small-medium org**  | ELK Security (free tier) + Wazuh agents | ~$500/month infra |
+| **Medium enterprise** | Elastic Security (Platinum)             | ~$10k/month       |
+| **Large enterprise**  | Splunk ES / Sentinel                    | ~$50k+/month      |
 
 ---
 
@@ -525,7 +527,7 @@ GET dns-logs-*/_search
 
 ```yaml
 # docker-compose.yml — Wazuh + OpenSearch
-version: '3.8'
+version: "3.8"
 services:
   # OpenSearch (Elasticsearch fork)
   opensearch:
@@ -540,17 +542,17 @@ services:
       - data-opensearch:/usr/share/opensearch/data
     ports:
       - "9200:9200"
-  
+
   # Wazuh Indexer + Manager
   wazuh-manager:
     image: wazuh/wazuh-manager:4.9
     ports:
-      - "1514:1514"   # Agent registration
-      - "1515:1515"   # Agent communication
+      - "1514:1514" # Agent registration
+      - "1515:1515" # Agent communication
       - "55000:55000" # API
     volumes:
       - data-wazuh:/var/ossec/data
-  
+
   # OpenSearch Dashboards (Kibana fork)
   dashboard:
     image: opensearchproject/opensearch-dashboards:2.14
@@ -558,13 +560,13 @@ services:
       - "5601:5601"
     depends_on:
       - opensearch
-  
+
   # Filebeat — ship Wazuh alerts to OpenSearch
   filebeat:
     image: elastic/filebeat:8.14
     volumes:
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
-  
+
   # CrowdSec — threat intel
   crowdsec:
     image: crowdsecurity/crowdsec:latest
@@ -597,13 +599,13 @@ apt install wazuh-agent
     </server>
     <config-profile>linux</config-profile>
   </client>
-  
+
   <!-- File Integrity Monitoring -->
   <syscheck>
     <directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories>
     <frequency>3600</frequency>
   </syscheck>
-  
+
   <!-- Active Response -->
   <active-response>
     <command>host-deny</command>
@@ -626,15 +628,15 @@ crowdsec:
       filename: /var/log/nginx/*.log
       labels:
         type: nginx
-  
+
   cscli:
     # Sync decisions ke SIEM via API
     - cmd: cscli decisions list -o json
       trigger: on_ban
-    
+
   outputs:
     - type: syslog
-      target: 192.168.1.100:514  # SIEM syslog
+      target: 192.168.1.100:514 # SIEM syslog
       format: json
 ```
 
@@ -651,13 +653,13 @@ CHAT_ID = "YOUR_CHAT_ID"
 
 def send_alert(alert_json):
     alert = json.loads(alert_json)
-    
+
     message = f"""🚨 Wazuh Alert: Level {alert['rule']['level']}
 📋 Rule: {alert['rule']['description']}
 🖥️ Agent: {alert['agent']['name']}
 🔍 Details: {alert.get('full_log', 'N/A')}
 ⏰ {alert['timestamp']}"""
-    
+
     requests.post(
         f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
         json={"chat_id": CHAT_ID, "text": message, "parse_mode": "HTML"}
@@ -698,14 +700,14 @@ name: Auto-Block Malicious IP
 triggers:
   - type: webhook
     id: wazuh-alert
-    
+
 steps:
   - name: Parse Alert
     action: shuffle-tools:extract-json
     parameters:
       source: ${trigger.body}
       field: source_ip
-    
+
   - name: Check Threat Intel
     action: http:get
     parameters:
@@ -715,19 +717,19 @@ steps:
     on_error:
       - action: skip
         reason: "Rate limited — proceed with caution"
-    
+
   - name: Decision
     action: shuffle-tools:condition
     parameters:
       condition: ${threat_intel.malicious} == true
-    
+
   - name: Block via iptables
     action: ssh:command
     parameters:
       host: "gateway.local"
       command: "iptables -A INPUT -s ${parsed_ip} -j DROP"
     condition: ${decision} == true
-    
+
   - name: Notify
     action: telegram:send-message
     parameters:
@@ -770,4 +772,4 @@ steps:
 
 ---
 
-*Dibuat: 16 Juli 2026 — Panduan membangun SIEM & Security Data Lake dari Wazuh + ELK.*
+_Dibuat: 16 Juli 2026 — Panduan membangun SIEM & Security Data Lake dari Wazuh + ELK._

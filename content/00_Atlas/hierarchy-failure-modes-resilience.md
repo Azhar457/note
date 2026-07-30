@@ -48,6 +48,7 @@ cssclasses:
 Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan normal**. Sistem harus dirancang untuk gagal dengan graceful.
 
 **Hukum distribusi kegagalan:**
+
 ```
 ┌────────────────────────────────────────────┐
 │                                            │
@@ -96,23 +97,23 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 3.1 Failure Mode
 
-| Mode | Contoh | Frekuensi |
-|------|--------|:---------:|
-| Bit flip (cosmic ray / alpha particle) | DRAM soft error | 1 per 10⁹ hours per MB |
-| Electromigration | Chip wear out (5-10 tahun) | Deterministic via MTBF |
-| Gate oxide breakdown | Transistor failure | Statistik |
-| Thermal runaway | CPU/GPU overheating | Densitas daya meningkat |
-| Connector failure | Loose cable, corrosion | Mekanis |
-| Power supply failure | Capacitor aging | Batch defect |
+| Mode                                   | Contoh                     |        Frekuensi        |
+| -------------------------------------- | -------------------------- | :---------------------: |
+| Bit flip (cosmic ray / alpha particle) | DRAM soft error            | 1 per 10⁹ hours per MB  |
+| Electromigration                       | Chip wear out (5-10 tahun) | Deterministic via MTBF  |
+| Gate oxide breakdown                   | Transistor failure         |        Statistik        |
+| Thermal runaway                        | CPU/GPU overheating        | Densitas daya meningkat |
+| Connector failure                      | Loose cable, corrosion     |         Mekanis         |
+| Power supply failure                   | Capacitor aging            |      Batch defect       |
 
 ### 3.2 Mitigasi
 
-| Mitigasi | Contoh |
-|----------|--------|
-| ECC memory | SECDED (Single Error Correct, Double Error Detect) |
-| CRC / checksum | Merkle tree (ZFS), SHA-256 |
-| RAID | R0 (striping), R1 (mirror), R5 (parity), R6 (dual parity) |
-| Redundant power | N+1 PSU + UPS |
+| Mitigasi        | Contoh                                                    |
+| --------------- | --------------------------------------------------------- |
+| ECC memory      | SECDED (Single Error Correct, Double Error Detect)        |
+| CRC / checksum  | Merkle tree (ZFS), SHA-256                                |
+| RAID            | R0 (striping), R1 (mirror), R5 (parity), R6 (dual parity) |
+| Redundant power | N+1 PSU + UPS                                             |
 
 **Analogi kedokteran:** DNA repair mechanism — base excision repair memperbaiki mutasi.
 
@@ -122,24 +123,24 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 4.1 Failure Mode
 
-| Mode | Contoh | Level |
-|------|--------|:-----:|
-| Race condition | TSA/TOCTOU | Thread/proses |
-| Deadlock | Lock ordering | Sinkronisasi |
-| Data race | Unsync'd write | Memory |
-| Null pointer | Uninitialized reference | Language |
-| Buffer overflow | Stack/heap corruption | Memory safety |
-| Logic error | Salah kondisi | Code |
+| Mode            | Contoh                  |     Level     |
+| --------------- | ----------------------- | :-----------: |
+| Race condition  | TSA/TOCTOU              | Thread/proses |
+| Deadlock        | Lock ordering           | Sinkronisasi  |
+| Data race       | Unsync'd write          |    Memory     |
+| Null pointer    | Uninitialized reference |   Language    |
+| Buffer overflow | Stack/heap corruption   | Memory safety |
+| Logic error     | Salah kondisi           |     Code      |
 
 ### 4.2 Mitigasi
 
-| Mitigasi | Contoh Tools |
-|----------|--------------|
-| Type safety | Rust, Haskell type system |
-| Static analysis | Clippy, ESLint, SonarQube |
-| Formal verification | TLA+, Promela (Spin), Dafny |
-| Property-based testing | Hypothesis, QuickCheck |
-| Immutable data | Persistent data structures |
+| Mitigasi               | Contoh Tools                |
+| ---------------------- | --------------------------- |
+| Type safety            | Rust, Haskell type system   |
+| Static analysis        | Clippy, ESLint, SonarQube   |
+| Formal verification    | TLA+, Promela (Spin), Dafny |
+| Property-based testing | Hypothesis, QuickCheck      |
+| Immutable data         | Persistent data structures  |
 
 ---
 
@@ -147,23 +148,23 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 5.1 Failure Mode
 
-| Mode | Contoh | Sumber |
-|------|--------|--------|
-| OOM | Memory exhaustion | Aplikasi memory leak |
-| CPU starvation | Thundering herd | Auto-scaling slow |
-| Disk full | Log rotasi mati | Monitoring gagal |
-| File descriptor leak | Ephemeral port exhaustion | Connection leak |
-| Connection pool drain | Database Query per second > pool | Traffic spike |
+| Mode                  | Contoh                           | Sumber               |
+| --------------------- | -------------------------------- | -------------------- |
+| OOM                   | Memory exhaustion                | Aplikasi memory leak |
+| CPU starvation        | Thundering herd                  | Auto-scaling slow    |
+| Disk full             | Log rotasi mati                  | Monitoring gagal     |
+| File descriptor leak  | Ephemeral port exhaustion        | Connection leak      |
+| Connection pool drain | Database Query per second > pool | Traffic spike        |
 
 ### 5.2 Mitigasi
 
-| Mitigasi | Contoh Implementasi |
-|----------|---------------------|
-| Rate limiting | Token bucket, leaky bucket |
-| Circuit breaker | Hystrix, Resilince4j |
-| Bulkhead | Thread pool separation |
-| Backpressure | Reactive streams, Kafka consumer lag |
-| Graceful degradation | Fallback to stale data |
+| Mitigasi             | Contoh Implementasi                  |
+| -------------------- | ------------------------------------ |
+| Rate limiting        | Token bucket, leaky bucket           |
+| Circuit breaker      | Hystrix, Resilince4j                 |
+| Bulkhead             | Thread pool separation               |
+| Backpressure         | Reactive streams, Kafka consumer lag |
+| Graceful degradation | Fallback to stale data               |
 
 ---
 
@@ -171,13 +172,13 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 6.1 Failure Mode
 
-| Mode | Contoh | Protokol |
-|------|--------|----------|
-| Packet loss | WiFi interference | TCP retransmit |
-| Timeout | DNS resolv > 30s | HTTP 504 |
-| Retransmission storm | TCP incast | Many-to-one pattern |
-| Network partition | Switch failure | CAP theorem (P) |
-| DNS failure | TTL mismatch | Cache stale |
+| Mode                 | Contoh            | Protokol            |
+| -------------------- | ----------------- | ------------------- |
+| Packet loss          | WiFi interference | TCP retransmit      |
+| Timeout              | DNS resolv > 30s  | HTTP 504            |
+| Retransmission storm | TCP incast        | Many-to-one pattern |
+| Network partition    | Switch failure    | CAP theorem (P)     |
+| DNS failure          | TTL mismatch      | Cache stale         |
 
 ### 6.2 Fallacies of Distributed Computing
 
@@ -196,13 +197,13 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 7.1 Failure Mode
 
-| Mode | Contoh |
-|------|--------|
-| Feature interaction | Fitur A + Fitur B hasilnya C yang tidak diinginkan |
-| Boundary condition | Tahu 2024 != Leap year |
-| Error handling bypass | catch (Exception) — tapi tetap crash |
-| Single point of failure | Database dalam monolith |
-| No circuit breaker | Cascade restart |
+| Mode                    | Contoh                                             |
+| ----------------------- | -------------------------------------------------- |
+| Feature interaction     | Fitur A + Fitur B hasilnya C yang tidak diinginkan |
+| Boundary condition      | Tahu 2024 != Leap year                             |
+| Error handling bypass   | catch (Exception) — tapi tetap crash               |
+| Single point of failure | Database dalam monolith                            |
+| No circuit breaker      | Cascade restart                                    |
 
 ### 7.2 Mitigasi
 
@@ -219,23 +220,23 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 8.1 Failure Mode
 
-| Mode | Contoh | Reason kategori |
-|------|--------|----------------|
-| Slip | Typo `rm -rf /` bukan `rm -rf ./` | Skill-based |
-| Lapse | Lupa commit sebelum deploy | Memory-based |
-| Mistake | Salah paham requirement | Rule/knowledge-based |
-| Violation | Skip review karena deadline | Normative |
+| Mode      | Contoh                            | Reason kategori      |
+| --------- | --------------------------------- | -------------------- |
+| Slip      | Typo `rm -rf /` bukan `rm -rf ./` | Skill-based          |
+| Lapse     | Lupa commit sebelum deploy        | Memory-based         |
+| Mistake   | Salah paham requirement           | Rule/knowledge-based |
+| Violation | Skip review karena deadline       | Normative            |
 
 **Statistik:** 70-90% security incident disebabkan human error.
 
 ### 8.2 Mitigasi
 
-| Strategi | Contoh |
-|----------|--------|
-| Automation | CI/CD reduce manual step |
-| Guardrails | `alias rm='trash'`, require second approval |
-| Blameless postmortem | Analisis sistem, bukan individu |
-| Training | Regular fire drill, red/purple team |
+| Strategi             | Contoh                                      |
+| -------------------- | ------------------------------------------- |
+| Automation           | CI/CD reduce manual step                    |
+| Guardrails           | `alias rm='trash'`, require second approval |
+| Blameless postmortem | Analisis sistem, bukan individu             |
+| Training             | Regular fire drill, red/purple team         |
 
 ---
 
@@ -243,12 +244,12 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 9.1 Failure Mode
 
-| Mode | Contoh |
-|------|--------|
-| Conway's Law | Tim silo → arsitektur monolith |
+| Mode                  | Contoh                                |
+| --------------------- | ------------------------------------- |
+| Conway's Law          | Tim silo → arsitektur monolith        |
 | Misaligned incentives | Engineering gamified → technical debt |
-| No blameless culture | Incident hidden → tidak ada learning |
-| Budget misallocation | Security underfunded → breach |
+| No blameless culture  | Incident hidden → tidak ada learning  |
+| Budget misallocation  | Security underfunded → breach         |
 
 ### 9.2 Mitigasi
 
@@ -263,19 +264,20 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ### 10.1 Karakteristik
 
-| Mode | Contoh |
-|------|--------|
-| Domino effect | Single cloud AZ down → major services |
+| Mode              | Contoh                                    |
+| ----------------- | ----------------------------------------- |
+| Domino effect     | Single cloud AZ down → major services     |
 | Cascading failure | Database overload → semua service timeout |
-| Panic cascade | Social media rumor → bank run |
-| Black swan | COVID supply chain |
-| Common cause | Power outage di DC → semua host down |
+| Panic cascade     | Social media rumor → bank run             |
+| Black swan        | COVID supply chain                        |
+| Common cause      | Power outage di DC → semua host down      |
 
 ### 10.2 Contoh
 
 **2008 AWS US-EAST-1:** Single AZ down → EBS stuck → user reporting widespread → cascade panic.
 
 **Mitigasi:**
+
 - Multi-region deployment
 - Bulkhead service isolation
 - Runtime redundancy
@@ -285,57 +287,57 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 ## 11. Resilience Patterns by Layer
 
-| Layer | Pattern | Tooling |
-|:-----:|---------|---------|
-| F0 | ECC, RAID, redundant power | ZFS, mdadm, ECC DIMM |
-| F1 | Static analysis, formal proof | Clippy, TLA+, Dafny |
-| F2 | Rate limit, circuit breaker | Hystrix, Alibaba Sentinel |
-| F3 | Retry, timeout, backoff | Resilience4j, exponential backoff |
-| F4 | Architecture review, chaos | Chaos Mesh, Litmus |
-| F5 | Automation, guardrails | CI/CD, approval gates |
-| F6 | Blameless culture, retro | Incident trace |
-| F7 | Multi-region, bulkhead | Geographic redundancy |
+| Layer | Pattern                       | Tooling                           |
+| :---: | ----------------------------- | --------------------------------- |
+|  F0   | ECC, RAID, redundant power    | ZFS, mdadm, ECC DIMM              |
+|  F1   | Static analysis, formal proof | Clippy, TLA+, Dafny               |
+|  F2   | Rate limit, circuit breaker   | Hystrix, Alibaba Sentinel         |
+|  F3   | Retry, timeout, backoff       | Resilience4j, exponential backoff |
+|  F4   | Architecture review, chaos    | Chaos Mesh, Litmus                |
+|  F5   | Automation, guardrails        | CI/CD, approval gates             |
+|  F6   | Blameless culture, retro      | Incident trace                    |
+|  F7   | Multi-region, bulkhead        | Geographic redundancy             |
 
 ---
 
 ## 12. Analogi Lintas Domain
 
-| Failure Layer | Analogi Kedokteran | Analogi Hukum |
-|:-------------:|--------------------|---------------|
-| F0 (bit flip) | DNA mutasi | Dokumen corrupt |
-| F1 (logic) | Cacat lahir | Kontradiksi pasal |
-| F2 (resource) | Gagal ginjal | Court overload |
-| F3 (comm) | Stroke | Putusan tidak tersampaikan |
-| F4 (design) | Malpraktik (desain rumah sakit) | Cacat undang-undang |
-| F5 (human) | Salah diagnosis | Salah tafsir kontrak |
-| F6 (org) | Silo RS → pasien salah rujuk | Tumpang tindih yurisdiksi |
-| F7 (systemic) | Pandemi | Negara gagal |
+| Failure Layer | Analogi Kedokteran              | Analogi Hukum              |
+| :-----------: | ------------------------------- | -------------------------- |
+| F0 (bit flip) | DNA mutasi                      | Dokumen corrupt            |
+|  F1 (logic)   | Cacat lahir                     | Kontradiksi pasal          |
+| F2 (resource) | Gagal ginjal                    | Court overload             |
+|   F3 (comm)   | Stroke                          | Putusan tidak tersampaikan |
+|  F4 (design)  | Malpraktik (desain rumah sakit) | Cacat undang-undang        |
+|  F5 (human)   | Salah diagnosis                 | Salah tafsir kontrak       |
+|   F6 (org)    | Silo RS → pasien salah rujuk    | Tumpang tindih yurisdiksi  |
+| F7 (systemic) | Pandemi                         | Negara gagal               |
 
 ---
 
 ## 13. Cross-Reference ke Vault
 
-| Layer | Catatan Vault Terkait |
-|:-----:|-----------------------|
-| **F0-F1** | [[hierarchy-digital-plumbing]] — Level 1-3: Aritmetika, parsing, encoding |
-| **F1** | [[hierarchy-software-engineering-paradigm]] — Design pattern, TDD |
-| **F2** | [[hierarchy-systems-architecture-evolution]] — Circuit breaker in microservices |
-| **F3** | [[hierarchy-kernel-bypass-networking]] — Zero-copy mitigasi latency |
-| **F4** | [[hierarchy-ai-levels]] — AI failure mode di L5+ |
-| **F5** | [[hierarchy-cybersecurity-defense-architecture]] — Human error vs security |
-| **F6-F7** | [[hierarchy-infrastructure-evolution]] — Multi-region infra |
+|   Layer   | Catatan Vault Terkait                                                           |
+| :-------: | ------------------------------------------------------------------------------- |
+| **F0-F1** | [[hierarchy-digital-plumbing]] — Level 1-3: Aritmetika, parsing, encoding       |
+|  **F1**   | [[hierarchy-software-engineering-paradigm]] — Design pattern, TDD               |
+|  **F2**   | [[hierarchy-systems-architecture-evolution]] — Circuit breaker in microservices |
+|  **F3**   | [[hierarchy-kernel-bypass-networking]] — Zero-copy mitigasi latency             |
+|  **F4**   | [[hierarchy-ai-levels]] — AI failure mode di L5+                                |
+|  **F5**   | [[hierarchy-cybersecurity-defense-architecture]] — Human error vs security      |
+| **F6-F7** | [[hierarchy-infrastructure-evolution]] — Multi-region infra                     |
 
 ---
 
 ## References
 
-1. Laprie, J.C. *"Dependability: Basic Concepts and Terminology."* Springer, 1992.
-2. Littlewood, B. & Strigini, L. *"Software Reliability and Dependability."* 2000.
-3. Amdahl, G. *"Validity of the Single Processor Approach."* AFIPS, 1967.
-4. Denning, P.J. *"Fault Tolerant Systems."* CACM, 1976.
-5. Ford, N. et al. *"Building Evolutionary Architectures."* O'Reilly, 2017.
-6. Nygard, M. *"Release It! Design and Deploy Production-Ready Software."* 2007.
-7. DeMarco, T. & Lister, T. *"Peopleware: Productive Projects and Teams."* 1987.
-8. Vaughan, D. *"The Challenger Launch Decision."* 1996.
-9. Taleb, N.N. *"The Black Swan."* 2007.
-10. Parnas, D. *"Designing Software for Ease of Extension and Contraction."* 1978.
+1. Laprie, J.C. _"Dependability: Basic Concepts and Terminology."_ Springer, 1992.
+2. Littlewood, B. & Strigini, L. _"Software Reliability and Dependability."_ 2000.
+3. Amdahl, G. _"Validity of the Single Processor Approach."_ AFIPS, 1967.
+4. Denning, P.J. _"Fault Tolerant Systems."_ CACM, 1976.
+5. Ford, N. et al. _"Building Evolutionary Architectures."_ O'Reilly, 2017.
+6. Nygard, M. _"Release It! Design and Deploy Production-Ready Software."_ 2007.
+7. DeMarco, T. & Lister, T. _"Peopleware: Productive Projects and Teams."_ 1987.
+8. Vaughan, D. _"The Challenger Launch Decision."_ 1996.
+9. Taleb, N.N. _"The Black Swan."_ 2007.
+10. Parnas, D. _"Designing Software for Ease of Extension and Contraction."_ 1978.

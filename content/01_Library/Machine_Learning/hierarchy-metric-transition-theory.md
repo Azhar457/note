@@ -41,13 +41,13 @@ Dimana $\mathcal{M}$ adalah himpunan semua distance/similarity functions.
 
 **Pemetaan empiris:**
 
-| $P$ (bits/dim) | Precision Level | Optimal $M$ | Compute Primitive | Kenapa |
-|:---:|---|---|---|---|
-| 32 | float32 | Cosine / dot product | FMA + reduction | Informasi geometrik penuh |
-| 16 | float16 | Cosine / dot product | FP16 FMA | Range berkurang, metric space sama |
-| 8 | int8 | Cosine (dequantized) | INT8 dot + dequant | Quantization noise tapi linear space terjaga |
-| 4 | int4 | Cosine / Manhattan | INT4 dot + lookup table | Noise ekstrem; koreksi nonlinear diperlukan |
-| **1** | **binary** | **Hamming distance** | **XOR + POPCNT** | **Metric space collapse: sign-only → angular sectors only** |
+| $P$ (bits/dim) | Precision Level | Optimal $M$          | Compute Primitive       | Kenapa                                                      |
+| :------------: | --------------- | -------------------- | ----------------------- | ----------------------------------------------------------- |
+|       32       | float32         | Cosine / dot product | FMA + reduction         | Informasi geometrik penuh                                   |
+|       16       | float16         | Cosine / dot product | FP16 FMA                | Range berkurang, metric space sama                          |
+|       8        | int8            | Cosine (dequantized) | INT8 dot + dequant      | Quantization noise tapi linear space terjaga                |
+|       4        | int4            | Cosine / Manhattan   | INT4 dot + lookup table | Noise ekstrem; koreksi nonlinear diperlukan                 |
+|     **1**      | **binary**      | **Hamming distance** | **XOR + POPCNT**        | **Metric space collapse: sign-only → angular sectors only** |
 
 ### 1.2 Kenapa Phase Transition? (Bukan Gradual)
 
@@ -65,14 +65,14 @@ Ini **BUKAN** dot product dalam sense linear algebra — ini adalah **count dari
 
 **Transisi dari $P=8$ ke $P=1$ adalah phase transition karena topologi metric space berubah:**
 
-| Topological Property | Float32/INT8 Space | Binary (Hamming) Space |
-|---------------------|:------------------:|:----------------------:|
-| Linearity | ✅ Linear | ❌ Tidak linear (XOR space) |
-| Continuity | ✅ Continuous | ❌ Discrete (hanya {0..d}) |
-| Magnitude encoding | ✅ Full | ❌ Nol (sign only) |
-| Distance type | Metric (Euclidean) | Metric (Hamming) |
-| Triangle inequality | ✅ | ✅ |
-| Differentiability | ✅ | ❌ (tidak untuk gradient) |
+| Topological Property | Float32/INT8 Space |   Binary (Hamming) Space    |
+| -------------------- | :----------------: | :-------------------------: |
+| Linearity            |     ✅ Linear      | ❌ Tidak linear (XOR space) |
+| Continuity           |   ✅ Continuous    | ❌ Discrete (hanya {0..d})  |
+| Magnitude encoding   |      ✅ Full       |     ❌ Nol (sign only)      |
+| Distance type        | Metric (Euclidean) |      Metric (Hamming)       |
+| Triangle inequality  |         ✅         |             ✅              |
+| Differentiability    |         ✅         |  ❌ (tidak untuk gradient)  |
 
 ---
 
@@ -87,17 +87,17 @@ graph LR
         A --> C[Euclidean Distance]
         A --> D[Manhattan Distance]
     end
-    
+
     subgraph INT8 Space
         E[Quantized Dot Product] --> F[Dequantized Cosine]
         E --> G[SQ8 Euclidean]
     end
-    
+
     subgraph Binary Space
         H[Popcount] --> I[Hamming Distance]
         H --> J[Jaccard Index]
     end
-    
+
     B -.->|Quantization| F
     F -.->|Sign Quantization| I
     C -.->|Quantization| G
@@ -106,14 +106,14 @@ graph LR
 
 ### 2.2 Optimal Metric per Vector Database
 
-| Vector DB | Default Metric | Precision | Alternative Metrics | Metric Transition Point |
-|-----------|---------------|-----------|-------------------|------------------------|
-| FAISS | Inner Product / L2 | float32 | Cosine, L1, Hamming (IndexBinary* only) | Exact: binary = separate index type |
-| pgvector | Cosine / L2 / IP | float32 | Distances only | SQ8 quantization support via halfvec |
-| sqlite-vec | Cosine | float32 | L2 | Tidak ada binary support |
-| Milvus | Cosine / IP / L2 | float32 | Hamming, Jaccard, Tanimoto | Binary vectors via BINARY type |
-| Qdrant | Dot / Cosine | float32 | L2, Manhattan | Tidak ada binary support |
-| **eBVC** | **Hamming** | **binary** | _none_ | **Mulai dari binary — tidak ada fallback** |
+| Vector DB  | Default Metric     | Precision  | Alternative Metrics                     | Metric Transition Point                    |
+| ---------- | ------------------ | ---------- | --------------------------------------- | ------------------------------------------ |
+| FAISS      | Inner Product / L2 | float32    | Cosine, L1, Hamming (IndexBinary* only) | Exact: binary = separate index type        |
+| pgvector   | Cosine / L2 / IP   | float32    | Distances only                          | SQ8 quantization support via halfvec       |
+| sqlite-vec | Cosine             | float32    | L2                                      | Tidak ada binary support                   |
+| Milvus     | Cosine / IP / L2   | float32    | Hamming, Jaccard, Tanimoto              | Binary vectors via BINARY type             |
+| Qdrant     | Dot / Cosine       | float32    | L2, Manhattan                           | Tidak ada binary support                   |
+| **eBVC**   | **Hamming**        | **binary** | _none_                                  | **Mulai dari binary — tidak ada fallback** |
 
 ### 2.3 Biaya Komputasi Transisi
 
@@ -158,13 +158,13 @@ dimana IoU adalah Intersection over Union dari sign bits.
 
 ### 3.2 Validasi Praktis
 
-| Model | d | Cosine→Hamming Recall@10 (relatif terhadap float32) |
-|-------|---|-------------------------------------------------|
-| text-embedding-3-small | 1536 | 89-91% |
-| text-embedding-3-large | 3072 | 92-94% |
-| Jina v5 text-small | 1024 | 94-96% |
-| Jina v5 text-large | 2048 | 96-97% |
-| Cohere Embed v3 | 1024 | 92-95% |
+| Model                  | d    | Cosine→Hamming Recall@10 (relatif terhadap float32) |
+| ---------------------- | ---- | --------------------------------------------------- |
+| text-embedding-3-small | 1536 | 89-91%                                              |
+| text-embedding-3-large | 3072 | 92-94%                                              |
+| Jina v5 text-small     | 1024 | 94-96%                                              |
+| Jina v5 text-large     | 2048 | 96-97%                                              |
+| Cohere Embed v3        | 1024 | 92-95%                                              |
 
 **Tren mengkonfirmasi teori:** Dimensionality lebih tinggi → sign encoding lebih baik → informasi lebih sedikit hilang → recall lebih tinggi.
 
@@ -180,7 +180,7 @@ Production vector search yang juga menggunakan binary quantization harus mengimp
 def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
     """
     3-tier search: setiap tier menggunakan metric berbeda
-    
+
     Tier 1: Binary + Hamming (tercepat, 100K+ QPS)
     Tier 2: SQ8 + Cosine (medium, 10K QPS)
     Tier 3: Float32 + Cosine (paling lambat, 1K QPS)
@@ -188,21 +188,21 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
     # Tier 1: Binary cache
     q_bin = binary_quantize(query)
     candidates = hamming_search(q_bin, db_binary, top_k=top_k * 5)
-    
+
     # Cek confidence: jika min Hamming distance << mean_dist, return early
     if candidates[0].distance < 0.1 * d:
         return candidates[:top_k]
-    
+
     # Tier 2: INT8 re-score
     q_int8 = quantize_to_int8(query)
     rescored = cosine_search(q_int8, db_int8[candidates.ids], top_k=top_k)
-    
+
     # Tier 3: Jika masih tidak yakin, full float32 re-rank
     if rescored[-1].score < 0.7:
         final = cosine_search(query, db_float32[rescored.ids], top_k=top_k)
     else:
         final = rescored
-    
+
     return final
 ```
 
@@ -210,13 +210,13 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
 
 ### 4.2 Kapan TIDAK Pakai Binary (dan Tetap dengan Cosine)
 
-| Kondisi | Stay with Cosine | Alasan |
-|-----------|-----------------|--------|
-| d < 256 | ✅ | Information loss terlalu tinggi; bound $\sqrt{d}$ terlalu lemah |
-| Embedding isotropy < 0.3 | ✅ | Distribusi sudut tidak uniform → binary collapse |
-| Magnitude membawa makna | ✅ contoh: document importance, confidence scores | Sign quantization membuang magnitude |
-| RE-RANKING dilakukan downstream | ✅ | Reranker mengharapkan continuous scores, bukan Hamming distances |
-| Multi-vector / weighted queries | ✅ | Query weighting membutuhkan continuous dot product |
+| Kondisi                         | Stay with Cosine                                  | Alasan                                                           |
+| ------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------- |
+| d < 256                         | ✅                                                | Information loss terlalu tinggi; bound $\sqrt{d}$ terlalu lemah  |
+| Embedding isotropy < 0.3        | ✅                                                | Distribusi sudut tidak uniform → binary collapse                 |
+| Magnitude membawa makna         | ✅ contoh: document importance, confidence scores | Sign quantization membuang magnitude                             |
+| RE-RANKING dilakukan downstream | ✅                                                | Reranker mengharapkan continuous scores, bukan Hamming distances |
+| Multi-vector / weighted queries | ✅                                                | Query weighting membutuhkan continuous dot product               |
 
 ---
 
@@ -238,14 +238,14 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
 3. [[cosine-vs-euclidean-vs-dot]] — Tabel per metrik
 4. [[vector-database-internals-optimization]] — §4: Quantization comparison
 5. [[hierarchy-recursive-ring-deepdive]] — Phase transition conceptual framework
-6. C. Shannon. *"A Mathematical Theory of Communication."* Bell System Technical Journal, 1948.
-7. T. Dao et al. *"FlashAttention."* 2022.
+6. C. Shannon. _"A Mathematical Theory of Communication."_ Bell System Technical Journal, 1948.
+7. T. Dao et al. _"FlashAttention."_ 2022.
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|---------|---------|
-| [[hierarchy-binary-quantization-hamming-popcount]] | §3 Metric Transition — expanded version of this concept |
-| [[cosine-similarity-deepdive]] | Cosine formula & geometry — sebagai continuous baseline |
-| [[vector-database-internals-optimization]] | §4 Quantization — precision trade-offs |
-| [[hierarchy-kernel-bypass-networking]] | eBPF compute constraints → kenapa Hamming adalah satu-satunya opsi |
+| Catatan                                            | Koneksi                                                            |
+| -------------------------------------------------- | ------------------------------------------------------------------ |
+| [[hierarchy-binary-quantization-hamming-popcount]] | §3 Metric Transition — expanded version of this concept            |
+| [[cosine-similarity-deepdive]]                     | Cosine formula & geometry — sebagai continuous baseline            |
+| [[vector-database-internals-optimization]]         | §4 Quantization — precision trade-offs                             |
+| [[hierarchy-kernel-bypass-networking]]             | eBPF compute constraints → kenapa Hamming adalah satu-satunya opsi |

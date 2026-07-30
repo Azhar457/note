@@ -1,18 +1,18 @@
 ---
 title: Backpropagation Learning Roadmap — From Calculus to Custom Autograd Engine
 tags:
-- machine-learning
-- deep-learning
-- neural-networks
-- calculus
-- roadmap
-created: '2026-07-19'
-updated: '2026-07-19'
+  - machine-learning
+  - deep-learning
+  - neural-networks
+  - calculus
+  - roadmap
+created: "2026-07-19"
+updated: "2026-07-19"
 status: pending
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Memahami algoritma *backpropagation* secara mendalam membutuhkan transisi dari persamaan matematika murni ke baris kode implementasi nyata. Catatan ini dirancang sebagai peta jalan belajar (*roadmap*) untuk menguasai mekanisme aliran balik gradien dari dasar, menjadi pasangan praktis dari berkas teoritis [[backpropagation-deepdive]].
+> Memahami algoritma _backpropagation_ secara mendalam membutuhkan transisi dari persamaan matematika murni ke baris kode implementasi nyata. Catatan ini dirancang sebagai peta jalan belajar (_roadmap_) untuk menguasai mekanisme aliran balik gradien dari dasar, menjadi pasangan praktis dari berkas teoritis [[backpropagation-deepdive]].
 
 ## Daftar Isi
 
@@ -48,13 +48,13 @@ Dalam graf komputasi neural network, jika kita memiliki fungsi loss $L$, output 
 $$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial w}$$
 Bobot diperbarui menggunakan algoritma Gradient Descent:
 $$w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial L}{\partial w}$$
-Dimana $\eta$ adalah *learning rate*.
+Dimana $\eta$ adalah _learning rate_.
 
 ---
 
 ## 3. Fase 2: Membangun Engine Autograd Kustom di Python
 
-Pada fase ini, Anda akan membangun sebuah graf komputasi dinamis berbasis Node (*Scalar*) yang mampu merekam operasi matematika dan melakukan penelusuran balik (*topological sort*) untuk menghitung turunan secara otomatis.
+Pada fase ini, Anda akan membangun sebuah graf komputasi dinamis berbasis Node (_Scalar_) yang mampu merekam operasi matematika dan melakukan penelusuran balik (_topological sort_) untuk menghitung turunan secara otomatis.
 
 Berikut adalah implementasi Python sederhana dari autograd engine:
 
@@ -71,7 +71,7 @@ class Value:
     def __add__(self, other):
         other = other if isinstance(other, Value) else Value(other)
         out = Value(self.data + other.data, (self, other), '+')
-        
+
         def _backward():
             self.grad += 1.0 * out.grad
             other.grad += 1.0 * out.grad
@@ -81,7 +81,7 @@ class Value:
     def __mul__(self, other):
         other = other if isinstance(other, Value) else Value(other)
         out = Value(self.data * other.data, (self, other), '*')
-        
+
         def _backward():
             self.grad += other.data * out.grad
             other.grad += self.data * out.grad
@@ -90,7 +90,7 @@ class Value:
 
     def relu(self):
         out = Value(max(0.0, self.data), (self,), 'ReLU')
-        
+
         def _backward():
             self.grad += (1.0 if out.data > 0 else 0.0) * out.grad
         out._backward = _backward
@@ -107,7 +107,7 @@ class Value:
                     build_topo(child)
                 topo.append(v)
         build_topo(self)
-        
+
         # Set gradien awal untuk node root (dL/dL = 1.0)
         self.grad = 1.0
         # Panggil fungsi _backward dari akhir ke awal
@@ -167,7 +167,7 @@ class MLP:
 
 ## 5. Fase 4: Verifikasi & Benchmark Menggunakan PyTorch
 
-Setelah membuat autograd sendiri, Anda harus memvalidasi keakuratan gradien yang dihasilkan menggunakan kalkulasi otomatis dari **PyTorch** (*gradient checking*).
+Setelah membuat autograd sendiri, Anda harus memvalidasi keakuratan gradien yang dihasilkan menggunakan kalkulasi otomatis dari **PyTorch** (_gradient checking_).
 
 ```python
 import torch
@@ -194,7 +194,9 @@ print("Gradien COCOK! Autograd kustom terbukti valid secara matematika.")
 ## 6. Kumpulan Soal Latihan & Solusi
 
 ### Soal 1
+
 Diberikan fungsi komputasi $f(x, y) = x \cdot y + y^2$. Jika nilai awal $x = 3.0$ dan $y = -2.0$:
+
 1. Hitung nilai output forward pass.
 2. Turunkan nilai gradien parsial $\frac{\partial f}{\partial x}$ dan $\frac{\partial f}{\partial y}$ secara manual menggunakan aturan rantai.
 3. Buktikan menggunakan kode engine `Value` Anda.
@@ -202,12 +204,14 @@ Diberikan fungsi komputasi $f(x, y) = x \cdot y + y^2$. Jika nilai awal $x = 3.0
 **Solusi**
 
 Kalkulasi manual:
+
 - Forward pass: $f(3.0, -2.0) = (3.0 \cdot -2.0) + (-2.0)^2 = -6.0 + 4.0 = -2.0$.
 - Gradien parsial:
   - $\frac{\partial f}{\partial x} = y = -2.0$
   - $\frac{\partial f}{\partial y} = x + 2y = 3.0 + 2(-2.0) = 3.0 - 4.0 = -1.0$
 
 Kode pembuktian:
+
 ```python
 x = Value(3.0)
 y = Value(-2.0)
@@ -223,8 +227,8 @@ print(f"df/dy: {y.grad}")          # -1.0
 
 ## 7. Koneksi ke Vault
 
-| Catatan | Hubungan |
-|------|----------|
-| [[backpropagation-deepdive]] | Dasar teori, representasi graf komputasi, dan kalkulus balik *backward pass*. |
-| [[attention-mechanism-deepdive]] | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
-| [[hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien. |
+| Catatan                               | Hubungan                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| [[backpropagation-deepdive]]          | Dasar teori, representasi graf komputasi, dan kalkulus balik _backward pass_. |
+| [[attention-mechanism-deepdive]]      | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
+| [[hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien.            |

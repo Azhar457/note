@@ -20,6 +20,7 @@ status: pending
 cssclasses:
   - wide-table
 ---
+
 # 🧿 NEUROSYMBOLIC AI — Arsitektur Kognitif yang Melampaui Pola
 
 **Dari Pattern Recognition ke Machine Reasoning: Sebuah Sintesis Epistemologis**
@@ -45,9 +46,9 @@ Seekor kucing melompat ke atas meja. Otak Anda langsung mengikat berbagai proper
 
 Dalam konteks vault Anda, terutama **[[test-time-compute-system2]]**, neurosymbolic AI adalah implementasi arsitektural dari **Sistem 2**.
 
-| Mode Kognitif | Arsitektur AI | Implementasi |
-| :--- | :--- | :--- |
-| **Sistem 1 (Cepat, Refleks)** | Neural Murni | LLM, CNN, Deteksi Anomali. `Input -> Output`. |
+| Mode Kognitif                   | Arsitektur AI     | Implementasi                                                                           |
+| :------------------------------ | :---------------- | :------------------------------------------------------------------------------------- |
+| **Sistem 1 (Cepat, Refleks)**   | Neural Murni      | LLM, CNN, Deteksi Anomali. `Input -> Output`.                                          |
 | **Sistem 2 (Lambat, Analitis)** | **Neurosymbolic** | **GraphRAG, Causal AI, XAI.** `Input -> Representasi Simbolik -> Reasoning -> Output`. |
 
 Neurosymbolic AI menyediakan **mesin reasoning** yang dapat dipanggil oleh agen (seperti dalam **[[agentic-ai-mcp-architecture-deepdive]]**) untuk memvalidasi intuisi neural, merencanakan tindakan, dan menjelaskan keputusan.
@@ -62,8 +63,8 @@ GraphRAG adalah titik masuk paling pragmatis ke dunia neurosymbolic. Ia bukan se
 
 Proses membangun GraphRAG adalah tindakan **memahami** itu sendiri.
 
-1.  **Perception (Neural):** LLM membaca korpus dokumen. Ia tidak hanya melihat teks, tetapi juga *entitas* (orang, tempat, organisasi) dan *relasi* (bekerja di, mendanai, menyerang). Ini adalah proses ekstraksi informasi tingkat tinggi.
-2.  **Binding (Neurosymbolic):** Entitas dan relasi ini tidak dibiarkan sebagai anotasi. Mereka **diikat** menjadi sebuah struktur data yang persisten: Knowledge Graph. Sebuah simpul `Person_A` terhubung ke simpul `Organization_B` melalui edge `works_at`. Struktur ini adalah *memori jangka panjang* yang terstruktur.
+1.  **Perception (Neural):** LLM membaca korpus dokumen. Ia tidak hanya melihat teks, tetapi juga _entitas_ (orang, tempat, organisasi) dan _relasi_ (bekerja di, mendanai, menyerang). Ini adalah proses ekstraksi informasi tingkat tinggi.
+2.  **Binding (Neurosymbolic):** Entitas dan relasi ini tidak dibiarkan sebagai anotasi. Mereka **diikat** menjadi sebuah struktur data yang persisten: Knowledge Graph. Sebuah simpul `Person_A` terhubung ke simpul `Organization_B` melalui edge `works_at`. Struktur ini adalah _memori jangka panjang_ yang terstruktur.
 3.  **Reasoning (Symbolic):** Ketika kueri diajukan, sistem tidak hanya mencari kemiripan vektor. Ia melakukan **graph traversal**—sebuah proses logis. "Cari semua orang yang bekerja di perusahaan yang didanai oleh `Venture_Capital_X`". Ini adalah kueri multi-hop yang membutuhkan struktur, bukan hanya statistik.
 
 ### 2.2 Implementasi Agen yang Sadar Konteks
@@ -76,7 +77,7 @@ class SecurityAnalystAgent:
     def __init__(self, kg: Neo4jGraph, llm):
         self.kg = kg          # Memori Spasial (Symbolic)
         self.llm = llm        # Mesin Penalaran (Neural)
-    
+
     def investigate_alert(self, alert):
         # 1. NEURAL: Ekstrak entitas kunci dari alert mentah menggunakan LLM
         entities = self.llm.extract_entities(alert)
@@ -98,20 +99,21 @@ class SecurityAnalystAgent:
         decision = self.llm.generate(reasoning_prompt)
         return decision
 ```
+
 **Koneksi Vault:** Pola ini adalah spesialisasi dari loop **ReAct** di **[[agentic-ai-mcp-roadmap]]**. `kg.query` adalah sebuah "tool" yang memberikan agen kemampuan reasoning simbolik.
 
 ---
 
 ## ⚔️ 3. Causal AI — Melampaui "Apa" Menuju "Mengapa"
 
-Jika GraphRAG adalah memori, Causal AI adalah **kemampuan untuk membayangkan dunia alternatif**. Ini adalah lompatan dari *curve-fitting* ke *world-modeling*.
+Jika GraphRAG adalah memori, Causal AI adalah **kemampuan untuk membayangkan dunia alternatif**. Ini adalah lompatan dari _curve-fitting_ ke _world-modeling_.
 
 ### 3.1 Tangga Kausalitas Pearl: Peta Menuju Kebijaksanaan
 
 Model ML tradisional (termasuk sebagian besar LLM) berada di anak tangga pertama. Mereka menjawab "Apa yang akan terjadi?" berdasarkan asosiasi. Causal AI menaiki tangga ini.
 
 1.  **Asosiasi (Level 1):** `P(sembuh | minum_obat)`. ML klasik. "Pasien yang minum obat lebih sering sembuh." (Tapi bagaimana jika pasien yang minum obat memang lebih sehat?)
-2.  **Intervensi (Level 2):** `P(sembuh | do(minum_obat))`. Causal Inference. "Jika SAYA MEMAKSA semua orang minum obat, berapa tingkat kesembuhannya?" Ini adalah hasil dari *eksperimen* atau analisis kausal yang ketat.
+2.  **Intervensi (Level 2):** `P(sembuh | do(minum_obat))`. Causal Inference. "Jika SAYA MEMAKSA semua orang minum obat, berapa tingkat kesembuhannya?" Ini adalah hasil dari _eksperimen_ atau analisis kausal yang ketat.
 3.  **Kontrafaktual (Level 3):** `P(sembuh_tanpa_obat | minum_obat, sembuh)`. Causal Reasoning. "Pasien ini sembuh setelah minum obat. Apakah ia akan tetap sembuh jika TIDAK minum obat?" Ini adalah fondasi dari atribusi, tanggung jawab, dan keadilan.
 
 ### 3.2 Neurosymbolic Causal AI: Mengajarkan LLM untuk Berpikir Kausal
@@ -138,6 +140,7 @@ Tugas:
 # Estimasi: Lakukan backdoor adjustment dengan mengontrol B.
 # Do-Calculus: P(C | do(A)) = Σ_b P(C | A, B=b) * P(B=b)
 ```
+
 **Koneksi Vault:** Kemampuan untuk melakukan "bagaimana jika" ini adalah inti dari **Test-Time Compute / System 2** di **[[test-time-compute-system2]]**. Agen tidak hanya memprediksi; ia merenungkan intervensi dan membayangkan masa depan alternatif.
 
 ---
@@ -148,12 +151,12 @@ Dalam dunia AI, kepercayaan bukanlah hadiah; ia harus direkayasa. XAI adalah jem
 
 ### 4.1 Dari Atribusi ke Konsep: Mendaki Tangga Penjelasan
 
-| Level Penjelasan | Pertanyaan yang Dijawab | Metode (XAI) | Analogi Kognitif |
-| :--- | :--- | :--- | :--- |
-| **1. Atribusi Fitur** | "Fitur mana yang paling penting?" | **SHAP, LIME** | Menyebutkan bahan-bahan dalam sebuah hidangan. |
-| **2. Arsitektural** | "Bagaimana model memproses informasi?" | **TCAV, Network Dissection** | Menjelaskan fungsi setiap bagian dapur dalam memasak. |
-| **3. Kontrafaktual** | "Apa yang harus diubah untuk mendapatkan hasil berbeda?" | **Counterfactual Generation** | "Jika Anda tidak menambahkan garam, sup ini akan terasa hambar." |
-| **4. Simbolik** | "Apa aturan logis yang diikuti model?" | **Rule Extraction, Neurosymbolic** | "Resep supnya adalah: tumis bawang, tambahkan air, masukkan sayuran." |
+| Level Penjelasan      | Pertanyaan yang Dijawab                                  | Metode (XAI)                       | Analogi Kognitif                                                      |
+| :-------------------- | :------------------------------------------------------- | :--------------------------------- | :-------------------------------------------------------------------- |
+| **1. Atribusi Fitur** | "Fitur mana yang paling penting?"                        | **SHAP, LIME**                     | Menyebutkan bahan-bahan dalam sebuah hidangan.                        |
+| **2. Arsitektural**   | "Bagaimana model memproses informasi?"                   | **TCAV, Network Dissection**       | Menjelaskan fungsi setiap bagian dapur dalam memasak.                 |
+| **3. Kontrafaktual**  | "Apa yang harus diubah untuk mendapatkan hasil berbeda?" | **Counterfactual Generation**      | "Jika Anda tidak menambahkan garam, sup ini akan terasa hambar."      |
+| **4. Simbolik**       | "Apa aturan logis yang diikuti model?"                   | **Rule Extraction, Neurosymbolic** | "Resep supnya adalah: tumis bawang, tambahkan air, masukkan sayuran." |
 
 ### 4.2 TCAV (Testing with Concept Activation Vectors): Mengajari Model Bahasa Konsep
 
@@ -162,12 +165,13 @@ Ini adalah contoh sempurna neurosymbolic XAI. Sebuah pengguna mendefinisikan seb
 ```python
 # Pseudocode TCAV
 # 1. Kumpulkan contoh gambar untuk konsep "bergaris" dan gambar acak.
-# 2. Latih pengklasifikasi linear untuk membedakan aktivasi layer tertentu 
+# 2. Latih pengklasifikasi linear untuk membedakan aktivasi layer tertentu
 #    dari gambar "bergaris" vs acak. Vektor bobotnya = Concept Activation Vector (CAV).
-# 3. Untuk setiap kelas (misal, "zebra"), hitung sensitivitas prediksi kelas 
+# 3. Untuk setiap kelas (misal, "zebra"), hitung sensitivitas prediksi kelas
 #    terhadap perubahan ke arah CAV. Ini adalah TCAV score.
 # 4. Jika TCAV score tinggi, model menggunakan konsep "bergaris" untuk mengklasifikasikan "zebra".
 ```
+
 **Koneksi Vault:** Ini adalah bentuk dari **LLM Security & Red Teaming** (**[[llm-security-red-teaming-attack-surface-ai-layer]]**) yang defensif. Alih-alih menyerang model, Anda mengaudit "pola pikir" internalnya untuk memastikan ia menggunakan logika yang benar.
 
 ---
@@ -215,7 +219,8 @@ Ini adalah aplikasi pamungkas dari prinsip ini, menyatukan Neural (deteksi) dan 
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
-**Koneksi Vault:** Ini adalah spesialisasi dari **[[purple-team-osi-killchain]]**. Agen ini adalah anggota tim Purple yang otonom, secara konstan menjalankan siklus *detect-analyze-respond*.
+
+**Koneksi Vault:** Ini adalah spesialisasi dari **[[purple-team-osi-killchain]]**. Agen ini adalah anggota tim Purple yang otonom, secara konstan menjalankan siklus _detect-analyze-respond_.
 
 ---
 
@@ -234,7 +239,7 @@ def build_intel_kg(documents):
         # LLM mengubah teks menjadi fakta terstruktur
         ner_result = llm.extract_triples(chunk)
         triples.extend(ner_result.triples)
-    
+
     # 2. Symbolic — masukkan ke graph sebagai fakta yang persisten
     for (subj, pred, obj) in triples:
         graph.query("""
@@ -242,7 +247,7 @@ def build_intel_kg(documents):
             MERGE (o:Entity {name: $obj})
             MERGE (s)-[r:RELATION {type: $pred}]->(o)
         """, params={"subj": subj, "pred": pred, "obj": obj})
-    
+
     # 3. Neurosymbolic — validasi dan deduplikasi
     inconsistencies = validate_graph(graph) # Memeriksa aturan logis
     return {"graph": graph, "inconsistencies": inconsistencies}
@@ -258,10 +263,10 @@ def discover_causal_structure(data, domain_knowledge):
     # 1. Domain knowledge sebagai prior (symbolic)
     prior_graph = nx.DiGraph()
     prior_graph.add_edges_from(domain_knowledge) # [(x, y), ...]
-    
+
     # 2. Data-driven discovery (NOTEARS - Neural)
     estimated_graph = notears(data, lambda1=0.1)
-    
+
     # 3. Neurosymbolic Fusion
     # Gabungkan data-driven graph dengan prior domain expert
     fused_graph = fuse_graphs(estimated_graph, prior_graph, alpha=0.6)
@@ -274,11 +279,11 @@ def discover_causal_structure(data, domain_knowledge):
 
 Neurosymbolic AI adalah benang merah yang menghubungkan banyak konsep di vault Anda.
 
-| Dokumen di Vault | Koneksi Spesifik |
-| :--- | :--- |
-| **[[cognitive-architecture-engineering]]** | Neurosymbolic adalah fondasi kognitif dari arsitektur ini. Knowledge Graph adalah "memori", dan Causal AI adalah "model dunia". |
-| **[[agentic-ai-mcp-architecture-deepdive]]** | Agen menggunakan GraphRAG sebagai "spatial memory" dan Causal AI sebagai "reasoning engine" untuk membuat rencana yang robust. |
-| **[[test-time-compute-system2]]** | Penalaran kausal dan traversal graf adalah contoh murni dari System 2 thinking. Agen menggunakan compute tambahan untuk menalar, bukan hanya menghasilkan token. |
-| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | XAI (TCAV, SHAP) adalah alat Blue Team untuk mengaudit model. Causal AI adalah alat Red Team untuk memahami dan memanipulasi hubungan sebab-akibat dalam data. |
-| **[[15-types-of-thinking]]** | Neurosymbolic adalah implementasi dari *Analytical Thinking* (Symbolic) yang dipandu oleh *Divergent Thinking* (Neural). |
-| **[[hierarchy-classical-ml-algorithms]]** | Causal AI melampaui ML klasik (Asosiasi) menuju Intervensi dan Kontrafaktual. |
+| Dokumen di Vault                                         | Koneksi Spesifik                                                                                                                                                 |
+| :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[[cognitive-architecture-engineering]]**               | Neurosymbolic adalah fondasi kognitif dari arsitektur ini. Knowledge Graph adalah "memori", dan Causal AI adalah "model dunia".                                  |
+| **[[agentic-ai-mcp-architecture-deepdive]]**             | Agen menggunakan GraphRAG sebagai "spatial memory" dan Causal AI sebagai "reasoning engine" untuk membuat rencana yang robust.                                   |
+| **[[test-time-compute-system2]]**                        | Penalaran kausal dan traversal graf adalah contoh murni dari System 2 thinking. Agen menggunakan compute tambahan untuk menalar, bukan hanya menghasilkan token. |
+| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | XAI (TCAV, SHAP) adalah alat Blue Team untuk mengaudit model. Causal AI adalah alat Red Team untuk memahami dan memanipulasi hubungan sebab-akibat dalam data.   |
+| **[[15-types-of-thinking]]**                             | Neurosymbolic adalah implementasi dari _Analytical Thinking_ (Symbolic) yang dipandu oleh _Divergent Thinking_ (Neural).                                         |
+| **[[hierarchy-classical-ml-algorithms]]**                | Causal AI melampaui ML klasik (Asosiasi) menuju Intervensi dan Kontrafaktual.                                                                                    |

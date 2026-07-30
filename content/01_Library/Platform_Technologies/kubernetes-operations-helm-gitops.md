@@ -49,21 +49,21 @@ cssclasses:
 
 ### 1.1 Bootstrap Options
 
-| Method | Setup Time | Control Plane | Maintenance | Use Case |
-|:-------|:----------:|:--------------|:------------|:---------|
-| **Kubeadm** | 30-60 min | Self-managed | Manual upgrades | On-prem, homelab |
-| **K3s** | 5 min | Self-managed (embedded etcd) | Simple | Edge, IoT, homelab |
-| **EKS** | 15 min | AWS-managed | Easy (managed) | AWS production |
-| **AKS** | 15 min | Azure-managed | Easy | Azure shop |
-| **GKE** | 10 min | Google-managed | Auto-upgrade option | GCP shop |
-| **Talos** | 20 min | Self-managed (API-driven OS) | Minimal | Security-fwd on-prem |
+| Method      | Setup Time | Control Plane                | Maintenance         | Use Case             |
+| :---------- | :--------: | :--------------------------- | :------------------ | :------------------- |
+| **Kubeadm** | 30-60 min  | Self-managed                 | Manual upgrades     | On-prem, homelab     |
+| **K3s**     |   5 min    | Self-managed (embedded etcd) | Simple              | Edge, IoT, homelab   |
+| **EKS**     |   15 min   | AWS-managed                  | Easy (managed)      | AWS production       |
+| **AKS**     |   15 min   | Azure-managed                | Easy                | Azure shop           |
+| **GKE**     |   10 min   | Google-managed               | Auto-upgrade option | GCP shop             |
+| **Talos**   |   20 min   | Self-managed (API-driven OS) | Minimal             | Security-fwd on-prem |
 
 ### 1.2 Cluster Upgrade Strategy
 
 ```text
 Kubeadm upgrade path:
   1.26 → 1.27 → 1.28 → 1.29 (tidak bisa skip minor!)
-  
+
   Control plane: drain control-plane, upgrade kubeadm + kubelet, uncordon
   Worker nodes: drain, upgrade, uncordon (rolling, satu per satu)
 
@@ -97,13 +97,13 @@ velero restore create --from-backup cluster-backup-20260719
 
 ### 2.1 Workload Types
 
-| Type | Use Case | Identity | Ordering | Storage |
-|:-----|:---------|:---------|:---------|:--------|
-| **Deployment** | Stateless apps | Random pod name | Rolling update | Shared/empty |
-| **StatefulSet** | Stateful apps (DB, queue) | Stable network ID | Ordered pod management | unique PVC per pod |
-| **DaemonSet** | Node-level agent (metrics, logging) | One per node | N/A | hostPath |
-| **Job** | Batch task | Runs to completion | N/A | empty/temp |
-| **CronJob** | Scheduled task | Runs on schedule | N/A | empty/temp |
+| Type            | Use Case                            | Identity           | Ordering               | Storage            |
+| :-------------- | :---------------------------------- | :----------------- | :--------------------- | :----------------- |
+| **Deployment**  | Stateless apps                      | Random pod name    | Rolling update         | Shared/empty       |
+| **StatefulSet** | Stateful apps (DB, queue)           | Stable network ID  | Ordered pod management | unique PVC per pod |
+| **DaemonSet**   | Node-level agent (metrics, logging) | One per node       | N/A                    | hostPath           |
+| **Job**         | Batch task                          | Runs to completion | N/A                    | empty/temp         |
+| **CronJob**     | Scheduled task                      | Runs on schedule   | N/A                    | empty/temp         |
 
 ### 2.2 Common Pitfalls
 
@@ -135,7 +135,7 @@ kind: Service
 metadata:
   name: my-db
 spec:
-  clusterIP: None  # headless
+  clusterIP: None # headless
   selector:
     app: my-db
 ```
@@ -235,16 +235,16 @@ kind: ServiceMonitor
 
 ### 4.2 ArgoCD vs Flux
 
-| Aspek | ArgoCD | Flux v2 |
-|:------|:-------|:--------|
-| **Arsitektur** | Controller + API Server + UI | Controller-only (no API server) |
-| **UI** | ✅ Dashboard built-in | ❌ (CLI-only, bisa integrasi Grafana) |
-| **Sync Strategy** | Manual/auto sync + prune | Auto-reconcile via Source Controller |
-| **Multi-cluster** | Via ApplicationSet + Cluster Secret | Via Kustomization dengan kubeconfig |
-| **Secrets** | SealedSecrets, External Secrets, SOPS | SOPS native, SealedSecrets, External Secrets |
-| **Rollback** | Git revert (auto-detect) | Git revert (auto-reconcile) |
-| **Learning Curve** | Sedang | Rendah |
-| **Health Check** | Built-in (resource status) | Via kstatus library |
+| Aspek              | ArgoCD                                | Flux v2                                      |
+| :----------------- | :------------------------------------ | :------------------------------------------- |
+| **Arsitektur**     | Controller + API Server + UI          | Controller-only (no API server)              |
+| **UI**             | ✅ Dashboard built-in                 | ❌ (CLI-only, bisa integrasi Grafana)        |
+| **Sync Strategy**  | Manual/auto sync + prune              | Auto-reconcile via Source Controller         |
+| **Multi-cluster**  | Via ApplicationSet + Cluster Secret   | Via Kustomization dengan kubeconfig          |
+| **Secrets**        | SealedSecrets, External Secrets, SOPS | SOPS native, SealedSecrets, External Secrets |
+| **Rollback**       | Git revert (auto-detect)              | Git revert (auto-reconcile)                  |
+| **Learning Curve** | Sedang                                | Rendah                                       |
+| **Health Check**   | Built-in (resource status)            | Via kstatus library                          |
 
 ### 4.3 ArgoCD Application Example
 
@@ -327,27 +327,27 @@ spec:
 
 ### 5.2 Comparison
 
-| Aspek | Istio | Cilium | Linkerd |
-|:------|:------|:-------|:--------|
-| **Data Plane** | Envoy (sidecar) | eBPF (kernel-level) | Linkerd2-proxy (Rust) |
-| **Control Plane** | istiod | Cilium Agent | destination + identity |
-| **mTLS** | Auto (Istio CA) | Auto (eBPF + SPIRE) | Auto (Linkerd identity) |
-| **Performance** | 🟡 5-10% overhead | 🟢 <3% overhead | 🟢 <5% overhead |
-| **Complexity** | Tinggi (CRD + config) | Sedang | Rendah |
-| **Multi-cluster** | ✅ Native | ✅ | 🟡 (extensions needed) |
+| Aspek             | Istio                 | Cilium              | Linkerd                 |
+| :---------------- | :-------------------- | :------------------ | :---------------------- |
+| **Data Plane**    | Envoy (sidecar)       | eBPF (kernel-level) | Linkerd2-proxy (Rust)   |
+| **Control Plane** | istiod                | Cilium Agent        | destination + identity  |
+| **mTLS**          | Auto (Istio CA)       | Auto (eBPF + SPIRE) | Auto (Linkerd identity) |
+| **Performance**   | 🟡 5-10% overhead     | 🟢 <3% overhead     | 🟢 <5% overhead         |
+| **Complexity**    | Tinggi (CRD + config) | Sedang              | Rendah                  |
+| **Multi-cluster** | ✅ Native             | ✅                  | 🟡 (extensions needed)  |
 
 ---
 
 ## 🔗 Koneksi ke Catatan Lain
 
-| Catatan | Koneksi |
-|:--------|:--------|
-| [[kubernetes-architecture-deepdive]] | Arsitektur & teori K8s |
-| [[container-kubernetes-security-deepdive]] | Keamanan K8s |
-| [[cicd-guide]] | CI/CD yang feed ke GitOps |
-| [[observability-stack-prometheus-grafana]] | Monitoring K8s |
-| [[platform-technologies-overview]] | K8s dalam ekosistem platform |
-| [[devops]] | Prinsip operasi |
+| Catatan                                    | Koneksi                      |
+| :----------------------------------------- | :--------------------------- |
+| [[kubernetes-architecture-deepdive]]       | Arsitektur & teori K8s       |
+| [[container-kubernetes-security-deepdive]] | Keamanan K8s                 |
+| [[cicd-guide]]                             | CI/CD yang feed ke GitOps    |
+| [[observability-stack-prometheus-grafana]] | Monitoring K8s               |
+| [[platform-technologies-overview]]         | K8s dalam ekosistem platform |
+| [[devops]]                                 | Prinsip operasi              |
 
 ---
 

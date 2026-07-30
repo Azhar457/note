@@ -61,23 +61,23 @@ cssclasses:
 
 ### 1.2 Modern Component Patterns
 
-| Pattern | Kapan Dipakai | Contoh |
-|:--------|:--------------|:-------|
-| **Atomic Design** | Design system skala besar | atoms → molecules → organisms → templates → pages |
-| **Compound Components** | Component dengan internal state sharing | `<Select>` → `<Select.Option>`, `<Select.Label>` |
-| **Container/Presentational** | Pisah logic dari UI | Container: fetching + state → Presentational: render only |
-| **Custom Hooks** | Reusable stateful logic | `useAuth()`, `useDebounce()`, `useWebSocket()` |
-| **Render Props** | Behavior sharing tanpa state | `<MouseTracker render={(pos) => ...} />` |
-| **Slots (children)** | Layout injection | `<Card header={<Header/>} footer={<Footer/>}>` |
+| Pattern                      | Kapan Dipakai                           | Contoh                                                    |
+| :--------------------------- | :-------------------------------------- | :-------------------------------------------------------- |
+| **Atomic Design**            | Design system skala besar               | atoms → molecules → organisms → templates → pages         |
+| **Compound Components**      | Component dengan internal state sharing | `<Select>` → `<Select.Option>`, `<Select.Label>`          |
+| **Container/Presentational** | Pisah logic dari UI                     | Container: fetching + state → Presentational: render only |
+| **Custom Hooks**             | Reusable stateful logic                 | `useAuth()`, `useDebounce()`, `useWebSocket()`            |
+| **Render Props**             | Behavior sharing tanpa state            | `<MouseTracker render={(pos) => ...} />`                  |
+| **Slots (children)**         | Layout injection                        | `<Card header={<Header/>} footer={<Footer/>}>`            |
 
 ### 1.3 Component Composition Examples
 
 ```tsx
 // Atomic Design: Molecule
 interface InputFieldProps {
-  label: string;
-  error?: string;
-  icon?: React.ReactNode;
+  label: string
+  error?: string
+  icon?: React.ReactNode
 }
 
 function InputField({ label, error, icon }: InputFieldProps) {
@@ -86,29 +86,29 @@ function InputField({ label, error, icon }: InputFieldProps) {
       <label className="input-field__label">{label}</label>
       <div className="input-field__wrapper">
         {icon && <span className="input-field__icon">{icon}</span>}
-        <input className={`input-field__input ${error ? 'input-field__input--error' : ''}`} />
+        <input className={`input-field__input ${error ? "input-field__input--error" : ""}`} />
       </div>
       {error && <span className="input-field__error">{error}</span>}
     </div>
-  );
+  )
 }
 
 // Compound Component: Tabs
 function Tabs({ children }: { children: React.ReactNode }) {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(0)
   return (
     <TabsContext.Provider value={{ active, setActive }}>
       <div className="tabs">{children}</div>
     </TabsContext.Provider>
-  );
+  )
 }
 Tabs.List = function List({ children }: { children: React.ReactNode }) {
-  return <div className="tabs__list">{children}</div>;
-};
+  return <div className="tabs__list">{children}</div>
+}
 Tabs.Panel = function Panel({ index, children }: { index: number; children: React.ReactNode }) {
-  const { active } = useContext(TabsContext);
-  return active === index ? <div className="tabs__panel">{children}</div> : null;
-};
+  const { active } = useContext(TabsContext)
+  return active === index ? <div className="tabs__panel">{children}</div> : null
+}
 ```
 
 ### 1.4 Component Design Principles
@@ -136,25 +136,25 @@ You Aren't Gonna Need It (YAGNI):
 
 ### 2.1 State Categories
 
-| Category | Contoh | Solusi |
-|:---------|:-------|:-------|
-| **Local UI state** | Modal open/close, form input | `useState`, `useReducer` |
-| **Server state** | Data dari API (users, orders) | TanStack Query, SWR |
-| **Global UI state** | Theme, sidebar collapse | Zustand, Jotai, Context |
-| **URL state** | Search params, filters | `useSearchParams`, Next.js router |
-| **Form state** | Form values, validation | React Hook Form, Formik |
+| Category            | Contoh                        | Solusi                            |
+| :------------------ | :---------------------------- | :-------------------------------- |
+| **Local UI state**  | Modal open/close, form input  | `useState`, `useReducer`          |
+| **Server state**    | Data dari API (users, orders) | TanStack Query, SWR               |
+| **Global UI state** | Theme, sidebar collapse       | Zustand, Jotai, Context           |
+| **URL state**       | Search params, filters        | `useSearchParams`, Next.js router |
+| **Form state**      | Form values, validation       | React Hook Form, Formik           |
 
 ### 2.2 State Management Tool Comparison
 
-| Tool | Bundle Size | Boilerplate | Performance | DevTools | Best For |
-|:-----|:----------:|:-----------:|:-----------:|:--------:|:---------|
-| **useState** | 0 KB | Minimal | 🟢 | ❌ | Local component state |
-| **useReducer** | 0 KB | Sedang | 🟢 | ❌ | Complex local state |
-| **Context API** | 0 KB | Minimal | 🟡 (re-render) | ❌ | Low-frequency global state |
-| **Zustand** | 1.1 KB | Minimal | 🟢 | ✅ | Medium global state |
-| **Jotai** | 3.3 KB | Minimal | 🟢 (atomic) | ✅ | Atomic derived state |
-| **Redux Toolkit** | 11 KB | Tinggi (slices) | 🟢 | ✅ | Large-scale global state |
-| **TanStack Query** | 13 KB | Minimal | 🟢🟢 | ✅ | Server state (API cache) |
+| Tool               | Bundle Size |   Boilerplate   |  Performance   | DevTools | Best For                   |
+| :----------------- | :---------: | :-------------: | :------------: | :------: | :------------------------- |
+| **useState**       |    0 KB     |     Minimal     |       🟢       |    ❌    | Local component state      |
+| **useReducer**     |    0 KB     |     Sedang      |       🟢       |    ❌    | Complex local state        |
+| **Context API**    |    0 KB     |     Minimal     | 🟡 (re-render) |    ❌    | Low-frequency global state |
+| **Zustand**        |   1.1 KB    |     Minimal     |       🟢       |    ✅    | Medium global state        |
+| **Jotai**          |   3.3 KB    |     Minimal     |  🟢 (atomic)   |    ✅    | Atomic derived state       |
+| **Redux Toolkit**  |    11 KB    | Tinggi (slices) |       🟢       |    ✅    | Large-scale global state   |
+| **TanStack Query** |    13 KB    |     Minimal     |      🟢🟢      |    ✅    | Server state (API cache)   |
 
 ### 2.3 Practical Recommendations
 
@@ -183,30 +183,30 @@ Rules of thumb:
 
 ### 3.1 Comparison Matrix
 
-| Pattern | Render Location | First Paint | SEO | TTFB | Interactivity | Fresh Data |
-|:--------|:---------------:|:-----------:|:---:|:----:|:-------------:|:----------:|
-| **CSR** (Create React App) | Browser | 🟡 Slow | ❌ Bad | 🟢 Fast | 🟢 Fast | 🟢 Always fresh |
-| **SSR** (Next.js Pages Router) | Server + Browser | 🟢 Fast | ✅ Good | 🟡 Slower | 🟡 Hydration delay | 🟡 Per request |
-| **SSG** (static export) | Build time | 🟢🟢 Instant | ✅ Best | 🟢 Fast | 🟢 Fast | ❌ Stale on deploy |
-| **ISR** (Incremental) | Build + on-demand | 🟢 Fast | ✅ Best | 🟢 Fast | 🟢 Fast | 🟡 Revalidation lag |
-| **RSC** (App Router) | Server | 🟢 Fast | ✅ Best | 🟢 Fast | 🟢 Fast | 🟢 Per request |
+| Pattern                        |  Render Location  | First Paint  |   SEO   |   TTFB    |   Interactivity    |     Fresh Data      |
+| :----------------------------- | :---------------: | :----------: | :-----: | :-------: | :----------------: | :-----------------: |
+| **CSR** (Create React App)     |      Browser      |   🟡 Slow    | ❌ Bad  |  🟢 Fast  |      🟢 Fast       |   🟢 Always fresh   |
+| **SSR** (Next.js Pages Router) | Server + Browser  |   🟢 Fast    | ✅ Good | 🟡 Slower | 🟡 Hydration delay |   🟡 Per request    |
+| **SSG** (static export)        |    Build time     | 🟢🟢 Instant | ✅ Best |  🟢 Fast  |      🟢 Fast       | ❌ Stale on deploy  |
+| **ISR** (Incremental)          | Build + on-demand |   🟢 Fast    | ✅ Best |  🟢 Fast  |      🟢 Fast       | 🟡 Revalidation lag |
+| **RSC** (App Router)           |      Server       |   🟢 Fast    | ✅ Best |  🟢 Fast  |      🟢 Fast       |   🟢 Per request    |
 
 ### 3.2 Next.js Rendering Decision
 
 ```typescript
 // App Router — per-page rendering strategy
 // Static (SSG) — data gak pernah berubah
-export const dynamic = 'force-static';
+export const dynamic = "force-static"
 
 // Dynamic (SSR) — data per request
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic"
 
 // ISR — revalidate setiap N detik
-export const revalidate = 3600; // 1 jam
+export const revalidate = 3600 // 1 jam
 
 // Streaming SSR — progressive rendering
-export const dynamic = 'auto';
-export const experimental = { streaming: true };
+export const dynamic = "auto"
+export const experimental = { streaming: true }
 ```
 
 ### 3.3 React Server Components (RSC)
@@ -214,35 +214,37 @@ export const experimental = { streaming: true };
 ```tsx
 // Server Component — zero client JS, direct DB access
 async function ProductList() {
-  const products = await db.query('SELECT * FROM products');
+  const products = await db.query("SELECT * FROM products")
   return (
     <div>
-      {products.map(p => (
+      {products.map((p) => (
         <ProductCard key={p.id} product={p} />
       ))}
     </div>
-  );
+  )
 }
 
 // Client Component — interactivity, hooks
-'use client';
+;("use client")
 function AddToCart({ productId }: { productId: string }) {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>Add ({count})</button>;
+  const [count, setCount] = useState(0)
+  return <button onClick={() => setCount((c) => c + 1)}>Add ({count})</button>
 }
 
 // Mix RSC + Client Component
 async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await fetchProduct(params.id);
+  const product = await fetchProduct(params.id)
   return (
     <div>
-      <ProductInfo product={product} />     {/* Server Component */}
-      <ClientWrapper>                        {/* Wrapper client */}
+      <ProductInfo product={product} /> {/* Server Component */}
+      <ClientWrapper>
+        {" "}
+        {/* Wrapper client */}
         <ProductReviews productId={params.id} />
-        <AddToCart productId={params.id} />  {/* Client Component */}
+        <AddToCart productId={params.id} /> {/* Client Component */}
       </ClientWrapper>
     </div>
-  );
+  )
 }
 ```
 
@@ -252,11 +254,11 @@ async function ProductPage({ params }: { params: { id: string } }) {
 
 ### 4.1 Core Web Vitals
 
-| Metric | Target | Cara Capai |
-|:-------|:------|:-----------|
-| **LCP** (Loading) | < 2.5s | Optimize images, preload fonts, minimize render-blocking |
-| **FID/INP** (Interactivity) | < 100ms/200ms | Code splitting, lazy hydration, debounce handlers |
-| **CLS** (Visual Stability) | < 0.1 | Set image/video dimensions, avoid layout shift from dynamic content |
+| Metric                      | Target        | Cara Capai                                                          |
+| :-------------------------- | :------------ | :------------------------------------------------------------------ |
+| **LCP** (Loading)           | < 2.5s        | Optimize images, preload fonts, minimize render-blocking            |
+| **FID/INP** (Interactivity) | < 100ms/200ms | Code splitting, lazy hydration, debounce handlers                   |
+| **CLS** (Visual Stability)  | < 0.1         | Set image/video dimensions, avoid layout shift from dynamic content |
 
 ### 4.2 Bundle Optimization
 
@@ -280,23 +282,14 @@ const HeavyChart = dynamic(() => import('./HeavyChart'), {
 
 ```tsx
 // react-window untuk 10,000+ items
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from "react-window"
 
 function VirtualList({ items }: { items: Item[] }) {
   return (
-    <FixedSizeList
-      height={600}
-      itemCount={items.length}
-      itemSize={50}
-      outerRef={listRef}
-    >
-      {({ index, style }) => (
-        <div style={style}>
-          {items[index].name}
-        </div>
-      )}
+    <FixedSizeList height={600} itemCount={items.length} itemSize={50} outerRef={listRef}>
+      {({ index, style }) => <div style={style}>{items[index].name}</div>}
     </FixedSizeList>
-  );
+  )
 }
 ```
 
@@ -304,14 +297,14 @@ function VirtualList({ items }: { items: Item[] }) {
 
 ## 🔗 Koneksi ke Catatan Lain
 
-| Catatan | Koneksi |
-|:--------|:--------|
-| [[software-engineering]] | Prinsip software umum untuk frontend |
-| [[clean-code-robert-martin]] | Code quality dan refactoring |
-| [[web-security]] | XSS, CSP, CSRF prevention |
-| [[api-security-deep-dive]] | Frontend-backend security boundary |
-| [[cicd-guide]] | CI/CD pipeline untuk FE |
-| [[http-protocol-deepdive]] | HTTP caching, headers |
+| Catatan                      | Koneksi                              |
+| :--------------------------- | :----------------------------------- |
+| [[software-engineering]]     | Prinsip software umum untuk frontend |
+| [[clean-code-robert-martin]] | Code quality dan refactoring         |
+| [[web-security]]             | XSS, CSP, CSRF prevention            |
+| [[api-security-deep-dive]]   | Frontend-backend security boundary   |
+| [[cicd-guide]]               | CI/CD pipeline untuk FE              |
+| [[http-protocol-deepdive]]   | HTTP caching, headers                |
 
 ---
 
