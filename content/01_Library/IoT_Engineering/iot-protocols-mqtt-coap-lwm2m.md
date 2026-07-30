@@ -66,23 +66,23 @@ cssclasses:
 
 ### 1.2 IoT Protocol Stack vs Internet Stack
 
-| Layer       | Internet Stack  | IoT Stack                       |
-| :---------- | :-------------- | :------------------------------ |
+| Layer | Internet Stack | IoT Stack |
+|:------|:--------------|:----------|
 | Application | HTTP, WebSocket | **MQTT**, **CoAP**, LwM2M, gRPC |
-| Transport   | TCP, UDP        | TCP, UDP, QUIC                  |
-| Network     | IPv4, IPv6      | IPv6, 6LoWPAN, RPL              |
-| Link        | Ethernet, Wi-Fi | **LoRa**, NB-IoT, BLE, Zigbee   |
-| Physical    | Copper, Fiber   | RF 868/915MHz, 2.4GHz, Sub-GHz  |
+| Transport | TCP, UDP | TCP, UDP, QUIC |
+| Network | IPv4, IPv6 | IPv6, 6LoWPAN, RPL |
+| Link | Ethernet, Wi-Fi | **LoRa**, NB-IoT, BLE, Zigbee |
+| Physical | Copper, Fiber | RF 868/915MHz, 2.4GHz, Sub-GHz |
 
 ### 1.3 Protocol Selection Matrix
 
-| Protocol      | Transport | Model                  |       QoS       | Overhead | Power  | Use Case                     |
-| :------------ | :-------- | :--------------------- | :-------------: | :------: | :----: | :--------------------------- |
-| **MQTT**      | TCP       | Pub/Sub                |    3 levels     | Minimal  | Medium | Sensor telemetry, push notif |
-| **CoAP**      | UDP       | Req/Response + Observe |   Confirmable   | Minimal  |  Low   | Constrained device REST      |
-| **HTTP/2**    | TCP       | Req/Response           | Stream priority |  Tinggi  |  High  | Gateway-to-cloud             |
-| **gRPC**      | HTTP/2    | Streaming              |  Bidirectional  |  Sedang  |  High  | High-throughput IoT          |
-| **WebSocket** | TCP       | Full-duplex            |      None       |  Sedang  |  High  | Real-time UI                 |
+| Protocol | Transport | Model | QoS | Overhead | Power | Use Case |
+|:---------|:---------|:------|:---:|:--------:|:-----:|:---------|
+| **MQTT** | TCP | Pub/Sub | 3 levels | Minimal | Medium | Sensor telemetry, push notif |
+| **CoAP** | UDP | Req/Response + Observe | Confirmable | Minimal | Low | Constrained device REST |
+| **HTTP/2** | TCP | Req/Response | Stream priority | Tinggi | High | Gateway-to-cloud |
+| **gRPC** | HTTP/2 | Streaming | Bidirectional | Sedang | High | High-throughput IoT |
+| **WebSocket** | TCP | Full-duplex | None | Sedang | High | Real-time UI |
 
 ---
 
@@ -125,11 +125,11 @@ Example topics:
 
 ### 2.3 QoS Levels
 
-|  QoS  | Delivery Guarantee | Packet                              | Use Case                      |
-| :---: | :----------------- | :---------------------------------- | :---------------------------- |
-| **0** | At most once       | PUBLISH (fire & forget)             | Sensor read non-kritis (temp) |
-| **1** | At least once      | PUBLISH + PUBACK                    | Must deliver, duplicate OK    |
-| **2** | Exactly once       | PUBLISH + PUBREC + PUBREL + PUBCOMP | Payment, critical command     |
+| QoS | Delivery Guarantee | Packet | Use Case |
+|:---:|:-------------------|:-------|:---------|
+| **0** | At most once | PUBLISH (fire & forget) | Sensor read non-kritis (temp) |
+| **1** | At least once | PUBLISH + PUBACK | Must deliver, duplicate OK |
+| **2** | Exactly once | PUBLISH + PUBREC + PUBREL + PUBCOMP | Payment, critical command |
 
 ```bash
 # QoS impact on throughput (test with Mosquitto)
@@ -140,24 +140,24 @@ mosquitto_pub -t test -m "hello" -q 2  # ~5,000 msg/sec
 
 ### 2.4 MQTT 5.0 Improvements
 
-| Feature                  |     MQTT 3.1.1     | MQTT 5.0                  |
-| :----------------------- | :----------------: | :------------------------ |
-| Session expiry           | Clean session only | Session expiry interval   |
-| Reason codes             |        None        | Full reason codes in ACK  |
-| User properties          |        None        | Custom metadata in header |
-| Topic alias              |        None        | Reduce topic size         |
-| Flow control             |        None        | Receive maximum           |
-| Server disconnect reason |        None        | Reason string             |
+| Feature | MQTT 3.1.1 | MQTT 5.0 |
+|:--------|:----------:|:---------|
+| Session expiry | Clean session only | Session expiry interval |
+| Reason codes | None | Full reason codes in ACK |
+| User properties | None | Custom metadata in header |
+| Topic alias | None | Reduce topic size |
+| Flow control | None | Receive maximum |
+| Server disconnect reason | None | Reason string |
 
 ### 2.5 MQTT Broker Comparison
 
-| Broker        | Language | Max Connections | Clustering  | Protocols                    |
-| :------------ | :------- | :-------------: | :---------- | :--------------------------- |
-| **Mosquitto** | C        |      ~100K      | ❌          | MQTT 5.0, WebSocket          |
-| **EMQX**      | Erlang   |      10M+       | ✅ Native   | MQTT, CoAP, WebSocket, Stomp |
-| **VerneMQ**   | Erlang   |       ~1M       | ✅ Native   | MQTT 3.1.1/5.0               |
-| **NanoMQ**    | C        |       ~1M       | ✅ via EMQX | MQTT 5.0, ZeroMQ, WebSocket  |
-| **HiveMQ**    | Java     |      ~500K      | ✅          | MQTT 5.0, Sparkplug          |
+| Broker | Language | Max Connections | Clustering | Protocols |
+|:-------|:--------|:---------------:|:----------|:----------|
+| **Mosquitto** | C | ~100K | ❌ | MQTT 5.0, WebSocket |
+| **EMQX** | Erlang | 10M+ | ✅ Native | MQTT, CoAP, WebSocket, Stomp |
+| **VerneMQ** | Erlang | ~1M | ✅ Native | MQTT 3.1.1/5.0 |
+| **NanoMQ** | C | ~1M | ✅ via EMQX | MQTT 5.0, ZeroMQ, WebSocket |
+| **HiveMQ** | Java | ~500K | ✅ | MQTT 5.0, Sparkplug |
 
 ### 2.6 Practical MQTT with ESP32
 
@@ -216,15 +216,15 @@ CoAP Message Format:
 
 ### 3.2 CoAP Methods vs HTTP
 
-| HTTP   | CoAP        | Behavior                      |
-| :----- | :---------- | :---------------------------- |
-| GET    | GET         | Retrieve resource             |
-| POST   | POST        | Create/update                 |
-| PUT    | PUT         | Update resource               |
-| DELETE | DELETE      | Delete resource               |
-| -      | **OBSERVE** | Subscribe to resource changes |
-| -      | **FETCH**   | Retrieve with request body    |
-| -      | **PATCH**   | Partial update                |
+| HTTP | CoAP | Behavior |
+|:-----|:-----|:---------|
+| GET | GET | Retrieve resource |
+| POST | POST | Create/update |
+| PUT | PUT | Update resource |
+| DELETE | DELETE | Delete resource |
+| - | **OBSERVE** | Subscribe to resource changes |
+| - | **FETCH** | Retrieve with request body |
+| - | **PATCH** | Partial update |
 
 ### 3.3 Confirmable vs Non-Confirmable
 
@@ -283,12 +283,12 @@ LwM2M adalah protocol **device management** di atas CoAP — bukan cuma komunika
 
 ### 4.2 LwM2M Interfaces
 
-| Interface                                  | Fungsi                                   | Contoh                    |
-| :----------------------------------------- | :--------------------------------------- | :------------------------ |
-| **Bootstrap**                              | Initial config (server URL, credentials) | First-time device setup   |
-| **Device Registration**                    | Register ke LwM2M server                 | `Register /rd`            |
-| **Device Management & Service Enablement** | Read/Write/Execute resources             | Reboot, firmware update   |
-| **Information Reporting**                  | Observe resource changes                 | Sensor value notification |
+| Interface | Fungsi | Contoh |
+|:----------|:--------|:-------|
+| **Bootstrap** | Initial config (server URL, credentials) | First-time device setup |
+| **Device Registration** | Register ke LwM2M server | `Register /rd` |
+| **Device Management & Service Enablement** | Read/Write/Execute resources | Reboot, firmware update |
+| **Information Reporting** | Observe resource changes | Sensor value notification |
 
 ### 4.3 Object/Resource Model
 
@@ -328,11 +328,11 @@ Step 5: Client register ulang — cek update result /5/0/5
 
 ### 5.1 LPWAN Comparison
 
-| Teknologi   |       Frequency       |  Range  |  Bandwidth  |  Battery  | Cost Module |
-| :---------- | :-------------------: | :-----: | :---------: | :-------: | :---------: |
-| **LoRaWAN** | Sub-GHz (868/915 MHz) | 2-15 km | 0.3-50 kbps | 10+ years |    $2-5     |
-| **NB-IoT**  |     LTE licensed      | 1-10 km |  200 kbps   | 5+ years  |    $5-10    |
-| **LTE-M**   |     LTE licensed      | 1-10 km |   1 Mbps    | 3+ years  |    $8-15    |
+| Teknologi | Frequency | Range | Bandwidth | Battery | Cost Module |
+|:----------|:---------:|:-----:|:---------:|:-------:|:-----------:|
+| **LoRaWAN** | Sub-GHz (868/915 MHz) | 2-15 km | 0.3-50 kbps | 10+ years | $2-5 |
+| **NB-IoT** | LTE licensed | 1-10 km | 200 kbps | 5+ years | $5-10 |
+| **LTE-M** | LTE licensed | 1-10 km | 1 Mbps | 3+ years | $8-15 |
 
 ### 5.2 LoRaWAN Architecture
 
@@ -351,14 +351,14 @@ Step 5: Client register ulang — cek update result /5/0/5
 
 ## 🔗 Koneksi ke Catatan Lain
 
-| Catatan                                      | Koneksi                         |
-| :------------------------------------------- | :------------------------------ |
-| [[edge-computing-iot-security-architecture]] | IoT security architecture       |
-| [[embedded-systems]]                         | Sistem embedded untuk IoT       |
-| [[networking-fundamentals-tcpip-bgp]]        | Network layer fundamentals      |
-| [[api-protocols-deepdive]]                   | API protocol comparison         |
-| [[wireless-security-deepdive]]               | Wireless communication security |
-| [[cloud-infrastructure]]                     | IoT cloud backend               |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[edge-computing-iot-security-architecture]] | IoT security architecture |
+| [[embedded-systems]] | Sistem embedded untuk IoT |
+| [[networking-fundamentals-tcpip-bgp]] | Network layer fundamentals |
+| [[api-protocols-deepdive]] | API protocol comparison |
+| [[wireless-security-deepdive]] | Wireless communication security |
+| [[cloud-infrastructure]] | IoT cloud backend |
 
 ---
 

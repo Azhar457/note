@@ -1,13 +1,13 @@
 ---
-title: "DevSecOps Pipeline — Deep Dive: SAST, DAST, SCA, SBOM, dan Secret Scanning"
+title: 'DevSecOps Pipeline — Deep Dive: SAST, DAST, SCA, SBOM, dan Secret Scanning'
 tags:
-  - devops
-  - devsecops
-  - library
-created: "2026-07-15"
-updated: "2026-07-15"
+- devops
+- devsecops
+- library
+created: '2026-07-15'
+updated: '2026-07-15'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🚀 DevSecOps Pipeline — Deep Dive: SAST, DAST, SCA, SBOM, dan Secret Scanning
@@ -38,35 +38,35 @@ DevSecOps adalah filosofi yang mengintegrasikan praktik keamanan ke dalam setiap
 
 Perbandingan pendekatan:
 
-| Pendekatan                                   | Kapan Testing Dilakukan                    | Biaya Perbaikan           | Dampak Tim                                            |
-| -------------------------------------------- | ------------------------------------------ | ------------------------- | ----------------------------------------------------- |
-| **Traditional (Waterfall + Security Audit)** | Setelah development selesai, sebelum rilis | 💰💰💰💰💰 (paling mahal) | Security team = bottleneck                            |
-| **DevOps + Security Gate**                   | Setelah build, sebelum deploy              | 💰💰💰                    | Security = blocker, banyak false positive             |
-| **DevSecOps (Shift-Left)**                   | Pada setiap commit (IDE → PR → Build)      | 💰                        | Developer bertanggung jawab, security sebagai enabler |
-| **DevSecOps + Shift-Right**                  | Pada setiap commit + di production         | 💰 (paling murah)         | Monitoring kontinu memvalidasi asumsi                 |
+| Pendekatan | Kapan Testing Dilakukan | Biaya Perbaikan | Dampak Tim |
+|-----------|------------------------|----------------|------------|
+| **Traditional (Waterfall + Security Audit)** | Setelah development selesai, sebelum rilis | 💰💰💰💰💰 (paling mahal) | Security team = bottleneck |
+| **DevOps + Security Gate** | Setelah build, sebelum deploy | 💰💰💰 | Security = blocker, banyak false positive |
+| **DevSecOps (Shift-Left)** | Pada setiap commit (IDE → PR → Build) | 💰 | Developer bertanggung jawab, security sebagai enabler |
+| **DevSecOps + Shift-Right** | Pada setiap commit + di production | 💰 (paling murah) | Monitoring kontinu memvalidasi asumsi |
 
 ### Jenis Testing Keamanan Otomatis
 
-| Kategori                                | Fokus                                                                       | Kapan Dijalankan              | Contoh                                     |
-| --------------------------------------- | --------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------ |
-| **SAST (Static Analysis)**              | Source code scanning — menemukan vulnerability di kode tanpa menjalankannya | Pre-commit hook, PR, build    | Semgrep, CodeQL, SonarQube                 |
-| **DAST (Dynamic Analysis)**             | Runtime scanning — menemukan vulnerability di aplikasi yang berjalan        | Staging, production (careful) | OWASP ZAP, Burp Suite Enterprise, Acunetix |
-| **SCA (Software Composition Analysis)** | Dependency scanning — library/package vulnerability + license compliance    | PR, build, scheduled          | Trivy, Grype, Snyk, Dependabot             |
-| **IAST (Interactive Analysis)**         | Hybrid SAST+DAST — agent di runtime memonitor code execution                | Staging test                  | Contrast Security, Hdiv, Checkmarx IAST    |
-| **Secret Scanning**                     | Mencari credentials, API keys, tokens hardcoded                             | Pre-commit, PR, build         | Gitleaks, GitGuardian, TruffleHog          |
-| **Container Scanning**                  | Image vulnerability, misconfiguration, malware                              | Build, registry push          | Trivy, Clair, Anchore                      |
-| **IaC Scanning**                        | Infrastruktur code (Terraform, CloudFormation) misconfiguration             | PR, build                     | Checkov, tfsec, KICS                       |
+| Kategori | Fokus | Kapan Dijalankan | Contoh |
+|----------|-------|-----------------|--------|
+| **SAST (Static Analysis)** | Source code scanning — menemukan vulnerability di kode tanpa menjalankannya | Pre-commit hook, PR, build | Semgrep, CodeQL, SonarQube |
+| **DAST (Dynamic Analysis)** | Runtime scanning — menemukan vulnerability di aplikasi yang berjalan | Staging, production (careful) | OWASP ZAP, Burp Suite Enterprise, Acunetix |
+| **SCA (Software Composition Analysis)** | Dependency scanning — library/package vulnerability + license compliance | PR, build, scheduled | Trivy, Grype, Snyk, Dependabot |
+| **IAST (Interactive Analysis)** | Hybrid SAST+DAST — agent di runtime memonitor code execution | Staging test | Contrast Security, Hdiv, Checkmarx IAST |
+| **Secret Scanning** | Mencari credentials, API keys, tokens hardcoded | Pre-commit, PR, build | Gitleaks, GitGuardian, TruffleHog |
+| **Container Scanning** | Image vulnerability, misconfiguration, malware | Build, registry push | Trivy, Clair, Anchore |
+| **IaC Scanning** | Infrastruktur code (Terraform, CloudFormation) misconfiguration | PR, build | Checkov, tfsec, KICS |
 
 #### SAST vs DAST — Kapan Memilih?
 
-| Kriteria                | SAST                                                                 | DAST                                                                  |
-| ----------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **False Positive Rate** | Tinggi (banyak false positive karena tidak punya context runtime)    | Rendah (menyerang aplikasi nyata)                                     |
-| **False Negative Rate** | Rendah (bisa menemukan vulnerability yang sulit ditemukan DAST)      | Tinggi (hanya bisa menemukan apa yang bisa 'dilihat' dari luar)       |
-| **Cakupan**             | Source code (SQL injection, XSS, buffer overflow, hardcoded secrets) | Running app (authentication, session management, CSRF, configuration) |
-| **Kecepatan**           | Cepat (millions LOC dalam menit)                                     | Lambat (tergantung cakupan crawl + attack)                            |
-| **Kebutuhan env**       | Tidak perlu env running                                              | Perlu staging/prod environment                                        |
-| **Integrasi PR**        | Mudah (di CI pipeline)                                               | Sulit (harus deploy dulu)                                             |
+| Kriteria | SAST | DAST |
+|----------|------|------|
+| **False Positive Rate** | Tinggi (banyak false positive karena tidak punya context runtime) | Rendah (menyerang aplikasi nyata) |
+| **False Negative Rate** | Rendah (bisa menemukan vulnerability yang sulit ditemukan DAST) | Tinggi (hanya bisa menemukan apa yang bisa 'dilihat' dari luar) |
+| **Cakupan** | Source code (SQL injection, XSS, buffer overflow, hardcoded secrets) | Running app (authentication, session management, CSRF, configuration) |
+| **Kecepatan** | Cepat (millions LOC dalam menit) | Lambat (tergantung cakupan crawl + attack) |
+| **Kebutuhan env** | Tidak perlu env running | Perlu staging/prod environment |
+| **Integrasi PR** | Mudah (di CI pipeline) | Sulit (harus deploy dulu) |
 
 **Rekomendasi:** SAST di pre-commit + PR gate, DAST di staging environment setelah deploy.
 
@@ -74,20 +74,18 @@ Perbandingan pendekatan:
 
 SBOM adalah manifest terstruktur yang mendaftarkan setiap komponen/package/artifact yang digunakan dalam perangkat lunak. Format standar:
 
-| Format                                    | Standar           | Struktur                                      |
-| ----------------------------------------- | ----------------- | --------------------------------------------- |
-| **SPDX** (Software Package Data Exchange) | ISO/IEC 5962:2021 | Berbasis tag-value atau JSON-LD               |
-| **CycloneDX**                             | OWASP standard    | XML atau JSON, lebih ringan                   |
-| **SWID** (ISO 19770-2)                    | ISO               | Tagging standar untuk software identification |
+| Format | Standar | Struktur |
+|--------|---------|----------|
+| **SPDX** (Software Package Data Exchange) | ISO/IEC 5962:2021 | Berbasis tag-value atau JSON-LD |
+| **CycloneDX** | OWASP standard | XML atau JSON, lebih ringan |
+| **SWID** (ISO 19770-2) | ISO | Tagging standar untuk software identification |
 
 **Mengapa SBOM penting:**
-
 - **Log4j (Dec 2021)** — ribuan tim tidak bisa mengidentifikasi apakah mereka menggunakan log4j yang rentan karena tidak punya SBOM.
 - **Regulasi** — US Executive Order 14028 mewajibkan SBOM untuk software pemerintah; EU CRA (Cyber Resilience Act) mensyaratkan SBOM untuk produk digital.
 - **Supply-chain transparency** — Anda tidak bisa melindungi apa yang tidak Anda ketahui.
 
 **Perintah untuk menghasilkan SBOM dengan Syft:**
-
 ```bash
 # Untuk container image
 syft nginx:latest -o spdx-json > nginx-sbom.spdx.json
@@ -129,7 +127,7 @@ jobs:
       - name: Semgrep SAST Scan
         uses: semgrep/semgrep-action@v1
         with:
-          config: p/owasp-top-ten # OWASP Top 10 ruleset
+          config: p/owasp-top-ten  # OWASP Top 10 ruleset
           # config: r/python.lang.security  # Python specific
           # config: r/javascript.browser.security  # JS specific
       - name: Check for Critical Findings
@@ -175,7 +173,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["python", "javascript", "go"]
+        language: ['python', 'javascript', 'go']
     steps:
       - uses: actions/checkout@v4
       - uses: github/codeql-action/init@v3
@@ -216,8 +214,8 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: ${{ github.event.deployment_status.environment_url }}
-          rules_file_name: ".zap/rules.tsv"
-          cmd_options: "-I" # Active scan
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-I'  # Active scan
       - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
         if: always()
@@ -259,15 +257,15 @@ trivy image --format cyclonedx --output result.cdx.json nginx:latest
 - name: Trivy Filesystem Scan
   uses: aquasecurity/trivy-action@master
   with:
-    scan-type: "fs"
-    scan-ref: "."
-    format: "sarif"
-    output: "trivy-results.sarif"
-    severity: "CRITICAL,HIGH"
+    scan-type: 'fs'
+    scan-ref: '.'
+    format: 'sarif'
+    output: 'trivy-results.sarif'
+    severity: 'CRITICAL,HIGH'
 - name: Upload Trivy to GitHub Security
   uses: github/codeql-action/upload-sarif@v3
   with:
-    sarif_file: "trivy-results.sarif"
+    sarif_file: 'trivy-results.sarif'
 ```
 
 #### 5. SBOM Generation — Syft + Grype
@@ -362,14 +360,14 @@ PR Created
 
 SAST/DAST tools menghasilkan false positive (FP) — tanpa manajemen FP, developer akan mengabaikan semua alert.
 
-| Strategi                 | Deskripsi                                                     | Implementasi                                     |
-| ------------------------ | ------------------------------------------------------------- | ------------------------------------------------ |
-| **Baseline**             | Bandingkan hasil scan dengan baseline yang sudah diverifikasi | Semgrep: `semgrep --config auto --baseline main` |
-| **Suppression comments** | Developer bisa mark FP di source code                         | `# nosemgrep` / `// semgrep-ignore`              |
-| **Path exclusion**       | Exclude direktori test, vendor, generated code                | `.semgrepignore` / `.trivyignore`                |
-| **Severity downgrade**   | Turunkan severity untuk rule dengan FP tinggi                 | ZAP rules file: `10003 WARN`                     |
-| **Aging policy**         | FP yang tidak muncul di N cycle otomatis di-archive           | SIEM + Jira integration                          |
-| **Daily triage**         | Security engineer review FP report harian                     | Dashboard Grafana + CSV export                   |
+| Strategi | Deskripsi | Implementasi |
+|----------|-----------|--------------|
+| **Baseline** | Bandingkan hasil scan dengan baseline yang sudah diverifikasi | Semgrep: `semgrep --config auto --baseline main` |
+| **Suppression comments** | Developer bisa mark FP di source code | `# nosemgrep` / `// semgrep-ignore` |
+| **Path exclusion** | Exclude direktori test, vendor, generated code | `.semgrepignore` / `.trivyignore` |
+| **Severity downgrade** | Turunkan severity untuk rule dengan FP tinggi | ZAP rules file: `10003 WARN` |
+| **Aging policy** | FP yang tidak muncul di N cycle otomatis di-archive | SIEM + Jira integration |
+| **Daily triage** | Security engineer review FP report harian | Dashboard Grafana + CSV export |
 
 ---
 
@@ -379,12 +377,12 @@ SAST/DAST tools menghasilkan false positive (FP) — tanpa manajemen FP, develop
 
 SLSA (Supply-chain Levels for Software Artifacts) adalah framework keamanan rantai pasok yang menentukan tingkat kepercayaan artifact berdasarkan 4 level:
 
-| Level      | Deskripsi                          | Persyaratan Minimum                                                         |
-| ---------- | ---------------------------------- | --------------------------------------------------------------------------- |
-| **SLSA 1** | Build process documented           | Provenance (metadata who built what from what source)                       |
-| **SLSA 2** | Build process tamper-resistant     | Signed provenance + host build service                                      |
-| **SLSA 3** | Hardened build process             | No user-controlled build steps, isolation, provenance includes dependencies |
-| **SLSA 4** | Two-person review + hermetic build | All dependencies declared, fully reproducible build, provenance by design   |
+| Level | Deskripsi | Persyaratan Minimum |
+|-------|-----------|-------------------|
+| **SLSA 1** | Build process documented | Provenance (metadata who built what from what source) |
+| **SLSA 2** | Build process tamper-resistant | Signed provenance + host build service |
+| **SLSA 3** | Hardened build process | No user-controlled build steps, isolation, provenance includes dependencies |
+| **SLSA 4** | Two-person review + hermetic build | All dependencies declared, fully reproducible build, provenance by design |
 
 **Cara mencapai SLSA 3+ untuk container image:**
 
@@ -419,20 +417,20 @@ metadata:
 spec:
   validationFailureAction: Enforce
   rules:
-    - name: check-signature
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      verifyImages:
-        - imageReferences:
-            - "harbor.corp.internal/*"
-          attestors:
-            - entries:
-                - keyless:
-                    subject: "https://github.com/corp-org/*/.github/workflows/*.yml@refs/heads/main"
-                    issuer: "https://token.actions.githubusercontent.com"
+  - name: check-signature
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    verifyImages:
+    - imageReferences:
+      - "harbor.corp.internal/*"
+      attestors:
+      - entries:
+        - keyless:
+            subject: "https://github.com/corp-org/*/.github/workflows/*.yml@refs/heads/main"
+            issuer: "https://token.actions.githubusercontent.com"
 ```
 
 ### IaC Scanning — Checkov (Policy as Code)
@@ -446,9 +444,9 @@ Checkov untuk menemukan misconfiguration di Terraform:
     directory: terraform/
     framework: terraform
     output_format: cli
-    soft_fail: false # block on any fail
+    soft_fail: false  # block on any fail
     quiet: true
-    skip_check: CKV_AWS_53 # skip known false positive
+    skip_check: CKV_AWS_53  # skip known false positive
 ```
 
 ### Full Pipeline Example — GitHub Actions (Monorepo)
@@ -487,11 +485,11 @@ jobs:
         if: matrix.scan == 'sca'
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: "fs"
-          scan-ref: "."
-          format: "sarif"
-          severity: "CRITICAL,HIGH"
-          exit-code: "1"
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
 
       - name: Secrets — Gitleaks
         if: matrix.scan == 'secrets'
@@ -537,23 +535,23 @@ jobs:
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: https://staging.app.corp
-          rules_file_name: ".zap/rules.tsv"
+          rules_file_name: '.zap/rules.tsv'
           allow_issue_writing: false
           fail_action: true
 ```
 
 ### Tool Benchmark (Performa dan Akurasi)
 
-| Tool          | Speed (1000 LOC)      | FP Rate                     | Coverage Bahasa                                                     | Harga                                |
-| ------------- | --------------------- | --------------------------- | ------------------------------------------------------------------- | ------------------------------------ |
-| **Semgrep**   | ~2 detik              | Medium                      | 30+                                                                 | Open source (community), Paid (team) |
-| **CodeQL**    | ~5 detik              | Low (query-based)           | 12 (C/C++, C#, Java, JS, Python, Go, Ruby, Swift, Kotlin, Rust, TS) | Free for public repos                |
-| **SonarQube** | ~10 detik             | Medium-High                 | 30+                                                                 | Community Edition gratis             |
-| **Trivy**     | N/A (image: ~5 detik) | Low                         | OS packages + language packages                                     | Open source                          |
-| **Grype**     | N/A                   | Low                         | Similar to Trivy                                                    | Open source                          |
-| **ZAP**       | Depends on app size   | Medium (baseline lowers it) | Web/API                                                             | Open source                          |
-| **Gitleaks**  | ~1 detik              | Low (with custom rules)     | Git history + filesystem                                            | Open source                          |
-| **Checkov**   | ~3 detik              | Medium                      | Terraform, CloudFormation, K8s, ARM                                 | Open source                          |
+| Tool | Speed (1000 LOC) | FP Rate | Coverage Bahasa | Harga |
+|------|-----------------|---------|-----------------|-------|
+| **Semgrep** | ~2 detik | Medium | 30+ | Open source (community), Paid (team) |
+| **CodeQL** | ~5 detik | Low (query-based) | 12 (C/C++, C#, Java, JS, Python, Go, Ruby, Swift, Kotlin, Rust, TS) | Free for public repos |
+| **SonarQube** | ~10 detik | Medium-High | 30+ | Community Edition gratis |
+| **Trivy** | N/A (image: ~5 detik) | Low | OS packages + language packages | Open source |
+| **Grype** | N/A | Low | Similar to Trivy | Open source |
+| **ZAP** | Depends on app size | Medium (baseline lowers it) | Web/API | Open source |
+| **Gitleaks** | ~1 detik | Low (with custom rules) | Git history + filesystem | Open source |
+| **Checkov** | ~3 detik | Medium | Terraform, CloudFormation, K8s, ARM | Open source |
 
 ### Hardening Checklist — DevSecOps Pipeline
 
@@ -579,13 +577,13 @@ jobs:
 
 ## Case Studies
 
-| Studi Kasus                             | Konteks                                                                 | Temuan Kunci                                                                                                                                                                                                                               | Mitigasi Diimplementasi                                                                                                                                                                                                        |
-| --------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Log4j CVE-2021-44228 (Dec 2021)**     | Ribuan organisasi tidak tahu menggunakan log4j yang rentan              | 1. Tidak ada SCA — tim tidak punya visibility dependency mana yang mengandung log4j. 2. SBOM belum ada — manual triage butuh waktu berminggu-minggu. 3. Pipeline tidak bisa "block" build otomatis untuk versi log4j.                      | 1. Deploy SCA (Trivy) dengan block rule untuk semua CVE-critical. 2. Generate SBOM untuk semua service. 3. Automated pipeline untuk emergency patch (auto-bump dependency + build + deploy dalam <1 jam).                      |
-| **Codecov Breach (2021)**               | Pipeline CI/CD tool compromise → supply-chain attack                    | 1. Codecov Bash Uploader terkena credential theft. 2. Attacker modify uploader → exfiltrate CI environment variables. 3. Ribuan organization exposed: cloud credentials, API keys, tokens.                                                 | 1. Gunakan OIDC-based auth (no static keys). 2. Rotate CI secrets. 3. Audit CI runner artifacts. 4. Minimum IAM untuk CI jobs.                                                                                                 |
-| **Dependency Confusion (2021)**         | Internal package name sama dengan public — npm/yarn prioritaskan public | 1. Internal package `corp-auth` → attacker publish `corp-auth` ke npm dengan version lebih tinggi. 2. Pipeline auto-download dependency dari npm — malicious code executed. 3. POC: 35+ perusahaan besar terkena.                          | 1. Scoped registry: `@corp/` prefix. 2. Resolver strict — hanya dari private registry. 3. Integrity check (package lock + hash verification). 4. SCA yang mendeteksi dependency confusion.                                     |
-| **SolarWinds Orion (2020)**             | Build pipeline compromise — malware di signed artifact SLSA 0           | 1. Attacker compromise build server → inject Sunburst backdoor ke Orion source code. 2. Code review tidak mendeteksi karena injeksi stealth dan legitimate signing. 3. 18,000+ customers menerima backdoor via update.                     | 1. SLSA 4 — hermetic build, two-person review. 2. Reproducible build — deteksi drift binary. 3. Immutable build environment. 4. Code signing + attestation. 5. ADR: diversifikasi supply chain.                                |
-| **Simulated CI Pipeline Attack (2024)** | Penetration test — SAST + DAST + SCA integration                        | 1. SAST menemukan SQL injection di endpoint /search (query concatenation). 2. SCA menemukan 2 HIGH vuln di library `requests` (old version). 3. Secret scanning menemukan 3 AWS Access Keys di file .env.example (committed 2 tahun lalu). | 1. Pipeline block + developer notified via GitHub Security Alerts. 2. Rotate exposed keys in <30 menit. 3. Auto-approve PR untuk fix SAST/SEC findings. 4. Git history rewrite untuk remove secrets (force push with caution). |
+| Studi Kasus | Konteks | Temuan Kunci | Mitigasi Diimplementasi |
+|-------------|---------|--------------|------------------------|
+| **Log4j CVE-2021-44228 (Dec 2021)** | Ribuan organisasi tidak tahu menggunakan log4j yang rentan | 1. Tidak ada SCA — tim tidak punya visibility dependency mana yang mengandung log4j. 2. SBOM belum ada — manual triage butuh waktu berminggu-minggu. 3. Pipeline tidak bisa "block" build otomatis untuk versi log4j. | 1. Deploy SCA (Trivy) dengan block rule untuk semua CVE-critical. 2. Generate SBOM untuk semua service. 3. Automated pipeline untuk emergency patch (auto-bump dependency + build + deploy dalam <1 jam). |
+| **Codecov Breach (2021)** | Pipeline CI/CD tool compromise → supply-chain attack | 1. Codecov Bash Uploader terkena credential theft. 2. Attacker modify uploader → exfiltrate CI environment variables. 3. Ribuan organization exposed: cloud credentials, API keys, tokens. | 1. Gunakan OIDC-based auth (no static keys). 2. Rotate CI secrets. 3. Audit CI runner artifacts. 4. Minimum IAM untuk CI jobs. |
+| **Dependency Confusion (2021)** | Internal package name sama dengan public — npm/yarn prioritaskan public | 1. Internal package `corp-auth` → attacker publish `corp-auth` ke npm dengan version lebih tinggi. 2. Pipeline auto-download dependency dari npm — malicious code executed. 3. POC: 35+ perusahaan besar terkena. | 1. Scoped registry: `@corp/` prefix. 2. Resolver strict — hanya dari private registry. 3. Integrity check (package lock + hash verification). 4. SCA yang mendeteksi dependency confusion. |
+| **SolarWinds Orion (2020)** | Build pipeline compromise — malware di signed artifact SLSA 0 | 1. Attacker compromise build server → inject Sunburst backdoor ke Orion source code. 2. Code review tidak mendeteksi karena injeksi stealth dan legitimate signing. 3. 18,000+ customers menerima backdoor via update. | 1. SLSA 4 — hermetic build, two-person review. 2. Reproducible build — deteksi drift binary. 3. Immutable build environment. 4. Code signing + attestation. 5. ADR: diversifikasi supply chain. |
+| **Simulated CI Pipeline Attack (2024)** | Penetration test — SAST + DAST + SCA integration | 1. SAST menemukan SQL injection di endpoint /search (query concatenation). 2. SCA menemukan 2 HIGH vuln di library `requests` (old version). 3. Secret scanning menemukan 3 AWS Access Keys di file .env.example (committed 2 tahun lalu). | 1. Pipeline block + developer notified via GitHub Security Alerts. 2. Rotate exposed keys in <30 menit. 3. Auto-approve PR untuk fix SAST/SEC findings. 4. Git history rewrite untuk remove secrets (force push with caution). |
 
 ---
 
@@ -607,26 +605,26 @@ jobs:
 
 ## Referensi
 
-1. OWASP. _Application Security Verification Standard (ASVS) 4.0_. https://owasp.org/www-project-application-security-verification-standard/
-2. OWASP. _Software Component Verification Standard (SCVS)_. https://owasp.org/www-project-software-component-verification-standard/
-3. Semgrep. _Semgrep Documentation_. https://semgrep.dev/docs/
-4. GitHub. _CodeQL Documentation_. https://docs.github.com/en/code-security/codeql-cli/
-5. OWASP ZAP. _ZAP Getting Started_. https://www.zaproxy.org/getting-started/
-6. Aqua Security. _Trivy Documentation_. https://trivy.dev/latest/
-7. Anchore. _Syft & Grype Documentation_. https://github.com/anchore/syft
-8. Gitleaks. _Gitleaks Documentation_. https://gitleaks.io/
-9. Bridgecrew/Prisma Cloud. _Checkov Documentation_. https://www.checkov.io/
-10. Sigstore. _Cosign Documentation_. https://docs.sigstore.dev/cosign/overview/
-11. OpenSSF. _SLSA Framework_. https://slsa.dev/
-12. OWASP. _CycloneDX SBOM Standard_. https://cyclonedx.org/
-13. SPDX. _SPDX Specification_. https://spdx.dev/
-14. US Executive Order 14028. _Improving the Nation's Cybersecurity_. 2021. https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/
-15. CISA. _Software Bill of Materials_. https://www.cisa.gov/sbom
-16. OpenSSF. _Scorecard_. https://securityscorecards.dev/
-17. Sonatype. _2024 State of the Software Supply Chain_. https://www.sonatype.com/state-of-the-software-supply-chain
-18. Snyk. _2024 Open Source Security Report_. https://snyk.io/reports/
-19. GitGuardian. _2024 State of Secrets Sprawl_. https://www.gitguardian.com/report
-20. Contrast Security. _IAST vs SAST vs DAST_. https://www.contrastsecurity.com/knowledge-hub/what-is-iast
+1. OWASP. *Application Security Verification Standard (ASVS) 4.0*. https://owasp.org/www-project-application-security-verification-standard/
+2. OWASP. *Software Component Verification Standard (SCVS)*. https://owasp.org/www-project-software-component-verification-standard/
+3. Semgrep. *Semgrep Documentation*. https://semgrep.dev/docs/
+4. GitHub. *CodeQL Documentation*. https://docs.github.com/en/code-security/codeql-cli/
+5. OWASP ZAP. *ZAP Getting Started*. https://www.zaproxy.org/getting-started/
+6. Aqua Security. *Trivy Documentation*. https://trivy.dev/latest/
+7. Anchore. *Syft & Grype Documentation*. https://github.com/anchore/syft
+8. Gitleaks. *Gitleaks Documentation*. https://gitleaks.io/
+9. Bridgecrew/Prisma Cloud. *Checkov Documentation*. https://www.checkov.io/
+10. Sigstore. *Cosign Documentation*. https://docs.sigstore.dev/cosign/overview/
+11. OpenSSF. *SLSA Framework*. https://slsa.dev/
+12. OWASP. *CycloneDX SBOM Standard*. https://cyclonedx.org/
+13. SPDX. *SPDX Specification*. https://spdx.dev/
+14. US Executive Order 14028. *Improving the Nation's Cybersecurity*. 2021. https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/
+15. CISA. *Software Bill of Materials*. https://www.cisa.gov/sbom
+16. OpenSSF. *Scorecard*. https://securityscorecards.dev/
+17. Sonatype. *2024 State of the Software Supply Chain*. https://www.sonatype.com/state-of-the-software-supply-chain
+18. Snyk. *2024 Open Source Security Report*. https://snyk.io/reports/
+19. GitGuardian. *2024 State of Secrets Sprawl*. https://www.gitguardian.com/report
+20. Contrast Security. *IAST vs SAST vs DAST*. https://www.contrastsecurity.com/knowledge-hub/what-is-iast
 
 > [!tip] Bottom Line
 > DevSecOps bukan tentang tool — ini tentang **shift-left mindset** yang diotomatisasi. Tool tanpa proses hanya menghasilkan noise; proses tanpa tool hanya menghasilkan bottleneck. Kunci sukses: (1) **Pipeline gate berbasis severity** — hanya CRITICAL/HIGH yang block, sisanya informasional. (2) **False positive management** — baseline + suppression agar developer tidak lelah. (3) **SBOM + Signing** sebagai syarat deploy ke production. (4) **Emergency pipeline** untuk zero-day seperti Log4j — auto-bump + rebuild + deploy dalam <1 jam. Mulai dari pre-commit gitleaks dan SCA — dua langkah dengan ROI tertinggi di DevSecOps.

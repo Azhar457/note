@@ -1,22 +1,22 @@
 ---
-title: "Observability Stack: Prometheus, Grafana & Logging Pipeline"
+title: 'Observability Stack: Prometheus, Grafana & Logging Pipeline'
 tags:
-  - observability
-  - prometheus
-  - grafana
-  - monitoring
-  - logging
-  - devops
-  - library
+- observability
+- prometheus
+- grafana
+- monitoring
+- logging
+- devops
+- library
 aliases:
-  - prometheus-grafana-setup-deepdive
-  - logging-pipeline-loki-vector
-  - monitoring-stack-homelab
-created: "2026-07-15"
-updated: "2026-07-15"
+- prometheus-grafana-setup-deepdive
+- logging-pipeline-loki-vector
+- monitoring-stack-homelab
+created: '2026-07-15'
+updated: '2026-07-15'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 📊 Observability Stack: Prometheus, Grafana & Logging Pipeline
@@ -59,18 +59,17 @@ Observability = "Why is the system not working?"
 ```
 
 **Tiga pilar observability:**
-
 1. **Metrics** — angka yang bisa di-aggregate (Prometheus)
 2. **Logs** — event diskrit, immutable, timestamped (Vector → Loki/ES)
 3. **Traces** — end-to-end request flow antar service (Jaeger, Tempo)
 
-| Aspek    | Monitoring             | Observability                    |
-| -------- | ---------------------- | -------------------------------- |
-| Scope    | Known unknowns         | Unknown unknowns                 |
-| Data     | CPU, memory, disk      | High-cardinality, request-level  |
-| Debug    | "Apa yang mati?"       | "Kenapa lambat?"                 |
+| Aspek | Monitoring | Observability |
+|-------|-----------|---------------|
+| Scope | Known unknowns | Unknown unknowns |
+| Data | CPU, memory, disk | High-cardinality, request-level |
+| Debug | "Apa yang mati?" | "Kenapa lambat?" |
 | Approach | Reactive (alert → fix) | Proactive (explore → understand) |
-| Tools    | Nagios, Zabbix         | Prometheus, Grafana, Loki        |
+| Tools | Nagios, Zabbix | Prometheus, Grafana, Loki |
 
 ---
 
@@ -90,7 +89,6 @@ Observability = "Why is the system not working?"
 ```
 
 **Komponen:**
-
 - **Prometheus Server** — pull model: scrape /metrics endpoint tiap interval
 - **Exporters** — expose metrics dari berbagai service (node, postgres, nginx)
 - **Pushgateway** — untuk job batch yang lifespan pendek (push model)
@@ -177,13 +175,12 @@ storage:
     # Total space ≈ rate(ingested_samples) × 2 bytes × retention
 
 scrape_configs:
-  - job_name: "node"
+  - job_name: 'node'
     static_configs:
-      - targets: ["localhost:9100"]
+      - targets: ['localhost:9100']
 ```
 
 **Keterbatasan Prometheus:**
-
 - **Single node** — tidak HA secara native (Thanos/Cortex/Mimir untuk HA)
 - **Not for logs** — Prometheus bukan log storage
 - **Not for events** — gak cocok untuk event dengan cardinality sangat tinggi
@@ -267,16 +264,15 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     command:
-      - "--path.rootfs=/host"
-      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+      - '--path.rootfs=/host'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     ports:
-      - "9100:9100"
+      - '9100:9100'
     volumes:
-      - "/:/host:ro,rslave"
+      - '/:/host:ro,rslave'
 ```
 
 **Metrics yang disediakan:**
-
 - `node_cpu_seconds_total` — CPU time by mode
 - `node_memory_MemAvailable_bytes` — available memory
 - `node_disk_io_time_seconds_total` — disk I/O
@@ -291,22 +287,22 @@ services:
 services:
   blackbox-exporter:
     image: prom/blackbox-exporter:latest
-    command: "--config.file=/config/blackbox.yml"
+    command: '--config.file=/config/blackbox.yml'
     ports:
-      - "9115:9115"
+      - '9115:9115'
     volumes:
-      - "./blackbox.yml:/config/blackbox.yml"
+      - './blackbox.yml:/config/blackbox.yml'
 
 # prometheus.yml tambahan:
 scrape_configs:
-  - job_name: "blackbox-http"
+  - job_name: 'blackbox-http'
     metrics_path: /probe
     params:
       module: [http_2xx]
     static_configs:
       - targets:
-          - https://example.com
-          - https://app.internal.company.com
+        - https://example.com
+        - https://app.internal.company.com
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -325,11 +321,10 @@ services:
     environment:
       DATA_SOURCE_NAME: "postgresql://monitor:password@localhost:5432/postgres?sslmode=disable"
     ports:
-      - "9187:9187"
+      - '9187:9187'
 ```
 
 **Metrics penting:**
-
 - `pg_stat_database_xact_commit` / `pg_stat_database_xact_rollback` — transaction rate
 - `pg_stat_database_blks_hit` / `pg_stat_database_blks_read` — cache hit ratio
 - `pg_stat_replication` — replication lag
@@ -389,16 +384,16 @@ Values: production, staging, development
 
 ### 5.3 Panel Types
 
-| Panel           | Use Case                          | Data Format               |
-| --------------- | --------------------------------- | ------------------------- |
-| **Time series** | Trendlines (CPU, latency, rate)   | Time series               |
-| **Stat**        | Single value (uptime, error rate) | Single query result       |
-| **Gauge**       | Threshold-based (disk > 80%)      | Single value + thresholds |
-| **Table**       | Detail data (slowest endpoints)   | Table (multi-column)      |
-| **Bar chart**   | Comparison (CPU by instance)      | Categorical               |
-| **Heatmap**     | Distribution (latency over time)  | Histogram                 |
-| **Logs**        | Raw log viewer (Loki)             | Log lines                 |
-| **Traces**      | Trace viewer (Tempo)              | Trace spans               |
+| Panel | Use Case | Data Format |
+|-------|----------|-------------|
+| **Time series** | Trendlines (CPU, latency, rate) | Time series |
+| **Stat** | Single value (uptime, error rate) | Single query result |
+| **Gauge** | Threshold-based (disk > 80%) | Single value + thresholds |
+| **Table** | Detail data (slowest endpoints) | Table (multi-column) |
+| **Bar chart** | Comparison (CPU by instance) | Categorical |
+| **Heatmap** | Distribution (latency over time) | Histogram |
+| **Logs** | Raw log viewer (Loki) | Log lines |
+| **Traces** | Trace viewer (Tempo) | Trace spans |
 
 ### 5.4 Alert Rules di Grafana
 
@@ -443,7 +438,6 @@ groups:
 ### 6.2 Vector — Modern Log Collector
 
 **Kenapa Vector bukan Logstash/Fluentd?**
-
 - Rust-based → memory safe, performa tinggi
 - Resource usage 5-10x lebih rendah dari Logstash
 - Satu binary, satu config language (TOML/VCL)
@@ -486,12 +480,12 @@ services:
     image: grafana/loki:latest
     command: -config.file=/etc/loki/loki-config.yaml
     ports:
-      - "3100:3100"
+      - '3100:3100'
     volumes:
       - ./loki-config.yaml:/etc/loki/loki-config.yaml
       - ./data/loki:/loki
 
-  promtail: # alternative to Vector (lighter, Grafana-native)
+  promtail:  # alternative to Vector (lighter, Grafana-native)
     image: grafana/promtail:latest
     command: -config.file=/etc/promtail/promtail-config.yaml
     volumes:
@@ -530,25 +524,25 @@ services:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
-      - "9200:9200"
+      - '9200:9200'
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.x
     ports:
-      - "5601:5601"
+      - '5601:5601'
 ```
 
 ### 6.5 Perbandingan Log Backend
 
-| Aspek          | Loki                          | Elasticsearch              |
-| -------------- | ----------------------------- | -------------------------- |
-| Storage model  | Label + chunks                | Full-text inverted index   |
-| Query language | LogQL (label-first)           | DSL (JSON query)           |
-| Resource usage | Ringan (20% dari ES)          | Berat (heap-heavy)         |
-| Scalability    | Simple (distributed by label) | Complex (shards, replicas) |
-| Retention      | Efficient (chunk compression) | Space-intensive            |
-| Integration    | Grafana native                | Kibana                     |
-| Use case       | Kubernetes logs, infra logs   | Application logs, SIEM     |
+| Aspek | Loki | Elasticsearch |
+|-------|------|---------------|
+| Storage model | Label + chunks | Full-text inverted index |
+| Query language | LogQL (label-first) | DSL (JSON query) |
+| Resource usage | Ringan (20% dari ES) | Berat (heap-heavy) |
+| Scalability | Simple (distributed by label) | Complex (shards, replicas) |
+| Retention | Efficient (chunk compression) | Space-intensive |
+| Integration | Grafana native | Kibana |
+| Use case | Kubernetes logs, infra logs | Application logs, SIEM |
 
 ---
 
@@ -585,7 +579,7 @@ tracer = trace.get_tracer(__name__)
 with tracer.start_as_current_span("handle_request") as span:
     span.set_attribute("http.method", "GET")
     span.set_attribute("http.url", "/api/users")
-
+    
     with tracer.start_as_current_span("query_database") as db_span:
         time.sleep(0.1)  # simulate DB query
         db_span.set_attribute("db.system", "postgresql")
@@ -594,13 +588,13 @@ with tracer.start_as_current_span("handle_request") as span:
 
 ### 7.3 Tempo vs Jaeger
 
-| Aspek       | Jaeger              | Grafana Tempo                |
-| ----------- | ------------------- | ---------------------------- |
-| Storage     | Cassandra/ES/Badger | S3/GCS (object store)        |
-| Query       | Jaeger UI           | Grafana (Tempo datasource)   |
-| Schema      | Modeled spans       | Trace by ID + search by tags |
-| Cost        | Mahal (full index)  | Murah (object storage)       |
-| Integration | Standalone UI       | Grafana native               |
+| Aspek | Jaeger | Grafana Tempo |
+|-------|--------|---------------|
+| Storage | Cassandra/ES/Badger | S3/GCS (object store) |
+| Query | Jaeger UI | Grafana (Tempo datasource) |
+| Schema | Modeled spans | Trace by ID + search by tags |
+| Cost | Mahal (full index) | Murah (object storage) |
+| Integration | Standalone UI | Grafana native |
 
 ---
 
@@ -612,38 +606,38 @@ with tracer.start_as_current_span("handle_request") as span:
 # alertmanager.yml
 global:
   resolve_timeout: 5m
-  slack_api_url: "https://hooks.slack.com/services/..."
+  slack_api_url: 'https://hooks.slack.com/services/...'
 
 route:
-  receiver: "default"
+  receiver: 'default'
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 4h
   routes:
     - match:
         severity: critical
-      receiver: "pagerduty-critical"
+      receiver: 'pagerduty-critical'
       repeat_interval: 1h
     - match:
         severity: warning
-      receiver: "slack-warning"
+      receiver: 'slack-warning'
 
 receivers:
-  - name: "default"
+  - name: 'default'
     slack_configs:
-      - channel: "#alerts"
-        title: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+      - channel: '#alerts'
+        title: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
         text: '{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}'
 
-  - name: "pagerduty-critical"
+  - name: 'pagerduty-critical'
     pagerduty_configs:
-      - routing_key: "..."
+      - routing_key: '...'
         severity: critical
 
-  - name: "slack-warning"
+  - name: 'slack-warning'
     slack_configs:
-      - channel: "#alerts-warning"
-        title: "[WARN] {{ .GroupLabels.alertname }}"
+      - channel: '#alerts-warning'
+        title: '[WARN] {{ .GroupLabels.alertname }}'
 ```
 
 ### 8.2 Alert Design Principles
@@ -666,13 +660,11 @@ Aturan:
 # Runbook: HighErrorRate
 
 ## Symptoms
-
 - Grafana panel "Error Rate" > 1%
 - Users complain "site error"
 - PagerDuty alert fired
 
 ## Checklist
-
 1. Cek Grafana dashboard "Service Latency" — apakah error rate naik di semua instance?
 2. Cek log: `{job="nginx"} |= "5[0-9][0-9]"`
 3. Cek recent deploy: apakah ada perubahan dalam 1 jam terakhir?
@@ -680,7 +672,6 @@ Aturan:
 5. Rollback jika perlu
 
 ## Resolution
-
 - Jika database: restart connection pool
 - Jika deploy: rollback ke versi sebelumnya
 - Jika traffic spike: scale up instances
@@ -722,24 +713,24 @@ histogram_quantile(0.95, sum by(le) (rate(http_request_duration_seconds_bucket[5
 
 ### Metrics Backend
 
-| Aspek             | Prometheus  | Thanos    | Mimir       | VictoriaMetrics  |
-| ----------------- | ----------- | --------- | ----------- | ---------------- |
-| HA                | ❌ (single) | ✅        | ✅          | ✅               |
-| Long-term storage | Local disk  | S3/GCS    | S3/GCS      | S3/GCS           |
-| Query federation  | ❌          | ✅        | ✅          | ✅               |
-| Complexity        | Rendah      | Sedang    | Tinggi      | Rendah           |
-| Downsampling      | ❌          | ✅        | ✅          | ✅ (auto)        |
-| Use case          | Starter     | Mid-scale | Large-scale | High-performance |
+| Aspek | Prometheus | Thanos | Mimir | VictoriaMetrics |
+|-------|-----------|--------|-------|-----------------|
+| HA | ❌ (single) | ✅ | ✅ | ✅ |
+| Long-term storage | Local disk | S3/GCS | S3/GCS | S3/GCS |
+| Query federation | ❌ | ✅ | ✅ | ✅ |
+| Complexity | Rendah | Sedang | Tinggi | Rendah |
+| Downsampling | ❌ | ✅ | ✅ | ✅ (auto) |
+| Use case | Starter | Mid-scale | Large-scale | High-performance |
 
 ### Observability Stack
 
-| Stack                         | Metrics    | Logs          | Traces  | Complexity |
-| ----------------------------- | ---------- | ------------- | ------- | ---------- |
-| **Prometheus + Loki + Tempo** | Prometheus | Loki          | Tempo   | Sedang     |
-| **Elastic (ELK)**             | ❌ (APM)   | Elasticsearch | APM     | Tinggi     |
-| **Datadog**                   | ✅ SaaS    | ✅ SaaS       | ✅ SaaS | Rendah ($) |
-| **Grafana Cloud**             | ✅ SaaS    | ✅ SaaS       | ✅ SaaS | Rendah ($) |
-| **Self-hosted LGTM**          | Loki       | Grafana       | Tempo   | Mimir      | Tinggi |
+| Stack | Metrics | Logs | Traces | Complexity |
+|-------|---------|------|--------|------------|
+| **Prometheus + Loki + Tempo** | Prometheus | Loki | Tempo | Sedang |
+| **Elastic (ELK)** | ❌ (APM) | Elasticsearch | APM | Tinggi |
+| **Datadog** | ✅ SaaS | ✅ SaaS | ✅ SaaS | Rendah ($) |
+| **Grafana Cloud** | ✅ SaaS | ✅ SaaS | ✅ SaaS | Rendah ($) |
+| **Self-hosted LGTM** | Loki | Grafana | Tempo | Mimir | Tinggi |
 
 ---
 

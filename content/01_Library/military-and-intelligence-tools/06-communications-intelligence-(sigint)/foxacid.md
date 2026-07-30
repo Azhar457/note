@@ -1,13 +1,13 @@
 ---
 title: Foxacid
 tags:
-  - 06-communications-intelligence-(sigint)
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-28"
-updated: "2026-07-01"
+- 06-communications-intelligence-(sigint)
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -62,15 +62,15 @@ FOXACID tidak bekerja sendiri. Ia adalah **ujung tombak dari rantai serangan** y
 
 ### Komponen Sistem
 
-| Komponen               | Fungsi                                                           | Detail                                                                           |
-| ---------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **FOXACID Server**     | Menerima koneksi dari target yang di-redirect.                   | Web server custom (bukan Apache/Nginx) yang mendeteksi fingerprint target.       |
-| **Fingerprinter**      | Mengidentifikasi browser, OS, plugin, dan kerentanan target.     | JavaScript, Flash, Java, WebRTC fingerprinting.                                  |
-| **Exploit Library**    | Koleksi exploit (0-day dan n-day) untuk berbagai browser/plugin. | Terus diperbarui oleh TAO (Tailored Access Operations).                          |
-| **Decision Engine**    | Memilih exploit terbaik berdasarkan fingerprint.                 | Aturan berbobot: 0-day hanya untuk high-value target, n-day untuk target massal. |
-| **Payload Generator**  | Menghasilkan payload implant yang akan dijatuhkan.               | Mendukung berbagai implant: VALIDATOR, OLYMPUS, UNITEDRAKE, dll.                 |
-| **Callback Handler**   | Menerima callback dari implant yang berhasil.                    | Mengonfirmasi infeksi dan menambahkan ke database target.                        |
-| **Logging & Auditing** | Mencatat setiap operasi.                                         | (Snowden mengungkapkan logging ini tidak efektif mencegah LOVEINT).              |
+| Komponen | Fungsi | Detail |
+|----------|--------|--------|
+| **FOXACID Server** | Menerima koneksi dari target yang di-redirect. | Web server custom (bukan Apache/Nginx) yang mendeteksi fingerprint target. |
+| **Fingerprinter** | Mengidentifikasi browser, OS, plugin, dan kerentanan target. | JavaScript, Flash, Java, WebRTC fingerprinting. |
+| **Exploit Library** | Koleksi exploit (0-day dan n-day) untuk berbagai browser/plugin. | Terus diperbarui oleh TAO (Tailored Access Operations). |
+| **Decision Engine** | Memilih exploit terbaik berdasarkan fingerprint. | Aturan berbobot: 0-day hanya untuk high-value target, n-day untuk target massal. |
+| **Payload Generator** | Menghasilkan payload implant yang akan dijatuhkan. | Mendukung berbagai implant: VALIDATOR, OLYMPUS, UNITEDRAKE, dll. |
+| **Callback Handler** | Menerima callback dari implant yang berhasil. | Mengonfirmasi infeksi dan menambahkan ke database target. |
+| **Logging & Auditing** | Mencatat setiap operasi. | (Snowden mengungkapkan logging ini tidak efektif mencegah LOVEINT). |
 
 ### Server Terdistribusi Global
 
@@ -90,13 +90,13 @@ Server FOXACID sering ditempatkan di **negara dengan regulasi longgar** atau di 
 
 Target tiba di FOXACID melalui berbagai mekanisme redirect:
 
-| Metode Redirect         | Program NSA         | Detail                                                        |
-| ----------------------- | ------------------- | ------------------------------------------------------------- |
-| **HTTP Race Condition** | QUANTUM Insert      | Response palsu yang menang race condition dengan server asli. |
-| **DNS Poisoning**       | (QUANTUM / TURBINE) | Mengarahkan DNS target ke IP FOXACID.                         |
-| **BGP Hijack**          | (QUANTUM)           | Mengumumkan rute palsu untuk mengalihkan traffic.             |
-| **Malvertising**        | (PRISM / XKEYSCORE) | Iklan berbahaya yang disisipkan ke website populer.           |
-| **Watering Hole**       | (TAO)               | Menginfeksi website yang sering dikunjungi target.            |
+| Metode Redirect | Program NSA | Detail |
+|-----------------|-------------|--------|
+| **HTTP Race Condition** | QUANTUM Insert | Response palsu yang menang race condition dengan server asli. |
+| **DNS Poisoning** | (QUANTUM / TURBINE) | Mengarahkan DNS target ke IP FOXACID. |
+| **BGP Hijack** | (QUANTUM) | Mengumumkan rute palsu untuk mengalihkan traffic. |
+| **Malvertising** | (PRISM / XKEYSCORE) | Iklan berbahaya yang disisipkan ke website populer. |
+| **Watering Hole** | (TAO) | Menginfeksi website yang sering dikunjungi target. |
 
 ### Tahap 2: Fingerprinting
 
@@ -105,27 +105,26 @@ Setelah target tiba, FOXACID menjalankan **fingerprinting agresif**:
 ```javascript
 // Contoh pseudocode fingerprinting FOXACID
 fingerprint = {
-  user_agent: navigator.userAgent,
-  browser: detectBrowser(),
-  browser_version: detectBrowserVersion(),
-  os: detectOS(),
-  os_version: detectOSVersion(),
-  plugins: navigator.plugins,
-  installed_fonts: detectFonts(),
-  screen_resolution: screen.width + "x" + screen.height,
-  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  language: navigator.language,
-  cpu_cores: navigator.hardwareConcurrency,
-  gpu: getGPUInfo(),
-  webrtc_ip: getWebRTCIP(),
-  flash_version: getFlashVersion(),
-  java_version: getJavaVersion(),
-  silverlight_version: getSilverlightVersion(),
-}
+    user_agent: navigator.userAgent,
+    browser: detectBrowser(),
+    browser_version: detectBrowserVersion(),
+    os: detectOS(),
+    os_version: detectOSVersion(),
+    plugins: navigator.plugins,
+    installed_fonts: detectFonts(),
+    screen_resolution: screen.width + 'x' + screen.height,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    language: navigator.language,
+    cpu_cores: navigator.hardwareConcurrency,
+    gpu: getGPUInfo(),
+    webrtc_ip: getWebRTCIP(),
+    flash_version: getFlashVersion(),
+    java_version: getJavaVersion(),
+    silverlight_version: getSilverlightVersion()
+};
 ```
 
 **Tujuan Fingerprinting:**
-
 - **Identifikasi unik**: FOXACID bisa mengenali target yang sama meskipun berganti IP (tracking lintas sesi).
 - **Pilih exploit yang tepat**: Tidak ada gunanya mengirimkan exploit Internet Explorer ke pengguna Chrome.
 - **Konservasi 0-day**: 0-day hanya digunakan untuk target bernilai tinggi; target massal diberi n-day atau social engineering.
@@ -134,13 +133,13 @@ fingerprint = {
 
 Decision Engine memilih exploit berdasarkan:
 
-| Kriteria                             | Bobot                                                            |
-| ------------------------------------ | ---------------------------------------------------------------- |
-| **Target Value** (dari database NSA) | High-value → 0-day. Low-value → n-day/SE.                        |
-| **Browser/OS Match**                 | Exploit harus kompatibel.                                        |
-| **Success Rate**                     | Exploit dengan track record sukses diprioritaskan.               |
-| **0-day Conservation**               | 0-day hanya untuk target yang tidak bisa diinfeksi dengan n-day. |
-| **Burn Risk**                        | Jika 0-day berisiko terbakar (terdeteksi), gunakan n-day.        |
+| Kriteria | Bobot |
+|----------|-------|
+| **Target Value** (dari database NSA) | High-value → 0-day. Low-value → n-day/SE. |
+| **Browser/OS Match** | Exploit harus kompatibel. |
+| **Success Rate** | Exploit dengan track record sukses diprioritaskan. |
+| **0-day Conservation** | 0-day hanya untuk target yang tidak bisa diinfeksi dengan n-day. |
+| **Burn Risk** | Jika 0-day berisiko terbakar (terdeteksi), gunakan n-day. |
 
 ### Tahap 4: Exploit Delivery
 
@@ -155,18 +154,17 @@ FOXACID mengirimkan exploit melalui:
 
 Setelah exploit berhasil, FOXACID menanamkan **implant NSA**:
 
-| Implant         | Fungsi                                                                                    |
-| --------------- | ----------------------------------------------------------------------------------------- |
-| **VALIDATOR**   | Backdoor awal untuk verifikasi target dan deployment implant lebih besar.                 |
-| **OLYMPUS**     | Implant persisten untuk Windows.                                                          |
-| **UNITEDRAKE**  | Modular malware framework (keylogger, screen capture, file exfil).                        |
+| Implant | Fungsi |
+|---------|--------|
+| **VALIDATOR** | Backdoor awal untuk verifikasi target dan deployment implant lebih besar. |
+| **OLYMPUS** | Implant persisten untuk Windows. |
+| **UNITEDRAKE** | Modular malware framework (keylogger, screen capture, file exfil). |
 | **COTTONMOUTH** | Hardware implant (USB) — FOXACID bisa mengirimkan payload untuk mengaktifkan COTTONMOUTH. |
-| **TURBINE**     | Implant otomatis yang bisa menyebar dan mengelola ribuan target.                          |
+| **TURBINE** | Implant otomatis yang bisa menyebar dan mengelola ribuan target. |
 
 ### Tahap 6: Callback & Confirmation
 
 Implant mengirimkan callback ke server NSA (biasanya melalui infrastruktur C2 yang berbeda dari FOXACID). Callback berisi:
-
 - **Confirmation of infection**
 - **Metadata target**: hostname, IP internal, user, OS version, patch level
 - **Heartbeat**: check-in periodik
@@ -181,24 +179,24 @@ Target kini masuk ke dalam database **TURBINE** atau **XKEYSCORE** untuk operasi
 
 FOXACID mengandalkan **TAO (Tailored Access Operations)** — unit NSA yang bertugas menemukan dan membeli 0-day. Koleksi mencakup:
 
-| Target Software       | Contoh Kerentanan (Terungkap)                                     |
-| --------------------- | ----------------------------------------------------------------- |
+| Target Software | Contoh Kerentanan (Terungkap) |
+|----------------|------------------------------|
 | **Internet Explorer** | CVE-2014-1776 (use-after-free), CVE-2013-2551 (memory corruption) |
-| **Firefox**           | CVE-2013-1690 (use-after-free)                                    |
-| **Chrome**            | Beberapa 0-day (detail tidak diungkap)                            |
-| **Flash Player**      | CVE-2014-0515, CVE-2013-0643                                      |
-| **Java**              | CVE-2013-2423, CVE-2012-5076                                      |
-| **Microsoft Office**  | CVE-2012-0158 (MSCOMCTL), CVE-2014-1761 (RTF)                     |
-| **Adobe Reader**      | CVE-2013-2729, CVE-2013-0640                                      |
+| **Firefox** | CVE-2013-1690 (use-after-free) |
+| **Chrome** | Beberapa 0-day (detail tidak diungkap) |
+| **Flash Player** | CVE-2014-0515, CVE-2013-0643 |
+| **Java** | CVE-2013-2423, CVE-2012-5076 |
+| **Microsoft Office** | CVE-2012-0158 (MSCOMCTL), CVE-2014-1761 (RTF) |
+| **Adobe Reader** | CVE-2013-2729, CVE-2013-0640 |
 
 ### Teknik Khusus FOXACID
 
-| Teknik                              | Deskripsi                                                                                                    |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **Exploit Chaining**                | Menggabungkan beberapa exploit: satu untuk browser, satu untuk sandbox escape, satu untuk kernel escalation. |
-| **Just-in-Time Exploit Generation** | FOXACID bisa menghasilkan exploit secara dinamis berdasarkan fingerprint (menggabungkan modul exploit).      |
-| **Silent Exploit**                  | Exploit yang tidak menampilkan pop-up, crash, atau indikator apapun ke target.                               |
-| **Cleanup**                         | Setelah exploit berhasil, FOXACID membersihkan jejak (hapus history, cookie, cache).                         |
+| Teknik | Deskripsi |
+|--------|-----------|
+| **Exploit Chaining** | Menggabungkan beberapa exploit: satu untuk browser, satu untuk sandbox escape, satu untuk kernel escalation. |
+| **Just-in-Time Exploit Generation** | FOXACID bisa menghasilkan exploit secara dinamis berdasarkan fingerprint (menggabungkan modul exploit). |
+| **Silent Exploit** | Exploit yang tidak menampilkan pop-up, crash, atau indikator apapun ke target. |
+| **Cleanup** | Setelah exploit berhasil, FOXACID membersihkan jejak (hapus history, cookie, cache). |
 
 ---
 
@@ -226,24 +224,24 @@ Laporan dari Kaspersky dan Symantec menunjukkan bahwa teknik FOXACID-style (fing
 
 ### 1. Deteksi FOXACID
 
-| Metode                       | Detail                                                                                      |
-| ---------------------------- | ------------------------------------------------------------------------------------------- |
-| **Browser History Anomaly**  | Tiba-tiba ada redirect chain: website sah → domain aneh → exploit.                          |
-| **Certificate Mismatch**     | FOXACID sering menggunakan sertifikat curian yang tidak cocok dengan domain.                |
+| Metode | Detail |
+|--------|--------|
+| **Browser History Anomaly** | Tiba-tiba ada redirect chain: website sah → domain aneh → exploit. |
+| **Certificate Mismatch** | FOXACID sering menggunakan sertifikat curian yang tidak cocok dengan domain. |
 | **Fingerprinting Detection** | JavaScript fingerprinting agresif bisa dideteksi oleh browser modern (anti-fingerprinting). |
-| **Network Anomaly**          | Koneksi ke IP tidak dikenal segera setelah mengunjungi website tertentu.                    |
-| **Callback Detection**       | Monitor koneksi keluar ke IP/domain C2 yang dikenal (IOC).                                  |
+| **Network Anomaly** | Koneksi ke IP tidak dikenal segera setelah mengunjungi website tertentu. |
+| **Callback Detection** | Monitor koneksi keluar ke IP/domain C2 yang dikenal (IOC). |
 
 ### 2. Countermeasures
 
-| Lapisan               | Tindakan                                                                                                                    |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **Browser**           | Selalu perbarui browser ke versi terbaru. Aktifkan **Enhanced Safe Browsing**. Matikan plugin tidak perlu (Flash, Java).    |
-| **OS**                | Patch secara berkala. Gunakan OS dengan sandboxing kuat (Windows 11, macOS, Linux).                                         |
-| **Network**           | Gunakan **VPN** atau **Tor** untuk menyulitkan redirect berbasis IP. Gunakan **DNSSEC + DoH** untuk mencegah DNS poisoning. |
-| **Endpoint**          | Deploy EDR yang mendeteksi exploit kit behavior (proses browser menelurkan proses aneh).                                    |
-| **Browser Hardening** | Nonaktifkan JavaScript untuk website tidak tepercaya. Gunakan **uBlock Origin** (mode advanced) untuk blokir script asing.  |
-| **Awareness**         | Jangan klik "Update Flash Player" pop-up. Verifikasi update dari software resmi.                                            |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Browser** | Selalu perbarui browser ke versi terbaru. Aktifkan **Enhanced Safe Browsing**. Matikan plugin tidak perlu (Flash, Java). |
+| **OS** | Patch secara berkala. Gunakan OS dengan sandboxing kuat (Windows 11, macOS, Linux). |
+| **Network** | Gunakan **VPN** atau **Tor** untuk menyulitkan redirect berbasis IP. Gunakan **DNSSEC + DoH** untuk mencegah DNS poisoning. |
+| **Endpoint** | Deploy EDR yang mendeteksi exploit kit behavior (proses browser menelurkan proses aneh). |
+| **Browser Hardening** | Nonaktifkan JavaScript untuk website tidak tepercaya. Gunakan **uBlock Origin** (mode advanced) untuk blokir script asing. |
+| **Awareness** | Jangan klik "Update Flash Player" pop-up. Verifikasi update dari software resmi. |
 
 ---
 
@@ -282,11 +280,11 @@ FOXACID adalah komponen kritis dalam rantai serangan NSA. Tanpa FOXACID, QUANTUM
 
 ## 📚 Referensi
 
-- Snowden, E. (2013). _NSA Documents: QUANTUM, FOXACID, and TURBINE_ (The Guardian, Der Spiegel).
-- Greenwald, G. (2014). _No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State_.
-- Kaspersky. _Equation Group: Questions and Answers_ (2015).
+- Snowden, E. (2013). *NSA Documents: QUANTUM, FOXACID, and TURBINE* (The Guardian, Der Spiegel).
+- Greenwald, G. (2014). *No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State*.
+- Kaspersky. *Equation Group: Questions and Answers* (2015).
 - MITRE ATT&CK: T1189 (Drive-by Compromise), T1203 (Exploitation for Client Execution), T1594 (Search Victim-Owned Websites).
 
 ---
 
-_FOXACID Deep Dive | NSA Exploit Delivery Platform | Network Injection & Browser Exploitation_
+*FOXACID Deep Dive | NSA Exploit Delivery Platform | Network Injection & Browser Exploitation*

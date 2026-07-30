@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Paranoia Level System]]
 - [[#2. PL1 — Default Mode]]
 - [[#3. PL2 — Advanced Mode]]
@@ -71,13 +70,13 @@ SecAction \
 
 **Cocok untuk:** Production dengan prioritas stabilitas.
 
-| Karakteristik          | Nilai                                                       |
-| ---------------------- | ----------------------------------------------------------- |
-| False positive         | Sangat rendah                                               |
-| Coverage               | Serangan umum (basic SQLi, XSS, LFI)                        |
-| Anomaly threshold      | 5 (inbound)                                                 |
+| Karakteristik | Nilai |
+|---|---|
+| False positive | Sangat rendah |
+| Coverage | Serangan umum (basic SQLi, XSS, LFI) |
+| Anomaly threshold | 5 (inbound) |
 | Contoh yang terdeteksi | `' OR 1=1`, `<script>alert(1)</script>`, `../../etc/passwd` |
-| Contoh yang Lolos      | `SeLeCt * FrOm`, URL encoded, comment injection             |
+| Contoh yang Lolos | `SeLeCt * FrOm`, URL encoded, comment injection |
 
 ### Contoh Rule PL1
 
@@ -92,12 +91,12 @@ SecRule ARGS "@contains OR 1=1" "id:942110, phase:2, t:lowercase, ..."
 
 **Cocok untuk:** Aplikasi yang sudah di-tune, mau deteksi lebih ketat.
 
-| Karakteristik    | Nilai                                         |
-| ---------------- | --------------------------------------------- |
-| FP relatif       | Rendah                                        |
-| Coverage         | SQLi dengan comment, XSS dengan event handler |
-| Threshold        | 5 (inbound)                                   |
-| Tambahan deteksi | Case toggling, basic obfuscation              |
+| Karakteristik | Nilai |
+|---|---|
+| FP relatif | Rendah |
+| Coverage | SQLi dengan comment, XSS dengan event handler |
+| Threshold | 5 (inbound) |
+| Tambahan deteksi | Case toggling, basic obfuscation |
 
 ### Contoh Rule PL2
 
@@ -114,11 +113,11 @@ SecRule ARGS "@rx (?i)'(?:--|#|/\*)" "id:942120, phase:2, \
 
 **Cocok untuk:** High-security apps dengan monitoring ketat.
 
-| Karakteristik | Nilai                                          |
-| ------------- | ---------------------------------------------- |
-| FP            | Tinggi — perlu tuning exclusion                |
-| Coverage      | URL encoding, unicode, white-space obfuscation |
-| Threshold     | 5 (inbound) — lebih mudah ter-trigger          |
+| Karakteristik | Nilai |
+|---|---|
+| FP | Tinggi — perlu tuning exclusion |
+| Coverage | URL encoding, unicode, white-space obfuscation |
+| Threshold | 5 (inbound) — lebih mudah ter-trigger |
 
 ### Contoh Rule PL3
 
@@ -135,12 +134,12 @@ SecRule ARGS "@rx %27[^%]*%6F%72" "id:942130, phase:2, \
 
 **Cocok untuk:** Pentest / CTF / security research.
 
-| Karakteristik | Nilai                                              |
-| ------------- | -------------------------------------------------- |
-| FP            | Sangat tinggi — hampir semua input mencurigakan    |
-| Coverage      | Semua encoding varian, double encoding, mixed case |
-| Threshold     | Mungkin perlu dinaikkan ke 10+                     |
-| Penggunaan    | Jangan di production tanpa exclusion rule          |
+| Karakteristik | Nilai |
+|---|---|
+| FP | Sangat tinggi — hampir semua input mencurigakan |
+| Coverage | Semua encoding varian, double encoding, mixed case |
+| Threshold | Mungkin perlu dinaikkan ke 10+ |
+| Penggunaan | Jangan di production tanpa exclusion rule |
 
 ### Contoh Rule PL4
 
@@ -159,12 +158,12 @@ Setiap rule match menambahkan skor ke anomaly counter.
 
 ### Per Severity
 
-| Severity | Skor | Contoh                 |
-| -------- | ---- | ---------------------- |
-| CRITICAL | 5    | SQLi, XSS, RCE         |
-| ERROR    | 4    | Protocol violation     |
-| WARNING  | 3    | Scanner detection      |
-| NOTICE   | 2    | Information disclosure |
+| Severity | Skor | Contoh |
+|---|---|---|
+| CRITICAL | 5 | SQLi, XSS, RCE |
+| ERROR | 4 | Protocol violation |
+| WARNING | 3 | Scanner detection |
+| NOTICE | 2 | Information disclosure |
 
 ### Per PL
 
@@ -238,14 +237,14 @@ pub fn score(&self) -> u32 {
 
 ### Perbandingan
 
-| Aspek              | CRS v4                                   | jarsWAF                             |
-| ------------------ | ---------------------------------------- | ----------------------------------- |
-| Paranoia levels    | PL1-PL4                                  | Belum ada 🎯                        |
-| Per-PL scoring     | `anomaly_score_pl[1-4]`                  | Single score                        |
-| Severity scoring   | CRITICAL=5, ERROR=4, WARNING=3, NOTICE=2 | Critical=5, High=4, Medium=3, Low=2 |
-| Accumulate mode    | Default                                  | `scoring_mode: "accumulate"`        |
-| Threshold mode     | Available                                | `scoring_mode: "threshold"`         |
-| Data files (.data) | `@pm from-file`                          | Belum ada 🎯                        |
+| Aspek | CRS v4 | jarsWAF |
+|---|---|---|
+| Paranoia levels | PL1-PL4 | Belum ada 🎯 |
+| Per-PL scoring | `anomaly_score_pl[1-4]` | Single score |
+| Severity scoring | CRITICAL=5, ERROR=4, WARNING=3, NOTICE=2 | Critical=5, High=4, Medium=3, Low=2 |
+| Accumulate mode | Default | `scoring_mode: "accumulate"` |
+| Threshold mode | Available | `scoring_mode: "threshold"` |
+| Data files (.data) | `@pm from-file` | Belum ada 🎯 |
 
 ### Rekomendasi
 

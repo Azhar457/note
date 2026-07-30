@@ -28,14 +28,14 @@ cssclasses:
 
 ## Daftar Isi
 
-1. [[#1. Masalah]]
+1. [[#1. Masalah: Memory Wall & Bandwidth Bottleneck]]
 2. [[#2. Binary Quantization — Definisi Formal]]
-3. [[#3. Transisi Metrik]]
+3. [[#3. Transisi Metrik: Cosine → Hamming]]
 4. [[#4. POPCOUNT — Hardware Primitive]]
-5. [[#5. Analisis Teoritis]]
+5. [[#5. Analisis Teoritis: Mengapa Binary Bekerja]]
 6. [[#6. Pola Implementasi — Packing, XOR, Unrolling]]
 7. [[#7. Trade-off & Mode Kegagalan]]
-8. [[#8. Matriks Perbandingan]]
+8. [[#8. Matriks Perbandingan: Float32 vs INT8 vs Binary]]
 9. [[#Referensi]]
 10. [[#Koneksi ke Vault]]
 
@@ -55,11 +55,11 @@ Ini adalah **raw vector storage** — belum termasuk index overhead. HNSW biasan
 
 Vector search di scale besar bersifat **memory-bound**, bukan compute-bound. Bottleneck-nya adalah memindahkan bytes dari DRAM ke CPU cache:
 
-| Metrik              | Arithmetic Intensity | Bottleneck          | Typical Throughput   |
-| ------------------- | -------------------- | ------------------- | -------------------- |
-| Cosine (float32)    | ~2 ops/byte          | Memory bandwidth    | 2-5 GB/s per channel |
-| Binary Hamming      | ~16 ops/byte         | Compute/SIMD width  | 10-50 GB/s effective |
-| Binary XOR + POPCNT | ~64 ops/byte         | CPU backend (ports) | >50 GB/s (AVX-512)   |
+| Metrik | Arithmetic Intensity | Bottleneck | Typical Throughput |
+|--------|---------------------|------------|-------------------|
+| Cosine (float32) | ~2 ops/byte | Memory bandwidth | 2-5 GB/s per channel |
+| Binary Hamming | ~16 ops/byte | Compute/SIMD width | 10-50 GB/s effective |
+| Binary XOR + POPCNT | ~64 ops/byte | CPU backend (ports) | >50 GB/s (AVX-512) |
 
 **The insight:** Binary vectors tidak cuma menghemat memori — mereka **mengubah regime bottleneck** dari memory-bound menjadi compute-bound. Pergeseran ini memungkinkan BLAS-level throughput dengan non-BLAS hardware (kernel-space, embedded, eBPF).
 
@@ -118,13 +118,11 @@ Layout word-aligned ini **krusial untuk performa**: setiap word bisa di-XOR dan 
 ### 2.3 Binary Quantization di Lingkungan Memory-Constrained
 
 Vektor 128-byte muat di:
-
 - **L1 cache** (32 KB) — ~250 vectors di L1 sekaligus
 - **L2 cache** (256 KB per core) — ~2000 vectors
 - **L3 cache** (8-16 MB shared) — ~62K-125K vectors
 
 Bandingkan dengan float32 1024-dim (4096 bytes):
-
 - **L1** — cuma ~8 vectors
 - **L2** — cuma ~64 vectors
 - **L3** — cuma ~2K-4K vectors
@@ -199,16 +197,16 @@ POPCNT r32, r/m32    ; 32-bit variant
 
 **Latency & Throughput per Microarchitecture:**
 
-| Microarchitecture                                   | POPCNT r64   | Latency (cycles) | Throughput (per cycle) | Execution Port |
-| --------------------------------------------------- | ------------ | ---------------- | ---------------------- | -------------- |
-| Nehalem (2008)                                      | 8-bit lookup | 15               | 1/4                    | Port 0         |
-| Haswell (2013)                                      | 64-bit       | 3                | 1/1                    | Port 1         |
-| Skylake (2015)                                      | 64-bit       | 3                | 1/1                    | Port 1         |
-| Ice Lake (2019)                                     | 64-bit       | 3                | 1/1                    | Port 1         |
-| Zen 2 (2019)                                        | 64-bit       | 3                | 1/3                    | Divergent      |
-| Zen 3 (2020)                                        | 64-bit       | 3                | 1/3                    | Divergent      |
-| Zen 4 (2022)                                        | 64-bit       | 2-3              | 1/2                    | Port 2         |
-| _Data dari uops.info, Agner Fog instruction tables_ |
+| Microarchitecture | POPCNT r64 | Latency (cycles) | Throughput (per cycle) | Execution Port |
+|-----------------|------------|-------------------|----------------------|----------------|
+| Nehalem (2008)  | 8-bit lookup | 15 | 1/4 | Port 0 |
+| Haswell (2013)  | 64-bit | 3 | 1/1 | Port 1 |
+| Skylake (2015)  | 64-bit | 3 | 1/1 | Port 1 |
+| Ice Lake (2019) | 64-bit | 3 | 1/1 | Port 1 |
+| Zen 2 (2019)    | 64-bit | 3 | 1/3 | Divergent |
+| Zen 3 (2020)    | 64-bit | 3 | 1/3 | Divergent |
+| Zen 4 (2022)    | 64-bit | 2-3 | 1/2 | Port 2 |
+|*Data dari uops.info, Agner Fog instruction tables*
 
 **Karakteristik performa:** POPCNT tidak throughput-limited pada CPU modern — eksekusinya 2-3 cycles, independen dari input (tidak data-dependent). Ini krusial untuk vector search: tidak ada early-out optimization; setiap XOR+POPCNT memakan waktu yang sama persis berapapun jumlah 1s yang ada.
 
@@ -273,7 +271,6 @@ LLVM meng-auto-vectorize ini ke SIMD ketika di-compile dengan `-C target-feature
 **Krusial untuk eBVC:** Linux eBPF verifier saat ini **TIDAK** mendukung POPCNT di kernel-space eBPF programs. BPF ISA tidak memiliki opcode `BPF_INSN_POPCNT` (per kernel 6.12, 2025).
 
 Workaround di eBVC adalah:
-
 1. **Userspace quantizer** (`quantizer.rs`) menghitung binary vectors dari float32 embeddings
 2. **eBPF maps** menyimpan pre-computed binary vectors
 3. **eBPF program** melakukan iterasi atas 16 × u64 dengan explicit XOR + manual bit-count loop (bounded, verifier-friendly)
@@ -315,13 +312,13 @@ Dua vectors yang dekat dalam cosine angle akan berbagi lebih banyak dimensi deng
 
 Performa binary quantization bergantung secara kritis pada **inherent dimensionality** $d_{\text{eff}}$ — dimensionalitas efektif dari embedding manifold:
 
-| Embedding Model        | Nominal $d$ | $d_{\text{eff}}$ | Binary Recall@10 | Catatan                               |
-| ---------------------- | ----------- | ---------------- | ---------------- | ------------------------------------- |
-| BERT-base (768-dim)    | 768         | ~40-60           | ~88-92%          | High isotropy loss                    |
-| text-embedding-3-small | 1536        | ~60-100          | ~90-93%          | OpenAI dim reduction membantu         |
-| Jina v5 (1024-dim)     | 1024        | ~80-120          | ~94-96%          | MRL training meningkatkan isotropy    |
-| CLIP (512-dim)         | 512         | ~30-50           | ~82-88%          | Multimodal = tidak isotropy-optimized |
-| Random $N(0,I)$        | 1024        | 1024             | ~0%              | Tidak ada struktur → sign meaningless |
+| Embedding Model | Nominal $d$ | $d_{\text{eff}}$ | Binary Recall@10 | Catatan |
+|----------------|-------------|------------------|-----------------|---------|
+| BERT-base (768-dim) | 768 | ~40-60 | ~88-92% | High isotropy loss |
+| text-embedding-3-small | 1536 | ~60-100 | ~90-93% | OpenAI dim reduction membantu |
+| Jina v5 (1024-dim) | 1024 | ~80-120 | ~94-96% | MRL training meningkatkan isotropy |
+| CLIP (512-dim) | 512 | ~30-50 | ~82-88% | Multimodal = tidak isotropy-optimized |
+| Random $N(0,I)$ | 1024 | 1024 | ~0% | Tidak ada struktur → sign meaningless |
 
 **Temuan kritis:** Binary quantization bekerja dengan baik ketika $d_{\text{eff}} \ll d$ — embedding manifold memiliki redundansi signifikan. Model MRL-trained modern (Jina v5, Cohere v3) secara eksplisit mengoptimalkan properti ini, menjadikannya kandidat ideal untuk BQ.
 
@@ -356,7 +353,6 @@ pub fn quantize_float32_to_binary(floats: &[f32]) -> BinaryVector {
 ```
 
 **Catatan optimasi:**
-
 - Manual unrolling (16 iterations) memungkinkan LLVM vectorize via SIMD
 - `i >> 6` menggantikan `i / 64` (strength reduction)
 - `i & 0x3F` menggantikan `i % 64` (bitwise masking)
@@ -412,11 +408,11 @@ import numpy as np
 def binary_quantize(vectors: np.ndarray, threshold: float = 0.0) -> np.ndarray:
     """
     Binary quantize float32 vectors.
-
+    
     Args:
         vectors: (n, d) float32 array, typically L2-normalized
         threshold: quantization threshold (default 0.0)
-
+    
     Returns:
         (n, d//8) uint8 binary vector packed representation
     """
@@ -431,11 +427,11 @@ def binary_quantize(vectors: np.ndarray, threshold: float = 0.0) -> np.ndarray:
 def hamming_distance_batch(query_bin: np.ndarray, db_bin: np.ndarray) -> np.ndarray:
     """
     Compute Hamming distance between query and all database vectors.
-
+    
     Args:
         query_bin: (d//8,) packed binary vector
         db_bin: (n, d//8) packed database
-
+    
     Returns:
         (n,) Hamming distances
     """
@@ -453,13 +449,13 @@ NumPy 2.0+ menggunakan `AVX-512 VPOPCNTDQ` di balik layar untuk `np.bitwise_coun
 
 ### 7.1 Kapan Binary Quantization Gagal
 
-| Mode Kegagalan                  | Penyebab                                                                                                          | Deteksi                                            | Mitigasi                                                                      |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **All-0s atau All-1s collapse** | Embedding model mengeluarkan constant-bias dimensions (misalnya setelah LayerNorm dengan learned bias)            | P(bit=1) across dataset jauh dari 0.5              | Center embedding (kurangi per-dimension mean sebelum quantization)            |
-| **Anisotropic embedding space** | Embedding ter-cluster dalam narrow cone → perbedaan angular kecil → Hamming distance kehilangan daya diskriminasi | Ukur cosine variability top-100 NN vs random pairs | Preprocess dengan ICA/whitening untuk hyperspherize                           |
-| **Low inherent dimensionality** | d_eff mendekati d → sign function meng-encode noise, bukan struktur                                               | PCA ratio: 90% variance di >> 50 components        | Jangan pakai binary — gunakan SQ8 atau PQ sebagai gantinya                    |
-| **Magnitude-critical task**     | Panjang dokumen, importance di-encode dalam vector magnitude                                                      | Gap performa cosine vs dot-product                 | Gunakan cosine hybrid (first pass binary, second pass cosine pada candidates) |
-| **Multi-vector queries**        | MRL slices, weighted queries membutuhkan continuous scores                                                        | Query memiliki parameter `dimensions` < full dim   | Encode di full dim, binary quantize pada search time                          |
+| Mode Kegagalan | Penyebab | Deteksi | Mitigasi |
+|--------------|---------|---------|----------|
+| **All-0s atau All-1s collapse** | Embedding model mengeluarkan constant-bias dimensions (misalnya setelah LayerNorm dengan learned bias) | P(bit=1) across dataset jauh dari 0.5 | Center embedding (kurangi per-dimension mean sebelum quantization) |
+| **Anisotropic embedding space** | Embedding ter-cluster dalam narrow cone → perbedaan angular kecil → Hamming distance kehilangan daya diskriminasi | Ukur cosine variability top-100 NN vs random pairs | Preprocess dengan ICA/whitening untuk hyperspherize |
+| **Low inherent dimensionality** | d_eff mendekati d → sign function meng-encode noise, bukan struktur | PCA ratio: 90% variance di >> 50 components | Jangan pakai binary — gunakan SQ8 atau PQ sebagai gantinya |
+| **Magnitude-critical task** | Panjang dokumen, importance di-encode dalam vector magnitude | Gap performa cosine vs dot-product | Gunakan cosine hybrid (first pass binary, second pass cosine pada candidates) |
+| **Multi-vector queries** | MRL slices, weighted queries membutuhkan continuous scores | Query memiliki parameter `dimensions` < full dim | Encode di full dim, binary quantize pada search time |
 
 ### 7.2 Kisah 100× Search Speedup
 
@@ -475,7 +471,6 @@ query = np.random.randn(1024).astype(np.float32)
 ```
 
 **Kenapa 100× dan bukan 32× (compression ratio)?** Karena:
-
 1. **Cache effects:** 100K binary vectors (12.8 MB) muat di L3 cache; 100K float32 (409 MB) tidak — mereka DRAM-bound, menambah 100-200 ns latency per access
 2. **SIMD width:** Satu VPOPCNTDQ memproses 512 bits (64 dims) sekaligus; float32 FMA memproses 8 × 32-bit = 256 bits per AVX-512 instruction
 3. **Tidak ada reduction step:** XOR+POPCNT menghasilkan per-word popcounts secara langsung; float32 dot product membutuhkan element-wise FMA + horizontal reduction
@@ -484,53 +479,53 @@ query = np.random.randn(1024).astype(np.float32)
 
 ## 8. Matriks Perbandingan: Float32 vs INT8 vs Binary
 
-| Aspek                               | Float32 (Baseline)    | INT8 (SQ8)               | Binary (1-bit)                |
-| ----------------------------------- | --------------------- | ------------------------ | ----------------------------- |
-| **Bytes per 1024-dim**              | 4096                  | 1024                     | 128                           |
-| **Rasio kompresi**                  | 1×                    | 4×                       | 32×                           |
-| **Search metric**                   | Cosine (dot)          | Cosine (INT8 dot)        | Hamming (XOR+POPCNT)          |
-| **Compute per comparison**          | 1024 FMA              | 1024 INT8 → FP32 dequant | 16 XOR + 16 POPCNT            |
-| **Instruction count (vector)**      | ~1024                 | ~1024 + dequant overhead | 2 VPOPCNTDQ + reduce          |
-| **Latency (100K, single core)**     | ~2-5 ms               | ~500-800 µs              | ~5-25 µs                      |
-| **Throughput (queries/sec, 1M DB)** | ~200-500              | ~1200-2000               | ~40,000-200,000               |
-| **Recall@10 (Jina v5)**             | 100%                  | ~99%                     | ~94-96%                       |
-| **DRAM bandwidth needed**           | 200 GB/s              | 50 GB/s                  | 6.25 GB/s                     |
-| **Cache friendliness**              | Buruk (L1: 8 vectors) | Sedang (L1: 32)          | Sangat baik (L1: 256)         |
-| **eBPF compatible**                 | ❌ (tidak ada FPU)    | ❌ (tidak ada INT8 dot)  | 🟡 Terbatas (manual popcount) |
-| **Fixed-function ASIC**             | ❌ (terlalu kompleks) | 🟡 Mungkin               | ✅ Trivial (XOR gate tree)    |
+| Aspek | Float32 (Baseline) | INT8 (SQ8) | Binary (1-bit) |
+|-------|-------------------|-----------|-----------------|
+| **Bytes per 1024-dim** | 4096 | 1024 | 128 |
+| **Rasio kompresi** | 1× | 4× | 32× |
+| **Search metric** | Cosine (dot) | Cosine (INT8 dot) | Hamming (XOR+POPCNT) |
+| **Compute per comparison** | 1024 FMA | 1024 INT8 → FP32 dequant | 16 XOR + 16 POPCNT |
+| **Instruction count (vector)** | ~1024 | ~1024 + dequant overhead | 2 VPOPCNTDQ + reduce |
+| **Latency (100K, single core)** | ~2-5 ms | ~500-800 µs | ~5-25 µs |
+| **Throughput (queries/sec, 1M DB)** | ~200-500 | ~1200-2000 | ~40,000-200,000 |
+| **Recall@10 (Jina v5)** | 100% | ~99% | ~94-96% |
+| **DRAM bandwidth needed** | 200 GB/s | 50 GB/s | 6.25 GB/s |
+| **Cache friendliness** | Buruk (L1: 8 vectors) | Sedang (L1: 32) | Sangat baik (L1: 256) |
+| **eBPF compatible** | ❌ (tidak ada FPU) | ❌ (tidak ada INT8 dot) | 🟡 Terbatas (manual popcount) |
+| **Fixed-function ASIC** | ❌ (terlalu kompleks) | 🟡 Mungkin | ✅ Trivial (XOR gate tree) |
 
 ---
 
 ## Referensi
 
-1.  H. Jegou, M. Douze, C. Schmid. _"Product Quantization for Nearest Neighbor Search."_ IEEE TPAMI, 2011. [arXiv:1007.1022](https://arxiv.org/abs/1007.1022)
-2.  T. Dao, D. Y. Fu, S. Ermon, A. Rudra, C. Ré. _"FlashAttention: Fast and Memory-Efficient Exact Attention."_ NeurIPS 2022. [arXiv:2205.14135](https://arxiv.org/abs/2205.14135)
-3.  A. Andoni, P. Indyk. _"Near-Optimal Hashing Algorithms for Approximate Nearest Neighbor in High Dimensions."_ FOCS 2006.
-4.  P. Indyk, R. Motwani. _"Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality."_ STOC 1998.
-5.  A. Rahimi, B. Recht. _"Random Features for Large-Scale Kernel Machines."_ NeurIPS 2007.
-6.  J. L. Bentley. _"Multidimensional Binary Search Trees in Database Applications."_ IEEE TSE, 1979.
-7.  Agner Fog. _"Instruction Tables: Lists of instruction latencies, throughputs and micro-operation breakdowns."_ (2023). https://www.agner.org/optimize/
-8.  uops.info. _"Instruction Latency and Throughput Table."_ (2024). https://uops.info/
-9.  Intel Intrinsics Guide. _"VPOPCNTDQ — Count of Bits Set to 1 in Packed Quadword."_ (2024).
+1.  H. Jegou, M. Douze, C. Schmid. *"Product Quantization for Nearest Neighbor Search."* IEEE TPAMI, 2011. [arXiv:1007.1022](https://arxiv.org/abs/1007.1022)
+2.  T. Dao, D. Y. Fu, S. Ermon, A. Rudra, C. Ré. *"FlashAttention: Fast and Memory-Efficient Exact Attention."* NeurIPS 2022. [arXiv:2205.14135](https://arxiv.org/abs/2205.14135)
+3.  A. Andoni, P. Indyk. *"Near-Optimal Hashing Algorithms for Approximate Nearest Neighbor in High Dimensions."* FOCS 2006.
+4.  P. Indyk, R. Motwani. *"Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality."* STOC 1998.
+5.  A. Rahimi, B. Recht. *"Random Features for Large-Scale Kernel Machines."* NeurIPS 2007.
+6.  J. L. Bentley. *"Multidimensional Binary Search Trees in Database Applications."* IEEE TSE, 1979.
+7.  Agner Fog. *"Instruction Tables: Lists of instruction latencies, throughputs and micro-operation breakdowns."* (2023). https://www.agner.org/optimize/
+8.  uops.info. *"Instruction Latency and Throughput Table."* (2024). https://uops.info/
+9.  Intel Intrinsics Guide. *"VPOPCNTDQ — Count of Bits Set to 1 in Packed Quadword."* (2024).
 10. Intel 64 and IA-32 Architectures Optimization Reference Manual. (2024).
-11. ARM Architecture Reference Manual ARMv8. _"CNT — Population Count per Byte."_ (2023).
-12. Jina AI. _"Jina Embeddings v5: Technical Report."_ (2025). https://jina.ai/embeddings/v5
-13. Cohere. _"Binary Embeddings: 100× Faster Search at 96% Accuracy."_ (2024). https://txt.cohere.com/introducing-binary-embeddings/
-14. Google. _"Matryoshka Representation Learning."_ NeurIPS 2022. [arXiv:2205.13147](https://arxiv.org/abs/2205.13147)
-15. L. McVoy, C. Staelin. _"lmbench: Portable tools for performance analysis."_ USENIX 1996.
-16. Linux Kernel BPF Documentation. _"BPF Instruction Set Architecture (ISA)."_ (2024). https://docs.kernel.org/bpf/standardization/instruction-set.html
-17. M. K. Chung. _"Computational Neuroanatomy: The Geometry of the Brain."_ 2013. (Chapter: Statistical Shape Analysis).
+11. ARM Architecture Reference Manual ARMv8. *"CNT — Population Count per Byte."* (2023).
+12. Jina AI. *"Jina Embeddings v5: Technical Report."* (2025). https://jina.ai/embeddings/v5
+13. Cohere. *"Binary Embeddings: 100× Faster Search at 96% Accuracy."* (2024). https://txt.cohere.com/introducing-binary-embeddings/
+14. Google. *"Matryoshka Representation Learning."* NeurIPS 2022. [arXiv:2205.13147](https://arxiv.org/abs/2205.13147)
+15. L. McVoy, C. Staelin. *"lmbench: Portable tools for performance analysis."* USENIX 1996.
+16. Linux Kernel BPF Documentation. *"BPF Instruction Set Architecture (ISA)."* (2024). https://docs.kernel.org/bpf/standardization/instruction-set.html
+17. M. K. Chung. *"Computational Neuroanatomy: The Geometry of the Brain."* 2013. (Chapter: Statistical Shape Analysis).
 
 ---
 
 ## Koneksi ke Vault
 
-| Catatan                                    | Koneksi                                                                                   |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| [[vector-quantization-hnsw-tuning]]        | SQ8 & PQ quantization — binary sebagai tingkat ekstrim kompresi, 32× vs 4-16×             |
-| [[vector-database-internals-optimization]] | §4.3 Binary Quantization — disebut 4 baris, catatan ini adalah ekspansi 200×              |
-| [[cosine-similarity-deepdive]]             | Transisi metrik Cosine → Hamming; referensi silang implementasi cosine                    |
-| [[jina-embeddings-v5-mrl-adapters]]        | Jina v5 1024-dim — binary quantization sebagai search tier                                |
-| [[hierarchy-recursive-ring-deepdive]]      | Phase transition: cosine→hamming sebagai descent Ring 3→Ring 0                            |
-| [[hierarchy-kernel-bypass-networking]]     | Keterbatasan eBPF POPCNT — mengapa kernel-space vector search butuh hardware acceleration |
-| [[ebpf-kernel-security]]                   | Kendala eBPF verifier — bounded loops untuk manual popcount                               |
+| Catatan | Koneksi |
+|---------|---------|
+| [[vector-quantization-hnsw-tuning]] | SQ8 & PQ quantization — binary sebagai tingkat ekstrim kompresi, 32× vs 4-16× |
+| [[vector-database-internals-optimization]] | §4.3 Binary Quantization — disebut 4 baris, catatan ini adalah ekspansi 200× |
+| [[cosine-similarity-deepdive]] | Transisi metrik Cosine → Hamming; referensi silang implementasi cosine |
+| [[jina-embeddings-v5-mrl-adapters]] | Jina v5 1024-dim — binary quantization sebagai search tier |
+| [[hierarchy-recursive-ring-deepdive]] | Phase transition: cosine→hamming sebagai descent Ring 3→Ring 0 |
+| [[hierarchy-kernel-bypass-networking]] | Keterbatasan eBPF POPCNT — mengapa kernel-space vector search butuh hardware acceleration |
+| [[ebpf-kernel-security]] | Kendala eBPF verifier — bounded loops untuk manual popcount |

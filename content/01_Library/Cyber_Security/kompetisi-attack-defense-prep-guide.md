@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#S1 — Format Attack Defense]]
 - [[#S2 — Web Exploitation Checklist]]
 - [[#S3 — Network & Service Exploitation]]
@@ -55,12 +54,12 @@ ROUND 2...
 
 ### Scoring
 
-| Aksi                  | Poin              |
-| --------------------- | ----------------- |
-| Flag capture (attack) | +N poin per flag  |
-| Service up (defense)  | +M poin per round |
-| Flag loss (kebobolan) | -P poin           |
-| Service down (crash)  | -Q poin           |
+| Aksi | Poin |
+|---|---|
+| Flag capture (attack) | +N poin per flag |
+| Service up (defense) | +M poin per round |
+| Flag loss (kebobolan) | -P poin |
+| Service down (crash) | -Q poin |
 
 **Prioritas:** Defense score + Service availability > Attack score. Menjaga service tetap up adalah prioritas #1.
 
@@ -80,15 +79,15 @@ ROUND 2...
 
 ### Quick Win Checklist
 
-| Vuln        | Deteksi                     | Exploit                               | Fix                        |
-| ----------- | --------------------------- | ------------------------------------- | -------------------------- |
-| SQLi        | `' OR 1=1 --`               | `sqlmap -u "http://target/page?id=1"` | Prepared statement         |
-| XSS         | `<script>alert(1)</script>` | steal cookie via webhook              | Output encoding            |
-| LFI         | `../../etc/passwd`          | RFI + inclusion                       | Path sanitization          |
-| SSTI        | `{{7*7}}` → `49`            | RCE via template                      | No user input in templates |
-| IDOR        | Change ID parameter         | Access other user data                | Server-side access control |
-| File Upload | Upload .php                 | Webshell via upload                   | Extension whitelist        |
-| SSRF        | URL parameter               | Internal network scan                 | URL allowlist              |
+| Vuln | Deteksi | Exploit | Fix |
+|---|---|---|---|
+| SQLi | `' OR 1=1 --` | `sqlmap -u "http://target/page?id=1"` | Prepared statement |
+| XSS | `<script>alert(1)</script>` | steal cookie via webhook | Output encoding |
+| LFI | `../../etc/passwd` | RFI + inclusion | Path sanitization |
+| SSTI | `{{7*7}}` → `49` | RCE via template | No user input in templates |
+| IDOR | Change ID parameter | Access other user data | Server-side access control |
+| File Upload | Upload .php | Webshell via upload | Extension whitelist |
+| SSRF | URL parameter | Internal network scan | URL allowlist |
 
 ### SQLMap Cheat
 
@@ -138,16 +137,16 @@ nmap -sV -p 6379 --script=redis* 10.10.10.10  # Redis
 
 ### Common Service Exploits
 
-| Port   | Service    | Common Vuln                  | Tool                         |
-| ------ | ---------- | ---------------------------- | ---------------------------- |
-| 21     | FTP        | Anonymous access, weak creds | `hydra -l ftp -P pass.txt`   |
-| 22     | SSH        | Default creds, weak keys     | `hydra`, `ssh-audit`         |
-| 80/443 | HTTP       | Web vuln (SQLi, XSS, LFI)    | Burp, SQLMap, Nuclei         |
-| 3306   | MySQL      | Root no password             | `mysql -h target -u root`    |
-| 6379   | Redis      | No auth, RCE via cron        | Redis-cli, SSH key overwrite |
-| 27017  | MongoDB    | No auth                      | `mongo target:27017`         |
-| 5432   | PostgreSQL | Weak creds                   | `psql -h target -U postgres` |
-| 8080   | HTTP Proxy | SSRF, open proxy             | Proxy chaining               |
+| Port | Service | Common Vuln | Tool |
+|---|---|---|---|
+| 21 | FTP | Anonymous access, weak creds | `hydra -l ftp -P pass.txt` |
+| 22 | SSH | Default creds, weak keys | `hydra`, `ssh-audit` |
+| 80/443 | HTTP | Web vuln (SQLi, XSS, LFI) | Burp, SQLMap, Nuclei |
+| 3306 | MySQL | Root no password | `mysql -h target -u root` |
+| 6379 | Redis | No auth, RCE via cron | Redis-cli, SSH key overwrite |
+| 27017 | MongoDB | No auth | `mongo target:27017` |
+| 5432 | PostgreSQL | Weak creds | `psql -h target -U postgres` |
+| 8080 | HTTP Proxy | SSRF, open proxy | Proxy chaining |
 
 ### Metasploit Quick
 
@@ -196,14 +195,14 @@ PIE:      PIE enabled            ← Address randomized
 
 ### Common Exploit Techniques
 
-| Vuln             | Condition                 | Teknik                      |
-| ---------------- | ------------------------- | --------------------------- |
-| Buffer overflow  | No canary, NX disabled    | Shellcode on stack          |
-| ROP              | No canary, NX enabled     | Return-oriented programming |
-| Format string    | `printf(user_input)`      | Memory read/write           |
-| Integer overflow | Arithmetic tanpa validasi | Bypass bounds check         |
-| Use-after-free   | Heap vuln                 | Heap spray + corrupt        |
-| Ret2libc         | ASLR but known libc       | Return to system()          |
+| Vuln | Condition | Teknik |
+|---|---|---|
+| Buffer overflow | No canary, NX disabled | Shellcode on stack |
+| ROP | No canary, NX enabled | Return-oriented programming |
+| Format string | `printf(user_input)` | Memory read/write |
+| Integer overflow | Arithmetic tanpa validasi | Bypass bounds check |
+| Use-after-free | Heap vuln | Heap spray + corrupt |
+| Ret2libc | ASLR but known libc | Return to system() |
 
 ### pwntools Template
 
@@ -234,15 +233,15 @@ r.interactive()
 
 ### Common CTF Crypto
 
-| Type          | Tool                                                                                | Approach            |
-| ------------- | ----------------------------------------------------------------------------------- | ------------------- |
-| Caesar/ROT    | `python -c "import codecs; print(codecs.decode('...', 'rot13'))"`                   | Brute force shift   |
-| Base64/32     | `echo '...'                                                                         | base64 -d`          | Decode |
-| XOR           | `python xor_crack.py`                                                               | Frequency analysis  |
-| RSA (small e) | `python -c "from Crypto.Util.number import *; print(long_to_bytes(pow(ct, e, n)))"` | Cube root           |
-| Vigenere      | `vigenere-decoder`                                                                  | Kasiski examination |
-| Hash crack    | `hashcat -m 0 hash.txt rockyou.txt`                                                 | Dictionary attack   |
-| AES-ECB       | Detect block pattern                                                                | Block manipulation  |
+| Type | Tool | Approach |
+|---|---|---|
+| Caesar/ROT | `python -c "import codecs; print(codecs.decode('...', 'rot13'))"` | Brute force shift |
+| Base64/32 | `echo '...' | base64 -d` | Decode |
+| XOR | `python xor_crack.py` | Frequency analysis |
+| RSA (small e) | `python -c "from Crypto.Util.number import *; print(long_to_bytes(pow(ct, e, n)))"` | Cube root |
+| Vigenere | `vigenere-decoder` | Kasiski examination |
+| Hash crack | `hashcat -m 0 hash.txt rockyou.txt` | Dictionary attack |
+| AES-ECB | Detect block pattern | Block manipulation |
 
 ### RSA Common Attack
 
@@ -352,23 +351,23 @@ tail -f /var/log/apache2/access.log | grep " 404 \| 403 \| 500 "
 
 ## S8 — Tool Priority Matrix
 
-| Attack Domain       | Tool #1           | Tool #2               | Tool #3    |
-| ------------------- | ----------------- | --------------------- | ---------- |
-| Web Exploit         | Burp Suite        | SQLMap                | Nuclei     |
-| Service Exploit     | Metasploit        | Nmap + NSE            | Hydra      |
-| Binary Exploit      | pwntools (Python) | Ghidra                | GDB + peda |
-| Crypto              | hashcat           | Python (pycryptodome) | CyberChef  |
-| Network Scan        | Nmap              | Masscan               | RustScan   |
-| Password Cracking   | Hashcat           | John                  | Hydra      |
-| Reverse Engineering | Ghidra            | radare2               | IDA Free   |
-| Recon               | Gobuster          | FFUF                  | Amass      |
+| Attack Domain | Tool #1 | Tool #2 | Tool #3 |
+|---|---|---|---|
+| Web Exploit | Burp Suite | SQLMap | Nuclei |
+| Service Exploit | Metasploit | Nmap + NSE | Hydra |
+| Binary Exploit | pwntools (Python) | Ghidra | GDB + peda |
+| Crypto | hashcat | Python (pycryptodome) | CyberChef |
+| Network Scan | Nmap | Masscan | RustScan |
+| Password Cracking | Hashcat | John | Hydra |
+| Reverse Engineering | Ghidra | radare2 | IDA Free |
+| Recon | Gobuster | FFUF | Amass |
 
-| Defense Domain | Tool #1                       | Tool #2                 |
-| -------------- | ----------------------------- | ----------------------- |
-| Hardening      | iptables/nftables             | `sed` + config template |
-| Monitoring     | tcpdump                       | journalctl              |
-| IDS            | Snort/Suricata (if available) | Log tail                |
-| Patch          | Source code edit              | Config lockdown         |
+| Defense Domain | Tool #1 | Tool #2 |
+|---|---|---|
+| Hardening | iptables/nftables | `sed` + config template |
+| Monitoring | tcpdump | journalctl |
+| IDS | Snort/Suricata (if available) | Log tail |
+| Patch | Source code edit | Config lockdown |
 
 ---
 

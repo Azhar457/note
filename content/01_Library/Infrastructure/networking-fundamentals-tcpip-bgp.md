@@ -1,21 +1,21 @@
 ---
-title: "Networking Fundamentals: TCP/IP, Routing & BGP untuk Security Engineer"
+title: 'Networking Fundamentals: TCP/IP, Routing & BGP untuk Security Engineer'
 tags:
-  - networking
-  - tcpip
-  - bgp
-  - routing
-  - osi-layer
-  - fundamentals
-  - library
+- networking
+- tcpip
+- bgp
+- routing
+- osi-layer
+- fundamentals
+- library
 aliases:
-  - tcpip-deepdive-security
-  - bgp-routing-attack-surface
-created: "2026-07-15"
-updated: "2026-07-15"
+- tcpip-deepdive-security
+- bgp-routing-attack-surface
+created: '2026-07-15'
+updated: '2026-07-15'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🌐 Networking Fundamentals: TCP/IP, Routing & BGP untuk Security Engineer
@@ -39,7 +39,7 @@ cssclasses:
 - [[#8. NAT, CGNAT & Carrier-Grade Tracking]]
 - [[#9. iptables/nftables — Packet Filtering dari Layer 3]]
 - [[#10. Tools untuk Network Security Engineer]]
-- [[#Homelab]]
+- [[#Homelab: Packet Analysis Playground]]
 - [[#Tabel Perbandingan]]
 - [[#🔗 Koneksi ke Catatan Lain]]
 - [[#✅ Checklist]]
@@ -60,13 +60,13 @@ cssclasses:
 
 Tiap layer punya **headers** yang ditambahkan (encapsulation) dan **attack surface** sendiri:
 
-| Layer         | Protocol     | Header Size | Attack Vector Umum                            |
-| ------------- | ------------ | ----------- | --------------------------------------------- |
-| L2 — Ethernet | MAC          | 14 byte     | MAC spoofing, ARP poison, STP manipulation    |
-| L3 — IP       | IPv4/IPv6    | 20-60 byte  | IP spoofing, fragmentation overlap, TTL abuse |
-| L4 — TCP      | TCP          | 20-60 byte  | SYN flood, RST injection, sequence prediction |
-| L4 — UDP      | UDP          | 8 byte      | UDP flood, DNS amplification, SSRF            |
-| L7 — App      | HTTP/DNS/... | Variable    | SQLi, XSS, RCE (ini urusan WAF)               |
+| Layer | Protocol | Header Size | Attack Vector Umum |
+|-------|----------|-------------|-------------------|
+| L2 — Ethernet | MAC | 14 byte | MAC spoofing, ARP poison, STP manipulation |
+| L3 — IP | IPv4/IPv6 | 20-60 byte | IP spoofing, fragmentation overlap, TTL abuse |
+| L4 — TCP | TCP | 20-60 byte | SYN flood, RST injection, sequence prediction |
+| L4 — UDP | UDP | 8 byte | UDP flood, DNS amplification, SSRF |
+| L7 — App | HTTP/DNS/... | Variable | SQLi, XSS, RCE (ini urusan WAF) |
 
 ### 1.2 Linux Kernel Packet Processing
 
@@ -94,7 +94,6 @@ Tiap layer punya **headers** yang ditambahkan (encapsulation) dan **attack surfa
 ```
 
 **Poin penting untuk security engineer:**
-
 - **Netfilter hooks** — tempat iptables/nftables bekerja. Lima hook: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING. Setiap hook bisa dipasangi rule untuk DROP, REJECT, LOG, atau NAT.
 - **XDP (eXpress Data Path)** — hook sebelum netfilter, di BPF program. Bisa drop packet di level driver, sebelum kernel menyentuhnya. Ini yang dipake [[ebpf-kernel-security]] dan [[ebpf-beyond-security]] untuk DDoS mitigation kecepatan tinggi.
 - **TLS** — terjadi di application layer (OpenSSL, rustls), kernel gak lihat isi. WAF harus terminate TLS dulu baru bisa inspect.
@@ -114,7 +113,6 @@ CLIENT                    SERVER
 ```
 
 **Kenapa ini penting buat detection:**
-
 - **SYN flood** — attacker kirim banyak SYN tanpa pernah completing handshake. Server allocates resources (TCB) buat tiap SYN → exhaustion. Mitigasi: SYN cookies (kernel default), rate limiting, XDP drop.
 - **Sequence number prediction** — jika attacker bisa predict seq number, dia bisa inject RST atau data palsu ke dalam koneksi. Kernel modern pake RFC 5961 (challenge ACK) untuk mitigasi.
 - **TCP Fast Open (TFO)** — kirim data di SYN packet. Legitimate untuk latency reduction, tapi bisa dipake buat data exfiltration via SYN packet yang gak dilog dengan baik.
@@ -158,14 +156,14 @@ CLIENT                    SERVER
 
 **Setiap state transition adalah potensi detection signal:**
 
-| Signal                               | Pattern                        | Kemungkinan                         |
-| ------------------------------------ | ------------------------------ | ----------------------------------- |
-| SYN → RST (tanpa SYN-ACK)            | Port scan (stealth SYN scan)   | 🟥 High — hampir pasti scan         |
-| SYN → SYN-SENT → timeout             | Host down atau firewall block  | 🟨 Medium — bisa juga network issue |
-| Banyak SYN_SENT ke port berbeda      | Horizontal port scan           | 🟥 High                             |
-| Banyak SYN ke port sama dari IP beda | DDoS atau distributed scan     | 🟥 High                             |
-| FIN_WAIT1 dalam jumlah besar         | Attacker kirim FIN tanpa ACK   | 🟨 Medium                           |
-| ESTABLISHED tiba-tiba → RST          | Session hijack / RST injection | 🟧 Medium-High                      |
+| Signal | Pattern | Kemungkinan |
+|--------|---------|-------------|
+| SYN → RST (tanpa SYN-ACK) | Port scan (stealth SYN scan) | 🟥 High — hampir pasti scan |
+| SYN → SYN-SENT → timeout | Host down atau firewall block | 🟨 Medium — bisa juga network issue |
+| Banyak SYN_SENT ke port berbeda | Horizontal port scan | 🟥 High |
+| Banyak SYN ke port sama dari IP beda | DDoS atau distributed scan | 🟥 High |
+| FIN_WAIT1 dalam jumlah besar | Attacker kirim FIN tanpa ACK | 🟨 Medium |
+| ESTABLISHED tiba-tiba → RST | Session hijack / RST injection | 🟧 Medium-High |
 
 ---
 
@@ -184,22 +182,20 @@ Fragment 2: [IP hdr (20)] [More Fragments=0] [Offset=185] [Data (40)]           
 ```
 
 **Field kunci di IP header fragment:**
-
 - **Identification** (16-bit) — semua fragment dari packet yang sama punya ID sama
 - **More Fragments (MF)** — 1 = ada fragment berikutnya, 0 = fragment terakhir
 - **Fragment Offset** (13-bit) — posisi fragment ini dalam packet original (diukur dalam 8-byte unit)
 
 ### 2.2 Fragmentation Attack Vectors
 
-| Attack               | Cara Kerja                                                                              | Deteksi                                              |
-| -------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| **Tiny Fragment**    | Fragment pertama terlalu kecil untuk muat TCP header → firewall lewatin                 | Firewall harus reassemble sebelum rule matching      |
-| **Fragment Overlap** | Fragment kedua menimpa data fragment pertama (overwrite TCP header)                     | IDS harus deteksi overlap via reassembly             |
-| **Fragment Flood**   | Kirim banyak fragment tanpa fragment terakhir (MF=1 terus) → target habis memory nunggu | Rate limit per source, timeout reassembly            |
-| **Teardrop**         | Fragment overlap yang salah (offset inconsistent) → crash stack                         | Patched sejak kernel 2.0.x, tapi masih muncul di IoT |
+| Attack | Cara Kerja | Deteksi |
+|--------|-----------|---------|
+| **Tiny Fragment** | Fragment pertama terlalu kecil untuk muat TCP header → firewall lewatin | Firewall harus reassemble sebelum rule matching |
+| **Fragment Overlap** | Fragment kedua menimpa data fragment pertama (overwrite TCP header) | IDS harus deteksi overlap via reassembly |
+| **Fragment Flood** | Kirim banyak fragment tanpa fragment terakhir (MF=1 terus) → target habis memory nunggu | Rate limit per source, timeout reassembly |
+| **Teardrop** | Fragment overlap yang salah (offset inconsistent) → crash stack | Patched sejak kernel 2.0.x, tapi masih muncul di IoT |
 
 **Mitigasi modern:**
-
 - **Path MTU Discovery (PMTUD)** — kernel detect MTU path otomatis. Tapi sering broken karena ICMP "Fragmentation Needed" diblok firewall.
 - **TCP MSS Clamping** — proxy ngatur MSS (Maximum Segment Size) biar gak perlu fragmentasi.
 - **DF (Don't Fragment) bit** — set DF → kernel kirim ICMP "too big" instead of fragmenting. Problem: ICMP sering diblok.
@@ -253,13 +249,13 @@ conntrack -S
 
 **State table untuk stateful firewall:**
 
-| State       | Arti                                            | Firewall Action           |
-| ----------- | ----------------------------------------------- | ------------------------- |
-| NEW         | Packet pertama, belum lihat response            | Allow? (tapi hati-hati)   |
-| ESTABLISHED | Bagian dari koneksi existing                    | ✅ Allow                  |
-| RELATED     | Terkait koneksi existing (ICMP error, FTP data) | ✅ Allow (dengan caution) |
-| INVALID     | Paket corrupted atau state gak cocok            | ❌ Drop — biasanya attack |
-| UNTRACKED   | Lewat dari rule NOTRACK                         | Tergantung rule           |
+| State | Arti | Firewall Action |
+|-------|------|-----------------|
+| NEW | Packet pertama, belum lihat response | Allow? (tapi hati-hati) |
+| ESTABLISHED | Bagian dari koneksi existing | ✅ Allow |
+| RELATED | Terkait koneksi existing (ICMP error, FTP data) | ✅ Allow (dengan caution) |
+| INVALID | Paket corrupted atau state gak cocok | ❌ Drop — biasanya attack |
+| UNTRACKED | Lewat dari rule NOTRACK | Tergantung rule |
 
 ### 3.2 SYN Cookies — Defense Against SYN Flood
 
@@ -297,13 +293,13 @@ tcpdump -i eth0 -nn 'tcp[tcpflags] & (tcp-syn) != 0 and tcp[tcpflags] & (tcp-ack
 
 ### 4.1 UDP vs TCP untuk Security
 
-| Aspek               | TCP                     | UDP                              |
-| ------------------- | ----------------------- | -------------------------------- |
-| Stateful            | ✅ Ya (sequence, ack)   | ❌ Tidak (fire-and-forget)       |
-| Connection tracking | Mudah (conntrack)       | Sulit (timeout-based)            |
-| Spoofing            | Sulit (seq num)         | Mudah (source IP bisa palsu)     |
-| Amplification       | Tidak mungkin           | ✅ Mungkin (DNS, NTP, Memcached) |
-| Fragmentasi         | Hanya setelah handshake | Kapan saja                       |
+| Aspek | TCP | UDP |
+|-------|-----|-----|
+| Stateful | ✅ Ya (sequence, ack) | ❌ Tidak (fire-and-forget) |
+| Connection tracking | Mudah (conntrack) | Sulit (timeout-based) |
+| Spoofing | Sulit (seq num) | Mudah (source IP bisa palsu) |
+| Amplification | Tidak mungkin | ✅ Mungkin (DNS, NTP, Memcached) |
+| Fragmentasi | Hanya setelah handshake | Kapan saja |
 
 ### 4.2 UDP Amplification Attack
 
@@ -320,7 +316,6 @@ Attacker            DNS Server (open resolver)            Victim
 ```
 
 **Mitigasi:**
-
 - **BCP38** — jangan forward packet dengan source IP yang不属于 jaringan lo (ingress filtering)
 - **Rate limit per source IP** untuk DNS/NTP response
 - **Disable open resolvers** — jangan biarkan DNS server lo menjawab query dari arbitrary source
@@ -384,13 +379,13 @@ BGP Decision Process (urutan prioritas):
 
 **BGP Message Types:**
 
-| Type          | Function                  | Size                  |
-| ------------- | ------------------------- | --------------------- |
-| OPEN          | Establish session         | ~30 bytes             |
-| UPDATE        | Advertise/withdraw routes | Variable (up to 4096) |
-| NOTIFICATION  | Error reporting           | ~20 bytes             |
-| KEEPALIVE     | Session liveness          | 19 bytes              |
-| ROUTE-REFRESH | Request re-advertisement  | ~23 bytes             |
+| Type | Function | Size |
+|------|----------|------|
+| OPEN | Establish session | ~30 bytes |
+| UPDATE | Advertise/withdraw routes | Variable (up to 4096) |
+| NOTIFICATION | Error reporting | ~20 bytes |
+| KEEPALIVE | Session liveness | 19 bytes |
+| ROUTE-REFRESH | Request re-advertisement | ~23 bytes |
 
 ### 5.4 BGP Session Protection
 
@@ -413,7 +408,6 @@ ip prefix-list PL-IMPORT seq 10 permit 0.0.0.0/0 ge 24   # Hanya /24+
 ```
 
 **Best practice security BGP:**
-
 - **TTL Security (GTSM)** — set TTL=255, drop kalo <254 (cegah remote injection)
 - **Prefix filtering** — jangan advertise prefix yang bukan milik lo, jangan terima prefix yang seharusnya gak lewat
 - **Max prefix limit** — putus session jika neighbor advertise > N prefix
@@ -438,7 +432,6 @@ Hijacked Route:
 ```
 
 **Real incidents:**
-
 - **2008 — Pakistan YouTube block** — Pakistan Telecom advertise /22 YouTube prefix; traffic global dialihkan
 - **2018 — MyEtherWallet** — AWS DNS server BGP hijack → DNS redirect ke phishing site
 - **2019 — China Telecom hijack** — 37 menit route leak via Google, Amazon, Akamai traffic
@@ -451,7 +444,7 @@ Route leak terjadi ketika AS mengumumkan route ke ISP upstream yang seharusnya h
 ```
 Leak pattern:
   AS64501 (customer) ← AS64502 (transit) ← AS64503 (large ISP)
-
+  
   Leak: AS64501 advertise route "I can reach anything" via default route ke AS64502
   → AS64502 percaya → semua traffic ke 0.0.0.0/0 lewat AS64501
   → AS64501 overload, traffic drop
@@ -459,14 +452,14 @@ Leak pattern:
 
 ### 6.3 Mitigation Techniques
 
-| Technique                           | Deskripsi                                           | Coverage              |
-| ----------------------------------- | --------------------------------------------------- | --------------------- |
-| **RPKI (ROA)**                      | Signed object yang bind prefix → origin AS          | 40% global (tumbuh)   |
-| **BGPsec**                          | Sign tiap AS hop dalam path                         | < 1% deployment       |
-| **IRR (Internet Routing Registry)** | Database rute legit, masih manual                   | Outdated sering       |
-| **Prefix lists**                    | Filter manual by AS + prefix                        | Best effort           |
-| **AS_PATH filtering**               | Jangan terima prefix dengan AS_PATH yang suspicious | Manual setup          |
-| **BGP community**                   | Tag route dengan community → filter otomatis        | Operational agreement |
+| Technique | Deskripsi | Coverage |
+|-----------|-----------|----------|
+| **RPKI (ROA)** | Signed object yang bind prefix → origin AS | 40% global (tumbuh) |
+| **BGPsec** | Sign tiap AS hop dalam path | < 1% deployment |
+| **IRR (Internet Routing Registry)** | Database rute legit, masih manual | Outdated sering |
+| **Prefix lists** | Filter manual by AS + prefix | Best effort |
+| **AS_PATH filtering** | Jangan terima prefix dengan AS_PATH yang suspicious | Manual setup |
+| **BGP community** | Tag route dengan community → filter otomatis | Operational agreement |
 
 ```bash
 # RPKI validation dengan Routinator
@@ -530,12 +523,12 @@ Prinsip: **setiap host adalah segmen sendiri**. Dipake di [[zero-trust-security]
 
 ### 8.1 NAT Types
 
-| Type                       | Behavior                                          | Use Case                 |
-| -------------------------- | ------------------------------------------------- | ------------------------ |
-| **SNAT (Source NAT)**      | Ganti source IP + port outbound                   | Internet access dari LAN |
-| **DNAT (Destination NAT)** | Ganti dest IP + port inbound                      | Port forwarding          |
-| **MASQUERADE**             | SNAT tapi source IP dinamis (PPPoE)               | Home router              |
-| **CGNAT (Carrier-Grade)**  | NAT di ISP level, satu IP publik ribuan pelanggan | IPv4 exhaustion          |
+| Type | Behavior | Use Case |
+|------|----------|----------|
+| **SNAT (Source NAT)** | Ganti source IP + port outbound | Internet access dari LAN |
+| **DNAT (Destination NAT)** | Ganti dest IP + port inbound | Port forwarding |
+| **MASQUERADE** | SNAT tapi source IP dinamis (PPPoE) | Home router |
+| **CGNAT (Carrier-Grade)** | NAT di ISP level, satu IP publik ribuan pelanggan | IPv4 exhaustion |
 
 ### 8.2 CGNAT Problem untuk Attribution
 
@@ -626,10 +619,10 @@ int xdp_drop_ddos(struct xdp_md *ctx) {
     void *data_end = (void *)(long)ctx->data_end;
     void *data = (void *)(long)ctx->data;
     struct ethhdr *eth = data;
-
+    
     if ((void *)(eth + 1) > data_end)
         return XDP_PASS;
-
+    
     // Drop traffic from known bad IPs
     if (eth->h_proto == htons(ETH_P_IP)) {
         struct iphdr *ip = data + sizeof(*eth);
@@ -646,20 +639,20 @@ int xdp_drop_ddos(struct xdp_md *ctx) {
 
 ## 10. Tools untuk Network Security Engineer
 
-| Tool                      | Fungsinya                          | Layer |
-| ------------------------- | ---------------------------------- | ----- |
-| **tcpdump**               | Packet capture & analysis          | L2-L7 |
-| **tshark**                | CLI Wireshark, protocol dissection | L2-L7 |
-| **nmap**                  | Port scan, service detection       | L3-L4 |
-| **masscan**               | High-speed port scan (10M pps)     | L3-L4 |
-| **Scapy**                 | Python packet crafting & injection | L2-L4 |
-| **netstat/ss**            | Socket statistics                  | L4-L7 |
-| **conntrack**             | Connection tracking table          | L3-L4 |
-| **iptables/nftables**     | Packet filtering & NAT             | L3-L4 |
-| **tc**                    | Traffic control (QoS, shaping)     | L3    |
-| **iftop/nload**           | Bandwidth monitoring               | L2-L4 |
-| **BGP.tools**             | BGP route lookup & history         | L3    |
-| **RIPE RIS / RouteViews** | Global routing table               | L3    |
+| Tool | Fungsinya | Layer |
+|------|-----------|-------|
+| **tcpdump** | Packet capture & analysis | L2-L7 |
+| **tshark** | CLI Wireshark, protocol dissection | L2-L7 |
+| **nmap** | Port scan, service detection | L3-L4 |
+| **masscan** | High-speed port scan (10M pps) | L3-L4 |
+| **Scapy** | Python packet crafting & injection | L2-L4 |
+| **netstat/ss** | Socket statistics | L4-L7 |
+| **conntrack** | Connection tracking table | L3-L4 |
+| **iptables/nftables** | Packet filtering & NAT | L3-L4 |
+| **tc** | Traffic control (QoS, shaping) | L3 |
+| **iftop/nload** | Bandwidth monitoring | L2-L4 |
+| **BGP.tools** | BGP route lookup & history | L3 |
+| **RIPE RIS / RouteViews** | Global routing table | L3 |
 
 ---
 
@@ -689,25 +682,25 @@ sudo tcpdump -i eth0 -nn 'udp port 53 and greater 512'
 
 ### Layer 4 vs Layer 7 Filtering
 
-| Aspek          | Layer 4 (iptables)       | Layer 7 (WAF/Proxy)       |
-| -------------- | ------------------------ | ------------------------- |
-| Kecepatan      | 🟢 Kernel level          | 🟡 Userspace              |
-| Visibilitas    | ❌ IP:Port only          | ✅ Full content           |
-| State tracking | ✅ conntrack             | ✅ Session management     |
-| Attacker evade | 🟡 IP spoof              | ❌ HTTP manipulation      |
-| Resource usage | Sangat rendah            | Moderate to high          |
-| Contoh tools   | iptables, nftables, eBPF | Nginx, ModSecurity, Envoy |
+| Aspek | Layer 4 (iptables) | Layer 7 (WAF/Proxy) |
+|-------|-------------------|---------------------|
+| Kecepatan | 🟢 Kernel level | 🟡 Userspace |
+| Visibilitas | ❌ IP:Port only | ✅ Full content |
+| State tracking | ✅ conntrack | ✅ Session management |
+| Attacker evade | 🟡 IP spoof | ❌ HTTP manipulation |
+| Resource usage | Sangat rendah | Moderate to high |
+| Contoh tools | iptables, nftables, eBPF | Nginx, ModSecurity, Envoy |
 
 ### Routing Protocols
 
-| Aspek          | OSPF             | IS-IS               | BGP               |
-| -------------- | ---------------- | ------------------- | ----------------- |
-| Type           | Link-state       | Link-state          | Path-vector       |
-| Metric         | Cost (bandwidth) | Metric (default 10) | Path attributes   |
-| Convergence    | Fast             | Fast                | Slow              |
-| Scalability    | Area-based       | Level-based         | AS-based          |
-| Auth           | MD5/HMAC         | HMAC-SHA            | TCP MD5           |
-| Attack surface | LSA injection    | Similar to OSPF     | Route hijack/leak |
+| Aspek | OSPF | IS-IS | BGP |
+|-------|------|-------|-----|
+| Type | Link-state | Link-state | Path-vector |
+| Metric | Cost (bandwidth) | Metric (default 10) | Path attributes |
+| Convergence | Fast | Fast | Slow |
+| Scalability | Area-based | Level-based | AS-based |
+| Auth | MD5/HMAC | HMAC-SHA | TCP MD5 |
+| Attack surface | LSA injection | Similar to OSPF | Route hijack/leak |
 
 ---
 

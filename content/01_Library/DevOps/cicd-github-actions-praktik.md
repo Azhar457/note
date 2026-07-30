@@ -62,49 +62,49 @@ Event Trigger → Job(s) → Steps → Actions/Scripts → Artifacts/Deploy
 # .github/workflows/deploy.yml
 name: Deploy to Production
 
-on: # 🔫 TRIGGER
+on:                                   # 🔫 TRIGGER
   push:
     branches: [main]
   pull_request:
     branches: [staging]
-  workflow_dispatch: # manual trigger
+  workflow_dispatch:                  # manual trigger
     inputs:
       environment:
         type: choice
         options: [staging, production]
 
-concurrency: # cegah race condition
+concurrency:                          # cegah race condition
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions: # 🔐 least privilege
+permissions:                          # 🔐 least privilege
   contents: read
   packages: write
 
-env: # environment variables
+env:                                  # environment variables
   NODE_VERSION: 22
   REGISTRY: ghcr.io
 
 jobs:
-  build: # 🏗️ JOB 1: Build
+  build:                              # 🏗️ JOB 1: Build
     runs-on: ubuntu-latest
     outputs:
       image_tag: ${{ steps.tag.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Build
-        run: npm ci && npm run build
-      - name: Set tag
-        id: tag
-        run: echo "tag=$(date +%s)" >> $GITHUB_OUTPUT
+    - uses: actions/checkout@v4
+    - name: Build
+      run: npm ci && npm run build
+    - name: Set tag
+      id: tag
+      run: echo "tag=$(date +%s)" >> $GITHUB_OUTPUT
 
-  deploy: # 🚀 JOB 2: Deploy (menunggu build)
+  deploy:                             # 🚀 JOB 2: Deploy (menunggu build)
     needs: build
     runs-on: self-hosted
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Deploy
-        run: ./deploy.sh
+    - name: Deploy
+      run: ./deploy.sh
 ```
 
 ---
@@ -115,31 +115,31 @@ jobs:
 
 ```yaml
 on:
-  push: # Setiap push
+  push:                               # Setiap push
     branches: [main, staging]
-    paths-ignore: ["*.md", "docs/**"] # skip kalo cuma dokumentasi
+    paths-ignore: ['*.md', 'docs/**']  # skip kalo cuma dokumentasi
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
-  schedule: # Cron
-    - cron: "0 6 * * 1" # Every Monday 6 AM
-  workflow_call: # Reusable workflow
-  workflow_dispatch: # Manual
+  schedule:                           # Cron
+    - cron: '0 6 * * 1'              # Every Monday 6 AM
+  workflow_call:                      # Reusable workflow
+  workflow_dispatch:                  # Manual
     inputs:
       dry_run:
-        description: "Deploy dry run"
+        description: 'Deploy dry run'
         type: boolean
         default: false
 ```
 
 ### Runners
 
-| Runner           | Use Case                           | Cost                  |
-| ---------------- | ---------------------------------- | --------------------- |
-| `ubuntu-latest`  | Build, test, lint                  | Free (2000 min/month) |
-| `windows-latest` | .NET, Win app                      | Free quota            |
-| `macos-latest`   | iOS, macOS app                     | Terbatas              |
-| `self-hosted`    | GPU, internal network, large cache | Infra sendiri         |
+| Runner | Use Case | Cost |
+|--------|----------|------|
+| `ubuntu-latest` | Build, test, lint | Free (2000 min/month) |
+| `windows-latest` | .NET, Win app | Free quota |
+| `macos-latest` | iOS, macOS app | Terbatas |
+| `self-hosted` | GPU, internal network, large cache | Infra sendiri |
 
 ### Reusable Workflow
 
@@ -159,20 +159,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npm run build
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build
 
 # ---------- Panggil dari workflow lain ----------
 jobs:
   build-api:
     uses: ./.github/workflows/build-node.yml
     with:
-      node-version: "22"
+      node-version: '22'
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
@@ -189,7 +189,7 @@ name: Node.js CI
 on:
   push:
     branches: [main, staging]
-    paths-ignore: ["*.md"]
+    paths-ignore: ['*.md']
   pull_request:
     branches: [main]
 
@@ -202,13 +202,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-      - run: npm ci
-      - run: npm run lint
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run lint
 
   test:
     needs: lint
@@ -217,7 +217,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [18, 20, 22]
-    services: # 🐳 spin up service container
+    services:                         # 🐳 spin up service container
       postgres:
         image: postgres:17-alpine
         env:
@@ -235,24 +235,24 @@ jobs:
         ports:
           - 6379:6379
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npx prisma generate
-      - name: Run tests
-        run: npm test
-        env:
-          DATABASE_URL: postgresql://postgres:test@localhost:5432/test
-          REDIS_URL: redis://localhost:6379
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-report-${{ matrix.node-version }}
-          path: junit.xml
-          retention-days: 7
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npx prisma generate
+    - name: Run tests
+      run: npm test
+      env:
+        DATABASE_URL: postgresql://postgres:test@localhost:5432/test
+        REDIS_URL: redis://localhost:6379
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-report-${{ matrix.node-version }}
+        path: junit.xml
+        retention-days: 7
 ```
 
 ---
@@ -267,7 +267,7 @@ name: Build and Push Container
 on:
   push:
     branches: [main]
-    tags: ["v*"]
+    tags: ['v*']
 
 env:
   REGISTRY: ghcr.io
@@ -280,43 +280,43 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-      - name: Log in to registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+    - name: Log in to registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{version}}
+          type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
-      - name: Sign image (cosign)
-        uses: sigstore/cosign-installer@v3
-      - run: |
-          cosign sign --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_KEY }}
+    - name: Sign image (cosign)
+      uses: sigstore/cosign-installer@v3
+    - run: |
+        cosign sign --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+      env:
+        COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_KEY }}
 ```
 
 ---
@@ -342,43 +342,43 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-      - run: npm ci
-      - run: npx prisma generate
-        env:
-          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
-      - run: npm run build
-      - run: rm -rf node_modules && npm ci --production
-      - run: tar -czf deploy.tar.gz dist node_modules package.json prisma
-      - uses: actions/upload-artifact@v4
-        with:
-          name: deploy-artifact
-          path: deploy.tar.gz
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: 'npm'
+    - run: npm ci
+    - run: npx prisma generate
+      env:
+        DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+    - run: npm run build
+    - run: rm -rf node_modules && npm ci --production
+    - run: tar -czf deploy.tar.gz dist node_modules package.json prisma
+    - uses: actions/upload-artifact@v4
+      with:
+        name: deploy-artifact
+        path: deploy.tar.gz
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: deploy-artifact
-      - name: Copy & restart via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ env.DEPLOY_HOST }}
-          username: ${{ env.DEPLOY_USER }}
-          key: ${{ secrets.VPS1_SSH_KEY }}
-          script: |
-            mkdir -p ${{ env.DEPLOY_PATH }}
-            cd ${{ env.DEPLOY_PATH }}
-            tar -xzf /tmp/deploy.tar.gz -C ${{ env.DEPLOY_PATH }}
-            # Atau lewat rsync dari artifacts yang di-copy
-            npx prisma generate
-            pm2 restart ${{ env.PM2_NAME }} --update-env
+    - uses: actions/download-artifact@v4
+      with:
+        name: deploy-artifact
+    - name: Copy & restart via SSH
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ env.DEPLOY_HOST }}
+        username: ${{ env.DEPLOY_USER }}
+        key: ${{ secrets.VPS1_SSH_KEY }}
+        script: |
+          mkdir -p ${{ env.DEPLOY_PATH }}
+          cd ${{ env.DEPLOY_PATH }}
+          tar -xzf /tmp/deploy.tar.gz -C ${{ env.DEPLOY_PATH }}
+          # Atau lewat rsync dari artifacts yang di-copy
+          npx prisma generate
+          pm2 restart ${{ env.PM2_NAME }} --update-env
 ```
 
 ### Pattern Aman — rsync --exclude
@@ -410,26 +410,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH Deploy
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS1_HOST }}
-          username: ${{ secrets.VPS1_USER }}
-          key: ${{ secrets.VPS1_SSH_KEY }}
-          script: |
-            # Pull latest image
-            podman pull ${{ env.IMAGE }}:latest
+    - name: SSH Deploy
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.VPS1_HOST }}
+        username: ${{ secrets.VPS1_USER }}
+        key: ${{ secrets.VPS1_SSH_KEY }}
+        script: |
+          # Pull latest image
+          podman pull ${{ env.IMAGE }}:latest
 
-            # Stop & remove old container
-            podman stop myapp 2>/dev/null || true
-            podman rm myapp 2>/dev/null || true
+          # Stop & remove old container
+          podman stop myapp 2>/dev/null || true
+          podman rm myapp 2>/dev/null || true
 
-            # Run new container
-            podman run -d --name myapp             --restart=always             -p 3010:3000             --env-file /home/dev/.env/myapp.env             ${{ env.IMAGE }}:latest
+          # Run new container
+          podman run -d --name myapp             --restart=always             -p 3010:3000             --env-file /home/dev/.env/myapp.env             ${{ env.IMAGE }}:latest
 
-            # Health check
-            sleep 3
-            curl -sf http://localhost:3010/health && echo "✅ Healthy" || echo "❌ Failed"
+          # Health check
+          sleep 3
+          curl -sf http://localhost:3010/health && echo "✅ Healthy" || echo "❌ Failed"
 ```
 
 ---
@@ -512,10 +512,10 @@ jobs:
       name: production
       url: https://app.mycompany.com
     steps:
-      - name: Deploy
-        env:
-          PROD_KEY: ${{ secrets.PROD_API_KEY }}
-        run: ./deploy.sh
+    - name: Deploy
+      env:
+        PROD_KEY: ${{ secrets.PROD_API_KEY }}
+      run: ./deploy.sh
 ```
 
 ### OIDC — Credential-less Cloud Auth
@@ -525,16 +525,16 @@ jobs:
 jobs:
   deploy-aws:
     permissions:
-      id-token: write # needed for OIDC
+      id-token: write   # needed for OIDC
       contents: read
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::123456789:role/GitHubActionsRole
-          aws-region: ap-southeast-1
-      - name: Deploy to ECS
-        run: aws ecs update-service --cluster prod --service api --force-new-deployment
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::123456789:role/GitHubActionsRole
+        aws-region: ap-southeast-1
+    - name: Deploy to ECS
+      run: aws ecs update-service --cluster prod --service api --force-new-deployment
 ```
 
 ---
@@ -555,31 +555,31 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-      - uses: github/codeql-action/analyze@v3
+    - uses: actions/checkout@v4
+    - uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
+    - uses: github/codeql-action/analyze@v3
 
   deps:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/dependency-review-action@v4
-        with:
-          fail-on-severity: high
+    - uses: actions/checkout@v4
+    - uses: actions/dependency-review-action@v4
+      with:
+        fail-on-severity: high
 
   trivy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Trivy scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: "fs"
-          scan-ref: "."
-          format: "sarif"
-          output: "trivy-results.sarif"
+    - uses: actions/checkout@v4
+    - name: Trivy scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
 ```
 
 ---
@@ -643,23 +643,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # jangan cancel job lain kalo satu gagal
+      fail-fast: false                # jangan cancel job lain kalo satu gagal
       matrix:
         node-version: [20, 22]
-        package: [api, web, worker] # service di monorepo
+        package: [api, web, worker]   # service di monorepo
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
-      - name: Install & Test package
-        working-directory: packages/${{ matrix.package }}
-        run: |
-          npm ci
-          npm test
+    - name: Install & Test package
+      working-directory: packages/${{ matrix.package }}
+      run: |
+        npm ci
+        npm test
 ```
 
 ### Include / Exclude — Koreksi Kombinasi
@@ -692,10 +692,10 @@ jobs:
     outputs:
       packages: ${{ steps.set-matrix.outputs.packages }}
     steps:
-      - id: set-matrix
-        run: |
-          PKGS=$(ls packages/ | jq -R -s -c 'split("\n")[:-1]')
-          echo "packages=$PKGS" >> $GITHUB_OUTPUT
+    - id: set-matrix
+      run: |
+        PKGS=$(ls packages/ | jq -R -s -c 'split("\n")[:-1]')
+        echo "packages=$PKGS" >> $GITHUB_OUTPUT
 
   test:
     needs: discover
@@ -704,8 +704,8 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.discover.outputs.packages) }}
     steps:
-      - uses: actions/checkout@v4
-      - run: cd packages/${{ matrix.package }} && npm ci && npm test
+    - uses: actions/checkout@v4
+    - run: cd packages/${{ matrix.package }} && npm ci && npm test
 ```
 
 > [!tip] Matrix parallelism itu batasan: GitHub Actions maksimal 256 job concurrent per account. Kalo matrix lo > 50 item, split jadi workflow terpisah.
@@ -716,15 +716,15 @@ jobs:
 
 Pilih runner yang tepat直接影响 biaya, kecepatan, dan maintenance.
 
-| Aspek            | GitHub-Hosted (`ubuntu-latest`)                                                          | Self-Hosted (VPS/Metal)                                                              |
-| ---------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Cost**         | Free quota 2000 min/bulan OSS; 3000 min/bulan private (Linux). ~$0.008/min setelah quota | Listrik + VPS — mulai ~$10/bulan untuk 1 runner. Fixed cost, cocok buat usage tinggi |
-| **Performance**  | 2-core CPU, 7GB RAM, 14GB SSD (Linux). Terbatas, gak cocok build berat                   | Sesuai spek VM — bisa 16-core, 64GB RAM. Build besar 2-3x lebih cepat                |
-| **Network**      | NAT keluar, gak bisa akses internal network VPS                                          | Bisa di network internal, akses DB staging, VPN, private registry                    |
-| **Security**     | Ephemeral — tiap job dapet VM baru. Data auto-purge                                      | Persistent — kalo gak di-isolasi, job bisa spill data ke job lain                    |
-| **Maintenance**  | Zero — GitHub urus update OS, tools, cleanup                                             | Lo urus: update OS, docker prune, disk cleanup, security patching                    |
-| **Custom Tools** | Tools standar GitHub (Node, Python, Docker). Kustom? pake setup-action                   | Bisa install apa aja — GPU driver, JDK versi spesifik, build tools legacy            |
-| **Scaling**      | Auto-scale by GitHub. Max 180 concurrent jobs per repo                                   | Lo urus sendiri. Bisa pake `scale-set` auto-scaling group                            |
+| Aspek | GitHub-Hosted (`ubuntu-latest`) | Self-Hosted (VPS/Metal) |
+|-------|----------------------------------|------------------------|
+| **Cost** | Free quota 2000 min/bulan OSS; 3000 min/bulan private (Linux). ~$0.008/min setelah quota | Listrik + VPS — mulai ~$10/bulan untuk 1 runner. Fixed cost, cocok buat usage tinggi |
+| **Performance** | 2-core CPU, 7GB RAM, 14GB SSD (Linux). Terbatas, gak cocok build berat | Sesuai spek VM — bisa 16-core, 64GB RAM. Build besar 2-3x lebih cepat |
+| **Network** | NAT keluar, gak bisa akses internal network VPS | Bisa di network internal, akses DB staging, VPN, private registry |
+| **Security** | Ephemeral — tiap job dapet VM baru. Data auto-purge | Persistent — kalo gak di-isolasi, job bisa spill data ke job lain |
+| **Maintenance** | Zero — GitHub urus update OS, tools, cleanup | Lo urus: update OS, docker prune, disk cleanup, security patching |
+| **Custom Tools** | Tools standar GitHub (Node, Python, Docker). Kustom? pake setup-action | Bisa install apa aja — GPU driver, JDK versi spesifik, build tools legacy |
+| **Scaling** | Auto-scale by GitHub. Max 180 concurrent jobs per repo | Lo urus sendiri. Bisa pake `scale-set` auto-scaling group |
 
 ### Kapan Pake Self-Hosted?
 
@@ -760,15 +760,15 @@ Artifact nimbun storage — apalagi kalo tiap push produce report + binary yang 
   with:
     name: build-output
     path: dist/
-    retention-days: 3 # override default 90 hari
+    retention-days: 3       # override default 90 hari
 ```
 
 ### Default Retention — Setting Repo
 
-| Plan       | Default | Max      |
-| ---------- | ------- | -------- |
-| Free / Pro | 90 hari | 90 hari  |
-| Team       | 90 hari | 90 hari  |
+| Plan | Default | Max |
+|------|---------|-----|
+| Free / Pro | 90 hari | 90 hari |
+| Team | 90 hari | 90 hari |
 | Enterprise | 90 hari | 400 hari |
 
 > [!tip] Untuk artifact sementara (test report, coverage, build cache), set `retention-days: 1–7`. Untuk release binary, biarkan default 90 hari atau upload ke release asset.
@@ -825,12 +825,12 @@ jobs:
 
 ### Protection Rules yang Tersedia
 
-| Rule                        | Fungsi                                               | Contoh Setting                            |
-| --------------------------- | ---------------------------------------------------- | ----------------------------------------- |
-| **Required reviewers**      | Mencegah deploy tanpa approval                       | 2 orang dari tim DevOps                   |
-| **Wait timer**              | Delay automatic deploy, kasih waktu rollback darurat | 30 menit                                  |
-| **Deployment branches**     | Batasi cabang yang bisa deploy                       | `main` dan `release/*` aja                |
-| **Custom protection rules** | Marketplace actions sebagai gate                     | Datadog monitor check, Jira ticket status |
+| Rule | Fungsi | Contoh Setting |
+|------|--------|----------------|
+| **Required reviewers** | Mencegah deploy tanpa approval | 2 orang dari tim DevOps |
+| **Wait timer** | Delay automatic deploy, kasih waktu rollback darurat | 30 menit |
+| **Deployment branches** | Batasi cabang yang bisa deploy | `main` dan `release/*` aja |
+| **Custom protection rules** | Marketplace actions sebagai gate | Datadog monitor check, Jira ticket status |
 
 ### Required Reviewers + Wait Timer
 
@@ -842,7 +842,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Release tag to deploy"
+        description: 'Release tag to deploy'
         required: true
 
 jobs:
@@ -852,11 +852,11 @@ jobs:
       name: production
       url: https://app.mycompany.com
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.version }}
-      - name: Deploy
-        run: ./scripts/deploy-prod.sh
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.version }}
+    - name: Deploy
+      run: ./scripts/deploy-prod.sh
 ```
 
 > [!important] Required reviewers hanya nge-block job yang pake environment. Pastiin semua `deploy-prod` job punya `environment: production`. Tanpa itu, protection rule gak aktif.
@@ -926,17 +926,17 @@ Bisa juga append multiline dari file:
 
 ### Command Reference Lengkap
 
-| Command               | Fungsi                                   | Contoh                                                 |
-| --------------------- | ---------------------------------------- | ------------------------------------------------------ |
-| `GITHUB_OUTPUT`       | Output antar step                        | `echo "key=val" >> $GITHUB_OUTPUT`                     |
-| `GITHUB_ENV`          | Environment variable                     | `echo "KEY=val" >> $GITHUB_ENV`                        |
-| `GITHUB_STEP_SUMMARY` | Markdown summary                         | `echo "## Title" >> $GITHUB_STEP_SUMMARY`              |
-| `GITHUB_PATH`         | Tambah PATH                              | `echo "/opt/tools" >> $GITHUB_PATH`                    |
-| `debug`               | Log debug (kalo ACTIONS_STEP_DEBUG=true) | `echo "::debug::message"`                              |
-| `notice`              | Notice annotation                        | `echo "::notice title=Info::message"`                  |
-| `warning`             | Warning annotation                       | `echo "::warning file=app.js,line=42::message"`        |
-| `error`               | Error annotation                         | `echo "::error::Build failed"`                         |
-| `group`/`endgroup`    | Collapsible log group                    | `echo "::group::Build logs"` ... `echo "::endgroup::"` |
+| Command | Fungsi | Contoh |
+|---------|--------|--------|
+| `GITHUB_OUTPUT` | Output antar step | `echo "key=val" >> $GITHUB_OUTPUT` |
+| `GITHUB_ENV` | Environment variable | `echo "KEY=val" >> $GITHUB_ENV` |
+| `GITHUB_STEP_SUMMARY` | Markdown summary | `echo "## Title" >> $GITHUB_STEP_SUMMARY` |
+| `GITHUB_PATH` | Tambah PATH | `echo "/opt/tools" >> $GITHUB_PATH` |
+| `debug` | Log debug (kalo ACTIONS_STEP_DEBUG=true) | `echo "::debug::message"` |
+| `notice` | Notice annotation | `echo "::notice title=Info::message"` |
+| `warning` | Warning annotation | `echo "::warning file=app.js,line=42::message"` |
+| `error` | Error annotation | `echo "::error::Build failed"` |
+| `group`/`endgroup` | Collapsible log group | `echo "::group::Build logs"` ... `echo "::endgroup::"` |
 
 ---
 
@@ -944,16 +944,16 @@ Bisa juga append multiline dari file:
 
 Keduanya me-reuse logic, tapi beda use case.
 
-| Aspek              | Composite Action                                          | Reusable Workflow                                        |
-| ------------------ | --------------------------------------------------------- | -------------------------------------------------------- |
-| **Format**         | Action YAML di `action.yml`                               | Workflow YAML di `.github/workflows/`                    |
-| **Panggil**        | `uses: ./.github/actions/my-action`                       | `uses: ./.github/workflows/build.yml`                    |
-| **Output**         | Ngehasilin output yang bisa dipake step lain              | Cuma bisa `needs:` di job lain                           |
-| **Runners**        | Satu runner — step di composite jalan di runner yang sama | Multi-job — tiap job bisa runner beda (ubuntu + windows) |
-| **Secrets**        | Langsung akses `${{ secrets.X }}`                         | Harus explicit pass via `secrets:`                       |
-| **Max complexity** | Sampai 10 step (batas GitHub)                             | Sampai puluhan job — kompleksitas bebas                  |
-| **Debugging**      | Susah — output action args terbatas                       | Gampang — tiap job log-nya terpisah                      |
-| **Contoh**         | Setup tools + lint + test satu package                    | Build → Test → Deploy pipeline lengkap                   |
+| Aspek | Composite Action | Reusable Workflow |
+|-------|------------------|-------------------|
+| **Format** | Action YAML di `action.yml` | Workflow YAML di `.github/workflows/` |
+| **Panggil** | `uses: ./.github/actions/my-action` | `uses: ./.github/workflows/build.yml` |
+| **Output** | Ngehasilin output yang bisa dipake step lain | Cuma bisa `needs:` di job lain |
+| **Runners** | Satu runner — step di composite jalan di runner yang sama | Multi-job — tiap job bisa runner beda (ubuntu + windows) |
+| **Secrets** | Langsung akses `${{ secrets.X }}` | Harus explicit pass via `secrets:` |
+| **Max complexity** | Sampai 10 step (batas GitHub) | Sampai puluhan job — kompleksitas bebas |
+| **Debugging** | Susah — output action args terbatas | Gampang — tiap job log-nya terpisah |
+| **Contoh** | Setup tools + lint + test satu package | Build → Test → Deploy pipeline lengkap |
 
 ### Kapan Pake Composite Action
 
@@ -964,20 +964,20 @@ description: Install dependencies + generate Prisma
 inputs:
   node-version:
     required: false
-    default: "22"
+    default: '22'
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v4
-      with:
-        node-version: ${{ inputs.node-version }}
-        cache: "npm"
-    - run: npm ci
-      shell: bash
-    - run: npx prisma generate
-      shell: bash
-      env:
-        DATABASE_URL: ${{ inputs.database-url }}
+  - uses: actions/setup-node@v4
+    with:
+      node-version: ${{ inputs.node-version }}
+      cache: 'npm'
+  - run: npm ci
+    shell: bash
+  - run: npx prisma generate
+    shell: bash
+    env:
+      DATABASE_URL: ${{ inputs.database-url }}
 ```
 
 Panggil dari workflow:
@@ -985,7 +985,7 @@ Panggil dari workflow:
 ```yaml
 - uses: ./.github/actions/setup-project
   with:
-    node-version: "20"
+    node-version: '20'
     database-url: postgresql://localhost:5432/test
 ```
 
@@ -1007,10 +1007,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: appleboy/ssh-action@v1
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          script: ./deploy-${{ inputs.target }}.sh
+    - uses: appleboy/ssh-action@v1
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        script: ./deploy-${{ inputs.target }}.sh
 ```
 
 > [!tip] Rule of thumb: kalo lo butuh **satu step yang dipake di banyak job** → Composite Action. Kalo lo butuh **satu pipeline utuh yang dipake di banyak repo** → Reusable Workflow.
@@ -1024,7 +1024,7 @@ Pipeline gagal? Jangan tebak-tebak. Ini toolkit debugging-nya.
 ### tmate — SSH Langsung ke Runner
 
 ```yaml
-# debug-with-tmate.yml
+# debug-with-tmate.yml  
 name: Debug Pipeline
 on:
   workflow_dispatch:
@@ -1033,11 +1033,11 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true # cuma lo yang bisa akses
+    - uses: actions/checkout@v4
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true   # cuma lo yang bisa akses
 ```
 
 Saat workflow jalan, action-tmate ngeprint koneksi SSH di log. SSH masuk, dan lo ada di shell runner live — bisa `ls`, `cat`, `node --inspect`, apa aja.
@@ -1060,7 +1060,6 @@ act --reuse                       # reuse container (cepat utk iterasi)
 ```
 
 Kekurangan act:
-
 - Gak bisa nge-test `self-hosted` runner
 - Service container (PostgreSQL, Redis) perlu di-set manual atau pake `--services`
 - Beberapa action (`docker/*`, `aws-actions/*`) gak 100% kompatibel
@@ -1073,29 +1072,29 @@ on:
   workflow_dispatch:
     inputs:
       ssh-debug:
-        description: "Enable SSH debug session"
+        description: 'Enable SSH debug session'
         type: boolean
         default: false
       dry-run:
-        description: "Dry run — no actual deploy"
+        description: 'Dry run — no actual deploy'
         type: boolean
         default: false
       target-service:
-        description: "Service to deploy"
+        description: 'Service to deploy'
         type: choice
         options:
-          - api
-          - web
-          - worker
+        - api
+        - web
+        - worker
 
 jobs:
   deploy:
     steps:
-      - if: ${{ inputs.ssh-debug }}
-        uses: mxschmitt/action-tmate@v3
-      - if: ${{ inputs.dry-run }}
-        run: echo "Dry run — skipping deploy"
-      - run: ./deploy.sh ${{ inputs.target-service }}
+    - if: ${{ inputs.ssh-debug }}
+      uses: mxschmitt/action-tmate@v3
+    - if: ${{ inputs.dry-run }}
+      run: echo "Dry run — skipping deploy"
+    - run: ./deploy.sh ${{ inputs.target-service }}
 ```
 
 ### Debug Common Failure Patterns
@@ -1163,25 +1162,25 @@ strategy:
     os: [ubuntu-latest]
     include:
       - node: 20
-        os: windows-latest # cuma test windows di node 20 aja
+        os: windows-latest    # cuma test windows di node 20 aja
 ```
 
 ### Runner Sizing — Self-Hosted
 
 Kalo pake self-hosted runner di VPS, jangan pake 1 runner untuk banyak workflow paralel. Hitung:
 
-| Jumlah Developer | Job per Day | Recommended Runner            | Estimasi Cost  |
-| ---------------- | ----------- | ----------------------------- | -------------- |
-| 1–3              | <100        | GitHub-hosted gratis          | $0             |
-| 3–10             | 100–500     | 2–4 self-hosted (4 vCPU each) | ~$30–60/bulan  |
-| 10+              | 500+        | 4–8 self-hosted + auto-scale  | ~$60–120/bulan |
+| Jumlah Developer | Job per Day | Recommended Runner | Estimasi Cost |
+|------------------|-------------|--------------------|---------------|
+| 1–3 | <100 | GitHub-hosted gratis | $0 |
+| 3–10 | 100–500 | 2–4 self-hosted (4 vCPU each) | ~$30–60/bulan |
+| 10+ | 500+ | 4–8 self-hosted + auto-scale | ~$60–120/bulan |
 
 ### Concurrency — Jangan Tumpuk Job Gak Perlu
 
 ```yaml
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true # cancel job lama kalo ada push baru
+  cancel-in-progress: true   # cancel job lama kalo ada push baru
 ```
 
 Ini ngemat runner hours secara signifikan — kalo developer push 5x dalam 5 menit, cuma commit terakhir yang keproses.
@@ -1192,14 +1191,14 @@ Ini ngemat runner hours secara signifikan — kalo developer push 5x dalam 5 men
 on:
   push:
     paths:
-      - "**.js"
-      - "**.ts"
-      - "package.json"
-      - "Dockerfile"
+      - '**.js'
+      - '**.ts'
+      - 'package.json'
+      - 'Dockerfile'
     paths-ignore:
-      - "docs/**"
-      - "**.md"
-      - ".github/**" # trigger sendiri dikelola manual
+      - 'docs/**'
+      - '**.md'
+      - '.github/**'      # trigger sendiri dikelola manual
 ```
 
 Kombinasi `paths` + `paths-ignore` bisa ngurangin total workflow runs sampai 40–60%.
@@ -1254,16 +1253,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: yamllint
-        uses: ibiqlik/action-yamllint@v3
-        with:
-          file_or_dir: .github/workflows/
-          config_data: |
-            extends: default
-            rules:
-              line-length: disable
-              truthy: disable        # 'on' sebagai key dianggap truthy
+    - uses: actions/checkout@v4
+    - name: yamllint
+      uses: ibiqlik/action-yamllint@v3
+      with:
+        file_or_dir: .github/workflows/
+        config_data: |
+          extends: default
+          rules:
+            line-length: disable
+            truthy: disable        # 'on' sebagai key dianggap truthy
 ```
 
 ### VS Code Setup
@@ -1274,10 +1273,10 @@ Install **YAML by Red Hat** extension — otomatis validasi:
 // settings.json
 {
   "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml",
+    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   },
   "yaml.validate": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
 ```
 
@@ -1298,14 +1297,14 @@ npx @github/actions-validator .github/workflows/deploy.yml
 
 ## 20. Koneksi ke Vault
 
-| Catatan                                    | Koneksi                                                      |
-| ------------------------------------------ | ------------------------------------------------------------ |
-| [[cicd-guide]]                             | CI/CD conceptual guide — catatan ini implementasi konkretnya |
-| [[cicd-shiftleft-shiftright]]              | DevSecOps strategy — security scanning di pipeline           |
-| [[devsecops-pipeline-sast-dast-sbom]]      | Toolchain SAST/DAST/SBOM — integrasi di CI/CD                |
-| [[nestjs-podman-workflow]]                 | NestJS-specific: container build + push + deploy             |
-| [[container-kubernetes-security-deepdive]] | Container security — image scanning di pipeline              |
-| [[linux-hardening-audit-praktis]]          | SSH hardening — prerequisite buat deploy ke VPS              |
+| Catatan | Koneksi |
+|---------|---------|
+| [[cicd-guide]] | CI/CD conceptual guide — catatan ini implementasi konkretnya |
+| [[cicd-shiftleft-shiftright]] | DevSecOps strategy — security scanning di pipeline |
+| [[devsecops-pipeline-sast-dast-sbom]] | Toolchain SAST/DAST/SBOM — integrasi di CI/CD |
+| [[nestjs-podman-workflow]] | NestJS-specific: container build + push + deploy |
+| [[container-kubernetes-security-deepdive]] | Container security — image scanning di pipeline |
+| [[linux-hardening-audit-praktis]] | SSH hardening — prerequisite buat deploy ke VPS |
 
 ## References
 

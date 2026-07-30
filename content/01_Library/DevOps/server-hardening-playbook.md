@@ -645,20 +645,22 @@ ls -la /var/cache/logwatch/
 
 ### Scoring
 
-| Item                      | Bobot | Critical?                 |
-| ------------------------- | ----- | ------------------------- |
-| PermitRootLogin no        | 10    | ✅ Ya — root brute-force  |
-| PasswordAuthentication no | 10    | ✅ Ya — dictionary attack |
-| UFW aktif                 | 8     | ✅ Hampir                 |
-| fail2ban SSH jail         | 7     | ✅                        |
-| Automatic updates         | 6     | ⬜                        |
-| auditd running            | 5     | ⬜                        |
-| SELinux Enforcing         | 8     | ✅                        |
-| AIDE monitoring           | 4     | ⬜                        |
+| Item | Bobot | Critical? |
+|------|-------|-----------|
+| PermitRootLogin no | 10 | ✅ Ya — root brute-force |
+| PasswordAuthentication no | 10 | ✅ Ya — dictionary attack |
+| UFW aktif | 8 | ✅ Hampir |
+| fail2ban SSH jail | 7 | ✅ |
+| Automatic updates | 6 | ⬜ |
+| auditd running | 5 | ⬜ |
+| SELinux Enforcing | 8 | ✅ |
+| AIDE monitoring | 4 | ⬜ |
 
 **Target minimum: 50/58.** Kalo di bawah itu, server lo belum production-ready.
 
 ---
+
+
 
 ## 13. Disable Unused Services
 
@@ -783,7 +785,6 @@ RestartSec=10
 ```
 
 Cek skor keamanannya:
-
 ```bash
 systemd-analyze security myapp.service
 # Target: exposed level ≤ 🟡 MEDIUM (8.0)
@@ -808,31 +809,31 @@ Tapi untuk server di belakang Cloudflare proxy, WAF layer udah handle ini. Lihat
 
 Berapa waktu & resource yang lo habiskan buat tiap layer? Ini prioritas yang recommended:
 
-| Layer         | Tool                | Cost (setup/hr) | Cost (maintenance) | Priority |
-| ------------- | ------------------- | :-------------: | :----------------: | :------: |
-| SSH Hardening | Config              |    30 menit     |         0          |  **P0**  |
-| Firewall      | UFW                 |    15 menit     |         0          |  **P0**  |
-| Brute-force   | Fail2ban            |    15 menit     |         0          |  **P0**  |
-| Audit         | Auditd              |    20 menit     |    5 menit/bln     |  **P1**  |
-| MAC           | SELinux/AppArmor    |      1 jam      | 0 (setelah stable) |  **P1**  |
-| Integrity     | AIDE                |    30 menit     |    10 menit/bln    |  **P2**  |
-| Auto-update   | unattended-upgrades |    10 menit     |         0          |  **P2**  |
-| Monitoring    | Prometheus/NodeExp  |      2 jam      |    30 menit/bln    |  **P2**  |
+| Layer | Tool | Cost (setup/hr) | Cost (maintenance) | Priority |
+|-------|------|:-:|:-:|:-:|
+| SSH Hardening | Config | 30 menit | 0 | **P0** |
+| Firewall | UFW | 15 menit | 0 | **P0** |
+| Brute-force | Fail2ban | 15 menit | 0 | **P0** |
+| Audit | Auditd | 20 menit | 5 menit/bln | **P1** |
+| MAC | SELinux/AppArmor | 1 jam | 0 (setelah stable) | **P1** |
+| Integrity | AIDE | 30 menit | 10 menit/bln | **P2** |
+| Auto-update | unattended-upgrades | 10 menit | 0 | **P2** |
+| Monitoring | Prometheus/NodeExp | 2 jam | 30 menit/bln | **P2** |
 
 Prinsip Pareto: **20% effort (SSH+UFW+fail2ban) ngelindungin 80% attack surface.** Mulai dari sini.
 
 ## Koneksi ke Vault
 
-| Catatan                                    | Koneksi                                                         |
-| ------------------------------------------ | --------------------------------------------------------------- |
-| [[linux-hardening-audit-praktis]]          | Detail per-komponen hardening — playbook ini urutan eksekusinya |
-| [[vps-hardening-playbook]] (skill)         | Skill untuk VPS hardening — versi praktis beda format           |
-| [[production-server-hardening]]            | Hardening production server dari sisi CIS benchmark             |
-| [[linux-hardening-cis]]                    | Referensi CIS Level 2 — playbook ini subset yang paling vital   |
-| [[podman-networking-ufw]]                  | UFW + Podman pitfall — FORWARD chain                            |
-| [[observability-stack-prometheus-grafana]] | Monitoring setelah hardening selesai                            |
-| [[infrastructure-as-code-praktis]]         | Ansible bisa otomasi seluruh playbook ini                       |
-| [[attack-defense-hardening-playbook]]      | Hardening dari sudut pandang attack/defense                     |
+| Catatan | Koneksi |
+|---------|---------|
+| [[linux-hardening-audit-praktis]] | Detail per-komponen hardening — playbook ini urutan eksekusinya |
+| [[vps-hardening-playbook]] (skill) | Skill untuk VPS hardening — versi praktis beda format |
+| [[production-server-hardening]] | Hardening production server dari sisi CIS benchmark |
+| [[linux-hardening-cis]] | Referensi CIS Level 2 — playbook ini subset yang paling vital |
+| [[podman-networking-ufw]] | UFW + Podman pitfall — FORWARD chain |
+| [[observability-stack-prometheus-grafana]] | Monitoring setelah hardening selesai |
+| [[infrastructure-as-code-praktis]] | Ansible bisa otomasi seluruh playbook ini |
+| [[attack-defense-hardening-playbook]] | Hardening dari sudut pandang attack/defense |
 
 ## References
 

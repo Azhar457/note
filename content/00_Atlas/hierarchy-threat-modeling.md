@@ -8,7 +8,7 @@ tags:
 aliases:
   - "hierarchy-threat-modeling"
 created: "2026-07-17"
-updated: "2026-07-17"
+updated: '2026-07-17'
 status: pending
 ---
 
@@ -23,14 +23,14 @@ status: pending
 
 ## Tabel Utama — Level 0 sampai Level 5
 
-| 🛡️ Level                                 | 🧠 Pendekatan                                                                                                                                                                                                  | ⚡ Metodologi                                                                                                    | ☠️ Tembok Kematian                                                                                                           | 🎯 Kapan Digunakan                                                                    |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **Level 0** — Intuisi Developer          | "Apa yang berbahaya?" tanpa framework formal. Brainstorm berdasar pengalaman                                                                                                                                   | Semua orang bisa — hanya butuh knowledge domain + pengalaman security                                            | Bias konfirmasi: lo hanya lihat ancaman yang sudah lo kenal. Tidak sistematis, banyak blind spot                             | Side project, MVP, personal app tanpa data sensitif                                   |
-| **Level 1** — STRIDE Checklist           | Microsoft STRIDE: **S**poofing, **T**ampering, **R**epudiation, **I**nformation Disclosure, **D**enial of Service, **E**levation of Privilege                                                                  | Cocok STRIDE tiap elemen DFD. Sederhana, mudah diingat, dokumentasi rapi                                         | Tidak bisa capture business logic flaw. Tidak bisa prioritasi risiko. Satu model cocok untuk semua (tidak spesifik industri) | Startup, mid-size company, secure SDLC awal                                           |
-| **Level 2** — Attack Tree                | Pohon AND/OR: dari goal attacker → sub-actions leaf. Setiap leaf punya cost/skill indicator                                                                                                                    | Visual intuitif. Komunikasi dengan non-teknis. Bisa kuantifikasi effort attacker                                 | Pohon membesar eksponensial untuk sistem kompleks. Tidak handle multiple attackers parallel                                  | Bug bounty scoping, threat intel brief, komunikasi manajemen                          |
-| **Level 3** — PASTA (7-Stage)            | **P**rocess for **A**ttack **S**imulation and **T**hreat **A**nalysis: 1. Business objective 2. Technical scope 3. App decomposition 4. Threat analysis 5. Vuln analysis 6. Attack simulation 7. Risk & impact | Risk-based + business-driven. Output: risk register, prioritized mitigations                                     | Heavy process (butuh ~2 hari–1 minggu per sistem). Butuh threat modeling specialist                                          | Sistem kritis (finansial, healthcare), regulated industry, enterprise risk management |
-| **Level 4** — Continuous Threat Modeling | Integrasi TM di CI/CD: OWASP Threat Dragon → update otomatis di pipeline. Security champion review tiap sprint                                                                                                 | Threat model tidak dokumen statis — hidup berubah bersama kode. OWASP Threat Dragon: open-source TM tool         | Butuh budaya security champion. CI/CD integration tooling masih berkembang. **False positive noise** tinggi                  | DevOps mature, platform engineering, unicorn/enterprise                               |
-| **☠️ Level 5** — Formal Verification     | ProVerif, Tamarin, Alloy, TLA+, formal proof of security properties                                                                                                                                            | **Mathematical proof** bahwa properti keamanan berlaku untuk semua state. Tidak ada false positive — hitam-putih | **Waktu**: formal verification satu protokol kripto butuh bulan–tahun. Butuh PhD-level knowledge. Skalabilitas rendah        | Protokol kripto, secure boot chain, hardware security module, military grade system   |
+| 🛡️ Level | 🧠 Pendekatan | ⚡ Metodologi | ☠️ Tembok Kematian | 🎯 Kapan Digunakan |
+|---|---|---|---|---|
+| **Level 0** — Intuisi Developer | "Apa yang berbahaya?" tanpa framework formal. Brainstorm berdasar pengalaman | Semua orang bisa — hanya butuh knowledge domain + pengalaman security | Bias konfirmasi: lo hanya lihat ancaman yang sudah lo kenal. Tidak sistematis, banyak blind spot | Side project, MVP, personal app tanpa data sensitif |
+| **Level 1** — STRIDE Checklist | Microsoft STRIDE: **S**poofing, **T**ampering, **R**epudiation, **I**nformation Disclosure, **D**enial of Service, **E**levation of Privilege | Cocok STRIDE tiap elemen DFD. Sederhana, mudah diingat, dokumentasi rapi | Tidak bisa capture business logic flaw. Tidak bisa prioritasi risiko. Satu model cocok untuk semua (tidak spesifik industri) | Startup, mid-size company, secure SDLC awal |
+| **Level 2** — Attack Tree | Pohon AND/OR: dari goal attacker → sub-actions leaf. Setiap leaf punya cost/skill indicator | Visual intuitif. Komunikasi dengan non-teknis. Bisa kuantifikasi effort attacker | Pohon membesar eksponensial untuk sistem kompleks. Tidak handle multiple attackers parallel | Bug bounty scoping, threat intel brief, komunikasi manajemen |
+| **Level 3** — PASTA (7-Stage) | **P**rocess for **A**ttack **S**imulation and **T**hreat **A**nalysis: 1. Business objective 2. Technical scope 3. App decomposition 4. Threat analysis 5. Vuln analysis 6. Attack simulation 7. Risk & impact | Risk-based + business-driven. Output: risk register, prioritized mitigations | Heavy process (butuh ~2 hari–1 minggu per sistem). Butuh threat modeling specialist | Sistem kritis (finansial, healthcare), regulated industry, enterprise risk management |
+| **Level 4** — Continuous Threat Modeling | Integrasi TM di CI/CD: OWASP Threat Dragon → update otomatis di pipeline. Security champion review tiap sprint | Threat model tidak dokumen statis — hidup berubah bersama kode. OWASP Threat Dragon: open-source TM tool | Butuh budaya security champion. CI/CD integration tooling masih berkembang. **False positive noise** tinggi | DevOps mature, platform engineering, unicorn/enterprise |
+| **☠️ Level 5** — Formal Verification | ProVerif, Tamarin, Alloy, TLA+, formal proof of security properties | **Mathematical proof** bahwa properti keamanan berlaku untuk semua state. Tidak ada false positive — hitam-putih | **Waktu**: formal verification satu protokol kripto butuh bulan–tahun. Butuh PhD-level knowledge. Skalabilitas rendah | Protokol kripto, secure boot chain, hardware security module, military grade system |
 
 ---
 
@@ -62,13 +62,13 @@ Threat model yang tidak pernah diupdate adalah **dokumen yang menua tanpa guna**
 
 ### 2. Output Threat Model = Input untuk Security Testing
 
-| Level Threat Model | Output → Untuk                                    |
-| ------------------ | ------------------------------------------------- |
-| L0–L1 (STRIDE)     | Checklist security requirement → SAST rules       |
-| L2 (Attack Tree)   | Attack path → prioritasi penetration test         |
-| L3 (PASTA)         | Risk register → control allocation                |
-| L4 (Continuous)    | Auto-generated test case → DAST/IAST              |
-| L5 (Formal)        | Proof of security → certification (CC EAL7, FIPS) |
+| Level Threat Model | Output → Untuk |
+|---|---|
+| L0–L1 (STRIDE) | Checklist security requirement → SAST rules |
+| L2 (Attack Tree) | Attack path → prioritasi penetration test |
+| L3 (PASTA) | Risk register → control allocation |
+| L4 (Continuous) | Auto-generated test case → DAST/IAST |
+| L5 (Formal) | Proof of security → certification (CC EAL7, FIPS) |
 
 ### 3. Dual-Use: Red Team Juga Threat Model — Tapi Untuk Goal Berbeda
 
@@ -85,6 +85,8 @@ Kedua threat model menggunakan hirarki dan metodologi yang sama — hanya perspe
 > STRIDE excellent untuk ancaman teknis. Tapi business logic flaw (lo bisa transfer uang tanpa otorisasi karena race condition) bukan milik kategori STRIDE manapun. **Complement STRIDE dengan misuse case atau process flow analysis** untuk tangkap ancaman business logic.
 
 > [!tip] Plot Twist 2: Attack Tree (L2) Paling Efektif Untuk Komunikasi Dengan Bos Non-Teknis Attack tree: visual, intuitif, langsung lihat "kalau attacker mau capai X, harus lewat jalur Y." Untuk presentasi ke CTO/CEO — attack tree mengalahkan STRIDE table mana pun. Tambahkan cost indikator ($$$ per node) untuk justifikasi budget security.
+
+
 
 > [!tip] Plot Twist 3: Formal Verification (L5) Digunakan NSA, Bukan Startup ProVerif dan Tamarin dipakai untuk verifikasi protokol kripto TLS 1.3, Signal Protocol, WireGuard. **Butuh waktu bulan–tahun** untuk satu protokol. Untuk aplikasi web biasa, Level 5 adalah overshoot. Tapi untuk secure boot chain, HSM firmware, dan protokol kripto baru — L5 adalah satu-satunya cara untuk "pasti."
 
@@ -106,4 +108,4 @@ Kedua threat model menggunakan hirarki dan metodologi yang sama — hanya perspe
 
 > Threat modeling bukan tentang "berapa banyak ancaman yang lo temukan." Ini tentang **seberapa yakin lo bahwa lo sudah menemukan ancaman yang paling berbahaya**. Pilih level yang membangun keyakinan itu — tanpa menghabiskan budget untuk ancaman yang tidak relevan.
 
-_Threat Modeling Hierarchy | Level 0 (Intuition) → Level 5 (Formal Verification) · Seberapa Yakin Kamu?_
+*Threat Modeling Hierarchy | Level 0 (Intuition) → Level 5 (Formal Verification) · Seberapa Yakin Kamu?*

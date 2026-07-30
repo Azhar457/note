@@ -1,15 +1,15 @@
 ---
-title: "Regular Expressions — Deep Dive: Quantifiers, Groups, Lookahead, Performance,
-  dan Detection Engineering"
+title: 'Regular Expressions — Deep Dive: Quantifiers, Groups, Lookahead, Performance,
+  dan Detection Engineering'
 tags:
-  - fundamentals
-  - regex
-  - library
-created: "2026-07-16"
-updated: "2026-07-16"
+- fundamentals
+- regex
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🧠 Regular Expressions — Deep Dive: Quantifiers, Groups, Lookahead, Performance, dan Detection Engineering
@@ -57,17 +57,17 @@ Tidak:   abc-1234  (lowercase)
 
 ### Komponen Dasar
 
-| Komponen            | Contoh     | Maksud                                           |
-| ------------------- | ---------- | ------------------------------------------------ |
-| **Literal**         | `hello`    | Cocok exact string "hello"                       |
-| **Dot**             | `h.llo`    | Satu karakter apapun (`hallo`, `hxllo`, `h5llo`) |
-| **Character class** | `[aeiou]`  | Satu karakter vokal                              |
-| **Negated class**   | `[^aeiou]` | Satu karakter BUKAN vokal                        |
-| **Quantifier**      | `\d{3}`    | Tepat 3 digit                                    |
-| **Alternation**     | `cat\|dog` | "cat" ATAU "dog"                                 |
-| **Group**           | `(ab)+`    | "ab" satu atau lebih (`ab`, `abab`, `ababab`)    |
-| **Anchor**          | `^start`   | "start" di AWAL string                           |
-| **Shorthand**       | `\w+`      | Satu atau lebih word character                   |
+| Komponen | Contoh | Maksud |
+|----------|--------|--------|
+| **Literal** | `hello` | Cocok exact string "hello" |
+| **Dot** | `h.llo` | Satu karakter apapun (`hallo`, `hxllo`, `h5llo`) |
+| **Character class** | `[aeiou]` | Satu karakter vokal |
+| **Negated class** | `[^aeiou]` | Satu karakter BUKAN vokal |
+| **Quantifier** | `\d{3}` | Tepat 3 digit |
+| **Alternation** | `cat\|dog` | "cat" ATAU "dog" |
+| **Group** | `(ab)+` | "ab" satu atau lebih (`ab`, `abab`, `ababab`) |
+| **Anchor** | `^start` | "start" di AWAL string |
+| **Shorthand** | `\w+` | Satu atau lebih word character |
 
 ---
 
@@ -88,14 +88,14 @@ Pola: <[^>]+>   # Praktis — "everything except >"
 Match: <div>, </div>, <span>, </span>  # (4 matches!)
 ```
 
-| Quantifier | Greedy  | Lazy     | Possessive | Maksud       |
-| ---------- | ------- | -------- | ---------- | ------------ |
-| `*`        | `*`     | `*?`     | `*+`       | 0 atau lebih |
-| `+`        | `+`     | `+?`     | `++`       | 1 atau lebih |
-| `?`        | `?`     | `??`     | `?+`       | 0 atau 1     |
-| `{n}`      | `{n}`   | `{n}?`   | `{n}+`     | Tepat n      |
-| `{n,}`     | `{n,}`  | `{n,}?`  | `{n,}+`    | Minimal n    |
-| `{n,m}`    | `{n,m}` | `{n,m}?` | `{n,m}+`   | n sampai m   |
+| Quantifier | Greedy | Lazy | Possessive | Maksud |
+|-----------|--------|------|------------|--------|
+| `*` | `*` | `*?` | `*+` | 0 atau lebih |
+| `+` | `+` | `+?` | `++` | 1 atau lebih |
+| `?` | `?` | `??` | `?+` | 0 atau 1 |
+| `{n}` | `{n}` | `{n}?` | `{n}+` | Tepat n |
+| `{n,}` | `{n,}` | `{n,}?` | `{n,}+` | Minimal n |
+| `{n,m}` | `{n,m}` | `{n,m}?` | `{n,m}+` | n sampai m |
 
 **Greedy (default):** Engine coba match sebanyak mungkin, lalu backtrack kalo gagal. **Lazy:** Engine coba match sesedikit mungkin, lalu expand kalo gagal. **Possessive:** Sama kayak greedy tapi **gak backtrack** — kalo gagal, langsung fail (cegah catastrophic backtracking).
 
@@ -120,14 +120,14 @@ Match: <div>, </div>, <span>, </span>  # (4 matches!)
 
 ### Shorthand Classes
 
-| Shorthand | Setara Dengan    | Cocok                                      |
-| --------- | ---------------- | ------------------------------------------ |
-| `\d`      | `[0-9]`          | Digit                                      |
-| `\w`      | `[a-zA-Z0-9_]`   | Word character (letter, digit, underscore) |
-| `\s`      | `[ \t\n\r\f\v]`  | Whitespace                                 |
-| `\D`      | `[^0-9]`         | Bukan digit                                |
-| `\W`      | `[^a-zA-Z0-9_]`  | Bukan word character                       |
-| `\S`      | `[^ \t\n\r\f\v]` | Bukan whitespace                           |
+| Shorthand | Setara Dengan | Cocok |
+|-----------|---------------|-------|
+| `\d` | `[0-9]` | Digit |
+| `\w` | `[a-zA-Z0-9_]` | Word character (letter, digit, underscore) |
+| `\s` | `[ \t\n\r\f\v]` | Whitespace |
+| `\D` | `[^0-9]` | Bukan digit |
+| `\W` | `[^a-zA-Z0-9_]` | Bukan word character |
+| `\S` | `[^ \t\n\r\f\v]` | Bukan whitespace |
 
 > [!warning] `\w` ≠ only letters
 > Di banyak engine (PHP, Java, .NET, Python), `\w` juga cocok Unicode letters — bukan cuma ASCII. Kalo mau ASCII-only, pake `[a-zA-Z0-9_]`.
@@ -145,15 +145,14 @@ Match: <div>, </div>, <span>, </span>  # (4 matches!)
 
 **Referencing:**
 
-| Engine                | Syntax  | Contoh                             |
-| --------------------- | ------- | ---------------------------------- |
-| **Dalam pola**        | `\1`    | `(a)b\1` → match "aba"             |
-| **Dalam replacement** | `$1`    | `sed 's/(foo)/$1bar/'`             |
-| **Python**            | `\g<1>` | `re.sub(r'(foo)', r'\g<1>bar', s)` |
-| **JavaScript**        | `$1`    | `"foo".replace(/(f)/, "$1oo")`     |
+| Engine | Syntax | Contoh |
+|--------|--------|--------|
+| **Dalam pola** | `\1` | `(a)b\1` → match "aba" |
+| **Dalam replacement** | `$1` | `sed 's/(foo)/$1bar/'` |
+| **Python** | `\g<1>` | `re.sub(r'(foo)', r'\g<1>bar', s)` |
+| **JavaScript** | `$1` | `"foo".replace(/(f)/, "$1oo")` |
 
 **Backreference example:** Deteksi kata berulang:
-
 ```regex
 \b(\w+)\s+\1\b    # Cocok: "hello hello", "test test"
 ```
@@ -184,15 +183,15 @@ $+{name}          # Dalam replacement (.NET)
 
 ## Anchors & Boundaries
 
-| Anchor | Cocok di                                    | Contoh                                       |
-| ------ | ------------------------------------------- | -------------------------------------------- |
-| `^`    | Awal string (atau awal baris dengan flag m) | `^Hello` — string dimulai "Hello"            |
-| `$`    | Akhir string (atau akhir baris)             | `world$` — string diakhiri "world"           |
-| `\b`   | Boundary word/non-word                      | `\bword\b` — "word" utuh, bukan "password"   |
-| `\B`   | BUKAN word boundary                         | `\Bword` — "word" di tengah kata: "password" |
-| `\A`   | Awal string (IGNORE multiline flag)         | `\AHello`                                    |
-| `\Z`   | Akhir string (atau newline di akhir)        | `world\Z`                                    |
-| `\z`   | Akhir string (BENAR-BENAR akhir)            | `world\z`                                    |
+| Anchor | Cocok di | Contoh |
+|--------|----------|--------|
+| `^` | Awal string (atau awal baris dengan flag m) | `^Hello` — string dimulai "Hello" |
+| `$` | Akhir string (atau akhir baris) | `world$` — string diakhiri "world" |
+| `\b` | Boundary word/non-word | `\bword\b` — "word" utuh, bukan "password" |
+| `\B` | BUKAN word boundary | `\Bword` — "word" di tengah kata: "password" |
+| `\A` | Awal string (IGNORE multiline flag) | `\AHello` |
+| `\Z` | Akhir string (atau newline di akhir) | `world\Z` |
+| `\z` | Akhir string (BENAR-BENAR akhir) | `world\z` |
 
 ---
 
@@ -200,12 +199,12 @@ $+{name}          # Dalam replacement (.NET)
 
 Lookaround adalah **zero-width assertion** — cocok posisi, bukan karakter.
 
-| Type                    | Syntax     | Contoh       | Maksud                                     |
-| ----------------------- | ---------- | ------------ | ------------------------------------------ |
-| **Positive lookahead**  | `(?=...)`  | `\d(?=px)`   | Digit yang diikuti "px": `5px` → match `5` |
-| **Negative lookahead**  | `(?!...)`  | `\d(?!px)`   | Digit yang TIDAK diikuti "px"              |
-| **Positive lookbehind** | `(?<=...)` | `(?<=\$)\d+` | Angka setelah `$`: `$100` → match `100`    |
-| **Negative lookbehind** | `(?<!...)` | `(?<!\$)\d+` | Angka yang TIDAK didahului `$`             |
+| Type | Syntax | Contoh | Maksud |
+|------|--------|--------|--------|
+| **Positive lookahead** | `(?=...)` | `\d(?=px)` | Digit yang diikuti "px": `5px` → match `5` |
+| **Negative lookahead** | `(?!...)` | `\d(?!px)` | Digit yang TIDAK diikuti "px" |
+| **Positive lookbehind** | `(?<=...)` | `(?<=\$)\d+` | Angka setelah `$`: `$100` → match `100` |
+| **Negative lookbehind** | `(?<!...)` | `(?<!\$)\d+` | Angka yang TIDAK didahului `$` |
 
 ### Contoh Praktis
 
@@ -239,7 +238,6 @@ q(?!u)            # Cocok "q" di "Iraq" tapi bukan di "quick"
 Atomic group: kalo pattern di dalamnya cocok, engine **gak akan backtrack** ke dalam group ini. Berguna untuk (1) optimasi performa, (2) cegah backtracking yang gak perlu, (3) cegah catastrophic backtracking.
 
 **Contoh:**
-
 ```regex
 String: "aaaaa"
 Pola 1: (a+|b)  → Match "aaaaa" (greedy, lalu coba b — gagal, lalu backtrack a→aaaa, dll)
@@ -254,8 +252,8 @@ Sama dengan atomic group — quantifier yang gak backtrack:
 
 ```regex
 .*+       # Sama kayak (?>.*)
-\w++
-\d{3,5}+
+\w++      
+\d{3,5}+  
 ```
 
 **Kapan pake:** Ketika lo tahu bahwa setelah quantifier, pola yang cocok gak akan berubah dengan backtracking. Contoh: `\d++[a-z]` — kalo digit udah cocok, backtracking digit gak akan bikin `[a-z]` cocok.
@@ -264,14 +262,14 @@ Sama dengan atomic group — quantifier yang gak backtrack:
 
 ## Flags
 
-| Flag                 | Python | PCRE | JavaScript | Fungsi                                            |
-| -------------------- | ------ | ---- | ---------- | ------------------------------------------------- |
-| **Case insensitive** | `re.I` | `i`  | `i`        | `[a-z]` cocok uppercase juga                      |
-| **Multiline**        | `re.M` | `m`  | `m`        | `^` dan `$` cocok per baris, bukan seluruh string |
-| **Dotall**           | `re.S` | `s`  | `s`        | `.` cocok newline (`\n`) juga                     |
-| **Unicode**          | `re.U` | `u`  | `u`        | `\w`, `\d` dll treat string sebagai Unicode       |
-| **Verbose**          | `re.X` | `x`  | `x`        | Allow whitespace + comments dalam pola            |
-| **ASCII**            | `re.A` | —    | —          | Force `\w`, `\d`, `\s` ke ASCII-only              |
+| Flag | Python | PCRE | JavaScript | Fungsi |
+|------|--------|------|-----------|--------|
+| **Case insensitive** | `re.I` | `i` | `i` | `[a-z]` cocok uppercase juga |
+| **Multiline** | `re.M` | `m` | `m` | `^` dan `$` cocok per baris, bukan seluruh string |
+| **Dotall** | `re.S` | `s` | `s` | `.` cocok newline (`\n`) juga |
+| **Unicode** | `re.U` | `u` | `u` | `\w`, `\d` dll treat string sebagai Unicode |
+| **Verbose** | `re.X` | `x` | `x` | Allow whitespace + comments dalam pola |
+| **ASCII** | `re.A` | — | — | Force `\w`, `\d`, `\s` ke ASCII-only |
 
 ### Contoh Verbose Mode
 
@@ -293,23 +291,23 @@ pattern = re.compile(r"""
 
 ### DFA vs NFA
 
-| Engine                                   | Cara Kerja                               | Kecepatan                                  | Fitur                                                    | Contoh                                         |
-| ---------------------------------------- | ---------------------------------------- | ------------------------------------------ | -------------------------------------------------------- | ---------------------------------------------- |
-| **DFA** (Deterministic Finite Automaton) | Linear — setiap karakter diproses sekali | 🟢 Sangat cepat, O(n)                      | ❌ No backreferences, no lookaround, no capturing groups | `awk`, `grep` (default), `lex`                 |
-| **Traditional NFA**                      | Backtracking — coba semua kemungkinan    | 🟡 Bisa lambat (exponential di worst case) | ✅ Full fitur: groups, backref, lookaround               | PCRE, Python `re`, JavaScript, Java, .NET, PHP |
-| **POSIX NFA**                            | Backtracking — cari longest match        | 🔴 Paling lambat                           | 🟡 Groups, no backref                                    | POSIX `regex.h`, beberapa implementasi `sed`   |
-| **RE2** (Hybrid)                         | Automata-based + limited backtracking    | 🟢 O(n) guaranteed — gak ada ReDoS         | 🟡 No backreferences, no lookaround (some)               | Go `regexp`, Rust `regex`, RE2 library         |
+| Engine | Cara Kerja | Kecepatan | Fitur | Contoh |
+|--------|-----------|-----------|-------|--------|
+| **DFA** (Deterministic Finite Automaton) | Linear — setiap karakter diproses sekali | 🟢 Sangat cepat, O(n) | ❌ No backreferences, no lookaround, no capturing groups | `awk`, `grep` (default), `lex` |
+| **Traditional NFA** | Backtracking — coba semua kemungkinan | 🟡 Bisa lambat (exponential di worst case) | ✅ Full fitur: groups, backref, lookaround | PCRE, Python `re`, JavaScript, Java, .NET, PHP |
+| **POSIX NFA** | Backtracking — cari longest match | 🔴 Paling lambat | 🟡 Groups, no backref | POSIX `regex.h`, beberapa implementasi `sed` |
+| **RE2** (Hybrid) | Automata-based + limited backtracking | 🟢 O(n) guaranteed — gak ada ReDoS | 🟡 No backreferences, no lookaround (some) | Go `regexp`, Rust `regex`, RE2 library |
 
 ### Kapan Pilih Engine
 
-| Kebutuhan                                              | Engine yang Cocok                                    |
-| ------------------------------------------------------ | ---------------------------------------------------- |
-| **Log parsing** (jutaan baris, pola sederhana)         | RE2, DFA — performa stabil                           |
-| **User input validation** (potensi ReDoS)              | RE2 — gak bisa catastrophic backtracking             |
-| **Detection rules** (butuh backreferences, lookaround) | PCRE — fitur lengkap                                 |
-| **YARA rules**                                         | YARA pake PCRE-compatible engine                     |
-| **Suricata rules**                                     | PCRE (fitur lengkap) — tapi hati-hati ReDoS          |
-| **Sigma rules**                                        | Format agnostik — bisa di-export ke berbagai backend |
+| Kebutuhan | Engine yang Cocok |
+|-----------|------------------|
+| **Log parsing** (jutaan baris, pola sederhana) | RE2, DFA — performa stabil |
+| **User input validation** (potensi ReDoS) | RE2 — gak bisa catastrophic backtracking |
+| **Detection rules** (butuh backreferences, lookaround) | PCRE — fitur lengkap |
+| **YARA rules** | YARA pake PCRE-compatible engine |
+| **Suricata rules** | PCRE (fitur lengkap) — tapi hati-hati ReDoS |
+| **Sigma rules** | Format agnostik — bisa di-export ke berbagai backend |
 
 ---
 
@@ -320,7 +318,6 @@ pattern = re.compile(r"""
 Terjadi ketika regex punya **nested quantifiers** dengan overlapping matches — engine backtrack eksponensial.
 
 **Pola klasik:**
-
 ```regex
 ^(a+)+$      # Nested quantifiers — a+ di dalam ( )+
 ^(\d+)*$     # Digit di dalam group dengan *
@@ -329,7 +326,6 @@ Terjadi ketika regex punya **nested quantifiers** dengan overlapping matches —
 ```
 
 **Eksponensial:**
-
 ```
 String: "aaaaaaaaaaaaaaaaaaaaaa" (22 a's)
 Pola: ^(a+)+$
@@ -338,7 +334,7 @@ Step ketika string TIDAK cocok (misal ada trailing "x"):
 1. (a+) coba 22 a's → ( )+ coba 1× → gagal di x
 2. Backtrack: (a+) → 21 a's → ( )+ → 2× → (a+) → 1 a → 2× → gagal
 3. Backtrack: (a+) → 21 a's → ( )+ → 1× → gagal
-4. Backtrack: (a+) → 20 a's → ( )+ → 3× → (a+) → 1 a → 1× → ...
+4. Backtrack: (a+) → 20 a's → ( )+ → 3× → (a+) → 1 a → 1× → ... 
 ... exponensial!
 ```
 
@@ -346,11 +342,11 @@ Hasil: 22 karakter → ~2^22 = 4 juta langkah → **ReDoS** (Regex Denial of Ser
 
 ### Contoh Real-World
 
-| CVE                     | Pola                                  | Dampak                            |
-| ----------------------- | ------------------------------------- | --------------------------------- |
-| CVE-2021-39227          | `(\w+[,.])+` di OWASP ESAPI validator | Stack overflow → DoS              |
-| Cloudflare ReDoS (2019) | `.*.*=.*` di Cloudflare WAF rule      | CPU 100% → global outage 27 menit |
-| Node.js `slug` (2022)   | `([a-zA-Z0-9-]+)+`                    | ReDoS via crafted input           |
+| CVE | Pola | Dampak |
+|-----|------|--------|
+| CVE-2021-39227 | `(\w+[,.])+` di OWASP ESAPI validator | Stack overflow → DoS |
+| Cloudflare ReDoS (2019) | `.*.*=.*` di Cloudflare WAF rule | CPU 100% → global outage 27 menit |
+| Node.js `slug` (2022) | `([a-zA-Z0-9-]+)+` | ReDoS via crafted input |
 
 ### Mitigasi
 
@@ -451,8 +447,8 @@ print(f"Fast: {time.time() - start:.4f}s")  # ~0.0001s — no backtrack
 detection:
   selection:
     ScriptBlockText|contains:
-      - "System.Net.WebClient"
-      - "Invoke-WebRequest"
+      - 'System.Net.WebClient'
+      - 'Invoke-WebRequest'
   condition: selection
 # Di-export ke Elasticsearch:
 # event.code: "4104" AND winlog.event_data.ScriptBlockText: (*System.Net.WebClient* OR *Invoke-WebRequest*)
@@ -540,22 +536,22 @@ eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*
 
 ## References
 
-1. Friedl, Jeffrey. _Mastering Regular Expressions, 3rd Ed._ O'Reilly, 2006. — **Buku wajib** untuk regex.
-2. Regular-Expressions.info. _Regex Tutorial_. https://www.regular-expressions.info/
-3. PCRE. _PCRE Documentation_. https://www.pcre.org/original/doc/html/
-4. RE2. _RE2 Syntax_. https://github.com/google/re2/wiki/Syntax
-5. OWASP. _Regular Expression Denial of Service (ReDoS)_. https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
-6. Cloudflare. _How Cloudflare mitigates ReDoS_. https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
-7. SIGMA. _Sigma Rule Specification_. https://github.com/SigmaHQ/sigma-specification
-8. YARA. _YARA Documentation_. https://yara.readthedocs.io/en/stable/
-9. Suricata. _Suricata Rule Syntax_. https://suricata.readthedocs.io/en/latest/rules/intro.html
-10. ModSecurity. _ModSecurity Reference Manual_. https://github.com/SpiderLabs/ModSecurity/wiki
-11. Python. _re module documentation_. https://docs.python.org/3/library/re.html
-12. MDN. _JavaScript RegExp_. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-13. Rust. _regex crate_. https://docs.rs/regex/latest/regex/
-14. Go. _regexp package_. https://pkg.go.dev/regexp
-15. Regex101. _Online Regex Tester_. https://regex101.com/
-16. Debuggex. _Visual Regex Debugger_. https://www.debuggex.com/
+1. Friedl, Jeffrey. *Mastering Regular Expressions, 3rd Ed.* O'Reilly, 2006. — **Buku wajib** untuk regex.
+2. Regular-Expressions.info. *Regex Tutorial*. https://www.regular-expressions.info/
+3. PCRE. *PCRE Documentation*. https://www.pcre.org/original/doc/html/
+4. RE2. *RE2 Syntax*. https://github.com/google/re2/wiki/Syntax
+5. OWASP. *Regular Expression Denial of Service (ReDoS)*. https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
+6. Cloudflare. *How Cloudflare mitigates ReDoS*. https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
+7. SIGMA. *Sigma Rule Specification*. https://github.com/SigmaHQ/sigma-specification
+8. YARA. *YARA Documentation*. https://yara.readthedocs.io/en/stable/
+9. Suricata. *Suricata Rule Syntax*. https://suricata.readthedocs.io/en/latest/rules/intro.html
+10. ModSecurity. *ModSecurity Reference Manual*. https://github.com/SpiderLabs/ModSecurity/wiki
+11. Python. *re module documentation*. https://docs.python.org/3/library/re.html
+12. MDN. *JavaScript RegExp*. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+13. Rust. *regex crate*. https://docs.rs/regex/latest/regex/
+14. Go. *regexp package*. https://pkg.go.dev/regexp
+15. Regex101. *Online Regex Tester*. https://regex101.com/
+16. Debuggex. *Visual Regex Debugger*. https://www.debuggex.com/
 
 > [!tip] Bottom Line
 > Regex adalah **senjata paling tajam dan paling berbahaya** di toolbox security engineer. Satu regex yang benar bisa mendeteksi attack dalam mikrodetik; satu regex yang salah bisa menghabiskan CPU 100% (ReDoS) dan membawa down seluruh sistem. Buat security engineer: (1) **Paham engine** — PCRE untuk rule yang butuh backreference, RE2 untuk log parsing performa tinggi. (2) **Hindari nested quantifiers** — `(a+)+` adalah pola klasik ReDoS. Pake atomic group `(?>...)` atau possessive `++` untuk cegah backtracking gak perlu. (3) **Test dengan input batas** — regex yang OK buat 10 karakter bisa mati di 100 karakter. (4) **Sigma rules** adalah format universal detection — tulis sekali, deploy ke SIEM mana aja. (5) **YARA rules** untuk malware — tapi pastikan rule gak terlalu generic (false positive) atau terlalu spesifik (mudah di-evade). Investasi belajar regex adalah investasi yang membayar setiap hari — karena hampir SEMUA yang lo lakukan sebagai security engineer melibatkan pattern matching.

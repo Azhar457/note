@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Mengapa SOC Automation Diperlukan]]
 - [[#2. Arsitektur SOAR — Event Pipeline]]
 - [[#3. Perbandingan Platform SOAR]]
@@ -45,12 +44,12 @@ cssclasses:
 
 SOC modern menghadapi tiga masalah utama:
 
-| Masalah                         | Tanpa SOAR                           | Dengan SOAR                                 |
-| ------------------------------- | ------------------------------------ | ------------------------------------------- |
-| **Volume alert**                | 10.000+ alert/hari → analyst fatigue | Filtering, dedup, prioritization otomatis   |
-| **Mean-Time-to-Respond (MTTR)** | 30-120 menit per alert               | 30 detik - 5 menit                          |
-| **Analyst shortage**            | Junior handle triage, senior burnout | Automated tier-1, analyst fokus investigasi |
-| **Consistency**                 | Setiap analyst beda prosedur         | Playbook enforce standarisasi               |
+| Masalah | Tanpa SOAR | Dengan SOAR |
+|---|---|---|
+| **Volume alert** | 10.000+ alert/hari → analyst fatigue | Filtering, dedup, prioritization otomatis |
+| **Mean-Time-to-Respond (MTTR)** | 30-120 menit per alert | 30 detik - 5 menit |
+| **Analyst shortage** | Junior handle triage, senior burnout | Automated tier-1, analyst fokus investigasi |
+| **Consistency** | Setiap analyst beda prosedur | Playbook enforce standarisasi |
 
 **Rumus MTTR improvement:**
 
@@ -94,18 +93,17 @@ Dengan SOAR, waktu triage, enrichment, dan containment bisa turun dari **ribuan 
 
 ## 3. Perbandingan Platform SOAR
 
-| Fitur         | Shuffle       | Wazuh+TheHive     | Splunk SOAR   | Palo Alto XSOAR   |
-| ------------- | ------------- | ----------------- | ------------- | ----------------- |
-| **OS**        | Open Source   | Open Source       | Commercial    | Commercial        |
-| **Lisensi**   | Apache 2.0    | AGPL v3           | Per-seat      | Per-seat          |
-| **Playbook**  | YAML + UI     | Python + template | Python (Apps) | Python (Playbook) |
-| **Integrasi** | 200+ apps     | 50+ via Hive      | 300+ apps     | 600+ apps         |
-| **AI/ML**     | Gemini API    | -                 | SOAR AI       | Cortex ML         |
-| **Deploy**    | Docker/Podman | Docker/Podman     | Cloud/On-prem | On-prem/Cloud     |
-| **UI Modern** | ✅ Ya         | ⚠️ Functional     | ✅ Ya         | ✅ Ya             |
+| Fitur | Shuffle | Wazuh+TheHive | Splunk SOAR | Palo Alto XSOAR |
+|---|---|---|---|---|
+| **OS** | Open Source | Open Source | Commercial | Commercial |
+| **Lisensi** | Apache 2.0 | AGPL v3 | Per-seat | Per-seat |
+| **Playbook** | YAML + UI | Python + template | Python (Apps) | Python (Playbook) |
+| **Integrasi** | 200+ apps | 50+ via Hive | 300+ apps | 600+ apps |
+| **AI/ML** | Gemini API | - | SOAR AI | Cortex ML |
+| **Deploy** | Docker/Podman | Docker/Podman | Cloud/On-prem | On-prem/Cloud |
+| **UI Modern** | ✅ Ya | ⚠️ Functional | ✅ Ya | ✅ Ya |
 
 **Rekomendasi:**
-
 - **Shuffle** — untuk tim dengan budget $0, mau fleksibilitas maksimal
 - **Wazuh+TheHive** — sudah punya Wazuh, perlu case management
 - **Splunk SOAR** — enterprise, sudah pakai Splunk SIEM
@@ -160,7 +158,7 @@ steps:
 
   - id: decision
     type: condition
-    input:
+    input: 
       field: "{{steps.enrich_ip.data.attributes.last_analysis_stats.malicious}}"
       condition: "> 5"
     branches:
@@ -244,7 +242,7 @@ THEHIVE_KEY = "your-api-key"
 @app.route("/webhook/wazuh", methods=["POST"])
 def handle_alert():
     alert = request.json
-
+    
     # Buat alert di TheHive
     payload = {
         "title": f"Wazuh Alert: {alert['rule']['description']}",
@@ -258,7 +256,7 @@ def handle_alert():
             {"dataType": "hostname", "data": alert["agent"]["name"]},
         ]
     }
-
+    
     resp = requests.post(
         f"{THEHIVE_URL}/api/alert",
         headers={"Authorization": f"Bearer {THEHIVE_KEY}"},
@@ -278,25 +276,25 @@ Playbook adalah inti SOAR. Format YAML memungkinkan version control dan review.
 ```yaml
 name: string
 description: string
-trigger: # Event source
+trigger:                # Event source
   type: webhook|schedule|api
   config: {}
-steps: [] # Daftar aksi berurutan
-variables: {} # Konstanta / env vars
-error_handling: # Apa yang terjadi jika step gagal
+steps: []              # Daftar aksi berurutan
+variables: {}          # Konstanta / env vars
+error_handling:        # Apa yang terjadi jika step gagal
   default: fail|skip|retry
 ```
 
 ### Step Types
 
-| Type        | Fungsi        | Contoh                          |
-| ----------- | ------------- | ------------------------------- |
-| `http`      | HTTP request  | API call ke firewall, VT, Slack |
-| `condition` | Branching     | If malicious > 5 → block        |
-| `jsonpath`  | Extract field | Parse nested JSON               |
-| `python`    | Custom script | Compute hash, decode base64     |
-| `email`     | Kirim email   | Notifikasi ke analyst           |
-| `ssh`       | SSH command   | Execute command di server       |
+| Type | Fungsi | Contoh |
+|---|---|---|
+| `http` | HTTP request | API call ke firewall, VT, Slack |
+| `condition` | Branching | If malicious > 5 → block |
+| `jsonpath` | Extract field | Parse nested JSON |
+| `python` | Custom script | Compute hash, decode base64 |
+| `email` | Kirim email | Notifikasi ke analyst |
+| `ssh` | SSH command | Execute command di server |
 
 ---
 
@@ -339,12 +337,12 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/firewall/acces
 
 ### Containment Decision Matrix
 
-| Indicator                     | Confidence | Action                      |
-| ----------------------------- | ---------- | --------------------------- |
-| IP known malicious (VT > 5)   | High       | Block at firewall + notify  |
-| Beaconing to C2               | High       | Isolate endpoint + block IP |
-| Suspicious login from new geo | Medium     | MFA challenge + log         |
-| Port scan from internal IP    | Low        | Log + investigate           |
+| Indicator | Confidence | Action |
+|---|---|---|
+| IP known malicious (VT > 5) | High | Block at firewall + notify |
+| Beaconing to C2 | High | Isolate endpoint + block IP |
+| Suspicious login from new geo | Medium | MFA challenge + log |
+| Port scan from internal IP | Low | Log + investigate |
 
 ---
 
@@ -397,11 +395,11 @@ steps:
 
 Tiga pendekatan untuk menghubungkan SOAR dengan tools lain:
 
-| Approach                         | Latency   | Complexity | Use Case                        |
-| -------------------------------- | --------- | ---------- | ------------------------------- |
-| **Webhook**                      | 100-500ms | Rendah     | Fire & forget, notifikasi Slack |
-| **API-Native**                   | 50-200ms  | Sedang     | Query threat intel, block IP    |
-| **MCP** (Model Context Protocol) | 200ms-2s  | Tinggi     | Orchestration dengan LLM agent  |
+| Approach | Latency | Complexity | Use Case |
+|---|---|---|---|
+| **Webhook** | 100-500ms | Rendah | Fire & forget, notifikasi Slack |
+| **API-Native** | 50-200ms | Sedang | Query threat intel, block IP |
+| **MCP** (Model Context Protocol) | 200ms-2s | Tinggi | Orchestration dengan LLM agent |
 
 MCP memungkinkan SOAR berintegrasi dengan LLM agent untuk decision making:
 
@@ -417,11 +415,11 @@ Ini sangat powerful untuk alert ambiguity tinggi (contoh: "Login dari IP asing �
 
 ### Minimum Resource
 
-| Platform            | CPU    | RAM  | Storage |
-| ------------------- | ------ | ---- | ------- |
-| Shuffle             | 2 vCPU | 4 GB | 20 GB   |
-| TheHive + Cassandra | 4 vCPU | 8 GB | 50 GB   |
-| Wazuh (server)      | 4 vCPU | 8 GB | 100 GB  |
+| Platform | CPU | RAM | Storage |
+|---|---|---|---|
+| Shuffle | 2 vCPU | 4 GB | 20 GB |
+| TheHive + Cassandra | 4 vCPU | 8 GB | 50 GB |
+| Wazuh (server) | 4 vCPU | 8 GB | 100 GB |
 
 ### Runbook Checklist
 
@@ -437,12 +435,12 @@ Ini sangat powerful untuk alert ambiguity tinggi (contoh: "Login dari IP asing �
 
 ## 11. Metrik & Dashboard
 
-| Metrik                | Target              | Cara Ukur          |
-| --------------------- | ------------------- | ------------------ |
-| Alert-to-case time    | < 5 menit           | SOAR logs          |
-| Playbook success rate | > 95%               | Step completion    |
-| False positive rate   | < 10%               | Analyst feedback   |
-| MTTR                  | < 15 menit critical | Case resolved time |
+| Metrik | Target | Cara Ukur |
+|---|---|---|
+| Alert-to-case time | < 5 menit | SOAR logs |
+| Playbook success rate | > 95% | Step completion |
+| False positive rate | < 10% | Analyst feedback |
+| MTTR | < 15 menit critical | Case resolved time |
 
 ---
 
@@ -455,7 +453,6 @@ Ini sangat powerful untuk alert ambiguity tinggi (contoh: "Login dari IP asing �
 - **Cloudflare API Firewall Rules:** https://developers.cloudflare.com/api/operations/firewall-rules
 
 **Cross-link vault:**
-
 - [[siem-security-data-lake-architecture]] — sumber alert utama
 - [[incident-response-framework]] — SOP yang diotomatisasi
 - [[threat-hunting-methodology]] — threat intel enrichment

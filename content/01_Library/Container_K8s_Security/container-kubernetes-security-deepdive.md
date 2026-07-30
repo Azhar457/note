@@ -1,12 +1,12 @@
 ---
 title: Container & Kubernetes Security Deep Dive
 tags:
-  - container-k8s-security
-  - library
-created: "2026-07-02"
-updated: "2026-07-02"
+- container-k8s-security
+- library
+created: '2026-07-02'
+updated: '2026-07-02'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🐳 Container & Kubernetes Security Deep Dive
@@ -49,14 +49,14 @@ cssclasses: ""
 
 Container tidak menyediakan hypervisor-level isolation. Sebuah container berbagi **kernel host** dengan container lain dan host itu sendiri. Attack surface utama meliputi:
 
-| Attack Vector                    | Deskripsi                                         | Dampak               |
-| :------------------------------- | :------------------------------------------------ | :------------------- |
-| **Namespace escape**             | Exploit kernel bug untuk break out dari namespace | Root on host         |
-| **Capability abuse**             | Container dengan CAP_SYS_ADMIN, CAP_NET_RAW       | Privilege escalation |
-| **Shared /proc, /sys**           | Write ke /proc/sys/kernel/core_pattern            | Host code execution  |
-| **Container breakout via mount** | Mount host filesystem dari container              | Full host access     |
-| **User namespace mapping**       | Misconfigured UID/GID mapping                     | Bypass permission    |
-| **cgroupfs**                     | Write ke cgroup notify_on_release                 | Host code execution  |
+| Attack Vector | Deskripsi | Dampak |
+|:---|:---|:---|
+| **Namespace escape** | Exploit kernel bug untuk break out dari namespace | Root on host |
+| **Capability abuse** | Container dengan CAP_SYS_ADMIN, CAP_NET_RAW | Privilege escalation |
+| **Shared /proc, /sys** | Write ke /proc/sys/kernel/core_pattern | Host code execution |
+| **Container breakout via mount** | Mount host filesystem dari container | Full host access |
+| **User namespace mapping** | Misconfigured UID/GID mapping | Bypass permission |
+| **cgroupfs** | Write ke cgroup notify_on_release | Host code execution |
 
 ```text
 ┌──────────────────────────────────────────────────┐
@@ -72,7 +72,6 @@ Container tidak menyediakan hypervisor-level isolation. Sebuah container berbagi
 ```
 
 **Mitigasi:**
-
 - Jalankan container dengan `--security-opt no-new-privileges:true`
 - Drop semua capabilities, add hanya yang diperlukan (`--cap-drop=ALL --cap-add=NET_BIND_SERVICE`)
 - Gunakan user namespace remapping (`/etc/subuid`, `/etc/subgid`)
@@ -86,11 +85,11 @@ Container tidak menyediakan hypervisor-level isolation. Sebuah container berbagi
 
 Membatasi syscall yang bisa digunakan container. Tiga mode:
 
-| Mode         | Deskripsi                        | Use Case                         |
-| :----------- | :------------------------------- | :------------------------------- |
-| `default`    | Whitelist ~300+ syscall aman     | Default Docker                   |
-| `unconfined` | Semua syscall diizinkan          | Debugging (tidak untuk produksi) |
-| Custom JSON  | Whitelist spesifik per container | Aplikasi dengan syscall khusus   |
+| Mode | Deskripsi | Use Case |
+|:---|:---|:---|
+| `default` | Whitelist ~300+ syscall aman | Default Docker |
+| `unconfined` | Semua syscall diizinkan | Debugging (tidak untuk produksi) |
+| Custom JSON | Whitelist spesifik per container | Aplikasi dengan syscall khusus |
 
 ```json
 {
@@ -127,11 +126,11 @@ securityContext:
 
 **Comparison matrix:**
 
-| LSM      | Scope           | Policy Language | Overhead | Use in K8s    |
-| :------- | :-------------- | :-------------- | :------- | :------------ |
-| Seccomp  | Syscall         | JSON            | Minimal  | GA v1.19+     |
-| AppArmor | Path, net, cap  | Text profile    | Low      | Beta (PSA)    |
-| SELinux  | Label-based MAC | Policy module   | Medium   | RHCOS/Flatcar |
+| LSM | Scope | Policy Language | Overhead | Use in K8s |
+|:---|:---|:---|:---|:---|
+| Seccomp | Syscall | JSON | Minimal | GA v1.19+ |
+| AppArmor | Path, net, cap | Text profile | Low | Beta (PSA) |
+| SELinux | Label-based MAC | Policy module | Medium | RHCOS/Flatcar |
 
 ---
 
@@ -140,18 +139,15 @@ securityContext:
 Setiap lapisan (layer) pada container image menambah attack surface — termasuk toolchains, debug symbols, dan package manager artifacts.
 
 **Golden image anti-pattern:**
-
 ```dockerfile
 FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y curl wget git build-essential python3
 COPY app /app
 CMD ["/app/entrypoint"]
 ```
-
 → 1.2 GB image, ~120 CVEs, puluhan unused binaries.
 
 **Multi-stage build:**
-
 ```dockerfile
 # Stage 1: builder
 FROM golang:1.22-alpine AS builder
@@ -175,13 +171,13 @@ ENTRYPOINT ["/server"]
 
 ## Distroless & Minimal Base Images
 
-| Base Image                 |  Size  | CVE Count (typical) | Use Case                 |
-| :------------------------- | :----: | :-----------------: | :----------------------- |
-| `ubuntu:22.04`             | 77 MB  |        30–80        | Dev, testing             |
-| `alpine:3.20`              |  7 MB  |         0–5         | Lightweight prod         |
-| `gcr.io/distroless/static` |  2 MB  |          0          | Go/rust static binary    |
-| `chainguard/static`        | 2.5 MB |          0          | FIPS-compliant minimal   |
-| `scratch`                  |  0 B   |          0          | Fully static binary only |
+| Base Image | Size | CVE Count (typical) | Use Case |
+|:---|:---:|:---:|:---|
+| `ubuntu:22.04` | 77 MB | 30–80 | Dev, testing |
+| `alpine:3.20` | 7 MB | 0–5 | Lightweight prod |
+| `gcr.io/distroless/static` | 2 MB | 0 | Go/rust static binary |
+| `chainguard/static` | 2.5 MB | 0 | FIPS-compliant minimal |
+| `scratch` | 0 B | 0 | Fully static binary only |
 
 > [!TIP] Rekomendasi
 > Untuk production: pilih distroless atau Chainguard. Alpine memakai musl libc — uji kompatibilitas aplikasi terlebih dahulu. Untuk compliance (FIPS, SOC 2), Chainguard menyediakan base image with zero CVEs dan SBOM built-in.
@@ -201,16 +197,16 @@ Alat scanning terintegrasi di pipeline CI/CD untuk mencegah image dengan critica
     format: sarif
     severity: CRITICAL,HIGH
     output: trivy-results.sarif
-    exit-code: 1 # ganti pipeline jika temuan critical
+    exit-code: 1  # ganti pipeline jika temuan critical
 ```
 
-| Scanner     | Format            | Registry Integration      | Policy Engine         | License     |
-| :---------- | :---------------- | :------------------------ | :-------------------- | :---------- |
-| **Trivy**   | SARIF, JSON, HTML | ECR, GAR, ACR, Docker Hub | IaC + K8s             | Apache 2.0  |
-| **Grype**   | CycloneDX, JSON   | Any OCI registry          | +Syft SBOM            | Apache 2.0  |
-| **Clair**   | JSON              | Quay, Harbor              | Vulnerability matcher | Apache 2.0  |
-| **Snyk**    | SARIF, JSON, HTML | All major registries      | Severity-based gate   | Proprietary |
-| **Anchore** | JSON, CycloneDX   | ECR, Docker Hub           | Policy bundles        | Apache 2.0  |
+| Scanner | Format | Registry Integration | Policy Engine | License |
+|:---|:---|:---|:---|:---|
+| **Trivy** | SARIF, JSON, HTML | ECR, GAR, ACR, Docker Hub | IaC + K8s | Apache 2.0 |
+| **Grype** | CycloneDX, JSON | Any OCI registry | +Syft SBOM | Apache 2.0 |
+| **Clair** | JSON | Quay, Harbor | Vulnerability matcher | Apache 2.0 |
+| **Snyk** | SARIF, JSON, HTML | All major registries | Severity-based gate | Proprietary |
+| **Anchore** | JSON, CycloneDX | ECR, Docker Hub | Policy bundles | Apache 2.0 |
 
 ---
 
@@ -219,7 +215,6 @@ Alat scanning terintegrasi di pipeline CI/CD untuk mencegah image dengan critica
 Falco — project CNCF — menggunakan driver kernel (eBPF atau kernel module) untuk memonitor syscall dan menghasilkan **falco events** berdasarkan rule engine.
 
 **Arsitektur:**
-
 ```text
 ┌─────────────────────────────────────┐
 │         Kubernetes Node              │
@@ -242,7 +237,6 @@ Falco — project CNCF — menggunakan driver kernel (eBPF atau kernel module) u
 ```
 
 **Contoh rule — detect shell masuk kontainer:**
-
 ```yaml
 - rule: Terminal shell in container
   desc: A shell was spawned by a program in a container
@@ -263,14 +257,14 @@ Falco — project CNCF — menggunakan driver kernel (eBPF atau kernel module) u
 
 Tracee — dari Aqua Security — menggunakan eBPF untuk **deteksi threats dan forensik** tanpa kernel module.
 
-| Feature             | Tracee                | Falco                |
-| :------------------ | :-------------------- | :------------------- |
-| Signatures          | 150+ built-in         | 200+ rules           |
-| eBPF-native         | ✅ Standalone eBPF    | ✅ eBPF (alternatif) |
-| Kernel module       | ❌ Tidak perlu        | ✅ Juga support      |
-| Container forensics | ✅ Capture file write | ❌ Terbatas          |
-| CO-RE (BTF)         | ✅                    | ✅                   |
-| Output format       | JSON, table, gob      | JSON, gRPC           |
+| Feature | Tracee | Falco |
+|:---|:---|:---|
+| Signatures | 150+ built-in | 200+ rules |
+| eBPF-native | ✅ Standalone eBPF | ✅ eBPF (alternatif) |
+| Kernel module | ❌ Tidak perlu | ✅ Juga support |
+| Container forensics | ✅ Capture file write | ❌ Terbatas |
+| CO-RE (BTF) | ✅ | ✅ |
+| Output format | JSON, table, gob | JSON, gRPC |
 
 ```bash
 # Tracee — one-shot signature scan
@@ -294,19 +288,19 @@ metadata:
   name: "block-shell"
 spec:
   kprobes:
-    - call: "sys_execve"
-      syscall: true
-      args:
-        - index: 0
-          type: "string"
-      selectors:
-        - matchArgs:
-            - index: 0
-              operator: "Equal"
-              values:
-                - "/bin/sh"
-          matchActions:
-            - action: Sigkill
+  - call: "sys_execve"
+    syscall: true
+    args:
+    - index: 0
+      type: "string"
+    selectors:
+    - matchArgs:
+      - index: 0
+        operator: "Equal"
+        values:
+        - "/bin/sh"
+      matchActions:
+      - action: Sigkill
 ```
 
 > [!NOTE] eBPF Security Landscape
@@ -327,9 +321,9 @@ kind: ClusterRoleBinding
 metadata:
   name: dangerous-binding
 subjects:
-  - kind: ServiceAccount
-    name: myapp
-    namespace: default
+- kind: ServiceAccount
+  name: myapp
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -337,7 +331,6 @@ roleRef:
 ```
 
 **Principle of Least Privilege (PoLP):**
-
 ```yaml
 # ✅ Role minimal untuk pod reader
 apiVersion: rbac.authorization.k8s.io/v1
@@ -346,9 +339,9 @@ metadata:
   namespace: production
   name: pod-reader
 rules:
-  - apiGroups: [""]
-    resources: ["pods", "pods/log"]
-    verbs: ["get", "watch", "list"]
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "watch", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -356,8 +349,8 @@ metadata:
   namespace: production
   name: myapp-pod-reader
 subjects:
-  - kind: ServiceAccount
-    name: myapp
+- kind: ServiceAccount
+  name: myapp
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -365,7 +358,6 @@ roleRef:
 ```
 
 **RBAC audit checklist:**
-
 1. ✅ Apakah ada binding ke `cluster-admin` di namespace non-system?
 2. ✅ Apakah SA digunakan tanpa token mount?
 3. ✅ Apakah `escalate` / `bind` verb diberikan?
@@ -378,14 +370,13 @@ roleRef:
 
 PSS menggantikan PSP (PodSecurityPolicy, deprecated di v1.25) dengan tiga policy level:
 
-| Level          | Deskripsi            |  Ketat  | Contoh Restriksi                                              |
-| :------------- | :------------------- | :-----: | :------------------------------------------------------------ |
-| **privileged** | unrestricted         | Longgar | Tidak ada batasan                                             |
-| **baseline**   | minimal restrictions | Sedang  | No hostPID, no privileged, no hostPort                        |
-| **restricted** | hardened by default  |  Ketat  | Seccomp=RuntimeDefault, drop ALL caps, readOnlyRootFilesystem |
+| Level | Deskripsi | Ketat | Contoh Restriksi |
+|:---|:---|:---:|:---|
+| **privileged** | unrestricted | Longgar | Tidak ada batasan |
+| **baseline** | minimal restrictions | Sedang | No hostPID, no privileged, no hostPort |
+| **restricted** | hardened by default | Ketat | Seccomp=RuntimeDefault, drop ALL caps, readOnlyRootFilesystem |
 
 **Implementasi via label namespace:**
-
 ```bash
 kubectl label ns production \
   pod-security.kubernetes.io/enforce=restricted \
@@ -393,11 +384,11 @@ kubectl label ns production \
   pod-security.kubernetes.io/warn=baseline
 ```
 
-| Mode      | Behavior                                       |
-| :-------- | :--------------------------------------------- |
-| `enforce` | **Tolak** pod yang melanggar policy            |
-| `audit`   | Log pelanggaran ke audit log (pod tetap jalan) |
-| `warn`    | Tampilkan warning ke user (pod tetap jalan)    |
+| Mode | Behavior |
+|:---|:---|
+| `enforce` | **Tolak** pod yang melanggar policy |
+| `audit` | Log pelanggaran ke audit log (pod tetap jalan) |
+| `warn` | Tampilkan warning ke user (pod tetap jalan) |
 
 ---
 
@@ -406,7 +397,6 @@ kubectl label ns production \
 OPA Gatekeeper — admission controller berbasis **Rego policy language** — memungkinkan kebijakan deklaratif untuk resource Kubernetes.
 
 **Constraint template — blokir image dari registry tidak dikenal:**
-
 ```rego
 package k8sallowedrepos
 
@@ -418,13 +408,11 @@ violation[{"msg": msg}] {
 ```
 
 **Install Gatekeeper:**
-
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.16/deploy/gatekeeper.yaml
 ```
 
 **Constraint instance:**
-
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sAllowedRepos
@@ -435,7 +423,7 @@ spec:
     namespaces: ["production"]
   parameters:
     repos:
-      - "registry.internal.company.io/"
+    - "registry.internal.company.io/"
 ```
 
 ---
@@ -453,29 +441,29 @@ metadata:
 spec:
   validationFailureAction: Enforce
   rules:
-    - name: check-readonly-rootfs
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      validate:
-        message: "Root filesystem harus read-only"
-        pattern:
-          spec:
-            containers:
-              - securityContext:
-                  readOnlyRootFilesystem: true
+  - name: check-readonly-rootfs
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Root filesystem harus read-only"
+      pattern:
+        spec:
+          containers:
+          - securityContext:
+              readOnlyRootFilesystem: true
 ```
 
-| Feature            | OPA/Gatekeeper     | Kyverno                 |
-| :----------------- | :----------------- | :---------------------- |
-| Policy language    | Rego               | YAML (native)           |
-| Learning curve     | Tinggi             | Rendah                  |
-| Mutation           | ❌ (via webhook)   | ✅ Built-in             |
-| Generate resources | ❌                 | ✅                      |
-| Policy reports     | ✅                 | ✅                      |
-| Background scan    | ❌                 | ✅                      |
+| Feature | OPA/Gatekeeper | Kyverno |
+|:---|:---|:---|
+| Policy language | Rego | YAML (native) |
+| Learning curve | Tinggi | Rendah |
+| Mutation | ❌ (via webhook) | ✅ Built-in |
+| Generate resources | ❌ | ✅ |
+| Policy reports | ✅ | ✅ |
+| Background scan | ❌ | ✅ |
 | Ecosystem policies | Gatekeeper Library | Kyverno Policies (200+) |
 
 ---
@@ -485,7 +473,6 @@ spec:
 Kubernetes NetworkPolicy default hanya bekerja di layer 3/4. Cilium — berbasis eBPF — memberikan **L3-L7 network security** dengan identitas service, bukan IP.
 
 ### Kubernetes NetworkPolicy (native):
-
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -497,19 +484,18 @@ spec:
     matchLabels:
       app: api
   policyTypes:
-    - Ingress
-    - Egress
+  - Ingress
+  - Egress
   ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: frontend
-      ports:
-        - port: 3000
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend
+    ports:
+    - port: 3000
 ```
 
 ### Cilium NetworkPolicy (L7 HTTP-aware):
-
 ```yaml
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -520,17 +506,17 @@ spec:
     matchLabels:
       app: api
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            app: frontend
-      toPorts:
-        - ports:
-            - port: "3000"
-              protocol: TCP
-          rules:
-            http:
-              - method: "GET"
-                path: "/api/v1/public"
+  - fromEndpoints:
+    - matchLabels:
+        app: frontend
+    toPorts:
+    - ports:
+      - port: "3000"
+        protocol: TCP
+      rules:
+        http:
+        - method: "GET"
+          path: "/api/v1/public"
 ```
 
 ```text
@@ -567,7 +553,7 @@ metadata:
   namespace: production
 spec:
   mtls:
-    mode: STRICT # STRICT | PERMISSIVE | DISABLE
+    mode: STRICT  # STRICT | PERMISSIVE | DISABLE
 ---
 # Istio AuthorizationPolicy — allow only frontend ke api
 apiVersion: security.istio.io/v1beta1
@@ -581,13 +567,13 @@ spec:
       app: api
   action: ALLOW
   rules:
-    - from:
-        - source:
-            principals: ["cluster.local/ns/production/sa/frontend"]
-      to:
-        - operation:
-            methods: ["GET"]
-            paths: ["/api/*"]
+  - from:
+    - source:
+        principals: ["cluster.local/ns/production/sa/frontend"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/api/*"]
 ```
 
 > [!TIP] Zero Trust Network untuk K8s
@@ -599,15 +585,14 @@ spec:
 
 SLSA (Supply-chain Levels for Software Artifacts) — framework dari OpenSSF — mendefinisikan level keamanan supply chain dari L0 (no guarantees) hingga L3 (hermetic + reproducible).
 
-| Level   | Build as code | Provenance | Isolated | Hermetic | Reproducible |
-| :------ | :-----------: | :--------: | :------: | :------: | :----------: |
-| SLSA L1 |      ✅       |     ❌     |    ❌    |    ❌    |      ❌      |
-| SLSA L2 |      ✅       |     ✅     |    ❌    |    ❌    |      ❌      |
-| SLSA L3 |      ✅       |     ✅     |    ✅    |    ✅    |      ❌      |
-| SLSA L4 |      ✅       |     ✅     |    ✅    |    ✅    |      ✅      |
+| Level | Build as code | Provenance | Isolated | Hermetic | Reproducible |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| SLSA L1 | ✅ | ❌ | ❌ | ❌ | ❌ |
+| SLSA L2 | ✅ | ✅ | ❌ | ❌ | ❌ |
+| SLSA L3 | ✅ | ✅ | ✅ | ✅ | ❌ |
+| SLSA L4 | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 **Praktik untuk mencapai SLSA L3 di OCI:**
-
 1. **Build as code** — Dockerfile + CI pipeline (GitHub Actions, GitLab CI, Tekton)
 2. **Signed provenance (DSSE)** — attestation dari build platform
 3. **Isolated build** — no network during build, clean environment
@@ -616,13 +601,13 @@ SLSA (Supply-chain Levels for Software Artifacts) — framework dari OpenSSF —
 ```yaml
 # Generate provenance attestation dengan gitsign + cosign
 steps:
-  - uses: sigstore/cosign-installer@main
-  - name: Sign image
-    run: |
-      cosign sign --yes "$IMAGE"
-  - name: Generate provenance
-    run: |
-      cosign attest --yes --type slsa --predicate slsa.json "$IMAGE"
+- uses: sigstore/cosign-installer@main
+- name: Sign image
+  run: |
+    cosign sign --yes "$IMAGE"
+- name: Generate provenance
+  run: |
+    cosign attest --yes --type slsa --predicate slsa.json "$IMAGE"
 ```
 
 ---
@@ -632,7 +617,6 @@ steps:
 Cosign — dari Sigstore project — memungkinkan **signing, verifying, dan storing signatures** untuk OCI container images.
 
 **Signing flow:**
-
 ```bash
 # Generate keyless signing
 cosign sign myapp:latest
@@ -644,7 +628,6 @@ cosign verify myapp:latest \
 ```
 
 **Verifikasi admission — CUE policy dengan cosign:**
-
 ```bash
 # Gate admission dengan cosign verify
 kubectl exec -it kube-apiserver -- \
@@ -679,37 +662,36 @@ kubectl exec -it kube-apiserver -- \
 
 **Admission controllers** adalah gatekeeper kustom di kube-apiserver yang memvalidasi/memodifikasi object sebelum disimpan ke etcd.
 
-| Admission Controller         | Fungsi                                                |
-| :--------------------------- | :---------------------------------------------------- |
-| `MutatingAdmissionWebhook`   | **Modify** object (default values, sidecar injection) |
-| `ValidatingAdmissionWebhook` | **Validate** object (policy enforcement)              |
-| `PodSecurity`                | Enforce PSS (replaces PSP)                            |
-| `NamespaceLifecycle`         | Prevent deletion of system namespaces                 |
-| `LimitRanger`                | Enforce resource limits                               |
-| `ImagePolicyWebhook`         | Kontrol image registry                                |
+| Admission Controller | Fungsi |
+|:---|:---|
+| `MutatingAdmissionWebhook` | **Modify** object (default values, sidecar injection) |
+| `ValidatingAdmissionWebhook` | **Validate** object (policy enforcement) |
+| `PodSecurity` | Enforce PSS (replaces PSP) |
+| `NamespaceLifecycle` | Prevent deletion of system namespaces |
+| `LimitRanger` | Enforce resource limits |
+| `ImagePolicyWebhook` | Kontrol image registry |
 
 **Mutating webhook — inject sidecar:**
-
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: sidecar-injector
 webhooks:
-  - name: sidecar.mesh.io
-    clientConfig:
-      service:
-        name: sidecar-injector
-        namespace: mesh-system
-        path: /mutate
-      caBundle: <base64>
-    rules:
-      - operations: ["CREATE"]
-        apiGroups: [""]
-        apiVersions: ["v1"]
-        resources: ["pods"]
-    admissionReviewVersions: ["v1"]
-    sideEffects: None
+- name: sidecar.mesh.io
+  clientConfig:
+    service:
+      name: sidecar-injector
+      namespace: mesh-system
+      path: /mutate
+    caBundle: <base64>
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
 ```
 
 ---
@@ -717,7 +699,6 @@ webhooks:
 ## Secrets Management
 
 ### Masalah dengan Kubernetes Secrets Native:
-
 - Base64-only encoding (bukan encryption by default)
 - etcd belum tentu terenkripsi
 - Rotasi secrets memerlukan rolling pods
@@ -725,15 +706,14 @@ webhooks:
 
 ### Solusi Eksternal:
 
-| Tool                          | Encryption at rest  | Dynamic rotation | KMS Integration | Vault Provider |
-| :---------------------------- | :-----------------: | :--------------: | :-------------: | :------------: |
-| **External Secrets Operator** |    etcd encrypt     |        ✅        |  AWS/GCP/Azure  |       ✅       |
-| **Sealed Secrets**            |   Controller key    |        ❌        |       ❌        |       ❌       |
-| **HashiCorp Vault**           |    Vault transit    |        ✅        |  All major KMS  |      N/A       |
-| **Secret Store CSI Driver**   | N/A (provider-side) |        ✅        |  AWS/GCP/Azure  |       ✅       |
+| Tool | Encryption at rest | Dynamic rotation | KMS Integration | Vault Provider |
+|:---|:---:|:---:|:---:|:---:|
+| **External Secrets Operator** | etcd encrypt | ✅ | AWS/GCP/Azure | ✅ |
+| **Sealed Secrets** | Controller key | ❌ | ❌ | ❌ |
+| **HashiCorp Vault** | Vault transit | ✅ | All major KMS | N/A |
+| **Secret Store CSI Driver** | N/A (provider-side) | ✅ | AWS/GCP/Azure | ✅ |
 
 ### External Secrets Operator:
-
 ```yaml
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
@@ -748,14 +728,13 @@ spec:
     name: db-creds
     creationPolicy: Owner
   data:
-    - secretKey: DB_PASSWORD
-      remoteRef:
-        key: secret/data/database
-        property: password
+  - secretKey: DB_PASSWORD
+    remoteRef:
+      key: secret/data/database
+      property: password
 ```
 
 ### Sealed Secrets:
-
 ```bash
 # Encrypt secret untuk disimpan di Git
 kubeseal --format yaml < secret.yaml > sealed-secret.yaml
@@ -767,21 +746,18 @@ kubeseal --format yaml < secret.yaml > sealed-secret.yaml
 ## Case Study: Tesla Kubernetes Compromise
 
 **Timeline (2018):**
-
 1. **Entry point**: Kubernetes admin console **tanpa password** (kubectl dashboard exposed ke internet)
 2. **Lateral movement**: Attacker menemukan credential AWS di sebuah pod environment variable
 3. **Data exfiltration**: Menggunakan kubelet credential untuk mencuri data mining pod
 4. **Cryptocurrency mining**: Deploy container mining di cluster Tesla menggunakan pods
 
 **Root cause analysis:**
-
 - Kubectl dashboard tidak seharusnya terekspos publik tanpa auth
 - Service account dengan `cluster-admin` digunakan untuk dashboard
 - Credential AWS disimpan di env variable, bukan secrets management
 - NetworkPolicy tidak membatasi egress ke internet
 
 **Pelajaran:**
-
 ```text
 📌 ❌ JANGAN: expose Kubernetes Dashboard ke internet
 📌 ✅ WAJIB: RBAC dengan least privilege
@@ -795,13 +771,11 @@ kubeseal --format yaml < secret.yaml > sealed-secret.yaml
 ## Case Study: Log4j di Kubernetes
 
 **CVE-2021-44228 (Log4Shell) — Impact di K8s:**
-
 - JNDI injection menyebabkan RCE pada ribuan aplikasi Java yang menggunakan Log4j
 - Service mesh (Istio/Linkerd) tidak bisa memblokir sepenuhnya karena exploit terjadi di layer aplikasi
 - Container image yang belum di-scan membawa vulnerable library
 
 **Mitigasi di K8s yang efektif:**
-
 1. **WAF + L7 Policy**: Blokir header JNDI di ingress (Cilium HTTP policy, ModSecurity)
 2. **Image scanning**: Trivy/Grype scan — block image dengan Log4j < 2.17
 3. **Runtime detection**: Falco rule — detect proses spawn by JVM yang mencurigakan
@@ -817,20 +791,20 @@ metadata:
 spec:
   validationFailureAction: Enforce
   rules:
-    - name: check-sbom
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      validate:
-        message: "Image harus memiliki SBOM attestation"
-        deny:
-          conditions:
-            all:
-              - key: "{{ request.operation }}"
-                operator: NotEquals
-                value: DELETE
+  - name: check-sbom
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Image harus memiliki SBOM attestation"
+      deny:
+        conditions:
+          all:
+          - key: "{{ request.operation }}"
+            operator: NotEquals
+            value: DELETE
 ```
 
 ---
@@ -838,7 +812,6 @@ spec:
 ## Tooling Audit: kube-bench, kube-hunter, Popeye, Kubescape
 
 ### kube-bench
-
 Benchmark keamanan Kubernetes berdasarkan **CIS Benchmark for Kubernetes**.
 
 ```bash
@@ -847,15 +820,13 @@ kube-bench run --targets node,master --version 1.29
 ```
 
 **Sample output:**
-
-| Control ID | Check                                  | Status  |
-| :--------- | :------------------------------------- | :-----: |
-| 1.1.1      | API server --anonymous-auth=false      | ✅ PASS |
-| 1.2.6      | Controller Manager --address=127.0.0.1 | ❌ FAIL |
-| 4.2.1      | kubelet --anonymous-auth=false         | ❌ FAIL |
+| Control ID | Check | Status |
+|:---|:---|:---:|
+| 1.1.1 | API server --anonymous-auth=false | ✅ PASS |
+| 1.2.6 | Controller Manager --address=127.0.0.1 | ❌ FAIL |
+| 4.2.1 | kubelet --anonymous-auth=false | ❌ FAIL |
 
 ### kube-hunter
-
 Penetration testing tool dari Aqua — mencari **eksploit path** aktif.
 
 ```bash
@@ -864,7 +835,6 @@ kube-hunter --remote cluster.example.com
 ```
 
 ### Popeye
-
 **Cluster sanitizer** — memindai resource K8s dan memberikan score numerik.
 
 ```bash
@@ -873,7 +843,6 @@ popeye --context production --out html --output-file popeye-report.html
 ```
 
 ### Kubescape
-
 Tool all-in-one dari ARMO — mencakup CIS benchmark, NSA CISA framework, MITRE ATT&CK.
 
 ```bash
@@ -883,12 +852,12 @@ kubescape scan framework nsa --format html -o report.html
 
 **Tool comparison:**
 
-| Tool            | Focus                  | Framework              | Output               | Scan Type           |
-| :-------------- | :--------------------- | :--------------------- | :------------------- | :------------------ |
-| **kube-bench**  | Node/control plane CIS | CIS Benchmark          | CLI, JSON, HTML      | Configuration audit |
-| **kube-hunter** | Active exploit path    | N/A                    | CLI, JSON            | Penetration test    |
-| **Popeye**      | K8s resource hygiene   | Custom scoring         | CLI, HTML, JSON      | Static analysis     |
-| **Kubescape**   | Comprehensive security | NSA CISA + MITRE + CIS | CLI, JSON, HTML, PDF | Multi-framework     |
+| Tool | Focus | Framework | Output | Scan Type |
+|:---|:---|:---|:---|:---|
+| **kube-bench** | Node/control plane CIS | CIS Benchmark | CLI, JSON, HTML | Configuration audit |
+| **kube-hunter** | Active exploit path | N/A | CLI, JSON | Penetration test |
+| **Popeye** | K8s resource hygiene | Custom scoring | CLI, HTML, JSON | Static analysis |
+| **Kubescape** | Comprehensive security | NSA CISA + MITRE + CIS | CLI, JSON, HTML, PDF | Multi-framework |
 
 ---
 
@@ -936,7 +905,6 @@ kubescape scan framework nsa --format html -o report.html
 ---
 
 > [!NOTE] Referensi & Bacaan Lanjutan
->
 > - [[comprehensive-threat-directory]] — threat modeling & attack taxonomy
 > - [[ebpf-kernel-security]] — eBPF, XDP, and kernel security mechanisms
 > - [[cicd-shiftleft-shiftright]] — DevSecOps pipeline implementation
@@ -944,7 +912,6 @@ kubescape scan framework nsa --format html -o report.html
 > - [[hierarchy-it-domain]] — enterprise domain trust and privilege model
 >
 > **Dokumentasi resmi:**
->
 > - [Kubernetes RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 > - [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/)
 > - [Falco Documentation](https://falco.org/docs/)

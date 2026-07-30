@@ -1,12 +1,12 @@
 ---
 title: Game Theory in Security — Strategic Decision Making for Attack & Defense
 tags:
-  - game-theory
-  - attacker-defender
-  - security-economics
-  - strategic
-created: "2026-07-19"
-updated: "2026-07-19"
+- game-theory
+- attacker-defender
+- security-economics
+- strategic
+created: '2026-07-19'
+updated: '2026-07-19'
 status: pending
 ---
 
@@ -18,13 +18,13 @@ status: pending
 
 ## 1. Game Types in Security
 
-| Game Type        | Players         | Description                                              | Security Example                                             |
-| ---------------- | --------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| **Zero-sum**     | 2               | One wins, one loses                                      | Attacker compromises system → Blue failed                    |
-| **Non-zero-sum** | 2+              | Both can win/lose                                        | Bug bounty: researcher finds bug, company patches → both win |
-| **Stackelberg**  | Leader-follower | Defender commits first (show defenses), attacker follows | Airport security: randomized patrols                         |
-| **Bayesian**     | 2               | One player has private info                              | Insider threat: defender doesn't know who is malicious       |
-| **Repeated**     | 2+              | Multiple rounds                                          | APT campaign: attack → defend → adapt → repeat               |
+| Game Type | Players | Description | Security Example |
+|-----------|---------|-------------|-----------------|
+| **Zero-sum** | 2 | One wins, one loses | Attacker compromises system → Blue failed |
+| **Non-zero-sum** | 2+ | Both can win/lose | Bug bounty: researcher finds bug, company patches → both win |
+| **Stackelberg** | Leader-follower | Defender commits first (show defenses), attacker follows | Airport security: randomized patrols |
+| **Bayesian** | 2 | One player has private info | Insider threat: defender doesn't know who is malicious |
+| **Repeated** | 2+ | Multiple rounds | APT campaign: attack → defend → adapt → repeat |
 
 ### 1.1 Defender's Dilemma
 
@@ -46,7 +46,6 @@ Nash Equilibrium: Defender randomized (mixed strategy)
 ---
 
 ### 📚 Referensi
-
 1. "The Mathematics of Crime" — M. D'Orsogna
 2. "Game Theory for Security" — Tambe, Yadav
 3. CySecGame: [https://github.com/Limmen/cysecgame](https://github.com/Limmen/cysecgame)

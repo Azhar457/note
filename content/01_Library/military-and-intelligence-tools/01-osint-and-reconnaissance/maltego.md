@@ -1,13 +1,13 @@
 ---
 title: Maltego
 tags:
-  - 01-osint-and-reconnaissance
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-27"
-updated: "2026-07-01"
+- 01-osint-and-reconnaissance
+- library
+- military-and-intelligence-tools
+created: '2026-06-27'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -17,7 +17,7 @@ cssclasses: ""
 
 ## 🧬 Apa Itu Maltego Secara Teknis?
 
-Maltego adalah **platform graph-based link analysis** yang mengubah fragmen data (alamat email, nama domain, alamat IP, akun media sosial) menjadi **peta visual hubungan**. Berbeda dengan Shodan yang mencari host di internet, Maltego menjawab pertanyaan: _“Bagaimana semua potongan informasi ini terhubung?”_
+Maltego adalah **platform graph-based link analysis** yang mengubah fragmen data (alamat email, nama domain, alamat IP, akun media sosial) menjadi **peta visual hubungan**. Berbeda dengan Shodan yang mencari host di internet, Maltego menjawab pertanyaan: *“Bagaimana semua potongan informasi ini terhubung?”*
 
 Inti dari Maltego adalah konsep **entity** (node) dan **transform** (edge). Anda memulai dengan satu atau beberapa entitas, lalu menjalankan transform untuk menemukan entitas lain yang terhubung. Maltego kemudian menggambar graf yang mengungkapkan hubungan tersembunyi — geografis, organisasi, teknis, atau sosial.
 
@@ -47,8 +47,8 @@ Inti dari Maltego adalah konsep **entity** (node) dan **transform** (edge). Anda
                        │
                        ▼
          [Sumber Data Eksternal]
-         (DNS server, WHOIS registry,
-          Shodan API, Twitter API,
+         (DNS server, WHOIS registry, 
+          Shodan API, Twitter API, 
           custom DB, Splunk, etc.)
 ```
 
@@ -60,16 +60,16 @@ Inti dari Maltego adalah konsep **entity** (node) dan **transform** (edge). Anda
 
 Maltego memiliki lebih dari 40 tipe entitas bawaan, masing-masing dengan properti spesifik:
 
-| Kategori Entitas   | Contoh                                                              | Properti Utama                       |
-| ------------------ | ------------------------------------------------------------------- | ------------------------------------ |
-| **Person**         | `Person`, `Twitter User`, `GitHub User`                             | name, alias, email, location         |
-| **Organization**   | `Company`, `Organization`, `Government`                             | name, industry, URL                  |
+| Kategori Entitas | Contoh | Properti Utama |
+|------------------|--------|----------------|
+| **Person** | `Person`, `Twitter User`, `GitHub User` | name, alias, email, location |
+| **Organization** | `Company`, `Organization`, `Government` | name, industry, URL |
 | **Infrastructure** | `IP Address`, `Domain`, `NS Record`, `MX Record`, `URL`, `Netblock` | fqdn, whois, nameserver, geolocation |
-| **Document/File**  | `Document`, `Image`, `PDF`                                          | title, url, file size, md5           |
-| **Location**       | `City`, `Province`, `Country`, `GPS Coordinate`                     | name, area, longitude/latitude       |
-| **Technology**     | `Service`, `Banner`, `Port`, `Technology Stack`                     | port, banner, product                |
-| **Social Media**   | `Facebook Object`, `Twitter User`, `Instagram Profile`              | profile url, friends count           |
-| **Phone**          | `Phone Number`                                                      | country code, subscriber             |
+| **Document/File** | `Document`, `Image`, `PDF` | title, url, file size, md5 |
+| **Location** | `City`, `Province`, `Country`, `GPS Coordinate` | name, area, longitude/latitude |
+| **Technology** | `Service`, `Banner`, `Port`, `Technology Stack` | port, banner, product |
+| **Social Media** | `Facebook Object`, `Twitter User`, `Instagram Profile` | profile url, friends count |
+| **Phone** | `Phone Number` | country code, subscriber |
 
 Setiap entitas dapat memiliki **properties** dinamis yang dapat diisi oleh transform. Misalnya, entitas `IP Address` dapat diperkaya dengan properti `location` dari geoIP.
 
@@ -120,7 +120,6 @@ Dengan satu alamat email dari WHOIS, Anda mungkin menemukan akun Twitter pengemb
 ### 6. Shodan & Censys Integration (via Transforms)
 
 Dengan Maltego standard transforms atau dari hub, Anda bisa:
-
 - `To Port/Service [from IP]` → Menampilkan semua port terbuka dan banner yang dikenal Shodan.
 - `To Vulnerability [from IP/Service]` → Mencocokkan dengan CVE yang terdeteksi.
 
@@ -175,7 +174,6 @@ Maltego sendiri tidak meninggalkan jejak pada target karena ia beroperasi pada d
 - **Shodan/Censys API**: Pemilik data (target) tidak tahu Anda meng-query mereka, tetapi Shodan tahu.
 
 Untuk defender:
-
 - **Tidak banyak yang bisa dilakukan** untuk mencegah pemetaan OSINT. Data yang Anda publikasikan di DNS, WHOIS, sertifikat SSL, dan media sosial adalah data publik. Satu-satunya cara adalah meminimalkan exposure: menghilangkan informasi pribadi dari WHOIS (gunakan privacy guard), membersihkan SAN dari domain internal, tidak menggunakan email pribadi untuk pendaftaran domain, dan menghapus metadata dari dokumen publik.
 - **Monitor eksposur Anda sendiri** dengan menggunakan Maltego secara defensif: lakukan self-reconnaissance dan hapus data sensitif yang ditemukan.
 
@@ -217,12 +215,12 @@ Maltego adalah alat netral; hasilnya bergantung pada tangan operator.
 
 ## 📚 Referensi
 
-- Paterva, _Maltego User Guide_ (2023)
-- Vinicius, _Mastering Maltego: A Comprehensive Guide to OSINT and Link Analysis_ (2022)
-- Bazzell, M. _Open Source Intelligence Techniques_ (2023)
+- Paterva, *Maltego User Guide* (2023)
+- Vinicius, *Mastering Maltego: A Comprehensive Guide to OSINT and Link Analysis* (2022)
+- Bazzell, M. *Open Source Intelligence Techniques* (2023)
 - NIST SP 800-137: Information Security Continuous Monitoring (ISCM) — relevan untuk self-reconnaissance.
 - MITRE ATT&CK: T1591 (Gather Victim Org Information), T1590 (Gather Victim Network Information), T1593 (Search Open Websites/Domains)
 
 ---
 
-_Maltego Deep Dive | OSINT Link Analysis & Reconnaissance | Dual-Use Entity Correlation_
+*Maltego Deep Dive | OSINT Link Analysis & Reconnaissance | Dual-Use Entity Correlation*

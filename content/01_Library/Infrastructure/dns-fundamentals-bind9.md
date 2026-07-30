@@ -62,16 +62,16 @@ Browser Anda
 
 ## Record Types — Yang Sering Dipakai
 
-| Record    | Fungsi                           | Contoh                                      |
-| --------- | -------------------------------- | ------------------------------------------- |
-| **A**     | IPv4 address                     | `domain.com. IN A 203.0.113.1`              |
-| **AAAA**  | IPv6 address                     | `domain.com. IN AAAA 2001:db8::1`           |
-| **CNAME** | Alias ke domain lain             | `www IN CNAME domain.com.`                  |
-| **MX**    | Mail server priority             | `domain.com. IN MX 10 mail.domain.com.`     |
-| **TXT**   | Teks (SPF, DKIM, verification)   | `domain.com. IN TXT "v=spf1 mx ~all"`       |
-| **NS**    | Nameserver delegation            | `domain.com. IN NS ns1.domain.com.`         |
-| **SOA**   | Start of Authority — master data | Wajib di setiap zone                        |
-| **SRV**   | Service location                 | `_sip._tcp IN SRV 10 5 5060 sip.domain.com` |
+| Record | Fungsi | Contoh |
+|--------|--------|--------|
+| **A** | IPv4 address | `domain.com. IN A 203.0.113.1` |
+| **AAAA** | IPv6 address | `domain.com. IN AAAA 2001:db8::1` |
+| **CNAME** | Alias ke domain lain | `www IN CNAME domain.com.` |
+| **MX** | Mail server priority | `domain.com. IN MX 10 mail.domain.com.` |
+| **TXT** | Teks (SPF, DKIM, verification) | `domain.com. IN TXT "v=spf1 mx ~all"` |
+| **NS** | Nameserver delegation | `domain.com. IN NS ns1.domain.com.` |
+| **SOA** | Start of Authority — master data | Wajib di setiap zone |
+| **SRV** | Service location | `_sip._tcp IN SRV 10 5 5060 sip.domain.com` |
 
 > [!tip] TTL Strategy
 > TTL rendah (60-300s) untuk record yang sering berubah (failover, CDN). TTL tinggi (3600-86400s) untuk MX, NS, TXT.
@@ -80,12 +80,12 @@ Browser Anda
 
 ## Authoritative vs Recursive
 
-| Aspek           | Authoritative                         | Recursive                                    |
-| --------------- | ------------------------------------- | -------------------------------------------- |
-| **Tugas**       | Jawab query untuk zone yang di-manage | Cari jawaban dari rantai resolver            |
-| **Data**        | Zone file lokal — source of truth     | Hasil cache dari upstream                    |
-| **Contoh**      | BIND9 sebagai primary/secondary       | Unbound, systemd-resolved, 8.8.8.8           |
-| **Homelab use** | Host domain sendiri                   | Lebih baik pake upstream (Cloudflare/Google) |
+| Aspek | Authoritative | Recursive |
+|------|-------------|-----------|
+| **Tugas** | Jawab query untuk zone yang di-manage | Cari jawaban dari rantai resolver |
+| **Data** | Zone file lokal — source of truth | Hasil cache dari upstream |
+| **Contoh** | BIND9 sebagai primary/secondary | Unbound, systemd-resolved, 8.8.8.8 |
+| **Homelab use** | Host domain sendiri | Lebih baik pake upstream (Cloudflare/Google) |
 
 > [!warning] Jangan Campur
 > BIND9 bisa jadi authoritative + recursive sekaligus. Tapi **jangan**. Authoritative harus bisa diakses publik. Recursive cuma boleh untuk internal. Campur = open resolver → DDoS amplification vector.
@@ -153,26 +153,26 @@ dig @localhost domain.com TXT
 
 ## Homelab Use Cases
 
-| Skenario                         | Setup                     | Complexity |
-| -------------------------------- | ------------------------- | ---------- |
-| **Local dev domains** (`*.test`) | BIND9 + dnsmasq           | Mudah      |
-| **Ad blocking**                  | Pi-hole (DNS sinkhole)    | Mudah      |
-| **Internal service discovery**   | BIND9 + SRV records       | Medium     |
-| **Public nameserver**            | BIND9 + DDNS + monitoring | Advanced   |
-| **Secondary (slave)**            | BIND9 zone transfer       | Medium     |
+| Skenario | Setup | Complexity |
+|----------|-------|-----------|
+| **Local dev domains** (`*.test`) | BIND9 + dnsmasq | Mudah |
+| **Ad blocking** | Pi-hole (DNS sinkhole) | Mudah |
+| **Internal service discovery** | BIND9 + SRV records | Medium |
+| **Public nameserver** | BIND9 + DDNS + monitoring | Advanced |
+| **Secondary (slave)** | BIND9 zone transfer | Medium |
 
 ---
 
 ## Failure Mode — Ketika DNS Gagal
 
-| Gejala                           | Kemungkinan            | Test                           |
-| -------------------------------- | ---------------------- | ------------------------------ |
-| **"ping: name not resolved"**    | Resolver broken        | `dig @1.1.1.1 domain.com`      |
-| **Website buka, email gak bisa** | MX record salah        | `dig domain.com MX`            |
-| **Lambat banget buka web**       | Resolver slow/loss     | `dig +stats domain.com`        |
-| **"SERVFAIL"**                   | Authoritative NS error | `dig +trace domain.com`        |
-| **Port 53 filtered**             | Firewall block         | `nmap -sU -p 53 -Pn host`      |
-| **Serial mismatch**              | Zone transfer gagal    | Cek serial di SOA vs secondary |
+| Gejala | Kemungkinan | Test |
+|--------|-------------|------|
+| **"ping: name not resolved"** | Resolver broken | `dig @1.1.1.1 domain.com` |
+| **Website buka, email gak bisa** | MX record salah | `dig domain.com MX` |
+| **Lambat banget buka web** | Resolver slow/loss | `dig +stats domain.com` |
+| **"SERVFAIL"** | Authoritative NS error | `dig +trace domain.com` |
+| **Port 53 filtered** | Firewall block | `nmap -sU -p 53 -Pn host` |
+| **Serial mismatch** | Zone transfer gagal | Cek serial di SOA vs secondary |
 
 ---
 
@@ -184,13 +184,13 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 1. Thinking Type yang Digunakan
 
-| Type                    | Kenapa                                                                                               | Bagian                      |
-| ----------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------- |
-| **Cognitive Thinking**  | Membangun fondasi pemahaman DNS dari resolusi flow — siapa yang ngomong sama siapa, urutannya gimana | DNS Resolution Flow diagram |
-| **Analytical Thinking** | Memecah record types berdasarkan fungsi dan use case — kapan pake A vs CNAME vs MX vs SRV            | Record Types table          |
-| **Systems Thinking**    | Menganalisis Authoritative vs Recursive — bagaimana koneksi keduanya, kenapa bahaya kalau digabung   | Authoritative vs Recursive  |
-| **Concrete Thinking**   | BIND9 setup step-by-step — install, zone file, named.conf, testing                                   | BIND9 Basic Setup           |
-| **Futures Thinking**    | Failure mode analysis — apa yang terjadi ketika DNS gagal di tiap layer                              | Failure Mode table          |
+| Type | Kenapa | Bagian |
+|------|--------|--------|
+| **Cognitive Thinking** | Membangun fondasi pemahaman DNS dari resolusi flow — siapa yang ngomong sama siapa, urutannya gimana | DNS Resolution Flow diagram |
+| **Analytical Thinking** | Memecah record types berdasarkan fungsi dan use case — kapan pake A vs CNAME vs MX vs SRV | Record Types table |
+| **Systems Thinking** | Menganalisis Authoritative vs Recursive — bagaimana koneksi keduanya, kenapa bahaya kalau digabung | Authoritative vs Recursive |
+| **Concrete Thinking** | BIND9 setup step-by-step — install, zone file, named.conf, testing | BIND9 Basic Setup |
+| **Futures Thinking** | Failure mode analysis — apa yang terjadi ketika DNS gagal di tiap layer | Failure Mode table |
 
 ### 2. Background Knowledge (Pra-Penulisan)
 
@@ -203,11 +203,11 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 3. RAG Vault — Dokumen yang Dikonsultasi
 
-| Dokumen                        | Kontribusi                     |
-| ------------------------------ | ------------------------------ |
-| [[network-security             | Network Security]]             | OSI layer context, port UDP 53, TCP 53 untuk zone transfer |
-| [[infrastructure-administrator | Infrastructure Administrator]] | Server layout — namespace atau VM dedicated untuk BIND9    |
-| [[podman-networking-ufw        | Podman Networking & UFW]]      | Port exposure untuk BIND9 — UFW allow 53, routing rules    |
+| Dokumen | Kontribusi |
+|---------|-----------|
+| [[network-security|Network Security]] | OSI layer context, port UDP 53, TCP 53 untuk zone transfer |
+| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — namespace atau VM dedicated untuk BIND9 |
+| [[podman-networking-ufw|Podman Networking & UFW]] | Port exposure untuk BIND9 — UFW allow 53, routing rules |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 

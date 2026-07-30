@@ -421,37 +421,37 @@ record_block(ip) — dipanggil setiap block decision
 
 ## Matriks Koneksi Antar Lifecycle
 
-| Lifecycle           | Dipicu oleh                        | Memicu                                      | Data shared                |
-| ------------------- | ---------------------------------- | ------------------------------------------- | -------------------------- |
-| Agent Startup       | `main.rs`                          | Semua lifecycle di proses yang sama         | Config Arc                 |
-| Controller Startup  | `main.rs`                          | WS, logs, agent registry                    | ControllerState, broadcast |
-| Request Phase       | Pingora event loop                 | Log pipeline, Rule engine, Auto-remediation | JarsWafCtx, GLOBAL_CONFIG  |
-| Log Pipeline        | request_filter → logging()         | —                                           | WafLogEntry via MPSC       |
-| Config Reloader     | Timer (2s)                         | GLOBAL_CONFIG.store()                       | ArcSwap<Config>            |
-| Memory Cleanup      | Timer (30m/60s)                    | —                                           | DashMap retain             |
-| eBPF XDP            | Auto-remediation tier 0→1          | —                                           | XDP BLOCKLIST map          |
-| Rule Engine         | Request phase                      | —                                           | GLOBAL_CONFIG              |
-| Agent-Controller WS | Agent startup                      | —                                           | WebSocket, ControllerState |
-| Blocklist           | File load + rule trigger + WS push | eBPF XDP                                    | DashMap + file + XDP       |
-| Rate Limiter        | Timer (60s)                        | Reputation score                            | DashMap + Redis            |
-| Circuit Breaker     | Backend error                      | Backend exclusion                           | DashMap<AtomicUsize>       |
-| Health Checker      | Timer (15s)                        | Load balancer state                         | —                          |
-| Auto-Remediation    | Rule match                         | eBPF block + escalation                     | Sliding window             |
+| Lifecycle | Dipicu oleh | Memicu | Data shared |
+|-----------|-------------|--------|-------------|
+| Agent Startup | `main.rs` | Semua lifecycle di proses yang sama | Config Arc |
+| Controller Startup | `main.rs` | WS, logs, agent registry | ControllerState, broadcast |
+| Request Phase | Pingora event loop | Log pipeline, Rule engine, Auto-remediation | JarsWafCtx, GLOBAL_CONFIG |
+| Log Pipeline | request_filter → logging() | — | WafLogEntry via MPSC |
+| Config Reloader | Timer (2s) | GLOBAL_CONFIG.store() | ArcSwap<Config> |
+| Memory Cleanup | Timer (30m/60s) | — | DashMap retain |
+| eBPF XDP | Auto-remediation tier 0→1 | — | XDP BLOCKLIST map |
+| Rule Engine | Request phase | — | GLOBAL_CONFIG |
+| Agent-Controller WS | Agent startup | — | WebSocket, ControllerState |
+| Blocklist | File load + rule trigger + WS push | eBPF XDP | DashMap + file + XDP |
+| Rate Limiter | Timer (60s) | Reputation score | DashMap + Redis |
+| Circuit Breaker | Backend error | Backend exclusion | DashMap<AtomicUsize> |
+| Health Checker | Timer (15s) | Load balancer state | — |
+| Auto-Remediation | Rule match | eBPF block + escalation | Sliding window |
 
 ---
 
 ## Debugging Checklist: Kalau "Ada di Mana-mana"
 
-| Gejala                         | Cek Lifecycle                                 |
-| ------------------------------ | --------------------------------------------- |
-| Config berubah tapi gak ngefek | Config Reloader (5) — cek mtime, path         |
-| Memory naek terus              | Memory Cleanup (6) — DashMap leak             |
-| Log gak sampai controller      | Log Pipeline (4) — controller_url, batch size |
-| XDP gak jalan                  | eBPF (7) — kernel version, .o path            |
-| Backend sering 503             | Circuit Breaker (12) + Health Checker (13)    |
-| Agent gak terdaftar            | Agent-Controller WS (9) — token, backoff      |
-| Block IP gak hilang2           | eBPF (7) — remove_ip belum implement          |
-| Rate limit gak konsisten       | Rate Limiter (11) — distributed sync, Redis   |
+| Gejala | Cek Lifecycle |
+|--------|---------------|
+| Config berubah tapi gak ngefek | Config Reloader (5) — cek mtime, path |
+| Memory naek terus | Memory Cleanup (6) — DashMap leak |
+| Log gak sampai controller | Log Pipeline (4) — controller_url, batch size |
+| XDP gak jalan | eBPF (7) — kernel version, .o path |
+| Backend sering 503 | Circuit Breaker (12) + Health Checker (13) |
+| Agent gak terdaftar | Agent-Controller WS (9) — token, backoff |
+| Block IP gak hilang2 | eBPF (7) — remove_ip belum implement |
+| Rate limit gak konsisten | Rate Limiter (11) — distributed sync, Redis |
 
 ---
 

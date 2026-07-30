@@ -23,7 +23,6 @@ updated: 2026-07-11
 ## 1. Kenapa Butuh Ukuran Kemiripan?
 
 Di ML, kita sering representasi data sebagai vektor (embedding):
-
 - "Kucing" → `[0.2, -0.5, 0.8, ...]`
 - "Kucing besar" → `[0.3, -0.4, 0.7, ...]`
 - "Mobil" → `[-0.6, 0.1, -0.3, ...]`
@@ -31,7 +30,6 @@ Di ML, kita sering representasi data sebagai vektor (embedding):
 Kita perlu cara ngitung **seberapa mirip** dua vektor — secara semantik, bukan karakter literal.
 
 Cosine similarity cocok untuk:
-
 - **Semantic search**: cari dokumen yang topiknya mirip query
 - **Recommendation**: user A mirip user B → rekomendasi silang
 - **Clustering**: kelompokkan vektor yang searah
@@ -65,7 +63,6 @@ cos(θ) = (a₁b₁ + a₂b₂ + a₃b₃) / (√(a₁²+a₂²+a₃²) × √(b
 ### Visualisasi Geometrik
 
 Bayangkan dua vektor di bidang 2D:
-
 - `A = [1, 0]` (kanan)
 - `B = [0, 1]` (atas)
 
@@ -76,14 +73,13 @@ Bayangkan dua vektor di bidang 2D:
 
 ### Kenapa Bukan Euclidean Distance?
 
-| Metrik             | Rentang | Sensitif terhadap     | Cocok untuk                            |
-| ------------------ | ------- | --------------------- | -------------------------------------- |
-| Cosine Similarity  | [-1, 1] | Arah, bukan magnitude | Embedding sparse, dokumen panjang beda |
-| Euclidean Distance | [0, ∞)  | Magnitude             | Data terpusat/normalized               |
-| Dot Product        | (-∞, ∞) | Arah × magnitude      | Attention score (scaled)               |
+| Metrik | Rentang | Sensitif terhadap | Cocok untuk |
+|--------|---------|-------------------|-------------|
+| Cosine Similarity | [-1, 1] | Arah, bukan magnitude | Embedding sparse, dokumen panjang beda |
+| Euclidean Distance | [0, ∞) | Magnitude | Data terpusat/normalized |
+| Dot Product | (-∞, ∞) | Arah × magnitude | Attention score (scaled) |
 
 Contoh: dokumen "A" 1000 kata, dokumen "B" 100 kata, topik sama.
-
 - Euclidean: besar karena magnitudo beda
 - Cosine: ~1.0 karena arahnya sama
 
@@ -100,7 +96,6 @@ A · B = ||A|| × ||B|| × cos(θ)
 ```
 
 Kalau vektor sudah **dinormalisasi** (||A||=||B||=1):
-
 ```
 cos(θ) = A · B
 ```
@@ -155,10 +150,10 @@ import torch.nn.functional as F
 def contrastive_loss(anchor, positive, negative, margin=0.3):
     # anchor-positive: harus mirip
     # anchor-negative: harus beda
-
+    
     pos_sim = F.cosine_similarity(anchor, positive)  # (batch,)
     neg_sim = F.cosine_similarity(anchor, negative)  # (batch,)
-
+    
     # triplet loss: margin - (pos_sim - neg_sim)
     loss = torch.clamp(margin - pos_sim + neg_sim, min=0)
     return loss.mean()
@@ -198,11 +193,11 @@ Kalau 1M dokumen × 1000 query/second — brute force O(n) gak cukup.
 
 Solusi: **ANN index** — korbankan dikit akurasi untuk kecepatan:
 
-| Library     | Algoritma                | Kecepatan (QPS) | Recall@10 |
-| ----------- | ------------------------ | --------------- | --------- |
-| FAISS (IVF) | Inverted File + HNSW     | 10K+            | ~95%      |
-| ScaNN       | Anisotropic quantization | 15K+            | ~97%      |
-| Annoy       | Random projection tree   | 5K              | ~90%      |
+| Library | Algoritma | Kecepatan (QPS) | Recall@10 |
+|---------|-----------|----------------|-----------|
+| FAISS (IVF) | Inverted File + HNSW | 10K+ | ~95% |
+| ScaNN | Anisotropic quantization | 15K+ | ~97% |
+| Annoy | Random projection tree | 5K | ~90% |
 
 ```python
 import faiss
@@ -226,7 +221,6 @@ scores, indices = index.search(normalized_query, k=10)
 ```python
 L = (1-y) × d(A,P)² + y × max(0, margin - d(A,N))²
 ```
-
 - `y=0`: positive pair → tarik berdekatan
 - `y=1`: negative pair → dorong > margin
 
@@ -237,7 +231,6 @@ Kalau pake cosine: `d(A,P) = 1 - cos(A,P)` → range [0, 2].
 ```python
 L = max(0, cos(A,N) - cos(A,P) + margin)
 ```
-
 - Goal: anchor-positive lebih mirip dari anchor-negative minimal sebesar margin.
 - Digunakan di: FaceNet, SBERT, DPR (Dense Passage Retrieval).
 
@@ -248,19 +241,18 @@ Evolusi loss dengan cosine untuk face recognition:
 ```
 L = -log(exp(s·cos(θ_y+m)) / (exp(s·cos(θ_y+m)) + Σⱼ≠ᵧ exp(s·cos(θⱼ))))
 ```
-
 - `s` = scale factor
 - `m` = margin angular
 - Memaksa embedding face dari kelas sama berkerumun di hypersphere
 
 ### Kapan Cosine Loss Gagal
 
-| Kasus                           | Masalah                                 | Alternatif          |
-| ------------------------------- | --------------------------------------- | ------------------- |
-| Embedding sparse (banyak 0)     | Cosine meaningless — banyak overlap nol | Jaccard / Tversky   |
-| Magnitude penting (mis: rating) | Cosine ignore magnitude                 | Euclidean           |
-| Outlier vektor besar            | Dominasi komponen besar                 | Normalize dulu      |
-| Low-dimensional (<10)           | Semua vektor hampir ortogonal           | Gunakan correlation |
+| Kasus | Masalah | Alternatif |
+|-------|---------|------------|
+| Embedding sparse (banyak 0) | Cosine meaningless — banyak overlap nol | Jaccard / Tversky |
+| Magnitude penting (mis: rating) | Cosine ignore magnitude | Euclidean |
+| Outlier vektor besar | Dominasi komponen besar | Normalize dulu |
+| Low-dimensional (<10) | Semua vektor hampir ortogonal | Gunakan correlation |
 
 ---
 
@@ -268,26 +260,24 @@ L = -log(exp(s·cos(θ_y+m)) / (exp(s·cos(θ_y+m)) + Σⱼ≠ᵧ exp(s·cos(θ�
 
 ### Tabel Perbandingan Lengkap
 
-| Metrik              | Range   | Translasi-Invarian | Skala-Invarian | Kompleksitas | Kapan Pilih                         |
-| ------------------- | ------- | :----------------: | :------------: | ------------ | ----------------------------------- |
-| Cosine Similarity   | [-1, 1] |         Ya         |     **Ya**     | O(d)         | Embedding, dokumen, semantic        |
-| Euclidean           | [0, ∞)  |         Ya         |     Tidak      | O(d)         | Data terpusat, clustering k-means   |
-| Manhattan (L1)      | [0, ∞)  |         Ya         |     Tidak      | O(d)         | High-dim sparse, robust outlier     |
-| Chebyshev           | [0, ∞)  |         Ya         |     Tidak      | O(d)         | Grid-based distance                 |
-| Pearson Correlation | [-1, 1] |         Ya         |       Ya       | O(d)         | Time series, rating user            |
-| Hamming             | [0, d]  |         —          |       —        | O(d)         | Binary vectors, hash                |
-| Jaccard             | [0, 1]  |         —          |       —        | O(set)       | Set overlap, sparse binary          |
-| Mahalanobis         | [0, ∞)  |         Ya         |       Ya       | O(d²)        | Data berkorelasi, anomaly detection |
-| Dot Product         | (-∞, ∞) |       Tidak        |     Tidak      | O(d)         | Attention (dengan scale)            |
-| KL Divergence       | [0, ∞)  |       Tidak        |     Tidak      | O(d)         | Distribusi probabilitas             |
-| Wasserstein         | [0, ∞)  |         Ya         |       Ya       | O(d³logd)    | Distribusi dengan support berbeda   |
+| Metrik | Range | Translasi-Invarian | Skala-Invarian | Kompleksitas | Kapan Pilih |
+|--------|-------|:----:|:----:|---|-------------|
+| Cosine Similarity | [-1, 1] | Ya | **Ya** | O(d) | Embedding, dokumen, semantic |
+| Euclidean | [0, ∞) | Ya | Tidak | O(d) | Data terpusat, clustering k-means |
+| Manhattan (L1) | [0, ∞) | Ya | Tidak | O(d) | High-dim sparse, robust outlier |
+| Chebyshev | [0, ∞) | Ya | Tidak | O(d) | Grid-based distance |
+| Pearson Correlation | [-1, 1] | Ya | Ya | O(d) | Time series, rating user |
+| Hamming | [0, d] | — | — | O(d) | Binary vectors, hash |
+| Jaccard | [0, 1] | — | — | O(set) | Set overlap, sparse binary |
+| Mahalanobis | [0, ∞) | Ya | Ya | O(d²) | Data berkorelasi, anomaly detection |
+| Dot Product | (-∞, ∞) | Tidak | Tidak | O(d) | Attention (dengan scale) |
+| KL Divergence | [0, ∞) | Tidak | Tidak | O(d) | Distribusi probabilitas |
+| Wasserstein | [0, ∞) | Ya | Ya | O(d³logd) | Distribusi dengan support berbeda |
 
 **Catatan:** Pearson correlation bisa dihitung dari cosine yang sudah di-mean-center:
-
 ```
 Pearson(A,B) = cos(A - mean(A), B - mean(B))
 ```
-
 Jadi kalau data sudah di-normalize, cosine ≈ Pearson.
 
 ---
@@ -301,7 +291,6 @@ Attention(Q,K,V) = softmax(Q·K^T / √dₖ) · V
 ```
 
 Di sini:
-
 - `Q·K^T` = dot product ≈ unnormalized cosine
 - Scaling `√dₖ` penting: makin besar dₖ, dot product makin besar (akumulasi dₖ terms). Tanpa scale, softmax masuk region gradien sangat kecil → training stagnan.
 
@@ -314,7 +303,6 @@ Kenapa transformer pake dot product langsung, bukan cosine?
 3. **Implementation efficiency** — satu matmul, bukan dua (normalize + matmul)
 
 Tapi ada arsitektur yang eksplisit pake cosine attention (CosFormer, cosine-similarity-based attention) untuk:
-
 - Stabilize training di model extra deep
 - Biar attention distribution lebih smooth
 
@@ -335,7 +323,6 @@ Kalau gak di-normalize, hasilnya dot product biasa — terpengaruh magnitude.
 ### Batasi Eksposur ke Data Negative
 
 Training dengan cosine loss sering collapse: semua embedding jadi sama (konvergen ke titik tunggal). Trik:
-
 - **Hard negative mining**: pilih negative yang paling "mirip" (paling susah dibedakan)
 - **Gradient scaling**: jangan terlalu kuat mendorong negative
 - **Margin yang kecil**: margin 0.1-0.3 biasanya cukup
@@ -343,7 +330,6 @@ Training dengan cosine loss sering collapse: semua embedding jadi sama (konverge
 ### Dimensionality Curse
 
 Di dimensi tinggi (>500), distribusi dot product:
-
 - Mean ~0
 - Variance makin besar → cosine similarity antara vektor random ~N(0, 1/√d)
 - Praktis: semua vektor random punya cosine ~0 → sulit bedakan random vs mirip
@@ -368,7 +354,7 @@ def search(query, corpus):
     # Stage 1: Dense retrieval via cosine ANN
     q_vec = normalize(embed(query))
     candidate_ids, cos_scores = faiss_index.search(q_vec, k=100)
-
+    
     # Stage 2: Cross-encoder reranking
     pairs = [(query, corpus[i]) for i in candidate_ids[0]]
     rerank_scores = cross_encoder.predict(pairs)
@@ -385,7 +371,6 @@ score = α · BM25(q, d) + (1-α) · cos(Eq, Ed)
 ```
 
 α tuning:
-
 - General corpus: α=0.3 (favor semantics)
 - Technical/legal/medical: α=0.7 (keywords matter)
 - Code search: α=0.5
@@ -394,12 +379,12 @@ score = α · BM25(q, d) + (1-α) · cos(Eq, Ed)
 
 Document chunking directly impacts cosine quality:
 
-| Strategy                  | Description                                      | Cosine Impact                       | Best For       |
-| ------------------------- | ------------------------------------------------ | ----------------------------------- | -------------- |
-| Fixed window (256 tokens) | Equally sized chunks, overlap 20%                | Stable embedding per chunk          | General QA     |
-| Semantic chunking         | Split at paragraph/sentence boundaries           | Embedding captures coherent concept | Long docs      |
-| Recursive split           | Hierarchical chunks (section→paragraph→sentence) | Multi-granularity cosine            | Nested content |
-| Late chunking             | Encode full doc, chunk KV pairs                  | Best embedding quality, expensive   | High-accuracy  |
+| Strategy | Description | Cosine Impact | Best For |
+|----------|------------|--------------|----------|
+| Fixed window (256 tokens) | Equally sized chunks, overlap 20% | Stable embedding per chunk | General QA |
+| Semantic chunking | Split at paragraph/sentence boundaries | Embedding captures coherent concept | Long docs |
+| Recursive split | Hierarchical chunks (section→paragraph→sentence) | Multi-granularity cosine | Nested content |
+| Late chunking | Encode full doc, chunk KV pairs | Best embedding quality, expensive | High-accuracy |
 
 ---
 
@@ -408,7 +393,6 @@ Document chunking directly impacts cosine quality:
 ### Why High-Dim Cosine Breaks
 
 For two random vectors in ℝᵈ:
-
 - Mean dot product = 0
 - Variance = d · σ⁴
 - Cosine similarity variance = 1/d
@@ -429,13 +413,11 @@ Effective dimensionality of BERT embedding is ~20-60, not 768. PCA confirms: top
 ### Isotropy vs Anisotropy
 
 Good embedding space should be isotropic — uniform in all directions. Anisotropic space causes:
-
 - All embeddings cluster together → cosine between any two sentences > 0.95
 - Poor discrimination
 - Underperforming retrieval
 
 **Solutions:**
-
 - Contrastive learning (SimCSE, SBERT) — inherently isotropizes
 - Post-processing: `embed = embed - mean(embed)` (remove dominant component)
 - Normalization + temperature scaling
@@ -458,7 +440,6 @@ More negatives → better discrimination. But limited by GPU memory.
 ### Cross-Batch Negatives
 
 Use embeddings from OTHER batches as negatives — effectively N × batch_size negatives:
-
 ```python
 all_q = all_gather(q_emb)  # gather from all GPUs
 all_d = all_gather(d_emb)
@@ -470,12 +451,12 @@ scores = cosine_similarity(all_q, all_d)  # (b, b*g)
 
 Random negatives are too easy (cosine already low). Model doesn't learn to discriminate similar-looking negatives.
 
-| Negative Type | Definition                      | Effort            | Impact    |
-| ------------- | ------------------------------- | ----------------- | --------- |
-| Random        | Any other doc from corpus       | None              | Baseline  |
-| Batch         | Other docs in same batch        | Automatic         | Good      |
-| Hard          | Top-100 by cos but not relevant | Requires ANN      | Best      |
-| In-batch hard | Hardest negative in batch       | Automatic (SBERT) | Excellent |
+| Negative Type | Definition | Effort | Impact |
+|--------------|-----------|--------|--------|
+| Random | Any other doc from corpus | None | Baseline |
+| Batch | Other docs in same batch | Automatic | Good |
+| Hard | Top-100 by cos but not relevant | Requires ANN | Best |
+| In-batch hard | Hardest negative in batch | Automatic (SBERT) | Excellent |
 
 ### SBERT Fine-tuning Recipe
 
@@ -487,7 +468,6 @@ model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=3, warmup_st
 ```
 
 Key hyperparameters:
-
 - Batch size: 32-64 (larger = better negatives)
 - Margin: 0.3-0.5 for triplet, 0.1-0.3 for cosine contrastive
 - Learning rate: 2e-5 (Adam)
@@ -497,13 +477,13 @@ Key hyperparameters:
 
 ## 13. Similarity Evaluation Metrics
 
-| Metric   | What It Measures                         | Formula      | Range |
-| -------- | ---------------------------------------- | ------------ | ----- |
+| Metric | What It Measures | Formula | Range |
+|--------|-----------------|---------|-------|
 | Recall@k | Fraction of relevant docs found in top-k | TP / (TP+FN) | [0,1] |
-| MRR      | Reciprocal rank of first relevant doc    | 1/rank_avg   | (0,1] |
-| NDCG     | Graded relevance × position discount     | DCG/IDCG     | [0,1] |
-| MAP      | Average precision across recall levels   | Σ P(k)·ΔR(k) | [0,1] |
-| Hit Rate | Did any relevant doc appear in top-k?    | binary       | [0,1] |
+| MRR | Reciprocal rank of first relevant doc | 1/rank_avg | (0,1] |
+| NDCG | Graded relevance × position discount | DCG/IDCG | [0,1] |
+| MAP | Average precision across recall levels | Σ P(k)·ΔR(k) | [0,1] |
+| Hit Rate | Did any relevant doc appear in top-k? | binary | [0,1] |
 
 Cosine threshold tuning does NOT optimize for these metrics — it optimizes for pairwise rank consistency. That's why reranking (stage 2) is essential.
 
@@ -513,18 +493,17 @@ Cosine threshold tuning does NOT optimize for these metrics — it optimizes for
 
 Cosine measures **vector proximity**, not **task relevance**:
 
-| Query                          | Top-1 by Cosine              | Is It Relevant?             |
-| ------------------------------ | ---------------------------- | --------------------------- |
-| "How to install npm?"          | "NPM overview documentation" | Yes                         |
-| "Macbook M4 price"             | "Macbook M4 review"          | Related but not pricing     |
-| "Kapan jadwal kereta Bandung?" | "Stasiun Bandung fasilitas"  | Related topic, wrong answer |
+| Query | Top-1 by Cosine | Is It Relevant? |
+|-------|----------------|-----------------|
+| "How to install npm?" | "NPM overview documentation" | Yes |
+| "Macbook M4 price" | "Macbook M4 review" | Related but not pricing |
+| "Kapan jadwal kereta Bandung?" | "Stasiun Bandung fasilitas" | Related topic, wrong answer |
 
 The gap: cosine captures **what is the document about**, not **does it answer this question**. Reranking fixes this.
 
 ### Query Understanding Layer
 
 Before cosine search, process query:
-
 1. **Query expansion:** "macbook m4 price" → "macbook m4 price cost rupiah harga beli"
 2. **Query classification:** factual / opinion / comparison → adjust retrieval strategy
 3. **Intent parsing:** "jadwal kereta" → filter by schedule-related metadata
@@ -557,7 +536,6 @@ If reranker too slow: skip for simple queries, use cosine score directly + metad
 ### Embedding Versioning
 
 Every model update invalidates all previous embeddings. Plan:
-
 - Pin model version in production
 - Maintain version mapping in metadata store
 - Staged rollout: new embeddings for new docs, hybrid search with old + new
@@ -567,11 +545,11 @@ Every model update invalidates all previous embeddings. Plan:
 
 Cosine scores from different embedders have different distributions. Never compare absolute cosine values across models:
 
-| Embedder     | Mean Cosine (pos pairs) | Mean Cosine (neg pairs) | Threshold @ F1 |
-| ------------ | ----------------------- | ----------------------- | -------------- |
-| SBERT-MiniLM | 0.72                    | 0.34                    | 0.53           |
-| Ada-002      | 0.81                    | 0.55                    | 0.68           |
-| BGE-base     | 0.74                    | 0.38                    | 0.56           |
+| Embedder | Mean Cosine (pos pairs) | Mean Cosine (neg pairs) | Threshold @ F1 |
+|----------|------------------------|------------------------|----------------|
+| SBERT-MiniLM | 0.72 | 0.34 | 0.53 |
+| Ada-002 | 0.81 | 0.55 | 0.68 |
+| BGE-base | 0.74 | 0.38 | 0.56 |
 
 Calibrate threshold per model using validation set.
 
@@ -587,13 +565,13 @@ For each batch:
   - Encode: h_i = f(x_i), h_j = f(x_j)
   - Project: z_i = g(h_i), z_j = g(h_j)
   - Normalize: z_i = z_i / ||z_i||, z_j = z_j / ||z_j||
-
+  
   For positive pair (same image):
     cos(z_i, z_j) → maximize → close to 1
-
+    
   For negative pairs (different images):
     cos(z_i, z_k) → minimize → close to 0
-
+    
 Loss = -log(exp(cos(z_i,z_j)/τ) / Σ exp(cos(z_i,z_k)/τ))
 ```
 
@@ -621,23 +599,18 @@ More expressive: can learn "e1 > e2 implies opposite meaning" vs "e1 near e2 imp
 ### Angle Margin (ArcFace-style)
 
 Replace cosine with angular margin:
-
 ```
 cos(θ + m) — instead of cos(θ)
 ```
-
 M embeds margin directly into angular space — pushes classes apart in hypersphere. Best for face recognition, fine-grained classification.
 
 ### Wasserstein Distance
 
 For distributions rather than point vectors:
-
 ```
 W(P,Q) = inf E[|x - y|] over couplings
 ```
-
 Captures shape difference, not just direction. Good for:
-
 - Histograms (bag-of-words)
 - Set embeddings
 - Long document representation
@@ -709,22 +682,21 @@ This gives better sentence representation for cosine search.
 
 ## 20. Practical Debugging — When Cosine Misleads
 
-| Symptom                             | Root Cause                | Diagnosis                                 | Fix                           |
-| ----------------------------------- | ------------------------- | ----------------------------------------- | ----------------------------- |
-| All pairs cosine >0.9               | Anisotropic embedding     | PCA variance plot                         | Remove top PCA component      |
-| All pairs cosine ~0                 | Embedding collapse        | Check embedding std                       | Re-init, add contrastive loss |
-| Good on dev, bad on prod            | Domain shift              | Compare train-test embedding distribution | Domain adaptation             |
-| Bad for short queries               | Length mismatch           | Plot query vs doc embedding norm          | Query expansion               |
-| Bad for rare entities               | Out-of-vocabulary         | Check token overlap                       | BM25 fallback, augment        |
-| Retrieval misses exact match        | Tokenization issue        | Check query tokenization                  | Add exact match boosting      |
-| Cosine score 0.7 for irrelevant doc | Semantic but not relevant | Manual inspection sample                  | Add reranker stage            |
+| Symptom | Root Cause | Diagnosis | Fix |
+|---------|-----------|-----------|-----|
+| All pairs cosine >0.9 | Anisotropic embedding | PCA variance plot | Remove top PCA component |
+| All pairs cosine ~0 | Embedding collapse | Check embedding std | Re-init, add contrastive loss |
+| Good on dev, bad on prod | Domain shift | Compare train-test embedding distribution | Domain adaptation |
+| Bad for short queries | Length mismatch | Plot query vs doc embedding norm | Query expansion |
+| Bad for rare entities | Out-of-vocabulary | Check token overlap | BM25 fallback, augment |
+| Retrieval misses exact match | Tokenization issue | Check query tokenization | Add exact match boosting |
+| Cosine score 0.7 for irrelevant doc | Semantic but not relevant | Manual inspection sample | Add reranker stage |
 
 ---
 
 ## 11. Conceptual Pathway
 
 Baca juga:
-
 - [[attention-mechanism-deepdive]] — attention pake dot product sebagai similarity score
 - [[backpropagation-deepdive]] — gradient dari cosine loss mengalir lewat chain rule
 - [[cosine-vs-euclidean-vs-dot]] — perbandingan lebih dalam (kalau ada)
@@ -734,8 +706,8 @@ Baca juga:
 
 ## Referensi
 
-- Mikolov, T. et al. (2013). _Efficient Estimation of Word Representations in Vector Space._ — Word2Vec, asal mula embedding dan cosine.
-- Reimers, N., Gurevych, I. (2019). _Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks._ — Triplet loss + cosine untuk semantic search.
-- Deng, J. et al. (2019). _ArcFace: Additive Angular Margin Loss for Deep Face Recognition._ — CosFace/ArcFace: state-of-the-art face recognition.
-- Johnson, J. et al. (2019). _Billion-scale Similarity Search with GPUs._ — FAISS untuk ANN + cosine search.
-- Vaswani, A. et al. (2017). _Attention Is All You Need._ — Scaled dot-product = cosine-like di transformer.
+- Mikolov, T. et al. (2013). *Efficient Estimation of Word Representations in Vector Space.* — Word2Vec, asal mula embedding dan cosine.
+- Reimers, N., Gurevych, I. (2019). *Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.* — Triplet loss + cosine untuk semantic search.
+- Deng, J. et al. (2019). *ArcFace: Additive Angular Margin Loss for Deep Face Recognition.* — CosFace/ArcFace: state-of-the-art face recognition.
+- Johnson, J. et al. (2019). *Billion-scale Similarity Search with GPUs.* — FAISS untuk ANN + cosine search.
+- Vaswani, A. et al. (2017). *Attention Is All You Need.* — Scaled dot-product = cosine-like di transformer.

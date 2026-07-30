@@ -1,16 +1,16 @@
 ---
 title: Kubernetes Security Roadmap — Defense Layer-by-Layer dari Pod sampai Cluster
 tags:
-  - container-k8s-security
-  - kubernetes
-  - cks
-  - roadmap
-  - cis-benchmark
+- container-k8s-security
+- kubernetes
+- cks
+- roadmap
+- cis-benchmark
 aliases:
-  - CKS Exam Coverage
-  - K8s Defense Roadmap
-created: "2026-07-19"
-updated: "2026-07-19"
+- CKS Exam Coverage
+- K8s Defense Roadmap
+created: '2026-07-19'
+updated: '2026-07-19'
 status: pending
 ---
 
@@ -38,7 +38,6 @@ status: pending
 [[kubernetes-roadmap]] fokus **fungsional** (cara deploy workload, persistent storage, service mesh, GitOps). Roadmap ini fokus **defensif** — pertanyaan "kalau adversary dapat foothold di pod, apa yang阻止 lateral movement-nya?".
 
 Pattern belajar paralel ini subject untuk:
-
 - **Lulus CKS** (Certified Kubernetes Security Specialist) — CNCF exam.
 - **Hardening cluster production** untuk multi-tenant SaaS (lihat [[cloud-security-posture-management]]).
 - **Bekal audit CIS EKS Level 1/2** (EKS, GKE, AKS) yang demanded di enterprise.
@@ -79,14 +78,14 @@ Lima zona ini memetakan 1:1 ke **CNCF CKS exam domains** + **CIS Kubernetes Benc
 
 ## Zona 1 — Supply Chain (Image + Registry)
 
-| Topik              | Threat Vector                              | Tool / Mitigation                                |
-| ------------------ | ------------------------------------------ | ------------------------------------------------ |
-| Base image hygiene | Image bloated → attack surface besar       | `distroless`, `alpine`, multi-stage              |
-| Image scanning     | CVE di layer OS / library                  | **Trivy**, Snyk, Grype                           |
-| Image signing      | Tampered image di registry                 | **Cosign** (Sigstore), Notary                    |
-| SLSA provenance    | Tidak tahu image siapa build-nya           | SLSA Level 3+, in-toto, attestations             |
-| Admission control  | Image unsigned / unsanitized masuk cluster | **Kyverno** / **OPA Gatekeeper** + Cosign verify |
-| Registry RBAC      | Pull dari registry external / anonymous    | Harbor (private), deny-public-pull policy        |
+| Topik                                | Threat Vector                                    | Tool / Mitigation                          |
+| --- | --- | --- |
+| Base image hygiene                   | Image bloated → attack surface besar             | `distroless`, `alpine`, multi-stage        |
+| Image scanning                       | CVE di layer OS / library                         | **Trivy**, Snyk, Grype                    |
+| Image signing                        | Tampered image di registry                        | **Cosign** (Sigstore), Notary             |
+| SLSA provenance                      | Tidak tahu image siapa build-nya                 | SLSA Level 3+, in-toto, attestations      |
+| Admission control                    | Image unsigned / unsanitized masuk cluster       | **Kyverno** / **OPA Gatekeeper** + Cosign verify |
+| Registry RBAC                        | Pull dari registry external / anonymous          | Harbor (private), deny-public-pull policy  |
 
 **Latihan:** Build image Alpine, scan dengan Trivy, sign dengan Cosign, enforce signed-only admission di minikube.
 
@@ -94,14 +93,14 @@ Lima zona ini memetakan 1:1 ke **CNCF CKS exam domains** + **CIS Kubernetes Benc
 
 ## Zona 2 — Cluster API & Control Plane
 
-| Topik                        | Best Practice                                                   |
-| ---------------------------- | --------------------------------------------------------------- |
-| API Server exposure          | `--anonymous-auth=false`, `--insecure-port=0` di flag apiserver |
-| etcd encryption              | `encryption-provider-config` dengan AES-CBC atau AESCBC         |
-| TLS apiserver-ke-etcd        | Mutual TLS dengan cert rotated                                  |
-| Kubelet authn                | `--anonymous-auth=false`, `--authorization-mode=Webhook`        |
-| Audit logging                | `audit.log` di /var/log/ + stream ke SIEM (Wazuh/Loki)          |
-| Default ServiceAccount token | Set `automountServiceAccountToken: false` di pod default        |
+| Topik                          | Best Practice                                             |
+| --- | --- |
+| API Server exposure            | `--anonymous-auth=false`, `--insecure-port=0` di flag apiserver |
+| etcd encryption                | `encryption-provider-config` dengan AES-CBC atau AESCBC    |
+| TLS apiserver-ke-etcd          | Mutual TLS dengan cert rotated                            |
+| Kubelet authn                  | `--anonymous-auth=false`, `--authorization-mode=Webhook`  |
+| Audit logging                  | `audit.log` di /var/log/ + stream ke SIEM (Wazuh/Loki)    |
+| Default ServiceAccount token   | Set `automountServiceAccountToken: false` di pod default   |
 
 **Resource:** [Kubernetes Hardening Guide](https://kubernetes.io/docs/concepts/security/) (resmi), CIS Benchmark 1.8+.
 
@@ -117,10 +116,10 @@ metadata:
   namespace: payment-svc
   name: payment-reader
 rules:
-  - apiGroups: [""]
-    resources: ["secrets"]
-    resourceNames: ["stripe-key"] # Specific, not wildcard
-    verbs: ["get"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["stripe-key"]    # Specific, not wildcard
+  verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -128,9 +127,9 @@ metadata:
   name: payment-pod-rb
   namespace: payment-svc
 subjects:
-  - kind: ServiceAccount
-    name: payment-sa
-    namespace: payment-svc
+- kind: ServiceAccount
+  name: payment-sa
+  namespace: payment-svc
 roleRef:
   kind: Role
   name: payment-reader
@@ -158,12 +157,12 @@ spec:
     capabilities:
       drop: ["ALL"]
   containers:
-    - name: app
-      image: ghcr.io/org/app@sha256:...
-      securityContext:
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop: ["ALL"]
+  - name: app
+    image: ghcr.io/org/app@sha256:...
+    securityContext:
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]
 ```
 
 ### Network Policy — Default Deny + Allowlist
@@ -189,12 +188,12 @@ spec:
       app: payment
   policyTypes: [Ingress]
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              name: ingress-nginx
-      ports:
-        - port: 8080
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - port: 8080
 ```
 
 Gunakan **Cilium** atau **Calico** sebagai CNI untuk enforcement efektif.
@@ -203,13 +202,13 @@ Gunakan **Cilium** atau **Calico** sebagai CNI untuk enforcement efektif.
 
 ## Zona 5 — Detection & Response (Falco, Tetragon, Audit Log)
 
-| Tool                     | Layer            | Use Case                                                          |
-| ------------------------ | ---------------- | ----------------------------------------------------------------- |
-| **Falco**                | syscall (kernel) | Default rules: shell in container, write to /etc, network anomaly |
-| **Tetragon**             | eBPF             | Lebih low-overhead, policy-aware                                  |
-| **Tracee**               | eBPF             | Runtime forensics, file access tracking                           |
-| **Kube-apiserver audit** | control plane    | SIEM ingestion: кто создал pod, when, from where                  |
-| **kubelet audit**        | node             | Pod start, exec, port-forward                                     |
+| Tool              | Layer             | Use Case                                          |
+| --- | --- | --- |
+| **Falco**          | syscall (kernel)  | Default rules: shell in container, write to /etc, network anomaly |
+| **Tetragon**       | eBPF              | Lebih low-overhead, policy-aware                  |
+| **Tracee**         | eBPF              | Runtime forensics, file access tracking           |
+| **Kube-apiserver audit** | control plane | SIEM ingestion: кто создал pod, when, from where |
+| **kubelet audit**  | node              | Pod start, exec, port-forward                    |
 
 **Contoh Falco ruleset — detect crypto miner:**
 
@@ -232,15 +231,15 @@ Lihat [[ebpf-kernel-security]] untuk detail eBPF sebagai layer observability.
 
 ## CIS Benchmark Mapping
 
-| CIS Section                 | Zona | Penyelesaian di Vault                                         |
-| --------------------------- | ---- | ------------------------------------------------------------- |
-| 1.x — Control Plane         | Z2   | Lihat [[kubernetes-roadmap]], [[linux-hardening-cis]]         |
-| 2.x — Worker Node           | Z4   | [[container-kubernetes-security-deepdive]] § Seccomp/AppArmor |
-| 3.x — RBAC & ServiceAccount | Z3   | Catatan ini (§ Zona 3)                                        |
-| 4.x — Pod Security          | Z4   | Catatan ini (§ Zona 4) + [[pod-security-standards]] (planned) |
-| 5.x — NetworkPolicy / CNI   | Z4   | [[container-kubernetes-security-deepdive]] § NetworkPolicy    |
-| 6.x — Secrets Management    | Z3   | [[sealed-secrets-vs-vault]] (planned)                         |
-| 7.x — Supply Chain          | Z1   | Catatan ini (§ Zona 1) + [[cosign-pipeline]] (planned)        |
+| CIS Section                  | Zona   | Penyelesaian di Vault                                        |
+| --- | --- | --- |
+| 1.x — Control Plane          | Z2     | Lihat [[kubernetes-roadmap]], [[linux-hardening-cis]]         |
+| 2.x — Worker Node             | Z4     | [[container-kubernetes-security-deepdive]] § Seccomp/AppArmor  |
+| 3.x — RBAC & ServiceAccount  | Z3     | Catatan ini (§ Zona 3)                                       |
+| 4.x — Pod Security           | Z4     | Catatan ini (§ Zona 4) + [[pod-security-standards]] (planned) |
+| 5.x — NetworkPolicy / CNI    | Z4     | [[container-kubernetes-security-deepdive]] § NetworkPolicy    |
+| 6.x — Secrets Management     | Z3     | [[sealed-secrets-vs-vault]] (planned)                        |
+| 7.x — Supply Chain            | Z1     | Catatan ini (§ Zona 1) + [[cosign-pipeline]] (planned)        |
 
 ---
 
@@ -258,17 +257,17 @@ Untuk cluster production yang sudah jalan dan mau di-hardening:
 
 ## Latihan Praktis & Tool Latih
 
-| Tool                | URL                                    | Fungsi                                                       |
-| ------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| **minikube**        | kubernetes.io/docs/tutorials           | Single-node cluster untuk belajar                            |
-| **kind**            | kind.sigs.k8s.io                       | Multi-node di Docker (test controllability)                  |
-| **KubeAcademy**     | kube.academy                           | Course gratis CKA/CKS-aligned                                |
-| **Kubernetes Goat** | github.com/amadalfalco/kubernetes-goat | Vulnerable-by-design cluster untuk exploit/hardening latihan |
-| **BadPods**         | github.com/BishopFox/badpods           | Pod manifest with anti-patterns                              |
-| **kube-bench**      | github.com/aquasecurity/kube-bench     | CIS Benchmark automation                                     |
-| **kubescape**       | github.com/kubescape/kubescape         | NSA-CISA hardening + CVE check                               |
-| **trivy**           | github.com/aquasecurity/trivy          | Image + IaC + k8s manifest scanner                           |
-| **Falco**           | falco.org                              | Runtime detection default ruleset                            |
+| Tool                          | URL                                  | Fungsi                                  |
+| --- | --- | --- |
+| **minikube**                    | kubernetes.io/docs/tutorials        | Single-node cluster untuk belajar       |
+| **kind**                        | kind.sigs.k8s.io                    | Multi-node di Docker (test controllability) |
+| **KubeAcademy**                 | kube.academy                        | Course gratis CKA/CKS-aligned          |
+| **Kubernetes Goat**             | github.com/amadalfalco/kubernetes-goat | Vulnerable-by-design cluster untuk exploit/hardening latihan |
+| **BadPods**                     | github.com/BishopFox/badpods       | Pod manifest with anti-patterns       |
+| **kube-bench**                  | github.com/aquasecurity/kube-bench | CIS Benchmark automation               |
+| **kubescape**                   | github.com/kubescape/kubescape     | NSA-CISA hardening + CVE check         |
+| **trivy**                       | github.com/aquasecurity/trivy      | Image + IaC + k8s manifest scanner     |
+| **Falco**                       | falco.org                            | Runtime detection default ruleset      |
 
 ---
 

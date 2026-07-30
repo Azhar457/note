@@ -60,16 +60,16 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ## 2. Eight-Layer Infrastructure Evolution
 
-| Layer |  Era   | Karakteristik                   | Masalah yang Dipecahkan      | Masalah Baru                     |
-| :---: | :----: | ------------------------------- | ---------------------------- | -------------------------------- |
-| **0** | 1960s+ | Bare-metal                      | -                            | Utilization rendah (2-5%)        |
-| **1** | 2000s  | Hypervisor                      | Utilization naik ke 60-80%   | VM sprawl, license cost          |
-| **2** | 2008+  | IaaS Cloud                      | CapEx → OpEx                 | Vendor lock-in, cloud bill shock |
-| **3** | 2014+  | Container + K8s                 | Density lebih, faster deploy | Operational complexity           |
-| **4** | 2015+  | Serverless / FaaS               | Zero ops                     | Cold start, lock-in              |
-| **5** | 2020+  | Edge Compute                    | Sub-50ms latency             | Distributed observability        |
-| **6** | 2024+  | Multi/hybrid cloud              | Vendor freedom               | Network complexity               |
-| **7** | 2026+  | AI-Orchestrated Inf.rastructure | Self-healing                 | Hallucinated automation          |
+| Layer | Era | Karakteristik | Masalah yang Dipecahkan | Masalah Baru |
+|:-----:|:---:|---------------|--------------------------|---------------|
+| **0** | 1960s+ | Bare-metal | - | Utilization rendah (2-5%) |
+| **1** | 2000s | Hypervisor | Utilization naik ke 60-80% | VM sprawl, license cost |
+| **2** | 2008+ | IaaS Cloud | CapEx → OpEx | Vendor lock-in, cloud bill shock |
+| **3** | 2014+ | Container + K8s | Density lebih, faster deploy | Operational complexity |
+| **4** | 2015+ | Serverless / FaaS | Zero ops | Cold start, lock-in |
+| **5** | 2020+ | Edge Compute | Sub-50ms latency | Distributed observability |
+| **6** | 2024+ | Multi/hybrid cloud | Vendor freedom | Network complexity |
+| **7** | 2026+ | AI-Orchestrated Inf.rastructure | Self-healing | Hallucinated automation |
 
 ---
 
@@ -87,13 +87,11 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 ```
 
 **Pro:**
-
 - Total control
 - Performance predictable
 - No virtualization overhead
 
 **Con:**
-
 - Utilization 5-15%
 - Provisioning manual (minggu)
 - Single point of failure
@@ -119,24 +117,24 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 4.2 Evolusi Hypervisor
 
-| Tahun | Perkembangan                               |
-| :---: | ------------------------------------------ |
-| 2003  | VMware ESX 2.0 (industry standard)         |
-| 2005  | Xen (open source)                          |
-| 2007  | KVM releases (Linux native)                |
-| 2010  | Hyper-V, public cloud infra use KVM/Xen    |
-| 2013  | Docker popularized containers (LXC kernel) |
-| 2015  | KVM+OVS standard open-source stack         |
-| 2020  | Unikernel, micro-VM (Firecracker)          |
+| Tahun | Perkembangan |
+|:-----:|---------------|
+| 2003 | VMware ESX 2.0 (industry standard) |
+| 2005 | Xen (open source) |
+| 2007 | KVM releases (Linux native) |
+| 2010 | Hyper-V, public cloud infra use KVM/Xen |
+| 2013 | Docker popularized containers (LXC kernel) |
+| 2015 | KVM+OVS standard open-source stack |
+| 2020 | Unikernel, micro-VM (Firecracker) |
 
 ### 4.3 Pro & Con
 
-| Pro                        | Con                          |
-| -------------------------- | ---------------------------- |
-| Utilization naik ke 60-80% | VM license cost              |
-| Fast provisioning (menit)  | VM sprawl tanpa governance   |
-| Snapshot + clone           | Hypervisor overhead (5-15%)  |
-| Live migration             | "Pet vs Cattle" anti-pattern |
+| Pro | Con |
+|-----|-----|
+| Utilization naik ke 60-80% | VM license cost |
+| Fast provisioning (menit) | VM sprawl tanpa governance |
+| Snapshot + clone | Hypervisor overhead (5-15%) |
+| Live migration | "Pet vs Cattle" anti-pattern |
 
 ---
 
@@ -158,25 +156,23 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 5.2 Tiga Cloud Besar + Specialized
 
-| Tier                                      | Service                            |
-| ----------------------------------------- | ---------------------------------- |
-| Hyperscale (3 besar)                      | AWS, Azure, GCP                    |
-| Secondary (alibaba, tencent, ibm, oracle) | Banyak                             |
-| Sovereign (region-locked)                 | Eropa, China, GovCloud             |
-| Specialized (AI/ML focused)               | Lambda Labs, Paperspace, Coreweave |
-| Bare-metal cloud                          | Equinix, Packet (now Equinix)      |
+| Tier | Service |
+|------|---------|
+| Hyperscale (3 besar) | AWS, Azure, GCP |
+| Secondary (alibaba, tencent, ibm, oracle) | Banyak |
+| Sovereign (region-locked) | Eropa, China, GovCloud |
+| Specialized (AI/ML focused) | Lambda Labs, Paperspace, Coreweave |
+| Bare-metal cloud | Equinix, Packet (now Equinix) |
 
 ### 5.3 Pro & Con
 
 **Pro:**
-
 - CapEx → OpEx (bayar pakai)
 - Global presence dalam menit
 - Managed services (RDS, Elasticache, dll)
 - Pay-per-use scaling
 
 **Con:**
-
 - Vendor lock-in luas
 - Cloud bill sprawl (unpredictable)
 - Egress fees mahal
@@ -188,24 +184,24 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 6.1 Container vs VM
 
-| Aspect     | Container                | VM                     |
-| ---------- | ------------------------ | ---------------------- |
-| Boot time  | <1s                      | ~30s                   |
-| Image size | 100MB                    | 10GB                   |
-| Density    | 50-100/host              | 10-20/host             |
-| Isolation  | Process-level            | Hardware-level         |
-| Use case   | Microservices, ephemeral | Stateful, multi-tenant |
+| Aspect | Container | VM |
+|--------|-----------|-----|
+| Boot time | <1s | ~30s |
+| Image size | 100MB | 10GB |
+| Density | 50-100/host | 10-20/host |
+| Isolation | Process-level | Hardware-level |
+| Use case | Microservices, ephemeral | Stateful, multi-tenant |
 
 ### 6.2 Container Orchestrators
 
-| Tool           | Status                | Use Case              |
-| -------------- | --------------------- | --------------------- |
-| **Kubernetes** | De facto standard     | Most workloads        |
-| **Nomad**      | HashiCorp alternative | Simpler ops           |
-| **ECS** (AWS)  | AWS native            | Tight AWS integration |
-| **Cloud Run**  | GCP managed           | Stateless containers  |
-| **Fly.io**     | Edge-first            | Simple regional       |
-| **K3s**        | Lightweight K8s       | Edge, IoT, dev        |
+| Tool | Status | Use Case |
+|------|--------|----------|
+| **Kubernetes** | De facto standard | Most workloads |
+| **Nomad** | HashiCorp alternative | Simpler ops |
+| **ECS** (AWS) | AWS native | Tight AWS integration |
+| **Cloud Run** | GCP managed | Stateless containers |
+| **Fly.io** | Edge-first | Simple regional |
+| **K3s** | Lightweight K8s | Edge, IoT, dev |
 
 ### 6.3 K8s Layer Stack
 
@@ -231,7 +227,6 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 ```
 
 **Koneksi ke Vault:**
-
 - [[container-kubernetes-security-deepdive]]
 - [[kubernetes-security-roadmap]]
 - [[hierarchy-cybersecurity-defense-architecture]] (L7)
@@ -254,22 +249,22 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 7.2 Serverless Spectrum
 
-| Service Type               | Control | Cost Efficiency    | Use Case                      |
-| -------------------------- | ------- | ------------------ | ----------------------------- |
-| FaaS (Lambda)              | Minimum | Highest (idle = 0) | Event handler                 |
-| Container FaaS (Cloud Run) | Medium  | High               | Stateless API                 |
-| Backend-as-a-Service       | Various | High               | Mobile/web app                |
-| SaaS replacements          | Zero    | Highest            | Non-differentiating workloads |
+| Service Type | Control | Cost Efficiency | Use Case |
+|--------------|---------|-----------------|----------|
+| FaaS (Lambda) | Minimum | Highest (idle = 0) | Event handler |
+| Container FaaS (Cloud Run) | Medium | High | Stateless API |
+| Backend-as-a-Service | Various | High | Mobile/web app |
+| SaaS replacements | Zero | Highest | Non-differentiating workloads |
 
 ### 7.3 Cold Start Problem
 
-| Mitigation              | Effect                   |
-| ----------------------- | ------------------------ |
-| Provisioned Concurrency | Eliminates cold          |
-| Warm-up calls           | Mitigates partially      |
-| SnapStart (Java)        | <100ms vs 5s             |
-| WebAssembly             | <5ms cold                |
-| Reserved instances      | Eliminates for hot paths |
+| Mitigation | Effect |
+|------------|--------|
+| Provisioned Concurrency | Eliminates cold |
+| Warm-up calls | Mitigates partially |
+| SnapStart (Java) | <100ms vs 5s |
+| WebAssembly | <5ms cold |
+| Reserved instances | Eliminates for hot paths |
 
 ---
 
@@ -297,28 +292,27 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 8.2 Provider Edge Compute
 
-| Provider   | Product                            | Latency       | Capacity           |
-| ---------- | ---------------------------------- | ------------- | ------------------ |
-| Cloudflare | Workers                            | <5ms globally | V8 Isolates / WASM |
-| Vercel     | Edge Functions                     | Sub-50ms      | V8 + WASM          |
-| Fastly     | Compute@Edge                       | Sub-50ms      | WASM / Lucet       |
-| AWS        | Lambda@Edge / CloudFront Functions | 5-50ms        | Node.js/Python     |
-| Akamai     | EdgeWorkers                        | Sub-50ms      | V8                 |
-| Fly.io     | Regional Machines                  | <50ms         | Full containers    |
+| Provider | Product | Latency | Capacity |
+|---------|---------|---------|----------|
+| Cloudflare | Workers | <5ms globally | V8 Isolates / WASM |
+| Vercel | Edge Functions | Sub-50ms | V8 + WASM |
+| Fastly | Compute@Edge | Sub-50ms | WASM / Lucet |
+| AWS | Lambda@Edge / CloudFront Functions | 5-50ms | Node.js/Python |
+| Akamai | EdgeWorkers | Sub-50ms | V8 |
+| Fly.io | Regional Machines | <50ms | Full containers |
 
 ### 8.3 Use Case Pattern
 
-| Pattern                       | Edge Component         | Cloud Component         |
-| ----------------------------- | ---------------------- | ----------------------- |
-| Authentication check          | Validate JWT, redirect | Issue token, audit      |
-| Image optimization            | Resize, format convert | Store original          |
-| A/B test routing              | Apply variant          | Analytics               |
-| Real-time multiplayer         | Synchronize state      | Leaderboard persistence |
-| Geo-restriction               | Check IP-based access  | Authorization policy    |
-| Live video sub-second caption | Stream process         | Full ML model           |
+| Pattern | Edge Component | Cloud Component |
+|---------|---------------|-----------------|
+| Authentication check | Validate JWT, redirect | Issue token, audit |
+| Image optimization | Resize, format convert | Store original |
+| A/B test routing | Apply variant | Analytics |
+| Real-time multiplayer | Synchronize state | Leaderboard persistence |
+| Geo-restriction | Check IP-based access | Authorization policy |
+| Live video sub-second caption | Stream process | Full ML model |
 
 **Koneksi ke Vault:**
-
 - [[hierarchy-kernel-bypass-networking]] — Kernel-level edge compute
 - [[hierarchy-systems-architecture-evolution]] — Era 9
 
@@ -337,7 +331,7 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
             ┌──────┐      ┌──────┐
             │ AWS  │      │ GCP  │
             └──────┘      └──────┘
-
+            
 + Optional on-prem
 ```
 
@@ -350,23 +344,23 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 9.3 Trade-offs
 
-| Pro                           | Con                             |
-| ----------------------------- | ------------------------------- |
-| Vendor bargaining power       | Network complexity              |
+| Pro | Con |
+|-----|-----|
+| Vendor bargaining power | Network complexity |
 | Avoid single-point-of-failure | Cost monitoring across accounts |
-| Compliance per-region         | Operational expertise multi     |
-| Best-of-breed per service     | Skill fragmentation             |
+| Compliance per-region | Operational expertise multi |
+| Best-of-breed per service | Skill fragmentation |
 
 ### 9.4 Multi-Cloud Stack (2026)
 
-| Layer                    | Tools                                    |
-| ------------------------ | ---------------------------------------- |
-| Control plane            | Crossplane, Terraform Cloud, Pulumi      |
-| K8s federation           | Cluster API, KubeFed, Admiralty          |
+| Layer | Tools |
+|-------|-------|
+| Control plane | Crossplane, Terraform Cloud, Pulumi |
+| K8s federation | Cluster API, KubeFed, Admiralty |
 | Service mesh cross-cloud | Istio multi-primary, Cilium cluster mesh |
-| Storage sync             | Restic, Velero, MinIO multi-site         |
-| Observability            | Grafana Cloud, Datadog, Honeycomb        |
-| Cost management          | Vantage, CloudHealth, nOps               |
+| Storage sync | Restic, Velero, MinIO multi-site |
+| Observability | Grafana Cloud, Datadog, Honeycomb |
+| Cost management | Vantage, CloudHealth, nOps |
 
 ---
 
@@ -387,29 +381,28 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 
 ### 10.2 Capabilities (2026 Realistic)
 
-| Capability                                     | Maturity                            |
-| ---------------------------------------------- | ----------------------------------- |
-| Anomaly detection in metrics                   | Production-ready                    |
-| Auto-scaling triggered by ML                   | Production-ready                    |
-| Cost optimization recommendations              | Production-ready                    |
-| Natural language → IaC                         | Emerging (errors common)            |
-| Self-healing infra (restart service)           | Production-ready for known patterns |
-| Auto-architect (design new system from intent) | R&D                                 |
-| Self-modifying infra                           | DANGEROUS — research only           |
+| Capability | Maturity |
+|-----------|----------|
+| Anomaly detection in metrics | Production-ready |
+| Auto-scaling triggered by ML | Production-ready |
+| Cost optimization recommendations | Production-ready |
+| Natural language → IaC | Emerging (errors common) |
+| Self-healing infra (restart service) | Production-ready for known patterns |
+| Auto-architect (design new system from intent) | R&D |
+| Self-modifying infra | DANGEROUS — research only |
 
 ### 10.3 Pattern AIOps
 
-| Pattern                | Contoh                                  |
-| ---------------------- | --------------------------------------- |
-| Predictive autoscaling | ML predict traffic 1h ahead             |
-| Anomaly-based alerting | Statistical process control             |
-| Log anomaly detection  | Embedding-based clustering              |
-| Root cause analysis    | Correlation across metrics/logs/traces  |
-| Auto-remediation       | Runbook → agent                         |
-| Capacity planning      | Predicted growth → suggest right-sizing |
+| Pattern | Contoh |
+|---------|--------|
+| Predictive autoscaling | ML predict traffic 1h ahead |
+| Anomaly-based alerting | Statistical process control |
+| Log anomaly detection | Embedding-based clustering |
+| Root cause analysis | Correlation across metrics/logs/traces |
+| Auto-remediation | Runbook → agent |
+| Capacity planning | Predicted growth → suggest right-sizing |
 
 **Koneksi ke Vault:**
-
 - [[hierarchy-llm-ai-systems]] — Layer 3 (Inference Infra) cross-link
 - [[llmops-ai-infrastructure]]
 
@@ -432,60 +425,60 @@ Complex orchestration + Self-heal     → AIOps
 
 ### 11.2 Anti-Pattern
 
-| Anti-pattern                          | Fall-out                   |
-| ------------------------------------- | -------------------------- |
-| Serverless monolith                   | Function dependency hell   |
-| Container everything tanpa state mgmt | Data loss risk             |
-| Cloud-only, no exit plan              | Lock-in biaya tinggi       |
-| Edge without origin                   | Inconsistency antar region |
-| Bare-metal dalam startup phase        | Time-to-market lambat      |
+| Anti-pattern | Fall-out |
+|--------------|----------|
+| Serverless monolith | Function dependency hell |
+| Container everything tanpa state mgmt | Data loss risk |
+| Cloud-only, no exit plan | Lock-in biaya tinggi |
+| Edge without origin | Inconsistency antar region |
+| Bare-metal dalam startup phase | Time-to-market lambat |
 
 ---
 
 ## 12. Trade-off Matrix
 
-| Layer             | Setup Time | Ops Complexity |   Cost (Idle)    |  Cost (Peak)   | Latency  |
-| ----------------- | :--------: | :------------: | :--------------: | :------------: | :------: |
-| 0 Bare-metal      |   Weeks    |    Highest     |    $0 (asset)    |   $0 (asset)   |  Sub-ms  |
-| 1 Virtualization  |   Hours    |      High      |       Low        |      Low       |  Sub-ms  |
-| 2 IaaS            |  Minutes   |     Medium     | $0 (deallocated) |     Medium     |  <50ms   |
-| 3 Container PaaS  |  Minutes   |  Medium-High   | $0 (scaled to 0) |  Medium-High   |  <100ms  |
-| 4 Serverless      |  Seconds   |      Zero      |        $0        | Pay-per-invoke | 50-500ms |
-| 5 Edge            |  Seconds   |     Medium     |        $0        | Pay-per-invoke |  <50ms   |
-| 6 Multi-cloud     |   Hours    |      High      |     Variable     |    Variable    | Variable |
-| 7 AI-Orchestrated |  Variable  | Low (managed)  |        $0        |    Variable    | Variable |
+| Layer | Setup Time | Ops Complexity | Cost (Idle) | Cost (Peak) | Latency |
+|-------|:----------:|:--------------:|:-----------:|:-----------:|:-------:|
+| 0 Bare-metal | Weeks | Highest | $0 (asset) | $0 (asset) | Sub-ms |
+| 1 Virtualization | Hours | High | Low | Low | Sub-ms |
+| 2 IaaS | Minutes | Medium | $0 (deallocated) | Medium | <50ms |
+| 3 Container PaaS | Minutes | Medium-High | $0 (scaled to 0) | Medium-High | <100ms |
+| 4 Serverless | Seconds | Zero | $0 | Pay-per-invoke | 50-500ms |
+| 5 Edge | Seconds | Medium | $0 | Pay-per-invoke | <50ms |
+| 6 Multi-cloud | Hours | High | Variable | Variable | Variable |
+| 7 AI-Orchestrated | Variable | Low (managed) | $0 | Variable | Variable |
 
 ---
 
 ## 13. Cross-Reference ke Vault
 
-| Layer | Catatan Vault                                                                        |
-| :---: | ------------------------------------------------------------------------------------ |
-|   0   | [[hierarchy-operating-systems]]                                                      |
-|   1   | [[embedded-systems]]                                                                 |
-|   2   | [[cloud-infrastructure]]                                                             |
-|   3   | [[container-kubernetes-security-deepdive]], [[kubernetes-security-roadmap]]          |
-|   4   | [[llmops-ai-infrastructure]]                                                         |
-|   5   | [[hierarchy-kernel-bypass-networking]], [[hierarchy-systems-architecture-evolution]] |
-|   6   | [[hierarchy-cybersecurity-defense-architecture]] (L2 Cloud)                          |
-|   7   | [[hierarchy-llm-ai-systems]] (Layer 3 + 6), [[llmops-ai-infrastructure]]             |
+| Layer | Catatan Vault |
+|:-----:|---------------|
+| 0 | [[hierarchy-operating-systems]] |
+| 1 | [[embedded-systems]] |
+| 2 | [[cloud-infrastructure]] |
+| 3 | [[container-kubernetes-security-deepdive]], [[kubernetes-security-roadmap]] |
+| 4 | [[llmops-ai-infrastructure]] |
+| 5 | [[hierarchy-kernel-bypass-networking]], [[hierarchy-systems-architecture-evolution]] |
+| 6 | [[hierarchy-cybersecurity-defense-architecture]] (L2 Cloud) |
+| 7 | [[hierarchy-llm-ai-systems]] (Layer 3 + 6), [[llmops-ai-infrastructure]] |
 
 ---
 
 ## References
 
-1. T. Erl et al. _"Cloud Computing: Concepts, Technology & Architecture."_ 2013.
-2. B. Burns. _"Designing Distributed Systems."_ O'Reilly, 2018.
-3. Kubernetes Authors. _"Kubernetes Documentation."_ https://kubernetes.io/docs/
-4. CNCF. _"Cloud Native Trail Map."_ https://github.com/cncf/trailmap
-5. A. Wiggins. _"The Twelve-Factor App."_ 2012.
-6. M. Kavis. _"Architecting the Cloud."_ Wiley, 2014.
-7. Brendan Burns et al. _"Kubernetes: Up and Running."_ O'Reilly, 2022.
-8. Kelsey Hightower et al. _"Kubernetes the Hard Way."_ 2020.
-9. Liz Rice. _"Container Security."_ O'Reilly, 2020.
-10. Linux Foundation. _"Hyperledger Architecture."_ 2020.
-11. NIST. _"NIST SP 500-325: Fog Computing Conceptual Model."_ (2018).
-12. Adrian Cockcroft et al. _"Migrating to Cloud-Native Application Architectures."_ 2015.
-13. A. W. Services. _"Well-Architected Framework."_ (2024).
-14. Gartner. _"Magic Quadrant for Cloud Infrastructure."_ (2025).
-15. IDC. _"Future of Digital Infrastructure."_ (2025).
+1. T. Erl et al. *"Cloud Computing: Concepts, Technology & Architecture."* 2013.
+2. B. Burns. *"Designing Distributed Systems."* O'Reilly, 2018.
+3. Kubernetes Authors. *"Kubernetes Documentation."* https://kubernetes.io/docs/
+4. CNCF. *"Cloud Native Trail Map."* https://github.com/cncf/trailmap
+5. A. Wiggins. *"The Twelve-Factor App."* 2012.
+6. M. Kavis. *"Architecting the Cloud."* Wiley, 2014.
+7. Brendan Burns et al. *"Kubernetes: Up and Running."* O'Reilly, 2022.
+8. Kelsey Hightower et al. *"Kubernetes the Hard Way."* 2020.
+9. Liz Rice. *"Container Security."* O'Reilly, 2020.
+10. Linux Foundation. *"Hyperledger Architecture."* 2020.
+11. NIST. *"NIST SP 500-325: Fog Computing Conceptual Model."* (2018).
+12. Adrian Cockcroft et al. *"Migrating to Cloud-Native Application Architectures."* 2015.
+13. A. W. Services. *"Well-Architected Framework."* (2024).
+14. Gartner. *"Magic Quadrant for Cloud Infrastructure."* (2025).
+15. IDC. *"Future of Digital Infrastructure."* (2025).

@@ -1,13 +1,13 @@
 ---
 title: Muscular
 tags:
-  - 07-nation-state-platforms
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-28"
-updated: "2026-07-01"
+- 07-nation-state-platforms
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -23,14 +23,14 @@ MUSCULAR diungkap pada 30 Oktober 2013 melalui dokumen Snowden yang dipublikasik
 
 ### Perbandingan: PRISM vs MUSCULAR
 
-| Aspek                      | PRISM                                                    | MUSCULAR                                                                             |
-| -------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Metode**                 | Perusahaan diwajibkan memberikan data (FISA Section 702) | Intersepsi langsung pada kabel internal data center (tanpa sepengetahuan perusahaan) |
-| **Legalitas (Klaim NSA)**  | Legal di bawah FISA                                      | Legal karena dilakukan di luar AS (EO 12333)                                         |
-| **Pengetahuan Perusahaan** | Ya (perusahaan comply)                                   | Tidak (perusahaan tidak tahu)                                                        |
-| **Titik Intersepsi**       | Server perusahaan (data center AS)                       | Kabel fiber internal yang menghubungkan data center di luar AS                       |
-| **Volume Data**            | Tertarget (selector-based)                               | Massal (semua traffic yang lewat)                                                    |
-| **Enkripsi**               | Data diserahkan dalam bentuk plaintext                   | Traffic diintersep; jika ada enkripsi, harus dipecahkan                              |
+| Aspek | PRISM | MUSCULAR |
+|-------|-------|----------|
+| **Metode** | Perusahaan diwajibkan memberikan data (FISA Section 702) | Intersepsi langsung pada kabel internal data center (tanpa sepengetahuan perusahaan) |
+| **Legalitas (Klaim NSA)** | Legal di bawah FISA | Legal karena dilakukan di luar AS (EO 12333) |
+| **Pengetahuan Perusahaan** | Ya (perusahaan comply) | Tidak (perusahaan tidak tahu) |
+| **Titik Intersepsi** | Server perusahaan (data center AS) | Kabel fiber internal yang menghubungkan data center di luar AS |
+| **Volume Data** | Tertarget (selector-based) | Massal (semua traffic yang lewat) |
+| **Enkripsi** | Data diserahkan dalam bentuk plaintext | Traffic diintersep; jika ada enkripsi, harus dipecahkan |
 
 ---
 
@@ -67,7 +67,6 @@ NSA dan GCHQ menargetkan **link internal ini** di titik di mana mereka melintasi
 ### Lokasi Intersepsi
 
 Dokumen Snowden menyebutkan bahwa titik intersepsi berada di:
-
 - **Data center Google di luar AS** — kemungkinan di Eropa (Irlandia, Belanda, Belgia) atau Asia.
 - **Data center Yahoo di luar AS** — kemungkinan di Eropa.
 - **Kabel fiber pribadi** yang menghubungkan data center — bukan kabel publik.
@@ -82,12 +81,12 @@ GCHQ memanfaatkan lokasi geografis Inggris sebagai titik pendaratan banyak kabel
 
 Dokumen Snowden mengungkapkan volume luar biasa:
 
-| Metrik                 | Angka (estimasi 2012-2013)                  |
-| ---------------------- | ------------------------------------------- |
-| **Data per hari**      | 181 juta records (email, dokumen, metadata) |
-| **Data dalam 30 hari** | > 5 miliar records                          |
-| **Peak rate**          | Puluhan gigabit per detik                   |
-| **Format**             | Email, chat, dokumen, foto, video, metadata |
+| Metrik | Angka (estimasi 2012-2013) |
+|--------|---------------------------|
+| **Data per hari** | 181 juta records (email, dokumen, metadata) |
+| **Data dalam 30 hari** | > 5 miliar records |
+| **Peak rate** | Puluhan gigabit per detik |
+| **Format** | Email, chat, dokumen, foto, video, metadata |
 
 ### 2. Eksploitasi Enkripsi Internal
 
@@ -101,14 +100,14 @@ Google dan Yahoo menggunakan enkripsi untuk melindungi data pengguna — terutam
 
 Tidak seperti PRISM yang berbasis selector, MUSCULAR mengumpulkan **semua traffic** yang lewat. Data kemudian diproses untuk mengekstrak:
 
-| Jenis Data                 | Detail                                                |
-| -------------------------- | ----------------------------------------------------- |
-| **Email**                  | From, To, Subject, Body, Attachments                  |
-| **Google Drive / Docs**    | Dokumen, spreadsheet, presentasi                      |
-| **Google Photos**          | Foto dan metadata EXIF                                |
-| **Yahoo Mail**             | Email, lampiran, kontak                               |
-| **Google Chat / Hangouts** | Riwayat chat, kontak                                  |
-| **Metadata**               | IP address, session cookies, device info, geolocation |
+| Jenis Data | Detail |
+|------------|--------|
+| **Email** | From, To, Subject, Body, Attachments |
+| **Google Drive / Docs** | Dokumen, spreadsheet, presentasi |
+| **Google Photos** | Foto dan metadata EXIF |
+| **Yahoo Mail** | Email, lampiran, kontak |
+| **Google Chat / Hangouts** | Riwayat chat, kontak |
+| **Metadata** | IP address, session cookies, device info, geolocation |
 
 ### 4. Integrasi dengan XKEYSCORE
 
@@ -121,7 +120,6 @@ Data yang dikumpulkan MUSCULAR dimasukkan ke **XKEYSCORE** — memungkinkan anal
 ### Google
 
 Google sangat marah atas pengungkapan MUSCULAR. Mereka:
-
 - **Mempercepat enkripsi** pada semua link internal antar data center (sebelumnya beberapa link tidak dienkripsi).
 - **Mengimplementasikan enkripsi end-to-end** untuk replikasi data (Google Cloud Encryption).
 - Meningkatkan keamanan fisik data center di luar AS.
@@ -130,7 +128,6 @@ Google sangat marah atas pengungkapan MUSCULAR. Mereka:
 ### Yahoo
 
 Yahoo juga:
-
 - **Mengenkripsi semua traffic internal** antar data center.
 - Memperketat akses fisik ke fasilitas mereka.
 
@@ -142,13 +139,13 @@ MUSCULAR adalah **wake-up call** bagi seluruh industri cloud. Setelah 2013, semu
 
 ## 📊 Perbandingan dengan Program Intersepsi Lain
 
-| Program      | Target                     | Metode                        | Volume         | Legal Basis      |
-| ------------ | -------------------------- | ----------------------------- | -------------- | ---------------- |
-| **PRISM**    | Data di server perusahaan  | Perusahaan comply (FISA)      | Selector-based | Section 702      |
-| **UPSTREAM** | Traffic backbone internet  | Fiber TAP di IXP              | Massal         | EO 12333         |
-| **TEMPORA**  | Traffic backbone (UK)      | Fiber TAP di pendaratan kabel | Massal         | RIPA 2000        |
-| **MUSCULAR** | Internal data center links | TAP pada private fiber        | Massal         | EO 12333 (klaim) |
-| **INCENSER** | Kabel bawah laut           | TAP pada kabel internasional  | Massal         | EO 12333         |
+| Program | Target | Metode | Volume | Legal Basis |
+|---------|--------|--------|--------|-------------|
+| **PRISM** | Data di server perusahaan | Perusahaan comply (FISA) | Selector-based | Section 702 |
+| **UPSTREAM** | Traffic backbone internet | Fiber TAP di IXP | Massal | EO 12333 |
+| **TEMPORA** | Traffic backbone (UK) | Fiber TAP di pendaratan kabel | Massal | RIPA 2000 |
+| **MUSCULAR** | Internal data center links | TAP pada private fiber | Massal | EO 12333 (klaim) |
+| **INCENSER** | Kabel bawah laut | TAP pada kabel internasional | Massal | EO 12333 |
 
 MUSCULAR unik karena menargetkan **internal infrastructure** perusahaan — bukan traffic publik, melainkan data yang sedang direplikasi antar data center sendiri.
 
@@ -158,27 +155,27 @@ MUSCULAR unik karena menargetkan **internal infrastructure** perusahaan — buka
 
 ### 1. Enkripsi Internal
 
-| Tindakan                       | Detail                                                                                                    |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| **Encrypt All Internal Links** | Semua traffic antar data center harus dienkripsi (TLS 1.3, IPSec, atau kustom).                           |
-| **End-to-End Encryption**      | Data pengguna dienkripsi sebelum meninggalkan data center sumber, hanya didekripsi di data center tujuan. |
-| **Quantum-Safe Encryption**    | Persiapkan transisi ke PQC untuk melindungi data terhadap "harvest now, decrypt later".                   |
+| Tindakan | Detail |
+|----------|--------|
+| **Encrypt All Internal Links** | Semua traffic antar data center harus dienkripsi (TLS 1.3, IPSec, atau kustom). |
+| **End-to-End Encryption** | Data pengguna dienkripsi sebelum meninggalkan data center sumber, hanya didekripsi di data center tujuan. |
+| **Quantum-Safe Encryption** | Persiapkan transisi ke PQC untuk melindungi data terhadap "harvest now, decrypt later". |
 
 ### 2. Keamanan Fisik
 
-| Tindakan              | Detail                                                                                |
-| --------------------- | ------------------------------------------------------------------------------------- |
-| **Physical Security** | Data center harus dilindungi dari akses fisik tidak sah.                              |
-| **Fiber Monitoring**  | Monitor integritas fiber untuk deteksi TAP fisik (optical time-domain reflectometer). |
-| **Route Diversity**   | Jangan bergantung pada satu rute fiber.                                               |
+| Tindakan | Detail |
+|----------|--------|
+| **Physical Security** | Data center harus dilindungi dari akses fisik tidak sah. |
+| **Fiber Monitoring** | Monitor integritas fiber untuk deteksi TAP fisik (optical time-domain reflectometer). |
+| **Route Diversity** | Jangan bergantung pada satu rute fiber. |
 
 ### 3. Untuk Pengguna Cloud
 
-| Lapisan                      | Tindakan                                                                                               |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **E2EE**                     | Gunakan enkripsi end-to-end untuk data sebelum upload ke cloud (Cryptomator, Veracrypt, rclone crypt). |
-| **Client-Side Encryption**   | Gunakan layanan yang menyediakan client-side encryption (kunci hanya dipegang pengguna).               |
-| **Zero-Knowledge Providers** | Pilih provider yang tidak bisa mengakses data pengguna (Proton Drive, Tresorit, Sync.com).             |
+| Lapisan | Tindakan |
+|---------|----------|
+| **E2EE** | Gunakan enkripsi end-to-end untuk data sebelum upload ke cloud (Cryptomator, Veracrypt, rclone crypt). |
+| **Client-Side Encryption** | Gunakan layanan yang menyediakan client-side encryption (kunci hanya dipegang pengguna). |
+| **Zero-Knowledge Providers** | Pilih provider yang tidak bisa mengakses data pengguna (Proton Drive, Tresorit, Sync.com). |
 
 ---
 
@@ -216,11 +213,11 @@ MUSCULAR adalah contoh ekstrem dari **"collect it all" philosophy** NSA. Meskipu
 
 ## 📚 Referensi
 
-- Gellman, B. & Soltani, A. (2013). _NSA Infiltrates Links to Yahoo, Google Data Centers Worldwide, Snowden Documents Say_. Washington Post.
-- Greenwald, G. (2014). _No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State_. Metropolitan Books.
-- Google. _Encrypting Data at Rest and in Transit_ (2013-2024).
+- Gellman, B. & Soltani, A. (2013). *NSA Infiltrates Links to Yahoo, Google Data Centers Worldwide, Snowden Documents Say*. Washington Post.
+- Greenwald, G. (2014). *No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State*. Metropolitan Books.
+- Google. *Encrypting Data at Rest and in Transit* (2013-2024).
 - MITRE ATT&CK: T1557 (Man-in-the-Middle), T1595 (Active Scanning).
 
 ---
 
-_MUSCULAR Deep Dive | NSA/GCHQ Internal Data Center Interception | Private Fiber TAP & Cloud Data Collection_
+*MUSCULAR Deep Dive | NSA/GCHQ Internal Data Center Interception | Private Fiber TAP & Cloud Data Collection*

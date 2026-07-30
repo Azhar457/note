@@ -52,20 +52,20 @@ cssclasses:
 
 Systemd manage semua resource sebagai **unit**. Ada 12 tipe unit:
 
-| Tipe          | Ekstensi     | Fungsi                      | Contoh                              |
-| ------------- | ------------ | --------------------------- | ----------------------------------- |
-| **Service**   | `.service`   | Daemon / background process | nginx.service, postgresql.service   |
-| **Socket**    | `.socket`    | IPC / network socket        | sshd.socket, docker.socket          |
-| **Timer**     | `.timer`     | Scheduled task              | fstrim.timer, logrotate.timer       |
-| **Mount**     | `.mount`     | Mount point                 | home.mount, boot.mount              |
-| **Automount** | `.automount` | On-demand mount             | mnt-data.automount                  |
-| **Path**      | `.path`      | File/directory trigger      | cups.path                           |
-| **Slice**     | `.slice`     | Resource control group      | machine.slice, system.slice         |
-| **Target**    | `.target`    | Group of units (runlevel)   | multi-user.target, graphical.target |
-| **Scope**     | `.scope`     | Externally created process  | user@1000.service (user scope)      |
-| **Device**    | `.device`    | Kernel device               | sys-devices-pci...device            |
-| **Swap**      | `.swap`      | Swap partition              | swapfile.swap                       |
-| **Network**   | `.network`   | Network configuration       | 50-dhcp.network                     |
+| Tipe | Ekstensi | Fungsi | Contoh |
+|------|----------|--------|--------|
+| **Service** | `.service` | Daemon / background process | nginx.service, postgresql.service |
+| **Socket** | `.socket` | IPC / network socket | sshd.socket, docker.socket |
+| **Timer** | `.timer` | Scheduled task | fstrim.timer, logrotate.timer |
+| **Mount** | `.mount` | Mount point | home.mount, boot.mount |
+| **Automount** | `.automount` | On-demand mount | mnt-data.automount |
+| **Path** | `.path` | File/directory trigger | cups.path |
+| **Slice** | `.slice` | Resource control group | machine.slice, system.slice |
+| **Target** | `.target` | Group of units (runlevel) | multi-user.target, graphical.target |
+| **Scope** | `.scope` | Externally created process | user@1000.service (user scope) |
+| **Device** | `.device` | Kernel device | sys-devices-pci...device |
+| **Swap** | `.swap` | Swap partition | swapfile.swap |
+| **Network** | `.network` | Network configuration | 50-dhcp.network |
 
 ```bash
 # Unit management
@@ -120,14 +120,14 @@ WantedBy=multi-user.target            # start di boot level multi-user
 
 ### Type — Arti Penting
 
-| Type      | Behavior                                           | Cocok untuk                         |
-| --------- | -------------------------------------------------- | ----------------------------------- |
-| `simple`  | ExecStart langsung jalan, systemd anggap "started" | Node.js, Python, long-running shell |
-| `forking` | Parent exit, child lanjut (daemon)                 | MySQL, Nginx, PostgreSQL            |
-| `oneshot` | Jalan sekali lalu exit                             | Script setup, cleanup               |
-| `dbus`    | Tunggu bus name di D-Bus                           | NetworkManager, systemd-resolved    |
-| `notify`  | Panggil `sd_notify()` setelah siap                 | Aplikasi yang pake libsystemd       |
-| `idle`    | Simple, tapi delay sampai semua job selesai        | Print banner, welcome message       |
+| Type | Behavior | Cocok untuk |
+|------|----------|-------------|
+| `simple` | ExecStart langsung jalan, systemd anggap "started" | Node.js, Python, long-running shell |
+| `forking` | Parent exit, child lanjut (daemon) | MySQL, Nginx, PostgreSQL |
+| `oneshot` | Jalan sekali lalu exit | Script setup, cleanup |
+| `dbus` | Tunggu bus name di D-Bus | NetworkManager, systemd-resolved |
+| `notify` | Panggil `sd_notify()` setelah siap | Aplikasi yang pake libsystemd |
+| `idle` | Simple, tapi delay sampai semua job selesai | Print banner, welcome message |
 
 ### Service Lifecycle
 
@@ -274,15 +274,15 @@ journalctl -u backup.timer -u backup.service  # log timer + service
 
 ### Format OnCalendar
 
-| Pattern             | Makna                  | Contoh Next                   |
-| ------------------- | ---------------------- | ----------------------------- |
-| `daily`             | Setiap hari 00:00      | `Thu 2026-07-31 00:00:00 WIB` |
-| `hourly`            | Setiap jam :00         | `Thu 2026-07-30 10:00:00 WIB` |
-| `*-*-* 03:00:00`    | Setiap hari jam 3 pagi | `Thu 2026-07-31 03:00:00 WIB` |
-| `Mon..Fri 08:30:00` | Weekdays jam 8:30      | `Fri 2026-08-01 08:30:00 WIB` |
-| `Sat,Sun 00:00:00`  | Weekend midnight       | `Sat 2026-08-02 00:00:00 WIB` |
-| `*:0/15`            | Setiap 15 menit        | `Thu 2026-07-30 09:15:00 WIB` |
-| `*-01-01 00:00:00`  | Setiap tahun baru      | `Fri 2027-01-01 00:00:00 WIB` |
+| Pattern | Makna | Contoh Next |
+|---------|-------|-------------|
+| `daily` | Setiap hari 00:00 | `Thu 2026-07-31 00:00:00 WIB` |
+| `hourly` | Setiap jam :00 | `Thu 2026-07-30 10:00:00 WIB` |
+| `*-*-* 03:00:00` | Setiap hari jam 3 pagi | `Thu 2026-07-31 03:00:00 WIB` |
+| `Mon..Fri 08:30:00` | Weekdays jam 8:30 | `Fri 2026-08-01 08:30:00 WIB` |
+| `Sat,Sun 00:00:00` | Weekend midnight | `Sat 2026-08-02 00:00:00 WIB` |
+| `*:0/15` | Setiap 15 menit | `Thu 2026-07-30 09:15:00 WIB` |
+| `*-01-01 00:00:00` | Setiap tahun baru | `Fri 2027-01-01 00:00:00 WIB` |
 
 ```bash
 # Test timer
@@ -329,11 +329,11 @@ journalctl -u myecho@.service    # log per instance
 
 ### Use Case Socket Activation
 
-| Skenario            | Manual                   | Socket Activation             |
-| ------------------- | ------------------------ | ----------------------------- |
-| SSH diakses jarang  | Jalan 24/7, makan memory | Start saat ada koneksi SSH    |
-| Container socket    | Docker socket listen     | Start dockerd pas ada request |
-| Web app low traffic | Nginx selalu jalan       | Start saat request masuk      |
+| Skenario | Manual | Socket Activation |
+|----------|--------|-------------------|
+| SSH diakses jarang | Jalan 24/7, makan memory | Start saat ada koneksi SSH |
+| Container socket | Docker socket listen | Start dockerd pas ada request |
+| Web app low traffic | Nginx selalu jalan | Start saat request masuk |
 
 > [!tip] Fedora 44 default untuk `sshd.socket` — bukan `sshd.service`. Cek dengan `systemctl status sshd.socket`.
 
@@ -394,19 +394,19 @@ Checklist hardening per-service (dari [[linux-hardening-audit-praktis]]):
 systemd-analyze security myapp.service
 ```
 
-| Directive                     | Efek                                         | Level    |
-| ----------------------------- | -------------------------------------------- | -------- |
-| `ProtectSystem=full`          | Read-only /usr, /etc                         | Wajib    |
-| `ProtectHome=yes`             | Gak bisa akses /home, /root                  | Wajib    |
-| `PrivateTmp=yes`              | /tmp terisolasi                              | Wajib    |
-| `NoNewPrivileges=yes`         | Gak bisa suid/sgid                           | Wajib    |
-| `CapabilityBoundingSet=...`   | Batasi Linux capabilities                    | Medium   |
-| `SystemCallFilter=~@debug`    | Block syscall berbahaya                      | Medium   |
-| `PrivateDevices=yes`          | Gak liat /dev (kecuali /dev/null, /dev/zero) | Tinggi   |
-| `ProtectKernelModules=yes`    | Block insmod/modprobe                        | Tinggi   |
-| `MemoryDenyWriteExecute=yes`  | Prevent W+X memory pages                     | Tinggi   |
-| `RestrictAddressFamilies=...` | Batasi network domains                       | Tinggi   |
-| `LockPersonality=yes`         | Prevent exec domain change                   | Maksimal |
+| Directive | Efek | Level |
+|-----------|------|-------|
+| `ProtectSystem=full` | Read-only /usr, /etc | Wajib |
+| `ProtectHome=yes` | Gak bisa akses /home, /root | Wajib |
+| `PrivateTmp=yes` | /tmp terisolasi | Wajib |
+| `NoNewPrivileges=yes` | Gak bisa suid/sgid | Wajib |
+| `CapabilityBoundingSet=...` | Batasi Linux capabilities | Medium |
+| `SystemCallFilter=~@debug` | Block syscall berbahaya | Medium |
+| `PrivateDevices=yes` | Gak liat /dev (kecuali /dev/null, /dev/zero) | Tinggi |
+| `ProtectKernelModules=yes` | Block insmod/modprobe | Tinggi |
+| `MemoryDenyWriteExecute=yes` | Prevent W+X memory pages | Tinggi |
+| `RestrictAddressFamilies=...` | Batasi network domains | Tinggi |
+| `LockPersonality=yes` | Prevent exec domain change | Maksimal |
 
 ---
 
@@ -508,6 +508,8 @@ SYSTEMD_LOG_LEVEL=debug systemctl start myapp.service
 
 ---
 
+
+
 ## 11. Systemd Boot Process — From Power-On to Login
 
 Understanding systemd boot sequence penting buat troubleshooting slow boot atau service yang gak start.
@@ -527,7 +529,6 @@ systemd-analyze plot > boot.svg         # visual timeline — buka di browser
 ```
 
 **Output `systemd-analyze` fields:**
-
 - **kernel**: waktu dari bootloader sampai kernel selesai init
 - **initrd**: waktu dari initramfs sampai root filesystem siap
 - **userspace**: waktu dari systemd start sampai default.target tercapai
@@ -535,7 +536,6 @@ systemd-analyze plot > boot.svg         # visual timeline — buka di browser
 ### Initramfs — kenapa penting?
 
 Initramfs (initial RAM filesystem) adalah sistem sementara yang di-load kernel sebelum root filesystem di-mount. Systemd di initramfs:
-
 1. Load storage drivers (SATA, NVMe, mdadm, LVM)
 2. Decrypt LUKS partition
 3. Mount root filesystem
@@ -547,16 +547,16 @@ Kalo boot lambat di "initrd" phase — curigain: LUKS decryption, network mount,
 
 SysV runlevel → systemd target mapping:
 
-| SysV Runlevel |  systemd Target   | Fungsi                                |
-| :-----------: | :---------------: | :------------------------------------ |
-|       0       |  poweroff.target  | Shutdown                              |
-|     1 / S     |   rescue.target   | Single-user mode, minimal             |
-|       2       | multi-user.target | Multi-user tanpa GUI (debian turunan) |
-|       3       | multi-user.target | Multi-user, text-only                 |
-|       4       | multi-user.target | Custom (jarang dipake)                |
-|       5       | graphical.target  | Multi-user + GUI                      |
-|       6       |   reboot.target   | Reboot                                |
-|   emergency   | emergency.target  | Rescue shell, root fs ro              |
+| SysV Runlevel | systemd Target | Fungsi |
+|:---:|:---:|:---|
+| 0 | poweroff.target | Shutdown |
+| 1 / S | rescue.target | Single-user mode, minimal |
+| 2 | multi-user.target | Multi-user tanpa GUI (debian turunan) |
+| 3 | multi-user.target | Multi-user, text-only |
+| 4 | multi-user.target | Custom (jarang dipake) |
+| 5 | graphical.target | Multi-user + GUI |
+| 6 | reboot.target | Reboot |
+| emergency | emergency.target | Rescue shell, root fs ro |
 
 ```bash
 # Switch target di runtime
@@ -597,13 +597,13 @@ Service unit `WantedBy=multi-user.target` artinya: service ini akan start ketika
 
 Empat directive utama yang ngatur hubungan service:
 
-| Directive            | Effect                     | Behavior if fails             |
-| -------------------- | -------------------------- | ----------------------------- |
-| `After=A.service`    | Order: start AFTER A       | A gagal, service tetap start  |
-| `Before=A.service`   | Order: start BEFORE A      | Kebalikan After               |
-| `Requires=A.service` | Hard dep: A harus jalan    | A gagal → service gagal       |
-| `Wants=A.service`    | Soft dep: usahakan A jalan | A gagal → service tetap jalan |
-| `BindsTo=A.service`  | Lifecycle bond             | A stop → service stop         |
+| Directive | Effect | Behavior if fails |
+|-----------|--------|-------------------|
+| `After=A.service` | Order: start AFTER A | A gagal, service tetap start |
+| `Before=A.service` | Order: start BEFORE A | Kebalikan After |
+| `Requires=A.service` | Hard dep: A harus jalan | A gagal → service gagal |
+| `Wants=A.service` | Soft dep: usahakan A jalan | A gagal → service tetap jalan |
+| `BindsTo=A.service` | Lifecycle bond | A stop → service stop |
 
 ### Praktik — Service yang butuh database
 
@@ -659,14 +659,14 @@ mount -o remount,rw /            # remount rw manual kalo perlu
 
 ### 14.3. Boot Parameter untuk Debug Systemd
 
-| Parameter                                 | Efek                            |
-| ----------------------------------------- | ------------------------------- |
-| `systemd.unit=rescue.target`              | Boot ke rescue                  |
-| `systemd.unit=emergency.target`           | Boot ke emergency               |
-| `systemd.log_level=debug`                 | Log systemd dengan debug level  |
-| `systemd.log_target=console`              | Log ke console (gak ke journal) |
-| `systemd.journald.forward_to_console=yes` | Journald output ke console      |
-| `systemd.mask=network.service`            | Mask service tertentu saat boot |
+| Parameter | Efek |
+|-----------|------|
+| `systemd.unit=rescue.target` | Boot ke rescue |
+| `systemd.unit=emergency.target` | Boot ke emergency |
+| `systemd.log_level=debug` | Log systemd dengan debug level |
+| `systemd.log_target=console` | Log ke console (gak ke journal) |
+| `systemd.journald.forward_to_console=yes` | Journald output ke console |
+| `systemd.mask=network.service` | Mask service tertentu saat boot |
 
 ```bash
 # Test kalo service rusak bikin boot hang:
@@ -714,12 +714,12 @@ MemoryDenyWriteExecute=yes
 
 ### Efek Samping
 
-| Isolation          |    Cache effect     | Notable impact               |
-| ------------------ | :-----------------: | :--------------------------- |
-| PrivateTmp         |    Session-based    | tmp file gak survive restart |
-| ProtectSystem=full |          —          | Gak bisa write ke /etc       |
-| ProtectHome=yes    | SSH key gak terbaca | Home SSH key auth            |
-| PrivateDevices     |          —          | Gak bisa akses GPU/device    |
+| Isolation | Cache effect | Notable impact |
+|-----------|:---:|:---|
+| PrivateTmp | Session-based | tmp file gak survive restart |
+| ProtectSystem=full | — | Gak bisa write ke /etc |
+| ProtectHome=yes | SSH key gak terbaca | Home SSH key auth |
+| PrivateDevices | — | Gak bisa akses GPU/device |
 
 ## 16. systemd-coredump — Debug Application Crash
 
@@ -766,7 +766,6 @@ loginctl unlock-session <id>
 ```
 
 Systemd-logind juga yang nge-manage:
-
 - **Idle action**: suspend/shutdown setelah idle
 - **Lid switch**: action pas laptop lid ditutup
 - **Multi-seat**: support multiple keyboard/monitor/mouse di satu PC
@@ -837,23 +836,23 @@ systemd-analyze critical-chain     # critical path — service paling lambat
 
 Systemd **target** menggantikan SysV **runlevel**. Ini tabel mapping buat migrasi mental dari sistem lama:
 
-| SysV Runlevel |   Systemd Target    | Fungsi                               | Status           |
-| :-----------: | :-----------------: | ------------------------------------ | ---------------- |
-|       0       |  `poweroff.target`  | Shutdown system                      | Direct mapping   |
-|       1       |   `rescue.target`   | Single-user mode, minimal filesystem | Mirip            |
-|       2       | `multi-user.target` | Debian/Ubuntu default multi-user     | Custom di Debian |
-|       3       | `multi-user.target` | RHEL/Fedora multi-user (text mode)   | Direct mapping   |
-|       4       | `multi-user.target` | Custom (jarang dipake)               | Unused           |
-|       5       | `graphical.target`  | Multi-user + display manager         | Direct mapping   |
-|       6       |   `reboot.target`   | Reboot system                        | Direct mapping   |
+| SysV Runlevel | Systemd Target | Fungsi | Status |
+|:---:|:---:|---|---|
+| 0 | `poweroff.target` | Shutdown system | Direct mapping |
+| 1 | `rescue.target` | Single-user mode, minimal filesystem | Mirip |
+| 2 | `multi-user.target` | Debian/Ubuntu default multi-user | Custom di Debian |
+| 3 | `multi-user.target` | RHEL/Fedora multi-user (text mode) | Direct mapping |
+| 4 | `multi-user.target` | Custom (jarang dipake) | Unused |
+| 5 | `graphical.target` | Multi-user + display manager | Direct mapping |
+| 6 | `reboot.target` | Reboot system | Direct mapping |
 
 ### Perubahan Perintah
 
-| SysV           | Systemd                                      |
-| -------------- | -------------------------------------------- |
-| `init 3`       | `systemctl isolate multi-user.target`        |
-| `init 5`       | `systemctl isolate graphical.target`         |
-| `telinit q`    | `systemctl daemon-reload`                    |
+| SysV | Systemd |
+|------|---------|
+| `init 3` | `systemctl isolate multi-user.target` |
+| `init 5` | `systemctl isolate graphical.target` |
+| `telinit q` | `systemctl daemon-reload` |
 | `/etc/inittab` | `/etc/systemd/system/default.target` symlink |
 
 ### Compatibility Layer
@@ -922,12 +921,12 @@ BindsTo=redis.service
 
 ### Summary Decision Matrix
 
-| Directive   | Start Dependency | Order Guarantee |   Propagation (Failure)   | Propagation (Stop) |
-| ----------- | :--------------: | :-------------: | :-----------------------: | :----------------: |
-| `After=`    |        ❌        |       ✅        |            ❌             |         ❌         |
-| `Wants=`    |    ✅ (soft)     |       ❌        |            ❌             |         ❌         |
-| `Requires=` |    ✅ (hard)     |       ❌        | ✅ (start failure → stop) |         ❌         |
-| `BindsTo=`  |    ✅ (hard)     |       ❌        |            ✅             |   ✅ (stop both)   |
+| Directive | Start Dependency | Order Guarantee | Propagation (Failure) | Propagation (Stop) |
+|-----------|:---:|:---:|:---:|:---:|
+| `After=` | ❌ | ✅ | ❌ | ❌ |
+| `Wants=` | ✅ (soft) | ❌ | ❌ | ❌ |
+| `Requires=` | ✅ (hard) | ❌ | ✅ (start failure → stop) | ❌ |
+| `BindsTo=` | ✅ (hard) | ❌ | ✅ | ✅ (stop both) |
 
 ### Pola Umum
 
@@ -960,29 +959,28 @@ Service B                 ████████████░░░░░
 
 ### Warna Bar
 
-| Warna             | Arti                                           |
-| ----------------- | ---------------------------------------------- |
-| **Biru**          | Kernel boot — dari bootloader sampai initramfs |
-| **Hijau**         | initramfs — driver load, filesystem mount      |
-| **Merah**         | Userspace — target/service startup             |
-| **Abu-abu/garis** | Idle time — nunggu dependency atau device      |
+| Warna | Arti |
+|-------|------|
+| **Biru** | Kernel boot — dari bootloader sampai initramfs |
+| **Hijau** | initramfs — driver load, filesystem mount |
+| **Merah** | Userspace — target/service startup |
+| **Abu-abu/garis** | Idle time — nunggu dependency atau device |
 
 ### Bar Segments
 
 Tiap bar unit punya dua bagian:
-
 1. **Solid bar (████)** — Activation time (ExecStart, mounting, device detection)
 2. **Dotted/empty bar (░░░)** — Config time (parsing unit file, setting up cgroups)
 
 ### Baca Masalah dari Plot
 
-| Pola                                                          | Interpretasi           | Fix                            |
-| ------------------------------------------------------------- | ---------------------- | ------------------------------ |
-| Satu bar panjang >30s                                         | Service slow start     | Cek ExecStart, log service     |
-| Celah kosong sebelum service penting                          | Idle nunggu dependency | Tambah `After=` explicit       |
+| Pola | Interpretasi | Fix |
+|------|--------------|-----|
+| Satu bar panjang >30s | Service slow start | Cek ExecStart, log service |
+| Celah kosong sebelum service penting | Idle nunggu dependency | Tambah `After=` explicit |
 | Banyak service start serial (berurutan padahal gak dependent) | Dependency gak optimal | Kurang `After=` — biar paralel |
-| initrd bar panjang                                            | Driver storage lambat  | Dracut config, module unload   |
-| Kernel bar panjang                                            | Hardware init lambat   | Kernel param, modprobe         |
+| initrd bar panjang | Driver storage lambat | Dracut config, module unload |
+| Kernel bar panjang | Hardware init lambat | Kernel param, modprobe |
 
 ### Export & Share
 
@@ -1041,14 +1039,14 @@ systemd.unit=emergency.target
 
 ### Additional Kernel Parameters
 
-| Parameter                       | Efek                                           |
-| ------------------------------- | ---------------------------------------------- |
-| `systemd.unit=rescue.target`    | Boot ke maintenance mode                       |
-| `systemd.unit=emergency.target` | Boot ke emergency shell                        |
-| `systemd.mask=network.target`   | Skip network secara global                     |
-| `systemd.wants=...`             | Force start service tertentu                   |
-| `systemd.debug-shell`           | Buka shell interaktif di tty9 selama boot      |
-| `1` atau `single`               | SysV compatibility — fallback ke rescue.target |
+| Parameter | Efek |
+|-----------|------|
+| `systemd.unit=rescue.target` | Boot ke maintenance mode |
+| `systemd.unit=emergency.target` | Boot ke emergency shell |
+| `systemd.mask=network.target` | Skip network secara global |
+| `systemd.wants=...` | Force start service tertentu |
+| `systemd.debug-shell` | Buka shell interaktif di tty9 selama boot |
+| `1` atau `single` | SysV compatibility — fallback ke rescue.target |
 
 ### Systemctl Emergency Commands
 
@@ -1116,11 +1114,11 @@ PrivateDevices=yes
 
 Membuat `/usr` dan `/etc` read-only untuk service. Tiga level:
 
-| Level                  | Efek                                                                        |
-| ---------------------- | --------------------------------------------------------------------------- |
-| `ProtectSystem=no`     | Default — full access                                                       |
-| `ProtectSystem=yes`    | `/usr` dan `/etc` read-only                                                 |
-| `ProtectSystem=full`   | `/usr`, `/etc`, **dan** `/usr/share` read-only                              |
+| Level | Efek |
+|-------|------|
+| `ProtectSystem=no` | Default — full access |
+| `ProtectSystem=yes` | `/usr` dan `/etc` read-only |
+| `ProtectSystem=full` | `/usr`, `/etc`, **dan** `/usr/share` read-only |
 | `ProtectSystem=strict` | **Seluruh filesystem** read-only kecuali yang di-explicit `ReadWritePaths=` |
 
 - Implementasi: **Mount namespace** + `MS_RDONLY` bind mount
@@ -1167,12 +1165,12 @@ JournalSizeMax=500M
 KeepFree=10G
 ```
 
-| Storage Value | Behavior                                                          |
-| :-----------: | ----------------------------------------------------------------- |
-|    `none`     | Jangan simpan — langsung discard                                  |
-|  `external`   | Simpan ke `/var/lib/systemd/coredump/` + log metadata ke journal  |
-|   `journal`   | Simpan langsung di journald (hati-hati — journal size cepet gede) |
-|    `both`     | Simpan ke file eksternal + metadata ke journal                    |
+| Storage Value | Behavior |
+|:---:|---|
+| `none` | Jangan simpan — langsung discard |
+| `external` | Simpan ke `/var/lib/systemd/coredump/` + log metadata ke journal |
+| `journal` | Simpan langsung di journald (hati-hati — journal size cepet gede) |
+| `both` | Simpan ke file eksternal + metadata ke journal |
 
 ### Melihat Core Dump
 
@@ -1237,12 +1235,12 @@ loginctl show-session <id>    # detail session (seat, tty, display)
 loginctl show-user <username> # detail user + session state
 ```
 
-|     Session Type      |              Identifier              |
-| :-------------------: | :----------------------------------: |
-| TTY login (Alt+F1-F6) |            `tty2`, `tty3`            |
-|      SSH session      |           `ssh` (via PAM)            |
-|   Graphical desktop   | `seat0` — display manager (GDM/SDDM) |
-|     `machinectl`      |          Container session           |
+| Session Type | Identifier |
+|:---:|:---:|
+| TTY login (Alt+F1-F6) | `tty2`, `tty3` |
+| SSH session | `ssh` (via PAM) |
+| Graphical desktop | `seat0` — display manager (GDM/SDDM) |
+| `machinectl` | Container session |
 
 ### Seat Management
 
@@ -1326,17 +1324,17 @@ WantedBy=multi-user.target
 
 ### Migration Checklist
 
-| SysV Concept                                 | Systemd Equivalent                                                    |
-| :------------------------------------------- | --------------------------------------------------------------------- |
-| `chkconfig: 2345 80 20`                      | `WantedBy=multi-user.target` + priority implicit via dependency graph |
-| `/etc/init.d/service status`                 | `systemctl status service`                                            |
-| `/etc/init.d/service restart`                | `systemctl restart service`                                           |
-| LSB headers (`Provides:`, `Required-Start:`) | `After=`, `Requires=`, `Wants=`                                       |
-| `--daemon` / `daemonize()`                   | `Type=forking` + `PIDFile=`                                           |
-| `/var/lock/subsys/`                          | Tidak perlu — systemd track via cgroup                                |
-| `lockfile` / `flock`                         | `PrivateTmp=yes` + file-based locking                                 |
-| `insserv` / `update-rc.d`                    | `systemctl enable/disable`                                            |
-| SysV priority (Sxx/Kxx)                      | `After=` / `Before=` explicit                                         |
+| SysV Concept | Systemd Equivalent |
+|:---|---|
+| `chkconfig: 2345 80 20` | `WantedBy=multi-user.target` + priority implicit via dependency graph |
+| `/etc/init.d/service status` | `systemctl status service` |
+| `/etc/init.d/service restart` | `systemctl restart service` |
+| LSB headers (`Provides:`, `Required-Start:`) | `After=`, `Requires=`, `Wants=` |
+| `--daemon` / `daemonize()` | `Type=forking` + `PIDFile=` |
+| `/var/lock/subsys/` | Tidak perlu — systemd track via cgroup |
+| `lockfile` / `flock` | `PrivateTmp=yes` + file-based locking |
+| `insserv` / `update-rc.d` | `systemctl enable/disable` |
+| SysV priority (Sxx/Kxx) | `After=` / `Before=` explicit |
 
 ### Migration Step by Step
 
@@ -1402,14 +1400,14 @@ ls /run/systemd/generator.late/*.service   # auto-generated SysV → systemd
 
 ## 19. Koneksi ke Vault
 
-| Catatan                                    | Koneksi                                                                              |
-| ------------------------------------------ | ------------------------------------------------------------------------------------ |
-| [[linux-hardening-audit-praktis]]          | Service hardening di catatan itu pakai systemd properties — note ini bedah detailnya |
-| [[linux-fundamentals-deepdive]]            | Fondasi OS — prerequisite understanding kernel, cgroups, namespaces                  |
-| [[hierarchy-operating-systems]]            | Posisi systemd di OS hierarchy (userspace init)                                      |
-| [[linux-hardening-cis]]                    | CIS benchmark — systemd bagian dari Level 1 hardening                                |
-| [[observability-stack-prometheus-grafana]] | journald metrics → Prometheus via node_exporter                                      |
-| [[vps-hardening-playbook]]                 | Hardening VPS — enable/disable services via systemctl                                |
+| Catatan | Koneksi |
+|---------|---------|
+| [[linux-hardening-audit-praktis]] | Service hardening di catatan itu pakai systemd properties — note ini bedah detailnya |
+| [[linux-fundamentals-deepdive]] | Fondasi OS — prerequisite understanding kernel, cgroups, namespaces |
+| [[hierarchy-operating-systems]] | Posisi systemd di OS hierarchy (userspace init) |
+| [[linux-hardening-cis]] | CIS benchmark — systemd bagian dari Level 1 hardening |
+| [[observability-stack-prometheus-grafana]] | journald metrics → Prometheus via node_exporter |
+| [[vps-hardening-playbook]] | Hardening VPS — enable/disable services via systemctl |
 
 ## References
 

@@ -1,13 +1,13 @@
 ---
 title: Identity & Access Management (IAM)
 tags:
-  - cyber-security
-  - iam
-  - library
-created: "2026-07-02"
-updated: "2026-07-02"
+- cyber-security
+- iam
+- library
+created: '2026-07-02'
+updated: '2026-07-02'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🪪 Identity & Access Management (IAM)
@@ -16,7 +16,6 @@ cssclasses: ""
 > IAM adalah fondasi dari [[network-security]] dan [[endpoint-security]]. Konsep least privilege dan RBAC di sini terkait erat dengan [[blueteam-detection-matrix]] dan [[purple-team-osi-killchain]].
 
 ## Daftar Isi
-
 1. [Konsep Dasar IAM](#konsep-dasar-iam)
 2. [Authentication vs Authorization](#authentication-vs-authorization)
 3. [Faktor Authentication](#faktor-authentication)
@@ -44,18 +43,17 @@ cssclasses: ""
 
 ## Konsep Dasar IAM
 
-**Identity & Access Management (IAM)** — framework kebijakan dan teknologi yang memastikan _the right people_ punya akses ke _the right resources_ di _the right time_ dan _the right reason_.
+**Identity & Access Management (IAM)** — framework kebijakan dan teknologi yang memastikan *the right people* punya akses ke *the right resources* di *the right time* dan *the right reason*.
 
 **Tiga pilar IAM:**
 
-| Pilar              | Deskripsi               | Contoh                   |
-| ------------------ | ----------------------- | ------------------------ |
-| **Identification** | Klaim identitas         | Username, email, UUID    |
-| **Authentication** | Verifikasi klaim        | Password, biometric, OTP |
-| **Authorization**  | Izin setelah verifikasi | RBAC, ACL, policy engine |
+| Pilar | Deskripsi | Contoh |
+|-------|-----------|--------|
+| **Identification** | Klaim identitas | Username, email, UUID |
+| **Authentication** | Verifikasi klaim | Password, biometric, OTP |
+| **Authorization** | Izin setelah verifikasi | RBAC, ACL, policy engine |
 
 **Tujuan IAM:**
-
 - Least privilege — user hanya punya akses minimum yang dibutuhkan
 - Segregation of duties — pisahin peran antagonis (admin vs auditor)
 - Auditability — setiap akses tercatat
@@ -65,13 +63,13 @@ cssclasses: ""
 
 ## Authentication vs Authorization
 
-| Aspek               | Authentication (AuthN)   | Authorization (AuthZ)            |
-| ------------------- | ------------------------ | -------------------------------- |
-| **Pertanyaan**      | "Siapa kamu?"            | "Kamu boleh apa?"                |
-| **Mekanisme**       | Password, biometric, OTP | RBAC, ABAC, ACL, policy          |
-| **Output**          | Identity token / session | Access token / permission set    |
-| **Contoh Protocol** | OIDC, SAML AuthnRequest  | OAuth 2.0, XACML, AWS IAM Policy |
-| **Flow**            | Login                    | Setelah login, setiap request    |
+| Aspek | Authentication (AuthN) | Authorization (AuthZ) |
+|-------|----------------------|----------------------|
+| **Pertanyaan** | "Siapa kamu?" | "Kamu boleh apa?" |
+| **Mekanisme** | Password, biometric, OTP | RBAC, ABAC, ACL, policy |
+| **Output** | Identity token / session | Access token / permission set |
+| **Contoh Protocol** | OIDC, SAML AuthnRequest | OAuth 2.0, XACML, AWS IAM Policy |
+| **Flow** | Login | Setelah login, setiap request |
 
 > Kerangka NIST SP 800-63 — membedain AuthN strength level (IAL/AAL/FAL).
 
@@ -81,14 +79,13 @@ cssclasses: ""
 
 **Tiga faktor utama (NIST SP 800-63B):**
 
-| Faktor                 | Jenis      | Contoh                                             |
-| ---------------------- | ---------- | -------------------------------------------------- |
-| **Something you know** | Knowledge  | Password, PIN, security question                   |
+| Faktor | Jenis | Contoh |
+|--------|-------|--------|
+| **Something you know** | Knowledge | Password, PIN, security question |
 | **Something you have** | Possession | OTP app, hardware token (YubiKey), SMS, smart card |
-| **Something you are**  | Inherence  | Fingerprint, face ID, iris, voice                  |
+| **Something you are** | Inherence | Fingerprint, face ID, iris, voice |
 
 **Faktor tambahan (diusulkan):**
-
 - **Somewhere you are** (location-based) — geolocation, IP range
 - **Something you do** (behavioral) — typing pattern, mouse movement
 
@@ -100,20 +97,19 @@ cssclasses: ""
 
 ### Metode MFA
 
-| Metode                          | Security         | Convenience        | Faktor                          |
-| ------------------------------- | ---------------- | ------------------ | ------------------------------- |
-| SMS/Phone OTP                   | ❌ Lemah         | ✅ Tinggi          | Possession (rentan SIM swap)    |
-| TOTP (Google Auth, Authy)       | ✅ Kuat          | ✅ Tinggi          | Possession                      |
-| Push Notification               | ✅ Kuat          | ✅✅ Sangat tinggi | Possession                      |
-| Hardware Token (YubiKey, Titan) | ✅✅ Sangat kuat | ⚠️ Medium          | Possession (phishing-resistant) |
-| FIDO2/WebAuthn                  | ✅✅ Sangat kuat | ✅✅ Sangat tinggi | Possession + Inherence          |
-| Biometric only                  | ⚠️ Medium        | ✅✅ Tinggi        | Inherence                       |
-| Backup Codes                    | ⚠️ Medium        | ✅✅ Tinggi        | Knowledge                       |
+| Metode | Security | Convenience | Faktor |
+|--------|----------|-------------|--------|
+| SMS/Phone OTP | ❌ Lemah | ✅ Tinggi | Possession (rentan SIM swap) |
+| TOTP (Google Auth, Authy) | ✅ Kuat | ✅ Tinggi | Possession |
+| Push Notification | ✅ Kuat | ✅✅ Sangat tinggi | Possession |
+| Hardware Token (YubiKey, Titan) | ✅✅ Sangat kuat | ⚠️ Medium | Possession (phishing-resistant) |
+| FIDO2/WebAuthn | ✅✅ Sangat kuat | ✅✅ Sangat tinggi | Possession + Inherence |
+| Biometric only | ⚠️ Medium | ✅✅ Tinggi | Inherence |
+| Backup Codes | ⚠️ Medium | ✅✅ Tinggi | Knowledge |
 
 ### Phishing-Resistant MFA (FIDO2/WebAuthn)
 
 Mekanisme U2F/FIDO2 nggak bisa di-phish karena:
-
 - Challenge-response dengan origin-bound key pair
 - Private key never leaves device
 - Attestation — server verify device manufacturer
@@ -134,7 +130,6 @@ Mekanisme U2F/FIDO2 nggak bisa di-phish karena:
 ```
 
 ### Best Practices MFA
-
 - Wajib MFA untuk: admin, VPN, remote access, API keys
 - Rate-limit MFA attempts — prevent brute force 6-digit TOTP
 - Fallback mechanism: recovery codes, backup TOTP
@@ -159,20 +154,17 @@ Mekanisme U2F/FIDO2 nggak bisa di-phish karena:
 ```
 
 **Komponen SSO:**
-
 - **IdP (Identity Provider)** — nyimpen & verifikasi identitas (Keycloak, Okta, Azure AD, Google)
 - **SP (Service Provider)** — aplikasi yang nerima identitas
 - **Federation Protocol** — SAML 2.0, OIDC, WS-Federation
 
 ### Keuntungan SSO
-
 - Satu password lebih kuat daripada banyak password lemah
 - Password rotation lebih jarang
 - Centralized user lifecycle — disable one account revokes all access
 - MFA applied once at IdP, applies everywhere
 
 ### Kerugian SSO
-
 - **Single point of failure** — IdP down = semua aplikasi nggak bisa diakses
 - **Lateral movement risk** — compromised IdP = complete domain compromise
 - **Privilege escalation** — misconfigured attribute mapping bisa kasih akses berlebih
@@ -185,15 +177,14 @@ Mekanisme U2F/FIDO2 nggak bisa di-phish karena:
 
 ### Federation Trust Models
 
-| Model                   | Deskripsi                            | Contoh                       |
-| ----------------------- | ------------------------------------ | ---------------------------- |
-| **Direct Federation**   | Dua organisasi punya trust bilateral | Partner VPN access           |
-| **Brokered Federation** | IdP broker antara banyak SP          | Login with Google/GitHub     |
-| **Hub & Spoke**         | One central IdP, many SPs            | Enterprise: Okta → SaaS apps |
-| **Mesh Federation**     | Banyak IdP, many-to-many trust       | eduGAIN (universitas global) |
+| Model | Deskripsi | Contoh |
+|-------|-----------|--------|
+| **Direct Federation** | Dua organisasi punya trust bilateral | Partner VPN access |
+| **Brokered Federation** | IdP broker antara banyak SP | Login with Google/GitHub |
+| **Hub & Spoke** | One central IdP, many SPs | Enterprise: Okta → SaaS apps |
+| **Mesh Federation** | Banyak IdP, many-to-many trust | eduGAIN (universitas global) |
 
 ### Federation Protocols
-
 - **SAML 2.0** — enterprise, government
 - **OpenID Connect** — modern web & mobile
 - **WS-Federation** — legacy .NET apps
@@ -209,14 +200,14 @@ Framework authorization — bukan authentication. Delegated access untuk resourc
 
 **Grant Types:**
 
-| Grant Type                               | Use Case              | Security           |
-| ---------------------------------------- | --------------------- | ------------------ |
-| **Authorization Code**                   | Web app (server-side) | ✅ Secure (+PKCE)  |
-| **Authorization Code + PKCE**            | Mobile/SPA            | ✅✅ Secure        |
-| **Client Credentials**                   | Machine-to-machine    | ✅ No user context |
-| **Device Code**                          | TV/CLI devices        | ⚠️ Medium          |
-| **Implicit** (deprecated)                | Legacy SPA            | ❌ Insecure        |
-| **Resource Owner Password** (deprecated) | Legacy migration      | ❌ Insecure        |
+| Grant Type | Use Case | Security |
+|------------|----------|----------|
+| **Authorization Code** | Web app (server-side) | ✅ Secure (+PKCE) |
+| **Authorization Code + PKCE** | Mobile/SPA | ✅✅ Secure |
+| **Client Credentials** | Machine-to-machine | ✅ No user context |
+| **Device Code** | TV/CLI devices | ⚠️ Medium |
+| **Implicit** (deprecated) | Legacy SPA | ❌ Insecure |
+| **Resource Owner Password** (deprecated) | Legacy migration | ❌ Insecure |
 
 **OAuth 2.1** — menyederhanakan: hanya Authorization Code + PKCE dan Client Credentials.
 
@@ -241,21 +232,19 @@ Framework authorization — bukan authentication. Delegated access untuk resourc
 
 Lapisan identity di atas OAuth 2.0. Adds:
 
-| Component             | Fungsi                                                           |
-| --------------------- | ---------------------------------------------------------------- |
-| **ID Token**          | JWT berisi identity claims (sub, name, email, email_verified)    |
-| **UserInfo Endpoint** | API untuk dapetin profile claims                                 |
-| **Discovery**         | `/.well-known/openid-configuration` — semua endpoint di satu URL |
+| Component | Fungsi |
+|-----------|--------|
+| **ID Token** | JWT berisi identity claims (sub, name, email, email_verified) |
+| **UserInfo Endpoint** | API untuk dapetin profile claims |
+| **Discovery** | `/.well-known/openid-configuration` — semua endpoint di satu URL |
 
 **OIDC Flows:**
-
 - **Authorization Code Flow** — server-side web apps
 - **Implicit Flow** (deprecated) — legacy SPA
 - **Hybrid Flow** — sebagian claims langsung di auth response
 - **CIBA** (Client Initiated Backchannel Auth) — passwordless push
 
 ### Best Practices Token
-
 - Access token: short-lived (15-60 menit)
 - Refresh token: longer-lived, bound to client
 - JWT signing: RS256 (asymmetric) > HS256 (symmetric)
@@ -280,26 +269,26 @@ Lapisan identity di atas OAuth 2.0. Adds:
 
 ### SAML Components
 
-| Component                | Deskripsi                                                        |
-| ------------------------ | ---------------------------------------------------------------- |
-| **Assertion**            | XML statement: Authentication, Attribute, Authorization Decision |
-| **Subject**              | `<saml:Subject>` → NameID (user identifier)                      |
-| **Conditions**           | NotBefore, NotOnOrAfter, AudienceRestriction                     |
-| **AuthnContextClassRef** | Authentication strength (password, MFA, X.509)                   |
-| **SingleLogout**         | Logout dari semua SP sekaligus                                   |
+| Component | Deskripsi |
+|-----------|-----------|
+| **Assertion** | XML statement: Authentication, Attribute, Authorization Decision |
+| **Subject** | `<saml:Subject>` → NameID (user identifier) |
+| **Conditions** | NotBefore, NotOnOrAfter, AudienceRestriction |
+| **AuthnContextClassRef** | Authentication strength (password, MFA, X.509) |
+| **SingleLogout** | Logout dari semua SP sekaligus |
 
 ### SAML vs OIDC
 
-| Aspek          | SAML 2.0                         | OIDC                              |
-| -------------- | -------------------------------- | --------------------------------- |
-| **Format**     | XML                              | JSON                              |
-| **Transport**  | HTTP Redirect/POST POST Artifact | HTTP GET/POST, AJAX               |
-| **Token**      | XML Assertion                    | JWT                               |
-| **Binding**    | Browser redirect, SOAP, PAOS     | REST API                          |
-| **Maturity**   | Enterprise 20+ tahun             | Modern web/mobile (~10 tahun)     |
-| **Complexity** | Tinggi (XML parsing, signing)    | Rendah (JSON, simple)             |
-| **Session**    | IdP-initiated logout             | RP-initiated + session management |
-| **Ecosystem**  | Legacy enterprise stacks         | Modern stacks (OAuth ecosystem)   |
+| Aspek | SAML 2.0 | OIDC |
+|-------|----------|------|
+| **Format** | XML | JSON |
+| **Transport** | HTTP Redirect/POST POST Artifact | HTTP GET/POST, AJAX |
+| **Token** | XML Assertion | JWT |
+| **Binding** | Browser redirect, SOAP, PAOS | REST API |
+| **Maturity** | Enterprise 20+ tahun | Modern web/mobile (~10 tahun) |
+| **Complexity** | Tinggi (XML parsing, signing) | Rendah (JSON, simple) |
+| **Session** | IdP-initiated logout | RP-initiated + session management |
+| **Ecosystem** | Legacy enterprise stacks | Modern stacks (OAuth ecosystem) |
 
 ---
 
@@ -322,17 +311,16 @@ memberOf: cn=admin,ou=Groups,dc=azharmtq,dc=com
 
 ### LDAP Operations
 
-| Operation             | Fungsi                | Contoh                          |
-| --------------------- | --------------------- | ------------------------------- |
-| **Bind**              | Authentication        | Username + password             |
-| **Search**            | Query directory       | `(&(objectClass=user)(mail=*))` |
-| **Compare**           | Check attribute value | `memberOf` membership           |
-| **Add/Modify/Delete** | CRUD entries          | User provisioning               |
+| Operation | Fungsi | Contoh |
+|-----------|--------|--------|
+| **Bind** | Authentication | Username + password |
+| **Search** | Query directory | `(&(objectClass=user)(mail=*))` |
+| **Compare** | Check attribute value | `memberOf` membership |
+| **Add/Modify/Delete** | CRUD entries | User provisioning |
 
 ### Binding dengan AD
 
 Strategi aman LDAP:
-
 - **LDAPS** (port 636) — wajib, avoid LDAP (389, plaintext)
 - **StartTLS** — upgrade koneksi ke encrypted
 - **Service Account** dengan limited scope, bukan admin credentials
@@ -340,16 +328,16 @@ Strategi aman LDAP:
 
 ### AD Attack Vectors (relevant untuk blue team)
 
-| Attack              | Deskripsi                                        | Mitigasi                                                           |
-| ------------------- | ------------------------------------------------ | ------------------------------------------------------------------ |
-| **Kerberoasting**   | Request TGS untuk service account, crack offline | Complex service account passwords, Managed Service Accounts (gMSA) |
-| **AS-REP Roasting** | User tanpa pre-auth Kerberos, crackable hash     | Enable pre-authentication (default)                                |
-| **Golden Ticket**   | Forge KRBTGT hash → domain admin forever         | Frequent KRBTGT password rotation, monitor event ID 4672/4624      |
-| **Silver Ticket**   | Forge TGS untuk service                          | Limit service account privileges, monitor Kerberos TGS events      |
-| **DCSync**          | Replicate directory via DRSUAPI                  | Protect Replication ACL, monitor event ID 4662                     |
-| **Pass-the-Hash**   | Use NTLM hash instead of password                | Enable Credential Guard, disable NTLM where possible               |
-| **LDAP Relay**      | Relay LDAP auth to escalate                      | LDAP signing + channel binding, SMB signing                        |
-| **ACL Abuse**       | Modify ACL (AdminCount, GenericAll)              | Monitor AD ACL changes (event 5136)                                |
+| Attack | Deskripsi | Mitigasi |
+|--------|-----------|----------|
+| **Kerberoasting** | Request TGS untuk service account, crack offline | Complex service account passwords, Managed Service Accounts (gMSA) |
+| **AS-REP Roasting** | User tanpa pre-auth Kerberos, crackable hash | Enable pre-authentication (default) |
+| **Golden Ticket** | Forge KRBTGT hash → domain admin forever | Frequent KRBTGT password rotation, monitor event ID 4672/4624 |
+| **Silver Ticket** | Forge TGS untuk service | Limit service account privileges, monitor Kerberos TGS events |
+| **DCSync** | Replicate directory via DRSUAPI | Protect Replication ACL, monitor event ID 4662 |
+| **Pass-the-Hash** | Use NTLM hash instead of password | Enable Credential Guard, disable NTLM where possible |
+| **LDAP Relay** | Relay LDAP auth to escalate | LDAP signing + channel binding, SMB signing |
+| **ACL Abuse** | Modify ACL (AdminCount, GenericAll) | Monitor AD ACL changes (event 5136) |
 
 ---
 
@@ -381,15 +369,14 @@ NIST SP 800-162 — akses berdasarkan peran, bukan per-user.
 
 ### RBAC Models
 
-| Model                  | Deskripsi                                       |
-| ---------------------- | ----------------------------------------------- |
-| **Flat RBAC**          | User → Role → Permission (langsung)             |
-| **Hierarchical RBAC**  | Role inheritance (admin inherits viewer)        |
-| **Constrained RBAC**   | SSD (Static Separation of Duty) & DSD (Dynamic) |
-| **Session-based RBAC** | Role aktif dipilih per session                  |
+| Model | Deskripsi |
+|-------|-----------|
+| **Flat RBAC** | User → Role → Permission (langsung) |
+| **Hierarchical RBAC** | Role inheritance (admin inherits viewer) |
+| **Constrained RBAC** | SSD (Static Separation of Duty) & DSD (Dynamic) |
+| **Session-based RBAC** | Role aktif dipilih per session |
 
 ### Best Practices RBAC
-
 - Minimal role count — jangan bikin role per individual
 - Role naming standard — `{domain}.{level}` → `network.admin`, `logs.viewer`
 - Principle of least privilege — start with no access
@@ -404,12 +391,12 @@ NIST SP 800-162 — akses berdasarkan **attributes** (user, resource, environmen
 
 ### Attribute Categories
 
-| Category                   | Contoh                                                 |
-| -------------------------- | ------------------------------------------------------ |
-| **Subject Attributes**     | department=security, clearance=top-secret, location=ID |
-| **Resource Attributes**    | classification=confidential, owner=security-team       |
-| **Action Attributes**      | method=DELETE, time=working-hours                      |
-| **Environment Attributes** | ip=192.168.x.x, network=vpn, device=managed            |
+| Category | Contoh |
+|----------|--------|
+| **Subject Attributes** | department=security, clearance=top-secret, location=ID |
+| **Resource Attributes** | classification=confidential, owner=security-team |
+| **Action Attributes** | method=DELETE, time=working-hours |
+| **Environment Attributes** | ip=192.168.x.x, network=vpn, device=managed |
 
 ### Policy ABAC
 
@@ -428,14 +415,14 @@ Tool: AWS IAM Policy, OPA/Rego, XACML, Cedar (AWS), Oso.
 
 ### RBAC vs ABAC
 
-| Aspek           | RBAC                                | ABAC                             |
-| --------------- | ----------------------------------- | -------------------------------- |
-| **Granularity** | Coarse (by role)                    | Fine-grained (by attribute)      |
-| **Management**  | Role explosion                      | Policy complexity                |
+| Aspek | RBAC | ABAC |
+|-------|------|------|
+| **Granularity** | Coarse (by role) | Fine-grained (by attribute) |
+| **Management** | Role explosion | Policy complexity |
 | **Flexibility** | Static, need new role per exception | Dynamic, policy-based exceptions |
-| **Performance** | Fast (simple lookup)                | Slower (attribute resolution)    |
-| **Audit**       | Clear role assignments              | Complex policy evaluation trace  |
-| **Best for**    | Uniform access patterns             | Fine-grained, context-aware      |
+| **Performance** | Fast (simple lookup) | Slower (attribute resolution) |
+| **Audit** | Clear role assignments | Complex policy evaluation trace |
+| **Best for** | Uniform access patterns | Fine-grained, context-aware |
 
 ---
 
@@ -445,14 +432,14 @@ Tool: AWS IAM Policy, OPA/Rego, XACML, Cedar (AWS), Oso.
 
 ### Privileged Account Types
 
-| Account Type                         | Risiko                            | Mitigasi                               |
-| ------------------------------------ | --------------------------------- | -------------------------------------- |
-| **Local Admin** (root/Administrator) | Direct system compromise          | Local admin password solution (LAPS)   |
-| **Domain Admin**                     | Full AD compromise                | Tier 0 admin, jump box only            |
-| **Service Account**                  | Unmanaged, password never rotates | gMSA/managed service account           |
-| **Application Account**              | Hardcoded creds                   | Secret vault (HashiCorp Vault)         |
-| **Emergency Account**                | Backdoor risk                     | Break-glass procedure, MFA, monitoring |
-| **API Token**                        | Long-lived, token theft           | Short-lived, scoped, rotate constantly |
+| Account Type | Risiko | Mitigasi |
+|--------------|--------|----------|
+| **Local Admin** (root/Administrator) | Direct system compromise | Local admin password solution (LAPS) |
+| **Domain Admin** | Full AD compromise | Tier 0 admin, jump box only |
+| **Service Account** | Unmanaged, password never rotates | gMSA/managed service account |
+| **Application Account** | Hardcoded creds | Secret vault (HashiCorp Vault) |
+| **Emergency Account** | Backdoor risk | Break-glass procedure, MFA, monitoring |
+| **API Token** | Long-lived, token theft | Short-lived, scoped, rotate constantly |
 
 ### PAM Architecture
 
@@ -479,7 +466,6 @@ Tool: AWS IAM Policy, OPA/Rego, XACML, Cedar (AWS), Oso.
 ```
 
 ### PAM Best Practices
-
 - **JIT (Just-In-Time)** — privilege elevation on-demand, selalu expire
 - **Session Recording** — record SSH/RDP/REST session buat audit
 - **Password Rotation** — auto-rotate after checkout
@@ -494,12 +480,12 @@ Tool: AWS IAM Policy, OPA/Rego, XACML, Cedar (AWS), Oso.
 
 Prinsip Zero Trust untuk IAM (NIST SP 800-207):
 
-| Prinsip                        | Implementasi IAM                                    |
-| ------------------------------ | --------------------------------------------------- |
+| Prinsip | Implementasi IAM |
+|---------|-----------------|
 | **Never trust, always verify** | AuthN every request, never assume network perimeter |
-| **Least privilege**            | JIT & fine-grained authorization                    |
-| **Assume breach**              | Micro-segmentation, risk-based conditional access   |
-| **Continuous verification**    | Session risk scoring → re-auth on anomaly           |
+| **Least privilege** | JIT & fine-grained authorization |
+| **Assume breach** | Micro-segmentation, risk-based conditional access |
+| **Continuous verification** | Session risk scoring → re-auth on anomaly |
 
 ### IAM Arsitektur Zero Trust
 
@@ -541,14 +527,14 @@ Allow(step-up MFA) | Deny | Block | Require approval
 
 ### Methods
 
-| Method             | How It Works                       | Security Level                 |
-| ------------------ | ---------------------------------- | ------------------------------ |
-| **Magic Link**     | Email dengan one-time login link   | ⚠️ Medium (email compromise)   |
-| **OTP**            | One-time password (TOTP/HOTP)      | ✅ Kuat (possession factor)    |
-| **Push Auth**      | Phone notification → approve       | ✅ Kuat (phishing-resistant)   |
-| **FIDO2/WebAuthn** | Public key crypto, bound to device | ✅✅ Sangat kuat               |
-| **Biometric**      | Fingerprint/FaceID on device       | ✅✅ Kuat (local validation)   |
-| **Passkeys**       | FIDO2 credential sync via cloud    | ✅✅ Sangat kuat + convenience |
+| Method | How It Works | Security Level |
+|--------|-------------|----------------|
+| **Magic Link** | Email dengan one-time login link | ⚠️ Medium (email compromise) |
+| **OTP** | One-time password (TOTP/HOTP) | ✅ Kuat (possession factor) |
+| **Push Auth** | Phone notification → approve | ✅ Kuat (phishing-resistant) |
+| **FIDO2/WebAuthn** | Public key crypto, bound to device | ✅✅ Sangat kuat |
+| **Biometric** | Fingerprint/FaceID on device | ✅✅ Kuat (local validation) |
+| **Passkeys** | FIDO2 credential sync via cloud | ✅✅ Sangat kuat + convenience |
 
 ### Passkeys (Apple/Google/Microsoft standard)
 
@@ -562,23 +548,23 @@ Allow(step-up MFA) | Deny | Block | Require approval
 
 ### Session Lifecycle
 
-| Fase            | Deskripsi                           | Best Practice                                    |
-| --------------- | ----------------------------------- | ------------------------------------------------ |
-| **Creation**    | Session ID generated after AuthN    | Secure random CSPRNG, HttpOnly, Secure, SameSite |
-| **Maintenance** | Send session cookie on each request | Sliding expiry, refresh before expiry            |
-| **Validation**  | Server check session validity       | Validate IP, user-agent, fingerprint             |
-| **Termination** | Logout / timeout / revoke           | Explicit logout, idle timeout, absolute timeout  |
+| Fase | Deskripsi | Best Practice |
+|------|-----------|---------------|
+| **Creation** | Session ID generated after AuthN | Secure random CSPRNG, HttpOnly, Secure, SameSite |
+| **Maintenance** | Send session cookie on each request | Sliding expiry, refresh before expiry |
+| **Validation** | Server check session validity | Validate IP, user-agent, fingerprint |
+| **Termination** | Logout / timeout / revoke | Explicit logout, idle timeout, absolute timeout |
 
 ### Session Attack Vectors
 
-| Attack                     | Mitigasi                                                       |
-| -------------------------- | -------------------------------------------------------------- |
-| **Session Fixation**       | Regenerate session ID after login                              |
-| **Session Hijacking**      | HttpOnly + Secure + SameSite cookies, channel binding          |
-| **CSRF**                   | Anti-CSRF token, SameSite=Strict/Lax                           |
-| **Session Prediction**     | CSPRNG-based session IDs, minimum 128-bit                      |
-| **Concurrent Session**     | Limit concurrent session per user, kill old session on re-auth |
-| **Session Timeout Bypass** | Enforce server-side timeout, not just client-side timer        |
+| Attack | Mitigasi |
+|--------|----------|
+| **Session Fixation** | Regenerate session ID after login |
+| **Session Hijacking** | HttpOnly + Secure + SameSite cookies, channel binding |
+| **CSRF** | Anti-CSRF token, SameSite=Strict/Lax |
+| **Session Prediction** | CSPRNG-based session IDs, minimum 128-bit |
+| **Concurrent Session** | Limit concurrent session per user, kill old session on re-auth |
+| **Session Timeout Bypass** | Enforce server-side timeout, not just client-side timer |
 
 ---
 
@@ -591,13 +577,11 @@ BASE64(Header) . BASE64(Payload) . Signature
 ```
 
 **Header:**
-
 ```json
-{ "alg": "RS256", "typ": "JWT", "kid": "key-id-1" }
+{"alg": "RS256", "typ": "JWT", "kid": "key-id-1"}
 ```
 
 **Payload (claims):**
-
 ```json
 {
   "sub": "user-abc-123",
@@ -614,15 +598,15 @@ BASE64(Header) . BASE64(Payload) . Signature
 
 ### JWT Best Practices
 
-| Practice                       | Detail                                                      |
-| ------------------------------ | ----------------------------------------------------------- |
-| **Use asymmetric signing**     | RS256/ES256 > HS256 (shared secret lebih rentan)            |
-| **Short expiry**               | 15 menit access token, refresh token 7-30 hari              |
-| **Validate all claims**        | sub, iss, aud, exp, nbf, iat, jti                           |
-| **Token binding (DPoP)**       | Binding token ke client private key — prevent replay        |
-| **Revocation**                 | Token blacklist (redis) atau short-lived + refresh rotation |
-| **Don't store secrets in JWT** | JWT payload is base64 encoded, NOT encrypted by default     |
-| **JWE for sensitive claims**   | Encrypted JWT (JWE) jika payload mengandung PII             |
+| Practice | Detail |
+|----------|--------|
+| **Use asymmetric signing** | RS256/ES256 > HS256 (shared secret lebih rentan) |
+| **Short expiry** | 15 menit access token, refresh token 7-30 hari |
+| **Validate all claims** | sub, iss, aud, exp, nbf, iat, jti |
+| **Token binding (DPoP)** | Binding token ke client private key — prevent replay |
+| **Revocation** | Token blacklist (redis) atau short-lived + refresh rotation |
+| **Don't store secrets in JWT** | JWT payload is base64 encoded, NOT encrypted by default |
+| **JWE for sensitive claims** | Encrypted JWT (JWE) jika payload mengandung PII |
 
 ### Refresh Token Rotation
 
@@ -640,17 +624,16 @@ Auth → Access(15m) + Refresh(7d)
 
 ### API Auth Methods
 
-| Method                           | Use Case                      | Security                           |
-| -------------------------------- | ----------------------------- | ---------------------------------- |
-| **API Key**                      | Public APIs, developer access | ❌ Low (static, easy to leak)      |
-| **Bearer Token** (JWT)           | User-context API              | ✅ High (short-lived, signed)      |
-| **OAuth 2.0 Client Credentials** | M2M API                       | ✅ High (scoped, client secret)    |
-| **mTLS**                         | High-security internal APIs   | ✅✅ Very high (certificate-based) |
-| **HMAC Signature**               | Financial APIs                | ✅✅ Tamper-proof (AWS SigV4)      |
-| **Basic Auth**                   | Legacy (never use)            | ❌ Dangerous                       |
+| Method | Use Case | Security |
+|--------|----------|----------|
+| **API Key** | Public APIs, developer access | ❌ Low (static, easy to leak) |
+| **Bearer Token** (JWT) | User-context API | ✅ High (short-lived, signed) |
+| **OAuth 2.0 Client Credentials** | M2M API | ✅ High (scoped, client secret) |
+| **mTLS** | High-security internal APIs | ✅✅ Very high (certificate-based) |
+| **HMAC Signature** | Financial APIs | ✅✅ Tamper-proof (AWS SigV4) |
+| **Basic Auth** | Legacy (never use) | ❌ Dangerous |
 
 ### API Auth Best Practices
-
 - Rate limiting per API key/identity — prevent abuse
 - API key rotation — auto-rotate keys berkala
 - Scope-based tokens — `read:logs` ≠ `write:logs`
@@ -718,37 +701,37 @@ User → [PEP] → PDP (OPA/Cedar/AWS) → [PEP] → Resource
 
 ### IAM Attack Categories
 
-| Attack                     | IAM Component     | Dampak                       | Mitigasi                                                      |
-| -------------------------- | ----------------- | ---------------------------- | ------------------------------------------------------------- |
-| **Credential Stuffing**    | AuthN             | Account takeover             | Rate limit, CAPTCHA, MFA, credential monitoring               |
-| **Phishing**               | AuthN             | Credential theft             | FIDO2 (phishing-resistant) MFA, Security Keys                 |
-| **SIM Swap**               | MFA (SMS)         | MFA bypass                   | Deprecate SMS, use TOTP/Push/FIDO                             |
-| **Token Replay**           | AuthZ (token)     | Session hijack               | DPoP/mTLS token binding, short expiry                         |
-| **Privilege Escalation**   | AuthZ (RBAC/ABAC) | Unauthorized access          | Regular access review, JIT privilege, tiered admin            |
-| **IDOR**                   | AuthZ (API)       | Access other user's data     | Object-level authorization, not just API-level                |
-| **MFA Fatigue**            | AuthN (push)      | MFA bypass via user approval | Number matching, rate-limit push, geo-fencing                 |
-| **Session Fixation**       | Session Mgmt      | Session hijack               | Regenerate session ID on login                                |
-| **OAuth Misconfiguration** | OAuth/OIDC        | Token theft                  | PKCE, proper redirect URI validation, state parameter         |
-| **Token Theft (offline)**  | Token storage     | Persistent access            | Secure storage (Keychain/DPAPI), biometric unlock             |
-| **Insider Threat**         | IAM policy        | Data exfiltration            | DLP, UEBA, monitoring, least privilege                        |
-| **Backdoor Account**       | Provisioning      | Undetected access            | Periodic audit, automated discovery, disable dormant accounts |
+| Attack | IAM Component | Dampak | Mitigasi |
+|--------|---------------|--------|----------|
+| **Credential Stuffing** | AuthN | Account takeover | Rate limit, CAPTCHA, MFA, credential monitoring |
+| **Phishing** | AuthN | Credential theft | FIDO2 (phishing-resistant) MFA, Security Keys |
+| **SIM Swap** | MFA (SMS) | MFA bypass | Deprecate SMS, use TOTP/Push/FIDO |
+| **Token Replay** | AuthZ (token) | Session hijack | DPoP/mTLS token binding, short expiry |
+| **Privilege Escalation** | AuthZ (RBAC/ABAC) | Unauthorized access | Regular access review, JIT privilege, tiered admin |
+| **IDOR** | AuthZ (API) | Access other user's data | Object-level authorization, not just API-level |
+| **MFA Fatigue** | AuthN (push) | MFA bypass via user approval | Number matching, rate-limit push, geo-fencing |
+| **Session Fixation** | Session Mgmt | Session hijack | Regenerate session ID on login |
+| **OAuth Misconfiguration** | OAuth/OIDC | Token theft | PKCE, proper redirect URI validation, state parameter |
+| **Token Theft (offline)** | Token storage | Persistent access | Secure storage (Keychain/DPAPI), biometric unlock |
+| **Insider Threat** | IAM policy | Data exfiltration | DLP, UEBA, monitoring, least privilege |
+| **Backdoor Account** | Provisioning | Undetected access | Periodic audit, automated discovery, disable dormant accounts |
 
 ---
 
 ## Compliance & Standards
 
-| Standard            | Fokus              | IAM Requirement                                      |
-| ------------------- | ------------------ | ---------------------------------------------------- |
-| **NIST SP 800-63**  | Identity Assurance | Authentication strength levels (AAL1/2/3)            |
-| **NIST SP 800-207** | Zero Trust         | Continuous verification, micro-segmentation          |
-| **SOC 2**           | Access Control     | Authentication, authorization, access review         |
-| **PCI DSS v4.0**    | AuthN              | MFA for admin access to CDE (Req 8.4)                |
-| **ISO 27001**       | A.9 Access Control | Access control policy, user access provisioning      |
-| **GDPR**            | Data Privacy       | Pseudonymization, access log, right to erasure       |
-| **HIPAA**           | Healthcare PHI     | Unique user IDs, automatic logoff, audit controls    |
-| **SOX**             | Financial controls | Access management, SoD (segregation of duties)       |
-| **FedRAMP**         | US Government      | FICAM, PIV/CAC integration, continuous monitoring    |
-| **EE.UU. ITE**      | Indonesia          | Perlindungan data pribadi (PDP Bill), access logging |
+| Standard | Fokus | IAM Requirement |
+|----------|-------|-----------------|
+| **NIST SP 800-63** | Identity Assurance | Authentication strength levels (AAL1/2/3) |
+| **NIST SP 800-207** | Zero Trust | Continuous verification, micro-segmentation |
+| **SOC 2** | Access Control | Authentication, authorization, access review |
+| **PCI DSS v4.0** | AuthN | MFA for admin access to CDE (Req 8.4) |
+| **ISO 27001** | A.9 Access Control | Access control policy, user access provisioning |
+| **GDPR** | Data Privacy | Pseudonymization, access log, right to erasure |
+| **HIPAA** | Healthcare PHI | Unique user IDs, automatic logoff, audit controls |
+| **SOX** | Financial controls | Access management, SoD (segregation of duties) |
+| **FedRAMP** | US Government | FICAM, PIV/CAC integration, continuous monitoring |
+| **EE.UU. ITE** | Indonesia | Perlindungan data pribadi (PDP Bill), access logging |
 
 ---
 
@@ -756,42 +739,42 @@ User → [PEP] → PDP (OPA/Cedar/AWS) → [PEP] → Resource
 
 ### IdP / SSO Solutions
 
-| Tool                 | Type | Open Source     | Multi-Tenant | FIDO2 | SCIM | Notes                          |
-| -------------------- | ---- | --------------- | ------------ | ----- | ---- | ------------------------------ |
-| **Keycloak**         | IdP  | ✅ (Apache 2.0) | ✅           | ✅    | ✅   | Community, feature-rich        |
-| **Okta**             | IdP  | ❌              | ✅           | ✅    | ✅   | Enterprise, expensive          |
-| **Azure AD**         | IdP  | ❌              | ✅           | ✅    | ✅   | Microsoft ecosystem, hybrid AD |
-| **Google Workspace** | IdP  | ❌              | ✅           | ✅    | ✅   | GWS ecosystem                  |
-| **Auth0**            | IdP  | ❌              | ✅           | ✅    | ✅   | Developer-friendly, CIAM       |
-| **Gluu**             | IdP  | ✅              | ✅           | ✅    | ✅   | Open-source, certified         |
-| **Ping Identity**    | IdP  | ❌              | ✅           | ✅    | ✅   | Enterprise, very mature        |
-| **Authentik**        | IdP  | ✅              | ✅           | ✅    | ✅   | Modern, focused on automation  |
+| Tool | Type | Open Source | Multi-Tenant | FIDO2 | SCIM | Notes |
+|------|------|-------------|--------------|-------|------|-------|
+| **Keycloak** | IdP | ✅ (Apache 2.0) | ✅ | ✅ | ✅ | Community, feature-rich |
+| **Okta** | IdP | ❌ | ✅ | ✅ | ✅ | Enterprise, expensive |
+| **Azure AD** | IdP | ❌ | ✅ | ✅ | ✅ | Microsoft ecosystem, hybrid AD |
+| **Google Workspace** | IdP | ❌ | ✅ | ✅ | ✅ | GWS ecosystem |
+| **Auth0** | IdP | ❌ | ✅ | ✅ | ✅ | Developer-friendly, CIAM |
+| **Gluu** | IdP | ✅ | ✅ | ✅ | ✅ | Open-source, certified |
+| **Ping Identity** | IdP | ❌ | ✅ | ✅ | ✅ | Enterprise, very mature |
+| **Authentik** | IdP | ✅ | ✅ | ✅ | ✅ | Modern, focused on automation |
 
 ### PAM Solutions
 
-| Tool                    | Type    | Open Source | Session Recording | JIT | Secrets | Notes                               |
-| ----------------------- | ------- | ----------- | ----------------- | --- | ------- | ----------------------------------- |
-| **CyberArk**            | PAM     | ❌          | ✅                | ✅  | ✅      | Market leader, expensive            |
-| **Delinea (Thycotic)**  | PAM     | ❌          | ✅                | ✅  | ✅      | Mid-range PAM                       |
-| **HashiCorp Vault**     | Secrets | ✅ (BSL)    | ❌                | ✅  | ✅      | Secrets-focused, integrate with PAM |
-| **Teleport**            | PAM     | ✅          | ✅                | ✅  | ✅      | SSH/k8s/database access             |
-| **Border0**             | PAM     | ❌          | ✅                | ✅  | ❌      | Zero Trust access                   |
-| **wallix**              | PAM     | ❌          | ✅                | ✅  | ✅      | European PAM                        |
-| **ManageEngine PAM360** | PAM     | ❌          | ✅                | ✅  | ✅      | Mid-market                          |
+| Tool | Type | Open Source | Session Recording | JIT | Secrets | Notes |
+|------|------|-------------|-------------------|-----|---------|-------|
+| **CyberArk** | PAM | ❌ | ✅ | ✅ | ✅ | Market leader, expensive |
+| **Delinea (Thycotic)** | PAM | ❌ | ✅ | ✅ | ✅ | Mid-range PAM |
+| **HashiCorp Vault** | Secrets | ✅ (BSL) | ❌ | ✅ | ✅ | Secrets-focused, integrate with PAM |
+| **Teleport** | PAM | ✅ | ✅ | ✅ | ✅ | SSH/k8s/database access |
+| **Border0** | PAM | ❌ | ✅ | ✅ | ❌ | Zero Trust access |
+| **wallix** | PAM | ❌ | ✅ | ✅ | ✅ | European PAM |
+| **ManageEngine PAM360** | PAM | ❌ | ✅ | ✅ | ✅ | Mid-market |
 
 ### Auth Libraries (Developer)
 
-| Library                | Protocol   | Language | Notes                  |
-| ---------------------- | ---------- | -------- | ---------------------- |
-| **OIDC Client (npm)**  | OIDC       | Node.js  | Relying Party library  |
-| **OAuth2 Proxy**       | OAuth/OIDC | Go       | Reverse proxy auth     |
-| **Spring Security**    | OAuth/SAML | Java     | Full-stack security    |
-| **Devise + OmniAuth**  | OAuth      | Ruby     | Rails standard         |
-| **python-social-auth** | OAuth/SAML | Python   | Django/Flask           |
-| **oauthlib**           | OAuth      | Python   | Low-level OAuth        |
-| **PyJWT**              | JWT        | Python   | JWT encode/decode      |
-| **dex**                | IdP        | Go       | Kubernetes-native IdP  |
-| **Casdoor**            | IdP        | Go       | Modern open-source IdP |
+| Library | Protocol | Language | Notes |
+|---------|----------|----------|-------|
+| **OIDC Client (npm)** | OIDC | Node.js | Relying Party library |
+| **OAuth2 Proxy** | OAuth/OIDC | Go | Reverse proxy auth |
+| **Spring Security** | OAuth/SAML | Java | Full-stack security |
+| **Devise + OmniAuth** | OAuth | Ruby | Rails standard |
+| **python-social-auth** | OAuth/SAML | Python | Django/Flask |
+| **oauthlib** | OAuth | Python | Low-level OAuth |
+| **PyJWT** | JWT | Python | JWT encode/decode |
+| **dex** | IdP | Go | Kubernetes-native IdP |
+| **Casdoor** | IdP | Go | Modern open-source IdP |
 
 ---
 
@@ -799,7 +782,6 @@ User → [PEP] → PDP (OPA/Cedar/AWS) → [PEP] → Resource
 
 > [!tip] Bottom Line
 > IAM bukan cuma soal login. Di level minimum, setiap service harus punya:
->
 > 1. **MFA** untuk privileged access — phishing-resistant (FIDO2) preferred
 > 2. **Least privilege** — RBAC atau ABAC, bukan wildcard permission
 > 3. **Short-lived tokens** — JWT 15m access, refresh rotation

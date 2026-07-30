@@ -17,28 +17,26 @@ updated: 2026-07-21
 
 # SOP: Implementasi eBPF untuk Runtime Security Auditing & Monitoring System Calls
 
-> [!tip] **Extended Berkeley Packet Filter (eBPF)** memungkinkan eksekusi program ter-sandboxing secara aman di dalam kernel Linux tanpa memodifikasi source code kernel atau memuat modul kernel tambahan. SOP ini mendokumentasikan implementasi pengawasan sistem (_runtime security auditing_) dan pencatatan panggilan sistem (_system calls tracking_) untuk mendeteksi ancaman keamanan secara real-time.
+> [!tip] **Extended Berkeley Packet Filter (eBPF)** memungkinkan eksekusi program ter-sandboxing secara aman di dalam kernel Linux tanpa memodifikasi source code kernel atau memuat modul kernel tambahan. SOP ini mendokumentasikan implementasi pengawasan sistem (*runtime security auditing*) dan pencatatan panggilan sistem (*system calls tracking*) untuk mendeteksi ancaman keamanan secara real-time.
 
 ---
 
 ## 1. Tujuan & Ruang Lingkup SOP
 
 ### Purpose
-
-Menghentikan serangan siber, upaya eskalasi hak akses (_privilege escalation_), dan _payload execution_ mencurigakan di level sistem operasi (Fedora/Ubuntu Host) dengan memonitor pemanggilan _system call_ kernel (seperti `execve`, `ptrace`, `sys_write`) secara _low-overhead_ dan tahan terhadap manipulasi ruang pengguna (_user-space evasion_).
+Menghentikan serangan siber, upaya eskalasi hak akses (*privilege escalation*), dan *payload execution* mencurigakan di level sistem operasi (Fedora/Ubuntu Host) dengan memonitor pemanggilan *system call* kernel (seperti `execve`, `ptrace`, `sys_write`) secara *low-overhead* dan tahan terhadap manipulasi ruang pengguna (*user-space evasion*).
 
 ### Scope
-
 - Instalasi dependensi eBPF (`bcc-tools`, `bpftrace`, `libbpf`).
 - Konfigurasi profil deteksi ancaman menggunakan **Cilium Tetragon** (eBPF-based security parser).
 - Pembuatan filter audit kustom untuk mendeteksi eksekusi biner mencurigakan di direktori temporer (`/tmp`, `/dev/shm`).
-- Langkah investigasi pasca-deteksi ancaman (_incident response_).
+- Langkah investigasi pasca-deteksi ancaman (*incident response*).
 
 ---
 
 ## 2. Prasyarat Kernel & Arsitektur eBPF Auditing
 
-Program eBPF berjalan langsung di kernelspace, dipicu oleh event-event kernel tertentu (_kprobes_, _tracepoints_, atau _uprobes_), lalu mengirimkan data metrik kembali ke userspace melalui **eBPF Maps** (Ring Buffer).
+Program eBPF berjalan langsung di kernelspace, dipicu oleh event-event kernel tertentu (*kprobes*, *tracepoints*, atau *uprobes*), lalu mengirimkan data metrik kembali ke userspace melalui **eBPF Maps** (Ring Buffer).
 
 ```
    Userspace (Aplikasi Monitoring / Tetragon)
@@ -57,10 +55,9 @@ Program eBPF berjalan langsung di kernelspace, dipicu oleh event-event kernel te
 ```
 
 ### Prasyarat Sistem
-
-- **Kernel Linux Version**: Minimal versi **5.8** (Disarankan $\ge 5.15$ untuk fitur ring-buffer penuh).
-- **Kernel Config**: `CONFIG_BPF=y`, `CONFIG_BPF_SYSCALL=y`, `CONFIG_BPF_JIT=y`, `CONFIG_HAVE_EBPF_JIT=y`.
-- **Akses**: Wajib dijalankan dengan hak akses **root** (`CAP_SYS_ADMIN` atau `CAP_BPF`).
+*   **Kernel Linux Version**: Minimal versi **5.8** (Disarankan $\ge 5.15$ untuk fitur ring-buffer penuh).
+*   **Kernel Config**: `CONFIG_BPF=y`, `CONFIG_BPF_SYSCALL=y`, `CONFIG_BPF_JIT=y`, `CONFIG_HAVE_EBPF_JIT=y`.
+*   **Akses**: Wajib dijalankan dengan hak akses **root** (`CAP_SYS_ADMIN` atau `CAP_BPF`).
 
 ---
 
@@ -85,15 +82,13 @@ sudo sysctl net.core.bpf_jit_enable
 ## 4. SOP Langkah-Demi-Langkah (Step-by-Step) Monitoring & Auditing
 
 ### Step 1: Monitoring Eksekusi Proses Baru Menggunakan `bpftrace`
-
-Buat skrip pemantau satu baris (_one-liner_) untuk melacak panggilan sistem `execve` (pemicu eksekusi proses baru) di seluruh sistem operasi:
+Buat skrip pemantau satu baris (*one-liner*) untuk melacak panggilan sistem `execve` (pemicu eksekusi proses baru) di seluruh sistem operasi:
 
 ```bash
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_execve { printf("PID %d (%s) memanggil: %s\n", pid, comm, str(args->filename)); }'
 ```
 
 #### Contoh Output Deteksi:
-
 ```text
 PID 124802 (bash) memanggil: /usr/bin/ls
 PID 124899 (node) memanggil: /home/jars/projects/thinking-types-mcp/dist/index.js
@@ -103,11 +98,9 @@ PID 124954 (python) memanggil: /mnt/data_d/Projects/vault-rag/scripts/query.py
 ---
 
 ### Step 2: Implementasi Cilium Tetragon untuk Runtime Security (SOP Inti)
-
 Tetragon adalah mesin audit eBPF tangguh yang dapat membekukan proses berbahaya secara otomatis di level kernel.
 
 #### 1. Instalasi Tetragon via Helm / Docker:
-
 ```bash
 docker run --name tetragon --rm \
   --privileged \
@@ -118,7 +111,6 @@ docker run --name tetragon --rm \
 ```
 
 #### 2. Buat File Kebijakan Audit Kustom (`security-policy-exec.yaml`):
-
 Kebijakan ini memantau dan memblokir upaya pembukaan shell rahasia dari direktori temporer `/tmp/` yang biasanya digunakan oleh malware/exploit payload:
 
 ```yaml
@@ -145,7 +137,6 @@ spec:
 ```
 
 #### 3. Terapkan Kebijakan ke Tetragon daemon:
-
 ```bash
 tetragon-cli register security-policy-exec.yaml
 ```
@@ -153,7 +144,6 @@ tetragon-cli register security-policy-exec.yaml
 ---
 
 ### Step 3: Auditing Privilege Escalation (Pemantauan Eskalasi Hak Akses)
-
 Malware sering mencoba memodifikasi ID kredensial user untuk mendapatkan hak akses root. Monitor fungsi perubahan UID (`setuid`, `setgid`, `setreuid`) menggunakan skrip `bpftrace`:
 
 ```bash
@@ -188,7 +178,6 @@ Jika eBPF mendeteksi adanya aktivitas mencurigakan (`execve` dari `/tmp` atau pa
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-
 - [[linux-hardening-cis]] — Standar Pengerasan Keamanan Sistem Operasi Linux
 - [[incident-response-framework]] — SOP Penanganan Insiden Keamanan Sistem
 - [[model-context-protocol-specification]] — Pengamanan Vektor Ancaman Prompt Injection di MCP

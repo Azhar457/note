@@ -24,7 +24,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. SSRF Attack Surface]]
 - [[#2. SSRF Classification]]
 - [[#3. Blind SSRF — Out-of-Band Detection]]
@@ -67,14 +66,14 @@ POST /api/webhook
 
 ### Target Umum SSRF
 
-| Target                  | Port                    | Tujuan                                                |
-| ----------------------- | ----------------------- | ----------------------------------------------------- |
-| Cloud metadata          | 80                      | AWS `169.254.169.254`, GCP `metadata.google.internal` |
-| Internal DB             | 3306, 5432, 6379, 27017 | MySQL, PostgreSQL, Redis, MongoDB                     |
-| Container orchestration | 2375, 2376, 6443        | Docker API, Kubernetes API                            |
-| Internal services       | 9200, 5601, 8080        | Elasticsearch, Kibana, internal apps                  |
-| File protocol           | —                       | `file:///etc/passwd`, `file:///proc/self/environ`     |
-| Internal DNS            | 53                      | DNS rebinding attack                                  |
+| Target | Port | Tujuan |
+|---|---|---|
+| Cloud metadata | 80 | AWS `169.254.169.254`, GCP `metadata.google.internal` |
+| Internal DB | 3306, 5432, 6379, 27017 | MySQL, PostgreSQL, Redis, MongoDB |
+| Container orchestration | 2375, 2376, 6443 | Docker API, Kubernetes API |
+| Internal services | 9200, 5601, 8080 | Elasticsearch, Kibana, internal apps |
+| File protocol | — | `file:///etc/passwd`, `file:///proc/self/environ` |
+| Internal DNS | 53 | DNS rebinding attack |
 
 ---
 
@@ -110,13 +109,13 @@ curl "http://target.com/fetch?url=http://internal:8080"
 
 ### Tools OOB
 
-| Tool              | URL Pattern                               | Fungsi                     |
-| ----------------- | ----------------------------------------- | -------------------------- |
-| Burp Collaborator | `*.oastify.com`, `*.burpcollaborator.net` | DNS + HTTP callback        |
-| interactsh        | `*.oast.pro`, `*.oast.fun`                | Open-source, self-hostable |
-| webhook.site      | `webhook.site/random-uuid`                | HTTP callback              |
-| dnslog.cn         | DNS query log                             | DNS callback               |
-| ProjectDiscovery  | `*.oastify.com` (interactsh)              | Integrated with nuclei     |
+| Tool | URL Pattern | Fungsi |
+|---|---|---|
+| Burp Collaborator | `*.oastify.com`, `*.burpcollaborator.net` | DNS + HTTP callback |
+| interactsh | `*.oast.pro`, `*.oast.fun` | Open-source, self-hostable |
+| webhook.site | `webhook.site/random-uuid` | HTTP callback |
+| dnslog.cn | DNS query log | DNS callback |
+| ProjectDiscovery | `*.oastify.com` (interactsh) | Integrated with nuclei |
 
 ### Detection Payloads
 
@@ -325,31 +324,33 @@ http://target:8080/ HTTP/1.1%0D%0AHost:%20evil.com
 
 ## 8. Defense Strategy
 
-| Defense                      | Efektivitas   | Implementasi                                           |
-| ---------------------------- | ------------- | ------------------------------------------------------ |
-| **Allowlist URL**            | Sangat tinggi | Hanya domain tertentu diizinkan                        |
-| **Block private IPs**        | Tinggi        | 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 |
-| **Block metadata IPs**       | Tinggi        | 169.254.169.254, 100.100.100.200                       |
-| **Disable redirect**         | Sedang        | HTTP redirect perlu di-follow dengan cautious          |
-| **Strip sensitive chars**    | Sedang        | Block `file://`, `gopher://`, `dict://`                |
-| **DNS rebinding protection** | Tinggi        | Validasi IP resolve after redirect                     |
-| **Network segmentation**     | Sangat tinggi | Internal services jangan expose ke web server          |
+| Defense | Efektivitas | Implementasi |
+|---|---|---|
+| **Allowlist URL** | Sangat tinggi | Hanya domain tertentu diizinkan |
+| **Block private IPs** | Tinggi | 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 |
+| **Block metadata IPs** | Tinggi | 169.254.169.254, 100.100.100.200 |
+| **Disable redirect** | Sedang | HTTP redirect perlu di-follow dengan cautious |
+| **Strip sensitive chars** | Sedang | Block `file://`, `gopher://`, `dict://` |
+| **DNS rebinding protection** | Tinggi | Validasi IP resolve after redirect |
+| **Network segmentation** | Sangat tinggi | Internal services jangan expose ke web server |
 
 ### Implementasi Filter IP
 
 ```javascript
 // Block private & metadata IPs
 const privateRanges = [
-  { start: "10.0.0.0", end: "10.255.255.255" },
-  { start: "172.16.0.0", end: "172.31.255.255" },
-  { start: "192.168.0.0", end: "192.168.255.255" },
-  { start: "127.0.0.0", end: "127.255.255.255" },
-  { start: "169.254.0.0", end: "169.254.255.255" },
-]
+  { start: '10.0.0.0', end: '10.255.255.255' },
+  { start: '172.16.0.0', end: '172.31.255.255' },
+  { start: '192.168.0.0', end: '192.168.255.255' },
+  { start: '127.0.0.0', end: '127.255.255.255' },
+  { start: '169.254.0.0', end: '169.254.255.255' },
+];
 
 function isPrivateIP(ip) {
-  const ipNum = ipToNumber(ip)
-  return privateRanges.some((r) => ipNum >= ipToNumber(r.start) && ipNum <= ipToNumber(r.end))
+  const ipNum = ipToNumber(ip);
+  return privateRanges.some(r => 
+    ipNum >= ipToNumber(r.start) && ipNum <= ipToNumber(r.end)
+  );
 }
 ```
 
@@ -392,15 +393,14 @@ Lokasi payload: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Server Side
 
 ### Tool SSRF
 
-| Tool           | Fungsi                                | Lokasi                                           |
-| -------------- | ------------------------------------- | ------------------------------------------------ |
-| **SSRFmap**    | Auto-exploit SSRF → internal services | `/mnt/data_d/Projects/Reference/SSRFmap/`        |
-| **Interactsh** | OOB detection callback                | `https://github.com/projectdiscovery/interactsh` |
-| **1u.ms**      | DNS rebinding service                 | `https://1u.ms/`                                 |
-| **rbndr.us**   | DNS rebinding ASN-based               | `https://rbndr.us/`                              |
+| Tool | Fungsi | Lokasi |
+|---|---|---|
+| **SSRFmap** | Auto-exploit SSRF → internal services | `/mnt/data_d/Projects/Reference/SSRFmap/` |
+| **Interactsh** | OOB detection callback | `https://github.com/projectdiscovery/interactsh` |
+| **1u.ms** | DNS rebinding service | `https://1u.ms/` |
+| **rbndr.us** | DNS rebinding ASN-based | `https://rbndr.us/` |
 
 **Cross-link vault:**
-
 - [[api-security-deep-dive]] — API security
 - [[web-hacking-exploitation]] — teknik exploit
 - [[cloud-native-security-aws-gcp-azure-deepdive]] — cloud metadata

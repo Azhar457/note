@@ -1,13 +1,13 @@
 ---
 title: Finspy
 tags:
-  - 04-commercial-surveillance-and-spyware
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-27"
-updated: "2026-07-01"
+- 04-commercial-surveillance-and-spyware
+- library
+- military-and-intelligence-tools
+created: '2026-06-27'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -20,7 +20,6 @@ cssclasses: ""
 FinSpy adalah **suite pengawasan modular** yang dikembangkan oleh perusahaan Jerman **Gamma Group** (dipasarkan melalui anak perusahaan FinFisher GmbH). Berbeda dengan Pegasus yang berfokus pada mobile 0-click, FinSpy adalah **platform multi-platform yang sangat invasif** untuk Windows, macOS, Linux, iOS, Android, dan bahkan perangkat BlackBerry serta Symbian (legacy). FinSpy telah dijual ke puluhan pemerintah di seluruh dunia dan telah digunakan untuk menargetkan aktivis, jurnalis, oposisi politik, dan pengacara.
 
 FinSpy terkenal karena kemampuannya yang lengkap pada **desktop** (Windows/macOS), di mana ia dapat:
-
 - Merekam panggilan Skype, WhatsApp, Viber, Telegram, Signal (sebelum E2EE menjadi standar).
 - Menangkap layar (screenshot periodik).
 - Keylogging real-time.
@@ -32,15 +31,15 @@ Untuk mobile, FinSpy dapat menginfeksi perangkat melalui **spear-phishing SMS/em
 
 ### Perbandingan dengan Pegasus
 
-| Aspek               | Pegasus (NSO Group)                              | FinSpy (Gamma/FinFisher)                                                          |
-| ------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------- |
-| **Fokus**           | Mobile (iOS/Android) zero-click exploit          | Multi-platform (desktop & mobile) dengan berbagai vektor infeksi                  |
-| **Vektor Infeksi**  | 0-click via iMessage/WhatsApp, network injection | Phishing, fake apps, exploit lokal, social engineering, physical access           |
-| **Desktop Support** | Tidak (fokus mobile)                             | Ya, sangat kuat: Windows, macOS, Linux                                            |
-| **Panggilan VoIP**  | Rekam panggilan reguler                          | Rekam panggilan Skype, WhatsApp, Viber, Telegram (real-time interception)         |
-| **Harga**           | Sangat mahal (lisensi puluhan juta USD)          | Mahal, tetapi lebih terjangkau dari Pegasus                                       |
-| **Penyebaran**      | Intelijen negara tingkat tinggi                  | Digunakan oleh banyak negara termasuk rezim otoriter dengan anggaran lebih rendah |
-| **Deteksi Publik**  | Banyak (Citizen Lab, Amnesty)                    | Banyak (Wikileaks Spy Files, Kaspersky, ESET)                                     |
+| Aspek | Pegasus (NSO Group) | FinSpy (Gamma/FinFisher) |
+|-------|---------------------|--------------------------|
+| **Fokus** | Mobile (iOS/Android) zero-click exploit | Multi-platform (desktop & mobile) dengan berbagai vektor infeksi |
+| **Vektor Infeksi** | 0-click via iMessage/WhatsApp, network injection | Phishing, fake apps, exploit lokal, social engineering, physical access |
+| **Desktop Support** | Tidak (fokus mobile) | Ya, sangat kuat: Windows, macOS, Linux |
+| **Panggilan VoIP** | Rekam panggilan reguler | Rekam panggilan Skype, WhatsApp, Viber, Telegram (real-time interception) |
+| **Harga** | Sangat mahal (lisensi puluhan juta USD) | Mahal, tetapi lebih terjangkau dari Pegasus |
+| **Penyebaran** | Intelijen negara tingkat tinggi | Digunakan oleh banyak negara termasuk rezim otoriter dengan anggaran lebih rendah |
+| **Deteksi Publik** | Banyak (Citizen Lab, Amnesty) | Banyak (Wikileaks Spy Files, Kaspersky, ESET) |
 
 ---
 
@@ -80,14 +79,14 @@ FinSpy bukan hanya satu malware, melainkan **sistem pengawasan terpusat** dengan
 
 ### Komponen Utama
 
-| Komponen                                | Fungsi                                                                           |
-| --------------------------------------- | -------------------------------------------------------------------------------- |
-| **Master Server**                       | Backend utama, antarmuka operator, penyimpanan data.                             |
-| **Relay Server**                        | Proxy antara agen dan master untuk menyembunyikan infrastruktur C2.              |
-| **Agent/Implant**                       | Malware yang diinstal pada perangkat target. Platform-spesifik.                  |
-| **Builder/Generator**                   | Alat untuk membuat implant kustom dengan konfigurasi (C2, modul aktif, stealth). |
-| **FinSpy Mobile Suite**                 | Modul untuk infeksi mobile, termasuk exploit dan fake apps.                      |
-| **FinSpy Network Appliance** (opsional) | Untuk intercept traffic jaringan di level ISP.                                   |
+| Komponen | Fungsi |
+|----------|--------|
+| **Master Server** | Backend utama, antarmuka operator, penyimpanan data. |
+| **Relay Server** | Proxy antara agen dan master untuk menyembunyikan infrastruktur C2. |
+| **Agent/Implant** | Malware yang diinstal pada perangkat target. Platform-spesifik. |
+| **Builder/Generator** | Alat untuk membuat implant kustom dengan konfigurasi (C2, modul aktif, stealth). |
+| **FinSpy Mobile Suite** | Modul untuk infeksi mobile, termasuk exploit dan fake apps. |
+| **FinSpy Network Appliance** (opsional) | Untuk intercept traffic jaringan di level ISP. |
 
 ---
 
@@ -96,16 +95,13 @@ FinSpy bukan hanya satu malware, melainkan **sistem pengawasan terpusat** dengan
 FinSpy untuk Windows adalah salah satu yang paling komprehensif. Vektor infeksi:
 
 ### 1. Delivery & Installation
-
 - **Spear-phishing**: Email dengan lampiran (DOC, PDF, ZIP) yang mengandung exploit atau makro berbahaya.
 - **Fake software updates**: Pesan pop-up yang meniru Flash Player, Java, atau software populer lainnya.
 - **Watering hole**: Website yang dikompromikan dan menyajikan exploit browser.
 - **Physical access**: Agen memasukkan USB dengan installer FinSpy yang menyamar sebagai file lain.
 
 ### 2. Kernel Driver & Stealth
-
 FinSpy menginstal **kernel driver** untuk:
-
 - Menyembunyikan file, proses, kunci registry, dan koneksi jaringan dari OS.
 - Melindungi implant dari di-uninstall.
 - Mem-bypass antivirus dan EDR.
@@ -115,20 +111,19 @@ Driver ini ditandatangani dengan sertifikat digital (seringkali dicuri atau dibe
 
 ### 3. Modul Utama (Windows)
 
-| Modul                 | Kemampuan                                                                                                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Keylogger**         | Rekam setiap ketukan keyboard, termasuk password dan chat.                                                                                                           |
-| **Screenshot**        | Ambil screenshot desktop setiap X detik/menit.                                                                                                                       |
-| **Webcam/Mic**        | Aktifkan webcam dan mikrofon secara diam-diam, streaming audio/video ke server.                                                                                      |
-| **File Exfiltration** | Cari dan unggah file berdasarkan ekstensi, path, atau kata kunci.                                                                                                    |
+| Modul | Kemampuan |
+|-------|-----------|
+| **Keylogger** | Rekam setiap ketukan keyboard, termasuk password dan chat. |
+| **Screenshot** | Ambil screenshot desktop setiap X detik/menit. |
+| **Webcam/Mic** | Aktifkan webcam dan mikrofon secara diam-diam, streaming audio/video ke server. |
+| **File Exfiltration** | Cari dan unggah file berdasarkan ekstensi, path, atau kata kunci. |
 | **VoIP Interception** | **Fitur unggulan**: Merekam percakapan Skype, WhatsApp Desktop, Viber, Telegram, Signal (sebelum E2EE penuh), dan aplikasi VoIP lainnya dengan mengaitkan API audio. |
-| **Network Traffic**   | Menangkap dan menganalisis traffic jaringan target (termasuk URL, kredensial, cookie).                                                                               |
-| **Password Stealer**  | Ekstrak password dari browser, email client, FTP client.                                                                                                             |
-| **Live Surveillance** | Operator dapat mengaktifkan streaming real-time dari mikrofon, webcam, atau layar.                                                                                   |
-| **GPS/Location**      | (Untuk laptop dengan sensor GPS atau via WiFi triangulation).                                                                                                        |
+| **Network Traffic** | Menangkap dan menganalisis traffic jaringan target (termasuk URL, kredensial, cookie). |
+| **Password Stealer** | Ekstrak password dari browser, email client, FTP client. |
+| **Live Surveillance** | Operator dapat mengaktifkan streaming real-time dari mikrofon, webcam, atau layar. |
+| **GPS/Location** | (Untuk laptop dengan sensor GPS atau via WiFi triangulation). |
 
 ### 4. Komunikasi C2
-
 - Terenkripsi: AES-256, RSA-4096.
 - Protokol: HTTP/S, SMTP (email), atau protokol kustom.
 - Domain fronting dan relay untuk menyembunyikan server utama.
@@ -153,8 +148,7 @@ FinSpy untuk macOS memiliki kemampuan serupa dengan versi Windows tetapi disesua
 ## 📱 FinSpy untuk Mobile (Android & iOS)
 
 ### Infeksi
-
-- **Android**:
+- **Android**: 
   - Fake apps di Google Play (sering menyamar sebagai aplikasi sistem atau utility).
   - APK di luar store via phishing SMS/WhatsApp.
   - Exploit lokal setelah mendapatkan akses fisik.
@@ -164,7 +158,6 @@ FinSpy untuk macOS memiliki kemampuan serupa dengan versi Windows tetapi disesua
   - Akses fisik untuk jailbreak (Checkra1n, unc0ver) lalu menginstal implant.
 
 ### Kemampuan Mobile
-
 - **Panggilan**: Rekam panggilan telepon.
 - **SMS**: Intersep dan eksfiltrasi.
 - **Kontak, Kalender, Email, Pesan Instan**: Ekstrak dari WhatsApp, Telegram, Signal, Facebook Messenger, dll.
@@ -180,9 +173,7 @@ FinSpy untuk macOS memiliki kemampuan serupa dengan versi Windows tetapi disesua
 FinSpy dikenal karena teknik stealth-nya yang canggih:
 
 ### 1. Kernel Driver Hooking (Windows)
-
 Driver FinSpy mengaitkan fungsi kernel (`SSDT hooking`) untuk menyembunyikan:
-
 - Proses implant dari Task Manager dan `ps`.
 - File di direktori sistem.
 - Kunci registry.
@@ -191,20 +182,16 @@ Driver FinSpy mengaitkan fungsi kernel (`SSDT hooking`) untuk menyembunyikan:
 Ini membuat implant tidak terlihat oleh alat monitoring standar.
 
 ### 2. Bootkit / MBR Infection
-
 Beberapa varian FinSpy menginfeksi Master Boot Record (MBR) untuk memuat sebelum OS, memberikan kontrol penuh dan persistensi yang sangat sulit dihapus.
 
 ### 3. Process Injection
-
 Implant sering menyuntikkan dirinya ke proses sah seperti `explorer.exe`, `svchost.exe`, atau browser. Ini menghindari deteksi process-based.
 
 ### 4. Anti-AV / Anti-EDR
-
 - FinSpy secara aktif mendeteksi dan menonaktifkan antivirus tertentu (Kaspersky, Bitdefender, ESET, dll.).
 - Jika terdeteksi, ia dapat berhenti beroperasi untuk menghindari analisis.
 
 ### 5. Network Stealth
-
 - Menggunakan HTTPS dengan sertifikat palsu yang tampak sah.
 - Mengirim data melalui email (SMTP) untuk menghindari deteksi traffic tidak biasa.
 - Data disamarkan sebagai traffic normal (misal: gambar, JSON API).
@@ -216,13 +203,11 @@ Implant sering menyuntikkan dirinya ke proses sah seperti `explorer.exe`, `svcho
 Meskipun sangat stealth, FinSpy telah dideteksi oleh peneliti keamanan. Beberapa metode:
 
 ### 1. Deteksi Jaringan
-
 - **Domain/IP C2**: IOC dari kampanye FinSpy sebelumnya. Beberapa server C2 menggunakan domain yang menyamar sebagai update.microsoft.com, adobe.com, dll. (dengan karakter Unicode yang mirip).
 - **SSL/TLS Fingerprint**: Sertifikat server FinSpy sering memiliki karakteristik khusus (issuer, SAN, cipher suite).
 - **SMTP Traffic**: Data yang dikirim via email dapat terdeteksi dari volume dan pola.
 
 ### 2. Deteksi Endpoint
-
 - **Antivirus**: Produk seperti Kaspersky, ESET, dan Microsoft Defender memiliki signature untuk beberapa varian FinSpy, terutama yang lebih tua.
 - **Rootkit Scanner**: Alat seperti GMER, TDSSKiller dapat mendeteksi hook kernel yang mencurigakan.
 - **Behavioral Analysis**: EDR dapat mendeteksi aktivitas aneh: proses tanpa file yang mengakses webcam/mikrofon, keylogger API hooking, kernel driver tidak dikenal.
@@ -230,16 +215,15 @@ Meskipun sangat stealth, FinSpy telah dideteksi oleh peneliti keamanan. Beberapa
 
 ### 3. Artefak Spesifik
 
-| Artefak                | Keterangan                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| **Driver files**       | Nama acak di `System32\drivers`, ditandatangani oleh sertifikat tidak dikenal. |
-| **Registry**           | Key di `HKLM\SYSTEM\CurrentControlSet\Services` untuk driver.                  |
-| **Hidden files**       | File implant di `%WINDIR%` atau `%APPDATA%` dengan atribut Hidden+System.      |
-| **Named objects**      | Event, mutex, atau section dengan nama acak yang dibuat oleh implant.          |
-| **Network indicators** | Koneksi ke IP hardcoded di C2 pada port tidak standar.                         |
+| Artefak | Keterangan |
+|---------|------------|
+| **Driver files** | Nama acak di `System32\drivers`, ditandatangani oleh sertifikat tidak dikenal. |
+| **Registry** | Key di `HKLM\SYSTEM\CurrentControlSet\Services` untuk driver. |
+| **Hidden files** | File implant di `%WINDIR%` atau `%APPDATA%` dengan atribut Hidden+System. |
+| **Named objects** | Event, mutex, atau section dengan nama acak yang dibuat oleh implant. |
+| **Network indicators** | Koneksi ke IP hardcoded di C2 pada port tidak standar. |
 
 ### 4. Alat Deteksi Khusus
-
 - **FinSpy Scanner**: Beberapa organisasi (Amnesty, EFF) merilis alat untuk mendeteksi jejak FinSpy.
 - **Mobile Verification Toolkit (MVT)**: Untuk mendeteksi indikasi kompromi pada iOS/Android.
 
@@ -269,14 +253,14 @@ FinSpy telah dijual ke lebih dari 50 negara, termasuk yang memiliki catatan HAM 
 
 ## 🛡️ Countermeasures
 
-| Lapisan                 | Tindakan                                                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Kesadaran Pengguna**  | Waspada terhadap phishing, jangan instal aplikasi dari sumber tidak dikenal, jangan klik pop-up "update".          |
-| **Endpoint Protection** | Gunakan EDR yang mampu mendeteksi kernel hooking, webcam/mic access tanpa izin.                                    |
-| **Hardening**           | Aktifkan Secure Boot, TPM, dan BitLocker. Gunakan WDAC/AppLocker. Matikan ekstensi kernel yang tidak diperlukan.   |
-| **Network Monitoring**  | Blokir IOC FinSpy di firewall/proxy. Monitor DNS ke domain mencurigakan.                                           |
-| **Mobile**              | Jangan jailbreak/rooting. Periksa profil konfigurasi iOS yang tidak dikenal. Gunakan Lockdown Mode (iOS 16+).      |
-| **Incident Response**   | Jika terdeteksi: isolasi host, jangan restart (untuk preserve memory), ambil image forensik, analisis driver hook. |
+| Lapisan | Tindakan |
+|---------|----------|
+| **Kesadaran Pengguna** | Waspada terhadap phishing, jangan instal aplikasi dari sumber tidak dikenal, jangan klik pop-up "update". |
+| **Endpoint Protection** | Gunakan EDR yang mampu mendeteksi kernel hooking, webcam/mic access tanpa izin. |
+| **Hardening** | Aktifkan Secure Boot, TPM, dan BitLocker. Gunakan WDAC/AppLocker. Matikan ekstensi kernel yang tidak diperlukan. |
+| **Network Monitoring** | Blokir IOC FinSpy di firewall/proxy. Monitor DNS ke domain mencurigakan. |
+| **Mobile** | Jangan jailbreak/rooting. Periksa profil konfigurasi iOS yang tidak dikenal. Gunakan Lockdown Mode (iOS 16+). |
+| **Incident Response** | Jika terdeteksi: isolasi host, jangan restart (untuk preserve memory), ambil image forensik, analisis driver hook. |
 
 ---
 
@@ -292,12 +276,12 @@ FinSpy telah dijual ke lebih dari 50 negara, termasuk yang memiliki catatan HAM 
 
 ## 📚 Referensi
 
-- Wikileaks, _Spy Files 1-4_ (2011-2014) — dokumen pemasaran Gamma Group.
-- Citizen Lab, _FinSpy: The Spying Software that Kills_ (beberapa laporan 2012-2021).
-- Kaspersky, _FinSpy: The Inner Workings of a Government-Sponsored Spyware_ (2015).
-- Amnesty International, _FinSpy Spyware and Human Rights Abuses_.
+- Wikileaks, *Spy Files 1-4* (2011-2014) — dokumen pemasaran Gamma Group.
+- Citizen Lab, *FinSpy: The Spying Software that Kills* (beberapa laporan 2012-2021).
+- Kaspersky, *FinSpy: The Inner Workings of a Government-Sponsored Spyware* (2015).
+- Amnesty International, *FinSpy Spyware and Human Rights Abuses*.
 - MITRE ATT&CK: T1056.001 (Input Capture: Keylogging), T1125 (Video Capture), T1055.001 (Process Injection).
 
 ---
 
-_FinSpy Deep Dive | Multi-Platform Commercial Spyware | Surveillance & Stealth Techniques_
+*FinSpy Deep Dive | Multi-Platform Commercial Spyware | Surveillance & Stealth Techniques*

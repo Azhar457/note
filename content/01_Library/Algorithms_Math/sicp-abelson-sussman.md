@@ -15,7 +15,6 @@ status: pending
 ---
 
 # 🔬 Structure and Interpretation of Computer Programs
-
 > Harold Abelson & Gerald Jay Sussman (MIT) — 1985
 
 **Tesis:** Programming bukan soal syntax — tentang **abstraksi, composition, dan metamorfosis data/makna tugas**.
@@ -24,50 +23,45 @@ status: pending
 
 ## 📌 Kenapa Penting
 
-- Bukan buku "cara pake X" — _fundamental CS thinking_
+- Bukan buku "cara pake X" — *fundamental CS thinking*
 - Metacircular evaluator: interpreter Lisp in Lisp — pemahaman terdalam soal "gimana bahasa programming jalan"
 - Baca buku ini → mindset berubah selamanya soal desain, abstraksi, dan state
 
 ## 🎯 Key Takeaways
 
 **1. Abstraksi dengan Procedures**
-
 - Higher-order procedures: fungsi yang nerima/return fungsi
-- _Lambda the ultimate_ — closure, lexical scoping
+- *Lambda the ultimate* — closure, lexical scoping
 - Baris kode lebih sedikit, lebih deklaratif, lebih general
 
 **2. Abstraksi dengan Data**
-
 - Data is "procedures with a contract" — pareng-prinsip apung
 - Representasi data abstrak — jangan expose implementasi
 - Tagged data + dispatch = polymorphism sebelum OOP
 
 **3. Modularitas, Object, dan State**
-
 - Assignment (set!) ngasih power tapi ngerusak referential transparency
 - **Stream** sebagai infinite data structure — lazy evaluation
 - Mengganti state dengan stream menghilangkan waktu
 
 **4. Metacircular Evaluator**
-
 - Bikin interpreter Lisp sendiri — cuma ~100 baris
 - Paham: eval → apply cycle, environment model, special forms
 
 **5. Register Machines**
-
 - Kompiler → implementasi di level mesin
 - Bikin compiler dari Lisp ke register machine
-- Lihat sendiri gimana _abstraction_ di-compile ke _mechanical steps_
+- Lihat sendiri gimana *abstraction* di-compile ke *mechanical steps*
 
 ## 📖 Bab Penting
 
-| Bab | Judul                                 | Mengapa                                                        |
-| --- | ------------------------------------- | -------------------------------------------------------------- |
-| 1   | Building Abstractions with Procedures | Rekursive process vs iterative, higher-order functions — wajib |
-| 2   | Building Abstractions with Data       | Data abstraction, closures, symbolic data                      |
-| 3   | Modularity, Objects, and State        | Assignment + stream — filosofi state management                |
-| 4   | Metacircular Evaluator                | **Pièce de résistance** — gimana interpreter kerja             |
-| 5   | Computing with Register Machines      | Compiler — full stack dari Lisp ke hardware                    |
+| Bab | Judul | Mengapa |
+|-----|-------|---------|
+| 1 | Building Abstractions with Procedures | Rekursive process vs iterative, higher-order functions — wajib |
+| 2 | Building Abstractions with Data | Data abstraction, closures, symbolic data |
+| 3 | Modularity, Objects, and State | Assignment + stream — filosofi state management |
+| 4 | Metacircular Evaluator | **Pièce de résistance** — gimana interpreter kerja |
+| 5 | Computing with Register Machines | Compiler — full stack dari Lisp ke hardware |
 
 ## ⚠️ Tantangan
 

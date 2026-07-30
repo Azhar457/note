@@ -12,7 +12,6 @@ cssclasses: [wide-table]
 # SQL Comment Injection — WAF Bypass & Mitigation
 
 ## Daftar Isi
-
 1. [[#1. Attack Vector Overview]]
 2. [[#2. Root Cause Analysis]]
 3. [[#3. Exploit Flow]]
@@ -23,15 +22,15 @@ cssclasses: [wide-table]
 
 ## 1. Attack Vector Overview
 
-| Aspect           | Detail                                                                 |
-| ---------------- | ---------------------------------------------------------------------- |
-| **Type**         | SQL Injection — Comment Termination                                    |
-| **Layer**        | L7 (HTTP) via WAF proxy                                                |
-| **Severity**     | **Critical** — full bypass, 5 varian terkonfirmasi                     |
-| **Varian Diuji** | `'--`, `admin'--`, `'#`, `'/*`, `'%23`                                 |
-| **Hasil**        | Semua return 200 (bypass) sebelum fix                                  |
-| **Root Cause**   | AST engine cuma detek tautology + UNION, gak detek comment termination |
-| **Fix Level**    | 1 file: `src/rules.rs` — fast pre-check sebelum safe AST profile       |
+| Aspect | Detail |
+|--------|--------|
+| **Type** | SQL Injection — Comment Termination |
+| **Layer** | L7 (HTTP) via WAF proxy |
+| **Severity** | **Critical** — full bypass, 5 varian terkonfirmasi |
+| **Varian Diuji** | `'--`, `admin'--`, `'#`, `'/*`, `'%23` |
+| **Hasil** | Semua return 200 (bypass) sebelum fix |
+| **Root Cause** | AST engine cuma detek tautology + UNION, gak detek comment termination |
+| **Fix Level** | 1 file: `src/rules.rs` — fast pre-check sebelum safe AST profile |
 
 ### Attack Surface
 
@@ -158,7 +157,6 @@ SELECT * FROM users WHERE id = '1'--'
 ```
 
 Query yang valid:
-
 ```sql
 SELECT * FROM users WHERE id = '1'
 ```
@@ -202,12 +200,12 @@ if is_rule_enabled("SQLI-AST", enabled_rules) {
 
 ### Key Design Decision
 
-| Option                               | Detail                                                                                                                                                                      | Dipilih? |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
-| **A: Pre-check di awal rules.rs**    | Detek pattern `'--`/`'#`/`'/*` di query/path/body langsung sebelum semantic engine jalan. Tidak terpengaruh safe profile poisoning karena return **sebelum** profile check. |    ✅    |
-| B: Tambah pattern di semantic engine | `check_sql_injection_semantic` jadi tambah deteksi comment. Tapi masih kena safe profile poisoning.                                                                         |    ❌    |
-| C: Disable safe profile learning     | Mudah tapi menghilangkan fitur False Positive reduction.                                                                                                                    |    ❌    |
-| D: Fix tokenizer block comment       | Hanya handle `/*` bukan `--`/`#`. Parsial.                                                                                                                                  |    ❌    |
+| Option | Detail | Dipilih? |
+|--------|--------|:--------:|
+| **A: Pre-check di awal rules.rs** | Detek pattern `'--`/`'#`/`'/*` di query/path/body langsung sebelum semantic engine jalan. Tidak terpengaruh safe profile poisoning karena return **sebelum** profile check. | ✅ |
+| B: Tambah pattern di semantic engine | `check_sql_injection_semantic` jadi tambah deteksi comment. Tapi masih kena safe profile poisoning. | ❌ |
+| C: Disable safe profile learning | Mudah tapi menghilangkan fitur False Positive reduction. | ❌ |
+| D: Fix tokenizer block comment | Hanya handle `/*` bukan `--`/`#`. Parsial. | ❌ |
 
 ### Alasan Pre-Check Menang
 
@@ -226,15 +224,15 @@ Di aplikasi web normal, parameter yang mengandung `'--`, `'#`, atau `'/*` **sang
 
 ### End-to-End Test Results
 
-| Test               | Payload                | Before  |  After  |     Status     |
-| ------------------ | ---------------------- | :-----: | :-----: | :------------: |
-| SAFE baseline      | `?q=hello`             |   200   |   200   |       ✅       |
-| SQLi comment `'--` | `?id=1'--`             | **200** | **403** |    🔥 FIXED    |
-| SQLi comment `'#`  | `?id=1'#`              | **200** | **403** |    🔥 FIXED    |
-| SQLi comment `'/*` | `?id=1'/*`             | **200** | **403** |    🔥 FIXED    |
-| SQLi tautology     | `?id=1' OR '1'='1`     |   403   |   403   | ✅ (unchanged) |
-| SQLi UNION         | `?id=1 UNION SELECT *` |   403   |   403   | ✅ (unchanged) |
-| XSS                | `<svg/onload>`         |   403   |   403   | ✅ (unchanged) |
+| Test | Payload | Before | After | Status |
+|------|---------|:------:|:-----:|:------:|
+| SAFE baseline | `?q=hello` | 200 | 200 | ✅ |
+| SQLi comment `'--` | `?id=1'--` | **200** | **403** | 🔥 FIXED |
+| SQLi comment `'#` | `?id=1'#` | **200** | **403** | 🔥 FIXED |
+| SQLi comment `'/*` | `?id=1'/*` | **200** | **403** | 🔥 FIXED |
+| SQLi tautology | `?id=1' OR '1'='1` | 403 | 403 | ✅ (unchanged) |
+| SQLi UNION | `?id=1 UNION SELECT *` | 403 | 403 | ✅ (unchanged) |
+| XSS | `<svg/onload>` | 403 | 403 | ✅ (unchanged) |
 
 ### Unit Test Count
 
@@ -252,11 +250,11 @@ test result: ok. 65 passed; 0 failed
 Fitur `learn_safe_ast_profile` di line 932-933 adalah **anti-pattern klasik machine learning in security**:
 
 ```
-Pendekatan:
+Pendekatan: 
   "Learn what's safe, block everything else"
 
 Masalah:
-  Attacker bisa memanipulasi "safe" set dengan mengirim
+  Attacker bisa memanipulasi "safe" set dengan mengirim 
   request malicious yang untested (0-day bypass)
   → Menjadi safe profile → eternal bypass
 ```
@@ -306,11 +304,11 @@ Di WAF audit log, cari:
 
 ### Long-term
 
-| Rekomendasi                                   | Priority |  Effort  |
-| --------------------------------------------- | :------: | :------: |
-| Immutable profile database (tidak auto-learn) |   High   | 2-3 days |
-| Curated safe profile per application          |  Medium  |  1 week  |
-| Profile decay/age-out mechanism               |   Low    |  1 day   |
+| Rekomendasi | Priority | Effort |
+|-------------|:--------:|:------:|
+| Immutable profile database (tidak auto-learn) | High | 2-3 days |
+| Curated safe profile per application | Medium | 1 week |
+| Profile decay/age-out mechanism | Low | 1 day |
 
 ## References
 
@@ -323,9 +321,9 @@ Di WAF audit log, cari:
 
 ## Koneksi ke Vault
 
-| Catatan                        | Koneksi                                |
-| ------------------------------ | -------------------------------------- |
-| [[waf-reverse-proxy-deepdive]] | WAF architecture & reverse proxy flow  |
-| [[waf-ebpf-xdp-pentest]]       | Network-layer (XDP) testing complement |
-| [[purple-team-osi-killchain]]  | Purple team killchain integration      |
-| [[web-hacking-exploitation]]   | Web app exploitation techniques        |
+| Catatan | Koneksi |
+|---------|---------|
+| [[waf-reverse-proxy-deepdive]] | WAF architecture & reverse proxy flow |
+| [[waf-ebpf-xdp-pentest]] | Network-layer (XDP) testing complement |
+| [[purple-team-osi-killchain]] | Purple team killchain integration |
+| [[web-hacking-exploitation]] | Web app exploitation techniques |

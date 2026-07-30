@@ -52,32 +52,30 @@ After DevOps:
 ```
 
 **Three Ways of DevOps (Gene Kim):**
-
 1. **Flow** — mempercepat aliran dari dev ke production
 2. **Feedback** — mempercepat umpan balik dari production ke dev
 3. **Continuous Learning** — budaya eksperimen dan perbaikan
 
 **Key metrics (DORA, 2024):**
-
-| Metric                   |    Elite     |     High     |     Medium     |   Low    |
-| ------------------------ | :----------: | :----------: | :------------: | :------: |
-| **Deploy frequency**     | Multiple/day | Daily-weekly | Weekly-monthly | Monthly  |
-| **Lead time for change** |   < 1 hour   |   < 1 day    |    < 1 week    | > 1 week |
-| **Change failure rate**  |     < 5%     |    < 10%     |     < 15%      |  > 15%   |
-| **Time to restore**      |   < 1 hour   |   < 1 day    |    < 1 week    | > 1 week |
+| Metric | Elite | High | Medium | Low |
+|--------|:-----:|:----:|:------:|:---:|
+| **Deploy frequency** | Multiple/day | Daily-weekly | Weekly-monthly | Monthly |
+| **Lead time for change** | < 1 hour | < 1 day | < 1 week | > 1 week |
+| **Change failure rate** | < 5% | < 10% | < 15% | > 15% |
+| **Time to restore** | < 1 hour | < 1 day | < 1 week | > 1 week |
 
 ---
 
 ## 2. Six-Stage CI/CD Pipeline
 
-| Stage  | Nama              | Output                  |   Durasi   |
-| :----: | ----------------- | ----------------------- | :--------: |
-| **S1** | Version Control   | Branch + commit         |   detik    |
-| **S2** | CI (Build + Test) | Tested artifact         | 1-30 menit |
-| **S3** | Registry          | Docker image / package  |   detik    |
-| **S4** | CD (Deploy)       | Running application     | 1-10 menit |
-| **S5** | Release Strategy  | Zero-downtime deploy    | < 1 menit  |
-| **S6** | Observability     | Metrics + logs + traces | Real-time  |
+| Stage | Nama | Output | Durasi |
+|:-----:|------|--------|:------:|
+| **S1** | Version Control | Branch + commit | detik |
+| **S2** | CI (Build + Test) | Tested artifact | 1-30 menit |
+| **S3** | Registry | Docker image / package | detik |
+| **S4** | CD (Deploy) | Running application | 1-10 menit |
+| **S5** | Release Strategy | Zero-downtime deploy | < 1 menit |
+| **S6** | Observability | Metrics + logs + traces | Real-time |
 
 ---
 
@@ -85,15 +83,14 @@ After DevOps:
 
 ### 3.1 Branching Strategy
 
-| Strategy        |  Complexity   |    PR Quality    |  Hotfix  | Cocok untuk                    |
-| --------------- | :-----------: | :--------------: | :------: | ------------------------------ |
-| **GitHub Flow** |    Rendah     |        🟡        |  Mudah   | Tim kecil, CI kuat             |
-| **Git Flow**    |    Tinggi     |        ✅        | Kompleks | Rilis terjadwal                |
-| **Trunk-based** | Sangat rendah | ❌ (pair review) |  Mudah   | Elite DORA, deploy banyak/hari |
-| **GitLab Flow** |    Sedang     |        ✅        |  Mudah   | Environment-based              |
+| Strategy | Complexity | PR Quality | Hotfix | Cocok untuk |
+|----------|:----------:|:----------:|:------:|-------------|
+| **GitHub Flow** | Rendah | 🟡 | Mudah | Tim kecil, CI kuat |
+| **Git Flow** | Tinggi | ✅ | Kompleks | Rilis terjadwal |
+| **Trunk-based** | Sangat rendah | ❌ (pair review) | Mudah | Elite DORA, deploy banyak/hari |
+| **GitLab Flow** | Sedang | ✅ | Mudah | Environment-based |
 
 **GitHub Flow:**
-
 ```
 main ── * ── * ── * ── * ──>
         ↑      ↑
@@ -101,7 +98,6 @@ main ── * ── * ── * ── * ──>
 ```
 
 **Trunk-based + short-lived branches (< 1 hari):**
-
 ```
 main ───── * ───── * ───── * ──>
              ↑       ↑
@@ -111,11 +107,11 @@ main ───── * ───── * ───── * ──>
 
 ### 3.2 Commit Conventions
 
-| Convention               | Format                         | Tools                        |
-| ------------------------ | ------------------------------ | ---------------------------- |
-| **Conventional Commits** | `type(scope): description`     | commitlint, semantic-release |
-| **Angular**              | `feat(module): add user login` | cz-cli                       |
-| **Gitmoji**              | 🐛 fix login bug               | gitmoji-cli                  |
+| Convention | Format | Tools |
+|------------|--------|-------|
+| **Conventional Commits** | `type(scope): description` | commitlint, semantic-release |
+| **Angular** | `feat(module): add user login` | cz-cli |
+| **Gitmoji** | 🐛 fix login bug | gitmoji-cli |
 
 ---
 
@@ -127,27 +123,27 @@ main ───── * ───── * ───── * ──>
 [Trigger] → [Checkout] → [Deps] → [Lint] → [Build] → [Test] → [Test Coverage] → [Security Scan]
 ```
 
-| Langkah              | Tools                          | Durasi  |
-| -------------------- | ------------------------------ | :-----: |
-| **Trigger**          | push, PR, schedule             | instant |
-| **Checkout**         | git clone                      | 10-60s  |
-| **Deps install**     | npm ci, pip, cargo fetch       | 30s-5m  |
-| **Lint**             | ESLint, ruff, clippy           | 10s-2m  |
-| **Build**            | tsc, cargo build, go build     |  1-20m  |
-| **Unit test**        | jest, pytest, cargo test       |  1-10m  |
-| **Integration test** | Docker compose, testcontainers |  5-30m  |
-| **Coverage**         | c8, coverage.py, tarpaulin     |  1-5m   |
-| **Security scan**    | trivy, snyk, semgrep           |  1-10m  |
+| Langkah | Tools | Durasi |
+|---------|-------|:------:|
+| **Trigger** | push, PR, schedule | instant |
+| **Checkout** | git clone | 10-60s |
+| **Deps install** | npm ci, pip, cargo fetch | 30s-5m |
+| **Lint** | ESLint, ruff, clippy | 10s-2m |
+| **Build** | tsc, cargo build, go build | 1-20m |
+| **Unit test** | jest, pytest, cargo test | 1-10m |
+| **Integration test** | Docker compose, testcontainers | 5-30m |
+| **Coverage** | c8, coverage.py, tarpaulin | 1-5m |
+| **Security scan** | trivy, snyk, semgrep | 1-10m |
 
 ### 4.2 CI Platform Comparison
 
-| Platform           | Hosted |   Self-hosted   | Pricing               | Cache | Matrix |
-| ------------------ | :----: | :-------------: | --------------------- | :---: | :----: |
-| **GitHub Actions** |   ✅   |    ✅ Runner    | 2000 mnt/bulan gratis |  ✅   |   ✅   |
-| **GitLab CI**      |   ✅   |    ✅ Runner    | 400 mnt/bulan         |  ✅   |   ✅   |
-| **CircleCI**       |   ✅   |       ❌        | 6000 mnt/bulan        |  ✅   |   ✅   |
-| **Jenkins**        |   ❌   | ✅ Self-managed | Free                  |  ❌   |   ✅   |
-| **Woodpecker**     |   ❌   | ✅ Self-managed | Free                  |  ❌   |   ✅   |
+| Platform | Hosted | Self-hosted | Pricing | Cache | Matrix |
+|----------|:------:|:-----------:|---------|:-----:|:------:|
+| **GitHub Actions** | ✅ | ✅ Runner | 2000 mnt/bulan gratis | ✅ | ✅ |
+| **GitLab CI** | ✅ | ✅ Runner | 400 mnt/bulan | ✅ | ✅ |
+| **CircleCI** | ✅ | ❌ | 6000 mnt/bulan | ✅ | ✅ |
+| **Jenkins** | ❌ | ✅ Self-managed | Free | ❌ | ✅ |
+| **Woodpecker** | ❌ | ✅ Self-managed | Free | ❌ | ✅ |
 
 ---
 
@@ -155,23 +151,23 @@ main ───── * ───── * ───── * ──>
 
 ### 5.1 Jenis Artifact
 
-| Type                | Format       | Registry Tool                       |
-| ------------------- | ------------ | ----------------------------------- |
-| **Container image** | OCI (Docker) | Docker Hub, GHCR, ECR, GCR, Harbor  |
-| **JAR/WAR**         | Java archive | Artifactory, Nexus, GitHub Packages |
-| **npm package**     | .tgz         | npm registry, Verdaccio             |
-| **Python wheel**    | .whl         | PyPI, devpi                         |
-| **Debian/RPM**      | .deb/.rpm    | Artifactory, Pulp                   |
+| Type | Format | Registry Tool |
+|------|--------|---------------|
+| **Container image** | OCI (Docker) | Docker Hub, GHCR, ECR, GCR, Harbor |
+| **JAR/WAR** | Java archive | Artifactory, Nexus, GitHub Packages |
+| **npm package** | .tgz | npm registry, Verdaccio |
+| **Python wheel** | .whl | PyPI, devpi |
+| **Debian/RPM** | .deb/.rpm | Artifactory, Pulp |
 
 ### 5.2 Container Image Best Practices
 
-| Praktik                | Alasan                                               |
-| ---------------------- | ---------------------------------------------------- |
-| **Multi-stage build**  | Pisahkan build env dari runtime — image kecil        |
-| **Distroless base**    | Hapus shell + package manager → attack surface minim |
-| **Pin base image tag** | Jangan `:latest` — gunakan `:sha256-xxx`             |
-| **Scan image**         | Trivy, Grype — sebelum push                          |
-| **Sign image**         | cosign (Sigstore) — verifikasi authenticity          |
+| Praktik | Alasan |
+|---------|--------|
+| **Multi-stage build** | Pisahkan build env dari runtime — image kecil |
+| **Distroless base** | Hapus shell + package manager → attack surface minim |
+| **Pin base image tag** | Jangan `:latest` — gunakan `:sha256-xxx` |
+| **Scan image** | Trivy, Grype — sebelum push |
+| **Sign image** | cosign (Sigstore) — verifikasi authenticity |
 
 ---
 
@@ -179,12 +175,12 @@ main ───── * ───── * ───── * ──>
 
 ### 6.1 Continuous Delivery vs Continuous Deployment
 
-| Aspek           |  Continuous Delivery   | Continuous Deployment |
-| --------------- | :--------------------: | :-------------------: |
-| **Manual gate** | ✅ Yes (click deploy)  |      ❌ No gate       |
-| **Risk**        |    Lebih terkontrol    |    Otomatis penuh     |
-| **Speed**       |       Menit-jam        |      Detik-menit      |
-| **Use case**    | Enterprise, compliance | SaaS, internal tools  |
+| Aspek | Continuous Delivery | Continuous Deployment |
+|-------|:------------------:|:--------------------:|
+| **Manual gate** | ✅ Yes (click deploy) | ❌ No gate |
+| **Risk** | Lebih terkontrol | Otomatis penuh |
+| **Speed** | Menit-jam | Detik-menit |
+| **Use case** | Enterprise, compliance | SaaS, internal tools |
 
 ### 6.2 CD Pipeline Structure
 
@@ -192,13 +188,13 @@ main ───── * ───── * ───── * ──>
 [Pull image] → [DB migration] → [Config injection] → [Health check] → [Traffic switch]
 ```
 
-| Langkah              | Tool                            | Check              |
-| -------------------- | ------------------------------- | ------------------ |
-| **Pull image**       | Kubernetes, Nomad, Docker       | Image digest match |
-| **DB migration**     | Flyway, Prisma, Alembic         | Idempotent         |
-| **Config injection** | Vault, Kubernetes secrets, SOPS | Encrypted          |
-| **Health check**     | Readiness probe, curl           | HTTP 200           |
-| **Traffic switch**   | Load balancer, service mesh     | Gradual            |
+| Langkah | Tool | Check |
+|---------|------|-------|
+| **Pull image** | Kubernetes, Nomad, Docker | Image digest match |
+| **DB migration** | Flyway, Prisma, Alembic | Idempotent |
+| **Config injection** | Vault, Kubernetes secrets, SOPS | Encrypted |
+| **Health check** | Readiness probe, curl | HTTP 200 |
+| **Traffic switch** | Load balancer, service mesh | Gradual |
 
 ---
 
@@ -206,13 +202,13 @@ main ───── * ───── * ───── * ──>
 
 ### 7.1 Strategi Deployment
 
-| Strategi           |       Downtime        |       Rollback       |     Waktu     |     Traffic      |
-| ------------------ | :-------------------: | :------------------: | :-----------: | :--------------: |
-| **Recreate**       | ✅ Full (detik-menit) |        Mudah         |   Tercepat    |      0→100%      |
-| **Rolling update** |          ❌           |  Lambat (bertahap)   |   Bertahap    |     Per pod      |
-| **Blue-green**     |    ❌ (≤ 1 detik)     | Instant (switch DNS) |   2× infra    |      0→100%      |
-| **Canary**         |          ❌           |   Instant (stop %)   |   Bertahap    |    1%→5%→100%    |
-| **A/B testing**    |          ❌           |       Instant        | Routing-based | Per user segment |
+| Strategi | Downtime | Rollback | Waktu | Traffic |
+|----------|:--------:|:--------:|:-----:|:-------:|
+| **Recreate** | ✅ Full (detik-menit) | Mudah | Tercepat | 0→100% |
+| **Rolling update** | ❌ | Lambat (bertahap) | Bertahap | Per pod |
+| **Blue-green** | ❌ (≤ 1 detik) | Instant (switch DNS) | 2× infra | 0→100% |
+| **Canary** | ❌ | Instant (stop %) | Bertahap | 1%→5%→100% |
+| **A/B testing** | ❌ | Instant | Routing-based | Per user segment |
 
 ### 7.2 Blue-Green Deployment
 
@@ -222,7 +218,6 @@ main ───── * ───── * ───── * ──>
 ```
 
 **Flow:**
-
 1. Deploy Green (parallel) — users still hit Blue
 2. Smoke test Green via internal URL
 3. Switch LB from Blue → Green
@@ -232,7 +227,6 @@ main ───── * ───── * ───── * ──>
 ### 7.3 Canary Release
 
 **Kubernetes-style canary:**
-
 ```
 9 pods (old) + 1 pod (new) → 10% traffic to canary
                               ↓
@@ -248,25 +242,25 @@ main ───── * ───── * ───── * ──>
 
 ### 8.1 Observability Foundation
 
-| Pillar        | Data Type           | Tools                                | Signal                   |
-| ------------- | ------------------- | ------------------------------------ | ------------------------ |
-| **Metrics**   | Numeric time-series | Prometheus, VictoriaMetrics, Datadog | CPU, latency, error rate |
-| **Logs**      | Text events         | Loki, ELK, CloudWatch                | Detailed events          |
-| **Traces**    | Request path        | Jaeger, Tempo, Zipkin                | Distributed tracing      |
-| **Profiling** | CPU/memory stack    | pprof, Pyroscope                     | Performance hotspots     |
+| Pillar | Data Type | Tools | Signal |
+|--------|-----------|-------|--------|
+| **Metrics** | Numeric time-series | Prometheus, VictoriaMetrics, Datadog | CPU, latency, error rate |
+| **Logs** | Text events | Loki, ELK, CloudWatch | Detailed events |
+| **Traces** | Request path | Jaeger, Tempo, Zipkin | Distributed tracing |
+| **Profiling** | CPU/memory stack | pprof, Pyroscope | Performance hotspots |
 
 ### 8.2 SRE (Site Reliability Engineering)
 
 **Key SRE concepts:**
 
-| Konsep                            | Definisi                             |
-| --------------------------------- | ------------------------------------ |
-| **SLO (Service Level Objective)** | Target: 99.9% uptime                 |
-| **SLI (Service Level Indicator)** | Ukuran: latency p99 < 200ms          |
-| **SLA (Service Level Agreement)** | Kontrak dengan customer              |
-| **Error Budget**                  | 100% - SLO = Waktu boleh error       |
-| **Toil**                          | Manual, repetitive, automatable work |
-| **Blameless postmortem**          | Root cause → prevent recurrence      |
+| Konsep | Definisi |
+|--------|----------|
+| **SLO (Service Level Objective)** | Target: 99.9% uptime |
+| **SLI (Service Level Indicator)** | Ukuran: latency p99 < 200ms |
+| **SLA (Service Level Agreement)** | Kontrak dengan customer |
+| **Error Budget** | 100% - SLO = Waktu boleh error |
+| **Toil** | Manual, repetitive, automatable work |
+| **Blameless postmortem** | Root cause → prevent recurrence |
 
 ### 8.3 Incident Response
 
@@ -289,12 +283,12 @@ Detect → Triage → Mitigate → Resolve → Postmortem
 [Developer pushes to Git] → [GitOps operator watches] → [Applies to cluster]
 ```
 
-| Tool              | Operator  | Auto Sync | Drift Detection |
-| ----------------- | :-------: | :-------: | :-------------: |
-| **Argo CD**       |    ✅     |    ✅     | ✅ (3m default) |
-| **Flux**          |    ✅     |    ✅     |       ✅        |
-| **Jenkins X**     | ✅ Tekton |    ✅     |       ✅        |
-| **Rancher Fleet** |    ✅     |    ✅     |       ✅        |
+| Tool | Operator | Auto Sync | Drift Detection |
+|------|:--------:|:---------:|:---------------:|
+| **Argo CD** | ✅ | ✅ | ✅ (3m default) |
+| **Flux** | ✅ | ✅ | ✅ |
+| **Jenkins X** | ✅ Tekton | ✅ | ✅ |
+| **Rancher Fleet** | ✅ | ✅ | ✅ |
 
 ### 9.2 Push-based (CI-driven)
 
@@ -305,49 +299,48 @@ Detect → Triage → Mitigate → Resolve → Postmortem
 ```
 
 **Lebih sederhana, cocok untuk:**
-
 - Single cluster, small team
 - Developer langsung akses cluster
 - Aplikasi stateless
 
 ### 9.3 GitOps vs Push-based
 
-| Aspek                 |                GitOps                 |      Push-based      |
-| --------------------- | :-----------------------------------: | :------------------: |
-| **Source of truth**   |            Git repository             | CI/CD pipeline state |
-| **Drift detection**   |             ✅ Automatic              |      ❌ Manual       |
-| **Rollback**          |             `git revert`              |   Re-run pipeline    |
-| **Audit trail**       |              Git history              |    Pipeline logs     |
-| **Complexity**        |       Higher (operator needed)        |        Lower         |
-| **Multi-cluster**     |              ✅ Natural               |      ❌ Complex      |
-| **Secret management** | Sops, SealedSecrets, External Secrets |     CI variables     |
+| Aspek | GitOps | Push-based |
+|-------|:------:|:----------:|
+| **Source of truth** | Git repository | CI/CD pipeline state |
+| **Drift detection** | ✅ Automatic | ❌ Manual |
+| **Rollback** | `git revert` | Re-run pipeline |
+| **Audit trail** | Git history | Pipeline logs |
+| **Complexity** | Higher (operator needed) | Lower |
+| **Multi-cluster** | ✅ Natural | ❌ Complex |
+| **Secret management** | Sops, SealedSecrets, External Secrets | CI variables |
 
 ---
 
 ## 10. Cross-Reference ke Vault
 
-|    Stage    | Catatan Vault                                                          |
-| :---------: | ---------------------------------------------------------------------- |
-|   **S1**    | [[hierarchy-programming-language]] — Language ecosystem tooling        |
-| **S2 (CI)** | [[hierarchy-package-managers]] — Dependency management                 |
-|   **S3**    | [[hierarchy-database-storage-systems]] — Container registry storage    |
-| **S4 (CD)** | [[hierarchy-systems-architecture-evolution]] — Deployment patterns     |
-|   **S5**    | [[hierarchy-failure-modes-resilience]] — Rollback strategies           |
-|   **S6**    | [[hierarchy-cybersecurity-defense-architecture]] — Security monitoring |
-|   **All**   | [[hierarchy-abstraction-layers]] — DevOps as Layer L8                  |
+| Stage | Catatan Vault |
+|:-----:|---------------|
+| **S1** | [[hierarchy-programming-language]] — Language ecosystem tooling |
+| **S2 (CI)** | [[hierarchy-package-managers]] — Dependency management |
+| **S3** | [[hierarchy-database-storage-systems]] — Container registry storage |
+| **S4 (CD)** | [[hierarchy-systems-architecture-evolution]] — Deployment patterns |
+| **S5** | [[hierarchy-failure-modes-resilience]] — Rollback strategies |
+| **S6** | [[hierarchy-cybersecurity-defense-architecture]] — Security monitoring |
+| **All** | [[hierarchy-abstraction-layers]] — DevOps as Layer L8 |
 
 ---
 
 ## References
 
-1. Kim, G., Debois, P., Willis, J., Humble, J. _"The DevOps Handbook."_ 2nd ed., IT Revolution, 2021.
-2. Humble, J. & Farley, D. _"Continuous Delivery."_ Addison-Wesley, 2010.
-3. Beyer, B. et al. _"Site Reliability Engineering."_ O'Reilly, 2016.
-4. DORA. _"Accelerate State of DevOps Report."_ Google Cloud, 2024.
-5. Burns, B. et al. _"Kubernetes: Up and Running."_ 3rd ed., O'Reilly, 2024.
-6. Beedle, M. et al. _"The Agile Manifesto."_ 2001.
-7. Farcic, V. _"The DevOps 2.5 Toolkit: Monitoring, Logging, and Auto-Scaling."_ 2019.
-8. Argo CD. _"Argo CD Documentation."_ CNCF, 2024.
-9. Flux. _"Flux Documentation."_ CNCF, 2024.
-10. HashiCorp. _"Terraform: Infrastructure as Code."_ 2024.
-11. Newman, S. _"Building Microservices."_ 2nd ed., O'Reilly, 2021.
+1. Kim, G., Debois, P., Willis, J., Humble, J. *"The DevOps Handbook."* 2nd ed., IT Revolution, 2021.
+2. Humble, J. & Farley, D. *"Continuous Delivery."* Addison-Wesley, 2010.
+3. Beyer, B. et al. *"Site Reliability Engineering."* O'Reilly, 2016.
+4. DORA. *"Accelerate State of DevOps Report."* Google Cloud, 2024.
+5. Burns, B. et al. *"Kubernetes: Up and Running."* 3rd ed., O'Reilly, 2024.
+6. Beedle, M. et al. *"The Agile Manifesto."* 2001.
+7. Farcic, V. *"The DevOps 2.5 Toolkit: Monitoring, Logging, and Auto-Scaling."* 2019.
+8. Argo CD. *"Argo CD Documentation."* CNCF, 2024.
+9. Flux. *"Flux Documentation."* CNCF, 2024.
+10. HashiCorp. *"Terraform: Infrastructure as Code."* 2024.
+11. Newman, S. *"Building Microservices."* 2nd ed., O'Reilly, 2021.

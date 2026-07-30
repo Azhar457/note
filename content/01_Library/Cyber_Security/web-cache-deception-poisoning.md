@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Cache Deception vs Cache Poisoning]]
 - [[#2. Cache Deception Exploitation]]
 - [[#3. Cache Poisoning — Unkeyed Attack]]
@@ -36,12 +35,12 @@ cssclasses:
 
 ## 1. Cache Deception vs Cache Poisoning
 
-| Aspek      | Cache Deception                          | Cache Poisoning                            |
-| ---------- | ---------------------------------------- | ------------------------------------------ |
-| **Tujuan** | Cache sensitive page via extension trick | Inject malicious response ke cache         |
-| **Korban** | User yang sensitive datanya ter-cache    | Semua user yang request halaman legitimate |
-| **Vektor** | Add `/.css` or `/test.css` di URL path   | Exploit unkeyed headers (X-Forwarded-Host) |
-| **Dampak** | PII leakage via public cache             | Malware distribution, session hijacking    |
+| Aspek | Cache Deception | Cache Poisoning |
+|---|---|---|
+| **Tujuan** | Cache sensitive page via extension trick | Inject malicious response ke cache |
+| **Korban** | User yang sensitive datanya ter-cache | Semua user yang request halaman legitimate |
+| **Vektor** | Add `/.css` or `/test.css` di URL path | Exploit unkeyed headers (X-Forwarded-Host) |
+| **Dampak** | PII leakage via public cache | Malware distribution, session hijacking |
 
 ---
 
@@ -125,12 +124,12 @@ curl -I http://target.com/api/profile/settings.css
 
 ## 5. Defense
 
-| Defense                            | Implementasi                                             |
-| ---------------------------------- | -------------------------------------------------------- |
-| **Cache-Control: no-store**        | Sensitive pages harus `Cache-Control: no-store, private` |
-| **Extension validation**           | Jangan abaikan extension — validasi path                 |
-| **Disable caching for auth pages** | Semua halaman auth: no-cache                             |
-| **CDN WAF rule**                   | Block request dengan path manipulation                   |
-| **Normalize URL before cache**     | Jangan cache jika path mengandung ekstensi tidak valid   |
+| Defense | Implementasi |
+|---|---|
+| **Cache-Control: no-store** | Sensitive pages harus `Cache-Control: no-store, private` |
+| **Extension validation** | Jangan abaikan extension — validasi path |
+| **Disable caching for auth pages** | Semua halaman auth: no-cache |
+| **CDN WAF rule** | Block request dengan path manipulation |
+| **Normalize URL before cache** | Jangan cache jika path mengandung ekstensi tidak valid |
 
 **Referensi:** `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Web Cache Deception/`

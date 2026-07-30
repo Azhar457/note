@@ -1,14 +1,14 @@
 ---
-title: "Cloud Security Posture Management — Deep Dive: CSPM, K8s Admission Control,
-  AWS IAM, dan Cloud-Native WAF"
+title: 'Cloud Security Posture Management — Deep Dive: CSPM, K8s Admission Control,
+  AWS IAM, dan Cloud-Native WAF'
 tags:
-  - cloud-security
-  - infrastructure
-  - library
-created: "2026-07-15"
-updated: "2026-07-15"
+- cloud-security
+- infrastructure
+- library
+created: '2026-07-15'
+updated: '2026-07-15'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # ☁️ Cloud Security Posture Management — Deep Dive: CSPM, K8s Admission Control, AWS IAM, dan Cloud-Native WAF
@@ -68,12 +68,12 @@ Keamanan cloud tidak bisa disamakan dengan on-premise karena beberapa perbedaan 
 
 CSPM adalah kategori tool yang secara otomatis mengidentifikasi misconfiguration, compliance violation, dan risiko keamanan di lingkungan cloud (multi-cloud).
 
-| Dimensi               | Tools Open Source                     | Tools Komersial                       |
-| --------------------- | ------------------------------------- | ------------------------------------- |
-| **AWS**               | Prowler, ScoutSuite, CloudSploit      | AWS Security Hub, Wiz, Orca, Lacework |
-| **Azure**             | Prowler (Azure support), Azure Policy | Microsoft Defender for Cloud          |
-| **GCP**               | Prowler (GCP support), Forseti        | Google Security Command Center        |
-| **Multi-Cloud / IaC** | Checkov, Terrascan, tfsec, KICS       | Bridgecrew, Prisma Cloud, Snyk IaC    |
+| Dimensi | Tools Open Source | Tools Komersial |
+|---------|------------------|-----------------|
+| **AWS** | Prowler, ScoutSuite, CloudSploit | AWS Security Hub, Wiz, Orca, Lacework |
+| **Azure** | Prowler (Azure support), Azure Policy | Microsoft Defender for Cloud |
+| **GCP** | Prowler (GCP support), Forseti | Google Security Command Center |
+| **Multi-Cloud / IaC** | Checkov, Terrascan, tfsec, KICS | Bridgecrew, Prisma Cloud, Snyk IaC |
 
 #### Misconfiguration Paling Umum (Berdasarkan CSA & CrowdStrike 2024 Report)
 
@@ -98,20 +98,20 @@ kubectl create pod → kubectl → Authentication → Authorization → ADMISSIO
                                      MutatingWebhook → ValidatingWebhook
 ```
 
-| Tipe                     | Fase                  | Perubahan Objek        | Contoh                                                       |
-| ------------------------ | --------------------- | ---------------------- | ------------------------------------------------------------ |
-| **Mutating admission**   | Sebelum validasi      | Bisa ubah/mutate objek | Inject sidecar, add labels, default security context         |
-| **Validating admission** | Setelah mutasi        | Read-only              | Verifikasi required labels, deny privileged containers       |
-| **Built-in**             | Bawaan kube-apiserver | Variatif               | AlwaysPullImages, NamespaceExist, PodSecurity, ResourceQuota |
+| Tipe | Fase | Perubahan Objek | Contoh |
+|------|------|----------------|--------|
+| **Mutating admission** | Sebelum validasi | Bisa ubah/mutate objek | Inject sidecar, add labels, default security context |
+| **Validating admission** | Setelah mutasi | Read-only | Verifikasi required labels, deny privileged containers |
+| **Built-in** | Bawaan kube-apiserver | Variatif | AlwaysPullImages, NamespaceExist, PodSecurity, ResourceQuota |
 
 #### Policy Engines untuk Admission Control
 
-| Engine             | Bahasa                        | Mutating          | Validating | Popularitas                                                       |
-| ------------------ | ----------------------------- | ----------------- | ---------- | ----------------------------------------------------------------- |
-| **OPA Gatekeeper** | Rego declarative              | ✅ (via mutation) | ✅         | Sangat luas, CNCF graduated, library policy library (G8S)         |
-| **Kyverno**        | YAML-native (no new language) | ✅                | ✅         | Paling mudah dipelajari, growing rapidly, CNCF incubating         |
-| **Kubewarden**     | WebAssembly (Rust, Go, JS)    | ✅                | ✅         | Performa tinggi, zero-trust supply chain, multi-language policies |
-| **jsPolicy**       | JavaScript                    | ✅                | ✅         | Familiar untuk JS developers                                      |
+| Engine | Bahasa | Mutating | Validating | Popularitas |
+|--------|--------|----------|------------|-------------|
+| **OPA Gatekeeper** | Rego declarative | ✅ (via mutation) | ✅ | Sangat luas, CNCF graduated, library policy library (G8S) |
+| **Kyverno** | YAML-native (no new language) | ✅ | ✅ | Paling mudah dipelajari, growing rapidly, CNCF incubating |
+| **Kubewarden** | WebAssembly (Rust, Go, JS) | ✅ | ✅ | Performa tinggi, zero-trust supply chain, multi-language policies |
+| **jsPolicy** | JavaScript | ✅ | ✅ | Familiar untuk JS developers |
 
 ---
 
@@ -143,21 +143,20 @@ Komponen: **Effect** (Allow/Deny) → **Action** (service:operation) → **Resou
 
 Metode populer yang sering dieksploitasi ketika attacker mendapatkan IAM credentials dengan `iam:PassRole` atau `iam:CreatePolicyVersion`:
 
-| #   | Metode                              | Izin Dibutuhkan                                                                                                                                         |
-| --- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **CreateNewPolicyVersion**          | `iam:CreatePolicyVersion` — bisa set policy version baru dengan full admin                                                                              |
-| 2   | **SetExistingDefaultPolicyVersion** | `iam:SetDefaultPolicyVersion` — rollback ke versi policy lama yang lebih permisif                                                                       |
-| 3   | **PassRoleToEC2**                   | `iam:PassRole` + `ec2:RunInstances` — launch EC2 dengan role admin → SSH → `curl http://169.254.169.254/latest/meta-data/iam/security-credentials/ROLE` |
-| 4   | **PassRoleToLambda**                | `iam:PassRole` + `lambda:CreateFunction` + `lambda:InvokeFunction` — buat Lambda dengan admin role                                                      |
-| 5   | **PassRoleToCloudFormation**        | `iam:PassRole` + `cloudformation:CreateStack` — deploy stack yang execute custom resource dengan admin role                                             |
-| 6   | **UpdateAssumeRolePolicy**          | `iam:UpdateAssumeRolePolicyDocument` — buka trust policy ke akun attacker                                                                               |
-| 7   | **CreateAccessKey**                 | `iam:CreateAccessKey` — buat access key untuk user lain (misalnya admin)                                                                                |
-| 8   | **CreateLoginProfile**              | `iam:CreateLoginProfile` — set password untuk user lain                                                                                                 |
-| 9   | **AttachUserPolicy**                | `iam:AttachUserPolicy` — attach admin policy ke user attacker                                                                                           |
-| 10  | **PutUserPolicy**                   | `iam:PutUserPolicy` — inline policy dengan akses penuh ke attacker                                                                                      |
+| # | Metode | Izin Dibutuhkan |
+|---|--------|----------------|
+| 1 | **CreateNewPolicyVersion** | `iam:CreatePolicyVersion` — bisa set policy version baru dengan full admin |
+| 2 | **SetExistingDefaultPolicyVersion** | `iam:SetDefaultPolicyVersion` — rollback ke versi policy lama yang lebih permisif |
+| 3 | **PassRoleToEC2** | `iam:PassRole` + `ec2:RunInstances` — launch EC2 dengan role admin → SSH → `curl http://169.254.169.254/latest/meta-data/iam/security-credentials/ROLE` |
+| 4 | **PassRoleToLambda** | `iam:PassRole` + `lambda:CreateFunction` + `lambda:InvokeFunction` — buat Lambda dengan admin role |
+| 5 | **PassRoleToCloudFormation** | `iam:PassRole` + `cloudformation:CreateStack` — deploy stack yang execute custom resource dengan admin role |
+| 6 | **UpdateAssumeRolePolicy** | `iam:UpdateAssumeRolePolicyDocument` — buka trust policy ke akun attacker |
+| 7 | **CreateAccessKey** | `iam:CreateAccessKey` — buat access key untuk user lain (misalnya admin) |
+| 8 | **CreateLoginProfile** | `iam:CreateLoginProfile` — set password untuk user lain |
+| 9 | **AttachUserPolicy** | `iam:AttachUserPolicy` — attach admin policy ke user attacker |
+| 10 | **PutUserPolicy** | `iam:PutUserPolicy` — inline policy dengan akses penuh ke attacker |
 
-**Mitigasi:**
-
+**Mitigasi:** 
 - Gunakan **Permissions Boundary** — set batas maksimum izin yang bisa diberikan ke user/role.
 - Implementasi **SCP (Service Control Policy)** di AWS Organizations — berlaku untuk ALL accounts di OU, override IAM permissions.
 - Monitor **CloudTrail** untuk event `PassRole`, `CreatePolicyVersion`, `UpdateAssumeRolePolicy` dari non-admin.
@@ -184,19 +183,19 @@ metadata:
 spec:
   validationFailureAction: Enforce
   rules:
-    - name: privileged-containers
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      validate:
-        message: "Privileged containers are not allowed. Please remove 'securityContext.privileged: true'"
-        pattern:
-          spec:
-            containers:
-              - securityContext:
-                  privileged: "false"
+  - name: privileged-containers
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Privileged containers are not allowed. Please remove 'securityContext.privileged: true'"
+      pattern:
+        spec:
+          containers:
+          - securityContext:
+              privileged: "false"
 ```
 
 #### Policy 2: Enforce Image Registry (Mutate + Validate)
@@ -210,21 +209,21 @@ spec:
   validationFailureAction: Enforce
   background: true
   rules:
-    - name: validate-registry
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      validate:
-        message: "Image must be from trusted registry (harbor.corp.internal or docker.corp.internal)"
-        foreach:
-          - list: "request.object.spec.initContainers[]"
-            pattern:
-              image: "harbor.corp.internal/*"
-          - list: "request.object.spec.containers[]"
-            pattern:
-              image: "harbor.corp.internal/*"
+  - name: validate-registry
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Image must be from trusted registry (harbor.corp.internal or docker.corp.internal)"
+      foreach:
+      - list: "request.object.spec.initContainers[]"
+        pattern:
+          image: "harbor.corp.internal/*"
+      - list: "request.object.spec.containers[]"
+        pattern:
+          image: "harbor.corp.internal/*"
 ```
 
 #### Policy 3: Auto-Inject Sidecar (Mutate — Proxy Injection)
@@ -239,39 +238,39 @@ metadata:
     policies.kyverno.io/subject: Pod
 spec:
   rules:
-    - name: inject-envoy
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-              namespaces:
-                - "app-*"
-      mutate:
-        patchStrategicMerge:
-          spec:
-            containers:
-              - name: envoy-sidecar
-                image: envoyproxy/envoy:v1.30-latest
-                ports:
-                  - containerPort: 9901
-                volumeMounts:
-                  - name: envoy-config
-                    mountPath: /etc/envoy
+  - name: inject-envoy
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - "app-*"
+    mutate:
+      patchStrategicMerge:
+        spec:
+          containers:
+          - name: envoy-sidecar
+            image: envoyproxy/envoy:v1.30-latest
+            ports:
+            - containerPort: 9901
+            volumeMounts:
+            - name: envoy-config
+              mountPath: /etc/envoy
 ```
 
 ### Cloud-Native WAF — AWS WAF vs Cloud Armor vs Cloudflare
 
-| Fitur               | AWS WAF                                | Google Cloud Armor                         | Cloudflare WAF                               |
-| ------------------- | -------------------------------------- | ------------------------------------------ | -------------------------------------------- |
-| **Deployment**      | CloudFront, ALB, API Gateway, AppSync  | Cloud Load Balancing, Cloud CDN, Media CDN | Any HTTP/HTTPS via reverse proxy             |
-| **Rule engine**     | JSON-based rule groups + Managed rules | YAML-based security policies               | WAF rule builder + Managed rulesets          |
-| **Rate limiting**   | Rate-based rules (5-minute window)     | Rate limiting per IP                       | Rate limiting rules + Advanced DDoS          |
-| **Bot control**     | AWS WAF Bot Control (managed)          | Google Cloud Armor Bot Management          | Bot Fight Mode + Super Bot Fight             |
-| **IP reputation**   | AWS Managed Rules (anonymous IP, etc.) | Managed rules from threat intelligence     | Project Honey Pot, own intelligence          |
-| **Custom response** | Block / Count + custom response code   | Deny / Redirect / Rate Limit               | Challenge / JS Challenge / Block             |
-| **OWASP Top 10**    | AWS Managed Rules (core rule set)      | OWASP CRS preconfigured                    | OWASP CRS + Cloudflare Managed Rules         |
-| **Pricing**         | $5/rule + $0.60/1M requests            | $5-15/policy per month                     | Free tier available, Pro/Business/Enterprise |
+| Fitur | AWS WAF | Google Cloud Armor | Cloudflare WAF |
+|-------|---------|-------------------|----------------|
+| **Deployment** | CloudFront, ALB, API Gateway, AppSync | Cloud Load Balancing, Cloud CDN, Media CDN | Any HTTP/HTTPS via reverse proxy |
+| **Rule engine** | JSON-based rule groups + Managed rules | YAML-based security policies | WAF rule builder + Managed rulesets |
+| **Rate limiting** | Rate-based rules (5-minute window) | Rate limiting per IP | Rate limiting rules + Advanced DDoS |
+| **Bot control** | AWS WAF Bot Control (managed) | Google Cloud Armor Bot Management | Bot Fight Mode + Super Bot Fight |
+| **IP reputation** | AWS Managed Rules (anonymous IP, etc.) | Managed rules from threat intelligence | Project Honey Pot, own intelligence |
+| **Custom response** | Block / Count + custom response code | Deny / Redirect / Rate Limit | Challenge / JS Challenge / Block |
+| **OWASP Top 10** | AWS Managed Rules (core rule set) | OWASP CRS preconfigured | OWASP CRS + Cloudflare Managed Rules |
+| **Pricing** | $5/rule + $0.60/1M requests | $5-15/policy per month | Free tier available, Pro/Business/Enterprise |
 
 #### AWS WAF — Core Rule Set (OWASP CRS Equivalent)
 
@@ -299,13 +298,13 @@ spec:
 
 CIEM adalah kategori keamanan yang fokus pada manajemen entitlement dan izin di lingkungan cloud multi-account.
 
-| Masalah yang Dipecahkan CIEM                                                 | Tool                                                        |
-| ---------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| **Over-privileged roles** — identity yang punya izin jauh melebihi kebutuhan | Ermetic (Tenable), Entitle (Bionic), CloudKnox (Alkira)     |
-| **Unused permissions** — izin yang tidak pernah digunakan dalam 90+ hari     | AWS IAM Access Analyzer, Azure AD Entitlement Management    |
-| **Cross-account access** — trust relationships yang terlalu longgar          | AWS IAM Access Analyzer (cross-account access), CloudSploit |
-| **Human vs machine identity** — membedakan yang perlu MFA                    | AWS IAM last-used, AWS CloudTrail Insights                  |
-| **Just-in-Time access** — izin sementara dengan approval workflow            | AWS IAM Identity Center (SSO), Teleport, Apono              |
+| Masalah yang Dipecahkan CIEM | Tool |
+|-----------------------------|------|
+| **Over-privileged roles** — identity yang punya izin jauh melebihi kebutuhan | Ermetic (Tenable), Entitle (Bionic), CloudKnox (Alkira) |
+| **Unused permissions** — izin yang tidak pernah digunakan dalam 90+ hari | AWS IAM Access Analyzer, Azure AD Entitlement Management |
+| **Cross-account access** — trust relationships yang terlalu longgar | AWS IAM Access Analyzer (cross-account access), CloudSploit |
+| **Human vs machine identity** — membedakan yang perlu MFA | AWS IAM last-used, AWS CloudTrail Insights |
+| **Just-in-Time access** — izin sementara dengan approval workflow | AWS IAM Identity Center (SSO), Teleport, Apono |
 
 ---
 
@@ -403,19 +402,19 @@ Step 4: Secret bucket contains database credentials
 Step 5: Database (RDS) is publicly accessible with 0.0.0.0/0 ingress
 ```
 
-| Tool Attack Path Analysis      | Cloud                            |
-| ------------------------------ | -------------------------------- |
+| Tool Attack Path Analysis | Cloud |
+|--------------------------|-------|
 | **Stratus Red Team** (Datadog) | AWS — simulate attack techniques |
-| **CloudSploit**                | AWS, Azure, GCP                  |
-| **Prowler**                    | AWS, Azure, GCP                  |
-| **Wiz Cloud Security**         | Multi-cloud + Kubernetes         |
-| **Orca Security**              | Multi-cloud (agentless)          |
+| **CloudSploit** | AWS, Azure, GCP |
+| **Prowler** | AWS, Azure, GCP |
+| **Wiz Cloud Security** | Multi-cloud + Kubernetes |
+| **Orca Security** | Multi-cloud (agentless) |
 
 ### Hardening Checklist — Cloud Security
 
 ```
 ☐ Enable CloudTrail / AWS Config / GuardDuty di ALL regions
-☐ S3 Block Public Access — enabled di account level (AKIA...)
+☐ S3 Block Public Access — enabled di account level (AKIA...) 
 ☐ IAM: enable last-used permissions analysis tiap 90 hari
 ☐ IAM: hapus access key > 90 hari tidak dipakai
 ☐ IAM: enforce MFA untuk ALL human users
@@ -481,13 +480,13 @@ level: medium
 
 ## Case Studies
 
-| Studi Kasus                                  | Konteks                                                                                                             | Temuan Kunci                                                                                                                                                                                                           | Mitigasi Diimplementasi                                                                                                                                                          |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Capital One Breach (2019)**                | PaaS WAF misconfiguration (WAF not blocking SSRF) → attacker access metadata service from EC2 → IAM role credential | 1. WAF tidak memblokir SSRF. 2. IAM role terlalu permisif (read all S3). 3. Metadata service endpoint 169.254.169.254 dapat diakses dari aplikasi. 4. 100M+ records terekspos.                                         | 1. WAF blocking SSRF. 2. IMDSv2 (session-oriented metadata). 3. S3 bucket policy ketat per aplikasi. 4. Network segmentation EC2 + S3 via VPC Endpoint.                          |
-| **Accenture Leak via S3 (2022)**             | S3 bucket salah konfigurasi — public-read ACL                                                                       | 1. Bucket untuk penyimpanan data partner expose: API keys, credentials, secrets. 2. 6 TB data ter-expose selama 4 bulan.                                                                                               | 1. S3 Block Public Access enable all account level. 2. Automated CSPM scanning + AWS Config rule. 3. Incident response untuk exposed credentials.                                |
-| **Tesla Kubernetes Compromise (2018)**       | K8s cluster tidak di-authenticate → attacker access dashboard → get kubeconfig                                      | 1. K8s dashboard tidak dilindungi (exposed via LoadBalancer tanpa auth). 2. Cluster tidak menggunakan RBAC — satu pod bisa akses semua secret. 3. Mining cryptocurrency langsung di pod yang tidak dibatasi resources. | 1. K8s dashboard HA (disable default). 2. Enable RBAC + OIDC integration. 3. Resource quota + limit range. 4. NetworkPolicy default deny.                                        |
-| **EggShell AWS Attack (2023)**               | Attacker gunakan IAM credential dari compromised GitHub → privilege escalation                                      | 1. GitHub Action token dgn `iam:PassRole` + `ec2:RunInstances`. 2. Launch EC2 dengan admin role → ekstrak credential dari metadata. 3. Persistence via IAM user baru + access key.                                     | 1. OIDC-based GitHub Actions (no static keys). 2. SCP untuk membatasi PassRole. 3. IAM Access Analyzer izin yang tidak digunakan. 4. AWS Config + Security Hub auto-remediation. |
-| **Simulated Red Team: Cloud Pentest (2024)** | Lateral movement dari account dev ke account production via role chaining                                           | 1. Dev account punya `sts:AssumeRole` ke role yang bisa `iam:PassRole` ke role produksi. 2. Backdoor via Lambda function dengan production role. 3. Unattended EBS snapshot bisa di-mount di account attacker.         | 1. SCP batasi cross-account assume role dari non-prod. 2. Hapus unused snapshots/image. 3. Monitoring CloudTrail cross-account events.                                           |
+| Studi Kasus | Konteks | Temuan Kunci | Mitigasi Diimplementasi |
+|-------------|---------|--------------|------------------------|
+| **Capital One Breach (2019)** | PaaS WAF misconfiguration (WAF not blocking SSRF) → attacker access metadata service from EC2 → IAM role credential | 1. WAF tidak memblokir SSRF. 2. IAM role terlalu permisif (read all S3). 3. Metadata service endpoint 169.254.169.254 dapat diakses dari aplikasi. 4. 100M+ records terekspos. | 1. WAF blocking SSRF. 2. IMDSv2 (session-oriented metadata). 3. S3 bucket policy ketat per aplikasi. 4. Network segmentation EC2 + S3 via VPC Endpoint. |
+| **Accenture Leak via S3 (2022)** | S3 bucket salah konfigurasi — public-read ACL | 1. Bucket untuk penyimpanan data partner expose: API keys, credentials, secrets. 2. 6 TB data ter-expose selama 4 bulan. | 1. S3 Block Public Access enable all account level. 2. Automated CSPM scanning + AWS Config rule. 3. Incident response untuk exposed credentials. |
+| **Tesla Kubernetes Compromise (2018)** | K8s cluster tidak di-authenticate → attacker access dashboard → get kubeconfig | 1. K8s dashboard tidak dilindungi (exposed via LoadBalancer tanpa auth). 2. Cluster tidak menggunakan RBAC — satu pod bisa akses semua secret. 3. Mining cryptocurrency langsung di pod yang tidak dibatasi resources. | 1. K8s dashboard HA (disable default). 2. Enable RBAC + OIDC integration. 3. Resource quota + limit range. 4. NetworkPolicy default deny. |
+| **EggShell AWS Attack (2023)** | Attacker gunakan IAM credential dari compromised GitHub → privilege escalation | 1. GitHub Action token dgn `iam:PassRole` + `ec2:RunInstances`. 2. Launch EC2 dengan admin role → ekstrak credential dari metadata. 3. Persistence via IAM user baru + access key. | 1. OIDC-based GitHub Actions (no static keys). 2. SCP untuk membatasi PassRole. 3. IAM Access Analyzer izin yang tidak digunakan. 4. AWS Config + Security Hub auto-remediation. |
+| **Simulated Red Team: Cloud Pentest (2024)** | Lateral movement dari account dev ke account production via role chaining | 1. Dev account punya `sts:AssumeRole` ke role yang bisa `iam:PassRole` ke role produksi. 2. Backdoor via Lambda function dengan production role. 3. Unattended EBS snapshot bisa di-mount di account attacker. | 1. SCP batasi cross-account assume role dari non-prod. 2. Hapus unused snapshots/image. 3. Monitoring CloudTrail cross-account events. |
 
 ---
 
@@ -497,16 +496,16 @@ level: medium
 
 ### AWS WAF vs Azure WAF vs GCP Cloud Armor vs Cloudflare
 
-| Fitur               | AWS WAF                                | Azure WAF                                       | GCP Cloud Armor                            | Cloudflare WAF                               |
-| ------------------- | -------------------------------------- | ----------------------------------------------- | ------------------------------------------ | -------------------------------------------- |
-| **Deployment**      | CloudFront, ALB, API Gateway, AppSync  | Application Gateway, Front Door, CDN            | Cloud Load Balancing, Cloud CDN, Media CDN | Any HTTP/HTTPS via reverse proxy             |
-| **Rule engine**     | JSON-based rule groups + Managed rules | Custom rules + Managed rulesets (OWASP 3.2/3.1) | YAML-based security policies               | WAF rule builder + Managed rulesets          |
-| **Rate limiting**   | Rate-based rules (5-minute window)     | Rate limiting per IP (custom)                   | Rate limiting per IP/Source                | Rate limiting rules + Advanced DDoS          |
-| **Bot control**     | AWS WAF Bot Control (managed)          | Bot protection (Front Door/AFD premium)         | Google Cloud Armor Bot Management          | Bot Fight Mode + Super Bot Fight             |
-| **IP reputation**   | AWS Managed Rules (anonymous IP, etc.) | Managed rules from threat intelligence          | Managed rules from threat intelligence     | Project Honey Pot, own intelligence          |
-| **Custom response** | Block / Count + custom response code   | Deny / Redirect / Rate Limit                    | Deny / Redirect / Rate Limit               | Challenge / JS Challenge / Block             |
-| **OWASP Top 10**    | AWS Managed Rules (core rule set)      | OWASP 3.2 / 3.1 managed rules                   | OWASP CRS preconfigured                    | OWASP CRS + Cloudflare Managed Rules         |
-| **Pricing**         | $5/rule + $0.60/1M requests            | $20-200/month per Application Gateway           | $5-15/policy per month                     | Free tier available, Pro/Business/Enterprise |
+| Fitur | AWS WAF | Azure WAF | GCP Cloud Armor | Cloudflare WAF |
+|-------|---------|-----------|-----------------|----------------|
+| **Deployment** | CloudFront, ALB, API Gateway, AppSync | Application Gateway, Front Door, CDN | Cloud Load Balancing, Cloud CDN, Media CDN | Any HTTP/HTTPS via reverse proxy |
+| **Rule engine** | JSON-based rule groups + Managed rules | Custom rules + Managed rulesets (OWASP 3.2/3.1) | YAML-based security policies | WAF rule builder + Managed rulesets |
+| **Rate limiting** | Rate-based rules (5-minute window) | Rate limiting per IP (custom) | Rate limiting per IP/Source | Rate limiting rules + Advanced DDoS |
+| **Bot control** | AWS WAF Bot Control (managed) | Bot protection (Front Door/AFD premium) | Google Cloud Armor Bot Management | Bot Fight Mode + Super Bot Fight |
+| **IP reputation** | AWS Managed Rules (anonymous IP, etc.) | Managed rules from threat intelligence | Managed rules from threat intelligence | Project Honey Pot, own intelligence |
+| **Custom response** | Block / Count + custom response code | Deny / Redirect / Rate Limit | Deny / Redirect / Rate Limit | Challenge / JS Challenge / Block |
+| **OWASP Top 10** | AWS Managed Rules (core rule set) | OWASP 3.2 / 3.1 managed rules | OWASP CRS preconfigured | OWASP CRS + Cloudflare Managed Rules |
+| **Pricing** | $5/rule + $0.60/1M requests | $20-200/month per Application Gateway | $5-15/policy per month | Free tier available, Pro/Business/Enterprise |
 
 ### Azure WAF — Application Gateway
 
@@ -522,7 +521,9 @@ level: medium
       "fileUploadLimitInMb": 100
     },
     "managedRules": {
-      "managedRuleSets": [{ "ruleSetType": "OWASP", "ruleSetVersion": "3.2" }]
+      "managedRuleSets": [
+        { "ruleSetType": "OWASP", "ruleSetVersion": "3.2" }
+      ]
     }
   }
 }
@@ -534,23 +535,23 @@ level: medium
 # GCP Cloud Armor security policy
 name: cloud-armor-policy
 rules:
-  - action: deny(403)
-    priority: 1
-    match:
-      versionedExpr: SRC_IPS_V1
-      config:
-        srcIpRanges: ["known-malicious-ips"]
-    description: "Block known malicious IPs"
-  - action: throttle
-    priority: 2
-    match:
-      expr:
-        expression: "request.path.matches('/api/login')"
-    rateLimitOptions:
-      enforceOnKey: IP
-      rateLimitThreshold:
-        count: 10
-        intervalSec: 60
+- action: deny(403)
+  priority: 1
+  match:
+    versionedExpr: SRC_IPS_V1
+    config:
+      srcIpRanges: ["known-malicious-ips"]
+  description: "Block known malicious IPs"
+- action: throttle
+  priority: 2
+  match:
+    expr:
+      expression: "request.path.matches('/api/login')"
+  rateLimitOptions:
+    enforceOnKey: IP
+    rateLimitThreshold:
+      count: 10
+      intervalSec: 60
 ```
 
 ---
@@ -559,14 +560,14 @@ rules:
 
 ### Perbandingan Identity Architecture
 
-| Aspek                    | AWS IAM                                                            | Azure AD / Entra ID                                                                    | GCP IAM                                                                        |
-| ------------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **Permission model**     | JSON policy document (Effect, Action, Resource, Condition)         | Role-based (Owner, Contributor, Reader) + custom RBAC JSON                             | Primitive roles (Owner, Editor, Viewer) + predefined roles + custom roles      |
-| **Identity types**       | IAM User (human), IAM Role (machine/assumed), Federated            | User, Service Principal, Managed Identity, Group                                       | User, Service Account (attached to resource), Group                            |
-| **Policy attachment**    | Direct to user/role/resource + Permission Boundary + SCP           | Role assignment at scope (Management Group → Subscription → Resource Group → Resource) | Role binding at resource or project level                                      |
-| **Condition engine**     | IAM condition keys (aws:SourceIp, aws:MFA, aws:PrincipalTag, etc.) | Azure ABAC (Attribute-Based Access Control) — conditions on role assignments           | IAM Conditions (expr attributes like timestamp, resource.name, origin)         |
-| **Cross-account access** | STS:AssumeRole + ExternalId for 3rd party                          | B2B direct federation / Azure Lighthouse for cross-tenant management                   | Service account impersonation + Workload Identity Federation                   |
-| **PIM/JIT**              | AWS IAM Identity Center (SSO) + permission sets                    | Azure PIM (Privileged Identity Management) — activation workflow with MFA + approval   | GCP Privileged Access Manager (PAM) — just-in-time, time-bound, approval-based |
+| Aspek | AWS IAM | Azure AD / Entra ID | GCP IAM |
+|-------|---------|---------------------|---------|
+| **Permission model** | JSON policy document (Effect, Action, Resource, Condition) | Role-based (Owner, Contributor, Reader) + custom RBAC JSON | Primitive roles (Owner, Editor, Viewer) + predefined roles + custom roles |
+| **Identity types** | IAM User (human), IAM Role (machine/assumed), Federated | User, Service Principal, Managed Identity, Group | User, Service Account (attached to resource), Group |
+| **Policy attachment** | Direct to user/role/resource + Permission Boundary + SCP | Role assignment at scope (Management Group → Subscription → Resource Group → Resource) | Role binding at resource or project level |
+| **Condition engine** | IAM condition keys (aws:SourceIp, aws:MFA, aws:PrincipalTag, etc.) | Azure ABAC (Attribute-Based Access Control) — conditions on role assignments | IAM Conditions (expr attributes like timestamp, resource.name, origin) |
+| **Cross-account access** | STS:AssumeRole + ExternalId for 3rd party | B2B direct federation / Azure Lighthouse for cross-tenant management | Service account impersonation + Workload Identity Federation |
+| **PIM/JIT** | AWS IAM Identity Center (SSO) + permission sets | Azure PIM (Privileged Identity Management) — activation workflow with MFA + approval | GCP Privileged Access Manager (PAM) — just-in-time, time-bound, approval-based |
 
 ### AWS IAM — Policy Document (Recap)
 
@@ -592,37 +593,43 @@ rules:
 {
   "Name": "Storage Blob Data Reader",
   "Id": "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
-  "Actions": ["Microsoft.Storage/storageAccounts/blobServices/containers/read"],
+  "Actions": [
+    "Microsoft.Storage/storageAccounts/blobServices/containers/read"
+  ],
   "NotActions": [],
-  "DataActions": ["Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read"],
-  "AssignableScopes": ["/subscriptions/{subscription-id}"]
+  "DataActions": [
+    "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read"
+  ],
+  "AssignableScopes": [
+    "/subscriptions/{subscription-id}"
+  ]
 }
 ```
 
-**Key difference:** Azure separates _management plane_ (Actions) from _data plane_ (DataActions) — unik vs AWS/GCP.
+**Key difference:** Azure separates *management plane* (Actions) from *data plane* (DataActions) — unik vs AWS/GCP.
 
 ### GCP IAM — Role Binding
 
 ```yaml
 # GCP IAM: grant role at resource level
 bindings:
-  - members:
-      - user:azhar@urbansolv.co.id
-    role: roles/editor # Primitive: broad
-  - members:
-      - serviceAccount:app-reader@project.iam.gserviceaccount.com
-    role: roles/storage.objectViewer # Predefined: narrow
+- members:
+  - user:azhar@urbansolv.co.id
+  role: roles/editor  # Primitive: broad
+- members:
+  - serviceAccount:app-reader@project.iam.gserviceaccount.com
+  role: roles/storage.objectViewer  # Predefined: narrow
 ```
 
 **Key difference:** GCP tidak punya policy document — role-role udah predefined oleh Google atau custom YAML. Condition ditambah via IAM Conditions expr.
 
 ### Privilege Escalation Vectors — Azure vs GCP
 
-| Vector                             | AWS                                                                            | Azure                                                                               | GCP                                                                                |
-| ---------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Role assignment attack**         | `iam:CreatePolicyVersion` → set admin policy version                           | `Microsoft.Authorization/roleAssignments/write` → assign Owner role ke diri sendiri | `resourcemanager.projects.setIamPolicy` → set policy yang grant diri sendiri owner |
-| **Service Account takeover**       | `iam:PassRole` ke EC2/Lambda → launch resource dengan admin role → steal creds | Compromise VM dengan Managed Identity → IMDS endpoint → access token                | Compromise Compute Engine dengan attached SA → metadata server → token             |
-| **Cross-account lateral movement** | `sts:AssumeRole` ke role di account produksi                                   | Lighthouse delegation → cross-tenant management (butuh approval)                    | Service Account Impersonation → `iam.serviceAccounts.getAccessToken`               |
+| Vector | AWS | Azure | GCP |
+|--------|-----|-------|-----|
+| **Role assignment attack** | `iam:CreatePolicyVersion` → set admin policy version | `Microsoft.Authorization/roleAssignments/write` → assign Owner role ke diri sendiri | `resourcemanager.projects.setIamPolicy` → set policy yang grant diri sendiri owner |
+| **Service Account takeover** | `iam:PassRole` ke EC2/Lambda → launch resource dengan admin role → steal creds | Compromise VM dengan Managed Identity → IMDS endpoint → access token | Compromise Compute Engine dengan attached SA → metadata server → token |
+| **Cross-account lateral movement** | `sts:AssumeRole` ke role di account produksi | Lighthouse delegation → cross-tenant management (butuh approval) | Service Account Impersonation → `iam.serviceAccounts.getAccessToken` |
 
 ### Cross-Cloud Hardening Checklist
 
@@ -675,26 +682,26 @@ bindings:
 
 ## Referensi
 
-1. AWS. _Shared Responsibility Model_. https://aws.amazon.com/compliance/shared-responsibility-model/
-2. NIST. _SP 800-207: Zero Trust Architecture_. https://csrc.nist.gov/publications/detail/sp/800-207/final
-3. CNCF. _Cloud Native Security Whitepaper_. https://github.com/cncf/tag-security/blob/main/security-whitepaper/CNCF_cloud_native_security_whitepaper.pdf
-4. OPA Gatekeeper. _Gatekeeper Policy Library_. https://github.com/open-policy-agent/gatekeeper-library
-5. Kyverno. _Kyverno Policies_. https://github.com/kyverno/policies
-6. CIS. _CIS Kubernetes Benchmark v1.9_. https://www.cisecurity.org/benchmark/kubernetes/
-7. Rhino Security Labs. _AWS IAM Privilege Escalation Methods_. https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation/
-8. AWS. _IAM Best Practices_. https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-9. AWS. _Security Best Practices for EKS_. https://docs.aws.amazon.com/eks/latest/best-practices/security.html
-10. Prowler. _Open Source AWS/Azure/GCP Security_. https://github.com/prowler-cloud/prowler
-11. Checkov. _IaC Security Scanning_. https://github.com/bridgecrewio/checkov
-12. CloudSploit / Aqua Security. _CloudSploit_. https://github.com/aquasecurity/cloudsploit
-13. SPIFFE/SPIRE. _SPIFFE Standard_. https://spiffe.io/
-14. CrowdStrike. _Global Threat Report 2024: Cloud Security_. https://www.crowdstrike.com/global-threat-report/
-15. Wiz. _Cloud Security Report 2024_. https://www.wiz.io/ebooks/state-of-cloud-security-2024
-16. AWS. _AWS Well-Architected Framework – Security Pillar_. https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html
-17. Google Cloud. _Security Best Practices for GKE_. https://cloud.google.com/kubernetes-engine/docs/concepts/security-overview
-18. Microsoft. _Azure Security Benchmark v3_. https://learn.microsoft.com/en-us/security/benchmark/azure/
-19. Stratus Red Team (Datadog). _Attack Technique Simulation_. https://stratus-red-team.cloud/
-20. MITRE ATT&CK Cloud Matrix. _Cloud-Based Techniques_. https://attack.mitre.org/matrices/enterprise/cloud/
+1. AWS. *Shared Responsibility Model*. https://aws.amazon.com/compliance/shared-responsibility-model/
+2. NIST. *SP 800-207: Zero Trust Architecture*. https://csrc.nist.gov/publications/detail/sp/800-207/final
+3. CNCF. *Cloud Native Security Whitepaper*. https://github.com/cncf/tag-security/blob/main/security-whitepaper/CNCF_cloud_native_security_whitepaper.pdf
+4. OPA Gatekeeper. *Gatekeeper Policy Library*. https://github.com/open-policy-agent/gatekeeper-library
+5. Kyverno. *Kyverno Policies*. https://github.com/kyverno/policies
+6. CIS. *CIS Kubernetes Benchmark v1.9*. https://www.cisecurity.org/benchmark/kubernetes/
+7. Rhino Security Labs. *AWS IAM Privilege Escalation Methods*. https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation/
+8. AWS. *IAM Best Practices*. https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+9. AWS. *Security Best Practices for EKS*. https://docs.aws.amazon.com/eks/latest/best-practices/security.html
+10. Prowler. *Open Source AWS/Azure/GCP Security*. https://github.com/prowler-cloud/prowler
+11. Checkov. *IaC Security Scanning*. https://github.com/bridgecrewio/checkov
+12. CloudSploit / Aqua Security. *CloudSploit*. https://github.com/aquasecurity/cloudsploit
+13. SPIFFE/SPIRE. *SPIFFE Standard*. https://spiffe.io/
+14. CrowdStrike. *Global Threat Report 2024: Cloud Security*. https://www.crowdstrike.com/global-threat-report/
+45. Wiz. *Cloud Security Report 2024*. https://www.wiz.io/ebooks/state-of-cloud-security-2024
+16. AWS. *AWS Well-Architected Framework – Security Pillar*. https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html
+17. Google Cloud. *Security Best Practices for GKE*. https://cloud.google.com/kubernetes-engine/docs/concepts/security-overview
+18. Microsoft. *Azure Security Benchmark v3*. https://learn.microsoft.com/en-us/security/benchmark/azure/
+19. Stratus Red Team (Datadog). *Attack Technique Simulation*. https://stratus-red-team.cloud/
+20. MITRE ATT&CK Cloud Matrix. *Cloud-Based Techniques*. https://attack.mitre.org/matrices/enterprise/cloud/
 
 > [!tip] Bottom Line
 > Keamanan cloud bukanlah tentang satu produk atau satu lapisan — ini tentang **posture berkelanjutan** (CSPM), **pencegahan di admission** (OPA/Kyverno), **kontrol identitas granular** (IAM/SCP), dan **deteksi anomaly** (CloudTrail + GuardDuty). Karena perimeter cloud adalah IAM policy, semua misconfiguration bisa menjadi bencana dalam hitungan jam. Kombinasi antara IaC scanning (pre-deploy), CSPM monitoring (post-deploy), dan admission control (di waktu deploy) adalah fondasi pertahanan yang tidak bisa ditawar. Implementasi SCP untuk membatasi privilege escalation — khususnya `iam:PassRole` dan cross-account trust — adalah langkah dengan ROI keamanan tertinggi.
