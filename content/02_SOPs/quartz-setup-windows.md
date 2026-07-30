@@ -1,9 +1,9 @@
 ---
 title: Quartz Setup Windows
 tags:
-  - 02-sops
-created: "2026-07-01"
-updated: "2026-07-01"
+- 02-sops
+created: '2026-07-01'
+updated: '2026-07-01'
 status: pending
 ---
 
@@ -15,7 +15,7 @@ status: pending
 
 ```
 Buka PowerShell / Command Prompt, ketik:
-node --version    → harus v18+
+node --version    → harus v18+ 
 git --version     → harus ada
 ```
 

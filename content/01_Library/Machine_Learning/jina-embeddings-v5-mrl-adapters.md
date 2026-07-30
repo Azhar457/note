@@ -18,13 +18,13 @@ updated: 2026-07-21
 
 # Jina Embeddings v5: Matryoshka Representation Learning & Task-Specific LoRA Adapters
 
-> [!tip] Jina Embeddings v5 adalah model _frontier embedding_ berbasis arsitektur LLM modern (Qwen3/DeepSeek backbone) dengan **32,768 token context window**. Model ini mengintegrasikan **Matryoshka Representation Learning (MRL)** untuk fleksibilitas dimensi vektor (1024 ke 512, 256, atau 128 dimensi tanpa kehilangan performa berarti) serta **LoRA Task Adapters** yang dioptimalkan untuk skenario _Retrieval_, _Code Search_, dan _Text Classification_.
+> [!tip] Jina Embeddings v5 adalah model *frontier embedding* berbasis arsitektur LLM modern (Qwen3/DeepSeek backbone) dengan **32,768 token context window**. Model ini mengintegrasikan **Matryoshka Representation Learning (MRL)** untuk fleksibilitas dimensi vektor (1024 ke 512, 256, atau 128 dimensi tanpa kehilangan performa berarti) serta **LoRA Task Adapters** yang dioptimalkan untuk skenario *Retrieval*, *Code Search*, dan *Text Classification*.
 
 ---
 
 ## 1. Konsep Dasar & Evolusi Generasi Embedding Models
 
-Perkembangan arsitektur _text embeddings_ telah melewati tiga tahapan generasi utama:
+Perkembangan arsitektur *text embeddings* telah melewati tiga tahapan generasi utama:
 
 ```
   [ Gen 1: Fixed Small Models ]        [ Gen 2: BERT / Transformer Base ]      [ Gen 3: MRL + LLM Backbone (Jina v5) ]
@@ -33,9 +33,8 @@ Perkembangan arsitektur _text embeddings_ telah melewati tiga tahapan generasi u
 ```
 
 ### Masalah pada Vector Embedding Konvensional
-
 1. **Fixed Dimension Rigidity**: Model konvensional memaksa ukuran vektor tetap (misal: 1536-dim pada OpenAI `text-embedding-ada-002`). Hal ini menyebabkan **pemborosan memori RAM & storage RAM/Disk 4x–8x lebih tinggi** pada indeks skala jutaan vektor.
-2. **One-Size-Fits-All Failure**: Penggunaan matriks pembobotan yang sama untuk tugas yang berbeda (_Symmetric Query-Passage_, _Asymmetric Code Search_, _Short Fact Retrieval_) menghasilkan performa kompromis.
+2. **One-Size-Fits-All Failure**: Penggunaan matriks pembobotan yang sama untuk tugas yang berbeda (*Symmetric Query-Passage*, *Asymmetric Code Search*, *Short Fact Retrieval*) menghasilkan performa kompromis.
 3. **Context Length Truncation**: Batasan 512 token pada model berbasis BERT memotong dokumen panjang dan kehilangan konteks menyeluruh.
 
 ---
@@ -48,7 +47,7 @@ Nama **Matryoshka** diambil dari boneka kayu Rusia yang bersarang di dalam satu 
 Full Vector (1024 Dimensi): [ d1, d2, d3, d4, ..., d128 | d129, ..., d256 | d257, ..., d512 | d513, ..., d1024 ]
                            └─────────────┬─────────────┘
                                          ▼
-                                 Slice 128-dimensi
+                                 Slice 128-dimensi 
                          (Sudah 90%+ akurasi retrieval!)
 ```
 
@@ -76,7 +75,7 @@ Dengan meminimalkan $\mathcal{L}_{\text{MRL}}$, gradient backpropagation memaksa
 
 ## 3. Arsitektur Task-Specific LoRA Adapters
 
-Jina Embeddings v5 tidak hanya menggunakan satu set bobot statis, melainkan menggabungkan **Low-Rank Adaptation (LoRA)** yang dapat beralih tergantung jenis tugas (_task instruction_).
+Jina Embeddings v5 tidak hanya menggunakan satu set bobot statis, melainkan menggabungkan **Low-Rank Adaptation (LoRA)** yang dapat beralih tergantung jenis tugas (*task instruction*).
 
 ```
                             ┌─────────────────────────────────┐
@@ -90,19 +89,17 @@ Jina Embeddings v5 tidak hanya menggunakan satu set bobot statis, melainkan meng
 ```
 
 ### Konsep LoRA pada Embedding Layer
-
-Untuk matriks bobot dasar $W_0 \in \mathbb{R}^{d \times k}$, LoRA membekukan $W_0$ dan menambahkan pembaruan berpangkat rendah (_low-rank decomposition_):
+Untuk matriks bobot dasar $W_0 \in \mathbb{R}^{d \times k}$, LoRA membekukan $W_0$ dan menambahkan pembaruan berpangkat rendah (*low-rank decomposition*):
 
 $$W = W_0 + \Delta W = W_0 + B \cdot A$$
 
 Di mana $B \in \mathbb{R}^{d \times r}$ dan $A \in \mathbb{R}^{r \times k}$ dengan rank $r \ll \min(d, k)$.
 
 ### 4 Mode Adaptasi Utama pada Jina v5
-
 1. `retrieval.query`: Mengadaptasi vektor query pencarian pendek untuk mencocokkan dokumen panjang secara asimetris.
 2. `retrieval.passage`: Mengadaptasi enkoding dokumen/passage agar optimal disandingkan dengan `retrieval.query`.
-3. `separation` / `classification`: Dioptimalkan untuk mengelompokkan teks (_clustering_) atau pemisahan kelas (_linear probing_).
-4. `code.search`: Dioptimalkan khusus untuk mencocokkan kueri bahasa alami (_natural language_) dengan sintaksis kode (_AST & function signatures_).
+3. `separation` / `classification`: Dioptimalkan untuk mengelompokkan teks (*clustering*) atau pemisahan kelas (*linear probing*).
+4. `code.search`: Dioptimalkan khusus untuk mencocokkan kueri bahasa alami (*natural language*) dengan sintaksis kode (*AST & function signatures*).
 
 ---
 
@@ -111,11 +108,11 @@ Di mana $B \in \mathbb{R}^{d \times r}$ dan $A \in \mathbb{R}^{r \times k}$ deng
 Grafik efisiensi retensi akurasi MRL pada Jina Embeddings v5:
 
 | Dimensi Vektor ($m$) | Memory Footprint (per 1M Vectors) | Retensi Akurasi Retrieval (MTEB) | Kecepatan Simd Cosine |
-| -------------------- | --------------------------------- | -------------------------------- | --------------------- |
-| **1024 Dim (Full)**  | **4.09 GB**                       | **100.0%** (Baseline SOTA)       | 1.0x                  |
-| **512 Dim**          | **2.04 GB** (Hemat 50%)           | **99.2%**                        | 1.9x                  |
-| **256 Dim**          | **1.02 GB** (Hemat 75%)           | **97.6%**                        | 3.6x                  |
-| **128 Dim**          | **0.51 GB** (Hemat 87.5%)         | **94.1%**                        | 6.8x                  |
+|---|---|---|---|
+| **1024 Dim (Full)** | **4.09 GB** | **100.0%** (Baseline SOTA) | 1.0x |
+| **512 Dim** | **2.04 GB** (Hemat 50%) | **99.2%** | 1.9x |
+| **256 Dim** | **1.02 GB** (Hemat 75%) | **97.6%** | 3.6x |
+| **128 Dim** | **0.51 GB** (Hemat 87.5%) | **94.1%** | 6.8x |
 
 > [!important] Dengan memangkas dimensi dari 1024 ke 512 dimensi, kita menghemat 50% penggunaan RAM dan kapasitas penyimpanan SQLite `sqlite-vec` atau PostgreSQL `pgvector`, dengan penurunan akurasi kurang dari 1%!
 
@@ -184,18 +181,17 @@ print("✓ Berhasil menyimpan MRL 512-dim vector ke SQLite-Vec!")
 
 ## 6. Matrix Perbandingan Embedding Models
 
-| Model                                | Dimensions     | Context Window | Support MRL | Task Adapters | SOTA Score (MTEB) |
-| ------------------------------------ | -------------- | -------------- | ----------- | ------------- | ----------------- |
-| **Jina Embeddings v5 Text Small** 👑 | **128 – 1024** | **32,768**     | **Ya**      | **Ya (LoRA)** | **SOTA (High)**   |
-| OpenAI `text-embedding-3-small`      | 512 – 1536     | 8,191          | Ya          | Tidak         | High              |
-| BGE-M3                               | 1024           | 8,192          | Tidak       | Tidak         | High              |
-| Qwen3-Embedding-8B                   | 4096           | 32,768         | Tidak       | Tidak         | SOTA (Very High)  |
-| Voyage-3                             | 1024           | 32,768         | Tidak       | Tidak         | High              |
+| Model | Dimensions | Context Window | Support MRL | Task Adapters | SOTA Score (MTEB) |
+|---|---|---|---|---|---|
+| **Jina Embeddings v5 Text Small** 👑 | **128 – 1024** | **32,768** | **Ya** | **Ya (LoRA)** | **SOTA (High)** |
+| OpenAI `text-embedding-3-small` | 512 – 1536 | 8,191 | Ya | Tidak | High |
+| BGE-M3 | 1024 | 8,192 | Tidak | Tidak | High |
+| Qwen3-Embedding-8B | 4096 | 32,768 | Tidak | Tidak | SOTA (Very High) |
+| Voyage-3 | 1024 | 32,768 | Tidak | Tidak | High |
 
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-
 - [[jina-reranker-v3-deepdive]] — Reranking Listwise Cross-Encoder untuk Precision Filtering
 - [[semantic-search-pipeline]] — Arsitektur Pipeline Pencarian Semantik
 - [[cosine-similarity-deepdive]] — Kalkulasi Jarak Vektor dan Metric Distance

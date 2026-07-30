@@ -1,17 +1,17 @@
 ---
 title: 🔄 Query Transformation — Multi-Query, HyDE, Step-Back, dan RAG-Fusion
 tags:
-  - query-transformation
-  - rag
-  - retrieval
-  - hyde
-  - multi-query
-  - library
-created: "2026-07-16"
-updated: "2026-07-16"
+- query-transformation
+- rag
+- retrieval
+- hyde
+- multi-query
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🔄 Query Transformation — Multi-Query, HyDE, Step-Back, dan RAG-Fusion
@@ -39,12 +39,12 @@ cssclasses:
 
 ### 1.1 Kenapa Query Perlu Diubah?
 
-| Masalah              | Contoh User Query                                       | Masalah buat Retrieval                                                             |
-| -------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Terlalu pendek**   | "syn flood"                                             | Embedding gak punya cukup konteks untuk similarity                                 |
-| **Ambigu**           | "jelasin"                                               | Apa yang dijelasin? Konsep? Cara kerja? Dampak?                                    |
+| Masalah | Contoh User Query | Masalah buat Retrieval |
+|---------|------------------|----------------------|
+| **Terlalu pendek** | "syn flood" | Embedding gak punya cukup konteks untuk similarity |
+| **Ambigu** | "jelasin" | Apa yang dijelasin? Konsep? Cara kerja? Dampak? |
 | **Terlalu spesifik** | "gimana cara detect syn flood dengan suricata di linux" | Mungkin cuma dapet artikel Suricata, bukan artikel SYN flood detection secara umum |
-| **Istilah beda**     | "TCP handshake" tapi dokumen pake "three-way handshake" | Embedding harus cukup kuat untuk hubungin sinonim                                  |
+| **Istilah beda** | "TCP handshake" tapi dokumen pake "three-way handshake" | Embedding harus cukup kuat untuk hubungin sinonim |
 
 ### 1.2 Pipeline Transformation
 
@@ -68,13 +68,13 @@ Generate N varian query dari query asli → search semua → gabung hasilnya →
 
 ```python
 def multi_query(original_query, llm, n=5):
-    prompt = f"""Given the user query, generate {n} different search queries
+    prompt = f"""Given the user query, generate {n} different search queries 
 that cover the same information need from different angles.
 
 Original: {original_query}
 
 Generate {n} queries, one per line:"""
-
+    
     response = llm.generate(prompt)
     queries = response.strip().split("\n")[:n]
 
@@ -135,7 +135,7 @@ The paragraph should be factual and informative, written in the style of a techn
 Question: {query}
 
 Answer:"""
-
+    
     hypothetical_doc = llm.generate(prompt)
     # Embed dokumen (bukan query!)
     emb = embed(hypothetical_doc)
@@ -174,12 +174,12 @@ Query: "Bagaimana cara setting conntrack di iptables buat anti SYN flood?"
 def step_back(query, llm):
     # Step 1: Generate abstract question
     sb_prompt = f"""
-Given the specific question, generate a more general/abstract question
+Given the specific question, generate a more general/abstract question 
 that covers the core concept. This helps retrieve broader context.
 
 Specific: {query}
 General abstract question:"""
-
+    
     abstract_query = llm.generate(sb_prompt)
 
     # Step 2: Search both
@@ -194,12 +194,12 @@ General abstract question:"""
 
 ## 5. Perbandingan
 
-| Teknik           | Kapan Efektif                                 | Biaya (LLM call)       | Risiko                   | vault-rag? |
-| ---------------- | --------------------------------------------- | ---------------------- | ------------------------ | ---------- |
-| **Multi-Query**  | Query pendek, mau cover banyak sudut          | N+1 generate           | Query varian gak relevan | ❌ Belum   |
-| **HyDE**         | Query pendek, mau improve semantic similarity | 1 generate             | Memperkuat hallucination | ❌ Belum   |
-| **Step-Back**    | Query terlalu spesifik, butuh konteks luas    | 1-2 generate           | Abstraksi terlalu jauh   | ❌ Belum   |
-| **CRAG** (punya) | Query apa pun, self-evaluate hasil retrieval  | 1+ generate + evaluasi | Lebih lambat             | ✅ Ada     |
+| Teknik | Kapan Efektif | Biaya (LLM call) | Risiko | vault-rag? |
+|--------|--------------|-------------------|--------|-----------|
+| **Multi-Query** | Query pendek, mau cover banyak sudut | N+1 generate | Query varian gak relevan | ❌ Belum |
+| **HyDE** | Query pendek, mau improve semantic similarity | 1 generate | Memperkuat hallucination | ❌ Belum |
+| **Step-Back** | Query terlalu spesifik, butuh konteks luas | 1-2 generate | Abstraksi terlalu jauh | ❌ Belum |
+| **CRAG** (punya) | Query apa pun, self-evaluate hasil retrieval | 1+ generate + evaluasi | Lebih lambat | ✅ Ada |
 
 ### Implementasi
 
@@ -214,7 +214,7 @@ def query_pipeline(query, mode="auto"):
             query = step_back(query, llm)       # spesifik → abstrak
         elif needs_context(query):
             query = hyde(query, llm)            # ambigu → hyde
-
+    
     results = search_hybrid(query)
     return crag(results, query)  # corrective loop
 ```
@@ -231,10 +231,10 @@ def query_pipeline(query, mode="auto"):
 
 ## References
 
-1. HyDE Paper. _L. Gao et al. (2022)_. https://arxiv.org/abs/2212.10496
-2. Step-Back Prompting. _Z. Zheng et al. (2023)_. https://arxiv.org/abs/2310.06117
+1. HyDE Paper. *L. Gao et al. (2022)*. https://arxiv.org/abs/2212.10496
+2. Step-Back Prompting. *Z. Zheng et al. (2023)*. https://arxiv.org/abs/2310.06117
 3. RAG-Fusion. https://github.com/Raudaschl/rag-fusion
-4. CRAG Paper. _S. Yan et al. (2024)_. https://arxiv.org/abs/2401.15884
+4. CRAG Paper. *S. Yan et al. (2024)*. https://arxiv.org/abs/2401.15884
 
 > [!tip] Bottom Line
 > Query transformation adalah **low-hanging fruit** untuk improve retrieval quality tanpa perlu ganti model atau re-index. vault-rag udah punya CRAG (self-evaluating loop). Tambahan yang paling berdampak: **Multi-Query** untuk query pendek yang sering dipake di vault. HyDE perlu hati-hati — kalo LLM hallucinate, HyDE amplify hallucination itu.

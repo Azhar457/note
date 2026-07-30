@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. OAuth 2.0 — Arsitektur & Roles]]
 - [[#2. Grant Types — Flow Lengkap]]
 - [[#3. OpenID Connect — Lapisan Identitas]]
@@ -66,12 +65,12 @@ OAuth 2.0 mendefinisikan 4 roles (RFC 6749):
 └──────────────┘
 ```
 
-| Role                     | Deskripsi                      | Contoh                               |
-| ------------------------ | ------------------------------ | ------------------------------------ |
-| **Resource Owner**       | Entitas yang memiliki resource | User dengan fotonya di Google Photos |
-| **Resource Server**      | Server yang menyimpan resource | API Google Photos                    |
-| **Client**               | Aplikasi yang minta akses      | Aplikasi edit foto pihak ketiga      |
-| **Authorization Server** | Server yang mengeluarkan token | Google Accounts                      |
+| Role | Deskripsi | Contoh |
+|---|---|---|
+| **Resource Owner** | Entitas yang memiliki resource | User dengan fotonya di Google Photos |
+| **Resource Server** | Server yang menyimpan resource | API Google Photos |
+| **Client** | Aplikasi yang minta akses | Aplikasi edit foto pihak ketiga |
+| **Authorization Server** | Server yang mengeluarkan token | Google Accounts |
 
 ---
 
@@ -158,13 +157,13 @@ Device polling: POST /token → pending → ... → success
 
 ### Grant Type Comparison
 
-| Grant Type                | Use Case           | Security Level | Refresh Token       |
-| ------------------------- | ------------------ | -------------- | ------------------- |
-| Authorization Code + PKCE | Web/Native apps    | Tertinggi      | ✅                  |
-| Client Credentials        | Service-to-service | Tinggi         | ❌ (self-contained) |
-| Device Code               | Headless devices   | Sedang         | ✅                  |
-| Implicit (deprecated)     | SPA (legacy)       | Rendah         | ❌                  |
-| Resource Owner Password   | Legacy trust apps  | Rendah         | ✅                  |
+| Grant Type | Use Case | Security Level | Refresh Token |
+|---|---|---|---|
+| Authorization Code + PKCE | Web/Native apps | Tertinggi | ✅ |
+| Client Credentials | Service-to-service | Tinggi | ❌ (self-contained) |
+| Device Code | Headless devices | Sedang | ✅ |
+| Implicit (deprecated) | SPA (legacy) | Rendah | ❌ |
+| Resource Owner Password | Legacy trust apps | Rendah | ✅ |
 
 > **Catatan:** Implicit grant sudah deprecated sejak RFC 8252. SPA wajib pakai Authorization Code + PKCE.
 
@@ -174,12 +173,12 @@ Device polling: POST /token → pending → ... → success
 
 OIDC menambahkan lapisan autentikasi di atas OAuth 2.0 dengan **ID Token** (JWT).
 
-| OAuth 2.0                        | OpenID Connect                               |
-| -------------------------------- | -------------------------------------------- |
-| `access_token` — akses ke API    | `access_token` + `id_token` — identitas user |
-| Scope: `read`, `write`           | Scope: `openid`, `profile`, `email`          |
-| No user info format              | `sub` claim sebagai user identifier wajib    |
-| Resource Server verifikasi token | Client verifikasi ID Token sendiri           |
+| OAuth 2.0 | OpenID Connect |
+|---|---|
+| `access_token` — akses ke API | `access_token` + `id_token` — identitas user |
+| Scope: `read`, `write` | Scope: `openid`, `profile`, `email` |
+| No user info format | `sub` claim sebagai user identifier wajib |
+| Resource Server verifikasi token | Client verifikasi ID Token sendiri |
 
 ### OIDC Flow
 
@@ -209,13 +208,13 @@ claims = jwt.decode(
 
 ### OIDC Scopes & Claims
 
-| Scope     | Claims                           | Penggunaan            |
-| --------- | -------------------------------- | --------------------- |
-| `openid`  | `sub`                            | Wajib, unique user ID |
-| `profile` | `name`, `family_name`, `picture` | Profil user           |
-| `email`   | `email`, `email_verified`        | Verifikasi email      |
-| `address` | `address`                        | Alamat terformat      |
-| `phone`   | `phone_number`                   | Nomor telepon         |
+| Scope | Claims | Penggunaan |
+|---|---|---|
+| `openid` | `sub` | Wajib, unique user ID |
+| `profile` | `name`, `family_name`, `picture` | Profil user |
+| `email` | `email`, `email_verified` | Verifikasi email |
+| `address` | `address` | Alamat terformat |
+| `phone` | `phone_number` | Nomor telepon |
 
 ---
 
@@ -265,11 +264,11 @@ class TokenService:
         token = self.db.get_refresh_token(old_refresh)
         if not token or token.revoked:
             raise InvalidTokenError()
-
+        
         # Revoke old, issue new
         self.db.revoke_token(old_refresh)
         new_token = self.db.create_refresh_token(user_id=token.user_id)
-
+        
         return {
             "access_token": self.create_access_token(token.user_id),
             "refresh_token": new_token,
@@ -293,14 +292,14 @@ signature: RSA(private_key, header + "." + payload)
 
 ### Validasi Checklist
 
-| Check                | Mengapa                      | Jika Gagal            |
-| -------------------- | ---------------------------- | --------------------- |
-| **Signature**        | Verifikasi integrity token   | Tolak                 |
-| **Expiration (exp)** | Token expired                | Minta refresh         |
-| **Issuer (iss)**     | Hanya trust IdP yang dikenal | Tolak                 |
-| **Audience (aud)**   | Token untuk app ini          | Tolak                 |
-| **Not Before (nbf)** | Token belum aktif            | Tolak jika signifikan |
-| **Algorithm (alg)**  | Cegah alg confusion attack   | Tolak jika `none`     |
+| Check | Mengapa | Jika Gagal |
+|---|---|---|
+| **Signature** | Verifikasi integrity token | Tolak |
+| **Expiration (exp)** | Token expired | Minta refresh |
+| **Issuer (iss)** | Hanya trust IdP yang dikenal | Tolak |
+| **Audience (aud)** | Token untuk app ini | Tolak |
+| **Not Before (nbf)** | Token belum aktif | Tolak jika signifikan |
+| **Algorithm (alg)** | Cegah alg confusion attack | Tolak jika `none` |
 
 ### Algorithm Confusion Attack
 
@@ -320,14 +319,14 @@ jwt.decode(token, public_key, algorithms=["RS256"], audience="myapp")
 
 ## 6. Common Implementation Flaws
 
-| Flaw                            | Dampak                                       | Fix                                |
-| ------------------------------- | -------------------------------------------- | ---------------------------------- |
-| **CSRF di redirect URI**        | Attacker exchange code miliknya              | PKCE + state parameter             |
-| **Token leakage via Referer**   | Token di URL → Referer header ke third-party | Authorization Code bukan Implicit  |
-| **Scope escalation**            | Client upgrade scope tanpa otorisasi         | Server-side scope validation       |
-| **Refresh token theft**         | Attacker bisa refresh token terus            | Rotation + revocation              |
-| **Missing audience validation** | Token untuk service A dipakai di service B   | Wajib cek `aud` claim              |
-| **Open redirect abuse**         | `redirect_uri` wildcard → phishing           | Exact match whitelist redirect URI |
+| Flaw | Dampak | Fix |
+|---|---|---|
+| **CSRF di redirect URI** | Attacker exchange code miliknya | PKCE + state parameter |
+| **Token leakage via Referer** | Token di URL → Referer header ke third-party | Authorization Code bukan Implicit |
+| **Scope escalation** | Client upgrade scope tanpa otorisasi | Server-side scope validation |
+| **Refresh token theft** | Attacker bisa refresh token terus | Rotation + revocation |
+| **Missing audience validation** | Token untuk service A dipakai di service B | Wajib cek `aud` claim |
+| **Open redirect abuse** | `redirect_uri` wildcard → phishing | Exact match whitelist redirect URI |
 
 ### Contoh: Redirect URI Bypass
 
@@ -346,29 +345,29 @@ if redirect_uri not in ALLOWED_URIS:
 
 ## 7. OAuth untuk First-Party vs Third-Party Apps
 
-| Aspek              | First-Party                 | Third-Party               |
-| ------------------ | --------------------------- | ------------------------- |
-| **Trust level**    | Tinggi (app + IdP satu org) | Rendah                    |
-| **Client secret**  | Bisa disimpan aman          | Public client (no secret) |
-| **PKCE**           | Opsional                    | Wajib                     |
-| **Token lifetime** | Bisa lama                   | Pendek                    |
-| **Scope**          | Full                        | Minimal                   |
-| **Consent screen** | Opsional                    | Wajib                     |
+| Aspek | First-Party | Third-Party |
+|---|---|---|
+| **Trust level** | Tinggi (app + IdP satu org) | Rendah |
+| **Client secret** | Bisa disimpan aman | Public client (no secret) |
+| **PKCE** | Opsional | Wajib |
+| **Token lifetime** | Bisa lama | Pendek |
+| **Scope** | Full | Minimal |
+| **Consent screen** | Opsional | Wajib |
 
 ---
 
 ## 8. OAuth vs SAML vs OIDC — Comparison
 
-| Fitur              | OAuth 2.0         | SAML 2.0                | OIDC                 |
-| ------------------ | ----------------- | ----------------------- | -------------------- |
-| **Purpose**        | Delegasi akses    | SSO enterprise          | SSO modern           |
-| **Token format**   | JWT (Bearer)      | XML (SAML Assertion)    | JWT (ID Token)       |
-| **Transport**      | JSON/REST         | HTTP Redirect/POST/SOAP | JSON/REST            |
-| **Mobile support** | ✅ Excellent      | ❌ Buruk                | ✅ Excellent         |
-| **Federation**     | ❌ Tidak built-in | ✅ Ya                   | ✅ Ya (via OAuth)    |
-| **Single Logout**  | ❌ Tidak          | ✅ Ya (SLO)             | ✅ Ya (OpenID SLO)   |
-| **Maturity**       | 2012 (RFC 6749)   | 2005                    | 2014                 |
-| **Adoption**       | API, mobile, IoT  | Enterprise, pemerintah  | Web, mobile, startup |
+| Fitur | OAuth 2.0 | SAML 2.0 | OIDC |
+|---|---|---|---|
+| **Purpose** | Delegasi akses | SSO enterprise | SSO modern |
+| **Token format** | JWT (Bearer) | XML (SAML Assertion) | JWT (ID Token) |
+| **Transport** | JSON/REST | HTTP Redirect/POST/SOAP | JSON/REST |
+| **Mobile support** | ✅ Excellent | ❌ Buruk | ✅ Excellent |
+| **Federation** | ❌ Tidak built-in | ✅ Ya | ✅ Ya (via OAuth) |
+| **Single Logout** | ❌ Tidak | ✅ Ya (SLO) | ✅ Ya (OpenID SLO) |
+| **Maturity** | 2012 (RFC 6749) | 2005 | 2014 |
+| **Adoption** | API, mobile, IoT | Enterprise, pemerintah | Web, mobile, startup |
 
 **Keputusan:** OIDC untuk aplikasi baru, SAML hanya jika integrasi dengan legacy enterprise.
 
@@ -376,13 +375,13 @@ if redirect_uri not in ALLOWED_URIS:
 
 ## 9. Tools untuk Testing OAuth
 
-| Tool                          | Fungsi                              |
-| ----------------------------- | ----------------------------------- |
-| **oauth2c**                   | CLI OAuth client untuk testing flow |
-| **jwt.io**                    | Debug JWT token                     |
-| **Burp Suite + OAuth plugin** | Intercept & manipulate OAuth flow   |
-| **OAuth 2.0 Playground**      | Google's interactive OAuth debugger |
-| **oidc-token-hunter**         | Cari token leakage di logs          |
+| Tool | Fungsi |
+|---|---|
+| **oauth2c** | CLI OAuth client untuk testing flow |
+| **jwt.io** | Debug JWT token |
+| **Burp Suite + OAuth plugin** | Intercept & manipulate OAuth flow |
+| **OAuth 2.0 Playground** | Google's interactive OAuth debugger |
+| **oidc-token-hunter** | Cari token leakage di logs |
 
 ---
 
@@ -397,7 +396,6 @@ if redirect_uri not in ALLOWED_URIS:
 - OpenID Connect Core 1.0
 
 **Cross-link vault:**
-
 - [[api-security-deep-dive]] — API security konteks OAuth
 - [[identity-and-access-management]] — IAM framework
 - [[web-security]] — web security umum

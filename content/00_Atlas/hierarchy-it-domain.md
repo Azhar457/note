@@ -1,9 +1,9 @@
 ---
 title: It Domain Hierarchy
 tags:
-  - atlas
-created: "2026-07-01"
-updated: "2026-07-01"
+- atlas
+created: '2026-07-01'
+updated: '2026-07-01'
 status: pending
 ---
 
@@ -482,19 +482,19 @@ IT (Root)
 
 ## 📋 Action Items untuk Belajar & Berkarir
 
-| #   | Action                                                       | Timeline      | Domain            |
-| --- | ------------------------------------------------------------ | ------------- | ----------------- |
-| 1   | Bangun project portofolio pertamamu                          | 3 bulan       | Hands-on Practice |
-| 2   | Tulis blog teknis tentang apa yang dipelajari                | Rutin         | Technical Writing |
-| 3   | Berkontribusi di project open source security                | Paralel       | Community         |
-| 4   | Pelajari script automation (Python/Bash)                     | Menengah      | Automation        |
-| 5   | Ambil sertifikasi dasar (e.g., CompTIA Security+)            | Tahap Awal    | Certification     |
-| 6   | Ambil sertifikasi spesialisasi (e.g., Linux/Cloud/Pentest)   | Tahap Lanjut  | Specialization    |
-| 7   | Mulai melamar sebagai Junior Security Engineer / SOC Analyst | Setelah siap  | Career            |
-| 8   | Tingkatkan skill & bangun project lebih kompleks             | Berkelanjutan | Growth            |
+| # | Action | Timeline | Domain |
+|---|--------|----------|--------|
+| 1 | Bangun project portofolio pertamamu | 3 bulan | Hands-on Practice |
+| 2 | Tulis blog teknis tentang apa yang dipelajari | Rutin | Technical Writing |
+| 3 | Berkontribusi di project open source security | Paralel | Community |
+| 4 | Pelajari script automation (Python/Bash) | Menengah | Automation |
+| 5 | Ambil sertifikasi dasar (e.g., CompTIA Security+) | Tahap Awal | Certification |
+| 6 | Ambil sertifikasi spesialisasi (e.g., Linux/Cloud/Pentest) | Tahap Lanjut | Specialization |
+| 7 | Mulai melamar sebagai Junior Security Engineer / SOC Analyst | Setelah siap | Career |
+| 8 | Tingkatkan skill & bangun project lebih kompleks | Berkelanjutan | Growth |
 
 ---
 
-_Document Version: 1.0_  
-_Last Updated: 2026-06-16_  
-_Purpose: Domain mapping untuk project dan karir cybersecurity_
+*Document Version: 1.0*  
+*Last Updated: 2026-06-16*  
+*Purpose: Domain mapping untuk project dan karir cybersecurity*

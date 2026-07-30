@@ -65,14 +65,14 @@ BCNF: 3NF + setiap determinant adalah candidate key
 
 ### 1.3 Tabel Anomali per Normal Form
 
-| NF   | Problem yang Disolve              | Contoh                                                                           |
-| :--- | :-------------------------------- | :------------------------------------------------------------------------------- |
-| 1NF  | Repeated group, non-atomic        | Column `phone_numbers` berisi comma-separated                                    |
-| 2NF  | Partial dependency (composite PK) | `(order_id, product_id) → product_name` — nama produk dependen ke product_id aja |
-| 3NF  | Transitive dependency             | `employee_id → department_id → department_name`                                  |
-| BCNF | Overlapping candidate keys        | Dua candidate key saling bertumpuk                                               |
-| 4NF  | Multi-valued fact                 | Satu entity punya dua fakta independent (skill + language)                       |
-| 5NF  | Join dependency cycle             | Tiga tabel yang selalu perlu di-join balik                                       |
+| NF | Problem yang Disolve | Contoh |
+|:---|:---------------------|:-------|
+| 1NF | Repeated group, non-atomic | Column `phone_numbers` berisi comma-separated |
+| 2NF | Partial dependency (composite PK) | `(order_id, product_id) → product_name` — nama produk dependen ke product_id aja |
+| 3NF | Transitive dependency | `employee_id → department_id → department_name` |
+| BCNF | Overlapping candidate keys | Dua candidate key saling bertumpuk |
+| 4NF | Multi-valued fact | Satu entity punya dua fakta independent (skill + language) |
+| 5NF | Join dependency cycle | Tiga tabel yang selalu perlu di-join balik |
 
 ### 1.4 Kapan Berhenti Normalisasi?
 
@@ -140,11 +140,11 @@ CREATE TABLE order_summary_mv (
 
 ### 2.1 Table Inheritance Patterns (Polymorphic Data)
 
-| Pattern                      | Implementasi                                         | Kelebihan                          | Kekurangan                               |
-| :--------------------------- | :--------------------------------------------------- | :--------------------------------- | :--------------------------------------- |
-| **Single Table Inheritance** | Satu tabel dengan semua kolom + `type` discriminator | Simple, no JOIN                    | Banyak kolom NULL, constraint sulit      |
-| **Class Table**              | Base table + subclass tables with FK                 | Normalized, constraint enforceable | JOIN untuk query subclass                |
-| **Concrete Table**           | Setiap subclass punya tabel sendiri                  | No NULL, independent               | Duplikasi kolom, UNION untuk query semua |
+| Pattern | Implementasi | Kelebihan | Kekurangan |
+|:--------|:-------------|:----------|:-----------|
+| **Single Table Inheritance** | Satu tabel dengan semua kolom + `type` discriminator | Simple, no JOIN | Banyak kolom NULL, constraint sulit |
+| **Class Table** | Base table + subclass tables with FK | Normalized, constraint enforceable | JOIN untuk query subclass |
+| **Concrete Table** | Setiap subclass punya tabel sendiri | No NULL, independent | Duplikasi kolom, UNION untuk query semua |
 
 ```sql
 -- Single Table Inheritance
@@ -183,12 +183,12 @@ CREATE TABLE network_devices (
 
 ### 2.2 Tree/Hierarchy Patterns
 
-| Pattern               | Query Anak    | Query Parent | Write Cost          | Use Case                |
-| :-------------------- | :------------ | :----------- | :------------------ | :---------------------- |
-| **Adjacency List**    | Recursive CTE | Direct FK    | Rendah              | Simple parent-child     |
-| **Nested Sets**       | Range WHERE   | Range WHERE  | Tinggi (rebalance)  | Read-heavy, static tree |
-| **Materialized Path** | LIKE prefix   | LIKE prefix  | Sedang              | URL path, categories    |
-| **Closure Table**     | JOIN closure  | JOIN closure | Tinggi (banyak row) | Complex graph           |
+| Pattern | Query Anak | Query Parent | Write Cost | Use Case |
+|:--------|:-----------|:-------------|:-----------|:---------|
+| **Adjacency List** | Recursive CTE | Direct FK | Rendah | Simple parent-child |
+| **Nested Sets** | Range WHERE | Range WHERE | Tinggi (rebalance) | Read-heavy, static tree |
+| **Materialized Path** | LIKE prefix | LIKE prefix | Sedang | URL path, categories |
+| **Closure Table** | JOIN closure | JOIN closure | Tinggi (banyak row) | Complex graph |
 
 ```sql
 -- Adjacency List (paling umum)
@@ -234,12 +234,12 @@ Sharding (horizontal partitioning) diperlukan saat **satu node gak muat data ata
 
 ### 3.2 Strategi Sharding
 
-| Strategy               | Cara Kerja                   | Kelebihan                           | Kekurangan                                 |
-| :--------------------- | :--------------------------- | :---------------------------------- | :----------------------------------------- |
-| **Hash-based**         | `hash(shard_key) % N`        | Distribusi merata                   | Range query mahal, resharding susah        |
-| **Range-based**        | `shard_key BETWEEN A AND B`  | Range scan efisien                  | Hotspot, distribusi gak merata             |
-| **Directory-based**    | Lookup table → shard mapping | Fleksibel, resharding mungkin       | Single point of failure (lookup)           |
-| **Consistent Hashing** | Hash ring, minimal movement  | Add/remove node minimal data pindah | Distribusi gak selalu merata (butuh vnode) |
+| Strategy | Cara Kerja | Kelebihan | Kekurangan |
+|:---------|:-----------|:----------|:-----------|
+| **Hash-based** | `hash(shard_key) % N` | Distribusi merata | Range query mahal, resharding susah |
+| **Range-based** | `shard_key BETWEEN A AND B` | Range scan efisien | Hotspot, distribusi gak merata |
+| **Directory-based** | Lookup table → shard mapping | Fleksibel, resharding mungkin | Single point of failure (lookup) |
+| **Consistent Hashing** | Hash ring, minimal movement | Add/remove node minimal data pindah | Distribusi gak selalu merata (butuh vnode) |
 
 ### 3.3 Sharding Key Selection
 
@@ -350,15 +350,15 @@ Anti-entropy: background Merkle tree comparison
 
 ### 5.1 Indexing Trade-off Matrix
 
-| Index Type         |       Read Speed       | Write Cost  | Disk Size  | Use Case                 |
-| :----------------- | :--------------------: | :---------: | :--------: | :----------------------- |
-| B-Tree             |      🟢 O(log N)       | 🟡 Moderate | 30% table  | General purpose          |
-| Covering (INCLUDE) |  🟢🟢 Index-only scan  | 🟡 Moderate | 35% table  | SELECT with few columns  |
-| Partial (WHERE)    |   🟢🟢 Smaller index   |   🟢 Low    | <5% table  | Filtered queries         |
-| Expression         | 🟢🟢 No function scan  | 🟡 Moderate | 30% table  | `LOWER()`, `(col + col)` |
-| GIN                |           🟡           |  🔴 Heavy   | 50%+ table | JSONB, full-text, array  |
-| GiST               |           🟡           |  🔴 Heavy   |   Besar    | Geometry, full-text      |
-| BRIN               | 🟢🟢🟢 Extremely small | 🟢 Very Low | 0.1% table | Time-series, correlated  |
+| Index Type | Read Speed | Write Cost | Disk Size | Use Case |
+|:-----------|:----------:|:----------:|:---------:|:---------|
+| B-Tree | 🟢 O(log N) | 🟡 Moderate | 30% table | General purpose |
+| Covering (INCLUDE) | 🟢🟢 Index-only scan | 🟡 Moderate | 35% table | SELECT with few columns |
+| Partial (WHERE) | 🟢🟢 Smaller index | 🟢 Low | <5% table | Filtered queries |
+| Expression | 🟢🟢 No function scan | 🟡 Moderate | 30% table | `LOWER()`, `(col + col)` |
+| GIN | 🟡 | 🔴 Heavy | 50%+ table | JSONB, full-text, array |
+| GiST | 🟡 | 🔴 Heavy | Besar | Geometry, full-text |
+| BRIN | 🟢🟢🟢 Extremely small | 🟢 Very Low | 0.1% table | Time-series, correlated |
 
 ### 5.2 Contoh Advanced Index
 
@@ -406,27 +406,27 @@ Phase 3 — Contract:
 
 ### 6.2 Online Schema Change Tools
 
-| DB         | Tool                    | Method                             |
-| :--------- | :---------------------- | :--------------------------------- |
-| PostgreSQL | pg_repack               | Triggers + shadow table            |
-| PostgreSQL | pgroll (2024)           | Expand-contract with safety checks |
-| MySQL      | gh-ost (GitHub)         | Binlog-based, triggerless          |
-| MySQL      | pt-online-schema-change | Triggers + chunk iteration         |
-| Vitess     | Online DDL              | Vitess scheduler                   |
+| DB | Tool | Method |
+|:---|:-----|:-------|
+| PostgreSQL | pg_repack | Triggers + shadow table |
+| PostgreSQL | pgroll (2024) | Expand-contract with safety checks |
+| MySQL | gh-ost (GitHub) | Binlog-based, triggerless |
+| MySQL | pt-online-schema-change | Triggers + chunk iteration |
+| Vitess | Online DDL | Vitess scheduler |
 
 ---
 
 ## 🔗 Koneksi ke Catatan Lain
 
-| Catatan                              | Koneksi                               |
-| :----------------------------------- | :------------------------------------ |
-| [[database-internals-indexing-mvcc]] | Storage engine & indexing theory      |
-| [[postgresql-admin-backup]]          | Operasional sehari-hari               |
-| [[postgresql-performance-triage]]    | Slow query troubleshooting            |
-| [[data-engineering]]                 | Pipeline & warehouse                  |
-| [[distributed-systems]]              | CAP, replication, partitioning theory |
-| [[ddia-kleppmann]]                   | Part II — distributed data storage    |
-| [[software-engineering]]             | Application-level patterns            |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[database-internals-indexing-mvcc]] | Storage engine & indexing theory |
+| [[postgresql-admin-backup]] | Operasional sehari-hari |
+| [[postgresql-performance-triage]] | Slow query troubleshooting |
+| [[data-engineering]] | Pipeline & warehouse |
+| [[distributed-systems]] | CAP, replication, partitioning theory |
+| [[ddia-kleppmann]] | Part II — distributed data storage |
+| [[software-engineering]] | Application-level patterns |
 
 ---
 

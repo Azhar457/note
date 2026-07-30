@@ -1,16 +1,15 @@
 ---
 title: Research Methodology
 tags:
-  - fundamentals
-  - library
-created: "2026-04-23"
-updated: "2026-07-01"
+- fundamentals
+- library
+created: '2026-04-23'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 ---
-
 # 🔭 Research Methodology — Hierarki Lengkap
 
 > [!ABSTRACT] Definisi
@@ -19,17 +18,16 @@ cssclasses: ""
 ---
 
 ## 📑 Daftar Isi
-
-1. [[#Sheet 1 — Hierarki Research]]
+1. [[#Sheet 1 — Hierarki Research: Dari Observasi sampai Paradigm Shift]]
 2. [[#Sheet 2 — Tipe Penelitian dan Kapan Dipakai]]
-3. [[#Sheet 3 — Dari Ide ke Publikasi]]
-4. [[#Sheet 4 — Research untuk Insinyur IT]]
+3. [[#Sheet 3 — Dari Ide ke Publikasi: Alur Lengkap]]
+4. [[#Sheet 4 — Research untuk Insinyur IT: Bedanya dengan Sains Murni]]
 
 ---
 
 ## Sheet 1 — Hierarki Research: Dari Observasi sampai Paradigm Shift
 
-| 🔭 Level & Metode                          | ⚡ Cara Kerja & Sweet Spot                                                                                                                                                                                                                                                                                                                 | ☠️ Tembok Kematian                                                                                                                                                                                                           | 🎯 Contoh Nyata                                                                                                                                                                                                              |
+| 🔭 Level & Metode                          | ⚡ Cara Kerja & Sweet Spot                                                                                                                                                                                                                                                                                                                  | ☠️ Tembok Kematian                                                                                                                                                                                                           | 🎯 Contoh Nyata                                                                                                                                                                                                              |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Level 0** — Observasi & Curiosity        | Semua riset dimulai di sini. Melihat sesuatu yang aneh, tidak konsisten, atau belum ada penjelasannya. "Kenapa grafik kecepatan flashdisk naik-turun?" adalah contoh observasi valid. Question First: tetesan pertanyaan yang tepat lebih berharga dari jawaban.                                                                           | Bias konfirmasi — mencari bukti yang mendukung apa yang sudah kamu percaya, bukan yang membuktikan kamu salah. Observasi tanpa dokumentasi = hilang.                                                                         | Newton melihat apel jatuh. Fleming melihat jamur membunuh bakteri. Keduanya tidak melewatkan anomali.                                                                                                                        |
 | **Level 1** — Literature Review            | Baca semua yang sudah ada tentang topikmu sebelum klaim "belum ada yang tahu ini." Google Scholar, Semantic Scholar, ArXiv, IEEE Xplore, ACM Digital Library. Citation chaining: dari paper A temukan paper B yang dikutipnya, terus ke belakang. Gunakan Zotero/Mendeley untuk manajemen referensi.                                       | Kebanyakan mahasiswa skip level ini dan reinvent the wheel. Atau sebaliknya: tenggelam di literature dan tidak pernah mulai riset. Batasi diri: systematic review atau scoping review, bukan baca semua.                     | Sebelum publish tentang teknik RE baru, cek dulu apakah USENIX Security atau IEEE S&P sudah punya paper serupa.                                                                                                              |
@@ -78,13 +76,12 @@ graph TD
 ```
 
 ### Format Paper Standar (IMRaD)
-
-- **Abstract:** Masalah, metode, hasil (tulis paling terakhir).
-- **Introduction:** Motivasi ("Why should anyone care?").
-- **Related Work:** Bedakan dirimu dari penelitian sebelumnya. Jangan skip bagian ini.
-- **Methodology:** Detail teknis agar bisa direplikasi orang lain (Reproducibility).
-- **Results:** Data murni, grafik, dan tabel (tanpa opini).
-- **Discussion:** Interpretasi, limitasi, dan kejujuran soal kelemahan riset.
+* **Abstract:** Masalah, metode, hasil (tulis paling terakhir).
+* **Introduction:** Motivasi ("Why should anyone care?").
+* **Related Work:** Bedakan dirimu dari penelitian sebelumnya. Jangan skip bagian ini.
+* **Methodology:** Detail teknis agar bisa direplikasi orang lain (Reproducibility).
+* **Results:** Data murni, grafik, dan tabel (tanpa opini).
+* **Discussion:** Interpretasi, limitasi, dan kejujuran soal kelemahan riset.
 
 ---
 
@@ -93,30 +90,26 @@ graph TD
 > [!INFO] Karakteristik CS Research
 > Dalam Teknik Informatika, "penemuan" sering kali berbentuk artefak (software/hardware) yang bekerja lebih efisien, bukan sekadar teori.
 
-| Aspek            | Sains Murni              | Engineering / CS Research           |
-| :--------------- | :----------------------- | :---------------------------------- |
-| **Output Utama** | Penjelasan fenomena alam | Artefak (Sistem, Algoritma, Tool)   |
-| **Validasi**     | Eksperimen terkontrol    | Benchmark, User Study, POC          |
-| **Venue Top**    | Nature, Science, Cell    | USENIX, IEEE S&P, NeurIPS, OSDI     |
-| **Open Source**  | Jarang wajib             | Semakin wajib (Artifact Evaluation) |
-| **Kecepatan**    | Bisa tahunan             | Siklus Conference 6-12 bulan        |
+| Aspek | Sains Murni | Engineering / CS Research |
+| :--- | :--- | :--- |
+| **Output Utama** | Penjelasan fenomena alam | Artefak (Sistem, Algoritma, Tool) |
+| **Validasi** | Eksperimen terkontrol | Benchmark, User Study, POC |
+| **Venue Top** | Nature, Science, Cell | USENIX, IEEE S&P, NeurIPS, OSDI |
+| **Open Source** | Jarang wajib | Semakin wajib (Artifact Evaluation) |
+| **Kecepatan** | Bisa tahunan | Siklus Conference 6-12 bulan |
 
 ### Venue Relevan (Security, Systems, & AI)
-
-| Tier      | Security                  | Systems             | AI/ML               |
-| :-------- | :------------------------ | :------------------ | :------------------ |
-| **A\***   | USENIX Security, IEEE S&P | SOSP, OSDI, EuroSys | NeurIPS, ICML, ICLR |
-| **A**     | RAID, ACSAC, DIMVA        | ATC, FAST, SoCC     | AAAI, IJCAI, CVPR   |
-| **Lokal** | INAPR, Semnastek          | ICICIC              | TSI                 |
+| Tier | Security | Systems | AI/ML |
+| :--- | :--- | :--- | :--- |
+| **A\*** | USENIX Security, IEEE S&P | SOSP, OSDI, EuroSys | NeurIPS, ICML, ICLR |
+| **A** | RAID, ACSAC, DIMVA | ATC, FAST, SoCC | AAAI, IJCAI, CVPR |
+| **Lokal** | INAPR, Semnastek | ICICIC | TSI |
 
 ---
-
-!_(gambar)_
-
+!*(gambar)*
 ## 💡 Strategi & Jebakan
 
 > [!SUCCESS] 7 Kunci Research (Meta-Skill)
->
 > 1. **80/20 Focus:** Identifikasi 20% paper yang menghasilkan 80% insight.
 > 2. **Active Recall:** Setelah baca paper, tulis ringkasannya tanpa melihat teks.
 > 3. **Feynman Technique:** Jika tak bisa jelaskan dengan simpel, kamu belum paham.
@@ -126,15 +119,12 @@ graph TD
 > 7. **Spaced Repetition:** Review paper penting secara berkala.
 
 > [!DANGER] Jebakan Mahasiswa IT
->
-> - **Code First:** Langsung coding sebelum baca literatur (berujung _reinvent the wheel_).
+> - **Code First:** Langsung coding sebelum baca literatur (berujung *reinvent the wheel*).
 > - **Perfeksionisme:** Terlalu lama poles kode hingga tidak pernah submit.
 > - **Solo Player:** Riset sendirian. Kolaborasi jauh lebih cepat dan minim bias.
 
 ---
-
 **Metadata**
-
 - **Tags:** **research** **methodology** **informatics** **security** **academic**
 - **Related:** [[hierarchy-osint-rf|OSINT & RF Hierarchy]], **malware_analysis_research**
 - **Last Updated:** 2026-04-23

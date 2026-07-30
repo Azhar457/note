@@ -1,13 +1,13 @@
 ---
 title: Quantum
 tags:
-  - 06-communications-intelligence-(sigint)
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-28"
-updated: "2026-07-01"
+- 06-communications-intelligence-(sigint)
+- library
+- military-and-intelligence-tools
+created: '2026-06-28'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -25,12 +25,12 @@ Jika UPSTREAM dan TEMPORA adalah pengawasan pasif (mendengarkan), QUANTUM adalah
 
 Sering ada kebingungan antara istilah ini:
 
-| Istilah               | Makna                                                      |
-| --------------------- | ---------------------------------------------------------- |
+| Istilah | Makna |
+|--------|-------|
 | **QUANTUM (program)** | Program NSA secara keseluruhan untuk network attack aktif. |
-| **QUANTUM Insert**    | Teknik spesifik: HTTP race condition injection.            |
-| **QUANTUM Theory**    | Teknik BGP hijack untuk mengalihkan traffic.               |
-| **QUANTUM DNS**       | DNS poisoning/spoofing untuk mengarahkan ulang target.     |
+| **QUANTUM Insert** | Teknik spesifik: HTTP race condition injection. |
+| **QUANTUM Theory** | Teknik BGP hijack untuk mengalihkan traffic. |
+| **QUANTUM DNS** | DNS poisoning/spoofing untuk mengarahkan ulang target. |
 
 QUANTUM adalah **payung besar**, sedangkan QUANTUM Insert, QUANTUM Theory, dan QUANTUM DNS adalah teknik-teknik di bawahnya.
 
@@ -42,14 +42,14 @@ QUANTUM bergantung pada **posisi strategis di backbone internet**. NSA menempatk
 
 ### Komponen Utama
 
-| Komponen                | Fungsi                                                                                  |
-| ----------------------- | --------------------------------------------------------------------------------------- |
-| **QUANTUM Server**      | Server yang memonitor traffic backbone secara real-time dan menyuntikkan respons palsu. |
-| **QUANTUM BGP Engine**  | Untuk mengumumkan rute BGP palsu dan mengalihkan traffic target.                        |
-| **QUANTUM DNS Engine**  | Untuk melakukan DNS spoofing terhadap permintaan target.                                |
-| **Target Database**     | Berisi selector (IP, cookie, username) dari target yang telah diidentifikasi.           |
-| **FOXACID Integration** | Integrasi langsung dengan server exploit delivery FOXACID.                              |
-| **TURBINE Integration** | Integrasi dengan sistem manajemen implant otomatis.                                     |
+| Komponen | Fungsi |
+|----------|--------|
+| **QUANTUM Server** | Server yang memonitor traffic backbone secara real-time dan menyuntikkan respons palsu. |
+| **QUANTUM BGP Engine** | Untuk mengumumkan rute BGP palsu dan mengalihkan traffic target. |
+| **QUANTUM DNS Engine** | Untuk melakukan DNS spoofing terhadap permintaan target. |
+| **Target Database** | Berisi selector (IP, cookie, username) dari target yang telah diidentifikasi. |
+| **FOXACID Integration** | Integrasi langsung dengan server exploit delivery FOXACID. |
+| **TURBINE Integration** | Integrasi dengan sistem manajemen implant otomatis. |
 
 ### Arsitektur Alur Serangan
 
@@ -91,14 +91,12 @@ QUANTUM bergantung pada **posisi strategis di backbone internet**. NSA menempatk
 Ini adalah teknik paling umum dan sudah dibahas secara mendalam di dokumen [[quantum-insert-and-blackpearl]].
 
 **Ringkasan:**
-
 - QUANTUM memonitor traffic HTTP target.
 - Ketika target melakukan GET ke website tertentu, QUANTUM mengirimkan respons HTTP 302 Redirect palsu.
 - Respons palsu harus menang **race condition** dengan respons server asli (QUANTUM lebih dekat ke target secara jaringan).
 - Target diarahkan ke server FOXACID.
 
 **Keunggulan:**
-
 - Cepat (milidetik).
 - Tidak memerlukan BGP hijack.
 - Bekerja pada traffic yang tidak terenkripsi (HTTP) atau jika SSL bisa di-bypass.
@@ -108,27 +106,23 @@ Ini adalah teknik paling umum dan sudah dibahas secara mendalam di dokumen [[qua
 Teknik ini jauh lebih kuat dan memungkinkan pengalihan **semua traffic target**, bukan hanya HTTP.
 
 **Cara Kerja:**
-
 1. NSA memiliki akses ke router BGP di beberapa ISP besar (melalui program FAIRVIEW/STORMBREW).
 2. Untuk mengalihkan traffic target, NSA mengumumkan **BGP prefix yang lebih spesifik** untuk IP server yang menjadi tujuan target.
 3. Karena prefix yang lebih spesifik menang dalam routing BGP, traffic target dialihkan melalui router NSA.
 4. NSA sekarang menjadi **Man-in-the-Middle** penuh — bisa melihat, memodifikasi, atau mengalihkan traffic.
 
 **Contoh:**
-
 - Target ingin mengakses `mail.google.com` (IP: 142.250.185.206).
 - NSA mengumumkan prefix `142.250.185.206/32` (lebih spesifik dari /24 milik Google).
 - Traffic dialihkan ke server NSA.
 - NSA bisa menyajikan halaman login palsu, mengintersep kredensial, atau mengalihkan ke FOXACID.
 
 **Keunggulan:**
-
 - Bisa mengintersep traffic terenkripsi (HTTPS) jika target menerima sertifikat palsu.
 - Tidak bergantung pada race condition.
 - Bisa menarget semua protokol (HTTP, HTTPS, SMTP, FTP, dll.).
 
 **Kelemahan:**
-
 - Lebih mudah terdeteksi (BGP monitoring).
 - Memerlukan akses ke router BGP besar.
 - Hanya bisa dilakukan untuk waktu singkat (menit/jam) sebelum terdeteksi.
@@ -138,18 +132,15 @@ Teknik ini jauh lebih kuat dan memungkinkan pengalihan **semua traffic target**,
 Teknik ini mengalihkan target dengan memalsukan respons DNS.
 
 **Cara Kerja:**
-
 1. QUANTUM memonitor permintaan DNS target.
 2. Ketika target meminta resolusi `www.target-website.com`, QUANTUM mengirimkan respons DNS palsu dengan IP server FOXACID/NSA.
 3. Browser target terhubung ke IP palsu, mengira itu adalah website asli.
 
 **Keunggulan:**
-
 - Tidak perlu race condition di layer HTTP.
 - Bisa mengalihkan seluruh domain, bukan hanya satu halaman.
 
 **Kelemahan:**
-
 - Hanya berfungsi jika permintaan DNS tidak terenkripsi (DNSSEC dan DoH/DoT mempersulit).
 - Cache DNS di resolver lokal bisa menyimpan respons asli.
 
@@ -180,16 +171,15 @@ Ketiganya terintegrasi secara real-time: QUANTUM mendeteksi target dalam milidet
 
 Dokumen Snowden mengungkapkan skala QUANTUM yang masif:
 
-| Metrik                    | Angka (Estimasi 2012-2013)                                 |
-| ------------------------- | ---------------------------------------------------------- |
-| **Server QUANTUM global** | Puluhan (di lokasi strategis)                              |
-| **Target per hari**       | Ribuan                                                     |
-| **Jenis target**          | Diplomat, militer, ilmuwan, jurnalis, administrator sistem |
-| **Infrastruktur**         | FAIRVIEW (AT&T), STORMBREW (Verizon), mitra Five Eyes      |
-| **Negara target**         | China, Rusia, Iran, Korea Utara, Venezuela, dan lainnya    |
+| Metrik | Angka (Estimasi 2012-2013) |
+|--------|---------------------------|
+| **Server QUANTUM global** | Puluhan (di lokasi strategis) |
+| **Target per hari** | Ribuan |
+| **Jenis target** | Diplomat, militer, ilmuwan, jurnalis, administrator sistem |
+| **Infrastruktur** | FAIRVIEW (AT&T), STORMBREW (Verizon), mitra Five Eyes |
+| **Negara target** | China, Rusia, Iran, Korea Utara, Venezuela, dan lainnya |
 
 QUANTUM digunakan untuk:
-
 - **Mata-mata diplomatik**: Menginfeksi kedutaan dan misi diplomatik.
 - **Kontra-terorisme**: Mengalihkan komunikasi teroris ke server NSA.
 - **Spionase ekonomi**: Mengintersep komunikasi perusahaan asing.
@@ -201,36 +191,36 @@ QUANTUM digunakan untuk:
 
 ### 1. Deteksi QUANTUM Insert (Race Condition)
 
-| Metode                 | Detail                                                                        |
-| ---------------------- | ----------------------------------------------------------------------------- |
-| **TTL Analysis**       | Response palsu sering memiliki TTL berbeda dari server asli.                  |
-| **Duplicate Response** | Target menerima dua respons HTTP (302 redirect + 200 OK asli).                |
-| **Network Timing**     | Response yang tiba "terlalu cepat" (lebih cepat dari geografis memungkinkan). |
+| Metode | Detail |
+|--------|--------|
+| **TTL Analysis** | Response palsu sering memiliki TTL berbeda dari server asli. |
+| **Duplicate Response** | Target menerima dua respons HTTP (302 redirect + 200 OK asli). |
+| **Network Timing** | Response yang tiba "terlalu cepat" (lebih cepat dari geografis memungkinkan). |
 
 ### 2. Deteksi BGP Hijack (QUANTUM Theory)
 
-| Metode              | Alat                                                                                |
-| ------------------- | ----------------------------------------------------------------------------------- |
-| **BGP Monitoring**  | BGPMon, Qrator, RIPE RIS — alert jika prefix Anda tiba-tiba diumumkan oleh AS lain. |
-| **RPKI Validation** | Resource Public Key Infrastructure — memvalidasi otorisasi rute BGP.                |
-| **Latency Spike**   | Rerouting traffic melalui NSA akan menambah latency.                                |
+| Metode | Alat |
+|--------|------|
+| **BGP Monitoring** | BGPMon, Qrator, RIPE RIS — alert jika prefix Anda tiba-tiba diumumkan oleh AS lain. |
+| **RPKI Validation** | Resource Public Key Infrastructure — memvalidasi otorisasi rute BGP. |
+| **Latency Spike** | Rerouting traffic melalui NSA akan menambah latency. |
 
 ### 3. Deteksi DNS Spoofing
 
-| Metode                | Alat                                                               |
-| --------------------- | ------------------------------------------------------------------ |
-| **DNSSEC Validation** | Memvalidasi respons DNS dengan tanda tangan kriptografis.          |
+| Metode | Alat |
+|--------|------|
+| **DNSSEC Validation** | Memvalidasi respons DNS dengan tanda tangan kriptografis. |
 | **Response Mismatch** | DNS respons dari IP yang tidak dikenal (bukan resolver tepercaya). |
 
 ### 4. Countermeasures Umum
 
-| Lapisan                 | Tindakan                                                                |
-| ----------------------- | ----------------------------------------------------------------------- |
-| **HTTPS + HSTS**        | Mencegah HTTP race condition injection. Preload HSTS.                   |
-| **DoH/DoT**             | DNS over HTTPS / DNS over TLS mencegah DNS spoofing.                    |
-| **RPKI**                | Operator jaringan harus menerapkan RPKI untuk mencegah BGP hijack.      |
-| **VPN/Tor**             | Menyembunyikan IP target dan mengenkripsi traffic, mempersulit QUANTUM. |
-| **Certificate Pinning** | Mencegah MITM dengan sertifikat palsu.                                  |
+| Lapisan | Tindakan |
+|---------|----------|
+| **HTTPS + HSTS** | Mencegah HTTP race condition injection. Preload HSTS. |
+| **DoH/DoT** | DNS over HTTPS / DNS over TLS mencegah DNS spoofing. |
+| **RPKI** | Operator jaringan harus menerapkan RPKI untuk mencegah BGP hijack. |
+| **VPN/Tor** | Menyembunyikan IP target dan mengenkripsi traffic, mempersulit QUANTUM. |
+| **Certificate Pinning** | Mencegah MITM dengan sertifikat palsu. |
 
 ---
 
@@ -269,11 +259,11 @@ QUANTUM, terutama QUANTUM Theory (BGP hijack), adalah eskalasi ofensif yang sang
 
 ## 📚 Referensi
 
-- Snowden, E. (2013). _NSA Documents: QUANTUM, FOXACID, and TURBINE_ (The Guardian, Der Spiegel).
-- Gallagher, R. (2014). _How the NSA Plans to Infect Millions of Computers with Malware_. The Intercept.
-- Cimpanu, C. (2018-2023). _BGP Hijack Incidents: Analysis and Attribution_. ZDNet.
+- Snowden, E. (2013). *NSA Documents: QUANTUM, FOXACID, and TURBINE* (The Guardian, Der Spiegel).
+- Gallagher, R. (2014). *How the NSA Plans to Infect Millions of Computers with Malware*. The Intercept.
+- Cimpanu, C. (2018-2023). *BGP Hijack Incidents: Analysis and Attribution*. ZDNet.
 - MITRE ATT&CK: T1583.004 (Acquire Infrastructure: Server), T1189 (Drive-by Compromise), T1557 (Man-in-the-Middle).
 
 ---
 
-_QUANTUM (NSA) Deep Dive | Active Network Attack & BGP Hijack Program | SIGINT Offensive Operations_
+*QUANTUM (NSA) Deep Dive | Active Network Attack & BGP Hijack Program | SIGINT Offensive Operations*

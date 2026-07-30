@@ -71,7 +71,6 @@ cssclasses:
 ```
 
 **Workflow recommended:**
-
 ```bash
 # 1. Terraform: provisioning
 terraform init
@@ -404,40 +403,40 @@ ansible all -i inventory.yml -m systemd -a "name=nginx state=restarted" -b
     app_user: dev
 
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
 
-    - name: Install Nginx
-      apt:
-        name: nginx
-        state: present
+  - name: Install Nginx
+    apt:
+      name: nginx
+      state: present
 
-    - name: Copy Nginx config
-      template:
-        src: "templates/nginx.conf.j2"
-        dest: "/etc/nginx/sites-available/default"
-      notify: restart nginx
+  - name: Copy Nginx config
+    template:
+      src: "templates/nginx.conf.j2"
+      dest: "/etc/nginx/sites-available/default"
+    notify: restart nginx
 
-    - name: Enable site
-      file:
-        src: /etc/nginx/sites-available/default
-        dest: /etc/nginx/sites-enabled/default
-        state: link
-      notify: restart nginx
+  - name: Enable site
+    file:
+      src: /etc/nginx/sites-available/default
+      dest: /etc/nginx/sites-enabled/default
+      state: link
+    notify: restart nginx
 
-    - name: Start Nginx
-      systemd:
-        name: nginx
-        state: started
-        enabled: yes
+  - name: Start Nginx
+    systemd:
+      name: nginx
+      state: started
+      enabled: yes
 
   handlers:
-    - name: restart nginx
-      systemd:
-        name: nginx
-        state: restarted
+  - name: restart nginx
+    systemd:
+      name: nginx
+      state: restarted
 ```
 
 ### Variables & Templates
@@ -508,7 +507,7 @@ roles/
 # site.yml — main playbook
 - hosts: all
   roles:
-    - common # base setup: user, timezone, repo, firewall
+    - common                 # base setup: user, timezone, repo, firewall
     - role: nginx
       vars:
         nginx_port: 443
@@ -778,10 +777,10 @@ Ansible default adalah **push mode**: control node SSH ke target dan push konfig
 ansible-playbook -i production.ini site.yml
 ```
 
-| Pro                                           | Kontra                                  |
-| --------------------------------------------- | --------------------------------------- |
-| Control penuh — tau kapan konfigurasi jalan   | Target harus reachable via SSH          |
-| Lebih mudah debug — output langsung           | Butuh VPN/tunnel untuk server di NAT    |
+| Pro | Kontra |
+|-----|--------|
+| Control penuh — tau kapan konfigurasi jalan | Target harus reachable via SSH |
+| Lebih mudah debug — output langsung | Butuh VPN/tunnel untuk server di NAT |
 | Integrasi CI/CD natural (GitHub Actions push) | Gak jalan kalau server offline pas push |
 
 **Use case:** Cloud VPS, datacenter servers, environment dengan VPN.
@@ -796,7 +795,6 @@ ansible-pull -U https://github.com/org/ansible-config.git -C production --accept
 Target server git clone playbook dari repo, lalu apply ke dirinya sendiri via local connection.
 
 **Use case:**
-
 - **IoT / Edge devices:** Server di lokasi terpencil, NAT, intermittent connectivity
 - **Immutable infrastructure:** Auto-repair — server restart apply konfigurasi dari git HEAD
 - **Air-gapped:** Server yang gak boleh konek inbound
@@ -809,11 +807,11 @@ Target server git clone playbook dari repo, lalu apply ke dirinya sendiri via lo
 
 Flag `-o` (--only-if-changed): skip kalau git commit sama (hemat resource). `--clean`: hapus file yang gak ada di repo.
 
-| Pro                                           | Kontra                                 |
-| --------------------------------------------- | -------------------------------------- |
-| Gak perlu SSH inbound — aman                  | Timing gak terprediksi (jadwal cron)   |
-| Auto-repair — server pull konfigurasi terbaru | Error lebih susah di-debug             |
-| Skala ribuan device tanpa control node        | Butuh Git credentials di setiap device |
+| Pro | Kontra |
+|-----|--------|
+| Gak perlu SSH inbound — aman | Timing gak terprediksi (jadwal cron) |
+| Auto-repair — server pull konfigurasi terbaru | Error lebih susah di-debug |
+| Skala ribuan device tanpa control node | Butuh Git credentials di setiap device |
 
 ---
 
@@ -881,7 +879,6 @@ ansible-playbook site.yml --check --diff  # tampilkan perubahan
 Check mode: Ansible **simulasi** perubahan tanpa benar-benar menjalankan. Module ngasih tau "saya akan ubah ini" tanpa mengubah state server.
 
 **Cara kerja:**
-
 - Module `file`, `copy`, `template`: compare state existing vs desired → report changed jika beda
 - Module `apt`, `yum`: cek package version tanpa install
 - Module `systemd`: cek status service tanpa start/stop
@@ -890,7 +887,6 @@ Check mode: Ansible **simulasi** perubahan tanpa benar-benar menjalankan. Module
 ### Kapan Ansible TIDAK Idempotent?
 
 1. **Command / Shell module tanpa guard:**
-
    ```yaml
    - name: ❌ Jangan — selalu changed
      command: /opt/deploy.sh
@@ -900,7 +896,6 @@ Check mode: Ansible **simulasi** perubahan tanpa benar-benar menjalankan. Module
    ```
 
 2. **Script yang tidak stateless:**
-
    ```yaml
    - name: ❌ Append tiap jalan
      shell: echo "log entry" >> /var/log/app.log
@@ -936,7 +931,7 @@ Ansible secara default menjalankan task **parallel ke semua host** dalam satu ba
 ```yaml
 - name: Rolling update web servers — 1 server at a time
   hosts: web
-  serial: 1 # atau serial: "20%" untuk 20% host tiap batch
+  serial: 1          # atau serial: "20%" untuk 20% host tiap batch
   tasks:
     - name: Stop service
       systemd:
@@ -971,7 +966,7 @@ Dengan `serial: 1`, Ansible deploy ke satu server → health check → baru lanj
     name: myapp
     state: present
   run_once: yes
-  delegate_to: "{{ groups.db[0] }}" # jalan di host pertama group db
+  delegate_to: "{{ groups.db[0] }}"  # jalan di host pertama group db
 
 - name: Generate shared secret
   shell: openssl rand -base64 32
@@ -1003,7 +998,7 @@ Dengan `serial: 1`, Ansible deploy ke satu server → health check → baru lanj
   systemd:
     name: myapp
     state: restarted
-  throttle: 3 # max 3 host bersamaan
+  throttle: 3     # max 3 host bersamaan
 ```
 
 Berguna untuk tasks yang berat (reboot, DB migration, pulling large Docker images). Bedanya dengan `serial`: `throttle` membatasi satu task, `serial` membatasi seluruh playbook per batch.
@@ -1012,7 +1007,7 @@ Berguna untuk tasks yang berat (reboot, DB migration, pulling large Docker image
 
 ```yaml
 - hosts: all
-  strategy: free # tiap host jalan sendiri — gak nunggu host lain
+  strategy: free    # tiap host jalan sendiri — gak nunggu host lain
   tasks:
     - command: /opt/long-task.sh
 ```
@@ -1047,12 +1042,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: terraform plan -out=tfplan # Always run plan
+      - run: terraform plan -out=tfplan   # Always run plan
 
   approve:
     needs: plan
     runs-on: ubuntu-latest
-    environment: production # GitHub Environments — manual approval
+    environment: production               # GitHub Environments — manual approval
     steps:
       - run: echo "Approved by ${{ github.actor }}"
 
@@ -1250,14 +1245,14 @@ terragrunt run-all destroy
 
 ## 20. Koneksi ke Vault
 
-| Catatan                             | Koneksi                                                                    |
-| ----------------------------------- | -------------------------------------------------------------------------- |
+| Catatan | Koneksi |
+|---------|---------|
 | [[ansible-hardening-rocky-linux-9]] | Ansible untuk hardening spesifik Rocky Linux — catatan ini general-purpose |
-| [[cicd-github-actions-praktik]]     | CI/CD pipeline — Terraform apply otomatis dari pipeline                    |
-| [[linux-hardening-audit-praktis]]   | Ansible bisa otomasi semua hardening di catatan itu                        |
-| [[vps-hardening-playbook]]          | Hardening VPS — bisa di-ansible-kan                                        |
-| [[cicd-guide]]                      | CI/CD konseptual — link ke deployment pipeline                             |
-| [[infrastructure-administrator]]    | Admin tasks — IaC adalah subset administrasi modern                        |
+| [[cicd-github-actions-praktik]] | CI/CD pipeline — Terraform apply otomatis dari pipeline |
+| [[linux-hardening-audit-praktis]] | Ansible bisa otomasi semua hardening di catatan itu |
+| [[vps-hardening-playbook]] | Hardening VPS — bisa di-ansible-kan |
+| [[cicd-guide]] | CI/CD konseptual — link ke deployment pipeline |
+| [[infrastructure-administrator]] | Admin tasks — IaC adalah subset administrasi modern |
 
 ## References
 

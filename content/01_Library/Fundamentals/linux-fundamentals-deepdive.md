@@ -1,16 +1,16 @@
 ---
-title: "Linux Fundamentals — Deep Dive: Processes, Systemd, Filesystem, Users, Shell,
-  Package Management"
+title: 'Linux Fundamentals — Deep Dive: Processes, Systemd, Filesystem, Users, Shell,
+  Package Management'
 tags:
-  - fundamentals
-  - linux
-  - os
-  - library
-created: "2026-07-16"
-updated: "2026-07-16"
+- fundamentals
+- linux
+- os
+- library
+created: '2026-07-16'
+updated: '2026-07-16'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # 🐧 Linux Fundamentals — Deep Dive: Processes, Systemd, Filesystem, Users, Shell, Package Management
@@ -126,15 +126,15 @@ cat /sys/class/thermal/thermal_zone*/temp  # Temperatures
 #  x=exec └──User (owner) execute
 ```
 
-| Tipe             | Karakter | Contoh       |
-| ---------------- | -------- | ------------ |
-| Regular file     | `-`      | `-rw-r--r--` |
-| Directory        | `d`      | `drwxr-xr-x` |
-| Symlink          | `l`      | `lrwxrwxrwx` |
-| Socket           | `s`      | `srwxrwxrwx` |
-| Named pipe       | `p`      | `prw-r--r--` |
-| Block device     | `b`      | `brw-r-----` |
-| Character device | `c`      | `crw-rw-rw-` |
+| Tipe | Karakter | Contoh |
+|------|----------|--------|
+| Regular file | `-` | `-rw-r--r--` |
+| Directory | `d` | `drwxr-xr-x` |
+| Symlink | `l` | `lrwxrwxrwx` |
+| Socket | `s` | `srwxrwxrwx` |
+| Named pipe | `p` | `prw-r--r--` |
+| Block device | `b` | `brw-r-----` |
+| Character device | `c` | `crw-rw-rw-` |
 
 **Numeric (Octal) Representation:**
 
@@ -148,11 +148,11 @@ Owner=7  Group=5  Other=5
 
 **Special permissions:**
 
-| Bit            | Numerik           | File                                                      | Directory                                 |
-| -------------- | ----------------- | --------------------------------------------------------- | ----------------------------------------- |
-| **SUID**       | 4xxx (e.g., 4755) | Run sebagai owner file (biasanya root) — `passwd`, `ping` | Ignored                                   |
-| **SGID**       | 2xxx (e.g., 2755) | Run sebagai group file                                    | File baru di dalamnya inherit group       |
-| **Sticky bit** | 1xxx (e.g., 1777) | Ignored                                                   | Hanya owner yang bisa hapus file — `/tmp` |
+| Bit | Numerik | File | Directory |
+|-----|---------|------|-----------|
+| **SUID** | 4xxx (e.g., 4755) | Run sebagai owner file (biasanya root) — `passwd`, `ping` | Ignored |
+| **SGID** | 2xxx (e.g., 2755) | Run sebagai group file | File baru di dalamnya inherit group |
+| **Sticky bit** | 1xxx (e.g., 1777) | Ignored | Hanya owner yang bisa hapus file — `/tmp` |
 
 ```bash
 # SUID example
@@ -225,24 +225,24 @@ setcap cap_net_bind_service=+ep /usr/bin/myapp
 
 ### Files
 
-| File           | Fungsi                        | Format                                                     |
-| -------------- | ----------------------------- | ---------------------------------------------------------- |
-| `/etc/passwd`  | User accounts                 | `username:x:UID:GID:info:home:shell`                       |
-| `/etc/shadow`  | Password hash                 | `username:$y$hash:lastchange:min:max:warn:inactive:expire` |
-| `/etc/group`   | Groups                        | `groupname:x:GID:user1,user2`                              |
-| `/etc/gshadow` | Group passwords               | Jarang dipake                                              |
-| `/etc/subuid`  | Subordinate UIDs (containers) | `user:100000:65536`                                        |
-| `/etc/shells`  | Valid shells                  | Daftar path shell yang valid                               |
+| File | Fungsi | Format |
+|------|--------|--------|
+| `/etc/passwd` | User accounts | `username:x:UID:GID:info:home:shell` |
+| `/etc/shadow` | Password hash | `username:$y$hash:lastchange:min:max:warn:inactive:expire` |
+| `/etc/group` | Groups | `groupname:x:GID:user1,user2` |
+| `/etc/gshadow` | Group passwords | Jarang dipake |
+| `/etc/subuid` | Subordinate UIDs (containers) | `user:100000:65536` |
+| `/etc/shells` | Valid shells | Daftar path shell yang valid |
 
 **Hash format di /etc/shadow:**
 
-| Prefix | Algoritma | Status                                      |
-| ------ | --------- | ------------------------------------------- |
-| `$y$`  | yescrypt  | 🟢 Modern — default di Debian/Ubuntu modern |
-| `$6$`  | SHA-512   | 🟡 OK — masih banyak dipake                 |
-| `$5$`  | SHA-256   | 🟡 OK                                       |
-| `$2b$` | bcrypt    | 🟢 Good                                     |
-| `$1$`  | MD5       | 🔴 Deprecated — jangan                      |
+| Prefix | Algoritma | Status |
+|--------|-----------|--------|
+| `$y$` | yescrypt | 🟢 Modern — default di Debian/Ubuntu modern |
+| `$6$` | SHA-512 | 🟡 OK — masih banyak dipake |
+| `$5$` | SHA-256 | 🟡 OK |
+| `$2b$` | bcrypt | 🟢 Good |
+| `$1$` | MD5 | 🔴 Deprecated — jangan |
 
 ### Commands
 
@@ -311,15 +311,15 @@ pstree -p          # With PIDs
 
 ### Signals
 
-| Signal      | Number | Default Action            | Use Case                                       |
-| ----------- | ------ | ------------------------- | ---------------------------------------------- |
-| **SIGHUP**  | 1      | Terminate                 | Reload config (nginx -s reload, kill -HUP PID) |
-| **SIGINT**  | 2      | Terminate                 | Ctrl+C — interrupt                             |
-| **SIGQUIT** | 3      | Core dump                 | Ctrl+\ — quit + core dump                      |
-| **SIGKILL** | 9      | Terminate (cannot catch!) | `kill -9 PID` — force kill                     |
-| **SIGTERM** | 15     | Terminate                 | `kill PID` — graceful shutdown                 |
-| **SIGSTOP** | 19     | Stop (cannot catch!)      | Ctrl+Z — suspend process                       |
-| **SIGCONT** | 18     | Continue                  | `fg` / `bg` — resume                           |
+| Signal | Number | Default Action | Use Case |
+|--------|--------|---------------|----------|
+| **SIGHUP** | 1 | Terminate | Reload config (nginx -s reload, kill -HUP PID) |
+| **SIGINT** | 2 | Terminate | Ctrl+C — interrupt |
+| **SIGQUIT** | 3 | Core dump | Ctrl+\ — quit + core dump |
+| **SIGKILL** | 9 | Terminate (cannot catch!) | `kill -9 PID` — force kill |
+| **SIGTERM** | 15 | Terminate | `kill PID` — graceful shutdown |
+| **SIGSTOP** | 19 | Stop (cannot catch!) | Ctrl+Z — suspend process |
+| **SIGCONT** | 18 | Continue | `fg` / `bg` — resume |
 
 ```bash
 kill -15 PID       # Graceful shutdown
@@ -355,15 +355,15 @@ Systemd adalah init system dan service manager default di hampir semua distro mo
 
 Systemd manage **units** — resource yang dikenal systemd:
 
-| Unit Type     | Extension    | Fungsi                                | Contoh                                                 |
-| ------------- | ------------ | ------------------------------------- | ------------------------------------------------------ |
-| **Service**   | `.service`   | Daemon                                | nginx.service, sshd.service                            |
-| **Socket**    | `.socket`    | Socket listening                      | sshd.socket (socket-activated service)                 |
-| **Timer**     | `.timer`     | Scheduled task (replacement cron)     | certbot.timer, systemd-tmpfiles-clean.timer            |
-| **Mount**     | `.mount`     | Mount point                           | home.mount, var-lib.mount                              |
-| **Automount** | `.automount` | On-demand mount                       | mnt-nfs.automount                                      |
-| **Path**      | `.path`      | Trigger on file change                | backup.path (trigger backup.service kalo file berubah) |
-| **Target**    | `.target`    | Group of units (runlevel replacement) | multi-user.target, graphical.target                    |
+| Unit Type | Extension | Fungsi | Contoh |
+|-----------|-----------|--------|--------|
+| **Service** | `.service` | Daemon | nginx.service, sshd.service |
+| **Socket** | `.socket` | Socket listening | sshd.socket (socket-activated service) |
+| **Timer** | `.timer` | Scheduled task (replacement cron) | certbot.timer, systemd-tmpfiles-clean.timer |
+| **Mount** | `.mount` | Mount point | home.mount, var-lib.mount |
+| **Automount** | `.automount` | On-demand mount | mnt-nfs.automount |
+| **Path** | `.path` | Trigger on file change | backup.path (trigger backup.service kalo file berubah) |
+| **Target** | `.target` | Group of units (runlevel replacement) | multi-user.target, graphical.target |
 
 ### Systemctl Commands
 
@@ -460,13 +460,13 @@ systemctl list-timers --all
 
 ### Distro Families
 
-| Family     | Distro                                 | Package Format | Manager            | Low-Level |
-| ---------- | -------------------------------------- | -------------- | ------------------ | --------- |
-| **Debian** | Debian, Ubuntu, Kali, Mint, Pop!_OS    | `.deb`         | `apt`              | `dpkg`    |
-| **RHEL**   | RHEL, Fedora, CentOS, Rocky, AlmaLinux | `.rpm`         | `dnf` (yum legacy) | `rpm`     |
-| **SUSE**   | openSUSE, SLES                         | `.rpm`         | `zypper`           | `rpm`     |
-| **Arch**   | Arch, Manjaro, EndeavourOS             | `.pkg.tar.zst` | `pacman`           | `pacman`  |
-| **Nix**    | NixOS                                  | `.nix`         | `nix`              | `nix`     |
+| Family | Distro | Package Format | Manager | Low-Level |
+|--------|--------|---------------|---------|-----------|
+| **Debian** | Debian, Ubuntu, Kali, Mint, Pop!_OS | `.deb` | `apt` | `dpkg` |
+| **RHEL** | RHEL, Fedora, CentOS, Rocky, AlmaLinux | `.rpm` | `dnf` (yum legacy) | `rpm` |
+| **SUSE** | openSUSE, SLES | `.rpm` | `zypper` | `rpm` |
+| **Arch** | Arch, Manjaro, EndeavourOS | `.pkg.tar.zst` | `pacman` | `pacman` |
+| **Nix** | NixOS | `.nix` | `nix` | `nix` |
 
 ### APT (Debian)
 
@@ -532,14 +532,14 @@ pacman -F /usr/bin/ss        # File belongs to which package
 
 ### Filesystem Types
 
-| FS           | Use Case                               | Max File Size | Max Volume | Journaling | Fitur                                           |
-| ------------ | -------------------------------------- | ------------- | ---------- | ---------- | ----------------------------------------------- |
-| **ext4**     | General purpose (default Linux)        | 16 TB         | 1 EB       | ✅         | Default, mature, reliable                       |
-| **XFS**      | Large files, parallel I/O              | 8 EB          | 8 EB       | ✅         | Good for databases, large files                 |
-| **btrfs**    | Advanced: snapshots, compression, RAID | 16 EB         | 16 EB      | ✅         | Snapshot, subvolume, compression, send/receive  |
-| **ZFS**      | Enterprise: checksum, pool, dedup      | 16 EB         | 256 ZB     | ✅         | Copy-on-write, checksum all data, built-in RAID |
-| **tmpfs**    | RAM-based temporary                    | RAM size      | RAM size   | ❌         | Super fast — /tmp, /dev/shm                     |
-| **squashfs** | Compressed RO filesystem               | 16 TB         | 16 TB      | ❌         | Live CD, AppImage, Snap packages                |
+| FS | Use Case | Max File Size | Max Volume | Journaling | Fitur |
+|----|----------|--------------|------------|------------|-------|
+| **ext4** | General purpose (default Linux) | 16 TB | 1 EB | ✅ | Default, mature, reliable |
+| **XFS** | Large files, parallel I/O | 8 EB | 8 EB | ✅ | Good for databases, large files |
+| **btrfs** | Advanced: snapshots, compression, RAID | 16 EB | 16 EB | ✅ | Snapshot, subvolume, compression, send/receive |
+| **ZFS** | Enterprise: checksum, pool, dedup | 16 EB | 256 ZB | ✅ | Copy-on-write, checksum all data, built-in RAID |
+| **tmpfs** | RAM-based temporary | RAM size | RAM size | ❌ | Super fast — /tmp, /dev/shm |
+| **squashfs** | Compressed RO filesystem | 16 TB | 16 TB | ❌ | Live CD, AppImage, Snap packages |
 
 ### Mount & fstab
 
@@ -757,16 +757,16 @@ journalctl -k -p err --since "1 hour ago"  # Kernel errors last hour
 
 Namespaces mengisolasi sumber daya — ini fondasi container:
 
-| Namespace  | Constants       | Apa yang Diisolasi                                        | Container Impact                                                                     |
-| ---------- | --------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **pid**    | CLONE_NEWPID    | Process ID — proses di dalam cuma lihat prosesnya sendiri | ❌ `kill -9 PID` dari host gak bisa liat proses container                            |
-| **net**    | CLONE_NEWNET    | Network stack — interface, IP, routing, iptables          | ✅ Setiap container punya eth0 sendiri, IP sendiri                                   |
-| **mnt**    | CLONE_NEWNS     | Mount point — filesystem terisolasi                       | ✅ Root container beda dari host                                                     |
-| **uts**    | CLONE_NEWUTS    | Hostname + domain                                         | ✅ Container bisa hostname sendiri                                                   |
-| **ipc**    | CLONE_NEWIPC    | IPC resources (System V, POSIX message queues)            | Isolasi komunikasi inter-proses                                                      |
-| **user**   | CLONE_NEWUSER   | UID/GID mapping — root di container ≠ root di host        | 🔑 **Kunci keamanan container** — bisa peta UID 0 di container ke UID 100000 di host |
-| **cgroup** | CLONE_NEWCGROUP | Cgroup hierarchy                                          | Isolasi resource accounting                                                          |
-| **time**   | CLONE_NEWTIME   | Boot time + monotonic clock                               | Isolasi waktu                                                                        |
+| Namespace | Constants | Apa yang Diisolasi | Container Impact |
+|-----------|-----------|-------------------|------------------|
+| **pid** | CLONE_NEWPID | Process ID — proses di dalam cuma lihat prosesnya sendiri | ❌ `kill -9 PID` dari host gak bisa liat proses container |
+| **net** | CLONE_NEWNET | Network stack — interface, IP, routing, iptables | ✅ Setiap container punya eth0 sendiri, IP sendiri |
+| **mnt** | CLONE_NEWNS | Mount point — filesystem terisolasi | ✅ Root container beda dari host |
+| **uts** | CLONE_NEWUTS | Hostname + domain | ✅ Container bisa hostname sendiri |
+| **ipc** | CLONE_NEWIPC | IPC resources (System V, POSIX message queues) | Isolasi komunikasi inter-proses |
+| **user** | CLONE_NEWUSER | UID/GID mapping — root di container ≠ root di host | 🔑 **Kunci keamanan container** — bisa peta UID 0 di container ke UID 100000 di host |
+| **cgroup** | CLONE_NEWCGROUP | Cgroup hierarchy | Isolasi resource accounting |
+| **time** | CLONE_NEWTIME | Boot time + monotonic clock | Isolasi waktu |
 
 ```bash
 # Check namespaces of a process
@@ -810,22 +810,20 @@ type    control   module   arguments
 ```
 
 **Types:**
-
-| Type       | Kapan Di-exec                                                                             |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| `auth`     | Autentikasi — verifikasi identitas (password, biometric, MFA, YubiKey)                    |
-| `account`  | Otorisasi — cek apakah user diizinkan (expired, time-based, group)                        |
-| `password` | Password change — update password hash                                                    |
-| `session`  | Setup/teardown lingkungan sebelum/sesudah login (open PAM session, mount home, log audit) |
+| Type | Kapan Di-exec |
+|------|---------------|
+| `auth` | Autentikasi — verifikasi identitas (password, biometric, MFA, YubiKey) |
+| `account` | Otorisasi — cek apakah user diizinkan (expired, time-based, group) |
+| `password` | Password change — update password hash |
+| `session` | Setup/teardown lingkungan sebelum/sesudah login (open PAM session, mount home, log audit) |
 
 **Control values:**
-
-| Control      | Arti                                                                     |
-| ------------ | ------------------------------------------------------------------------ |
-| `required`   | Harus sukses, tapi jalan terus ke module berikutnya (gagal di akhir)     |
-| `requisite`  | Harus sukses, langsung gagal kalo tidak (gak jalan ke module berikutnya) |
-| `sufficient` | Kalo sukses + belum gagal sebelumnya → langsung berhasil (skip sisa)     |
-| `optional`   | Gak penting — cuma dipake kalo module lain butuh                         |
+| Control | Arti |
+|---------|------|
+| `required` | Harus sukses, tapi jalan terus ke module berikutnya (gagal di akhir) |
+| `requisite` | Harus sukses, langsung gagal kalo tidak (gak jalan ke module berikutnya) |
+| `sufficient` | Kalo sukses + belum gagal sebelumnya → langsung berhasil (skip sisa) |
+| `optional` | Gak penting — cuma dipake kalo module lain butuh |
 
 ### Chain Example
 
@@ -878,21 +876,21 @@ session    required     pam_lastlog.so         # Update lastlog
 
 ## References
 
-1. Linux Foundation. _Filesystem Hierarchy Standard 3.0_. https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
-2. freedesktop.org. _systemd Documentation_. https://www.freedesktop.org/software/systemd/man/systemd.html
-3. Linux man pages. _man 7 capabilities, man 7 namespaces, man 7 cgroups_. https://man7.org/linux/man-pages/
-4. Debian. _APT User's Guide_. https://www.debian.org/doc/manuals/apt-guide/
-5. Fedora. _DNF Documentation_. https://dnf.readthedocs.io/en/latest/
-6. Arch Linux. _Pacman Documentation_. https://wiki.archlinux.org/title/pacman
-7. Linux.com. _Linux Permissions Guide_. https://www.linux.com/training-tutorials/understanding-linux-file-permissions/
-8. Red Hat. _PAM Documentation_. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_authentication_and_authorization_in_rhel/pluggable-authentication-modules_pam
-9. Red Hat. _Linux Namespaces_. https://www.redhat.com/en/topics/containers/what-is-a-linux-namespace
-10. Kernel.org. _Cgroup v2 Documentation_. https://www.kernel.org/doc/Documentation/cgroup-v2.txt
-11. TLDP. _Bash Guide for Beginners_. https://tldp.org/LDP/Bash-Beginners-Guide/html/
-12. Google. _Shell Style Guide_. https://google.github.io/styleguide/shellguide.html
-13. Ubuntu. _Netplan Documentation_. https://netplan.io/
-14. NetworkManager. _nmcli Documentation_. https://networkmanager.dev/docs/api/latest/nmcli.html
-15. Kernel.org. _Linux Kernel /proc Documentation_. https://www.kernel.org/doc/html/latest/filesystems/proc.html
+1. Linux Foundation. *Filesystem Hierarchy Standard 3.0*. https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
+2. freedesktop.org. *systemd Documentation*. https://www.freedesktop.org/software/systemd/man/systemd.html
+3. Linux man pages. *man 7 capabilities, man 7 namespaces, man 7 cgroups*. https://man7.org/linux/man-pages/
+4. Debian. *APT User's Guide*. https://www.debian.org/doc/manuals/apt-guide/
+5. Fedora. *DNF Documentation*. https://dnf.readthedocs.io/en/latest/
+6. Arch Linux. *Pacman Documentation*. https://wiki.archlinux.org/title/pacman
+7. Linux.com. *Linux Permissions Guide*. https://www.linux.com/training-tutorials/understanding-linux-file-permissions/
+8. Red Hat. *PAM Documentation*. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_authentication_and_authorization_in_rhel/pluggable-authentication-modules_pam
+9. Red Hat. *Linux Namespaces*. https://www.redhat.com/en/topics/containers/what-is-a-linux-namespace
+10. Kernel.org. *Cgroup v2 Documentation*. https://www.kernel.org/doc/Documentation/cgroup-v2.txt
+11. TLDP. *Bash Guide for Beginners*. https://tldp.org/LDP/Bash-Beginners-Guide/html/
+12. Google. *Shell Style Guide*. https://google.github.io/styleguide/shellguide.html
+13. Ubuntu. *Netplan Documentation*. https://netplan.io/
+14. NetworkManager. *nmcli Documentation*. https://networkmanager.dev/docs/api/latest/nmcli.html
+15. Kernel.org. *Linux Kernel /proc Documentation*. https://www.kernel.org/doc/html/latest/filesystems/proc.html
 
 > [!tip] Bottom Line
 > Linux adalah **medan operasi utama** buat security engineer — server, container, embedded, cloud, semuanya Linux. Tanpa paham filesystem, process, systemd, dan namespaces, lo cuma bisa execute command tanpa ngerti dampaknya. Investasi waktu belajar Linux fundamentals adalah **investasi dengan ROI tertinggi** di karir ini karena (1) semua tool security jalan di atas Linux, (2) semua log ada di /var/log, (3) semua container = namespace + cgroup, (4) semua remote exploit ujungnya shell di Linux. Prioritaskan: **process & signals** (tau cara matiin/kill process dengan benar), **systemd** (service management modern), **permissions** (kenapa SUID berbahaya, apa itu capabilities), dan **troubleshooting** (tau strace, ss, iostat, dmesg ketika ada yang error).

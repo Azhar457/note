@@ -1,12 +1,12 @@
 ---
 title: Platform Technologies Overview
 tags:
-  - library
-  - platform-technologies
-created: "2026-05-29"
-updated: "2026-07-01"
+- library
+- platform-technologies
+created: '2026-05-29'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # ⚡ PLATFORM TECHNOLOGIES — Yang Sama "OP"-nya dengan eBPF
@@ -22,11 +22,11 @@ cssclasses: ""
 
 | Teknologi                  | Layer                 | Masalah Lama                                                        | Solusi Baru                                                               | Adopted By                                       | Status 2026                           | Koneksi Vault                                                  |            |
 | -------------------------- | --------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------- | -------------------------------------------------------------- | ---------- |
-| **io_uring**               | OS / Syscall          | epoll + aio tidak skalabel, overhead syscall per-operation          | Async I/O ring buffer — satu syscall untuk ribuan operasi                 | PostgreSQL, RocksDB, NGINX, Android              | ✅ Production, kernel 5.1+            | [[computer-science-foundations\|computer-science-foundations]] |            |
-| **WebAssembly (WASM)**     | Runtime               | Docker terlalu berat untuk edge/serverless, binary tidak portable   | Universal bytecode — satu binary jalan di browser/server/edge/embedded    | Cloudflare, Fastly, Docker, Shopify              | ✅ Production, WASI maturing          | [[cloud-infrastructure\|cloud-infrastructure]]                 |            |
+| **io_uring**               | OS / Syscall          | epoll + aio tidak skalabel, overhead syscall per-operation          | Async I/O ring buffer — satu syscall untuk ribuan operasi                 | PostgreSQL, RocksDB, NGINX, Android              | ✅ Production, kernel 5.1+             | [[computer-science-foundations\|computer-science-foundations]] |            |
+| **WebAssembly (WASM)**     | Runtime               | Docker terlalu berat untuk edge/serverless, binary tidak portable   | Universal bytecode — satu binary jalan di browser/server/edge/embedded    | Cloudflare, Fastly, Docker, Shopify              | ✅ Production, WASI maturing           | [[cloud-infrastructure\|cloud-infrastructure]]                 |            |
 | **CXL**                    | Hardware / Memory     | Server tidak bisa share RAM — AI training butuh RAM massif per node | Memory disaggregation — pool RAM yang bisa di-share antar server via PCIe | Intel, AMD, Samsung, AWS, Google                 | 🟡 CXL 3.0 spec, early production     | [[computer-science-foundations\|computer-science-foundations]] |            |
-| **Confidential Computing** | Hardware Security     | Cloud provider bisa akses data customer di memori                   | TEE (Trusted Execution Environment) — RAM terenkripsi saat komputasi      | Azure, GCP, AWS, IBM                             | ✅ Production di semua major cloud    | [[cryptography-biometrics\|cryptography-biometrics]]           |            |
-| **DPU / SmartNIC**         | Hardware / Networking | CPU waste 30% cycle untuk networking overhead                       | Dedicated programmable chip — networking/storage/security offload         | AWS (Nitro), NVIDIA (BlueField), AMD (Pensando)  | ✅ Production di hyperscaler          | [[cloud-infrastructure                                         | Cloud]]    |
+| **Confidential Computing** | Hardware Security     | Cloud provider bisa akses data customer di memori                   | TEE (Trusted Execution Environment) — RAM terenkripsi saat komputasi      | Azure, GCP, AWS, IBM                             | ✅ Production di semua major cloud     | [[cryptography-biometrics\|cryptography-biometrics]]           |            |
+| **DPU / SmartNIC**         | Hardware / Networking | CPU waste 30% cycle untuk networking overhead                       | Dedicated programmable chip — networking/storage/security offload         | AWS (Nitro), NVIDIA (BlueField), AMD (Pensando)  | ✅ Production di hyperscaler           | [[cloud-infrastructure                                         | Cloud]]    |
 | **P4 Language**            | Network Hardware      | Switch firmware closed — tidak bisa custom forwarding logic         | Program packet forwarding di ASIC/FPGA dengan bahasa deklaratif           | Google (Orion), Microsoft (SONiC), Tofino switch | 🟡 Niche tapi growing di hyperscaler  | [Network](/01_Library/Cyber_Security/Network_Threats/)         |            |
 | **RISC-V**                 | CPU Architecture      | ARM/x86 = vendor lock-in, licence fees, closed ISA                  | Open instruction set — siapapun bisa buat CPU RISC-V tanpa royalti        | SiFive, StarFive, Alibaba, Google, NASA          | 🟡 Growing, dominant di embedded 2030 | [[embedded-systems                                             | Embedded]] |
 
@@ -69,13 +69,13 @@ Zero syscall setelah setup awal!
 (atau satu syscall io_uring_enter untuk ribuan operasi)
 ```
 
-| Metrik                | epoll + read/write      | io_uring                           |
-| --------------------- | ----------------------- | ---------------------------------- |
-| Syscall per operasi   | 1+                      | ~0 (setelah setup)                 |
-| Throughput (file I/O) | ~500K ops/s             | ~2M+ ops/s                         |
-| CPU overhead          | Tinggi (context switch) | Sangat rendah                      |
-| Support file type     | Terbatas                | Semua (network, file, pipe, timer) |
-| Kernel version        | Legacy                  | 5.1+ (full feature 5.7+)           |
+| Metrik | epoll + read/write | io_uring |
+|---|---|---|
+| Syscall per operasi | 1+ | ~0 (setelah setup) |
+| Throughput (file I/O) | ~500K ops/s | ~2M+ ops/s |
+| CPU overhead | Tinggi (context switch) | Sangat rendah |
+| Support file type | Terbatas | Semua (network, file, pipe, timer) |
+| Kernel version | Legacy | 5.1+ (full feature 5.7+) |
 
 ```
 Who uses io_uring in production:
@@ -92,8 +92,8 @@ Beberapa container platform disable io_uring karena attack surface
 Tapi kernel 6.x sudah jauh lebih aman
 ```
 
-> [!tip] Koneksi ke eBPF
-> io_uring + eBPF adalah kombinasi sempurna: io_uring untuk zero-overhead I/O, eBPF untuk monitor setiap operasi io_uring dengan zero overhead tambahan. RocksDB + io_uring + eBPF profiler = stack observability terbaik untuk storage engine.
+>[!tip] Koneksi ke eBPF
+>io_uring + eBPF adalah kombinasi sempurna: io_uring untuk zero-overhead I/O, eBPF untuk monitor setiap operasi io_uring dengan zero overhead tambahan. RocksDB + io_uring + eBPF profiler = stack observability terbaik untuk storage engine.
 
 ---
 
@@ -222,8 +222,8 @@ Prediksi:
 2028-2030: Disaggregated memory jadi standard
 ```
 
-> [!tip] Koneksi ke Vault
-> CXL langsung nyambung ke Computer Architecture (NUMA → CXL sebagai "remote NUMA"), Data Recovery (CXL memory bisa persistent — antara RAM dan SSD), dan AI Levels (training LLM yang feasible tanpa cluster besar).
+>[!tip] Koneksi ke Vault
+>CXL langsung nyambung ke Computer Architecture (NUMA → CXL sebagai "remote NUMA"), Data Recovery (CXL memory bisa persistent — antara RAM dan SSD), dan AI Levels (training LLM yang feasible tanpa cluster besar).
 
 ---
 
@@ -295,8 +295,8 @@ REMOTE ATTESTATION:
 → Ini yang disebut "hardware root of trust"
 ```
 
-> [!tip] Koneksi ke Vault
-> Confidential Computing nyambung langsung ke Kriptografi (TEE + Post-Quantum signing), LLM Security (private AI inference), dan OS Hierarchy (Ring -1 level hardware security).
+>[!tip] Koneksi ke Vault
+>Confidential Computing nyambung langsung ke Kriptografi (TEE + Post-Quantum signing), LLM Security (private AI inference), dan OS Hierarchy (Ring -1 level hardware security).
 
 ---
 
@@ -600,4 +600,4 @@ Untuk KAMU (security + systems + AI interest):
 
 ---
 
-_Platform Technologies | io_uring · WebAssembly · CXL · Confidential Computing · DPU · P4 · RISC-V · The Next eBPF-level Shifts_
+*Platform Technologies | io_uring · WebAssembly · CXL · Confidential Computing · DPU · P4 · RISC-V · The Next eBPF-level Shifts*

@@ -9,7 +9,7 @@ tags:
 aliases:
   - "hierarchy-side-channel"
 created: "2026-07-17"
-updated: "2026-07-17"
+updated: '2026-07-17'
 status: pending
 ---
 
@@ -24,14 +24,14 @@ status: pending
 
 ## Tabel Utama — Level 0 sampai Level 5
 
-| ⚡ Level                                    | 🧠 Pendekatan                                                                                                 | ⚡ Teknik & Cara Kerja                                                                                                                                                                                                                                                          | ☠️ Tembok / Countermeasure                                                                                                                       | 🎯 Aplikasi Nyata                                                                              |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| **Level 0** — Timing Attack                 | Ukur **waktu eksekusi** fungsi kriptografi. Perbedaan waktu eksekusi untuk input berbeda → infer data rahasia | Classic: timing attack pada RSA (Kocher 1996) — waktu exponentiation bergantung pada bit kunci. **Remote timing attack** via network latency (bisa dilakukan dari jaringan lain)                                                                                                | Constant-time programming. Blinding (randomize exponent). **Jitter/noise injection.** Network latency noise bisa masking                         | Crack password verification (string comparison timing), RSA key extraction via network         |
-| **Level 1** — Power Analysis (Simple)       | Monitor **konsumsi daya** chip secara langsung — SPA (Simple Power Analysis)                                  | Setiap instruksi punya power signature berbeda. Operasi kripto (AES S-box lookup, RSA multiplication) tampak jelas di power trace. **Satu trace cukup** untuk baca kunci langsung                                                                                               | Hiding (randomize instruksi). Masking (split data jadi multiple shares). **Single trace saja tidak cukup jika ada noise filtering.**             | Smart card attack, IoT key extraction, hardware security research                              |
-| **Level 2** — Power Analysis (Differential) | DPA: korelasi statistik **ribuan trace** → ekstrak kunci dari noise background                                | Tidak perlu tahu instruksi spesifik. Kumpulkan 10k+ trace dengan input random → korelasi trace dengan hypothetical power model → kunci ter-reveal                                                                                                                               | Masking (order d — semakin tinggi d, semakin sulit DPA). Random delay insertion. **ChipWhisperer bisa break masking order 1 dalam ribuan trace** | ChipWhisperer target training, smart card reverse, secure element evaluation                   |
-| **Level 3** — EM Emanation                  | Probe antena dekat chip → baca **emisi elektromagnetik** tanpa kontak fisik                                   | Setiap transisi transistor memancarkan EM. Dengan probe dekat (±1mm dari die), EM trace sama detail dengan power trace. **Non-invasive**: tanpa modifikasi device                                                                                                               | EM shielding (mu-metal, copper tape). On-die EM sensor (deteksi probe). **EM masih sama powerful dengan power analysis — lebih non-invasif**     | Smartphone secure element (SE), TPM extraction, hardware forensic evaluation                   |
-| **Level 4** — Acoustic / Thermal / Optical  | Analisis suara keyboard, panas chip, atau pantulan cahaya LED                                                 | **Acoustic**: suara keyboard bisa direkonstruksi ke teks (typo acoustic attack). **Thermal**: chip yang baru compute punya hotspot — thermal camera bisa baca data residual. **Optical**: pantulan monitor ke mata kucing/teko → baca data di layar (Van Eck phreaking optical) | **Acoustic**: quiet keyboard, white noise. **Thermal**: cooldown period. **Optical**: privacy screen, frosted glass                              | Keylogger via microphone (acoustic keyboard), data extraction dari air-gapped system (thermal) |
-| **☠️ Level 5** — Fault + Cache + Quantum    | Cache timing (Flush+Reload, Prime+Probe), Rowhammer, Quantum side-channel                                     | **Cache timing**: Flush+Reload — monitor cache line untuk infer data di shared memory (Meltdown/Spectre). **Rowhammer**: flip bit di DRAM tetangga via akses berulang. **Quantum side-channel**: measure qubit state via EM dari quantum processor                              | Cache flush instructions (clflush). ECC memory mitigasi Rowhammer. Quantum side-channel baru frontier — mitigasi belum ada                       | Cloud VM escape (Meltdown/Spectre — 2018), DRAM bit flip (Rowhammer), akademis frontier        |
+| ⚡ Level | 🧠 Pendekatan | ⚡ Teknik & Cara Kerja | ☠️ Tembok / Countermeasure | 🎯 Aplikasi Nyata |
+|---|---|---|---|---|
+| **Level 0** — Timing Attack | Ukur **waktu eksekusi** fungsi kriptografi. Perbedaan waktu eksekusi untuk input berbeda → infer data rahasia | Classic: timing attack pada RSA (Kocher 1996) — waktu exponentiation bergantung pada bit kunci. **Remote timing attack** via network latency (bisa dilakukan dari jaringan lain) | Constant-time programming. Blinding (randomize exponent). **Jitter/noise injection.** Network latency noise bisa masking | Crack password verification (string comparison timing), RSA key extraction via network |
+| **Level 1** — Power Analysis (Simple) | Monitor **konsumsi daya** chip secara langsung — SPA (Simple Power Analysis) | Setiap instruksi punya power signature berbeda. Operasi kripto (AES S-box lookup, RSA multiplication) tampak jelas di power trace. **Satu trace cukup** untuk baca kunci langsung | Hiding (randomize instruksi). Masking (split data jadi multiple shares). **Single trace saja tidak cukup jika ada noise filtering.** | Smart card attack, IoT key extraction, hardware security research |
+| **Level 2** — Power Analysis (Differential) | DPA: korelasi statistik **ribuan trace** → ekstrak kunci dari noise background | Tidak perlu tahu instruksi spesifik. Kumpulkan 10k+ trace dengan input random → korelasi trace dengan hypothetical power model → kunci ter-reveal | Masking (order d — semakin tinggi d, semakin sulit DPA). Random delay insertion. **ChipWhisperer bisa break masking order 1 dalam ribuan trace** | ChipWhisperer target training, smart card reverse, secure element evaluation |
+| **Level 3** — EM Emanation | Probe antena dekat chip → baca **emisi elektromagnetik** tanpa kontak fisik | Setiap transisi transistor memancarkan EM. Dengan probe dekat (±1mm dari die), EM trace sama detail dengan power trace. **Non-invasive**: tanpa modifikasi device | EM shielding (mu-metal, copper tape). On-die EM sensor (deteksi probe). **EM masih sama powerful dengan power analysis — lebih non-invasif** | Smartphone secure element (SE), TPM extraction, hardware forensic evaluation |
+| **Level 4** — Acoustic / Thermal / Optical | Analisis suara keyboard, panas chip, atau pantulan cahaya LED | **Acoustic**: suara keyboard bisa direkonstruksi ke teks (typo acoustic attack). **Thermal**: chip yang baru compute punya hotspot — thermal camera bisa baca data residual. **Optical**: pantulan monitor ke mata kucing/teko → baca data di layar (Van Eck phreaking optical) | **Acoustic**: quiet keyboard, white noise. **Thermal**: cooldown period. **Optical**: privacy screen, frosted glass | Keylogger via microphone (acoustic keyboard), data extraction dari air-gapped system (thermal) |
+| **☠️ Level 5** — Fault + Cache + Quantum | Cache timing (Flush+Reload, Prime+Probe), Rowhammer, Quantum side-channel | **Cache timing**: Flush+Reload — monitor cache line untuk infer data di shared memory (Meltdown/Spectre). **Rowhammer**: flip bit di DRAM tetangga via akses berulang. **Quantum side-channel**: measure qubit state via EM dari quantum processor | Cache flush instructions (clflush). ECC memory mitigasi Rowhammer. Quantum side-channel baru frontier — mitigasi belum ada | Cloud VM escape (Meltdown/Spectre — 2018), DRAM bit flip (Rowhammer), akademis frontier |
 
 ---
 
@@ -62,24 +62,23 @@ AES-256 secara matematis aman (butuh 2^256 percobaan brute force). Tapi AES deng
 
 ### 2. Applicable ke Semua Level Hardware
 
-| Target               | SC Attack Layer   | Efektivitas                      |
-| -------------------- | ----------------- | -------------------------------- |
-| Smart card (contact) | SPA/DPA (L1/L2)   | Sangat efektif                   |
-| Mobile phone SE      | EM (L3)           | Efektif dengan probe dekat       |
-| Cloud VM             | Cache timing (L5) | Meltdown/Spectre                 |
-| Air-gapped PC        | Acoustic (L4)     | Lambat tapi possible             |
-| IoT microcontroller  | SPA (L1)          | Sangat efektif (tanpa shielding) |
+| Target | SC Attack Layer | Efektivitas |
+|---|---|---|
+| Smart card (contact) | SPA/DPA (L1/L2) | Sangat efektif |
+| Mobile phone SE | EM (L3) | Efektif dengan probe dekat |
+| Cloud VM | Cache timing (L5) | Meltdown/Spectre |
+| Air-gapped PC | Acoustic (L4) | Lambat tapi possible |
+| IoT microcontroller | SPA (L1) | Sangat efektif (tanpa shielding) |
 
 ### 3. Countermeasure Hierarchy = Kebalikan
 
-Countermeasure paling dasar: **constant-time** (gratis untuk developer yang aware).
-
+Countermeasure paling dasar: **constant-time** (gratis untuk developer yang aware). 
 - Constant-time → stop timing attack (L0)
-- - Hiding (random delay, shuffling) → mitigate SPA (L1)
-- - Masking (d-order) → mitigate DPA (L2)
-- - EM shielding → mitigate EM (L3)
-- - Physical isolation (air-gap) → mitigate acoustic/thermal (L4)
-- - ECC memory + no shared cache → mitigate cache/rowhammer (L5)
+- + Hiding (random delay, shuffling) → mitigate SPA (L1)
+- + Masking (d-order) → mitigate DPA (L2)
+- + EM shielding → mitigate EM (L3)
+- + Physical isolation (air-gap) → mitigate acoustic/thermal (L4)
+- + ECC memory + no shared cache → mitigate cache/rowhammer (L5)
 
 ---
 
@@ -112,4 +111,4 @@ Countermeasure paling dasar: **constant-time** (gratis untuk developer yang awar
 
 > Side-channel attack mengajarkan: **implementasi lebih penting dari algoritma.** AES-256 paling kuat pun tidak berguna jika power trace mengekspos kunci. Constant-time programming adalah investasi security paling murah dengan dampak tertinggi.
 
-_Side-Channel Attack Hierarchy | Level 0 (Timing) → Level 5 (Cache/Fault/Quantum) · Membaca Rahasia dari Efek Samping_
+*Side-Channel Attack Hierarchy | Level 0 (Timing) → Level 5 (Cache/Fault/Quantum) · Membaca Rahasia dari Efek Samping*

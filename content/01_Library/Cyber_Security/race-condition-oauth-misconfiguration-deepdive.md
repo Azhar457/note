@@ -25,15 +25,14 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
-- [[#Bagian 1]]
+- [[#Bagian 1: OAuth Misconfiguration]]
 - [[#1. Redirect URI Bypass]]
 - [[#2. State Parameter Missing]]
 - [[#3. CSRF on OAuth Flow]]
 - [[#4. Scope Escalation]]
 - [[#5. Token Leakage]]
 - [[#6. PKCE Missing]]
-- [[#Bagian 2]]
+- [[#Bagian 2: Race Condition OAuth]]
 - [[#7. OAuth + Race Condition]]
 - [[#8. Defense]]
 
@@ -89,7 +88,7 @@ GET /oauth/authorize?response_type=code&client_id=app123
 Tanpa state parameter, CSRF pada OAuth memungkinkan attacker mengikat akunnya ke akun korban.
 
 ```html
-<img src="https://target.com/oauth/link?code=ATTACKER_CODE" />
+<img src="https://target.com/oauth/link?code=ATTACKER_CODE">
 <!-- Korban mengakses → akun korban ter-link ke akun attacker -->
 ```
 
@@ -157,12 +156,12 @@ code=AUTHORIZATION_CODE  # × 10 requests concurrent
 
 ## 8. Defense
 
-| OAuth Issue    | Defense                                                   |
-| -------------- | --------------------------------------------------------- |
-| Redirect URI   | Exact match whitelist, jangan pakai regex                 |
-| State          | Wajib state parameter dengan CSRF token                   |
-| Scope          | Validasi scope sesuai registrasi aplikasi                 |
-| PKCE           | Wajib S256 PKCE untuk public clients                      |
+| OAuth Issue | Defense |
+|---|---|
+| Redirect URI | Exact match whitelist, jangan pakai regex |
+| State | Wajib state parameter dengan CSRF token |
+| Scope | Validasi scope sesuai registrasi aplikasi |
+| PKCE | Wajib S256 PKCE untuk public clients |
 | Race condition | Database locking + idempotency key untuk token redemption |
 
 **Referensi:** PayloadsAllTheThings `/Ref/PayloadsAllTheThings/OAuth Misconfiguration/`

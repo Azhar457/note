@@ -1,18 +1,18 @@
 ---
 tags:
-  - Cloudflare
-  - Tunnel
-  - zero-trust
-  - Networking
-  - Reverse-Proxy
-  - DNS
+- Cloudflare
+- Tunnel
+- zero-trust
+- Networking
+- Reverse-Proxy
+- DNS
 aliases:
-  - Cloudflare Tunnel
-  - Zero Trust Routing
+- Cloudflare Tunnel
+- Zero Trust Routing
 created: 2026-04-24
 status: pending
 title: Dokumen 03 Cloudflare Tunnel Routing
-updated: "2026-07-01"
+updated: '2026-07-01'
 ---
 
 # Dokumen 03 — Cloudflare Tunnel & Routing
@@ -23,13 +23,13 @@ updated: "2026-07-01"
 
 ## 1. Arsitektur Tunnel vs Tradisional
 
-| Aspek               | Tradisional (Port Forward) | Cloudflare Tunnel (Zero Trust) |
-| ------------------- | -------------------------- | ------------------------------ |
-| **Arah koneksi**    | Inbound dari internet      | Outbound ke Cloudflare         |
-| **Port router**     | Terbuka (80/443)           | Tertutup total                 |
-| **IP publik**       | Terexpose langsung         | Tersembunyi                    |
-| **DDoS protection** | Manual / berbayar          | Gratis bawaan                  |
-| **SSL/HTTPS**       | Manual (Let's Encrypt)     | Otomatis (Cloudflare)          |
+| Aspek | Tradisional (Port Forward) | Cloudflare Tunnel (Zero Trust) |
+|---|---|---|
+| **Arah koneksi** | Inbound dari internet | Outbound ke Cloudflare |
+| **Port router** | Terbuka (80/443) | Tertutup total |
+| **IP publik** | Terexpose langsung | Tersembunyi |
+| **DDoS protection** | Manual / berbayar | Gratis bawaan |
+| **SSL/HTTPS** | Manual (Let's Encrypt) | Otomatis (Cloudflare) |
 
 ```text
 Tradisional:  Internet ──► Router (Port 80/443) ──► NPM/Traefik ──► Nextcloud
@@ -57,10 +57,10 @@ Zero Trust:   Nextcloud ──► cloudflared ──► Cloudflare Edge ──�
 Token tunnel sudah disuntikkan ke file `docker-compose.yml` di [Dokumen 02](dokumen-02-docker-nextcloud-stack.md). Pastikan blok `tunnel` terisi token asli:
 
 ```yaml
-tunnel:
-  image: cloudflare/cloudflared:latest
-  restart: always
-  command: tunnel --no-autoupdate run --token eyJhIjoiNDE1ZTBlNjI2MmRiNWZiYWEyZTFjMDYwZjczNjM4ZTciLCJ0IjoiYjg5Y2U3MTEtZTBmZS00MThmLTliMTMtMzIy...
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel --no-autoupdate run --token eyJhIjoiNDE1ZTBlNjI2MmRiNWZiYWEyZTFjMDYwZjczNjM4ZTciLCJ0IjoiYjg5Y2U3MTEtZTBmZS00MThmLTliMTMtMzIy...
 ```
 
 Setelah disimpan, deploy ulang agar container `cloudflared` ikut menyala:
@@ -88,13 +88,13 @@ Setelah container tunnel berjalan, status di dashboard akan berubah menjadi **He
 2. Masuk ke tab **Public Hostname**.
 3. Klik **Add a public hostname**:
 
-| Field            | Nilai              | Keterangan                                |
-| ---------------- | ------------------ | ----------------------------------------- |
-| **Subdomain**    | `nextcloud`        | Bebas, sesuai kebutuhan                   |
-| **Domain**       | `namadomain.my.id` | Domain yang sudah diarahkan ke Cloudflare |
-| **Path**         | _(kosongkan)_      | Akses root domain                         |
-| **Service Type** | `HTTP`             | Bukan HTTPS — SSL diurus Cloudflare       |
-| **URL**          | `app:80`           | DNS internal Docker (bukan IP!)           |
+| Field | Nilai | Keterangan |
+|---|---|---|
+| **Subdomain** | `nextcloud` | Bebas, sesuai kebutuhan |
+| **Domain** | `namadomain.my.id` | Domain yang sudah diarahkan ke Cloudflare |
+| **Path** | *(kosongkan)* | Akses root domain |
+| **Service Type** | `HTTP` | Bukan HTTPS — SSL diurus Cloudflare |
+| **URL** | `app:80` | DNS internal Docker (bukan IP!) |
 
 > [!tip]
 > Mengapa `app:80`, bukan `192.168.1.51:8080`? Karena `cloudflared` berada di dalam jaringan Docker yang sama. Docker memiliki DNS internal yang menerjemahkan nama service (`app`) ke IP container Nextcloud secara otomatis. Ini adalah keajaiban Service Discovery di Docker Compose.
@@ -103,11 +103,11 @@ Setelah container tunnel berjalan, status di dashboard akan berubah menjadi **He
 
 Jika nanti menambah aplikasi lain di LXC yang sama (contoh: Kutt, Vaultwarden):
 
-| Aplikasi    | Public Hostname              | URL Internal     |
-| ----------- | ---------------------------- | ---------------- |
-| Nextcloud   | `nextcloud.namadomain.my.id` | `app:80`         |
-| Kutt        | `kutt.namadomain.my.id`      | `kutt:80`        |
-| Vaultwarden | `vault.namadomain.my.id`     | `vaultwarden:80` |
+| Aplikasi | Public Hostname | URL Internal |
+|---|---|---|
+| Nextcloud | `nextcloud.namadomain.my.id` | `app:80` |
+| Kutt | `kutt.namadomain.my.id` | `kutt:80` |
+| Vaultwarden | `vault.namadomain.my.id` | `vaultwarden:80` |
 
 > [!info]
 > Semua service berbagi satu tunnel `cloudflared`. Tidak perlu membuat tunnel baru untuk setiap aplikasi.
@@ -116,8 +116,8 @@ Jika nanti menambah aplikasi lain di LXC yang sama (contoh: Kutt, Vaultwarden):
 
 Jika aplikasi berada di LXC atau VM terpisah (contoh: Safeline di IP `192.168.1.52`), gunakan IP internal:
 
-| Aplikasi     | Public Hostname        | URL Internal               |
-| ------------ | ---------------------- | -------------------------- |
+| Aplikasi | Public Hostname | URL Internal |
+|---|---|---|
 | Safeline WAF | `waf.namadomain.my.id` | `http://192.168.1.52:8080` |
 
 ---
@@ -145,7 +145,7 @@ Temukan blok `trusted_domains`, lalu tambahkan domain publikmu:
 Simpan (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
 > [!info]
-> Perubahan ini bersifat _real-time_. Tidak perlu restart container Docker. Nextcloud langsung menerima koneksi dari domain baru.
+> Perubahan ini bersifat *real-time*. Tidak perlu restart container Docker. Nextcloud langsung menerima koneksi dari domain baru.
 
 ---
 
@@ -171,7 +171,6 @@ https://nextcloud.namadomain.my.id
 > Menggunakan mobile data memastikan kamu benar-benar mengakses dari internet publik, bukan dari jaringan lokal yang bisa bypass DNS.
 
 Jika halaman login Nextcloud muncul dengan sertifikat HTTPS hijau, seluruh rantai berhasil:
-
 1. ✅ Cloudflare Tunnel terhubung
 2. ✅ DNS internal Docker berfungsi
 3. ✅ Trusted domains diterima Nextcloud
@@ -181,12 +180,12 @@ Jika halaman login Nextcloud muncul dengan sertifikat HTTPS hijau, seluruh ranta
 
 ## 7. Troubleshooting Umum
 
-| Gejala                            | Penyebab                              | Solusi                                                                   |
-| --------------------------------- | ------------------------------------- | ------------------------------------------------------------------------ |
-| `502 Bad Gateway`                 | Nextcloud belum siap / container mati | `sudo docker ps` — pastikan `nextcloud-app-1` aktif                      |
-| `Access through untrusted domain` | Domain belum di `config.php`          | Tambahkan ke `trusted_domains` di `/opt/nextcloud/app/config/config.php` |
-| Tunnel status `Down`              | Token salah / container tidak jalan   | Cek log: `sudo docker logs nextcloud-tunnel-1`                           |
-| HTTPS tidak hijau                 | SSL mode Cloudflare salah             | Di dashboard Cloudflare → **SSL/TLS** → pilih **Full (strict)**          |
+| Gejala | Penyebab | Solusi |
+|---|---|---|
+| `502 Bad Gateway` | Nextcloud belum siap / container mati | `sudo docker ps` — pastikan `nextcloud-app-1` aktif |
+| `Access through untrusted domain` | Domain belum di `config.php` | Tambahkan ke `trusted_domains` di `/opt/nextcloud/app/config/config.php` |
+| Tunnel status `Down` | Token salah / container tidak jalan | Cek log: `sudo docker logs nextcloud-tunnel-1` |
+| HTTPS tidak hijau | SSL mode Cloudflare salah | Di dashboard Cloudflare → **SSL/TLS** → pilih **Full (strict)** |
 
 ---
 
@@ -209,10 +208,8 @@ Jika halaman login Nextcloud muncul dengan sertifikat HTTPS hijau, seluruh ranta
 > [!info]
 > Untuk memasang satpam keamanan aktif di server (Lynis, Trivy, CrowdSec), lanjut ke [[dokumen-04-security-stack|Dokumen 04]].
 > Untuk strategi backup dan maintenance, lanjut ke [[dokumen-05-maintenance-disaster-recovery|Dokumen 05]].
-
 ```
 
 ---
 
 Mau lanjut ke **Dokumen 04** sekarang?
-```

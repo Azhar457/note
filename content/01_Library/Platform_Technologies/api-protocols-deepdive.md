@@ -1,12 +1,12 @@
 ---
 title: Api Protocols Deepdive
 tags:
-  - library
-  - platform-technologies
-created: "2026-05-29"
-updated: "2026-07-01"
+- library
+- platform-technologies
+created: '2026-05-29'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🔌 API PROTOCOLS — Deep Dive: REST, gRPC, WebSocket, GraphQL
@@ -15,7 +15,6 @@ cssclasses: ""
 
 > [!warning] Koreksi Angka TikTok
 > Perbandingan di viral tersebut **bukan apple-to-apple**:
->
 > - REST uncached 150ms vs GraphQL 15ms: GraphQL **lebih lambat** dari REST tanpa DataLoader karena N+1 problem
 > - WebSocket 50ms: itu **connection setup overhead**, bukan per-message latency. Setelah connected, pesan bisa < 1ms
 > - gRPC 5ms: valid hanya untuk **internal service** dengan persistent connection dan protobuf. Tidak cocok untuk browser langsung
@@ -162,13 +161,13 @@ class APIResponse(BaseModel):
 @app.get("/users/{user_id}")
 async def get_user(user_id: int):
     user = await db.get_user(user_id)
-
+    
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,  # ← bukan 200!
             detail="User not found"
         )
-
+    
     return JSONResponse(
         status_code=status.HTTP_200_OK,
         content={"success": True, "data": user.dict()}
@@ -213,7 +212,7 @@ async def create_payment(
     existing = await cache.get(f"payment:{idempotency_key}")
     if existing:
         return existing  # Return hasil sebelumnya, bukan proses ulang
-
+    
     result = await process_payment(payment)
     await cache.set(f"payment:{idempotency_key}", result, ttl=86400)
     return result
@@ -300,13 +299,13 @@ message ListUsersResponse {
 service UserService {
   // Unary: satu request, satu response (seperti REST)
   rpc GetUser(GetUserRequest) returns (User);
-
+  
   // Server streaming: satu request, BANYAK response
   rpc ListUsers(ListUsersRequest) returns (stream User);
-
+  
   // Client streaming: BANYAK request, satu response
   rpc BatchCreateUsers(stream User) returns (BatchResult);
-
+  
   // Bidirectional streaming: banyak request + banyak response
   rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 }
@@ -320,7 +319,7 @@ import user_pb2
 import user_pb2_grpc
 
 class UserServicer(user_pb2_grpc.UserServiceServicer):
-
+    
     # Unary RPC
     def GetUser(self, request, context):
         user = db.get_user(request.id)
@@ -328,13 +327,13 @@ class UserServicer(user_pb2_grpc.UserServiceServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("User not found")
             return user_pb2.User()
-
+        
         return user_pb2.User(
             id=user.id,
             username=user.username,
             email=user.email
         )
-
+    
     # Server streaming RPC
     def ListUsers(self, request, context):
         # Yield satu per satu — client terima stream
@@ -434,45 +433,45 @@ app = FastAPI()
 
 class ConnectionManager:
     """Manage multiple WebSocket connections dengan rooms"""
-
+    
     def __init__(self):
         # room_id → list of WebSocket connections
         self.rooms: Dict[str, List[WebSocket]] = {}
         # websocket → metadata (user_id, room_id)
         self.metadata: Dict[WebSocket, dict] = {}
-
+    
     async def connect(self, websocket: WebSocket, room_id: str, user_id: str):
         await websocket.accept()
-
+        
         if room_id not in self.rooms:
             self.rooms[room_id] = []
-
+        
         self.rooms[room_id].append(websocket)
         self.metadata[websocket] = {"user_id": user_id, "room_id": room_id}
-
+        
         # Notify others in room
         await self.broadcast_to_room(
             room_id,
             {"type": "user_joined", "user_id": user_id},
             exclude=websocket
         )
-
+    
     def disconnect(self, websocket: WebSocket):
         meta = self.metadata.get(websocket, {})
         room_id = meta.get("room_id")
-
+        
         if room_id and room_id in self.rooms:
             self.rooms[room_id].remove(websocket)
             if not self.rooms[room_id]:
                 del self.rooms[room_id]
-
+        
         del self.metadata[websocket]
         return meta
-
+    
     async def broadcast_to_room(self, room_id: str, message: dict, exclude=None):
         if room_id not in self.rooms:
             return
-
+        
         # Kirim ke semua connection dalam room, kecuali yang di-exclude
         dead_connections = []
         for websocket in self.rooms[room_id]:
@@ -482,7 +481,7 @@ class ConnectionManager:
                 await websocket.send_json(message)
             except Exception:
                 dead_connections.append(websocket)
-
+        
         # Cleanup dead connections
         for dead in dead_connections:
             self.disconnect(dead)
@@ -500,14 +499,14 @@ async def websocket_endpoint(
     if not user:
         await websocket.close(code=4001, reason="Unauthorized")
         return
-
+    
     await manager.connect(websocket, room_id, user.id)
-
+    
     try:
         while True:
             # Terima pesan dari client
             data = await websocket.receive_json()
-
+            
             # Validate message schema
             if "type" not in data or "content" not in data:
                 await websocket.send_json({
@@ -515,7 +514,7 @@ async def websocket_endpoint(
                     "message": "Invalid message format"
                 })
                 continue
-
+            
             # Handle berbagai tipe message
             if data["type"] == "chat":
                 await manager.broadcast_to_room(
@@ -527,10 +526,10 @@ async def websocket_endpoint(
                         "timestamp": datetime.utcnow().isoformat()
                     }
                 )
-
+            
             elif data["type"] == "ping":
                 await websocket.send_json({"type": "pong"})
-
+    
     except WebSocketDisconnect:
         meta = manager.disconnect(websocket)
         await manager.broadcast_to_room(
@@ -582,15 +581,15 @@ class ReconnectingWebSocket {
     this.maxDelay = 30000;
     this.connect();
   }
-
+  
   connect() {
     this.ws = new WebSocket(this.url);
-
+    
     this.ws.onopen = () => {
       this.reconnectDelay = 1000; // reset delay
       console.log("Connected");
     };
-
+    
     this.ws.onclose = (event) => {
       if (event.code !== 1000) { // 1000 = normal close
         setTimeout(() => this.connect(), this.reconnectDelay);
@@ -600,7 +599,7 @@ class ReconnectingWebSocket {
         ); // exponential backoff
       }
     };
-
+    
     // Heartbeat untuk detect dead connection
     setInterval(() => {
       if (this.ws.readyState === WebSocket.OPEN) {
@@ -664,14 +663,14 @@ from typing import List
 async def load_posts_for_users(user_ids: List[int]) -> List[List[Post]]:
     # Satu query untuk SEMUA user sekaligus
     all_posts = await db.query(
-        "SELECT * FROM posts WHERE user_id = ANY($1)",
+        "SELECT * FROM posts WHERE user_id = ANY($1)", 
         user_ids
     )
     # Group by user_id
     posts_by_user = defaultdict(list)
     for post in all_posts:
         posts_by_user[post.user_id].append(post)
-
+    
     return [posts_by_user[uid] for uid in user_ids]
 
 posts_loader = DataLoader(load_fn=load_posts_for_users)
@@ -679,7 +678,7 @@ posts_loader = DataLoader(load_fn=load_posts_for_users)
 @strawberry.type
 class User:
     id: int
-
+    
     @strawberry.field
     async def posts(self) -> List[Post]:
         return await posts_loader.load(self.id)
@@ -724,7 +723,7 @@ def validate_complexity(schema, query):
             FieldEstimator(field="users.posts", complexity=5),
         ]
     )
-
+    
     if complexity > MAX_COMPLEXITY:
         raise Exception(f"Query complexity {complexity} exceeds maximum {MAX_COMPLEXITY}")
 
@@ -779,17 +778,17 @@ DIAGRAM KEPUTUSAN:
                           gRPC             REST
 ```
 
-| Kriteria                     | REST            | gRPC               | WebSocket         | GraphQL         |
-| ---------------------------- | --------------- | ------------------ | ----------------- | --------------- |
-| **Browser support langsung** | ✅ Native       | ❌ Butuh proxy     | ✅ Native         | ✅ Native       |
-| **Caching built-in**         | ✅ HTTP cache   | ❌ Terbatas        | ❌ Tidak ada      | ⚠️ Hanya query  |
-| **Real-time**                | ❌ Polling only | ⚠️ Streaming       | ✅ Native         | ⚠️ Subscription |
-| **Binary efficiency**        | ❌ JSON         | ✅ Protobuf        | ⚠️ Frame overhead | ❌ JSON         |
-| **Type safety**              | ⚠️ Manual       | ✅ .proto contract | ❌ Manual         | ✅ Schema       |
-| **Debugging**                | ✅ curl/Postman | ❌ Butuh grpcurl   | ⚠️ Butuh tool     | ✅ Playground   |
-| **Learning curve**           | ✅ Rendah       | 🔴 Tinggi          | 🟡 Medium         | 🟡 Medium       |
-| **Scaling**                  | ✅ Stateless    | ✅                 | ❌ Stateful       | ✅              |
-| **CDN friendly**             | ✅              | ❌                 | ❌                | ⚠️              |
+| Kriteria | REST | gRPC | WebSocket | GraphQL |
+|---|---|---|---|---|
+| **Browser support langsung** | ✅ Native | ❌ Butuh proxy | ✅ Native | ✅ Native |
+| **Caching built-in** | ✅ HTTP cache | ❌ Terbatas | ❌ Tidak ada | ⚠️ Hanya query |
+| **Real-time** | ❌ Polling only | ⚠️ Streaming | ✅ Native | ⚠️ Subscription |
+| **Binary efficiency** | ❌ JSON | ✅ Protobuf | ⚠️ Frame overhead | ❌ JSON |
+| **Type safety** | ⚠️ Manual | ✅ .proto contract | ❌ Manual | ✅ Schema |
+| **Debugging** | ✅ curl/Postman | ❌ Butuh grpcurl | ⚠️ Butuh tool | ✅ Playground |
+| **Learning curve** | ✅ Rendah | 🔴 Tinggi | 🟡 Medium | 🟡 Medium |
+| **Scaling** | ✅ Stateless | ✅ | ❌ Stateful | ✅ |
+| **CDN friendly** | ✅ | ❌ | ❌ | ⚠️ |
 
 ### Use Case konkret
 
@@ -952,15 +951,14 @@ Client ──────────► Load Balancer
 
 ---
 
-> [!tip] Prioritas Belajar
-> Urutan yang paling worth untuk web developer/DevOps:
+>[!tip] Prioritas Belajar
+>Urutan yang paling worth untuk web developer/DevOps:
+>1. **REST yang benar** — 80% API di dunia ini REST. Banyak yang "REST-ish" tapi salah kaprah
+>2. **WebSocket** — real-time adalah fitur yang semakin banyak diminta
+>3. **GraphQL** — hanya jika ada multiple client dengan kebutuhan berbeda
+>4. **gRPC** — saat mulai bangun microservice internal dengan traffic tinggi
 >
-> 1.  **REST yang benar** — 80% API di dunia ini REST. Banyak yang "REST-ish" tapi salah kaprah
-> 2.  **WebSocket** — real-time adalah fitur yang semakin banyak diminta
-> 3.  **GraphQL** — hanya jika ada multiple client dengan kebutuhan berbeda
-> 4.  **gRPC** — saat mulai bangun microservice internal dengan traffic tinggi
->
-> Jangan skip REST ke gRPC hanya karena "5ms lebih cepat". REST yang di-cache lebih cepat dari gRPC uncached.
+>Jangan skip REST ke gRPC hanya karena "5ms lebih cepat". REST yang di-cache lebih cepat dari gRPC uncached.
 
 ---
 
@@ -971,7 +969,6 @@ Client ──────────► Load Balancer
 - [[ids-ips-waf-nsm-comparison|Security Tools]] — WAF untuk REST/GraphQL protection
 - [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — API security testing sebagai attack surface
 - [[cicd-guide|CI/CD]] — API testing dalam pipeline
-
 ---
 
-_API Protocols Deep Dive | REST (Caching, Idempotency) · gRPC (Protobuf, Streaming) · WebSocket (Reconnection, Scaling) · GraphQL (N+1, DataLoader, Complexity) · Decision Matrix_
+*API Protocols Deep Dive | REST (Caching, Idempotency) · gRPC (Protobuf, Streaming) · WebSocket (Reconnection, Scaling) · GraphQL (N+1, DataLoader, Complexity) · Decision Matrix*

@@ -13,54 +13,54 @@ updated: 2026-07-26
 
 ## Ringkasan
 
-| Status                 | Jumlah |
-| :--------------------- | :----: |
-| ✅ Ada deepdive match  |   15   |
-| ⚠️ Partial / nama beda |   3    |
-| ❌ Belum ada deepdive  |   12   |
-| **Total hierarchy**    | **30** |
+| Status | Jumlah |
+|:-------|:------:|
+| ✅ Ada deepdive match | 15 |
+| ⚠️ Partial / nama beda | 3 |
+| ❌ Belum ada deepdive | 12 |
+| **Total hierarchy** | **30** |
 
 ---
 
 ## ✅ Hierarchy dengan Deepdive (15)
 
-| Hierarchy                        | Deepdive                                                                               | Folder                            |  Coverage   |
-| :------------------------------- | :------------------------------------------------------------------------------------- | :-------------------------------- | :---------: |
-| `hierarchy-biometrics`           | [[cryptography-biometrics]]                                                            | Cyber_Security                    |  ✅ penuh   |
-| `hierarchy-cloud-infrastructure` | [[cloud-infrastructure]]                                                               | AI_Systems                        |  ✅ penuh   |
-| `hierarchy-cryptography`         | [[quantum-cryptography-deepdive]], [[quantum-cryptography-roadmap]]                    | Quantum_Crypto                    |  ✅ penuh   |
-| `hierarchy-data-recovery`        | [[data-recovery]]                                                                      | Data_Forensics                    |  ✅ penuh   |
-| `hierarchy-embedded-systems`     | [[embedded-systems]]                                                                   | AI_Systems                        |  ✅ penuh   |
-| `hierarchy-hardware-hacking`     | [[hardware-hacking-re]]                                                                | Cyber_Security                    |  ✅ penuh   |
-| `hierarchy-network-security`     | [[network-security]]                                                                   | Cyber_Security/Network_Threats    |  ✅ penuh   |
-| `hierarchy-offensive`            | [[offensive-security]]                                                                 | Cyber_Security                    |  ✅ penuh   |
-| `hierarchy-reverse-engineering`  | [[firmware-reverse-engineering-deepdive]]                                              | Firmware_RE                       |  ✅ penuh   |
-| `hierarchy-side-channel`         | [[side-channel-analysis]]                                                              | Cyber_Security                    |  ✅ penuh   |
-| `hierarchy-threat-modeling`      | [[threat-modeling-deepdive]]                                                           | Cyber_Security                    |  ✅ penuh   |
-| `hierarchy-waf-reverse-proxy`    | [[waf-reverse-proxy-deepdive]]                                                         | Cyber_Security/WAF_Reverse_Proxy  |  ✅ penuh   |
-| `hierarchy-wireless`             | [[wireless-security-deepdive]], [[wireless-pentesting-aircrack-ng-wpa3-practical]]     | Wireless_Security                 |  ✅ penuh   |
-| `hierarchy-search`               | [[semantic-search-pipeline]], [[hybrid-search-vector-keyword]]                         | Machine_Learning, AI_Systems      |  ✅ multi   |
-| `hierarchy-endpoint-security`    | [[endpoint-security]], [[endpoint-detection-playbook]], [[endpoint-security-freeware]] | Cyber_Security/Endpoint_Detection | ✅ multiple |
+| Hierarchy | Deepdive | Folder | Coverage |
+|:----------|:---------|:-------|:--------:|
+| `hierarchy-biometrics` | [[cryptography-biometrics]] | Cyber_Security | ✅ penuh |
+| `hierarchy-cloud-infrastructure` | [[cloud-infrastructure]] | AI_Systems | ✅ penuh |
+| `hierarchy-cryptography` | [[quantum-cryptography-deepdive]], [[quantum-cryptography-roadmap]] | Quantum_Crypto | ✅ penuh |
+| `hierarchy-data-recovery` | [[data-recovery]] | Data_Forensics | ✅ penuh |
+| `hierarchy-embedded-systems` | [[embedded-systems]] | AI_Systems | ✅ penuh |
+| `hierarchy-hardware-hacking` | [[hardware-hacking-re]] | Cyber_Security | ✅ penuh |
+| `hierarchy-network-security` | [[network-security]] | Cyber_Security/Network_Threats | ✅ penuh |
+| `hierarchy-offensive` | [[offensive-security]] | Cyber_Security | ✅ penuh |
+| `hierarchy-reverse-engineering` | [[firmware-reverse-engineering-deepdive]] | Firmware_RE | ✅ penuh |
+| `hierarchy-side-channel` | [[side-channel-analysis]] | Cyber_Security | ✅ penuh |
+| `hierarchy-threat-modeling` | [[threat-modeling-deepdive]] | Cyber_Security | ✅ penuh |
+| `hierarchy-waf-reverse-proxy` | [[waf-reverse-proxy-deepdive]] | Cyber_Security/WAF_Reverse_Proxy | ✅ penuh |
+| `hierarchy-wireless` | [[wireless-security-deepdive]], [[wireless-pentesting-aircrack-ng-wpa3-practical]] | Wireless_Security | ✅ penuh |
+| `hierarchy-search` | [[semantic-search-pipeline]], [[hybrid-search-vector-keyword]] | Machine_Learning, AI_Systems | ✅ multi |
+| `hierarchy-endpoint-security` | [[endpoint-security]], [[endpoint-detection-playbook]], [[endpoint-security-freeware]] | Cyber_Security/Endpoint_Detection | ✅ multiple |
 
 ---
 
 ## ⚠️ Hierarchy dengan Partial Match (3)
 
-| Hierarchy                         | Deepdive Mirip                                                                  | Masalah                                                                                  |                       Prioritas                        |
-| :-------------------------------- | :------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------- | :----------------------------------------------------: |
-| `hierarchy-identity-trust`        | [[identity-and-access-management]]                                              | IAM aja, belum cover trust model / PKI / federation                                      | **Sedang** — perlu catatan trust architecture terpisah |
-| `hierarchy-malware-analysis`      | [[malware-analysis-reverse-engineering-playbook]]                               | Playbook fokus ke RE, kurang coverage malware behavior / sandbox / static analysis chain | **Sedang** — perlu deepdive malware analysis dedicated |
-| `hierarchy-supply-chain-security` | [[software-supply-chain-security]], [[software-supply-chain-security-deepdive]] | Udah lumayan dalam, tapi hierarchy baru hari ini mungkin perlu sync wikilink             |            **Rendah** — update wikilink aja            |
+| Hierarchy | Deepdive Mirip | Masalah | Prioritas |
+|:----------|:---------------|:--------|:---------:|
+| `hierarchy-identity-trust` | [[identity-and-access-management]] | IAM aja, belum cover trust model / PKI / federation | **Sedang** — perlu catatan trust architecture terpisah |
+| `hierarchy-malware-analysis` | [[malware-analysis-reverse-engineering-playbook]] | Playbook fokus ke RE, kurang coverage malware behavior / sandbox / static analysis chain | **Sedang** — perlu deepdive malware analysis dedicated |
+| `hierarchy-supply-chain-security` | [[software-supply-chain-security]], [[software-supply-chain-security-deepdive]] | Udah lumayan dalam, tapi hierarchy baru hari ini mungkin perlu sync wikilink | **Rendah** — update wikilink aja |
 
 ---
 
 ## ❌ Hierarchy Tanpa Deepdive (12) — Prioritas Catatan Baru
 
-| Hierarchy                         | Domain                | Kenapa Perlu                                                                                                                                  | Prioritas  |
-| :-------------------------------- | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------: |
-| `hierarchy-abstraction-layers`    | Fundamentals          | Abstraction layers adalah fondasi thinking framework — OSI layers, API gates, HAL, ABI. Fundamen buat semua hierarchy lain                    | **Tinggi** |
-| `hierarchy-ai-levels`             | AI_Systems            | Levels of AI (rule-based → agentic → AGI). Partial overlap sama [[hierarchy-llm-ai-systems]] di AI_Systems, tapi belum ada deepdive dedicated | **Tinggi** |
-| `hierarchy-concurrency-consensus` | Systems / Distributed | Concurrency models (actor, CSP, STM) + consensus (Raft, Paxos, PBFT).                                                                         |            | **Tinggi** — kritikal buat [[distributed-systems]] |
+| Hierarchy | Domain | Kenapa Perlu | Prioritas |
+|:----------|:-------|:-------------|:---------:|
+| `hierarchy-abstraction-layers` | Fundamentals | Abstraction layers adalah fondasi thinking framework — OSI layers, API gates, HAL, ABI. Fundamen buat semua hierarchy lain | **Tinggi** |
+| `hierarchy-ai-levels` | AI_Systems | Levels of AI (rule-based → agentic → AGI). Partial overlap sama [[hierarchy-llm-ai-systems]] di AI_Systems, tapi belum ada deepdive dedicated | **Tinggi** |
+| `hierarchy-concurrency-consensus` | Systems / Distributed | Concurrency models (actor, CSP, STM) + consensus (Raft, Paxos, PBFT). || **Tinggi** — kritikal buat [[distributed-systems]] |
 
 | `hierarchy-database-storage-systems` | Data_Engineering | Ada [[database-internals-indexing-mvcc]] dan [[database-schema-sharding-replication]], tapi belum ada catatan yang nyambungin hierarchy → implementasi | **Sedang** |
 | `hierarchy-failure-modes-resilience` | Systems / SRE | Failure modes + resilience patterns (circuit breaker, bulkhead, chaos engineering). Ada [[security-chaos-engineering]] tapi fokus security, bukan infra | **Tinggi** |
@@ -118,8 +118,8 @@ done
 
 ## Koneksi ke Vault
 
-| Catatan                                      | Koneksi                                                    |
-| :------------------------------------------- | :--------------------------------------------------------- |
-| [[curriculum-mapping]]                       | Semua hierarchy ini bagian dari curriculum structure       |
-| [[master-index]]                             | Root entry — crosswalk ini perlu di-link dari master index |
-| [[master-index-audit-broken-wikilink-sweep]] | SOP audit wikilink — jalanin setelah bikin catatan baru    |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[curriculum-mapping]] | Semua hierarchy ini bagian dari curriculum structure |
+| [[master-index]] | Root entry — crosswalk ini perlu di-link dari master index |
+| [[master-index-audit-broken-wikilink-sweep]] | SOP audit wikilink — jalanin setelah bikin catatan baru |

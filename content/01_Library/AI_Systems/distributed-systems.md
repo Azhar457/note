@@ -50,14 +50,14 @@ Distributed system adalah kumpulan komputer independen yang tampak sebagai satu 
 
 ### Karakteristik yang Membuat Distributed System Susah
 
-| Karakteristik         | Deskripsi                                         | Implikasi                                                                  |
-| :-------------------- | ------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Partial failure**   | Sebagian node bisa mati sementara yang lain hidup | Sistem harus detect + recover tanpa block total                            |
-| **Network partition** | Jaringan terputus antara dua grup node            | Pilihan: tetap serve (risiko inkonsistensi) atau stop (risiko unavailable) |
-| **Clock skew**        | Setiap node punya jam sendiri yang drift          | Urutan event jadi ambigu — butuh logical clock                             |
-| **No shared memory**  | Komunikasi via message passing saja               | Latensi, packet loss, duplikasi, reordering                                |
-| **Concurrency**       | Multiple node akses state yang sama               | Race condition, deadlock, starvation                                       |
-| **Non-determinism**   | Urutan eksekusi gak bisa diprediksi               | Testing jadi sulit — butuh fault injection (Chaos Engineering)             |
+| Karakteristik | Deskripsi | Implikasi |
+|:-------------|-----------|-----------|
+| **Partial failure** | Sebagian node bisa mati sementara yang lain hidup | Sistem harus detect + recover tanpa block total |
+| **Network partition** | Jaringan terputus antara dua grup node | Pilihan: tetap serve (risiko inkonsistensi) atau stop (risiko unavailable) |
+| **Clock skew** | Setiap node punya jam sendiri yang drift | Urutan event jadi ambigu — butuh logical clock |
+| **No shared memory** | Komunikasi via message passing saja | Latensi, packet loss, duplikasi, reordering |
+| **Concurrency** | Multiple node akses state yang sama | Race condition, deadlock, starvation |
+| **Non-determinism** | Urutan eksekusi gak bisa diprediksi | Testing jadi sulit — butuh fault injection (Chaos Engineering) |
 
 ### Fallacies of Distributed Computing (L. Peter Deutsch)
 
@@ -84,11 +84,11 @@ Delapan asumsi yang salah kaprah:
 
 CAP theorem (Brewer, 2000 — dibuktikan Gilbert & Lynch, 2002) menyatakan bahwa dalam sistem terdistribusi, hanya dua dari tiga properti berikut yang bisa dipenuhi secara simultan saat terjadi **network partition**:
 
-| Properti                | Definisi                                                                             |
-| :---------------------- | ------------------------------------------------------------------------------------ |
-| **C**onsistency         | Semua node melihat data yang sama pada waktu bersamaan (linearizability)             |
-| **A**vailability        | Setiap request yang sampai ke node non-gagal mendapat response (bukan error/timeout) |
-| **P**artition tolerance | Sistem tetap berfungsi meskipun message antar node hilang/delay                      |
+| Properti | Definisi |
+|:---------|----------|
+| **C**onsistency | Semua node melihat data yang sama pada waktu bersamaan (linearizability) |
+| **A**vailability | Setiap request yang sampai ke node non-gagal mendapat response (bukan error/timeout) |
+| **P**artition tolerance | Sistem tetap berfungsi meskipun message antar node hilang/delay |
 
 ### 2.2 Bukti Informal
 
@@ -138,12 +138,12 @@ PACELC (Abadi, 2012) memperbaiki CAP dengan menambahkan dimensi **saat tidak ada
 
 **Contoh PACELC di sistem nyata:**
 
-| Sistem    | Saat Partition                  | Saat Normal                             |
-| --------- | ------------------------------- | --------------------------------------- |
-| Cassandra | PA (available, eventual)        | EL (low latency, eventual)              |
-| MongoDB   | PC (consistency > availability) | EC (strong consistency, higher latency) |
-| DynamoDB  | PA                              | EL                                      |
-| Spanner   | PC                              | EC (dengan TrueTime)                    |
+| Sistem | Saat Partition | Saat Normal |
+|--------|---------------|-------------|
+| Cassandra | PA (available, eventual) | EL (low latency, eventual) |
+| MongoDB | PC (consistency > availability) | EC (strong consistency, higher latency) |
+| DynamoDB | PA | EL |
+| Spanner | PC | EC (dengan TrueTime) |
 
 ---
 
@@ -167,14 +167,14 @@ PACELC (Abadi, 2012) memperbaiki CAP dengan menambahkan dimensi **saat tidak ada
 
 ### 3.2 Setiap Model Dijelaskan
 
-| Model                | Jaminan                                                              | Performa      | Contoh Sistem              |
-| -------------------- | -------------------------------------------------------------------- | ------------- | -------------------------- |
-| **Linearizability**  | Operasi terlihat terjadi dalam urutan real-time yang sama            | Paling lambat | Spanner, etcd, ZooKeeper   |
-| **Sequential**       | Urutan operasi tiap client konsisten, antar client bebas             | Lebih cepat   | Database traditional       |
-| **Causal**           | Operasi yang berhubungan cause-effect terlihat berurutan             | Sedang        | COPS, SwiftNoSQL           |
-| **Read-After-Write** | Client selalu lihat tulisannya sendiri                               | Sedang        | Session consistency di CDN |
-| **Monotonic Read**   | Client gak akan lihat data yang "lebih lama" setelah lihat data baru | Sedang        | DNS propagation            |
-| **Eventual**         | Semua node converge ke nilai yang sama — tanpa jaminan kapan         | Paling cepat  | Cassandra, DynamoDB, S3    |
+| Model | Jaminan | Performa | Contoh Sistem |
+|-------|---------|----------|---------------|
+| **Linearizability** | Operasi terlihat terjadi dalam urutan real-time yang sama | Paling lambat | Spanner, etcd, ZooKeeper |
+| **Sequential** | Urutan operasi tiap client konsisten, antar client bebas | Lebih cepat | Database traditional |
+| **Causal** | Operasi yang berhubungan cause-effect terlihat berurutan | Sedang | COPS, SwiftNoSQL |
+| **Read-After-Write** | Client selalu lihat tulisannya sendiri | Sedang | Session consistency di CDN |
+| **Monotonic Read** | Client gak akan lihat data yang "lebih lama" setelah lihat data baru | Sedang | DNS propagation |
+| **Eventual** | Semua node converge ke nilai yang sama — tanpa jaminan kapan | Paling cepat | Cassandra, DynamoDB, S3 |
 
 ### 3.3 Kapan Pilih Yang Mana
 
@@ -227,7 +227,7 @@ Classic Paxos (Leslie Lamport, 1998) terkenal sangat sulit dipahami — Lamport 
 
 ```
 Phase 1a (Prepare):
-  Proposer → Acceptors: "Prepare(N)"
+  Proposer → Acceptors: "Prepare(N)" 
   Acceptors → Promises: jika N > balik_N, janji gak terima proposal < N
 
 Phase 1b (Promise):
@@ -249,7 +249,6 @@ Multi-Paxos:
 ```
 
 **Kelemahan Paxos:**
-
 - Sangat sulit dipahami & diimplementasi dengan benar
 - Banyak implementasi yang subtle bug (Raft paper menyebut "Paxos is notoriously difficult to understand")
 - Leader election tidak built-in — harus add-on
@@ -298,13 +297,13 @@ Log matching property:
 
 **Perbandingan dengan Paxos:**
 
-| Aspek           | Paxos                     | Raft                            |
-| :-------------- | ------------------------- | ------------------------------- |
-| Complexity      | Tinggi (kabur, ambiguous) | Rendah (modular, explicit)      |
-| Leader election | Add-on (separate)         | Built-in (first-class)          |
-| Log management  | Implicit                  | Explicit (log matching)         |
-| Cluster change  | Tidak dibahas             | Joint consensus (explicit)      |
-| Adopsi industri | Google (Chubby, Spanner)  | etcd, Consul, TiKV, CockroachDB |
+| Aspek | Paxos | Raft |
+|:------|-------|------|
+| Complexity | Tinggi (kabur, ambiguous) | Rendah (modular, explicit) |
+| Leader election | Add-on (separate) | Built-in (first-class) |
+| Log management | Implicit | Explicit (log matching) |
+| Cluster change | Tidak dibahas | Joint consensus (explicit) |
+| Adopsi industri | Google (Chubby, Spanner) | etcd, Consul, TiKV, CockroachDB |
 
 ### 4.4 Zab (ZooKeeper)
 
@@ -317,7 +316,6 @@ ZooKeeper Atomic Broadcast — protocol di belakang ZooKeeper. Mirip Raft tapi m
 ### 4.5 VR (Viewstamped Replication)
 
 Salah satu consensus protocol tertua (Oki & Liskov, 1988). Lebih tua dari Paxos! Mirip Raft:
-
 - **View** = term (Raft)
 - **Primary** = leader
 - **View change** = leader election
@@ -326,14 +324,14 @@ Salah satu consensus protocol tertua (Oki & Liskov, 1988). Lebih tua dari Paxos!
 
 ### 4.6 Perbandingan Consensus Protocol
 
-| Protocol    | Tahun | Kompleksitas  | Failure Model | Adopsi                   |
-| :---------- | :---: | :------------ | :------------ | :----------------------- |
-| VR          | 1988  | Sedang        | Crash-fail    | Riset                    |
-| Paxos       | 1998  | Tinggi        | Crash-fail    | Google infra             |
-| Multi-Paxos | ~2006 | Tinggi        | Crash-fail    | Spanner, Chubby          |
-| Zab         | 2008  | Sedang        | Crash-fail    | ZooKeeper (Yahoo, Kafka) |
-| Raft        | 2013  | Rendah        | Crash-fail    | etcd, Consul, TiDB       |
-| PBFT        | 1999  | Sangat Tinggi | Byzantine     | Hyperledger, Zilliqa     |
+| Protocol | Tahun | Kompleksitas | Failure Model | Adopsi |
+|:---------|:-----:|:------------|:--------------|:-------|
+| VR | 1988 | Sedang | Crash-fail | Riset |
+| Paxos | 1998 | Tinggi | Crash-fail | Google infra |
+| Multi-Paxos | ~2006 | Tinggi | Crash-fail | Spanner, Chubby |
+| Zab | 2008 | Sedang | Crash-fail | ZooKeeper (Yahoo, Kafka) |
+| Raft | 2013 | Rendah | Crash-fail | etcd, Consul, TiDB |
+| PBFT | 1999 | Sangat Tinggi | Byzantine | Hyperledger, Zilliqa |
 
 ---
 
@@ -341,12 +339,12 @@ Salah satu consensus protocol tertua (Oki & Liskov, 1988). Lebih tua dari Paxos!
 
 ### 5.1 Masalah Waktu di Sistem Terdistribusi
 
-| Problem                 | Sebab                                  | Akibat                                    |
-| :---------------------- | :------------------------------------- | :---------------------------------------- |
-| Clock drift             | Crystal oscillator gak presisi         | Dua node punya waktu berbeda              |
-| NTP sync error          | Network latency, asymmetry             | Walaupun sync, masih ada offset           |
-| Leap second             | Earth rotation gak konstan             | Time jump (2012: Cloudflare, Reddit down) |
-| Monotonic vs wall clock | Kernel bedain waktu absolut vs relatif | timeout algorithm failure                 |
+| Problem | Sebab | Akibat |
+|:--------|:------|:-------|
+| Clock drift | Crystal oscillator gak presisi | Dua node punya waktu berbeda |
+| NTP sync error | Network latency, asymmetry | Walaupun sync, masih ada offset |
+| Leap second | Earth rotation gak konstan | Time jump (2012: Cloudflare, Reddit down) |
+| Monotonic vs wall clock | Kernel bedain waktu absolut vs relatif | timeout algorithm failure |
 
 ### 5.2 Lamport Logical Clock
 
@@ -395,7 +393,7 @@ Lamport memberi ordering (L)
 HLC = (T, L)
   - Ketika wall time naik: pakai T
   - Ketika wall time stagnant (drift): pakai L + 1
-
+  
 Hasil: bounded clock error + causal ordering
 ```
 
@@ -438,7 +436,6 @@ Client → Leader (read + write)
 ```
 
 **Karakteristik:**
-
 - Semua write lewat leader → no conflict
 - Read bisa dari follower → scalability read
 - Sync replication: follower confirm sebelum leader ack → durability tinggi, latency tinggi
@@ -446,14 +443,13 @@ Client → Leader (read + write)
 
 **Synchronous vs Asynchronous:**
 
-| Mode      |        Durability        |       Latency       | Failover Risk |
-| :-------- | :----------------------: | :-----------------: | :-----------: |
-| Sync      |     ✅ No data loss      | Tinggi (wait semua) |    Rendah     |
-| Async     |     ❌ Mungkin loss      |       Rendah        |    Tinggi     |
-| Semi-sync | 🟡 Satu follower confirm |       Sedang        |    Sedang     |
+| Mode | Durability | Latency | Failover Risk |
+|:-----|:----------:|:-------:|:-------------:|
+| Sync | ✅ No data loss | Tinggi (wait semua) | Rendah |
+| Async | ❌ Mungkin loss | Rendah | Tinggi |
+| Semi-sync | 🟡 Satu follower confirm | Sedang | Sedang |
 
 **Semi-sync = standard di production:**
-
 ```sql
 -- PostgreSQL
 ALTER SYSTEM SET synchronous_standby_names = 'FIRST 1 (standby1, standby2)';
@@ -474,13 +470,11 @@ ALTER SYSTEM SET synchronous_standby_names = 'FIRST 1 (standby1, standby2)';
 ```
 
 **Use case:**
-
 - Multi-datacenter deployment
 - Offline-first apps (CouchDB, MongoDB Realm)
 - Collaborative editing (Google Docs, CRDT)
 
 **Masalah:**
-
 - **Write conflict** — dua leader edit data sama
 - **Conflict resolution:**
   - Last-Write-Wins (LWW) — risk data loss
@@ -504,17 +498,16 @@ ALTER SYSTEM SET synchronous_standby_names = 'FIRST 1 (standby1, standby2)';
 ```
 
 **Quorum:**
-
 - N = total replica
 - W = write quorum (minimal node yang harus confirm write)
 - R = read quorum (minimal node yang harus di-read)
 
-| Quorum   | Konsistensi                    | Performa     |
-| :------- | :----------------------------- | :----------- |
-| W+R > N  | **Strong** (pasti ada overlap) | Lebih lambat |
-| W+R <= N | Eventual                       | Lebih cepat  |
-| W=1, R=N | Write cepat, read lambat       | Heavy read   |
-| W=N, R=1 | Write lambat, read cepat       | Heavy write  |
+| Quorum | Konsistensi | Performa |
+|:-------|:-----------|:---------|
+| W+R > N | **Strong** (pasti ada overlap) | Lebih lambat |
+| W+R <= N | Eventual | Lebih cepat |
+| W=1, R=N | Write cepat, read lambat | Heavy read |
+| W=N, R=1 | Write lambat, read cepat | Heavy write |
 
 **Hinted Handoff:** Kalau node temporary down, node lain terima write proxy → saat node balik, replay.
 
@@ -529,7 +522,6 @@ ALTER SYSTEM SET synchronous_standby_names = 'FIRST 1 (standby1, standby2)';
 ### 7.1 Partitioning Strategies
 
 **Range-based:**
-
 ```text
 Users A-M → Shard 0
 Users N-Z → Shard 1
@@ -541,7 +533,6 @@ Users N-Z → Shard 1
 ```
 
 **Hash-based:**
-
 ```text
 hash(user_id) % 4 → Shard 0-3
 
@@ -552,7 +543,6 @@ hash(user_id) % 4 → Shard 0-3
 ```
 
 **Consistent Hashing (Dynamo, Cassandra):**
-
 ```text
 Hash ring: [0, 2^64 - 1]
   Node A: posisi hash("A")
@@ -609,7 +599,6 @@ Coordinator                    Participants
 ```
 
 **Masalah 2PC:**
-
 - **Blocking:** Coordinator crash di prepare → participant tunggu forever
 - **Single point of failure:** Coordinator gak bisa direcover sempurna
 - **Performance:** Mahal — 2 RTT + log writes
@@ -638,7 +627,6 @@ Order Saga:
 ```
 
 **Coordinator Saga:**
-
 ```
 Orchestration-based:
   Saga Manager → langkah A → langkah B → langkah C
@@ -651,12 +639,12 @@ Choreography-based:
 
 **Kapan pake:**
 
-| Pendekatan          |    Isolation     |  Throughput   | Kompleksitas | Use Case             |
-| :------------------ | :--------------: | :-----------: | :----------: | :------------------- |
-| 2PC                 |   Serializable   |    Rendah     |    Sedang    | Financial (transfer) |
-| 3PC                 |   Serializable   | Sangat Rendah |    Tinggi    | Legacy system        |
-| Saga (orchestrated) | Read Uncommitted |    Tinggi     |    Sedang    | Microservices        |
-| Saga (choreo)       | Read Uncommitted |   Tertinggi   |    Tinggi    | Event-driven         |
+| Pendekatan | Isolation | Throughput | Kompleksitas | Use Case |
+|:-----------|:---------:|:----------:|:------------:|:---------|
+| 2PC | Serializable | Rendah | Sedang | Financial (transfer) |
+| 3PC | Serializable | Sangat Rendah | Tinggi | Legacy system |
+| Saga (orchestrated) | Read Uncommitted | Tinggi | Sedang | Microservices |
+| Saga (choreo) | Read Uncommitted | Tertinggi | Tinggi | Event-driven |
 
 ---
 
@@ -678,7 +666,6 @@ Properties:
 ```
 
 **Failure Detection via Gossip (Cassandra):**
-
 ```
 Tiap node track heartbeat dari node lain:
   - Absence of heartbeat > timeout → suspect
@@ -688,7 +675,6 @@ Tiap node track heartbeat dari node lain:
 ### 9.2 SWIM (Scalable Weakly-consistent Infection-style Membership)
 
 SWIM memisahkan dua fungsi:
-
 1. **Failure detection** — ping/ping-req
 2. **Membership dissemination** — gossip
 
@@ -723,11 +709,11 @@ Keuntungan:
 
 ### 10.1 Three Pillars
 
-| Pillar      | Fungsi                             |             Tool              |
-| :---------- | ---------------------------------- | :---------------------------: |
-| **Tracing** | Track request antar service        | OpenTelemetry, Jaeger, Zipkin |
-| **Logging** | Event log per node                 |      ELK, Loki, Fluentd       |
-| **Metrics** | Numeric aggregate per node/request |      Prometheus, Grafana      |
+| Pillar | Fungsi | Tool |
+|:-------|--------|:----:|
+| **Tracing** | Track request antar service | OpenTelemetry, Jaeger, Zipkin |
+| **Logging** | Event log per node | ELK, Loki, Fluentd |
+| **Metrics** | Numeric aggregate per node/request | Prometheus, Grafana |
 
 ### 10.2 Distributed Tracing
 
@@ -747,7 +733,6 @@ W3C Trace Context:
 ### 10.3 Logging Correlation
 
 Setiap log entry di tiap node harus punya:
-
 ```json
 {
   "timestamp": "2026-07-19T12:00:00.123Z",
@@ -766,16 +751,16 @@ Dengan `trace_id` di semua log, lo bisa `grep` lintas service.
 
 ## 🔗 Koneksi ke Catatan Lain
 
-| Catatan                                    | Koneksi                                                      |
-| :----------------------------------------- | :----------------------------------------------------------- |
-| [[ddia-kleppmann]]                         | DDIA Part II — distributed data, replication, partitioning   |
-| [[database-internals-indexing-mvcc]]       | Replication & queries di database — foundation theory        |
-| [[system-design]]                          | Arsitektur skala besar — distributed systems sebagai fondasi |
-| [[cloud-infrastructure]]                   | Cloud platform — distributed systems dalam praktik           |
-| [[api-protocols-deepdive]]                 | gRPC/RPC — komunikasi antar node                             |
-| [[kubernetes-architecture-deepdive]]       | K8s sebagai distributed system coordinator                   |
-| [[observability-stack-prometheus-grafana]] | Observability untuk distributed system                       |
-| [[platform-technologies-overview]]         | Platform yang dibangun di atas distributed systems           |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[ddia-kleppmann]] | DDIA Part II — distributed data, replication, partitioning |
+| [[database-internals-indexing-mvcc]] | Replication & queries di database — foundation theory |
+| [[system-design]] | Arsitektur skala besar — distributed systems sebagai fondasi |
+| [[cloud-infrastructure]] | Cloud platform — distributed systems dalam praktik |
+| [[api-protocols-deepdive]] | gRPC/RPC — komunikasi antar node |
+| [[kubernetes-architecture-deepdive]] | K8s sebagai distributed system coordinator |
+| [[observability-stack-prometheus-grafana]] | Observability untuk distributed system |
+| [[platform-technologies-overview]] | Platform yang dibangun di atas distributed systems |
 
 ---
 
@@ -828,7 +813,6 @@ HARI 5: Observability & Production
 
 > [!tip] Lanjutan
 > Distributed systems adalah **keluarga besar** — catatan ini fokus ke theory dan mekanisme inti. Lanjutan yang bisa dieksplor:
->
 > - [[kubernetes-operations-helm-gitops]] — distributed system coordinator di production
 > - [[database-schema-sharding-replication]] — praktik sharding + replication di database
 > - [[database-internals-indexing-mvcc]] — storage engine sebagai distributed system component

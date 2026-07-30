@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Basic Payloads]]
 - [[#2. Encoding Bypass]]
 - [[#3. Filter Bypass]]

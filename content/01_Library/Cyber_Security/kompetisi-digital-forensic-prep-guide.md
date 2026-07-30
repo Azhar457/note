@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#S1 — Strategi Umum Forensic]]
 - [[#S2 — Memory Forensic (Volatility)]]
 - [[#S3 — Disk Forensic & File Carving]]
@@ -53,13 +52,13 @@ Competition forensic berbeda dengan real incident response: waktu terbatas, evid
 
 ### Pertanyaan Kunci Setiap Soal
 
-| Pertanyaan                      | Tools                           | Waktu Target |
-| ------------------------------- | ------------------------------- | ------------ |
-| "Apa password user?"            | Mimikatz, hashcat, registry     | 5 menit      |
-| "IP address attacker?"          | Wireshark, Volatility netscan   | 3 menit      |
-| "File apa yang di-download?"    | Timeline, USN journal, prefetch | 10 menit     |
-| "Kapan insiden terjadi?"        | $MFT timestamps, event logs     | 5 menit      |
-| "Proses apa yang mencurigakan?" | Volatility pstree, pslist       | 5 menit      |
+| Pertanyaan | Tools | Waktu Target |
+|---|---|---|
+| "Apa password user?" | Mimikatz, hashcat, registry | 5 menit |
+| "IP address attacker?" | Wireshark, Volatility netscan | 3 menit |
+| "File apa yang di-download?" | Timeline, USN journal, prefetch | 10 menit |
+| "Kapan insiden terjadi?" | $MFT timestamps, event logs | 5 menit |
+| "Proses apa yang mencurigakan?" | Volatility pstree, pslist | 5 menit |
 
 **Golden rule:** Baca soal dulu — jangan langsung scan semua. Soal sering kasih hint evidence type yang relevan.
 
@@ -253,16 +252,16 @@ idevicebackup2 backup --full ./backup/
 
 ### Timeline Artifact
 
-| Artifact            | Lokasi                                   | Informasi                             |
-| ------------------- | ---------------------------------------- | ------------------------------------- |
-| **Prefetch**        | `C:\Windows\Prefetch\`                   | Program execution history             |
-| **USN Journal**     | `$UsnJrnl` di NTFS                       | File changes (create, delete, modify) |
-| **Event Logs**      | `C:\Windows\System32\winevt\Logs\*.evtx` | Security, System, Application events  |
-| **Registry**        | `C:\Windows\System32\config\`            | System config, user activity          |
-| **$MFT**            | `$MFT`                                   | All file metadata                     |
-| **Browser History** | `%APPDATA%\...`                          | URL history, downloads                |
-| **Jump Lists**      | `%APPDATA%\Microsoft\Windows\Recent\`    | Recently opened files                 |
-| **Recycle Bin**     | `$Recycle.Bin`                           | Deleted files info                    |
+| Artifact | Lokasi | Informasi |
+|---|---|---|
+| **Prefetch** | `C:\Windows\Prefetch\` | Program execution history |
+| **USN Journal** | `$UsnJrnl` di NTFS | File changes (create, delete, modify) |
+| **Event Logs** | `C:\Windows\System32\winevt\Logs\*.evtx` | Security, System, Application events |
+| **Registry** | `C:\Windows\System32\config\` | System config, user activity |
+| **$MFT** | `$MFT` | All file metadata |
+| **Browser History** | `%APPDATA%\...` | URL history, downloads |
+| **Jump Lists** | `%APPDATA%\Microsoft\Windows\Recent\` | Recently opened files |
+| **Recycle Bin** | `$Recycle.Bin` | Deleted files info |
 
 ### Tools Cepat
 
@@ -283,16 +282,16 @@ JLECmd.exe -f "C:\Users\...\AutomaticDestinations"
 
 Berdasarkan [[research-resource-directory-deep]], berikut prioritas tool per kategori forensic:
 
-| Subdomain        | Tool #1              | Tool #2               | Tool #3               |
-| ---------------- | -------------------- | --------------------- | --------------------- |
-| Memory           | Volatility 3         | strings + grep        | Rekall (legacy)       |
-| Disk             | Sleuth Kit + Autopsy | FTK Imager            | Magnet AXIOM          |
-| File Carving     | Foremost             | Scalpel               | PhotoRec              |
-| Network PCAP     | Wireshark            | Zeek                  | tshark                |
-| Mobile (Android) | ADB + sqlite3        | Cellebrite (jika ada) | Oxygen Forensic       |
-| Windows Artifact | EZ Tools (Zimmerman) | RegRipper             | Plaso (log2timeline)  |
-| Registry         | RegRipper            | Registry Explorer     | python-registry       |
-| Browser          | Hindsight (Chrome)   | BHE (Firefox)         | DB Browser for SQLite |
+| Subdomain | Tool #1 | Tool #2 | Tool #3 |
+|---|---|---|---|
+| Memory | Volatility 3 | strings + grep | Rekall (legacy) |
+| Disk | Sleuth Kit + Autopsy | FTK Imager | Magnet AXIOM |
+| File Carving | Foremost | Scalpel | PhotoRec |
+| Network PCAP | Wireshark | Zeek | tshark |
+| Mobile (Android) | ADB + sqlite3 | Cellebrite (jika ada) | Oxygen Forensic |
+| Windows Artifact | EZ Tools (Zimmerman) | RegRipper | Plaso (log2timeline) |
+| Registry | RegRipper | Registry Explorer | python-registry |
+| Browser | Hindsight (Chrome) | BHE (Firefox) | DB Browser for SQLite |
 
 ---
 

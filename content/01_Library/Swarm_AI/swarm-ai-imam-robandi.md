@@ -1,20 +1,20 @@
 ---
 title: Swarm Intelligence & Algoritma Optimasi — Deep Dive
 tags:
-  - swarm-intelligence
-  - optimization
-  - evolutionary-computation
-  - neural-network
-  - fuzzy-logic
+- swarm-intelligence
+- optimization
+- evolutionary-computation
+- neural-network
+- fuzzy-logic
 aliases:
-  - Swarm Intelligence Deep Dive
-  - Algoritma Optimasi
-  - Nature-Inspired AI
-created: "2026-07-05"
+- Swarm Intelligence Deep Dive
+- Algoritma Optimasi
+- Nature-Inspired AI
+created: '2026-07-05'
 updated: 2026-07-09
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 > [!abstract] Lebih dari Sekadar Metafora
@@ -26,17 +26,15 @@ cssclasses:
 
 ### Fondasi Epistemologis: Mengapa Ini Bekerja?
 
-Swarm Intelligence (SI) adalah studi tentang sistem desentralisasi di mana agen-agen sederhana, melalui interaksi lokal dan umpan balik lingkungan, menghasilkan **kecerdasan global**. Tidak ada cetak biru pusat; kecerdasan adalah properti _emergent_ dari sistem.
+Swarm Intelligence (SI) adalah studi tentang sistem desentralisasi di mana agen-agen sederhana, melalui interaksi lokal dan umpan balik lingkungan, menghasilkan **kecerdasan global**. Tidak ada cetak biru pusat; kecerdasan adalah properti *emergent* dari sistem.
 
 **Prinsip Matematis Inti:**
-
 - **Desentralisasi:** Setiap agen `i` hanya memiliki informasi lokal `L_i`. Keputusan `D_i` dibuat hanya berdasarkan `L_i`.
 - **Umpan Balik Positif:** Solusi yang baik diperkuat (contoh: feromon pada jalur pendek).
 - **Umpan Balik Negatif:** Solusi yang buruk diabaikan atau dihukum (contoh: penguapan feromon), mencegah konvergensi prematur ke optimum lokal.
 - **Stigmergi:** Komunikasi termediasi lingkungan. Agen `A` mengubah lingkungan `E`. Agen `B` merespons perubahan di `E`. Ini adalah **memori kolektif non-simbolik.**
 
 ### Analogi Alam:
-
 - **Semut** cari makanan → tinggalkan jejak feromon → jalur terpendek jadi paling kuat
 - **Burung** terbang → ikuti tetangga → kawanan kompak tanpa tabrakan
 - **Ikan** berenang → hindari predator → formasi rapat sebagai satu kesatuan
@@ -54,11 +52,11 @@ Sebuah himpunan fuzzy `A` dalam semesta `X` didefinisikan oleh **fungsi keanggot
 
 **Crisp vs Fuzzy:**
 
-| Crisp                   | Fuzzy                                 |
-| ----------------------- | ------------------------------------- |
+| Crisp | Fuzzy |
+|-------|-------|
 | `{0, 1}` — dingin/panas | `[0, 1]` — agak dingin, lumayan panas |
-| Himpunan tegas          | Himpunan kabur                        |
-| Logika biner            | Derajat kebenaran                     |
+| Himpunan tegas | Himpunan kabur |
+| Logika biner | Derajat kebenaran |
 
 **Arsitektur Sistem Fuzzy (3 Langkah):**
 
@@ -68,11 +66,11 @@ Sebuah himpunan fuzzy `A` dalam semesta `X` didefinisikan oleh **fungsi keanggot
 
 ### Fungsi Keanggotaan Umum:
 
-| Tipe            | Rumus                                      |
-| --------------- | ------------------------------------------ |
-| **Triangular**  | `max(0, min((x-a)/(b-a), (c-x)/(c-b)))`    |
+| Tipe | Rumus |
+|------|-------|
+| **Triangular** | `max(0, min((x-a)/(b-a), (c-x)/(c-b)))` |
 | **Trapezoidal** | `max(0, min((x-a)/(b-a), 1, (d-x)/(d-c)))` |
-| **Gaussian**    | `exp(-(x-μ)²/(2σ²))`                       |
+| **Gaussian** | `exp(-(x-μ)²/(2σ²))` |
 
 ### Praktik Python (`scikit-fuzzy`):
 
@@ -138,14 +136,12 @@ PSO mensimulasikan perilaku sosial hewan (kawanan burung, gerombolan ikan) di ma
 
 **Model Matematis Formal:**
 Untuk setiap partikel `i` pada iterasi `t`:
-
 - `x_i(t)` adalah posisi (solusi kandidat).
 - `v_i(t)` adalah kecepatan (arah dan besar langkah).
 - `pbest_i` adalah posisi terbaik yang pernah dikunjungi partikel `i`.
 - `gbest` adalah posisi terbaik yang pernah dikunjungi oleh seluruh kawanan.
 
 **Update Kecepatan dan Posisi:**
-
 ```
 v_i(t+1) = ω·v_i(t) + c₁·r₁·(pbest_i - x_i(t)) + c₂·r₂·(gbest - x_i(t))
 x_i(t+1) = x_i(t) + v_i(t+1)
@@ -157,12 +153,12 @@ x_i(t+1) = x_i(t) + v_i(t+1)
 
 ### Parameter Penting:
 
-| Parameter | Efek                    |
-| --------- | ----------------------- |
-| `w = 0.9` | Eksplorasi global       |
-| `w = 0.4` | Eksploitasi lokal       |
+| Parameter | Efek |
+|-----------|------|
+| `w = 0.9` | Eksplorasi global |
+| `w = 0.4` | Eksploitasi lokal |
 | `c₁ > c₂` | Cenderung personal best |
-| `c₂ > c₁` | Cenderung social best   |
+| `c₂ > c₁` | Cenderung social best |
 
 ### Implementasi Python Vectorized (NumPy):
 
@@ -216,7 +212,6 @@ print(f"Best: {best_pos}, Min: {best_val:.6f}")
 ```
 
 ### Aplikasi PSO:
-
 - Optimasi fungsi matematis (Rastrigin, Sphere, Rosenbrock)
 - **Economic Load Dispatch** — pembagian beban generator
 - Training neural network (sebagai alternatif backprop)
@@ -230,7 +225,6 @@ print(f"Best: {best_pos}, Min: {best_val:.6f}")
 GA adalah model komputasi dari evolusi Darwin. Populasi solusi kandidat (kromosom) bersaing untuk bertahan hidup. Solusi yang lebih "fit" memiliki probabilitas lebih tinggi untuk menurunkan materi genetiknya.
 
 ### Langkah GA:
-
 1. **Encoding** — representasi solusi (binary, real-value, permutation)
 2. **Populasi awal** — generate random
 3. **Evaluasi fitness** — nilai fungsi objektif
@@ -242,21 +236,21 @@ GA adalah model komputasi dari evolusi Darwin. Populasi solusi kandidat (kromoso
 
 ### Komponen Detail:
 
-| Komponen      | Metode         | Cara Kerja                                                   |
-| ------------- | -------------- | ------------------------------------------------------------ |
-| **Seleksi**   | Tournament     | Pilih `k` random, ambil terbaik. `k` kontrol tekanan seleksi |
-| **Crossover** | BLX-α (real)   | `child = parent1 + α·(parent2-parent1)`, α=0.5               |
-| **Mutation**  | Gaussian       | `x = x + N(0, σ)`, σ tentukan besar langkah                  |
-| **Elitism**   | Copy N terbaik | Jamin fitness terbaik tidak pernah turun                     |
+| Komponen | Metode | Cara Kerja |
+|----------|--------|------------|
+| **Seleksi** | Tournament | Pilih `k` random, ambil terbaik. `k` kontrol tekanan seleksi |
+| **Crossover** | BLX-α (real) | `child = parent1 + α·(parent2-parent1)`, α=0.5 |
+| **Mutation** | Gaussian | `x = x + N(0, σ)`, σ tentukan besar langkah |
+| **Elitism** | Copy N terbaik | Jamin fitness terbaik tidak pernah turun |
 
 ### Perbandingan GA vs PSO:
 
-| Aspek       | GA                            | PSO                         |
-| ----------- | ----------------------------- | --------------------------- |
-| Cara        | Evolusi populasi              | Gerakan kawanan             |
-| Memori      | Tidak ada                     | pbest + gbest               |
-| Parameter   | Crossover rate, mutation rate | w, c1, c2                   |
-| Konvergensi | Lambat tapi stabil            | Cepat tapi bisa jebak lokal |
+| Aspek | GA | PSO |
+|-------|----|-----|
+| Cara | Evolusi populasi | Gerakan kawanan |
+| Memori | Tidak ada | pbest + gbest |
+| Parameter | Crossover rate, mutation rate | w, c1, c2 |
+| Konvergensi | Lambat tapi stabil | Cepat tapi bisa jebak lokal |
 
 ### Implementasi Python GA Real-Value:
 
@@ -313,27 +307,22 @@ def genetic_algorithm(func, dim, pop_size=50, max_gen=100, bounds=(-10, 10),
 ACO meniru perilaku semut mencari jalur terpendek. Semut menyimpan **feromon** di jalur yang mereka lalui. Semut berikutnya cenderung memilih jalur dengan konsentrasi feromon lebih tinggi, menciptakan umpan balik positif untuk solusi yang baik.
 
 ### Model Probabilistik (Ant System):
-
 ```
 Pᵢⱼᵏ = [τᵢⱼ]ᵅ · [ηᵢⱼ]ᵇ / Σ_l [τᵢₗ]ᵅ · [ηᵢₗ]ᵇ
 ```
-
 - `τᵢⱼ` (pheromone): Jejak kimiawi, memori kolektif.
 - `ηᵢⱼ = 1/dᵢⱼ` (heuristic): Visibilitas, daya tarik lokal.
 - `α`: Bobot feromon (`α=0` → greedy heuristic).
 - `β`: Bobot heuristik (`β=0` → hanya feromon, stagnan).
 
 ### Update Feromon:
-
 ```
 τᵢⱼ ← (1 - ρ)·τᵢⱼ + Σ_k Δτᵢⱼᵏ
 ```
-
 - `ρ` (evaporation rate): Melupakan sejarah lama, mencegah optimum lokal.
 - `Δτᵢⱼᵏ = 1 / Lₖ` jika semut `k` lewat jalur `(i,j)`.
 
 ### Varian Penting:
-
 - **MMAS** (Max-Min Ant System) — batasi pheromone agar tidak ekstrem
 - **ACS** (Ant Colony System) — local update + global update
 
@@ -407,11 +396,11 @@ class TSP_ACO:
 
 ABC memodelkan tiga jenis lebah dengan peran berbeda, menciptakan keseimbangan eksplorasi (scout) dan eksploitasi (employed dan onlooker).
 
-| Jenis Lebah  | Peran                                                                                    |
-| ------------ | ---------------------------------------------------------------------------------------- |
-| **Employed** | Eksploitasi sumber makanan, bagi info lewat waggle dance                                 |
+| Jenis Lebah | Peran |
+|-------------|-------|
+| **Employed** | Eksploitasi sumber makanan, bagi info lewat waggle dance |
 | **Onlooker** | Menonton dance, pilih sumber terbaik secara probabilistik (`Pᵢ = fitnessᵢ / Σ fitnessⱼ`) |
-| **Scout**    | Tinggalkan sumber jelek setelah `limit` iterasi tanpa improvement, cari baru acak        |
+| **Scout** | Tinggalkan sumber jelek setelah `limit` iterasi tanpa improvement, cari baru acak |
 
 ### Implementasi Singkat:
 
@@ -470,7 +459,6 @@ def artificial_bee_colony(func, dim, n_bees=30, max_iter=100, bounds=(-10, 10), 
 ## 🦗 7. Algoritma Lainnya: Firefly & Bat Algorithm
 
 ### Firefly Algorithm (FA)
-
 **Prinsip:** Daya tarik kunang-kunang berbanding lurus dengan kecerahannya dan berbanding terbalik dengan kuadrat jarak. Ini adalah PSO tanpa kecepatan, dengan daya tarik gravitasi yang terlokalisasi.
 
 ```
@@ -484,7 +472,6 @@ xᵢ = xᵢ + β₀·e^(-γ·rᵢⱼ²)·(xⱼ - xᵢ) + α·(rand - 0.5)
 **Aplikasi:** Economic Load Dispatch, Clustering, Image Processing
 
 ### Bat Algorithm (BA)
-
 **Prinsip:** Mikro-kelelawar menggunakan echolocation. Frekuensi pulsa `f`, loudness `A`, pulse rate `r`. Saat mendekati mangsa, loudness menurun (`A_i → 0`) dan pulse rate meningkat (`r_i → 1`).
 
 ```
@@ -505,12 +492,12 @@ Neural network adalah komposisi fungsi non-linear yang memetakan input `X` ke ou
 
 ### Activation Functions:
 
-| Fungsi  | Rumus               | Turunan                 |
-| ------- | ------------------- | ----------------------- |
-| Step    | `1 if x > 0 else 0` | `0` (gak bisa backprop) |
-| Sigmoid | `1/(1+e⁻ˣ)`         | `σ(x)·(1-σ(x))`         |
-| Tanh    | `(eˣ-e⁻ˣ)/(eˣ+e⁻ˣ)` | `1 - tanh²(x)`          |
-| ReLU    | `max(0, x)`         | `1 if x>0 else 0`       |
+| Fungsi | Rumus | Turunan |
+|--------|-------|---------|
+| Step | `1 if x > 0 else 0` | `0` (gak bisa backprop) |
+| Sigmoid | `1/(1+e⁻ˣ)` | `σ(x)·(1-σ(x))` |
+| Tanh | `(eˣ-e⁻ˣ)/(eˣ+e⁻ˣ)` | `1 - tanh²(x)` |
+| ReLU | `max(0, x)` | `1 if x>0 else 0` |
 
 ### Backpropagation: Aturan Rantai dalam Graf Komputasi
 
@@ -583,27 +570,27 @@ print(nn.forward(X))
 
 ## 🔗 Koneksi ke Vault
 
-| Konsep                  | Dokumen                                                        |
-| ----------------------- | -------------------------------------------------------------- |
-| PSO/GA/ACO → optimasi   | [[ai-engineering-stack-roadmap]] (MLOps hyperparameter tuning) |
-| Fuzzy Logic → penilaian | [[software-quality-untung-yuhana]] (kualitas perangkat lunak)  |
-| NN → prediksi           | [[test-time-compute-system2]] (system 1 vs system 2)           |
-| Swarm → multi-agent     | [[meta-agent-orchestration]] (agent orchestration)             |
-| ACO → agent routing     | [[aco-agent-routing-deepdive]] (pheromone dispatch)            |
-| Emergent behavior       | [[cognitive-architecture-engineering]] (emergent cognition)    |
+| Konsep | Dokumen |
+|--------|---------|
+| PSO/GA/ACO → optimasi | [[ai-engineering-stack-roadmap]] (MLOps hyperparameter tuning) |
+| Fuzzy Logic → penilaian | [[software-quality-untung-yuhana]] (kualitas perangkat lunak) |
+| NN → prediksi | [[test-time-compute-system2]] (system 1 vs system 2) |
+| Swarm → multi-agent | [[meta-agent-orchestration]] (agent orchestration) |
+| ACO → agent routing | [[aco-agent-routing-deepdive]] (pheromone dispatch) |
+| Emergent behavior | [[cognitive-architecture-engineering]] (emergent cognition) |
 
 ---
 
 ## ✅ Ringkasan Praktik
 
-| Algoritma | Tool Python              | Prinsip Inti                          | Gak Perlu            |
-| --------- | ------------------------ | ------------------------------------- | -------------------- |
-| **PSO**   | `numpy`                  | Vektor kecepatan + pbest/gbest        | MATLAB               |
-| **GA**    | `numpy`                  | Seleksi + Crossover + Mutasi          | Toolbox mahal        |
-| **ACO**   | `numpy`                  | Feromon + Probabilitas + Evaporasi    | Lisensi              |
-| **Fuzzy** | `scikit-fuzzy` / `numpy` | Derajat keanggotaan [0,1] + IF-THEN   | MATLAB Fuzzy Toolbox |
-| **ABC**   | `numpy`                  | 3 fase agen (Employed,Onlooker,Scout) | Library khusus       |
-| **NN**    | `numpy` / `scikit-learn` | Backpropagation on Computation Graph  | GPU cluster          |
+| Algoritma | Tool Python | Prinsip Inti | Gak Perlu |
+|-----------|-------------|-------------|-----------|
+| **PSO** | `numpy` | Vektor kecepatan + pbest/gbest | MATLAB |
+| **GA** | `numpy` | Seleksi + Crossover + Mutasi | Toolbox mahal |
+| **ACO** | `numpy` | Feromon + Probabilitas + Evaporasi | Lisensi |
+| **Fuzzy** | `scikit-fuzzy` / `numpy` | Derajat keanggotaan [0,1] + IF-THEN | MATLAB Fuzzy Toolbox |
+| **ABC** | `numpy` | 3 fase agen (Employed,Onlooker,Scout) | Library khusus |
+| **NN** | `numpy` / `scikit-learn` | Backpropagation on Computation Graph | GPU cluster |
 
 > [!tip] Kunci Penguasaan
 > Jangan hanya menyalin kode. Pahami **mengapa** partikel PSO bisa berayun jika `ω>1`, **mengapa** crossover dalam GA mempertukarkan blok bangunan (schema theorem), dan **mengapa** backprop efisien. Jika Anda bisa menjelaskan mekanisme ini tanpa melihat buku, Anda bukan hanya pengguna, tetapi **insinyur kecerdasan.**
