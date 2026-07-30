@@ -35,7 +35,16 @@ cssclasses:
 7. [[#7. Systemd Security — Service Hardening]]
 8. [[#8. Systemd-networkd — Network Config]]
 9. [[#9. Troubleshooting & Common Issues]]
-10. [[#10. Koneksi ke Vault]]
+10. [[#10. Boot Process Timeline — From initramfs to Graphical Session]]
+11. [[#11. Target & Runlevel Mapping — SysV Compatibility]]
+12. [[#12. Dependency Resolution — After vs Requires vs Wants vs BindsTo]]
+13. [[#13. systemd-analyze Plot — Visual Boot Analysis]]
+14. [[#14. Emergency Recovery — Rescue & Emergency Targets]]
+15. [[#15. Security Namespace Hardening — PrivateTmp, PrivateDevices, ProtectSystem]]
+16. [[#16. systemd-coredump — Core Dump Management]]
+17. [[#17. systemd-logind — Session & Seat Management]]
+18. [[#18. SysVinit to Systemd — Migration Patterns]]
+19. [[#19. Koneksi ke Vault]]
 
 ---
 
@@ -498,6 +507,269 @@ SYSTEMD_LOG_LEVEL=debug systemctl start myapp.service
 ```
 
 ---
+
+## 11. Systemd Boot Process — From Power-On to Login
+
+Understanding systemd boot sequence penting buat troubleshooting slow boot atau service yang gak start.
+
+```
+Power On → BIOS/UEFI → Bootloader (GRUB) → Kernel + initramfs → init (PID 1 = systemd) → default.target
+```
+
+### Phase-by-Phase Timeline
+
+```bash
+# Analisis boot time
+systemd-analyze                         # total boot time
+systemd-analyze blame                   # per-unit time (descending)
+systemd-analyze critical-chain          # critical path ke target
+systemd-analyze plot > boot.svg         # visual timeline — buka di browser
+```
+
+**Output `systemd-analyze` fields:**
+
+- **kernel**: waktu dari bootloader sampai kernel selesai init
+- **initrd**: waktu dari initramfs sampai root filesystem siap
+- **userspace**: waktu dari systemd start sampai default.target tercapai
+
+### Initramfs — kenapa penting?
+
+Initramfs (initial RAM filesystem) adalah sistem sementara yang di-load kernel sebelum root filesystem di-mount. Systemd di initramfs:
+
+1. Load storage drivers (SATA, NVMe, mdadm, LVM)
+2. Decrypt LUKS partition
+3. Mount root filesystem
+4. Switch_root ke rootfs
+
+Kalo boot lambat di "initrd" phase — curigain: LUKS decryption, network mount, atau storage driver timeouts.
+
+## 12. Target vs SysV Runlevel Mapping
+
+SysV runlevel → systemd target mapping:
+
+| SysV Runlevel |  systemd Target   | Fungsi                                |
+| :-----------: | :---------------: | :------------------------------------ |
+|       0       |  poweroff.target  | Shutdown                              |
+|     1 / S     |   rescue.target   | Single-user mode, minimal             |
+|       2       | multi-user.target | Multi-user tanpa GUI (debian turunan) |
+|       3       | multi-user.target | Multi-user, text-only                 |
+|       4       | multi-user.target | Custom (jarang dipake)                |
+|       5       | graphical.target  | Multi-user + GUI                      |
+|       6       |   reboot.target   | Reboot                                |
+|   emergency   | emergency.target  | Rescue shell, root fs ro              |
+
+```bash
+# Switch target di runtime
+sudo systemctl isolate multi-user.target   # text mode
+sudo systemctl isolate graphical.target    # GUI mode
+
+# Default boot target
+sudo systemctl get-default
+sudo systemctl set-default multi-user.target   # boot ke text mode
+```
+
+### 12.1 Systemd Targets vs Services
+
+Target bukan "runlevel" — dia adalah **synchronization point**:
+
+```
+┌─────────────────┐
+│ sysinit.target  │ ← basic system init
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ basic.target    │ ← filesystems, swap, sockets
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│multi-user.target│ ← all services (no GUI)
+└────┬──────┬─────┘
+     ▼      ▼
+┌────────┐ ┌────────────────┐
+│graphical│ │poweroff.target │
+│.target │ │reboot.target    │
+└────────┘ └────────────────┘
+```
+
+Service unit `WantedBy=multi-user.target` artinya: service ini akan start ketika systemd mencapai target itu. Tapi target tercapai **setelah semua service yang diperlukan sukses**.
+
+## 13. Service Dependency — After vs Requires vs Wants
+
+Empat directive utama yang ngatur hubungan service:
+
+| Directive            | Effect                     | Behavior if fails             |
+| -------------------- | -------------------------- | ----------------------------- |
+| `After=A.service`    | Order: start AFTER A       | A gagal, service tetap start  |
+| `Before=A.service`   | Order: start BEFORE A      | Kebalikan After               |
+| `Requires=A.service` | Hard dep: A harus jalan    | A gagal → service gagal       |
+| `Wants=A.service`    | Soft dep: usahakan A jalan | A gagal → service tetap jalan |
+| `BindsTo=A.service`  | Lifecycle bond             | A stop → service stop         |
+
+### Praktik — Service yang butuh database
+
+```ini
+[Unit]
+Description=My App
+After=network-online.target postgresql.service
+Requires=postgresql.service
+# Wants=postgresql.service   ← pake ini kalo app bisa jalan tanpa DB (misal: cache)
+
+[Service]
+ExecStart=/usr/bin/node /opt/app/server.js
+Restart=on-failure
+```
+
+> [!tip] Use `Wants` instead of `Requires` unless your app literally cannot function without the dependency. `Wants` lets the service still start if the dep is temporarily broken, which helps with recovery.
+
+### Dependency Tree
+
+```bash
+systemctl list-dependencies postgresql.service
+# Shows: postgresql.service
+#         ● ├─system.slice
+#         ● ├─systemd-journald.socket
+#         ● ├─basic.target
+#         ● │ ├─-.mount
+#         ● │ ├─paths.target
+#         ● │ ├─slices.target
+#         ● │ └─sockets.target
+```
+
+## 14. Emergency Recovery
+
+Ada kalanya systemd gagal total — service critical gak jalan, systemd hang, atau root fs corrupt.
+
+### 14.1. Rescue Mode (Single User)
+
+```bash
+# Dari GRUB: tambah "1" atau "single" di kernel cmdline
+# Atau dari GRUB: tekan 'e' → cari "linux" line → tambah " systemd.unit=rescue.target"
+
+# Kalo udah di shell:
+sudo systemctl rescue            # switch ke rescue mode secara real-time
+```
+
+### 14.2. Emergency Mode
+
+```bash
+# GRUB: tambah " systemd.unit=emergency.target"
+# Emergency: root filesystem di-mount READ-ONLY, gak ada network, cuma shell
+mount -o remount,rw /            # remount rw manual kalo perlu
+```
+
+### 14.3. Boot Parameter untuk Debug Systemd
+
+| Parameter                                 | Efek                            |
+| ----------------------------------------- | ------------------------------- |
+| `systemd.unit=rescue.target`              | Boot ke rescue                  |
+| `systemd.unit=emergency.target`           | Boot ke emergency               |
+| `systemd.log_level=debug`                 | Log systemd dengan debug level  |
+| `systemd.log_target=console`              | Log ke console (gak ke journal) |
+| `systemd.journald.forward_to_console=yes` | Journald output ke console      |
+| `systemd.mask=network.service`            | Mask service tertentu saat boot |
+
+```bash
+# Test kalo service rusak bikin boot hang:
+# Tambah "systemd.mask=myapp.service systemd.mask=myapp.timer" di kernel cmdline
+```
+
+## 15. Namespace Isolation — ProtectSystem, PrivateTmp, dll
+
+Systemd bisa mengisolasi service menggunakan Linux namespaces — sama kaya container tapi lebih lightweight.
+
+```ini
+[Service]
+# 🟢 PrivateTmp — /tmp dan /var/tmp terisolasi
+PrivateTmp=yes
+# Membuat namespace mount baru untuk /tmp
+# Setiap service punya /tmp sendiri → gak bisa liat file temp service lain
+
+# 🟢 ProtectSystem — read-only filesystem
+ProtectSystem=full
+# full: /usr dan /etc read-only
+# strict: /usr, /etc, dan / read-only (lebih keras)
+# true: /usr read-only
+
+# 🟢 ProtectHome — /home, /root, /run/user gak bisa diakses
+ProtectHome=yes
+
+# 🟢 PrivateDevices — /dev dibatasi (cuma null, zero, random, urandom)
+PrivateDevices=yes
+
+# 🟢 ProtectKernelTunables — /sys dan /proc/sys read-only
+ProtectKernelTunables=yes
+
+# 🟢 ProtectKernelModules — block insmod/modprobe
+ProtectKernelModules=yes
+
+# 🟢 ProtectControlGroups — /sys/fs/cgroup read-only
+ProtectControlGroups=yes
+
+# 🟢 NoNewPrivileges — gak bisa escalate privilege
+NoNewPrivileges=yes
+
+# 🔴 MemoryDenyWriteExecute — prevent W+X memory pages
+MemoryDenyWriteExecute=yes
+```
+
+### Efek Samping
+
+| Isolation          |    Cache effect     | Notable impact               |
+| ------------------ | :-----------------: | :--------------------------- |
+| PrivateTmp         |    Session-based    | tmp file gak survive restart |
+| ProtectSystem=full |          —          | Gak bisa write ke /etc       |
+| ProtectHome=yes    | SSH key gak terbaca | Home SSH key auth            |
+| PrivateDevices     |          —          | Gak bisa akses GPU/device    |
+
+## 16. systemd-coredump — Debug Application Crash
+
+```bash
+# Enable
+sudo systemctl enable --now systemd-coredump.socket
+ulimit -c unlimited                # enable core dump per session
+
+# Lihat core dumps
+coredumpctl list
+coredumpctl info                   # detail crash
+
+# Debug
+coredumpctl gdb                    # langsung GDB ke dump terakhir
+coredumpctl debug myapp.service    # debug specific service
+coredumpctl dump myapp.service > core.dump  # export dump
+
+# Config
+# /etc/systemd/coredump.conf
+[Coredump]
+Storage=external                   # simpan ke /var/lib/systemd/coredump/
+Compress=yes
+ProcessSizeMax=2G
+```
+
+## 17. systemd-logind — Session & Seat Management
+
+```bash
+# Cek session aktif
+loginctl list-sessions
+loginctl session-status <id>
+
+# Cek user login
+loginctl list-users
+loginctl user-status 1000
+
+# Seat (physical terminal)
+loginctl list-seats
+loginctl seat-status seat0
+
+# Lock/unlock session
+loginctl lock-session <id>
+loginctl unlock-session <id>
+```
+
+Systemd-logind juga yang nge-manage:
+
+- **Idle action**: suspend/shutdown setelah idle
+- **Lid switch**: action pas laptop lid ditutup
+- **Multi-seat**: support multiple keyboard/monitor/mouse di satu PC
 
 ## 10. Koneksi ke Vault
 

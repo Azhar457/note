@@ -19,40 +19,40 @@ Spektrum di bawah menempatkan setiap alat dari vault ini pada kontinum dari **de
 ```
 DEFENSE ◄─────────────────────────────────────────────────────────────► OFFENSE
   │                                                                        │
-  │  Blue Team         Red Team         APT/Kriminal      Nation-State    │
-  │  ─────────         ────────         ────────────      ────────────    │
+  │  Blue Team         Red Team         APT/Kriminal      Nation-State     │
+  │  ─────────         ────────         ────────────      ────────────     │
   │                                                                        │
-  ├─ Google Dorks (self-dorking)                                          │
-  ├─ Maltego (brand protection)                                           │
-  ├─ Shodan (asset discovery)                                             │
-  ├─ Burp Suite (dev testing)                                             │
-  ├─ Metasploit (patch validation)                                        │
-  ├─ BloodHound (AD hardening)                                            │
-  ├─ Victoria HDD (health check)                                          │
+  ├─ Google Dorks (self-dorking)                                           │
+  ├─ Maltego (brand protection)                                            │
+  ├─ Shodan (asset discovery)                                              │
+  ├─ Burp Suite (dev testing)                                              │
+  ├─ Metasploit (patch validation)                                         │
+  ├─ BloodHound (AD hardening)                                             │
+  ├─ Victoria HDD (health check)                                           │
   │                                                                        │
-  │                     ├─ Google Dorks (recon)                           │
-  │                     ├─ Maltego (target profiling)                     │
-  │                     ├─ Shodan (vuln scanning)                         │
-  │                     ├─ Burp Suite (pentest)                           │
-  │                     ├─ Metasploit (exploit delivery)                  │
-  │                     ├─ BloodHound (attack path)                       │
-  │                     ├─ Cobalt Strike (adversary sim)                  │
-  │                     ├─ Havoc C2 (adversary sim)                       │
-  │                     ├─ Empire (adversary sim)                         │
-  │                     ├─ Sliver (adversary sim)                         │
+  │                     ├─ Google Dorks (recon)                            │
+  │                     ├─ Maltego (target profiling)                      │
+  │                     ├─ Shodan (vuln scanning)                          │
+  │                     ├─ Burp Suite (pentest)                            │
+  │                     ├─ Metasploit (exploit delivery)                   │
+  │                     ├─ BloodHound (attack path)                        │
+  │                     ├─ Cobalt Strike (adversary sim)                   │
+  │                     ├─ Havoc C2 (adversary sim)                        │
+  │                     ├─ Empire (adversary sim)                          │
+  │                     ├─ Sliver (adversary sim)                          │
   │                                                                        │
-  │                                       ├─ Cobalt Strike (ransomware)   │
-  │                                       ├─ Havoc C2 (data theft)        │
-  │                                       ├─ Empire (espionage)           │
-  │                                       ├─ Sliver (APT)                 │
-  │                                       ├─ FinSpy (illegal surveillance)│
-  │                                       ├─ Predator (targeting)         │
-  │                                       ├─ Pegasus (0-click spyware)    │
-  │                                       ├─ GrayKey (unauthorized)       │
-  │                                       ├─ Cellebrite (unauthorized)    │
-  │                                       ├─ PC-3000 (evidence destroy)   │
+  │                                       ├─ Cobalt Strike (ransomware)    │
+  │                                       ├─ Havoc C2 (data theft)         │
+  │                                       ├─ Empire (espionage)            │
+  │                                       ├─ Sliver (APT)                  │
+  │                                       ├─ FinSpy (illegal surveillance) │
+  │                                       ├─ Predator (targeting)          │
+  │                                       ├─ Pegasus (0-click spyware)     │
+  │                                       ├─ GrayKey (unauthorized)        │
+  │                                       ├─ Cellebrite (unauthorized)     │
+  │                                       ├─ PC-3000 (evidence destroy)    │
   │                                                                        │
-  │                                                          ├─ PRISM     │
+  │                                                          ├─ PRISM      │
   │                                                          ├─ UPSTREAM   │
   │                                                          ├─ TEMPORA    │
   │                                                          ├─ Verint     │
