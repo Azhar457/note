@@ -69,7 +69,7 @@ Untuk skala VPS-prod (≤ 10 instance) + homelab, **Ansible** sweet spot: setup 
 ansible-hardening-rocky/
 ├── ansible.cfg                 # Default inventory + remote_user
 ├── inventory/
-│   ├── production.ini          # VPS prod ([REDACTED], dll)
+│   ├── production.ini          # VPS prod (multimediasolusiprima, dll)
 │   └── homelab.ini             # Internal lab
 ├── group_vars/
 │   ├── all.yml                 # Variabel global
@@ -127,8 +127,8 @@ ansible all -i inventory/production.ini -m ping
 ```ini
 # inventory/production.ini
 [vps_prod]
-[REDACTED] ansible_host=[VPS1_IP] ansible_user=provisioner
-vps2-kuldi ansible_host=[KULDI_IP] ansible_user=provisioner
+multimediasolusiprima ansible_host=[VPS1_IP] ansible_user=admin
+vps2-kuldi ansible_host=[KULDI_IP] ansible_user=dev
 
 [vps_prod:vars]
 ansible_become=true

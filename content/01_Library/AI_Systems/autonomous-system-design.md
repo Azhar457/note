@@ -83,7 +83,7 @@ Sebuah log kronologis dari setiap "siklus kognitif": Goal → Plan → Act → O
 ```
 Timestamp: 2026-07-09T14:30:00Z
 Goal: "Scan port 443 pada server produksi"
-Action: nmap -sV -p 443 [VPS1_IP]
+Action: nmap -sV -p 443 [IP_PRODUCTION]
 Result: PORT STATE SERVICE 443/tcp open https
 Reflection: Berhasil. Latensi 2.3 detik. Tidak ada anomali.
 Score: 0.95 (keberhasilan tinggi)

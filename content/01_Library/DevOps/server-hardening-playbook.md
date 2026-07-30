@@ -21,7 +21,7 @@ cssclasses:
 
 # 🛡️ Server Hardening Playbook — VPS Production
 
-> Playbook hardening server VPS dari awal (fresh install) sampai production-ready. Bukan teori — ini langkah konkret yang diterapkan di VPS [REDACTED] ([VPS1_IP]), VPS ARBAS dedicated ([ARBAS_IP]), dan VPS KULDI ([KULDI_IP]). Setiap langkah punya command copy-paste, reasoning kenapa dilakukan, dan verification step. Vault udah punya [[linux-hardening-audit-praktis]] (komponen hardening individual) — playbook ini urutannya dari awal sampe akhir.
+> Playbook hardening server VPS dari awal (fresh install) sampai production-ready. Bukan teori — ini langkah konkret yang diterapkan di VPS production (beberapa project berbeda). Setiap langkah punya command copy-paste, reasoning kenapa dilakukan, dan verification step. Vault udah punya [[linux-hardening-audit-praktis]] (komponen hardening individual) — playbook ini urutannya dari awal sampe akhir.
 
 > [!tip] Filosofi
 > Hardening itu layered defense. Gak ada satu konfigurasi yang bikin server aman. Tapi kombinasi SSH key-only + UFW + fail2ban + auditd + SELinux + automatic updates udah cukup buat repel 99% automated attacks. Sisanya detection + response.
@@ -590,23 +590,23 @@ Jalankan playbook ini setelah fresh install, checklist satu per satu:
 
 ```bash
 # ┌─────────────────────────────────────────────┐
-# │         SERVER HARDENING CHECKLIST           │
+# │         SERVER HARDENING CHECKLIST          │
 # ├─────────────────────────────────────────────┤
 # │                                             │
 # │ 1. SSH: PermitRootLogin no               ❌ │
 # │ 2. SSH: PasswordAuthentication no        ❌ │
-# │ 3. SSH: AllowUsers whitelist              ❌ │
-# │ 4. UFW: default deny incoming             ❌ │
-# │ 5. UFW: active                            ❌ │
-# │ 6. fail2ban: active                       ❌ │
-# │ 7. auditd: enabled + running              ❌ │
-# │ 8. SELinux: Enforcing                     ❌ │
-# │ 9. Kernel ASLR: 2                          ❌ │
-# │ 10. Automatic updates: on                  ❌ │
-# │ 11. AIDE: initialized + cron               ❌ │
-# │ 12. Root login: disabled                   ❌ │
-# │ 13. Unused services: disabled              ❌ │
-# │ 14. Logwatch: daily report                 ❌ │
+# │ 3. SSH: AllowUsers whitelist             ❌ │
+# │ 4. UFW: default deny incoming            ❌ │
+# │ 5. UFW: active                           ❌ │
+# │ 6. fail2ban: active                      ❌ │
+# │ 7. auditd: enabled + running             ❌ │
+# │ 8. SELinux: Enforcing                    ❌ │
+# │ 9. Kernel ASLR: 2                        ❌ │
+# │ 10. Automatic updates: on                ❌ │
+# │ 11. AIDE: initialized + cron             ❌ │
+# │ 12. Root login: disabled                 ❌ │
+# │ 13. Unused services: disable             ❌ │
+# │ 14. Logwatch: daily report               ❌ │
 # └─────────────────────────────────────────────┘
 ```
 
@@ -695,7 +695,7 @@ Service yang beneran dibutuhin web server:
 ● node_exporter (optional)   — monitoring
 ```
 
-> [!tip] Di VPS [REDACTED], setelah matiin cups, bluetooth, avahi, snapd, kita turunin footprint dari ~45 service ke ~22 — memory saving ~500MB.
+> [!tip] Di VPS production, setelah matiin cups, bluetooth, avahi, snapd, kita turunin footprint dari ~45 service ke ~22 — memory saving ~500MB.
 
 ## 14. Docker / Podman Security
 

@@ -771,7 +771,636 @@ Systemd-logind juga yang nge-manage:
 - **Lid switch**: action pas laptop lid ditutup
 - **Multi-seat**: support multiple keyboard/monitor/mouse di satu PC
 
-## 10. Koneksi ke Vault
+---
+
+## 10. Boot Process Timeline — From initramfs to Graphical Session
+
+Memahami boot process systemd penting buat debugging slow boot dan service dependency issues. Berbeda dengan SysV init yang linear (Sxx → Kxx script), systemd parallelize startup berdasarkan dependency graph.
+
+### Boot Sequence Overview
+
+```
+UEFI/BIOS → Bootloader (GRUB) → Kernel + initramfs → initrd.target → basic.target → multi-user.target → graphical.target
+```
+
+### 1. initramfs Stage (`initrd.target`)
+
+Kernel mount initramfs (initial RAM filesystem) sebagai root sementara. Systemd di initramfs menjalankan unit-unit penting:
+
+```bash
+# Service yang jalan di initramfs
+systemd-fsck@.service     # check filesystem
+systemd-udevd.service     # device manager — detect hardware
+dracut-initqueue.service  # dracut — load storage drivers
+systemd-journald.service  # journald udah aktif dari tahap ini
+```
+
+Setelah root filesystem terdeteksi dan di-mount, systemd switch root ke filesystem asli (`/sysroot` → `/`) dan lanjut ke `basic.target`.
+
+### 2. basic.target — Minimal Boot
+
+Tahap ini semua filesystem (termasuk `/usr`, `/var`) udah di-mount. Service yang aktif:
+
+- `sysinit.target` — mount, swap, udev, random seed, selinux policy
+- `sockets.target` — semua socket unit aktif (termasuk dbus.socket, sshd.socket)
+- `timers.target` — timer unit mulai dijadwalkan
+- `local-fs.target` — semua local filesystem mount selesai
+
+### 3. multi-user.target — Multi-User Text Mode
+
+Server-grade target — network online, SSH, database, web server jalan. Gak ada display manager.
+
+```bash
+systemctl list-dependencies multi-user.target  # liat semua unit yang start
+```
+
+### 4. graphical.target — Desktop Environment
+
+Multi-user plus display manager (GDM, SDDM, LightDM). Ini target default di distro desktop.
+
+```bash
+systemctl get-default                     # liat target default
+sudo systemctl set-default multi-user.target  # boot ke CLI (hemat resource)
+```
+
+### Boot Time Debugging
+
+```bash
+systemd-analyze time               # breakdown: kernel → initrd → userspace
+systemd-analyze blame              # per-service startup time
+systemd-analyze critical-chain     # critical path — service paling lambat
+```
+
+---
+
+## 11. Target & Runlevel Mapping — SysV Compatibility
+
+Systemd **target** menggantikan SysV **runlevel**. Ini tabel mapping buat migrasi mental dari sistem lama:
+
+| SysV Runlevel |   Systemd Target    | Fungsi                               | Status           |
+| :-----------: | :-----------------: | ------------------------------------ | ---------------- |
+|       0       |  `poweroff.target`  | Shutdown system                      | Direct mapping   |
+|       1       |   `rescue.target`   | Single-user mode, minimal filesystem | Mirip            |
+|       2       | `multi-user.target` | Debian/Ubuntu default multi-user     | Custom di Debian |
+|       3       | `multi-user.target` | RHEL/Fedora multi-user (text mode)   | Direct mapping   |
+|       4       | `multi-user.target` | Custom (jarang dipake)               | Unused           |
+|       5       | `graphical.target`  | Multi-user + display manager         | Direct mapping   |
+|       6       |   `reboot.target`   | Reboot system                        | Direct mapping   |
+
+### Perubahan Perintah
+
+| SysV           | Systemd                                      |
+| -------------- | -------------------------------------------- |
+| `init 3`       | `systemctl isolate multi-user.target`        |
+| `init 5`       | `systemctl isolate graphical.target`         |
+| `telinit q`    | `systemctl daemon-reload`                    |
+| `/etc/inittab` | `/etc/systemd/system/default.target` symlink |
+
+### Compatibility Layer
+
+Systemd tetap jalanin script SysV di `/etc/init.d/` via `systemd-sysv-generator` — tapi gak direkomendasikan. Generator ini bikin `.service` unit otomatis dari script SysV yang gak punya systemd unit.
+
+```bash
+# Cek apakah service masih pake SysV fallback
+systemctl show rc-local.service | grep -E '(LoadState|FragmentPath)'
+# Kalo pake SysV → FragmentPath bakal nunjuk /etc/init.d/
+```
+
+> [!warning] Systemd akan **nge-skip** service yang unitnya udah ada versi native systemd. Jadi SysV script cm fallback — prioritas selalu `.service` file.
+
+---
+
+## 12. Dependency Resolution — After vs Requires vs Wants vs BindsTo
+
+Ini salah satu sumber confusion terbesar. Empat directive dependency punya behavior yang berbeda secara fundamental:
+
+### `After=` — Ordering Only
+
+```ini
+[Unit]
+After=postgresql.service
+```
+
+- **Jaminan order**: myapp start **setelah** PostgreSQL.
+- **Gak jamin PostgreSQL start**: kalo PostgreSQL gagal, myapp tetap jalan.
+- Cocok buat: Ordering tanpa hard dependency — "kalo dia ada, jalanin dulu".
+
+### `Requires=` — Hard Start Dependency
+
+```ini
+[Unit]
+Requires=redis.service
+```
+
+- **Wajib start bareng**: systemd start redis sebelum myapp.
+- **Kalo gagal → myapp gagal**: kalo redis gagal start, myapp juga gagal.
+- **Tapi gak jamin order**: systemd bisa start keduanya paralel. Kombinasikan dengan `After=` kalo perlu urutan tertentu.
+- **Kalo stop**: redis stop → myapp **gak otomatis** stop. (Beda sama BindsTo)
+
+### `Wants=` — Soft Dependency
+
+```ini
+[Unit]
+Wants=postgresql.service
+```
+
+- **Coba start**: systemd usahain start PostgreSQL.
+- **Kalo gagal → myapp tetap jalan**: PostgreSQL failure gak ngaruh ke myapp.
+- Default buat `WantedBy=` di `[Install]` section — `multi-user.target` Wants semua service.
+
+### `BindsTo=` — Lifecycle Binding
+
+```ini
+[Unit]
+BindsTo=redis.service
+```
+
+- **Semua fitur Requires**: PostgreSQL wajib start, kalo gagal myapp gagal.
+- **+ Auto-stop**: kalo redis stop (sengaja atau crash), myapp otomatis stop.
+- **+ Auto-restart**: kalo redis restart, myapp ikut restart.
+- Cocok buat: Service yang gak punya arti tanpa dependency-nya (e.g., aplikasi yang butuh Redis cache).
+
+### Summary Decision Matrix
+
+| Directive   | Start Dependency | Order Guarantee |   Propagation (Failure)   | Propagation (Stop) |
+| ----------- | :--------------: | :-------------: | :-----------------------: | :----------------: |
+| `After=`    |        ❌        |       ✅        |            ❌             |         ❌         |
+| `Wants=`    |    ✅ (soft)     |       ❌        |            ❌             |         ❌         |
+| `Requires=` |    ✅ (hard)     |       ❌        | ✅ (start failure → stop) |         ❌         |
+| `BindsTo=`  |    ✅ (hard)     |       ❌        |            ✅             |   ✅ (stop both)   |
+
+### Pola Umum
+
+```ini
+# Typical web app with DB
+[Unit]
+Description=Web Application
+After=network-online.target postgresql.service redis.service
+Wants=postgresql.service
+BindsTo=redis.service
+```
+
+---
+
+## 13. systemd-analyze Plot — Visual Boot Analysis
+
+Output `systemd-analyze plot > boot.svg` ngasih timeline grafis boot process. Ini cara bacanya:
+
+### Anatomi SVG Plot
+
+```
+Kernel (biru) ───────────────────────────┐
+initrd (hijau) ──────────────────────┐    │
+Userspace (merah) ───────────────────┤    │
+                                      │    │
+Unit-Name              ████████████░░░░░░░░░  [Activation]
+Service A              ██████████░░░░░░░░░░   [Running + Config]
+Service B                 ████████████░░░░░
+```
+
+### Warna Bar
+
+| Warna             | Arti                                           |
+| ----------------- | ---------------------------------------------- |
+| **Biru**          | Kernel boot — dari bootloader sampai initramfs |
+| **Hijau**         | initramfs — driver load, filesystem mount      |
+| **Merah**         | Userspace — target/service startup             |
+| **Abu-abu/garis** | Idle time — nunggu dependency atau device      |
+
+### Bar Segments
+
+Tiap bar unit punya dua bagian:
+
+1. **Solid bar (████)** — Activation time (ExecStart, mounting, device detection)
+2. **Dotted/empty bar (░░░)** — Config time (parsing unit file, setting up cgroups)
+
+### Baca Masalah dari Plot
+
+| Pola                                                          | Interpretasi           | Fix                            |
+| ------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| Satu bar panjang >30s                                         | Service slow start     | Cek ExecStart, log service     |
+| Celah kosong sebelum service penting                          | Idle nunggu dependency | Tambah `After=` explicit       |
+| Banyak service start serial (berurutan padahal gak dependent) | Dependency gak optimal | Kurang `After=` — biar paralel |
+| initrd bar panjang                                            | Driver storage lambat  | Dracut config, module unload   |
+| Kernel bar panjang                                            | Hardware init lambat   | Kernel param, modprobe         |
+
+### Export & Share
+
+```bash
+# HTML interactive (systemd v254+)
+systemd-analyze plot > boot.html
+
+# Plain text untuk sharing di terminal
+systemd-analyze blame | head -20
+systemd-analyze critical-chain
+```
+
+---
+
+## 14. Emergency Recovery — Rescue & Emergency Targets
+
+Saat system gagal boot atau service critical rusak, systemd nyediain dua target recovery.
+
+### rescue.target — Single-User Mode
+
+```bash
+# Dari GRUB: tambah parameter ke kernel line
+systemd.unit=rescue.target
+
+# Atau kalo masih bisa akses shell
+sudo systemctl isolate rescue.target
+```
+
+- Mount filesystem **read-only** (kecuali `/proc`, `/sys`)
+- Root shell sebagai `root` (tanpa password prompt di Fedora/Debian)
+- **Gak** start network service
+- Cocok buat: **fsck manual, config fix, mount troubleshoot**
+
+### emergency.target — Minimal Shell
+
+```bash
+# Bahkan lebih minimal dari rescue
+systemd.unit=emergency.target
+```
+
+- **Hanya** root filesystem di-mount (read-only)
+- **Gak** ada service, **gak** ada network, **gak** ada udev
+- Shell langsung di `/dev/console`
+- Cocok buat: **Root filesystem corrupted, /etc fstab broken**
+
+### GRUB Recovery Entry
+
+```bash
+# Tambah entry manual di GRUB:
+# 1. Waktu boot, tekan 'e' di menu GRUB
+# 2. Cari baris linux /vmlinuz-...
+# 3. Tambah di akhir:
+systemd.unit=emergency.target
+# 4. Ctrl+X atau F10 buat boot
+```
+
+### Additional Kernel Parameters
+
+| Parameter                       | Efek                                           |
+| ------------------------------- | ---------------------------------------------- |
+| `systemd.unit=rescue.target`    | Boot ke maintenance mode                       |
+| `systemd.unit=emergency.target` | Boot ke emergency shell                        |
+| `systemd.mask=network.target`   | Skip network secara global                     |
+| `systemd.wants=...`             | Force start service tertentu                   |
+| `systemd.debug-shell`           | Buka shell interaktif di tty9 selama boot      |
+| `1` atau `single`               | SysV compatibility — fallback ke rescue.target |
+
+### Systemctl Emergency Commands
+
+```bash
+sudo systemctl rescue         # switch ke rescue mode (broadcast warning)
+sudo systemctl emergency      # switch ke emergency (langsung)
+sudo systemctl isolate rescue.target
+```
+
+> [!danger] Rescue/emergency mode unmount filesystem. Pastikan **sync** dulu sebelum isolate.
+
+---
+
+## 15. Security Namespace Hardening — PrivateTmp, PrivateDevices, ProtectSystem
+
+Salah satu kekuatan systemd adalah kemampuan **namespace isolation** per-service tanpa container. Ini bedah detail tiga directive utama:
+
+### PrivateTmp=yes
+
+Bikin namespace `/tmp` dan `/var/tmp` terpisah per service.
+
+```bash
+# Sebelum: semua service liat /tmp yang sama
+# Sesudah: tiap service punya /tmp sendiri
+```
+
+- Implementasi: **Mount namespace** + `pam_namespace`-style bind mount
+- Service A gak bisa liat file temporary service B
+- File yang dibuat di `/tmp` otomatis cleanup pas service stop
+- Cocok buat: **Service yang handle sensitive data sementara**
+
+```ini
+[Service]
+PrivateTmp=yes
+```
+
+```bash
+# Verifikasi
+lsns -t mnt | grep myapp.service   # liat namespace terisolasi
+```
+
+### PrivateDevices=yes
+
+Batasi akses ke device nodes — service cuma liat `/dev/null`, `/dev/zero`, `/dev/random`, `/dev/urandom`, `/dev/full`.
+
+```bash
+# Service gak bisa:
+# - Akses /dev/sda (disk raw)
+# - Akses /dev/tty* (terminal)
+# - Akses /dev/dri (GPU)
+# - Akses /dev/snd (audio)
+# Yang bisa: /dev/null, /dev/zero, /dev/random, /dev/full
+```
+
+- Implementasi: **Device cgroup (cgroup v1 BPF atau eBPF)**, bukan mount namespace
+- Efektif blokir **direct disk access** dari service
+- Cocok buat: **Daemon yang gak perlu hardware access — web server, API**
+
+```ini
+[Service]
+PrivateDevices=yes
+```
+
+### ProtectSystem=full
+
+Membuat `/usr` dan `/etc` read-only untuk service. Tiga level:
+
+| Level                  | Efek                                                                        |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `ProtectSystem=no`     | Default — full access                                                       |
+| `ProtectSystem=yes`    | `/usr` dan `/etc` read-only                                                 |
+| `ProtectSystem=full`   | `/usr`, `/etc`, **dan** `/usr/share` read-only                              |
+| `ProtectSystem=strict` | **Seluruh filesystem** read-only kecuali yang di-explicit `ReadWritePaths=` |
+
+- Implementasi: **Mount namespace** + `MS_RDONLY` bind mount
+- `/var` tetap writable (kecuali strict) — cocok buat log dan data
+- Cocok buat: **Service yang gak perlu install/update file sistem**
+
+```ini
+[Service]
+ProtectSystem=full
+# Tambah path yang tetap writable
+ReadWritePaths=/var/lib/myapp
+```
+
+### Namespace Chain — Kombinasi untuk Maximum Isolation
+
+```ini
+[Service]
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=full
+ProtectHome=yes
+NoNewPrivileges=yes
+PrivateUsers=yes           # user namespace — root di dalam ≠ root di luar
+ProtectKernelTunables=yes  # /sys dan /proc/sys read-only
+ProtectControlGroups=yes   # /sys/fs/cgroup read-only
+```
+
+---
+
+## 16. systemd-coredump — Core Dump Management
+
+Systemd menangani core dump via `systemd-coredump` — lebih rapi daripada kernel core_pattern tradisional.
+
+### Konfigurasi
+
+```ini
+# /etc/systemd/coredump.conf
+[Coredump]
+Storage=external              # simpan di /var/lib/systemd/coredump/
+Compress=yes
+ProcessSizeMax=2G
+ExternalSizeMax=2G
+JournalSizeMax=500M
+KeepFree=10G
+```
+
+| Storage Value | Behavior                                                          |
+| :-----------: | ----------------------------------------------------------------- |
+|    `none`     | Jangan simpan — langsung discard                                  |
+|  `external`   | Simpan ke `/var/lib/systemd/coredump/` + log metadata ke journal  |
+|   `journal`   | Simpan langsung di journald (hati-hati — journal size cepet gede) |
+|    `both`     | Simpan ke file eksternal + metadata ke journal                    |
+
+### Melihat Core Dump
+
+```bash
+# List semua core dump
+coredumpctl list
+
+# Format:
+# TIME                          PID   UID   GID  SIG PRESENT EXE
+# Thu 2026-07-30 14:22:01 WIB  3421  1000  1000  11  *       /usr/bin/myapp
+
+# Detail dump tertentu (interactive)
+coredumpctl info
+
+# Extract core file for GDB
+coredumpctl dump 3421 > /tmp/core.3421
+gdb /usr/bin/myapp /tmp/core.3421
+
+# Or one-liner — langsung debug
+coredumpctl debug 3421
+```
+
+### Matikan Core Dump (Production)
+
+```bash
+# Temporer — per shell
+ulimit -c 0
+
+# Permanen — semua service
+sudo cat > /etc/systemd/coredump.conf.d/disable.conf << 'EOF'
+[Coredump]
+Storage=none
+ProcessSizeMax=0
+EOF
+sudo systemctl restart systemd-coredump.socket
+```
+
+### Analisa Journal Core Dump
+
+```bash
+# Cari service yang crash
+journalctl -u myapp.service -p err
+
+# Dengan full stack trace
+coredumpctl info myapp.service
+```
+
+---
+
+## 17. systemd-logind — Session & Seat Management
+
+`systemd-logind` handle user session lifecycle, seat (physical console) tracking, dan multi-user desktop management.
+
+### Session Tracking
+
+Setiap login session — baik TTY, SSH, atau display manager — direkam:
+
+```bash
+loginctl list-sessions        # semua session aktif
+loginctl list-users           # user dengan session aktif
+loginctl show-session <id>    # detail session (seat, tty, display)
+loginctl show-user <username> # detail user + session state
+```
+
+|     Session Type      |              Identifier              |
+| :-------------------: | :----------------------------------: |
+| TTY login (Alt+F1-F6) |            `tty2`, `tty3`            |
+|      SSH session      |           `ssh` (via PAM)            |
+|   Graphical desktop   | `seat0` — display manager (GDM/SDDM) |
+|     `machinectl`      |          Container session           |
+
+### Seat Management
+
+Seat adalah kumpulan hardware (keyboard, mouse, monitor) yang dipake satu user.
+
+```bash
+loginctl list-seats              # semua seat
+loginctl seat-status seat0       # detail seat (devices, session aktif)
+loginctl attach seat0 /dev/input/event3  # assign device ke seat
+
+# Multi-seat (dua orang pake PC bareng):
+# seat0 = main monitor + keyboard
+# seat1 = second monitor + keyboard via USB
+```
+
+### Session Control
+
+```bash
+# Lock/unlock session
+loginctl lock-session <id>      # lock screen
+loginctl unlock-session <id>    # unlock
+loginctl lock-sessions          # lock semua session user ini
+loginctl unlock-sessions        # unlock semua
+
+# Terminate session
+loginctl kill-session <id>      # kill proses di session
+loginctl terminate-session <id> # force terminate session
+sudo loginctl terminate-user <username>  # kick semua session user
+```
+
+### Integration with Systemd
+
+```bash
+# User service — service yang jalan di session user
+systemctl --user list-units     # user-scoped services
+journalctl --user -u myapp.service  # log user service
+
+# Lingering — biarkan user service jalan meski user logout
+sudo loginctl enable-linger <username>
+```
+
+---
+
+## 18. SysVinit to Systemd — Migration Patterns
+
+Buat sysadmin yang migrate service dari sistem SysVinit lawas (CentOS 6, Debian 7, Ubuntu 14.04) ke systemd.
+
+### Typical SysVinit Script → Systemd Mapping
+
+```bash
+# SysV: /etc/init.d/myapp
+#!/bin/bash
+# chkconfig: 2345 80 20
+# description: My Legacy App
+
+start() {
+    /usr/bin/myapp --daemon --config /etc/myapp.conf
+}
+case "$1" in
+    start) start ;;
+    stop) killall myapp ;;
+    restart) stop; start ;;
+esac
+```
+
+```ini
+# Systemd: /etc/systemd/system/myapp.service
+[Unit]
+Description=My Legacy App Migration
+
+[Service]
+Type=forking                # karena script pake --daemon
+ExecStart=/usr/bin/myapp --daemon --config /etc/myapp.conf
+ExecStop=/usr/bin/killall myapp
+PIDFile=/var/run/myapp.pid   # penting buat Type=forking!
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Migration Checklist
+
+| SysV Concept                                 | Systemd Equivalent                                                    |
+| :------------------------------------------- | --------------------------------------------------------------------- |
+| `chkconfig: 2345 80 20`                      | `WantedBy=multi-user.target` + priority implicit via dependency graph |
+| `/etc/init.d/service status`                 | `systemctl status service`                                            |
+| `/etc/init.d/service restart`                | `systemctl restart service`                                           |
+| LSB headers (`Provides:`, `Required-Start:`) | `After=`, `Requires=`, `Wants=`                                       |
+| `--daemon` / `daemonize()`                   | `Type=forking` + `PIDFile=`                                           |
+| `/var/lock/subsys/`                          | Tidak perlu — systemd track via cgroup                                |
+| `lockfile` / `flock`                         | `PrivateTmp=yes` + file-based locking                                 |
+| `insserv` / `update-rc.d`                    | `systemctl enable/disable`                                            |
+| SysV priority (Sxx/Kxx)                      | `After=` / `Before=` explicit                                         |
+
+### Migration Step by Step
+
+```bash
+# 1. Cek apakah ada SysV fallback
+systemctl show myapp.service | grep FragmentPath
+# Kalo nunjuk /etc/init.d/ → masih pake fallback
+
+# 2. Generate unit file dari SysV (starter)
+systemctl cat myapp.service    # liat hasil auto-generate
+
+# 3. Buat unit file manual
+sudo cat > /etc/systemd/system/myapp.service << 'EOF'
+[Unit]
+Description=MyApp (migrated from SysV)
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/myapp start
+ExecStop=/etc/init.d/myapp stop
+ExecReload=/etc/init.d/myapp reload
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 4. Aktivasi
+sudo systemctl daemon-reload
+sudo systemctl enable --now myapp.service
+
+# 5. Verifikasi
+systemctl status myapp.service
+journalctl -u myapp.service
+
+# 6. Kalo OK, hapus SysV script
+sudo rm /etc/init.d/myapp
+sudo systemctl daemon-reload   # biar systemd gak fallback lagi
+```
+
+### Pitfall: Type=forking Tanpa PIDFile
+
+Kesalahan paling umum — `Type=forking` tanpa `PIDFile=`:
+
+```ini
+[Service]
+Type=forking
+ExecStart=/usr/sbin/daemonize -p /var/run/myapp.pid /usr/bin/myapp
+PIDFile=/var/run/myapp.pid
+```
+
+**Konsekuensi**: systemd gak tau PID proses utama → `ExecStop` dan `Restart=` gak bekerja dengan benar.
+
+### Converter Tool
+
+```bash
+# systemd-sysv-generator jalan otomatis — hasilnya:
+ls /run/systemd/generator.late/*.service   # auto-generated SysV → systemd
+```
+
+---
+
+## 19. Koneksi ke Vault
 
 | Catatan                                    | Koneksi                                                                              |
 | ------------------------------------------ | ------------------------------------------------------------------------------------ |

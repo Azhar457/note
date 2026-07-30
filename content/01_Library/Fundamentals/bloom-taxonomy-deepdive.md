@@ -327,12 +327,12 @@ Ini adalah level **eksekusi**. Di dunia engineering, ini adalah level minimum ya
 
 **Contoh:**
 
-| Bidang      | Apply — Contoh Soal                                            |
-| ----------- | -------------------------------------------------------------- |
-| Networking  | "Gunakan tcpdump untuk capture HTTP traffic ke [VPS1_IP]"  |
-| Security    | "Scan port host [VPS2_IP] dengan nmap"                    |
-| Programming | "Buat fungsi Rust yang ngecek apakah string adalah palindrome" |
-| Forensik    | "Ekstrak file dari image forensik pake foremost"               |
+| Bidang      | Apply — Contoh Soal                                               |
+| ----------- | ----------------------------------------------------------------- |
+| Networking  | "Gunakan tcpdump untuk capture HTTP traffic ke server production" |
+| Security    | "Scan port host [VPS2_IP] dengan nmap"                            |
+| Programming | "Buat fungsi Rust yang ngecek apakah string adalah palindrome"    |
+| Forensik    | "Ekstrak file dari image forensik pake foremost"                  |
 
 **Kompleksitas Apply meningkat ketika:**
 

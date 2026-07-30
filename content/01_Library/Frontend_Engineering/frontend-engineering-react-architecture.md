@@ -20,7 +20,7 @@ cssclasses:
 
 # ⚛️ Frontend Engineering — React, Next.js, Component Architecture & State Management
 
-> Vault belum punya catatan soal frontend engineering sama sekali — padahal elo manage beberapa repo Next.js di [REDACTED] (FE untuk asia-be, insite-be, dri-triplet-be). Catatan ini mengisi celah fundamental: component architecture patterns di React, state management (dari useState sampai Zustand/Redux), rendering strategy (CSR vs SSR vs SSG vs ISR vs RSC), CSS architecture, dan Next.js App Router vs Pages Router. Tanpa fondasi ini, frontend codebase cenderung jadi spaghetti component dengan state yang bocor ke mana-mana.
+> Vault belum punya catatan soal frontend engineering sama sekali — padahal elo manage beberapa repo Next.js di project internal (FE untuk beberapa backend service). Catatan ini mengisi celah fundamental: component architecture patterns di React, state management (dari useState sampai Zustand/Redux), rendering strategy (CSR vs SSR vs SSG vs ISR vs RSC), CSS architecture, dan Next.js App Router vs Pages Router. Tanpa fondasi ini, frontend codebase cenderung jadi spaghetti component dengan state yang bocor ke mana-mana.
 
 > [!info] Posisi di Vault
 > Ini adalah domain **baru** di vault — Frontend Engineering. Terkait dengan [[software-engineering]] (prinsip software umum), [[clean-code-robert-martin]] (code quality), [[api-security-deep-dive]] (frontend security), [[cicd-guide]] (frontend CI/CD), dan [[web-security]] (XSS/CSP).

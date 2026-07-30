@@ -21,7 +21,7 @@ cssclasses:
 
 # 🔄 CI/CD Pipeline Implementation — GitHub Actions & GitLab CI
 
-> Panduan implementasi CI/CD pipeline yang beneran kerja — dari zero ke production. Bukan teori konseptual (udah ada [[cicd-guide]] dan [[cicd-shiftleft-shiftright]]), tapi konkret: YAML workflow GitHub Actions, GitLab CI, deployment strategies, artifact management, secret handling, dan troubleshooting. Setiap workflow di sini sudah production-tested di project [REDACTED].
+> Panduan implementasi CI/CD pipeline yang beneran kerja — dari zero ke production. Bukan teori konseptual (udah ada [[cicd-guide]] dan [[cicd-shiftleft-shiftright]]), tapi konkret: YAML workflow GitHub Actions, GitLab CI, deployment strategies, artifact management, secret handling, dan troubleshooting. Setiap workflow di sini sudah production-tested di project internal.
 
 ## Daftar Isi
 
@@ -323,7 +323,7 @@ jobs:
 
 ## 5. Deployment Pipeline — SSH + PM2
 
-Deploy ke VPS via rsync (pattern dari [REDACTED]):
+Deploy ke VPS via rsync (pattern production):
 
 ```yaml
 name: Deploy via Rsync
