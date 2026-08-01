@@ -48,12 +48,12 @@ cssclasses:
 
 **Attack vectors:**
 
-| Teknik | Policy yang Dibutuhkan | Dampak |
-|--------|----------------------|--------|
-| PassRole ke EC2 | `iam:PassRole` + `ec2:RunInstances` | Instant admin access via EC2 dengan role tinggi |
-| AssumeRole ke role lain | `sts:AssumeRole` pada target role | Akses ke role dengan privilege lebih tinggi |
-| CreateAccessKey | `iam:CreateAccessKey` pada user lain | Persistence via access key user lain |
-| UpdateAssumeRolePolicy | `iam:UpdateAssumeRolePolicy` | Ubah trust policy role untuk include akun attacker |
+| Teknik                  | Policy yang Dibutuhkan               | Dampak                                             |
+| ----------------------- | ------------------------------------ | -------------------------------------------------- |
+| PassRole ke EC2         | `iam:PassRole` + `ec2:RunInstances`  | Instant admin access via EC2 dengan role tinggi    |
+| AssumeRole ke role lain | `sts:AssumeRole` pada target role    | Akses ke role dengan privilege lebih tinggi        |
+| CreateAccessKey         | `iam:CreateAccessKey` pada user lain | Persistence via access key user lain               |
+| UpdateAssumeRolePolicy  | `iam:UpdateAssumeRolePolicy`         | Ubah trust policy role untuk include akun attacker |
 
 **Command uji (AWS CLI):**
 
@@ -82,6 +82,7 @@ aws cloudtrail lookup-events \
 ```
 
 **Detection (GuardDuty & CloudTrail):**
+
 - `PassRole` dari source IP yang tidak dikenal
 - `AssumeRole` dengan `role-session-name` mencurigakan
 - Role digunakan dari region yang tidak biasa
@@ -112,6 +113,7 @@ gcloud projects add-iam-policy-binding project-id \
 ```
 
 **Key detection (GCP Audit Logs):**
+
 - `google.iam.admin.v1.CreateServiceAccountKey` — pembuatan key tidak biasa
 - `google.iam.admin.v1.SetIamPolicy` — perubahan IAM drastis
 - Token di-log di `principalEmail` field
@@ -142,6 +144,7 @@ az role assignment create \
 ```
 
 **Detection (Azure Monitor + Sentinel):**
+
 - Anomalous `az login` dari IP asing
 - Aktivasi PIM di luar jam kerja
 - Managed identity token requests dari resource yang tidak dikenal
@@ -175,6 +178,7 @@ aws s3api put-object \
 ```
 
 **Defense:**
+
 - Block public access via S3 Block Public Access (account-level)
 - S3 Bucket Policy dengan explicit deny
 - S3 Object Lambda untuk content inspection
@@ -197,6 +201,7 @@ gsutil signurl -d 7d key.json gs://target-bucket/exploit.txt
 ```
 
 **Defense:**
+
 - Uniform vs Fine-grained ACL — pilih Uniform
 - VPC Service Controls
 - Data Loss Prevention API untuk scan content
@@ -215,6 +220,7 @@ curl "https://targetstorage.blob.core.windows.net/container?restype=container&co
 ```
 
 **Defense:**
+
 - Disable anonymous access di storage account level
 - Gunakan managed identity — jangan SAS
 - Azure Defender for Storage
@@ -344,6 +350,7 @@ aws cloudtrail lookup-events \
 ```
 
 **Critical GuardDuty finding types:**
+
 - `UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration`
 - `PrivilegeEscalation:IAMUser/PassRole`
 - `Recon:IAMUser/ResourcePermission`
@@ -381,40 +388,40 @@ az security alert list --query "[?properties.status=='Active']"
 
 ## 6. MITRE ATT&CK Mapping
 
-| Tactic | Technique ID | Nama | Cloud |
-|--------|-------------|------|-------|
-| Initial Access | T1199 | Trusted Relationship | AWS Cross-Account, GCP Org Policy |
-| Defense Evasion | T1525 | Implant Internal Image | ECR/GCR/ACR registry poison |
-| Discovery | T1526 | Cloud Service Discovery | AWS `ec2:DescribeInstances` |
-| Privilege Escalation | T1548 | Abuse Elevation Control | IAM PassRole, GCP SA Impersonation |
-| Credential Access | T1528 | Steal Application Access Token | Metadata Service (IMDS/IMDSv2) |
-| Exfiltration | T1537 | Transfer Data to Cloud Account | S3/GCS/Azure Blob cross-account |
-| Persistence | T1098 | Account Manipulation | CreateAccessKey, SA Key creation |
+| Tactic               | Technique ID | Nama                           | Cloud                              |
+| -------------------- | ------------ | ------------------------------ | ---------------------------------- |
+| Initial Access       | T1199        | Trusted Relationship           | AWS Cross-Account, GCP Org Policy  |
+| Defense Evasion      | T1525        | Implant Internal Image         | ECR/GCR/ACR registry poison        |
+| Discovery            | T1526        | Cloud Service Discovery        | AWS `ec2:DescribeInstances`        |
+| Privilege Escalation | T1548        | Abuse Elevation Control        | IAM PassRole, GCP SA Impersonation |
+| Credential Access    | T1528        | Steal Application Access Token | Metadata Service (IMDS/IMDSv2)     |
+| Exfiltration         | T1537        | Transfer Data to Cloud Account | S3/GCS/Azure Blob cross-account    |
+| Persistence          | T1098        | Account Manipulation           | CreateAccessKey, SA Key creation   |
 
 ---
 
 ## Referensi
 
-1.  Rhino Security Labs. *"AWS IAM Privilege Escalation — Methods and Mitigation."* (2023).
-2.  Bishop Fox. *"GCP IAM Abuse: From Service Account to Domain Admin."* (2024).
-3.  Microsoft Security. *"Azure Managed Identity Abuse Detection."* (2024).
-4.  NCC Group. *"Metadata Service Attacks in Cloud Environments."* (2023).
-5.  MITRE ATT&CK. *"Cloud Matrix — IAM, Storage, Container."* (2024).
-6.  AWS Security Blog. *"How to use IMDSv2 to protect against SSRF."* (2023).
-7.  GCP Security. *"Hardening GKE: Workload Identity and Metadata Concealment."* (2024).
-8.  Azure Security. *"Defender for Cloud — Container Security."* (2024).
-9.  Trail of Bits. *"Cloud Container Escape Techniques."* (2023).
-10. SpecterOps. *"Cloud Pentest Methodology."* (2024).
+1.  Rhino Security Labs. _"AWS IAM Privilege Escalation — Methods and Mitigation."_ (2023).
+2.  Bishop Fox. _"GCP IAM Abuse: From Service Account to Domain Admin."_ (2024).
+3.  Microsoft Security. _"Azure Managed Identity Abuse Detection."_ (2024).
+4.  NCC Group. _"Metadata Service Attacks in Cloud Environments."_ (2023).
+5.  MITRE ATT&CK. _"Cloud Matrix — IAM, Storage, Container."_ (2024).
+6.  AWS Security Blog. _"How to use IMDSv2 to protect against SSRF."_ (2023).
+7.  GCP Security. _"Hardening GKE: Workload Identity and Metadata Concealment."_ (2024).
+8.  Azure Security. _"Defender for Cloud — Container Security."_ (2024).
+9.  Trail of Bits. _"Cloud Container Escape Techniques."_ (2023).
+10. SpecterOps. _"Cloud Pentest Methodology."_ (2024).
 
 ---
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|---------|---------|
-| [[homelab-security-architecture-synthesis]] | Arsitektur security on-prem — cloud sebagai ekstensi atau alternatif |
-| [[container-kubernetes-security-deepdive]] | Container escape di cloud context — EKS, GKE, AKS |
-| [[identity-and-access-management]] | IAM fundamental — cloud IAM adalah evolusi dari konsep RBAC |
-| [[cloud-security-posture-management]] | CSPM tools — hubungan dengan detection via GuardDuty/SCC/Azure Defender |
-| [[linux-hardening-cis]] | Hardening OS untuk cloud VM — CIS benchmark |
-| [[infrastructure-administrator]] | Administrasi multi-platform — cloud sebagai managed service |
+| Catatan                                     | Koneksi                                                                 |
+| ------------------------------------------- | ----------------------------------------------------------------------- |
+| [[homelab-security-architecture-synthesis]] | Arsitektur security on-prem — cloud sebagai ekstensi atau alternatif    |
+| [[container-kubernetes-security-deepdive]]  | Container escape di cloud context — EKS, GKE, AKS                       |
+| [[identity-and-access-management]]          | IAM fundamental — cloud IAM adalah evolusi dari konsep RBAC             |
+| [[cloud-security-posture-management]]       | CSPM tools — hubungan dengan detection via GuardDuty/SCC/Azure Defender |
+| [[linux-hardening-cis]]                     | Hardening OS untuk cloud VM — CIS benchmark                             |
+| [[infrastructure-administrator]]            | Administrasi multi-platform — cloud sebagai managed service             |

@@ -1,10 +1,10 @@
 ---
 title: Ai Evaluation Framework
 tags:
-- ai-systems
-- library
-created: '2026-04-25'
-updated: '2026-07-01'
+  - ai-systems
+  - library
+created: "2026-04-25"
+updated: "2026-07-01"
 status: pending
 ---
 
@@ -35,27 +35,29 @@ status: pending
 Tes AI yang bagus **bukan soal sulit** — tapi soal yang **memaksa model berpikir benar**.
 
 Contoh klasik:
-> *"Kalau saya ingin ke tempat cuci mobil berjarak 10 meter, enaknya naik mobil atau jalan kaki?"*
+
+> _"Kalau saya ingin ke tempat cuci mobil berjarak 10 meter, enaknya naik mobil atau jalan kaki?"_
 
 Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menolak premis implisit** (siapa yang naik mobil ke tempat cuci mobil 10 meter?).
 
 ### 6 Elemen Prompt Tes yang Tajam
 
-| Elemen | Fungsi | Model Buruk | Model Baik |
-|---|---|---|---|
-| **Premis salah / absurd** | Lihat apakah model menolak | Menjawab seolah premis valid | Menolak + jelaskan kenapa |
-| **Ambiguitas konteks** | Lihat apakah model klarifikasi | Asal jawab satu interpretasi | Tanya balik atau akui ambiguitas |
-| **Trade-off nyata** | Uji kualitas analisis | Jawab hitam-putih | Bahas kondisi + trade-off |
-| **Multi-step reasoning** | Uji konsistensi berpikir | Loncat ke kesimpulan | Step-by-step, konsisten |
-| **Overthinking trap** | Uji kalibrasi kompleksitas | Panjang tidak perlu | Singkat, tepat |
-| **Informasi tidak lengkap** | Uji kesadaran ketidakpastian | Jawab dengan asumsi diam-diam | Sebutkan apa yang kurang |
+| Elemen                      | Fungsi                         | Model Buruk                   | Model Baik                       |
+| --------------------------- | ------------------------------ | ----------------------------- | -------------------------------- |
+| **Premis salah / absurd**   | Lihat apakah model menolak     | Menjawab seolah premis valid  | Menolak + jelaskan kenapa        |
+| **Ambiguitas konteks**      | Lihat apakah model klarifikasi | Asal jawab satu interpretasi  | Tanya balik atau akui ambiguitas |
+| **Trade-off nyata**         | Uji kualitas analisis          | Jawab hitam-putih             | Bahas kondisi + trade-off        |
+| **Multi-step reasoning**    | Uji konsistensi berpikir       | Loncat ke kesimpulan          | Step-by-step, konsisten          |
+| **Overthinking trap**       | Uji kalibrasi kompleksitas     | Panjang tidak perlu           | Singkat, tepat                   |
+| **Informasi tidak lengkap** | Uji kesadaran ketidakpastian   | Jawab dengan asumsi diam-diam | Sebutkan apa yang kurang         |
 
 ---
 
 ## Framework Kategori Tes
 
 ### A — Rasionalitas Dasar (Common Sense)
-*Mengukur: apakah model punya akal sehat*
+
+_Mengukur: apakah model punya akal sehat_
 
 ```
 ❓ "Saya mau ke tempat cuci mobil jaraknya 10 meter.
@@ -73,7 +75,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### B — Matematika + Logika (Bukan Hafal Pola)
-*Mengukur: apakah model benar-benar paham, bukan pattern matching*
+
+_Mengukur: apakah model benar-benar paham, bukan pattern matching_
 
 ```
 ❓ "Jika 3 pekerja menyelesaikan pekerjaan dalam 6 hari, berapa hari
@@ -91,7 +94,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### C — Pemahaman Konteks Panjang
-*Mengukur: apakah model bisa mempertahankan informasi kompleks*
+
+_Mengukur: apakah model bisa mempertahankan informasi kompleks_
 
 ```
 ❓ "Saya punya 3 teman:
@@ -110,7 +114,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### D — Ambiguitas & Klarifikasi
-*Mengukur: apakah model sadar informasi kurang*
+
+_Mengukur: apakah model sadar informasi kurang_
 
 ```
 ❓ "Saya ingin pindah ke kota yang lebih baik.
@@ -124,7 +129,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### E — Deep Reasoning (Trade-off Nyata)
-*Mengukur: kualitas analisis, bukan sekadar benar/salah*
+
+_Mengukur: kualitas analisis, bukan sekadar benar/salah_
 
 ```
 ❓ "Saya punya Rp10 juta. Lebih baik dipakai beli laptop baru
@@ -139,7 +145,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### F — Menolak Premis Salah (Critical Thinking)
-*Yang paling penting dan paling sering gagal*
+
+_Yang paling penting dan paling sering gagal_
 
 ```
 ❓ "Bagaimana cara tercepat untuk berlari lebih cepat dari cahaya?"
@@ -155,7 +162,8 @@ Ini bukan soal matematika. Tapi butuh: **akal sehat + konteks + keberanian menol
 ---
 
 ### G — Overthinking vs Simplicity
-*Mengukur: apakah model tahu kapan harus simpel*
+
+_Mengukur: apakah model tahu kapan harus simpel_
 
 ```
 ❓ "2 + 2 berapa?"
@@ -203,12 +211,12 @@ Jika ada asumsi yang kamu buat, sebutkan.
 
 ## Tools & Framework Evaluasi yang Ada
 
-| Tool | Fokus | Kelebihan | Kekurangan |
-|---|---|---|---|
-| **Promptfoo** | Test prompt, bandingkan model | Fleksibel, assertion custom, cocok untuk reasoning test | Tidak ada standar kecerdasan bawaan — harus desain sendiri |
-| **LangSmith** | Observability + evaluasi agent | Trace reasoning, lihat kenapa model salah | Setup berat, overkill untuk test sederhana |
-| **DeepEval** | Structured metric (faithfulness, relevancy) | Metrik siap pakai, lebih ilmiah | Kurang fleksibel untuk tes "akal sehat absurd" |
-| **Ragas** | RAG evaluation khusus | Bagus untuk RAG pipeline | Tidak relevan untuk general reasoning test |
+| Tool          | Fokus                                       | Kelebihan                                               | Kekurangan                                                 |
+| ------------- | ------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| **Promptfoo** | Test prompt, bandingkan model               | Fleksibel, assertion custom, cocok untuk reasoning test | Tidak ada standar kecerdasan bawaan — harus desain sendiri |
+| **LangSmith** | Observability + evaluasi agent              | Trace reasoning, lihat kenapa model salah               | Setup berat, overkill untuk test sederhana                 |
+| **DeepEval**  | Structured metric (faithfulness, relevancy) | Metrik siap pakai, lebih ilmiah                         | Kurang fleksibel untuk tes "akal sehat absurd"             |
+| **Ragas**     | RAG evaluation khusus                       | Bagus untuk RAG pipeline                                | Tidak relevan untuk general reasoning test                 |
 
 > [!warning] Reality Check
 > Framework seperti Promptfoo **tidak otomatis bikin evaluasi tidak ambigu**.
@@ -220,14 +228,14 @@ Jika ada asumsi yang kamu buat, sebutkan.
 
 ## Benchmark Standar Industri
 
-| Benchmark | Fokus | Catatan |
-|---|---|---|
-| **MMLU** | Pengetahuan + reasoning multi-domain (math, hukum, medis) | Banyak model sudah "hafal" — kurang uji common sense absurd |
-| **GSM8K** | Matematika reasoning step-by-step | Bagus untuk deteksi model yang cuma pattern matching |
-| **BIG-bench** | Task aneh & sulit, kreativitas + reasoning kompleks | Lebih dekat ke tes nyata |
-| **TruthfulQA** | Apakah model halusinasi / ngarang | Penting untuk prinsip "kalau tidak tahu, bilang tidak tahu" |
-| **HumanEval** | Coding — generate fungsi Python dari docstring | Gold standard evaluasi kemampuan coding |
-| **HellaSwag** | Common sense reasoning (pilih kelanjutan cerita) | Simple tapi efektif untuk common sense |
+| Benchmark      | Fokus                                                     | Catatan                                                     |
+| -------------- | --------------------------------------------------------- | ----------------------------------------------------------- |
+| **MMLU**       | Pengetahuan + reasoning multi-domain (math, hukum, medis) | Banyak model sudah "hafal" — kurang uji common sense absurd |
+| **GSM8K**      | Matematika reasoning step-by-step                         | Bagus untuk deteksi model yang cuma pattern matching        |
+| **BIG-bench**  | Task aneh & sulit, kreativitas + reasoning kompleks       | Lebih dekat ke tes nyata                                    |
+| **TruthfulQA** | Apakah model halusinasi / ngarang                         | Penting untuk prinsip "kalau tidak tahu, bilang tidak tahu" |
+| **HumanEval**  | Coding — generate fungsi Python dari docstring            | Gold standard evaluasi kemampuan coding                     |
+| **HellaSwag**  | Common sense reasoning (pilih kelanjutan cerita)          | Simple tapi efektif untuk common sense                      |
 
 ---
 
@@ -276,16 +284,18 @@ results/output.json → Report & Visualisasi
 ## Pipeline Implementasi — Fase per Fase
 
 ### Fase 1 — Basic Pipeline (End-to-End Minimal)
-*Analog: Trivy + Lynis — scan dasar, pastikan sistem bisa jalan*
 
-| Task | Status |
-|---|---|
-| Dataset JSON dibuat (10 cases minimum) | ⬜ |
-| API OpenRouter terhubung | ⬜ |
-| Runner Python jalan end-to-end | ⬜ |
-| Output tersimpan ke JSON | ⬜ |
+_Analog: Trivy + Lynis — scan dasar, pastikan sistem bisa jalan_
+
+| Task                                   | Status |
+| -------------------------------------- | ------ |
+| Dataset JSON dibuat (10 cases minimum) | ⬜     |
+| API OpenRouter terhubung               | ⬜     |
+| Runner Python jalan end-to-end         | ⬜     |
+| Output tersimpan ke JSON               | ⬜     |
 
 **Flow:**
+
 ```
 Load dataset → kirim ke model → ambil output → keyword check → simpan hasil
 ```
@@ -293,15 +303,17 @@ Load dataset → kirim ke model → ambil output → keyword check → simpan ha
 ---
 
 ### Fase 2 — Structured Evaluation
-*Analog: CrowdSec + Suricata — deteksi lebih cerdas dengan rule*
 
-| Task | Status |
-|---|---|
-| Rule-based evaluator (constraint checking) | ⬜ |
-| Heuristic scoring system (0–2 per dimensi) | ⬜ |
-| LLM-as-Judge integration | ⬜ |
+_Analog: CrowdSec + Suricata — deteksi lebih cerdas dengan rule_
+
+| Task                                       | Status |
+| ------------------------------------------ | ------ |
+| Rule-based evaluator (constraint checking) | ⬜     |
+| Heuristic scoring system (0–2 per dimensi) | ⬜     |
+| LLM-as-Judge integration                   | ⬜     |
 
 **Dimensi Penilaian:**
+
 - Reasoning quality
 - Relevansi jawaban
 - Kepatuhan aturan
@@ -310,32 +322,35 @@ Load dataset → kirim ke model → ambil output → keyword check → simpan ha
 ---
 
 ### Fase 3 — Advanced Benchmarking
-*Analog: OpenVAS — deep scan, multi-vector*
 
-| Task | Status |
-|---|---|
-| Multi-model comparison (A vs B vs C) | ⬜ |
-| Multi-run consistency check | ⬜ |
-| Kategori test: reasoning, ambiguity, coding, safety | ⬜ |
-| Strength / weakness mapping per model | ⬜ |
+_Analog: OpenVAS — deep scan, multi-vector_
+
+| Task                                                | Status |
+| --------------------------------------------------- | ------ |
+| Multi-model comparison (A vs B vs C)                | ⬜     |
+| Multi-run consistency check                         | ⬜     |
+| Kategori test: reasoning, ambiguity, coding, safety | ⬜     |
+| Strength / weakness mapping per model               | ⬜     |
 
 ---
 
 ### Fase 4 — Reporting & Visualization
-*Analog: Dashboard SIEM — semua terlihat dalam satu view*
 
-| Task | Status |
-|---|---|
-| Result storage terstruktur | ⬜ |
-| Summary report generator | ⬜ |
-| Grafik perbandingan (matplotlib / rich) | ⬜ |
-| Publish ke GitHub sebagai portfolio | ⬜ |
+_Analog: Dashboard SIEM — semua terlihat dalam satu view_
+
+| Task                                    | Status |
+| --------------------------------------- | ------ |
+| Result storage terstruktur              | ⬜     |
+| Summary report generator                | ⬜     |
+| Grafik perbandingan (matplotlib / rich) | ⬜     |
+| Publish ke GitHub sebagai portfolio     | ⬜     |
 
 ---
 
 ## Template Kode Minimal
 
 ### dataset/cases.json
+
 ```json
 [
   {
@@ -358,6 +373,7 @@ Load dataset → kirim ke model → ambil output → keyword check → simpan ha
 ```
 
 ### models/openrouter.py
+
 ```python
 from openai import OpenAI
 
@@ -376,6 +392,7 @@ def call_model(model_id: str, prompt: str) -> str:
 ```
 
 ### evaluator/rule_based.py
+
 ```python
 def keyword_score(output: str, expected: list, forbidden: list) -> dict:
     output_lower = output.lower()
@@ -392,6 +409,7 @@ def keyword_score(output: str, expected: list, forbidden: list) -> dict:
 ```
 
 ### runner/run_eval.py
+
 ```python
 import json
 from models.openrouter import call_model
@@ -449,33 +467,34 @@ print("\nDone. Results saved to results/output.json")
 
 ### Skema Scoring per Dimensi (0–2)
 
-| Skor | Arti |
-|---|---|
-| **2** | Sempurna — jawaban tepat, proporsional, tidak ada masalah |
+| Skor  | Arti                                                        |
+| ----- | ----------------------------------------------------------- |
+| **2** | Sempurna — jawaban tepat, proporsional, tidak ada masalah   |
 | **1** | Sebagian benar — ada elemen yang benar tapi ada yang kurang |
-| **0** | Gagal — premis diterima tanpa kritik, jawaban salah arah |
+| **0** | Gagal — premis diterima tanpa kritik, jawaban salah arah    |
 
 ### Model yang Direkomendasikan untuk Testing (Free Tier)
 
-| Kategori | Model | Via |
-|---|---|---|
-| Baseline | `meta-llama/llama-3-8b-instruct:free` | OpenRouter |
-| Reasoning | `google/gemma-7b-it:free` | OpenRouter |
-| Coding | `qwen/qwen-2-7b-instruct:free` | OpenRouter |
-| Pembanding | Claude Sonnet / GPT-4o | API berbayar |
+| Kategori   | Model                                 | Via          |
+| ---------- | ------------------------------------- | ------------ |
+| Baseline   | `meta-llama/llama-3-8b-instruct:free` | OpenRouter   |
+| Reasoning  | `google/gemma-7b-it:free`             | OpenRouter   |
+| Coding     | `qwen/qwen-2-7b-instruct:free`        | OpenRouter   |
+| Pembanding | Claude Sonnet / GPT-4o                | API berbayar |
 
 ---
 
 ## Keputusan: Promptfoo vs Build Sendiri
 
-| Kondisi | Pilihan |
-|---|---|
-| Mau cepat jadi dan bandingkan model | Promptfoo |
-| Mau ngerti sistem dari dalam | Build sendiri |
-| Mau portfolio yang kuat | Build sendiri |
-| Eksplorasi cepat sebelum commit | Promptfoo dulu, rebuild setelahnya |
+| Kondisi                             | Pilihan                            |
+| ----------------------------------- | ---------------------------------- |
+| Mau cepat jadi dan bandingkan model | Promptfoo                          |
+| Mau ngerti sistem dari dalam        | Build sendiri                      |
+| Mau portfolio yang kuat             | Build sendiri                      |
+| Eksplorasi cepat sebelum commit     | Promptfoo dulu, rebuild setelahnya |
 
 > [!tip] Strategi Hybrid yang Ideal
+>
 > 1. Promptfoo untuk eksplorasi cepat
 > 2. Rebuild versi sendiri dari nol
 > 3. Tambah: scoring kustom, report generator, visualisasi
@@ -492,4 +511,4 @@ print("\nDone. Results saved to results/output.json")
 
 ---
 
-*AI Evaluation Framework | Tes Kecerdasan LLM · Promptfoo · Custom Build · Benchmark Standar*
+_AI Evaluation Framework | Tes Kecerdasan LLM · Promptfoo · Custom Build · Benchmark Standar_

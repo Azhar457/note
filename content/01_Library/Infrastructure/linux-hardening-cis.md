@@ -49,11 +49,11 @@ ClientAliveCountMax 2
 AllowUsers jars admin  # sesuaikan
 ```
 
-| Setting | Efek |
-|---------|------|
-| `PermitRootLogin no` | Root gak bisa SSH langsung. `su` atau `sudo` aja |
-| `PasswordAuthentication no` | Hanya key-based login |
-| `MaxAuthTries 3` | Brute force 3× gagal → disconnect |
+| Setting                     | Efek                                             |
+| --------------------------- | ------------------------------------------------ |
+| `PermitRootLogin no`        | Root gak bisa SSH langsung. `su` atau `sudo` aja |
+| `PasswordAuthentication no` | Hanya key-based login                            |
+| `MaxAuthTries 3`            | Brute force 3× gagal → disconnect                |
 
 ### System Hardening (sysctl)
 
@@ -140,11 +140,11 @@ sudo aide --check
 sudo aide --check | mail -s "AIDE Report" admin@domain
 ```
 
-| Tool | Fungsi | False Positive Rate |
-|------|--------|-------------------|
-| **AIDE** | File integrity (database-based) | Rendah |
-| **rkhunter** | Rootkit detection | Sedang |
-| **chkrootkit** | Rootkit detection | Rendah |
+| Tool           | Fungsi                          | False Positive Rate |
+| -------------- | ------------------------------- | ------------------- |
+| **AIDE**       | File integrity (database-based) | Rendah              |
+| **rkhunter**   | Rootkit detection               | Sedang              |
+| **chkrootkit** | Rootkit detection               | Rendah              |
 
 ---
 
@@ -174,12 +174,12 @@ lynis audit system
 # Score awal rata-rata 60-70, target >75
 ```
 
-| Area | Skor Rendah (<70) | Skor Medium (70-80) | Skor Tinggi (>80) |
-|------|------------------|--------------------|--------------------|
-| Firewall | UFW gak aktif | UFW aktif + allow minimal | UFW + iptables rules custom |
-| File integrity | Gak ada AIDE | AIDE terinstall | AIDE + daily check |
-| Kernel | Default kernel | sysctl hardening | + Kernel live patch |
-| Auth | Password login | Key + password policy | + 2FA |
+| Area           | Skor Rendah (<70) | Skor Medium (70-80)       | Skor Tinggi (>80)           |
+| -------------- | ----------------- | ------------------------- | --------------------------- |
+| Firewall       | UFW gak aktif     | UFW aktif + allow minimal | UFW + iptables rules custom |
+| File integrity | Gak ada AIDE      | AIDE terinstall           | AIDE + daily check          |
+| Kernel         | Default kernel    | sysctl hardening          | + Kernel live patch         |
+| Auth           | Password login    | Key + password policy     | + 2FA                       |
 
 ### auditd — Audit Trail
 
@@ -194,12 +194,12 @@ ausearch -k ssh_changes  # lihat log
 
 ## Fast Recovery — Rollback Steps
 
-| Yang Dirubah | Rollback |
-|-------------|----------|
-| sysctl | `sysctl -p /etc/sysctl.d/99-hardening.conf` (kembali ke default OS) |
-| UFW lockout | Console/VNC → `ufw disable` |
-| SSH config salah | Console → `ssh -o PermitRootLogin=yes` (sementara) |
-| AIDE false positive | `aide --update` (rebuild DB) |
+| Yang Dirubah        | Rollback                                                            |
+| ------------------- | ------------------------------------------------------------------- |
+| sysctl              | `sysctl -p /etc/sysctl.d/99-hardening.conf` (kembali ke default OS) |
+| UFW lockout         | Console/VNC → `ufw disable`                                         |
+| SSH config salah    | Console → `ssh -o PermitRootLogin=yes` (sementara)                  |
+| AIDE false positive | `aide --update` (rebuild DB)                                        |
 
 ---
 
@@ -222,12 +222,12 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 1. Thinking Type yang Digunakan
 
-| Type | Kenapa | Bagian |
-|------|--------|--------|
-| **Analysis Thinking** | Memecah hardening jadi 5 layer independen (OS → Network → IDS → Malware → Audit), tiap layer punya fungsi spesifik tanpa overlap | Seluruh struktur 5 layer |
-| **Strategic Thinking** | Urutan penting — SSH dulu sebelum UFW, sysctl sebelum reboot, AIDE init sebelum check. Salah urut = lockout | Warning di tiap layer |
-| **Concrete Thinking** | Command exact untuk setiap tool — copy-paste safe. Konfig file hardening dengan nilai spesifik | Semua box konfigurasi |
-| **Futures Thinking** | Lynis scoring progression — dari 66 ke 78+ — menunjukkan path perbaikan bertahap, bukan checklist sekali jalan | Scoring Pipeline |
+| Type                   | Kenapa                                                                                                                           | Bagian                   |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| **Analysis Thinking**  | Memecah hardening jadi 5 layer independen (OS → Network → IDS → Malware → Audit), tiap layer punya fungsi spesifik tanpa overlap | Seluruh struktur 5 layer |
+| **Strategic Thinking** | Urutan penting — SSH dulu sebelum UFW, sysctl sebelum reboot, AIDE init sebelum check. Salah urut = lockout                      | Warning di tiap layer    |
+| **Concrete Thinking**  | Command exact untuk setiap tool — copy-paste safe. Konfig file hardening dengan nilai spesifik                                   | Semua box konfigurasi    |
+| **Futures Thinking**   | Lynis scoring progression — dari 66 ke 78+ — menunjukkan path perbaikan bertahap, bukan checklist sekali jalan                   | Scoring Pipeline         |
 
 ### 2. Background Knowledge (Pra-Penulisan)
 
@@ -239,14 +239,14 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 ### 3. RAG Vault — Dokumen yang Dikonsultasi
 
-| Dokumen | Kontribusi |
-|---------|-----------|
-| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — konteks server mana yang di-hardening |
-| [[podman-networking-ufw|Podman Networking & UFW]] | Interaksi UFW dengan container — `ip_forward` warning |
-| [[network-security|Network Security]] | OSI layer — dimana tiap alat keamanan beroperasi |
-| [[devops|DevOps Roadmap]] | Production deployment context |
+| Dokumen                        | Kontribusi                     |
+| ------------------------------ | ------------------------------ |
+| [[infrastructure-administrator | Infrastructure Administrator]] | Server layout — konteks server mana yang di-hardening |
+| [[podman-networking-ufw        | Podman Networking & UFW]]      | Interaksi UFW dengan container — `ip_forward` warning |
+| [[network-security             | Network Security]]             | OSI layer — dimana tiap alat keamanan beroperasi      |
+| [[devops                       | DevOps Roadmap]]               | Production deployment context                         |
 
-### 4. Sintesis — Bagian  Bagian Bergabung
+### 4. Sintesis — Bagian Bagian Bergabung
 
 ```
 Background Knowledge (hardening from real VPS ops + container awareness)

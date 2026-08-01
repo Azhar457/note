@@ -39,13 +39,13 @@ cssclasses: ""
 
 ## 1. Kapan Butuh Triage
 
-| Gejala | Kemungkinan | Langkah Awal |
-|--------|-------------|-------------|
-| App lambat, timeout | Connection exhaustion / slow query | `pg_stat_activity` → cek `state` + `wait_event` |
-| Beberapa fitur hang, lainnya OK | Lock contention | Lock detection query |
-| CPU 100% | Query berulang / full table scan | `pg_stat_statements` (kalo aktif) |
-| Disk I/O tinggi | Vacuum / checkpoint / bloat | `pg_stat_progress_vacuum` |
-| Memory melonjak | Sort/hash di `work_mem` / connection太多 | `pg_stat_activity` → cek `query` |
+| Gejala                          | Kemungkinan                              | Langkah Awal                                    |
+| ------------------------------- | ---------------------------------------- | ----------------------------------------------- |
+| App lambat, timeout             | Connection exhaustion / slow query       | `pg_stat_activity` → cek `state` + `wait_event` |
+| Beberapa fitur hang, lainnya OK | Lock contention                          | Lock detection query                            |
+| CPU 100%                        | Query berulang / full table scan         | `pg_stat_statements` (kalo aktif)               |
+| Disk I/O tinggi                 | Vacuum / checkpoint / bloat              | `pg_stat_progress_vacuum`                       |
+| Memory melonjak                 | Sort/hash di `work_mem` / connection太多 | `pg_stat_activity` → cek `query`                |
 
 > [!tip] Golden Rule
 > **Jangan restart PG untuk "bersihin" — itu symptom treatment, bukan root cause.** Selalu diagnose dulu.
@@ -72,13 +72,13 @@ ORDER BY query_start;
 
 **Output:**
 
-| Kolom | Makna | Triage |
-|-------|-------|--------|
-| `state = 'active'` | Lagi ngejalanin query | Normal — kalo banyak (>10) curiga |
-| `state = 'idle in transaction'` | 🔴 **Bahaya** — koneksi buka transaksi gak close | `SELECT pg_terminate_backend(pid)` |
-| `wait_event = 'IO'` | Lagi nunggu disk | Indikasi I/O bottleneck |
-| `wait_event = 'ClientRead'` | Lagi nunggu app kirim data | Normal |
-| `wait_event = 'Lock'` | 🔴 Contention | Lihat section [Lock](#3-lock-contention) |
+| Kolom                           | Makna                                            | Triage                                   |
+| ------------------------------- | ------------------------------------------------ | ---------------------------------------- |
+| `state = 'active'`              | Lagi ngejalanin query                            | Normal — kalo banyak (>10) curiga        |
+| `state = 'idle in transaction'` | 🔴 **Bahaya** — koneksi buka transaksi gak close | `SELECT pg_terminate_backend(pid)`       |
+| `wait_event = 'IO'`             | Lagi nunggu disk                                 | Indikasi I/O bottleneck                  |
+| `wait_event = 'ClientRead'`     | Lagi nunggu app kirim data                       | Normal                                   |
+| `wait_event = 'Lock'`           | 🔴 Contention                                    | Lihat section [Lock](#3-lock-contention) |
 
 ### 2.2 — Hitung per State
 
@@ -88,11 +88,11 @@ FROM pg_stat_activity WHERE state IS NOT NULL
 GROUP BY state ORDER BY connections DESC;
 ```
 
-| State | Wajar | Alarm |
-|-------|-------|-------|
-| `idle` | 20-50 | >100 — connection pool oversized |
-| `active` | 2-10 | >20 — ada query berat |
-| `idle in transaction` | 0 | >0 🔴 — aplikasi bug |
+| State                 | Wajar | Alarm                            |
+| --------------------- | ----- | -------------------------------- |
+| `idle`                | 20-50 | >100 — connection pool oversized |
+| `active`              | 2-10  | >20 — ada query berat            |
+| `idle in transaction` | 0     | >0 🔴 — aplikasi bug             |
 
 ### 2.3 — Connection Pool Assessment
 
@@ -162,8 +162,8 @@ WHERE NOT blocked_locks.granted;
 **Output:**
 
 | blocked_pid | blocked_user | blocking_pid | blocking_user | blocked_duration |
-|-------------|-------------|--------------|--------------|------------------|
-| 12345 | app_user | 12344 | admin_query | 00:05:23 |
+| ----------- | ------------ | ------------ | ------------- | ---------------- |
+| 12345       | app_user     | 12344        | admin_query   | 00:05:23         |
 
 > 🔴 `blocking_pid` → ini yang perlu diterminate kalo darurat.
 
@@ -223,6 +223,7 @@ LIMIT 10;
 ```
 
 **5 Query Termahal (Total Time):**
+
 ```sql
 SELECT queryid,
        left(query, 100) AS query,
@@ -237,6 +238,7 @@ LIMIT 5;
 ```
 
 **5 Query Paling Sering Dipanggil:**
+
 ```sql
 SELECT left(query, 100) AS query, calls,
        round(mean_exec_time::numeric, 1) AS avg_ms,
@@ -248,6 +250,7 @@ LIMIT 5;
 ```
 
 **5 Query dengan I/O Tertinggi (blok baca):**
+
 ```sql
 SELECT left(query, 100) AS query,
        calls,
@@ -286,6 +289,7 @@ WHERE "timestamp" > now() - interval '1 day';
 ```
 
 > [!tip] Cara Baca EXPLAIN
+>
 > - `Seq Scan on large_table` — perlu index
 > - `Sort Method: external merge` — `work_mem` kurang
 > - `Buffers: shared hit=10 read=1000` — 99% dari disk, bukan cache
@@ -320,11 +324,11 @@ ORDER BY n_dead_tup DESC
 LIMIT 10;
 ```
 
-| `dead_pct` | Tindakan |
-|------------|----------|
-| <20% | Normal — autovacuum handle |
-| 20-50% | ⚠️ Cek `last_autovacuum` — mungkin perlu `VACUUM` manual |
-| >50% | 🔴 Bloat berbahaya — `VACUUM (ANALYZE, VERBOSE)` |
+| `dead_pct` | Tindakan                                                 |
+| ---------- | -------------------------------------------------------- |
+| <20%       | Normal — autovacuum handle                               |
+| 20-50%     | ⚠️ Cek `last_autovacuum` — mungkin perlu `VACUUM` manual |
+| >50%       | 🔴 Bloat berbahaya — `VACUUM (ANALYZE, VERBOSE)`         |
 
 ### 5.3 — Estimasi Bloat Per Tabel
 
@@ -349,10 +353,10 @@ LIMIT 10;
 
 ### 6.1 — Cancel vs Terminate
 
-| Perintah | Efek | Kapan |
-|----------|------|-------|
-| `pg_cancel_backend(pid)` | Batalkan query — transaksi tetap jalan | Query lambat, gak critical |
-| `pg_terminate_backend(pid)` | Putus koneksi — transaksi rollback | 🔴 Darurat — koneksi zombie, lock gak lepas |
+| Perintah                    | Efek                                   | Kapan                                       |
+| --------------------------- | -------------------------------------- | ------------------------------------------- |
+| `pg_cancel_backend(pid)`    | Batalkan query — transaksi tetap jalan | Query lambat, gak critical                  |
+| `pg_terminate_backend(pid)` | Putus koneksi — transaksi rollback     | 🔴 Darurat — koneksi zombie, lock gak lepas |
 
 ```sql
 -- Cancel query

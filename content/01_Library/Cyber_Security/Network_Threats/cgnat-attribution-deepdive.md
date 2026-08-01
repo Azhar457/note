@@ -1,13 +1,13 @@
 ---
 title: CGNAT & IP Attribution Deep Dive
 tags:
-- cyber-security
-- library
-- network-threats
-created: '2025-07-02'
-updated: '2025-07-02'
+  - cyber-security
+  - library
+  - network-threats
+created: "2025-07-02"
+updated: "2025-07-02"
 status: pending
-cssclasses: ''
+cssclasses: ""
 ---
 
 # 🕸️ CGNAT & IP Attribution — Carrier-Grade NAT, Logging, dan Dampaknya terhadap Forensik Jaringan
@@ -74,23 +74,23 @@ Perbedaan utama:
 
 ### 1.3 RFC yang Relevan
 
-| RFC | Judul | Relevansi ke CGNAT |
-|-----|-------|-------------------|
-| **RFC 1631** | The IP Network Address Translator (NAT) | Origin NAT — dasar dari semua NAT |
-| **RFC 3022** | Traditional IP Network Address Translator | NAT44 — NAT tradisional, pendahulu CGNAT |
-| **RFC 2663** | IP Network Address Translator Terminology | Terminologi: masquerade, binding, session |
-| **RFC 4787** | NAT Behavioral Requirements for UDP | Wajib dibaca untuk understanding NAT traversal |
-| **RFC 5382** | NAT Behavioral Requirements for TCP | Sama, untuk TCP — termasuk security implications |
-| **RFC 5508** | NAT Behavioral Requirements for ICMP | ICMP melalui NAT — penting untuk troubleshooting |
-| **RFC 6598** | IANA-Reserved IPv4 Prefix for Shared Address Space | **Definisi 100.64.0.0/10** — ruang alamat CGNAT |
-| **RFC 6888** | Common Requirements for Carrier-Grade NATs | **Spesifikasi inti CGNAT** — logging, port allocation, thresholds |
-| **RFC 7422** | Deterministic Address Mapping to Reduce Logging | Alternatif: mapping deterministik kurangi kebutuhan log |
-| **RFC 7596** | Lightweight 4over6: DS-Lite | Transisi IPv6 with CGNAT element |
-| **RFC 7597** | Mapping of Address and Port (MAP-E) | Alternatif CGNAT: encapsulation-based |
-| **RFC 7599** | Mapping of Address and Port using Translation (MAP-T) | Alternatif CGNAT: translation-based |
+| RFC          | Judul                                                 | Relevansi ke CGNAT                                                |
+| ------------ | ----------------------------------------------------- | ----------------------------------------------------------------- |
+| **RFC 1631** | The IP Network Address Translator (NAT)               | Origin NAT — dasar dari semua NAT                                 |
+| **RFC 3022** | Traditional IP Network Address Translator             | NAT44 — NAT tradisional, pendahulu CGNAT                          |
+| **RFC 2663** | IP Network Address Translator Terminology             | Terminologi: masquerade, binding, session                         |
+| **RFC 4787** | NAT Behavioral Requirements for UDP                   | Wajib dibaca untuk understanding NAT traversal                    |
+| **RFC 5382** | NAT Behavioral Requirements for TCP                   | Sama, untuk TCP — termasuk security implications                  |
+| **RFC 5508** | NAT Behavioral Requirements for ICMP                  | ICMP melalui NAT — penting untuk troubleshooting                  |
+| **RFC 6598** | IANA-Reserved IPv4 Prefix for Shared Address Space    | **Definisi 100.64.0.0/10** — ruang alamat CGNAT                   |
+| **RFC 6888** | Common Requirements for Carrier-Grade NATs            | **Spesifikasi inti CGNAT** — logging, port allocation, thresholds |
+| **RFC 7422** | Deterministic Address Mapping to Reduce Logging       | Alternatif: mapping deterministik kurangi kebutuhan log           |
+| **RFC 7596** | Lightweight 4over6: DS-Lite                           | Transisi IPv6 with CGNAT element                                  |
+| **RFC 7597** | Mapping of Address and Port (MAP-E)                   | Alternatif CGNAT: encapsulation-based                             |
+| **RFC 7599** | Mapping of Address and Port using Translation (MAP-T) | Alternatif CGNAT: translation-based                               |
 
 > [!warning] Kritis untuk Forensik
-> **RFC 6888 Section 14** secara eksplisit menyatakan bahwa CGNAT *harus* menyediakan mekanisme logging untuk mendukung law enforcement. Ini bukan fitur opsional — ini adalah **requirement** dari standar IETF.
+> **RFC 6888 Section 14** secara eksplisit menyatakan bahwa CGNAT _harus_ menyediakan mekanisme logging untuk mendukung law enforcement. Ini bukan fitur opsional — ini adalah **requirement** dari standar IETF.
 
 ---
 
@@ -98,18 +98,18 @@ Perbedaan utama:
 
 ### 2.1 Tabel Perbandingan
 
-| Aspek | Traditional NAT (NAT44) | CGNAT (NAT444) | Native IPv6 |
-|-------|----------------------|-----------------|-------------|
-| **Lokasi** | CPE Router (rumah/kantor) | CGN Gateway (infrastruktur ISP) | End-to-end, no NAT |
-| **IP Publik per Pelanggan** | 1:1 — satu IP penuh | N:1 — ribuan user share satu IP | 1:1 atau lebih — setiap device punya alamat unik |
-| **Address Space** | Private (RFC 1918) → Public | Private → 100.64.0.0/10 → Public | 2000::/3 Global Unicast |
-| **Pool Size per Gateway** | Single public IP | /32 hingga /24 (~1-256 IP) | Tak terbatas praktis |
-| **Port Limit per Customer** | ~65.535 total (teoretis) | Dibatasi per subscriber (RFC 6888: 2.000-8.000 port minimum) | Tidak ada limit |
-| **Logging Requirement** | Opsional (jarang) | **Wajib** (RFC 6888) untuk law enforcement | Tidak diperlukan |
-| **Application Impact** | Minimal (NAT traversal sudah umum) | **Signifikan** — P2P, VoIP, gaming, VPN bermasalah | Ideal — no NAT issues |
-| **Traceability** | Langsung: IP publik = satu pelanggan | **Kompleks**: butuh log ISP + timestamp sinkron | Langsung: IP unik per device |
-| **Deployment** | Universal (setiap router) | ISP Tier 1-3, mobile operators | ~35-45% global adoption (2025) |
-| **Latency Overhead** | ~0,1-0,5ms (negligible) | ~1-5ms (extra hop) | 0ms (no translation) |
+| Aspek                       | Traditional NAT (NAT44)              | CGNAT (NAT444)                                               | Native IPv6                                      |
+| --------------------------- | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------ |
+| **Lokasi**                  | CPE Router (rumah/kantor)            | CGN Gateway (infrastruktur ISP)                              | End-to-end, no NAT                               |
+| **IP Publik per Pelanggan** | 1:1 — satu IP penuh                  | N:1 — ribuan user share satu IP                              | 1:1 atau lebih — setiap device punya alamat unik |
+| **Address Space**           | Private (RFC 1918) → Public          | Private → 100.64.0.0/10 → Public                             | 2000::/3 Global Unicast                          |
+| **Pool Size per Gateway**   | Single public IP                     | /32 hingga /24 (~1-256 IP)                                   | Tak terbatas praktis                             |
+| **Port Limit per Customer** | ~65.535 total (teoretis)             | Dibatasi per subscriber (RFC 6888: 2.000-8.000 port minimum) | Tidak ada limit                                  |
+| **Logging Requirement**     | Opsional (jarang)                    | **Wajib** (RFC 6888) untuk law enforcement                   | Tidak diperlukan                                 |
+| **Application Impact**      | Minimal (NAT traversal sudah umum)   | **Signifikan** — P2P, VoIP, gaming, VPN bermasalah           | Ideal — no NAT issues                            |
+| **Traceability**            | Langsung: IP publik = satu pelanggan | **Kompleks**: butuh log ISP + timestamp sinkron              | Langsung: IP unik per device                     |
+| **Deployment**              | Universal (setiap router)            | ISP Tier 1-3, mobile operators                               | ~35-45% global adoption (2025)                   |
+| **Latency Overhead**        | ~0,1-0,5ms (negligible)              | ~1-5ms (extra hop)                                           | 0ms (no translation)                             |
 
 ### 2.2 Visual: Perbedaan Arsitektur
 
@@ -129,14 +129,14 @@ CGNAT (NAT444):
 User A ──── 192.168.1.0/24 ────→ [NAT] ──── 100.64.1.100 ────→ [CGN] ────→ Internet
                         CPE Router              │              203.0.113.10
 User B ──── 192.168.2.0/24 ────→ [NAT] ──── 100.64.1.200 ────→ [CGN] ────→ Internet
-                                                │                    
+                                                │
                                                CGNAT Logging:
                                                 - Timestamp
                                                 - Private IP:Port
                                                 - Public IP:Port
                                                 - Subscriber ID
                                                 - NAT Session ID
-                                                
+
 Logging: WAJIB di CGN Gateway.
 Attribution: IP publik saja TIDAK CUKUP. Butuh log CGN + 5-tuple.
 
@@ -238,17 +238,17 @@ Contoh Port Block per Subscriber:
 
 RFC 6888 mensyaratkan log minimal berisi:
 
-| Field | Contoh | Deskripsi |
-|-------|--------|-----------|
-| **Timestamp** | 2025-07-02T14:30:00.123Z | Waktu session NAT dibuat (wajib UTC+NTP sync) |
-| **Protocol** | TCP=6, UDP=17, ICMP=1 | L4 protocol (IP protocol number) |
-| **Inside (Private) IP** | 100.64.1.100 | IP asli pelanggan di CGN space (RFC 6598) |
-| **Inside Port** | 34512 | Source port asli dari pelanggan |
-| **Outside (Public) IP** | 203.0.113.10 | IP publik yang dishare |
-| **Outside Port** | 1024 | Port publik yang dialokasikan |
-| **Remote IP** | 198.51.100.20 | IP tujuan eksternal (destination) |
-| **Remote Port** | 443 | Port tujuan eksternal |
-| **Subscriber Identifier** | user@isp.com / PPPoE session ID | Identitas pelanggan dari RADIUS/AAA |
+| Field                     | Contoh                          | Deskripsi                                     |
+| ------------------------- | ------------------------------- | --------------------------------------------- |
+| **Timestamp**             | 2025-07-02T14:30:00.123Z        | Waktu session NAT dibuat (wajib UTC+NTP sync) |
+| **Protocol**              | TCP=6, UDP=17, ICMP=1           | L4 protocol (IP protocol number)              |
+| **Inside (Private) IP**   | 100.64.1.100                    | IP asli pelanggan di CGN space (RFC 6598)     |
+| **Inside Port**           | 34512                           | Source port asli dari pelanggan               |
+| **Outside (Public) IP**   | 203.0.113.10                    | IP publik yang dishare                        |
+| **Outside Port**          | 1024                            | Port publik yang dialokasikan                 |
+| **Remote IP**             | 198.51.100.20                   | IP tujuan eksternal (destination)             |
+| **Remote Port**           | 443                             | Port tujuan eksternal                         |
+| **Subscriber Identifier** | user@isp.com / PPPoE session ID | Identitas pelanggan dari RADIUS/AAA           |
 
 ### 3.4 Cara Kerja 5-Tuple Binding di CGNAT
 
@@ -285,14 +285,14 @@ PENTING:
 
 Selain CGNAT Gateway sendiri, ada sumber data tambahan:
 
-| Sumber Data | Protokol/Format | Data yang Dihasilkan | Digunakan Untuk |
-|-------------|----------------|---------------------|-----------------|
-| **RADIUS Accounting** | RADIUS (RFC 2866) | PPPoE session start/stop, IP assignment, username, framing IP, session ID, NAS-IP-Address, Acct-Input/Output-Octets | Korelasi subscriber identity dengan CGN inside IP |
-| **DHCP Lease Log** | Syslog | MAC → IP binding, lease time, hostname, Option 82 (circuit ID, remote ID) | Menentukan perangkat spesifik dalam satu rumah |
-| **PPPoE Session Log** | Syslog | Username, session ID, access concentrator, physical port | Korreksi subscriber yang pindah CPE atau reconnect |
-| **Syslog dari CGN Device** | Syslog / RFC 5424 | NAT session create/delete, resource exhaustion, threshold crossing | Monitoring CGN health, forensik tambahan |
-| **IPFIX / NetFlow v9/v10** | IPFIX (RFC 7011) / NetFlow | Flow record lengkap: 5-tuple, bytes, packets, start/end time, TCP flags | Threat hunting detail, traffic analysis |
-| **CGNAT Connection Table Dump** | CLI/API per vendor | Current session snapshot (bukan historis) | Live forensik — cek siapa yang pakai port tertentu sekarang |
+| Sumber Data                     | Protokol/Format            | Data yang Dihasilkan                                                                                                | Digunakan Untuk                                             |
+| ------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **RADIUS Accounting**           | RADIUS (RFC 2866)          | PPPoE session start/stop, IP assignment, username, framing IP, session ID, NAS-IP-Address, Acct-Input/Output-Octets | Korelasi subscriber identity dengan CGN inside IP           |
+| **DHCP Lease Log**              | Syslog                     | MAC → IP binding, lease time, hostname, Option 82 (circuit ID, remote ID)                                           | Menentukan perangkat spesifik dalam satu rumah              |
+| **PPPoE Session Log**           | Syslog                     | Username, session ID, access concentrator, physical port                                                            | Korreksi subscriber yang pindah CPE atau reconnect          |
+| **Syslog dari CGN Device**      | Syslog / RFC 5424          | NAT session create/delete, resource exhaustion, threshold crossing                                                  | Monitoring CGN health, forensik tambahan                    |
+| **IPFIX / NetFlow v9/v10**      | IPFIX (RFC 7011) / NetFlow | Flow record lengkap: 5-tuple, bytes, packets, start/end time, TCP flags                                             | Threat hunting detail, traffic analysis                     |
+| **CGNAT Connection Table Dump** | CLI/API per vendor         | Current session snapshot (bukan historis)                                                                           | Live forensik — cek siapa yang pakai port tertentu sekarang |
 
 ---
 
@@ -300,13 +300,13 @@ Selain CGNAT Gateway sendiri, ada sumber data tambahan:
 
 ### 4.1 Perbandingan Regulasi Global
 
-| Regulasi | Yurisdiksi | Persyaratan Logging CGNAT | Retention | Sanksi |
-|----------|-----------|--------------------------|-----------|--------|
-| **GDPR + NGI** (E-Privacy Directive / eIDAS) | Uni Eropa | Data retention directive: ISP wajib simpan log koneksi (termasuk CGNAT) minimal 6-12 bulan. Harus bisa korelasi IP → subscriber atas permintaan otoritas. | 6-12 bulan | Denda hingga €20 juta atau 4% revenue global |
-| **FCC CPNI** (47 CFR §64.2001-2011) | Amerika Serikat | Customer Proprietary Network Information protection. ISP boleh log untuk law enforcement. CALEA (Communications Assistance for Law Enforcement Act) — wajib provide intercept capability. | Variatif per state | FCC fine, revoke license |
-| **UU ITE + Permenkominfo No. 12/2016** | Indonesia | Pasal 15 UU ITE: penyelenggara jasa telekomunikasi wajib menyimpan data komunikasi (termasuk IP assignment log) minimal 1 tahun. Permenkominfo 12/2016: logging wajib untuk antisipasi kejahatan siber. | Minimal 1 tahun | Pidana penjara, denda, pencabutan izin |
-| **Anti-Cybercrime Law** | Global (ITU model) | Logging subscriber activity, IP assignment, timestamp for 6 months minimum | Variabel per negara | Administrative/criminal |
-| **Data Retention Directive** | beberapa negara EU (sisa) | Setelah Schrems II dan kasus Tele2 Sverige, beberapa negara tetap pertahankan data retention untuk law enforcement | 6-24 bulan | Constitutional challenge (beberapa dibatalkan) |
+| Regulasi                                     | Yurisdiksi                | Persyaratan Logging CGNAT                                                                                                                                                                               | Retention           | Sanksi                                         |
+| -------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ---------------------------------------------- |
+| **GDPR + NGI** (E-Privacy Directive / eIDAS) | Uni Eropa                 | Data retention directive: ISP wajib simpan log koneksi (termasuk CGNAT) minimal 6-12 bulan. Harus bisa korelasi IP → subscriber atas permintaan otoritas.                                               | 6-12 bulan          | Denda hingga €20 juta atau 4% revenue global   |
+| **FCC CPNI** (47 CFR §64.2001-2011)          | Amerika Serikat           | Customer Proprietary Network Information protection. ISP boleh log untuk law enforcement. CALEA (Communications Assistance for Law Enforcement Act) — wajib provide intercept capability.               | Variatif per state  | FCC fine, revoke license                       |
+| **UU ITE + Permenkominfo No. 12/2016**       | Indonesia                 | Pasal 15 UU ITE: penyelenggara jasa telekomunikasi wajib menyimpan data komunikasi (termasuk IP assignment log) minimal 1 tahun. Permenkominfo 12/2016: logging wajib untuk antisipasi kejahatan siber. | Minimal 1 tahun     | Pidana penjara, denda, pencabutan izin         |
+| **Anti-Cybercrime Law**                      | Global (ITU model)        | Logging subscriber activity, IP assignment, timestamp for 6 months minimum                                                                                                                              | Variabel per negara | Administrative/criminal                        |
+| **Data Retention Directive**                 | beberapa negara EU (sisa) | Setelah Schrems II dan kasus Tele2 Sverige, beberapa negara tetap pertahankan data retention untuk law enforcement                                                                                      | 6-24 bulan          | Constitutional challenge (beberapa dibatalkan) |
 
 ### 4.2 Implikasi GDPR Terhadap Logging CGNAT
 
@@ -339,14 +339,14 @@ GDPR Prinsip yang Terdampak:
 
 ### 4.3 Regulasi Indonesia — Detail
 
-| Regulasi | Pasal | Isi Relevan |
-|----------|-------|-------------|
-| **UU 19/2016 (Perubahan UU ITE)** | Pasal 15 | Penyelenggara sistem elektronik wajib rekam dan simpan data transaksi minimal 5 tahun — BUKAN untuk CGNAT spesifik |
-| **UU 36/1999 Telekomunikasi** | Pasal 31 | Operator wajib jaga kerahasiaan informasi pelanggan (tapi pengecualian untuk penegakan hukum) |
-| **Permenkominfo 12/2016** | Pasal 7, 8, 9 | Wajib log aktivitas pengguna termasuk IP assignment, timestamp, dan user identifier. Retention minimal 1 tahun |
-| **Permenkominfo 10/2017** | — | Tata cara pemeriksaan sistem elektronik — termasuk permintaan data ke operator |
-| **UU ITE 2024 (revisi terbaru)** | Pasal 40 | Akses terhadap informasi elektronik untuk penegakan hukum — termasuk data komunikasi |
-| **PP 71/2019** | — | Penyelenggaraan Sistem dan Transaksi Elektronik — perlindungan data pribadi |
+| Regulasi                          | Pasal         | Isi Relevan                                                                                                        |
+| --------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **UU 19/2016 (Perubahan UU ITE)** | Pasal 15      | Penyelenggara sistem elektronik wajib rekam dan simpan data transaksi minimal 5 tahun — BUKAN untuk CGNAT spesifik |
+| **UU 36/1999 Telekomunikasi**     | Pasal 31      | Operator wajib jaga kerahasiaan informasi pelanggan (tapi pengecualian untuk penegakan hukum)                      |
+| **Permenkominfo 12/2016**         | Pasal 7, 8, 9 | Wajib log aktivitas pengguna termasuk IP assignment, timestamp, dan user identifier. Retention minimal 1 tahun     |
+| **Permenkominfo 10/2017**         | —             | Tata cara pemeriksaan sistem elektronik — termasuk permintaan data ke operator                                     |
+| **UU ITE 2024 (revisi terbaru)**  | Pasal 40      | Akses terhadap informasi elektronik untuk penegakan hukum — termasuk data komunikasi                               |
+| **PP 71/2019**                    | —             | Penyelenggaraan Sistem dan Transaksi Elektronik — perlindungan data pribadi                                        |
 
 > [!warning] Catatan Praktisi
 > Di Indonesia, hampir semua ISP besar (Telkom, Indihome, First Media, MyRepublic, Biznet) menggunakan CGNAT untuk pelanggan rumah tangga. Attribution tanpa log CGNAT dari ISP **hampir tidak mungkin** di jaringan ini.
@@ -536,7 +536,7 @@ Langkah 2: Cari di CGNAT Log
     Query: WHERE outside_ip='203.0.113.10'
            AND outside_port='1024'
            AND timestamp ≈ T1 (± tolerance)
-           
+
     Result: inside_ip='100.64.1.100'
             subscriber='USER-A@telkom.net.id'
             private_port='34512'
@@ -545,7 +545,7 @@ Langkah 3: Cari di RADIUS Accounting
     Query: WHERE framed_ip='100.64.1.100'
            AND acct_start <= T1
            AND acct_stop ≥ T1 OR acct_stop IS NULL
-           
+
     Result: username='USER-A'
             calling_station_id='AA:BB:CC:DD:EE:FF'
             nas_port='Gi0/1/0:123'
@@ -554,7 +554,7 @@ Langkah 3: Cari di RADIUS Accounting
 Langkah 4: Cari di Database Pelanggan
     Query: WHERE username='USER-A'
            OR mac_address='AA:BB:CC:DD:EE:FF'
-           
+
     Result: Nama = "Budi Santoso"
             Alamat = "Jl. Merdeka No. 42, Jakarta"
             ID Pelanggan = "TEL-12345678"
@@ -639,18 +639,18 @@ timestamp>="2025-07-02T00:00:00Z" AND timestamp<="2025-07-02T23:59:59Z"
 
 ### 7.1 Perbandingan Tools untuk Analisis CGNAT Log
 
-| Tool | Fungsi | Data Source | Kelebihan | Kekurangan |
-|------|--------|-------------|-----------|------------|
-| **ELK Stack** (Elasticsearch + Logstash + Kibana) | Centralized log search + dashboard | Syslog CGNAT, IPFIX, RADIUS | Query cepat, visualisasi, scale horizontal | Resource heavy, butuh dedicated team |
-| **Splunk** | Log aggregation + SIEM | Semua log | Enterprise-grade, correlation search, alerting | Mahal (license per GB/day) |
-| **SILK** (SiLK — System for Internet-Level Knowledge) | NetFlow/IPFIX analysis | Flow data dari router | Efisien, billion-record scale, command-line, open source | Tidak bisa baca syslog, flow-only |
-| **flow-tools** (flow-capture, flow-print) | Legacy NetFlow collector | NetFlow v5/v9 | Ringan, stabil, mature | Tidak support CGNAT-specific fields, outdated |
-| **nfdump / nfsen** | NetFlow analysis | NetFlow v5/v9/v10, IPFIX | nfdump cepat filtering, nfsen punya web UI | Tidak handle syslog format |
-| **Logstash + filter CGNAT** | Parse syslog CGNAT ke structured | Syslog dari berbagai vendor | Custom parsing fleksibel, grok filter | Butuh konfigurasi manual per vendor |
-| **Custom Python/Go script** | Query CGNAT log + join RADIUS | Flat file atau API CGN logger | Full control, bisa handle format non-standar | Maintenance burden, no built-in dashboard |
-| **Grafana + Loki** | Log aggregation + visualisasi | Syslog (via Promtail) | Lebih ringan dari ELK, grafana dashboard | Query tidak sekuat Elasticsearch |
-| **Wireshark / tshark** | Packet-level analysis | PCAP dari mirror port CGN | Detil maksimal | Tidak scalable untuk jutaan session |
-| **Zeek** (dengan CGNAT plugin) | Network monitoring + structured logging | Traffic dari mirror port | Log terstruktur otomatis | Tidak inline, perlu span port |
+| Tool                                                  | Fungsi                                  | Data Source                   | Kelebihan                                                | Kekurangan                                    |
+| ----------------------------------------------------- | --------------------------------------- | ----------------------------- | -------------------------------------------------------- | --------------------------------------------- |
+| **ELK Stack** (Elasticsearch + Logstash + Kibana)     | Centralized log search + dashboard      | Syslog CGNAT, IPFIX, RADIUS   | Query cepat, visualisasi, scale horizontal               | Resource heavy, butuh dedicated team          |
+| **Splunk**                                            | Log aggregation + SIEM                  | Semua log                     | Enterprise-grade, correlation search, alerting           | Mahal (license per GB/day)                    |
+| **SILK** (SiLK — System for Internet-Level Knowledge) | NetFlow/IPFIX analysis                  | Flow data dari router         | Efisien, billion-record scale, command-line, open source | Tidak bisa baca syslog, flow-only             |
+| **flow-tools** (flow-capture, flow-print)             | Legacy NetFlow collector                | NetFlow v5/v9                 | Ringan, stabil, mature                                   | Tidak support CGNAT-specific fields, outdated |
+| **nfdump / nfsen**                                    | NetFlow analysis                        | NetFlow v5/v9/v10, IPFIX      | nfdump cepat filtering, nfsen punya web UI               | Tidak handle syslog format                    |
+| **Logstash + filter CGNAT**                           | Parse syslog CGNAT ke structured        | Syslog dari berbagai vendor   | Custom parsing fleksibel, grok filter                    | Butuh konfigurasi manual per vendor           |
+| **Custom Python/Go script**                           | Query CGNAT log + join RADIUS           | Flat file atau API CGN logger | Full control, bisa handle format non-standar             | Maintenance burden, no built-in dashboard     |
+| **Grafana + Loki**                                    | Log aggregation + visualisasi           | Syslog (via Promtail)         | Lebih ringan dari ELK, grafana dashboard                 | Query tidak sekuat Elasticsearch              |
+| **Wireshark / tshark**                                | Packet-level analysis                   | PCAP dari mirror port CGN     | Detil maksimal                                           | Tidak scalable untuk jutaan session           |
+| **Zeek** (dengan CGNAT plugin)                        | Network monitoring + structured logging | Traffic dari mirror port      | Log terstruktur otomatis                                 | Tidak inline, perlu span port                 |
 
 ### 7.2 Arsitektur Referensi — Centralized Log Collector
 
@@ -710,24 +710,24 @@ timestamp>="2025-07-02T00:00:00Z" AND timestamp<="2025-07-02T23:59:59Z"
 
 IPFIX adalah evolusi NetFlow v9 yang bisa membawa field spesifik CGNAT:
 
-| IPFIX Field ID | Field Name | Tipe | Deskripsi CGNAT |
-|---------------|------------|------|-----------------|
-| **8** | sourceIPv4Address | IPv4 | Inside IP (100.64.x.x) |
-| **12** | destinationIPv4Address | IPv4 | Remote server IP |
-| **7** | sourceTransportPort | uint16 | Inside source port |
-| **11** | destinationTransportPort | uint16 | Remote port |
-| **4** | protocolIdentifier | uint8 | TCP/UDP/ICMP |
-| **2** | packetDeltaCount | uint64 | Paket dalam flow |
-| **1** | octetDeltaCount | uint64 | Bytes dalam flow |
-| **152** | flowStartSeconds | timestamp | Session start |
-| **153** | flowEndSeconds | timestamp | Session end |
-| **346** | natInsideSrcAddr | IPv4 | **Post-NAT private IP** (CGN specific) |
-| **347** | natInsideSrcPort | uint16 | **Post-NAT private port** |
-| **348** | natOutsideSrcAddr | IPv4 | **Pre-NAT public IP** (yang dishare) |
-| **349** | natOutsideSrcPort | uint16 | **Pre-NAT public port** |
-| **350** | natInsideDstAddr | IPv4 | Post-NAT private dest (jarang) |
-| **351** | natInsideDstPort | uint16 | Post-NAT private dest port |
-| **384** | subscriberId | string | **Subscriber identity** (vendor-specific IE) |
+| IPFIX Field ID | Field Name               | Tipe      | Deskripsi CGNAT                              |
+| -------------- | ------------------------ | --------- | -------------------------------------------- |
+| **8**          | sourceIPv4Address        | IPv4      | Inside IP (100.64.x.x)                       |
+| **12**         | destinationIPv4Address   | IPv4      | Remote server IP                             |
+| **7**          | sourceTransportPort      | uint16    | Inside source port                           |
+| **11**         | destinationTransportPort | uint16    | Remote port                                  |
+| **4**          | protocolIdentifier       | uint8     | TCP/UDP/ICMP                                 |
+| **2**          | packetDeltaCount         | uint64    | Paket dalam flow                             |
+| **1**          | octetDeltaCount          | uint64    | Bytes dalam flow                             |
+| **152**        | flowStartSeconds         | timestamp | Session start                                |
+| **153**        | flowEndSeconds           | timestamp | Session end                                  |
+| **346**        | natInsideSrcAddr         | IPv4      | **Post-NAT private IP** (CGN specific)       |
+| **347**        | natInsideSrcPort         | uint16    | **Post-NAT private port**                    |
+| **348**        | natOutsideSrcAddr        | IPv4      | **Pre-NAT public IP** (yang dishare)         |
+| **349**        | natOutsideSrcPort        | uint16    | **Pre-NAT public port**                      |
+| **350**        | natInsideDstAddr         | IPv4      | Post-NAT private dest (jarang)               |
+| **351**        | natInsideDstPort         | uint16    | Post-NAT private dest port                   |
+| **384**        | subscriberId             | string    | **Subscriber identity** (vendor-specific IE) |
 
 ### 7.4 Contoh Konfigurasi Parsing CGNAT — Logstash Grok
 
@@ -1008,14 +1008,14 @@ CGNAT secara tidak sengaja memberikan privacy benefit:
 
 ### 9.3 Tabel: Keseimbangan Privacy vs Forensik
 
-| Aspek | Privacy Advocate View | Law Enforcement/IR View |
-|-------|---------------------|----------------------|
-| **CGNAT logging** | Mass surveillance — ISP catat semua aktivitas warga | Essential for attribution — tanpa log, kejahatan tidak bisa dilacak |
-| **Data retention (90-365 hari)** | Pelanggaran privacy, chilling effect | Minimal waktu untuk investigasi kejahatan kompleks |
-| **Port Block Allocation** | Predictable → memudahkan fingerprinting | Memudahkan attribution tanpa log per-session |
-| **Deterministic mapping** | Identitas permanen tersembunyi di IP publik | Korelasi lebih cepat untuk repeat offender |
-| **Real-time CGNAT query** | Privacy nightmare — ISP bisa lacak real-time | Wajib untuk incident response yang responsif |
-| **Anonymization layer** (Tor/VPN di atas CGNAT) | Hak fundamental untuk privacy digital | Tanda merah aktivitas kriminal — semakin banyak lapisan anonim, semakin mencurigakan |
+| Aspek                                           | Privacy Advocate View                               | Law Enforcement/IR View                                                              |
+| ----------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **CGNAT logging**                               | Mass surveillance — ISP catat semua aktivitas warga | Essential for attribution — tanpa log, kejahatan tidak bisa dilacak                  |
+| **Data retention (90-365 hari)**                | Pelanggaran privacy, chilling effect                | Minimal waktu untuk investigasi kejahatan kompleks                                   |
+| **Port Block Allocation**                       | Predictable → memudahkan fingerprinting             | Memudahkan attribution tanpa log per-session                                         |
+| **Deterministic mapping**                       | Identitas permanen tersembunyi di IP publik         | Korelasi lebih cepat untuk repeat offender                                           |
+| **Real-time CGNAT query**                       | Privacy nightmare — ISP bisa lacak real-time        | Wajib untuk incident response yang responsif                                         |
+| **Anonymization layer** (Tor/VPN di atas CGNAT) | Hak fundamental untuk privacy digital               | Tanda merah aktivitas kriminal — semakin banyak lapisan anonim, semakin mencurigakan |
 
 ### 9.4 Rekomendasi Keseimbangan
 
@@ -1056,16 +1056,16 @@ Pendekatan yang Seimbang:
 
 ### 10.1 Perbandingan Alternatif CGNAT
 
-| Teknologi | Mekanisme | IPv6 Support | Logging Requirement | Adoption |
-|-----------|-----------|-------------|-------------------|----------|
-| **CGNAT (NAT444)** | PAT/shared IP — translation | Tidak langsung | WAJIB (RFC 6888) | Dominan di Asia, Afrika, LATAM |
-| **NAT64 + DNS64** | IPv6-only client → IPv4 internet via translation | Side-by-side | Sama dengan CGNAT | Operator mobile (T-Mobile US, Telstra) |
-| **DS-Lite** (RFC 7596) | IPv6 tunnel + CGNAT element | IPv6 native, IPv4 via tunnel | Sama dengan CGNAT | European operators (Deutsche Telekom, Free FR) |
-| **MAP-E** (RFC 7597) | Encapsulation — IPv4-in-IPv6 tunnel | IPv6 native | Lebih rendah (deterministic mapping) | Softbank JP, Comcast US |
-| **MAP-T** (RFC 7599) | Translation — IPv4 ↔ IPv6 (similar NAT64) | IPv6 native | Lebih rendah (deterministic) | Emerging — belum banyak deployed |
-| **LISP** (RFC 6830) | Locator/ID separation — routing overlay | Bisa dual-stack | Berbeda: LISP mapping system | Enterprise/Campus, bukan residential |
-| **Pure IPv6** | No NAT at all — every device has global address | NATIF | Tidak diperlukan | Nordics (DK, SE), US mobile, India (Reliance Jio) |
-| **464XLAT** (RFC 6877) | CLAT+PLAT — client-side NAT64 | IPv6-only client | Sama dengan CGNAT (PLAT side) | Android default, T-Mobile US massive deployment |
+| Teknologi              | Mekanisme                                        | IPv6 Support                 | Logging Requirement                  | Adoption                                          |
+| ---------------------- | ------------------------------------------------ | ---------------------------- | ------------------------------------ | ------------------------------------------------- |
+| **CGNAT (NAT444)**     | PAT/shared IP — translation                      | Tidak langsung               | WAJIB (RFC 6888)                     | Dominan di Asia, Afrika, LATAM                    |
+| **NAT64 + DNS64**      | IPv6-only client → IPv4 internet via translation | Side-by-side                 | Sama dengan CGNAT                    | Operator mobile (T-Mobile US, Telstra)            |
+| **DS-Lite** (RFC 7596) | IPv6 tunnel + CGNAT element                      | IPv6 native, IPv4 via tunnel | Sama dengan CGNAT                    | European operators (Deutsche Telekom, Free FR)    |
+| **MAP-E** (RFC 7597)   | Encapsulation — IPv4-in-IPv6 tunnel              | IPv6 native                  | Lebih rendah (deterministic mapping) | Softbank JP, Comcast US                           |
+| **MAP-T** (RFC 7599)   | Translation — IPv4 ↔ IPv6 (similar NAT64)        | IPv6 native                  | Lebih rendah (deterministic)         | Emerging — belum banyak deployed                  |
+| **LISP** (RFC 6830)    | Locator/ID separation — routing overlay          | Bisa dual-stack              | Berbeda: LISP mapping system         | Enterprise/Campus, bukan residential              |
+| **Pure IPv6**          | No NAT at all — every device has global address  | NATIF                        | Tidak diperlukan                     | Nordics (DK, SE), US mobile, India (Reliance Jio) |
+| **464XLAT** (RFC 6877) | CLAT+PLAT — client-side NAT64                    | IPv6-only client             | Sama dengan CGNAT (PLAT side)        | Android default, T-Mobile US massive deployment   |
 
 ### 10.2 Visual: Perbedaan Arsitektur Alternatif
 
@@ -1148,17 +1148,17 @@ Realisasi Industri (2025):
 
 ### 10.4 Tabel: Dampak Setiap Alternatif terhadap Forensik
 
-| Alternatif | Attribution Complexity | Log Volume | IR Speed | Privacy Impact |
-|-----------|----------------------|-----------|---------|---------------|
-| **CGNAT (NAT444)** | Tinggi — butuh join CGN log + RADIUS | Sangat tinggi (miliaran/hari) | Lambat — 6-24 jam | Rendah — ISP tahu semuanya |
-| **CGNAT + Port Block** | Sedang — cukup cek port range | Rendah (hanya alokasi blok) | Sedang — 1-4 jam | Sedang — predictable range |
-| **DS-Lite** | Tinggi — AFTR log + RADIUS | Tinggi | Lambat | Rendah |
-| **MAP-E** | Rendah — deterministic port mapping (PSID) | Rendah (hanya PSID allocation) | Cepat — 30 menit | Sedang — PSID tetap |
-| **MAP-T** | Rendah — sama dengan MAP-E | Rendah | Cepat | Sedang |
-| **NAT64** | Tinggi — gateway NAT64 log | Tinggi | Lambat | Rendah |
-| **464XLAT** | Sedang — PLAT side log | Sedang | Sedang | Rendah |
-| **Pure IPv6** | **Sangat rendah** — IP langsung = device | Minimal (DHCPv6 log saja) | **Cepat** — real-time | Sedang — privacy extension |
-| **CGNAT + VPN/Tor** | **Sangat tinggi** — CGNAT hanya layer 1 dari banyak | CGNAT log tidak berguna sendiri | Sangat lambat | Tinggi — user anonim |
+| Alternatif             | Attribution Complexity                              | Log Volume                      | IR Speed              | Privacy Impact             |
+| ---------------------- | --------------------------------------------------- | ------------------------------- | --------------------- | -------------------------- |
+| **CGNAT (NAT444)**     | Tinggi — butuh join CGN log + RADIUS                | Sangat tinggi (miliaran/hari)   | Lambat — 6-24 jam     | Rendah — ISP tahu semuanya |
+| **CGNAT + Port Block** | Sedang — cukup cek port range                       | Rendah (hanya alokasi blok)     | Sedang — 1-4 jam      | Sedang — predictable range |
+| **DS-Lite**            | Tinggi — AFTR log + RADIUS                          | Tinggi                          | Lambat                | Rendah                     |
+| **MAP-E**              | Rendah — deterministic port mapping (PSID)          | Rendah (hanya PSID allocation)  | Cepat — 30 menit      | Sedang — PSID tetap        |
+| **MAP-T**              | Rendah — sama dengan MAP-E                          | Rendah                          | Cepat                 | Sedang                     |
+| **NAT64**              | Tinggi — gateway NAT64 log                          | Tinggi                          | Lambat                | Rendah                     |
+| **464XLAT**            | Sedang — PLAT side log                              | Sedang                          | Sedang                | Rendah                     |
+| **Pure IPv6**          | **Sangat rendah** — IP langsung = device            | Minimal (DHCPv6 log saja)       | **Cepat** — real-time | Sedang — privacy extension |
+| **CGNAT + VPN/Tor**    | **Sangat tinggi** — CGNAT hanya layer 1 dari banyak | CGNAT log tidak berguna sendiri | Sangat lambat         | Tinggi — user anonim       |
 
 ---
 
@@ -1193,5 +1193,5 @@ Realisasi Industri (2025):
 
 ---
 
-*Note ini adalah living document. CGNAT terus berkembang seiring migrasi IPv6 dan munculnya regulasi baru.*
-*Last updated: 2025-07-02*
+_Note ini adalah living document. CGNAT terus berkembang seiring migrasi IPv6 dan munculnya regulasi baru._
+_Last updated: 2025-07-02_

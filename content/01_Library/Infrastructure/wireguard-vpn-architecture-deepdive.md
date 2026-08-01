@@ -25,6 +25,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. Filosofi Desain WireGuard]]
 - [[#2. Cryptographic Primitives — Noise_IK]]
 - [[#3. Handshake Flow]]
@@ -45,14 +46,14 @@ cssclasses:
 
 WireGuard (Jason A. Donenfeld, 2015-2020) hadir karena frustrasi dengan VPN existing:
 
-| Aspek | OpenVPN | IPsec | WireGuard |
-|---|---|---|---|
-| **Kode** | ~600.000 baris | ~400.000 baris | ~4.000 baris |
-| **Crypto** | OpenSSL (ribuan opsi) | Complex IKE | Noise_IK (fixed) |
-| **Handshake** | TLS + auth | IKEv1/v2 (6-9 msg) | 1-RTT (3 msg) |
-| **Key rotation** | Manual | Complex | Automatic (perfect forward secrecy) |
-| **Roaming** | ❌ | ❌ | ✅ Native |
-| **Kernel integration** | Via tun | Via tun/ipsec | ✅ In-kernel (wg) |
+| Aspek                  | OpenVPN               | IPsec              | WireGuard                           |
+| ---------------------- | --------------------- | ------------------ | ----------------------------------- |
+| **Kode**               | ~600.000 baris        | ~400.000 baris     | ~4.000 baris                        |
+| **Crypto**             | OpenSSL (ribuan opsi) | Complex IKE        | Noise_IK (fixed)                    |
+| **Handshake**          | TLS + auth            | IKEv1/v2 (6-9 msg) | 1-RTT (3 msg)                       |
+| **Key rotation**       | Manual                | Complex            | Automatic (perfect forward secrecy) |
+| **Roaming**            | ❌                    | ❌                 | ✅ Native                           |
+| **Kernel integration** | Via tun               | Via tun/ipsec      | ✅ In-kernel (wg)                   |
 
 **Prinsip:** Setiap opsi adalah attack surface. Tidak ada pilihan cipher, algoritma, atau mode — semuanya fixed.
 
@@ -62,12 +63,12 @@ WireGuard (Jason A. Donenfeld, 2015-2020) hadir karena frustrasi dengan VPN exis
 
 WireGuard menggunakan protokol **Noise_IK** (Noise Protocol Framework — initiator/pre-known static key). Satu pattern: `Noise_IK_25519_ChaChaPoly_BLAKE2s`.
 
-| Primitive | Fungsi | Alasan |
-|---|---|---|
-| **Curve25519** | Key exchange (ECDH) | Side-channel resistant, konstanta-time |
-| **ChaCha20Poly1305** | AEAD encryption | Cepat di CPU tanpa AES-NI |
-| **BLAKE2s** | Hashing | Hash cepat, built-in keying |
-| **HKDF (BLAKE2s)** | Key derivation | Extract-expand dari DH result |
+| Primitive            | Fungsi              | Alasan                                 |
+| -------------------- | ------------------- | -------------------------------------- |
+| **Curve25519**       | Key exchange (ECDH) | Side-channel resistant, konstanta-time |
+| **ChaCha20Poly1305** | AEAD encryption     | Cepat di CPU tanpa AES-NI              |
+| **BLAKE2s**          | Hashing             | Hash cepat, built-in keying            |
+| **HKDF (BLAKE2s)**   | Key derivation      | Extract-expand dari DH result          |
 
 **Mengapa ChaCha20 bukan AES?** ChaCha20 adalah ARX cipher (add-rotate-xor) yang tidak butuh hardware AES-NI. Performa konsisten di semua CPU, termasuk ARM dan embedded.
 
@@ -169,11 +170,13 @@ Packet flow: Network → wg module → ChaCha20 (kernel crypto) → tun → user
 ```
 
 **Keunggulan:**
+
 - Latensi lebih rendah (skip context switch)
 - Throughput lebih tinggi (zero-copy)
 - Integrasi dengan network stack kernel
 
 **Instalasi:**
+
 ```bash
 # Kernel module sudah built-in di Linux 5.6+
 modprobe wireguard
@@ -188,6 +191,7 @@ Packet flow: Network → tun → userspace (boringtun) → ChaCha20 → userspac
 ```
 
 **Keunggulan:**
+
 - Cross-platform (Windows, macOS, BSD)
 - Update tanpa reboot
 - Sandboxing lebih mudah
@@ -195,11 +199,11 @@ Packet flow: Network → tun → userspace (boringtun) → ChaCha20 → userspac
 
 **Perbandingan performa:**
 
-| Implementasi | Throughput (1Gbps) | Latensi (ms) | CPU Usage |
-|---|---|---|---|
-| Kernel (wg) | ~940 Mbps | 0.1-0.3 | 5-10% |
-| boringtun | ~850 Mbps | 0.3-0.8 | 15-25% |
-| OpenVPN (TLS) | ~400 Mbps | 1-3 | 30-50% |
+| Implementasi  | Throughput (1Gbps) | Latensi (ms) | CPU Usage |
+| ------------- | ------------------ | ------------ | --------- |
+| Kernel (wg)   | ~940 Mbps          | 0.1-0.3      | 5-10%     |
+| boringtun     | ~850 Mbps          | 0.3-0.8      | 15-25%    |
+| OpenVPN (TLS) | ~400 Mbps          | 1-3          | 30-50%    |
 
 ---
 
@@ -320,12 +324,12 @@ Nilai umum: `25` detik. Jangan terlalu kecil (< 10) — bisa dianggap DoS.
 
 ## 9. Performance Benchmark
 
-| VPN | 1-Core Throughput | 4-Core Throughput | Latency Add | CPU/Connection |
-|---|---|---|---|---|
-| WireGuard | 940 Mbps | 3.8 Gbps | +0.1 ms | 1% / 1K conn |
-| IPsec (AES-NI) | 800 Mbps | 3.2 Gbps | +0.3 ms | 3% / 1K conn |
-| OpenVPN (AES-256) | 300 Mbps | 800 Mbps | +1.5 ms | 8% / 1K conn |
-| OpenVPN (ChaCha20) | 250 Mbps | 700 Mbps | +2.0 ms | 10% / 1K conn |
+| VPN                | 1-Core Throughput | 4-Core Throughput | Latency Add | CPU/Connection |
+| ------------------ | ----------------- | ----------------- | ----------- | -------------- |
+| WireGuard          | 940 Mbps          | 3.8 Gbps          | +0.1 ms     | 1% / 1K conn   |
+| IPsec (AES-NI)     | 800 Mbps          | 3.2 Gbps          | +0.3 ms     | 3% / 1K conn   |
+| OpenVPN (AES-256)  | 300 Mbps          | 800 Mbps          | +1.5 ms     | 8% / 1K conn   |
+| OpenVPN (ChaCha20) | 250 Mbps          | 700 Mbps          | +2.0 ms     | 10% / 1K conn  |
 
 WireGuard 3-10× lebih cepat dari OpenVPN untuk throughput tinggi.
 
@@ -353,13 +357,13 @@ $$ \text{MTU}_{tunnel} = \text{MTU}_{link} - 80 \text{ (IPv6)} \text{ atau } - 6
 
 Recomendasi tabel:
 
-| Link Type | MTU |
-|---|---|
+| Link Type       | MTU  |
+| --------------- | ---- |
 | Ethernet (1500) | 1420 |
-| PPPoE (1492) | 1412 |
-| 4G/LTE (1500) | 1420 |
-| IPv6 tunnel | 1400 |
-| GRE tunnel | 1360 |
+| PPPoE (1492)    | 1412 |
+| 4G/LTE (1500)   | 1420 |
+| IPv6 tunnel     | 1400 |
+| GRE tunnel      | 1360 |
 
 ---
 
@@ -449,6 +453,7 @@ nft add rule inet filter forward iifname "wg0" oifname "eth0" accept
 - **Performance Benchmark:** https://www.wireguard.com/performance/
 
 **Cross-link vault:**
+
 - [[networking-fundamentals-tcpip-bgp]] — routing & network dasar
 - [[linux-hardening-cis]] — OS hardening
 - [[homelab-security-architecture-synthesis]] — infrastruktur

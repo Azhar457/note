@@ -1,22 +1,22 @@
 ---
-title: '📄 Docling Deep Dive — Unified Document Parser untuk RAG: dari PDF, DOCX, PPTX,
-  HTML ke Markdown/JSON Bersih dalam Satu API'
+title: "📄 Docling Deep Dive — Unified Document Parser untuk RAG: dari PDF, DOCX, PPTX,
+  HTML ke Markdown/JSON Bersih dalam Satu API"
 tags:
-- docling
-- document-parsing
-- rag
-- ingestion
-- ibm-research
-- thoughtworks-radar-vol-34
-- library
+  - docling
+  - document-parsing
+  - rag
+  - ingestion
+  - ibm-research
+  - thoughtworks-radar-vol-34
+  - library
 aliases:
-- docling-rag-pipeline
-- docling-parser-guide
-created: '2026-07-19'
-updated: '2026-07-19'
+  - docling-rag-pipeline
+  - docling-parser-guide
+created: "2026-07-19"
+updated: "2026-07-19"
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 📄 Docling Deep Dive — Unified Document Parser untuk RAG
@@ -177,6 +177,7 @@ md = result.document.export_to_markdown()
 ```
 
 OCR engines supported:
+
 - `TesseractOcrOptions` (default)
 - `EasyOcrOptions` (requires `pip install easyocr`)
 - `RapidOcrOcrOptions`
@@ -255,26 +256,28 @@ Cross-link: [[advanced-chunking-strategies-deepdive]] untuk chunker variants; [[
 
 ## 4. Comparison / Tradeoff
 
-| Parser | Formats | Tabel support | OCR | License | Hosting cost | Speed | Output structure |
-|--------|---------|----------------|-----|--------|---------------|-------|------------------|
-| **Docling** | PDF, DOCX, PPTX, HTML, image | Native via TableFormer | Tesseract/Easy/rapid | MIT | Self-host | Moderate | Markdown, JSON, DocTags |
-| **Unstructured.io** | Lintas | Native (Unstructured of high+low level) | Tesseract | Apache 2.0 / Commercial | paid cloud OR self-host | Slow (detect models) | Element JSON |
-| **LlamaParse** | Lintas, shining PDF | Native (Llama-parse vLM) | Native (vLLM-based) | Proprietary SaaS | $ per page | Fast | Markdown, JSON |
-| **PyMuPDF** | PDF only | Native (cell detection diff) | None (text-based PDFs only) | AGPL (GPL) — tough commercial | Self-host | Fastest | Raw text + structured via API |
-| **pypdf** | PDF only | None | None | BSD | Self-host | Fast | Plain text |
-| **pdfplumber** | PDF only | Good via word/char boxes | None | MIT | Self-host | Slow | Custom via extract_tables() |
-| **Marker** | PDF → Markdown | Limited | None | Apache 2.0; GPU heavy | Self-host GPU | Slow on CPU, fast on GPU | Markdown |
-| **JINA Reader** | Web (URL any) | HTML only via readability libs | None | Free tier via JINA API (9Router proxy) | Cloud API or @r.jina.ai | Fast | Markdown |
+| Parser              | Formats                      | Tabel support                           | OCR                         | License                                | Hosting cost            | Speed                    | Output structure              |
+| ------------------- | ---------------------------- | --------------------------------------- | --------------------------- | -------------------------------------- | ----------------------- | ------------------------ | ----------------------------- |
+| **Docling**         | PDF, DOCX, PPTX, HTML, image | Native via TableFormer                  | Tesseract/Easy/rapid        | MIT                                    | Self-host               | Moderate                 | Markdown, JSON, DocTags       |
+| **Unstructured.io** | Lintas                       | Native (Unstructured of high+low level) | Tesseract                   | Apache 2.0 / Commercial                | paid cloud OR self-host | Slow (detect models)     | Element JSON                  |
+| **LlamaParse**      | Lintas, shining PDF          | Native (Llama-parse vLM)                | Native (vLLM-based)         | Proprietary SaaS                       | $ per page              | Fast                     | Markdown, JSON                |
+| **PyMuPDF**         | PDF only                     | Native (cell detection diff)            | None (text-based PDFs only) | AGPL (GPL) — tough commercial          | Self-host               | Fastest                  | Raw text + structured via API |
+| **pypdf**           | PDF only                     | None                                    | None                        | BSD                                    | Self-host               | Fast                     | Plain text                    |
+| **pdfplumber**      | PDF only                     | Good via word/char boxes                | None                        | MIT                                    | Self-host               | Slow                     | Custom via extract_tables()   |
+| **Marker**          | PDF → Markdown               | Limited                                 | None                        | Apache 2.0; GPU heavy                  | Self-host GPU           | Slow on CPU, fast on GPU | Markdown                      |
+| **JINA Reader**     | Web (URL any)                | HTML only via readability libs          | None                        | Free tier via JINA API (9Router proxy) | Cloud API or @r.jina.ai | Fast                     | Markdown                      |
 
 ### Kapan pakai Docling?
 
 ✅ **Ya pakai, kalau:**
+
 - Pipeline RAG yang butuh format beragam (PDF + DOCX + PPTX)
 - Butuh table structure as data (bukan tabel sebagai plain text)
 - Self-host wajib (privacy/security: dokumen internal, PHI, PII)
 - JSON estructurado supaya bisa diinspect & di-reprocess
 
 ❌ **Tidak, kalau:**
+
 - Cuma parsing PDF cepat → PyMuPDF cukup
 - cuma extract webpage → JINA Reader (via 9Router `/v1/web/fetch`) langsung markdown
 - SaaS acceptable, cost per page > obses → LlamaParse lebih feature-rich
@@ -287,6 +290,7 @@ Cross-link: [[advanced-chunking-strategies-deepdive]] untuk chunker variants; [[
 ### CPU vs GPU
 
 Docling **bisa jalan CPU-only**. Pipeline baseline (no VLM, no OCR berat) ~1-3 detik per 10-page PDF di CPU midrange. GPU accelerate:
+
 - OCR: 5-10x lebih cepat
 - TableFormer: dukung model inferensiexclusive di GPU
 - VLM figure description (Docling v2.x): `pip install docling[vlm]`, butuh CUDA
@@ -329,14 +333,14 @@ def parse_and_embed(file_path, embedder, vector_store):
     doc = result.document
     md = doc.export_to_markdown()
     doc_hash = hashlib.sha256(md.encode()).hexdigest()
-    
+
     # Skip if same doc recently indexed
     if vector_store.exists_by_hash(doc_hash):
         return None
-    
+
     chunker = HybridChunker(chunk_size=512, chunk_overlap=64)
     chunks = chunker.chunk(doc)
-    
+
     embeddings = embedder.encode([c.text for c in chunks])
     vector_store.upsert(
         chunks=[c.text for c in chunks],
@@ -380,4 +384,4 @@ Cross-link: [[rag-pipeline-end-to-end-guide]] untuk end-to-end pipeline referenc
 
 ---
 
-*Docling deep-dive · unified document parser · IBM Research · v1.0 — July 2026*
+_Docling deep-dive · unified document parser · IBM Research · v1.0 — July 2026_

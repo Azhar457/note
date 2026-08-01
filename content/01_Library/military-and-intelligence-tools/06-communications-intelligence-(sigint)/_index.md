@@ -1,11 +1,12 @@
 # 06-Communications-Intelligence-(Sigint)
 
-[Kembali ke Military-And-Intelligence-Tools](../military-and-intelligence-tools/_index.md)
+> Catatan tentang 06-communications-intelligence-(sigint).
 
-> Total: 7 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 7 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[drfm]]
 - [[foxacid]]
 - [[prism]]
@@ -13,3 +14,4 @@
 - [[siginter]]
 - [[upstream-and-tempora]]
 - [[verint]]
+

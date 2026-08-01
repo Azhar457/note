@@ -1,13 +1,13 @@
 ---
 title: Google Dorks
 tags:
-- 01-osint-and-reconnaissance
-- library
-- military-and-intelligence-tools
-created: '2026-06-27'
-updated: '2026-07-01'
+  - 01-osint-and-reconnaissance
+  - library
+  - military-and-intelligence-tools
+created: "2026-06-27"
+updated: "2026-07-01"
 status: pending
-cssclasses: ''
+cssclasses: ""
 ---
 
 > [!warning] Konteks Etis & Legal
@@ -101,63 +101,63 @@ Mencari teks di dalam konten halaman.
 
 ### Kategori A: File Konfigurasi & Kredensial
 
-| Query | Tujuan |
-|-------|--------|
-| `intitle:"Index of" ".env"` | File environment Laravel/Symfony yang mengandung DB password, APP_KEY, API secret. |
-| `filetype:sql "password"` | Dump database dengan hash atau plaintext password. |
-| `filetype:pem intext:"BEGIN RSA PRIVATE KEY"` | Kunci privat SSL. |
-| `intitle:"index of" "config.php"` | File konfigurasi PHP dengan kredensial database. |
-| `inurl:/.git/config` | File konfigurasi Git repositori, mungkin mengandung remote origin dengan token. |
-| `filetype:tfstate` | Terraform state file, sering berisi AWS keys, IP internal, arsitektur cloud. |
-| `filetype:yml intext:"password"` | File YAML dengan password (Ansible playbook, docker-compose). |
-| `filetype:json intext:"private_key"` | JSON yang memuat private key. |
+| Query                                         | Tujuan                                                                             |
+| --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `intitle:"Index of" ".env"`                   | File environment Laravel/Symfony yang mengandung DB password, APP_KEY, API secret. |
+| `filetype:sql "password"`                     | Dump database dengan hash atau plaintext password.                                 |
+| `filetype:pem intext:"BEGIN RSA PRIVATE KEY"` | Kunci privat SSL.                                                                  |
+| `intitle:"index of" "config.php"`             | File konfigurasi PHP dengan kredensial database.                                   |
+| `inurl:/.git/config`                          | File konfigurasi Git repositori, mungkin mengandung remote origin dengan token.    |
+| `filetype:tfstate`                            | Terraform state file, sering berisi AWS keys, IP internal, arsitektur cloud.       |
+| `filetype:yml intext:"password"`              | File YAML dengan password (Ansible playbook, docker-compose).                      |
+| `filetype:json intext:"private_key"`          | JSON yang memuat private key.                                                      |
 
 ### Kategori B: Panel Administrasi & Layanan Terbuka
 
-| Query | Tujuan |
-|-------|--------|
+| Query                                                 | Tujuan                               |
+| ----------------------------------------------------- | ------------------------------------ |
 | `intitle:"phpMyAdmin" intext:"Welcome to phpMyAdmin"` | Instalasi phpMyAdmin tanpa proteksi. |
-| `intitle:"Dashboard [Jenkins]"` | Jenkins CI/CD tanpa otentikasi. |
-| `intitle:"Grafana"` | Dashboard monitoring Grafana publik. |
-| `intitle:"Kibana"` | Instalasi Kibana elastis. |
-| `inurl:admin intitle:login` | Halaman login panel admin. |
-| `intitle:"Apache Tomcat"` | Apache Tomcat console. |
-| `intitle:"Internet Information Services"` | IIS server default page. |
-| `intitle:"MongoDB Express"` | Mongo Express panel. |
-| `intitle:"RabbitMQ"` | RabbitMQ management interface. |
+| `intitle:"Dashboard [Jenkins]"`                       | Jenkins CI/CD tanpa otentikasi.      |
+| `intitle:"Grafana"`                                   | Dashboard monitoring Grafana publik. |
+| `intitle:"Kibana"`                                    | Instalasi Kibana elastis.            |
+| `inurl:admin intitle:login`                           | Halaman login panel admin.           |
+| `intitle:"Apache Tomcat"`                             | Apache Tomcat console.               |
+| `intitle:"Internet Information Services"`             | IIS server default page.             |
+| `intitle:"MongoDB Express"`                           | Mongo Express panel.                 |
+| `intitle:"RabbitMQ"`                                  | RabbitMQ management interface.       |
 
 ### Kategori C: Informasi Pribadi & Data Breach
 
-| Query | Tujuan |
-|-------|--------|
-| `filetype:xls intext:"email" intext:"password"` | Spreadsheet Excel berisi daftar email dan password. |
-| `filetype:csv "credit card"` | Data kartu kredit dalam CSV. |
-| `intitle:"index of" "passport"` | Scan paspor yang tersimpan di direktori publik. |
-| `filetype:pdf "social security number"` | Dokumen PDF dengan nomor SSN (AS). |
-| `site:pastebin.com intext:"@target.com" "password"` | Kredensial target yang bocor di Pastebin. |
+| Query                                               | Tujuan                                              |
+| --------------------------------------------------- | --------------------------------------------------- |
+| `filetype:xls intext:"email" intext:"password"`     | Spreadsheet Excel berisi daftar email dan password. |
+| `filetype:csv "credit card"`                        | Data kartu kredit dalam CSV.                        |
+| `intitle:"index of" "passport"`                     | Scan paspor yang tersimpan di direktori publik.     |
+| `filetype:pdf "social security number"`             | Dokumen PDF dengan nomor SSN (AS).                  |
+| `site:pastebin.com intext:"@target.com" "password"` | Kredensial target yang bocor di Pastebin.           |
 
 ### Kategori D: Informasi Infrastruktur & Jaringan Internal
 
-| Query | Tujuan |
-|-------|--------|
-| `site:target.com intitle:"networking" "IP address"` | Diagram jaringan internal. |
-| `intitle:"index of" "network"` | Listing direktori yang berisi peta jaringan. |
-| `filetype:vsd intext:"firewall"` | Diagram Visio infrastruktur. |
-| `filetype:pdf "internal use only"` | Dokumen yang ditandai internal. |
-| `inurl:server-status` | Halaman status Apache, mengungkapkan request URL, IP klien, dan path internal. |
-| `intitle:"index of" "ssh"` | Kunci SSH yang terpapar. |
+| Query                                               | Tujuan                                                                         |
+| --------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `site:target.com intitle:"networking" "IP address"` | Diagram jaringan internal.                                                     |
+| `intitle:"index of" "network"`                      | Listing direktori yang berisi peta jaringan.                                   |
+| `filetype:vsd intext:"firewall"`                    | Diagram Visio infrastruktur.                                                   |
+| `filetype:pdf "internal use only"`                  | Dokumen yang ditandai internal.                                                |
+| `inurl:server-status`                               | Halaman status Apache, mengungkapkan request URL, IP klien, dan path internal. |
+| `intitle:"index of" "ssh"`                          | Kunci SSH yang terpapar.                                                       |
 
 ### Kategori E: Perangkat IoT & Kamera Publik
 
-| Query | Tujuan |
-|-------|--------|
-| `intitle:"Live View" intitle:"Webcam"` | Webcam publik. |
-| `intitle:"Network Camera"` | Kamera jaringan. |
-| `inurl:view.shtml` | Kamera IP. |
-| `intitle:"WebcamXP"` | WebcamXP software. |
-| `intitle:"scada"` | Perangkat SCADA (industri). |
-| `intitle:"BACnet"` | Perangkat BACnet (building automation). |
-| `inurl:"/cgi-bin/webproc"` | Router/modern interface. |
+| Query                                  | Tujuan                                  |
+| -------------------------------------- | --------------------------------------- |
+| `intitle:"Live View" intitle:"Webcam"` | Webcam publik.                          |
+| `intitle:"Network Camera"`             | Kamera jaringan.                        |
+| `inurl:view.shtml`                     | Kamera IP.                              |
+| `intitle:"WebcamXP"`                   | WebcamXP software.                      |
+| `intitle:"scada"`                      | Perangkat SCADA (industri).             |
+| `intitle:"BACnet"`                     | Perangkat BACnet (building automation). |
+| `inurl:"/cgi-bin/webproc"`             | Router/modern interface.                |
 
 ---
 
@@ -170,16 +170,19 @@ Daripada satu dork besar, kombinasikan secara presisi:
 ```google
 site:target.com (filetype:bak OR filetype:old OR filetype:backup) intext:"<?php"
 ```
+
 Mencari file backup PHP yang mengandung kode sumber.
 
 ```google
 site:target.com inurl:backup filetype:sql
 ```
+
 Mencari file backup database di domain target.
 
 ```google
 site:target.com intitle:"index of" "parent directory" "wp-config"
 ```
+
 Mencari direktori terbuka yang mengandung file konfigurasi WordPress.
 
 ### Wildcard & Ranges untuk Fuzzing
@@ -187,11 +190,13 @@ Mencari direktori terbuka yang mengandung file konfigurasi WordPress.
 ```google
 site:target.com inurl:"page=*"
 ```
+
 Mencari parameter page yang mungkin rentan terhadap LFI/RFI.
 
 ```google
 site:target.com inurl:"id=1..999"
 ```
+
 Enumerasi ID numerik pada parameter URL.
 
 ### Google Dorks untuk Bug Bounty & Red Team
@@ -221,9 +226,11 @@ Penyerang akan mencari `site:target.com inurl:/admin/` untuk melihat apakah dire
 ### 2. Meta Tag `noindex`
 
 Lebih kuat dari `robots.txt`. Tambahkan di `<head>`:
+
 ```html
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow" />
 ```
+
 Ini mencegah Google mengindeks halaman meskipun ada tautan dari luar. Namun, harus dikonfigurasi per halaman.
 
 ### 3. .htaccess / Nginx Authentication
@@ -233,6 +240,7 @@ Proteksi direktori sensitif dengan password (HTTP Basic Auth) sehingga Google ti
 ### 4. Google Search Console — Remove URL
 
 Jika data sensitif sudah terlanjur terindeks:
+
 1. Hapus file dari server.
 2. Kembalikan status 404 atau 410.
 3. Gunakan **Google Search Console** > Removals > Temporary Removals untuk menghapus URL dari indeks dengan cepat.
@@ -299,12 +307,12 @@ Google Dorks adalah OSINT murni: tidak ilegal, tidak invasive, tidak meninggalka
 
 ## 📚 Referensi
 
-- Long, J. (2004). *Google Hacking for Penetration Testers*. Syngress.
+- Long, J. (2004). _Google Hacking for Penetration Testers_. Syngress.
 - GHDB (Google Hacking Database) oleh Exploit-DB: https://www.exploit-db.com/google-hacking-database
 - Google Search Central Documentation: https://developers.google.com/search/docs
-- OWASP: *Testing for Information Leakage* (WSTG-INFO-04)
+- OWASP: _Testing for Information Leakage_ (WSTG-INFO-04)
 - MITRE ATT&CK: T1593 (Search Open Websites/Domains), T1591 (Gather Victim Org Information)
 
 ---
 
-*Google Dorks Deep Dive | Advanced Search Operators for Exposed Data | Passive Reconnaissance OSINT*
+_Google Dorks Deep Dive | Advanced Search Operators for Exposed Data | Passive Reconnaissance OSINT_

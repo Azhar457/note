@@ -13,6 +13,7 @@ cssclasses: [wide-table]
 ---
 
 ## Daftar Isi
+
 1. [[#1. Masalah — Memoryless Reassign]]
 2. [[#2. Solusi — ACO sebagai Learning Layer]]
 3. [[#3. Mapping ACO ke Agent Routing]]
@@ -43,12 +44,12 @@ task_type=code_review
 
 ### Dampak Konkret
 
-| Skenario | Static η (sekarang) | Masalah |
-|----------|:-------------------:|:--------|
-| Provider baru (Mistral) masuk | η harus di-set manual | Tidak bisa belajar sendiri |
-| Yuanbao upgrade model | η tetap 0.50 untuk coding | Tidak pernah tau improvement |
-| DeepSeek kena rate limit | η tetap 0.85 untuk search | Tetap dikirimi traffic → gagal |
-| Provider ganti model | η tetap | Trust lama tidak pernah evaporasi |
+| Skenario                      |    Static η (sekarang)    | Masalah                           |
+| ----------------------------- | :-----------------------: | :-------------------------------- |
+| Provider baru (Mistral) masuk |   η harus di-set manual   | Tidak bisa belajar sendiri        |
+| Yuanbao upgrade model         | η tetap 0.50 untuk coding | Tidak pernah tau improvement      |
+| DeepSeek kena rate limit      | η tetap 0.85 untuk search | Tetap dikirimi traffic → gagal    |
+| Provider ganti model          |          η tetap          | Trust lama tidak pernah evaporasi |
 
 ---
 
@@ -103,15 +104,15 @@ Pᵢⱼᵏ = [τᵢⱼ]ᵅ · [ηᵢⱼ]ᵇ / Σ_l [τᵢₗ]ᵅ · [ηᵢₗ]�
 
 ### Pemetaan Langsung
 
-| Simbol ACO | Nama | Agent Routing | Sumber |
-|:----------:|:----|:--------------|:------:|
-| ηᵢⱼ | Heuristic visibility | Embedding similarity(task_type, agent_capability) | ✅ SUDAH ADA |
-| τᵢⱼ | Pheromone intensity | `pheromone[task_type][agent_id]` | ❌ BARU |
-| α | Pheromone weight | Seberapa besar history mempengaruhi keputusan | ❌ BARU |
-| β | Heuristic weight | Seberapa besar semantic match mempengaruhi | ❌ BARU |
-| ρ | Evaporation rate | Kecepatan melupakan trust lama | ❌ BARU |
-| Δτᵢⱼᵏ | Deposit quality | Sinyal kualitas hasil (auto-eval / feedback) | ❌ BARU |
-| Pᵢⱼᵏ | Selection probability | Probabilitas agent `j` dipilih untuk task `i` | ❌ BARU |
+| Simbol ACO | Nama                  | Agent Routing                                     |    Sumber    |
+| :--------: | :-------------------- | :------------------------------------------------ | :----------: |
+|    ηᵢⱼ     | Heuristic visibility  | Embedding similarity(task_type, agent_capability) | ✅ SUDAH ADA |
+|    τᵢⱼ     | Pheromone intensity   | `pheromone[task_type][agent_id]`                  |   ❌ BARU    |
+|     α      | Pheromone weight      | Seberapa besar history mempengaruhi keputusan     |   ❌ BARU    |
+|     β      | Heuristic weight      | Seberapa besar semantic match mempengaruhi        |   ❌ BARU    |
+|     ρ      | Evaporation rate      | Kecepatan melupakan trust lama                    |   ❌ BARU    |
+|   Δτᵢⱼᵏ    | Deposit quality       | Sinyal kualitas hasil (auto-eval / feedback)      |   ❌ BARU    |
+|    Pᵢⱼᵏ    | Selection probability | Probabilitas agent `j` dipilih untuk task `i`     |   ❌ BARU    |
 
 ### Interpretasi Per Parameter
 
@@ -139,11 +140,11 @@ agents = [Claude(η=0.90), DeepSeek(η=0.70), Llama(η=0.40)]
 
 ### Round 0 — Initial (sama dengan sistem sekarang)
 
-| Agent | η | τ₀ | η² | τ·η² | P₀ |
-|:------|:--:|:--:|:--:|:----:|:--:|
-| Claude | 0.90 | 0.10 | 0.81 | 0.0810 | **55.5%** |
+| Agent    |  η   |  τ₀  |  η²  |  τ·η²  |    P₀     |
+| :------- | :--: | :--: | :--: | :----: | :-------: |
+| Claude   | 0.90 | 0.10 | 0.81 | 0.0810 | **55.5%** |
 | DeepSeek | 0.70 | 0.10 | 0.49 | 0.0490 | **33.6%** |
-| Llama | 0.40 | 0.10 | 0.16 | 0.0160 | **11.0%** |
+| Llama    | 0.40 | 0.10 | 0.16 | 0.0160 | **11.0%** |
 
 Semua τ seragam → P murni dari η. Sama dengan yang terjadi sekarang.
 
@@ -151,11 +152,11 @@ Semua τ seragam → P murni dari η. Sama dengan yang terjadi sekarang.
 
 Probabilitas Round 0 menghasilkan ~6 Claude, 3 DeepSeek, 1 Llama.
 
-| Agent | Dispatch | Sukses | Skor | Δτ = Q·(sukses/dispatch) |
-|:------|:--------:|:------:|:----:|:-------------------------:|
-| Claude | 6 | 5 | 83% | 0.5 × 5/6 = **0.4167** |
-| DeepSeek | 3 | 2 | 67% | 0.5 × 2/3 = **0.3333** |
-| Llama | 1 | 0 | 0% | 0.5 × 0/1 = **0** |
+| Agent    | Dispatch | Sukses | Skor | Δτ = Q·(sukses/dispatch) |
+| :------- | :------: | :----: | :--: | :----------------------: |
+| Claude   |    6     |   5    | 83%  |  0.5 × 5/6 = **0.4167**  |
+| DeepSeek |    3     |   2    | 67%  |  0.5 × 2/3 = **0.3333**  |
+| Llama    |    1     |   0    |  0%  |    0.5 × 0/1 = **0**     |
 
 **Update pheromone:** τ ← (1-ρ)·τ₀ + Δτ = 0.7 × 0.10 + Δτ
 
@@ -167,11 +168,11 @@ Llama:    0.07 + 0      = 0.0700
 
 ### Round 2 — Recalculate P dengan τ baru
 
-| Agent | τ₁·η² | P₂ | Δ P₀→P₂ |
-|:------|:-----:|:--:|:-------:|
-| Claude | 0.3942 | **65.4%** | +9.9% |
-| DeepSeek | 0.1976 | **32.8%** | −0.8% |
-| Llama | 0.0112 | **1.9%** | −9.1% |
+| Agent    | τ₁·η²  |    P₂     | Δ P₀→P₂ |
+| :------- | :----: | :-------: | :-----: |
+| Claude   | 0.3942 | **65.4%** |  +9.9%  |
+| DeepSeek | 0.1976 | **32.8%** |  −0.8%  |
+| Llama    | 0.0112 | **1.9%**  |  −9.1%  |
 
 Llama tetap mendapat 11% selamanya di sistem lama (η statis). Setelah ACO, **turun ke 1.9%** karena track record jelek — η tidak berubah, tapi τ turun drastis. Ini adalah bukti numerik bahwa ACO memperbaiki keputusan routing hanya dalam 2 round.
 
@@ -198,6 +199,7 @@ Di P=1.9%, dari 10 dispatch berikutnya, peluang Llama **tidak kebagian sama seka
 ```
 
 Kalau tidak pernah kebagian, τ-nya hanya keevaporasi tanpa replenish:
+
 ```
 0.07 → 0.049 → 0.034 → 0.024 → ... → mendekati nol
 ```
@@ -227,10 +229,10 @@ if random() < ε:
 
 Llama jelek di round 1-10 (ability 0%), lalu tiba-tiba menjadi TERBAIK di round 11-20 (ability 95%).
 
-| Guard | P(Llama) round 10 | P(Llama) round 20 | Hasil |
-|:------|:-----------------:|:-----------------:|:------|
-| Tanpa MMAS, tanpa ε | 0.03% | **0.00%** ❌ | Permanen mati |
-| MMAS + ε=0.05 | 0.56% | **5.00%** ✅ | Recovery jalan |
+| Guard               | P(Llama) round 10 | P(Llama) round 20 | Hasil          |
+| :------------------ | :---------------: | :---------------: | :------------- |
+| Tanpa MMAS, tanpa ε |       0.03%       |   **0.00%** ❌    | Permanen mati  |
+| MMAS + ε=0.05       |       0.56%       |   **5.00%** ✅    | Recovery jalan |
 
 ```
 τ Llama: 0.05 (floor) → 0.535 dalam 10 round
@@ -243,16 +245,16 @@ Recovery rate: ~0.5% per round → guaranteed convergence path
 
 Simulasi 10 round, 10 task/round, seed=42:
 
-| Config | P(Claude) | P(DeepSeek) | P(Llama) | Interpretasi |
-|:-------|:---------:|:-----------:|:--------:|:-------------|
-| α=0 (no learning) | **55.5%** | **33.6%** | **11.0%** | Baseline — sama dengan sistem sekarang |
-| α=1, β=2 (balanced) | 69.5% | 29.9% | 0.5% | Recommended — belajar dari history + semantic |
-| α=3 (histori dominan) | **99.4%** | 0.6% | 0.0% | Overfitting — terlalu percaya history |
-| β=5 (semantic dominan) | 82.5% | 17.4% | 0.1% | Hampir sama dengan baseline |
-| ρ=0.1 (slow evap) | 59.2% | 35.8% | **4.9%** | Lambat belajar, tapi lebih adil |
-| ρ=0.7 (fast evap) | 59.0% | 32.5% | **8.5%** | Cepat lupa, hampir kembali ke baseline |
-| Q=1.5 (high deposit) | 70.1% | 29.7% | 0.2% | Satu batch sukses langsung dominan |
-| β=0 (pure history) | **49.2%** | 37.3% | **13.5%** | η diabaikan — berbahaya untuk task baru |
+| Config                 | P(Claude) | P(DeepSeek) | P(Llama)  | Interpretasi                                  |
+| :--------------------- | :-------: | :---------: | :-------: | :-------------------------------------------- |
+| α=0 (no learning)      | **55.5%** |  **33.6%**  | **11.0%** | Baseline — sama dengan sistem sekarang        |
+| α=1, β=2 (balanced)    |   69.5%   |    29.9%    |   0.5%    | Recommended — belajar dari history + semantic |
+| α=3 (histori dominan)  | **99.4%** |    0.6%     |   0.0%    | Overfitting — terlalu percaya history         |
+| β=5 (semantic dominan) |   82.5%   |    17.4%    |   0.1%    | Hampir sama dengan baseline                   |
+| ρ=0.1 (slow evap)      |   59.2%   |    35.8%    | **4.9%**  | Lambat belajar, tapi lebih adil               |
+| ρ=0.7 (fast evap)      |   59.0%   |    32.5%    | **8.5%**  | Cepat lupa, hampir kembali ke baseline        |
+| Q=1.5 (high deposit)   |   70.1%   |    29.7%    |   0.2%    | Satu batch sukses langsung dominan            |
+| β=0 (pure history)     | **49.2%** |    37.3%    | **13.5%** | η diabaikan — berbahaya untuk task baru       |
 
 ### Recommended Starting Point
 
@@ -305,13 +307,13 @@ ACO routing ke **satu agent** tidak cukup untuk compound task seperti "Deep Rese
 
 Simulasi 50 compound tasks, 5 sub-task types, 5 free providers:
 
-| Sub-task | Best Agent | τ final | P final | Success Rate |
-|:---------|:-----------|:-------:|:-------:|:------------:|
-| 🔍 Search | DeepSeek Web | 2.16 | 42.0% | 0.80 |
-| 📖 Extract | DeepSeek Web | 1.26 | 50.8% | 0.69 |
-| ✅ Verify | DeepSeek Web | 2.12 | 66.2% | 0.92 |
-| 🧠 Synthesize | Yuanbao | 2.41 | 44.4% | 0.85 |
-| ✍️ Write | Gemini Web | 2.08 | 51.1% | 0.82 |
+| Sub-task      | Best Agent   | τ final | P final | Success Rate |
+| :------------ | :----------- | :-----: | :-----: | :----------: |
+| 🔍 Search     | DeepSeek Web |  2.16   |  42.0%  |     0.80     |
+| 📖 Extract    | DeepSeek Web |  1.26   |  50.8%  |     0.69     |
+| ✅ Verify     | DeepSeek Web |  2.12   |  66.2%  |     0.92     |
+| 🧠 Synthesize | Yuanbao      |  2.41   |  44.4%  |     0.85     |
+| ✍️ Write      | Gemini Web   |  2.08   |  51.1%  |     0.82     |
 
 **Kalau dispatch ke 1 agent aja:** DeepSeek untuk semua → write jelek (τ=0.10). Yuanbao untuk semua → search/extract jelek (τ=0.05-0.52).
 
@@ -415,17 +417,17 @@ Round 5: Claude P=76.8%  DeepSeek P=22.5%  Llama P= 0.7%
 
 ### S2 — Exploration Lockout
 
-| ε | Llama dispatched/500 | Status |
-|:-:|:-------------------:|:-------|
-| 0% | 4 (0.8%) | ⚠️ Lockout |
-| 5% | 7 (1.4%) | Mild improvement |
+|  ε  | Llama dispatched/500 | Status           |
+| :-: | :------------------: | :--------------- |
+| 0%  |       4 (0.8%)       | ⚠️ Lockout       |
+| 5%  |       7 (1.4%)       | Mild improvement |
 
 ### S3 — Provider Recovery (Llama 0% → 95%)
 
-| Guard | Round 10 | Round 20 | Hasil |
-|:------|:--------:|:--------:|:------|
-| None | 0.03% | 0.00% ❌ | Stuck |
-| MMAS+ε | 0.56% | 5.00% ✅ | Recovery |
+| Guard  | Round 10 | Round 20 | Hasil    |
+| :----- | :------: | :------: | :------- |
+| None   |  0.03%   | 0.00% ❌ | Stuck    |
+| MMAS+ε |  0.56%   | 5.00% ✅ | Recovery |
 
 ### S4 — 8 Parameter Configs
 
@@ -433,12 +435,12 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 
 ### S5 — Your Real Stack (5 free providers, 30 rounds, 300 task per type)
 
-| Task | #1 | τ | #2 | τ |
-|:-----|:--:|:-:|:--:|:-:|
-| Creative | Yuanbao 66% | 1.50 | Gemini 30% | 0.85 |
-| Coding | OpenCode 41% | 1.42 | DeepSeek 39% | 1.51 |
-| Research | Gemini 48% | 1.47 | DeepSeek 44% | 1.52 |
-| Chat | Gemini 47% | 1.63 | DuckDuckGo 37% | 1.42 |
+| Task     |      #1      |  τ   |       #2       |  τ   |
+| :------- | :----------: | :--: | :------------: | :--: |
+| Creative | Yuanbao 66%  | 1.50 |   Gemini 30%   | 0.85 |
+| Coding   | OpenCode 41% | 1.42 |  DeepSeek 39%  | 1.51 |
+| Research |  Gemini 48%  | 1.47 |  DeepSeek 44%  | 1.52 |
+| Chat     |  Gemini 47%  | 1.63 | DuckDuckGo 37% | 1.42 |
 
 ---
 
@@ -446,45 +448,45 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 
 ### ACO Efektif Ketika
 
-| Kondisi | Efek |
-|:--------|:-----|
-| Provider sering berubah kualitas | ρ evaporate trust lama, τ belajar yang baru |
-| Banyak provider (>3) | Perlu learning karena kombinasi eksponensial |
-| Ada provider gratis yang tidak stabil | Auto-shift saat rate limit / error |
-| Task type beragam | τ matrix independen per task type |
-| Provider baru masuk | Belajar dari nol tanpa perlu set η manual |
+| Kondisi                               | Efek                                         |
+| :------------------------------------ | :------------------------------------------- |
+| Provider sering berubah kualitas      | ρ evaporate trust lama, τ belajar yang baru  |
+| Banyak provider (>3)                  | Perlu learning karena kombinasi eksponensial |
+| Ada provider gratis yang tidak stabil | Auto-shift saat rate limit / error           |
+| Task type beragam                     | τ matrix independen per task type            |
+| Provider baru masuk                   | Belajar dari nol tanpa perlu set η manual    |
 
 ### ACO Kurang Efektif Ketika
 
-| Kondisi | Alasan |
-|:--------|:-------|
-| Hanya 1-2 provider | Tidak perlu ACO — pilih yang η tertinggi |
-| Provider sangat stabil (tahun) | η sudah cukup, ACO hanya overhead |
-| Task sangat pendek (<5 dispatch/task type) | Belum cukup history untuk τ converge |
-| Δτ signal noise/bias | Sinyal yang salah → reinforce hal yang salah |
+| Kondisi                                    | Alasan                                       |
+| :----------------------------------------- | :------------------------------------------- |
+| Hanya 1-2 provider                         | Tidak perlu ACO — pilih yang η tertinggi     |
+| Provider sangat stabil (tahun)             | η sudah cukup, ACO hanya overhead            |
+| Task sangat pendek (<5 dispatch/task type) | Belum cukup history untuk τ converge         |
+| Δτ signal noise/bias                       | Sinyal yang salah → reinforce hal yang salah |
 
 ### Relationship to Other Approaches
 
-| Approach | Key Difference | When to Use |
-|:---------|:--------------|:------------|
-| **Bandit** (UCB, Thompson) | No η — pure exploration/exploitation | No semantic info available |
-| **Static η** (current) | No learning — pure semantic match | Provider perfectly stable |
-| **ACO** (this note) | η + τ — semantic + history | Providers change, new ones appear |
-| **RL** (PPO, Q-learning) | Full state transition model | Complex multi-step decisions |
+| Approach                   | Key Difference                       | When to Use                       |
+| :------------------------- | :----------------------------------- | :-------------------------------- |
+| **Bandit** (UCB, Thompson) | No η — pure exploration/exploitation | No semantic info available        |
+| **Static η** (current)     | No learning — pure semantic match    | Provider perfectly stable         |
+| **ACO** (this note)        | η + τ — semantic + history           | Providers change, new ones appear |
+| **RL** (PPO, Q-learning)   | Full state transition model          | Complex multi-step decisions      |
 
 ---
 
 ## 11. References
 
-1. Dorigo, M., Maniezzo, V., & Colorni, A. (1996). "Ant system: optimization by a colony of cooperating agents." *IEEE Transactions on Systems, Man, and Cybernetics, Part B*, 26(1), 29-41. — Original ACO paper.
+1. Dorigo, M., Maniezzo, V., & Colorni, A. (1996). "Ant system: optimization by a colony of cooperating agents." _IEEE Transactions on Systems, Man, and Cybernetics, Part B_, 26(1), 29-41. — Original ACO paper.
 
-2. Stützle, T., & Hoos, H. H. (2000). "MAX-MIN Ant System." *Future Generation Computer Systems*, 16(8), 889-914. — MMAS floor/ceiling variant.
+2. Stützle, T., & Hoos, H. H. (2000). "MAX-MIN Ant System." _Future Generation Computer Systems_, 16(8), 889-914. — MMAS floor/ceiling variant.
 
-3. Dorigo, M., & Stützle, T. (2004). *Ant Colony Optimization*. MIT Press. — Comprehensive textbook, convergence proofs.
+3. Dorigo, M., & Stützle, T. (2004). _Ant Colony Optimization_. MIT Press. — Comprehensive textbook, convergence proofs.
 
-4. Blum, C. (2005). "Ant colony optimization: Introduction and recent trends." *Physics of Life Reviews*, 2(4), 353-373. — Survey of ACO variants.
+4. Blum, C. (2005). "Ant colony optimization: Introduction and recent trends." _Physics of Life Reviews_, 2(4), 353-373. — Survey of ACO variants.
 
-5. Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press. — ε-greedy exploration, dasar dari paksaan eksplorasi.
+5. Sutton, R. S., & Barto, A. G. (2018). _Reinforcement Learning: An Introduction_ (2nd ed.). MIT Press. — ε-greedy exploration, dasar dari paksaan eksplorasi.
 
 6. [[swarm-ai-imam-robandi]] — Vault note: ACO formula, implementasi Python untuk TSP.
 
@@ -494,10 +496,10 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|:--------|:--------|
-| [[swarm-ai-imam-robandi]] | Sumber formula ACO dan semua varian (MMAS, ACS) |
-| [[meta-agent-orchestration]] | Target arsitektur — ACO menggantikan memoryless reassign |
-| [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
-| [[ai-evaluation-framework]] | Δτ quality signals — LLM judge, self-consistency |
-| [[hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |
+| Catatan                                | Koneksi                                                  |
+| :------------------------------------- | :------------------------------------------------------- |
+| [[swarm-ai-imam-robandi]]              | Sumber formula ACO dan semua varian (MMAS, ACS)          |
+| [[meta-agent-orchestration]]           | Target arsitektur — ACO menggantikan memoryless reassign |
+| [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO             |
+| [[ai-evaluation-framework]]            | Δτ quality signals — LLM judge, self-consistency         |
+| [[hierarchy-llm-ai-systems]]           | Layer di mana agent routing beroperasi                   |

@@ -1,9 +1,12 @@
 # Iam
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang IAM.
 
-> Total: 1 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 2 files | 0 subfolders
 
 ## 📄 Notes
-
+- [[active-directory-windows-security-deepdive]]
 - [[identity-and-access-management]]
+

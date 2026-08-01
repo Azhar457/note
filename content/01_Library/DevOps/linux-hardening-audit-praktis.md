@@ -62,6 +62,7 @@ AllowUsers dev admin                   # whitelist user
 ```
 
 **Verifikasi**
+
 ```bash
 sudo sshd -t                             # test config sebelum restart
 sudo systemctl restart sshd
@@ -101,11 +102,11 @@ findtime = 600
 
 Di Fedora 44+, auditd sering "nganggur" karena 3 masalah berantai:
 
-| Masalah | Akibat | Fix |
-|---------|--------|-----|
-| `auditd` disabled di systemd | Service gak start otomatis | `systemctl enable auditd --now` |
-| Kernel tanpa `audit=1` | Audit subsystem inactive saat boot | Tambah `audit=1` di `GRUB_CMDLINE_LINUX` |
-| Rules `-a task,never` | Semua syscall di-skip | Hapus file rules.d dengan `-a task,never` |
+| Masalah                      | Akibat                             | Fix                                       |
+| ---------------------------- | ---------------------------------- | ----------------------------------------- |
+| `auditd` disabled di systemd | Service gak start otomatis         | `systemctl enable auditd --now`           |
+| Kernel tanpa `audit=1`       | Audit subsystem inactive saat boot | Tambah `audit=1` di `GRUB_CMDLINE_LINUX`  |
+| Rules `-a task,never`        | Semua syscall di-skip              | Hapus file rules.d dengan `-a task,never` |
 
 ### 2.2. Aktifasi Lengkap
 
@@ -252,13 +253,13 @@ sudo systemctl reload apparmor
 
 ### 3.4. Kapan Pilih Yang Mana?
 
-| Faktor | SELinux | AppArmor |
-|--------|---------|----------|
-| Label-based | ✅ Setiap file/process punya context | ❌ Path-based |
-| Granularity | Sangat detail (types, roles, users) | Medium (path profiles) |
-| Learning curve | Curam | Landai |
-| Distro default | Fedora, RHEL, CentOS | Ubuntu, Debian, SUSE |
-| Container support | ✅ Container SELinux labels | ❌ Limited |
+| Faktor            | SELinux                              | AppArmor               |
+| ----------------- | ------------------------------------ | ---------------------- |
+| Label-based       | ✅ Setiap file/process punya context | ❌ Path-based          |
+| Granularity       | Sangat detail (types, roles, users)  | Medium (path profiles) |
+| Learning curve    | Curam                                | Landai                 |
+| Distro default    | Fedora, RHEL, CentOS                 | Ubuntu, Debian, SUSE   |
+| Container support | ✅ Container SELinux labels          | ❌ Limited             |
 
 ---
 
@@ -310,6 +311,7 @@ RestrictRealtime=yes
 ```
 
 Cek status:
+
 ```bash
 systemd-analyze security myapp.service   # Skor exposure
 systemd-analyze security --offline=false myapp.service # realtime check
@@ -447,16 +449,16 @@ sudo oscap xccdf eval   --profile xccdf_org.ssgproject.content_profile_cis   --r
 
 ### Checklist Minimal Production
 
-| Item | Command | Status |
-|------|---------|--------|
-| SSH password auth off | `grep PasswordAuthentication /etc/ssh/sshd_config` | ❌/✅ |
-| auditd active | `systemctl is-active auditd` | ❌/✅ |
-| SELinux enforcing | `getenforce` | ❌/✅ |
-| Kernel ASLR | `sysctl kernel.randomize_va_space` (harus 2) | ❌/✅ |
-| Fail2ban running | `systemctl is-active fail2ban` | ❌/✅ |
-| Unattended upgrades | `systemctl status unattended-upgrades` | ❌/✅ |
-| UFW enabled | `ufw status` | ❌/✅ |
-| No root login SSH | `grep PermitRootLogin /etc/ssh/sshd_config` | ❌/✅ |
+| Item                  | Command                                            | Status |
+| --------------------- | -------------------------------------------------- | ------ |
+| SSH password auth off | `grep PasswordAuthentication /etc/ssh/sshd_config` | ❌/✅  |
+| auditd active         | `systemctl is-active auditd`                       | ❌/✅  |
+| SELinux enforcing     | `getenforce`                                       | ❌/✅  |
+| Kernel ASLR           | `sysctl kernel.randomize_va_space` (harus 2)       | ❌/✅  |
+| Fail2ban running      | `systemctl is-active fail2ban`                     | ❌/✅  |
+| Unattended upgrades   | `systemctl status unattended-upgrades`             | ❌/✅  |
+| UFW enabled           | `ufw status`                                       | ❌/✅  |
+| No root login SSH     | `grep PermitRootLogin /etc/ssh/sshd_config`        | ❌/✅  |
 
 ## 9. Extended SSH Hardening — Deep Dive
 
@@ -464,12 +466,12 @@ sudo oscap xccdf eval   --profile xccdf_org.ssgproject.content_profile_cis   --r
 
 ED25519 dipilih sebagai default karena performa kriptografi yang setara RSA 4096 tapi dengan key size jauh lebih kecil (256 bit vs 4096 bit) dan verification speed yang lebih cepat. Urutan preferensi key type:
 
-| Prioritas | Key Type | Bit Strength | Kecepatan Auth | Catatan |
-|-----------|----------|-------------|----------------|---------|
-| 1 🥇 | ED25519 | 128-bit | Tercepat | OpenSSH 6.5+, recommended |
-| 2 🥈 | ECDSA (NIST P-256) | 128-bit | Cepat | FIPS compliant |
-| 3 🥉 | RSA (4096) | 128-bit | Lambat | Kompatibilitas maksimal |
-| ❌ | DSA | 80-bit | — | Disabled di OpenSSH 7.0+ |
+| Prioritas | Key Type           | Bit Strength | Kecepatan Auth | Catatan                   |
+| --------- | ------------------ | ------------ | -------------- | ------------------------- |
+| 1 🥇      | ED25519            | 128-bit      | Tercepat       | OpenSSH 6.5+, recommended |
+| 2 🥈      | ECDSA (NIST P-256) | 128-bit      | Cepat          | FIPS compliant            |
+| 3 🥉      | RSA (4096)         | 128-bit      | Lambat         | Kompatibilitas maksimal   |
+| ❌        | DSA                | 80-bit       | —              | Disabled di OpenSSH 7.0+  |
 
 ### 9.2. Host Key Rotation
 
@@ -536,7 +538,7 @@ sudo reboot
 -a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k time-change
 ```
 
-**Mengapa diaudit:** Serangan seperti *Time-Based Token Replay* bisa memanipulasi system clock untuk memvalidasi token kedaluwarsa atau memanipulasi log timestamp. `adjtimex` dan `settimeofday` mengubah waktu sistem langsung; `clock_settime` dipakai oleh NTP dan `timedatectl`. Log semua perubahan waktu penting untuk forensic timeline integrity.
+**Mengapa diaudit:** Serangan seperti _Time-Based Token Replay_ bisa memanipulasi system clock untuk memvalidasi token kedaluwarsa atau memanipulasi log timestamp. `adjtimex` dan `settimeofday` mengubah waktu sistem langsung; `clock_settime` dipakai oleh NTP dan `timedatectl`. Log semua perubahan waktu penting untuk forensic timeline integrity.
 
 ### 10.2. User/Group Modification (`-k identity`)
 
@@ -547,7 +549,7 @@ sudo reboot
 -w /etc/sudoers -p wa -k privilege
 ```
 
-**Mengapa:** Setiap perubahan di file ini menandakan penambahan/pengubahan/penghapusan user. Backdoor paling umum: attacker menambah user baru di `/etc/passwd` dengan UID 0 (root). `sudoers` adalah target utama privilege escalation. Flag `-p wa` artinya *write* dan *attribute change* — jadi perubahan permission (`chmod`) juga tercatat.
+**Mengapa:** Setiap perubahan di file ini menandakan penambahan/pengubahan/penghapusan user. Backdoor paling umum: attacker menambah user baru di `/etc/passwd` dengan UID 0 (root). `sudoers` adalah target utama privilege escalation. Flag `-p wa` artinya _write_ dan _attribute change_ — jadi perubahan permission (`chmod`) juga tercatat.
 
 ### 10.3. Network Configuration (`-k network`)
 
@@ -649,11 +651,13 @@ sudo systemctl restart postgresql
 `audit2allow -a -M mymodule` generate policy dari SEMUA AVC yang tercatat. Ini praktis tapi **berbahaya** kalau AVC denial berasal dari exploit attempt — policy-nya akan mengizinkan aktivitas berbahaya.
 
 ✅ **Aman dipakai saat:**
+
 - Skenario yang sudah terverifikasi (app legitimate mencoba akses)
 - Development/staging environment
 - Service yang di-debug setelah install paket baru
 
 ❌ **Hindari saat:**
+
 - Server sedang diserang (AVC bisa dari exploit probe)
 - Tidak yakin sumber denial
 - Langsung apply ke production tanpa review policy yang dihasilkan
@@ -674,14 +678,14 @@ sudo getsebool -a | grep httpd
 
 ### 12.2. Web Server (httpd/nginx) — Boolean Penting
 
-| Boolean | Default | Fungsi | Risiko Enable |
-|---------|---------|--------|---------------|
-| `httpd_can_network_connect` | off | Apache bisa connect ke network (proxy, backend API) | Semua mod_php bisa jadi C2 beacon |
-| `httpd_can_sendmail` | off | Apache bisa kirim email via sendmail | Spam relay jika ada form injection |
-| `httpd_enable_cgi` | on | Izinkan eksekusi CGI script | Attack surface jika ada CGI vuln |
-| `httpd_read_user_content` | off | Baca file di home directory | Bocornya user file via web |
-| `httpd_tmp_exec` | off | Eksekusi file di /tmp | 🚨 Kritis: mencegah webshell dari uploaded PHP di /tmp |
-| `httpd_unified` | off | Unified read/write/exec di semua httpd content | Menonaktifkan isolasi antara static & dynamic content |
+| Boolean                     | Default | Fungsi                                              | Risiko Enable                                          |
+| --------------------------- | ------- | --------------------------------------------------- | ------------------------------------------------------ |
+| `httpd_can_network_connect` | off     | Apache bisa connect ke network (proxy, backend API) | Semua mod_php bisa jadi C2 beacon                      |
+| `httpd_can_sendmail`        | off     | Apache bisa kirim email via sendmail                | Spam relay jika ada form injection                     |
+| `httpd_enable_cgi`          | on      | Izinkan eksekusi CGI script                         | Attack surface jika ada CGI vuln                       |
+| `httpd_read_user_content`   | off     | Baca file di home directory                         | Bocornya user file via web                             |
+| `httpd_tmp_exec`            | off     | Eksekusi file di /tmp                               | 🚨 Kritis: mencegah webshell dari uploaded PHP di /tmp |
+| `httpd_unified`             | off     | Unified read/write/exec di semua httpd content      | Menonaktifkan isolasi antara static & dynamic content  |
 
 **Rekomendasi:** Setiap boolean yang enable harus di-justify (approval change). Enable `httpd_can_network_connect` hanya kalau benar-benar perlu proxy reverse ke app server.
 
@@ -725,6 +729,7 @@ kernel.randomize_va_space = 2   # 0=disabled, 1=randomize, 2=full (default moder
 **Tanpa ASLR:** Attacker bisa memprediksi alamat memori eksak untuk ROP (Return-Oriented Programming) gadget dan buffer overflow. Eksploitasi jadi semudah copy-paste dari Metasploit module.
 
 **Cek efektivitas:**
+
 ```bash
 # Bandingkan base address libc di dua proses berbeda
 cat /proc/self/maps | head -5
@@ -737,11 +742,11 @@ cat /proc/self/maps | head -5
 net.ipv4.conf.all.rp_filter = 1   # 0=off, 1=strict, 2=loose
 ```
 
-**Cara kerja:** Kernel memverifikasi bahwa paket yang masuk melalui interface A memiliki source address yang *routable* kembali melalui interface yang sama. Jika route return-nya lewat interface B, paket di-drop.
+**Cara kerja:** Kernel memverifikasi bahwa paket yang masuk melalui interface A memiliki source address yang _routable_ kembali melalui interface yang sama. Jika route return-nya lewat interface B, paket di-drop.
 
 **Tanpa rp_filter:** Attacker bisa kirim paket dengan source IP spoofed dari interface yang salah. Contoh klasik: attacker di jaringan internal kirim paket dengan source IP loopback (127.0.0.1) → server anggap sebagai local traffic → bypass firewall rules yang seharusnya blok.
 
-**Strict (1) vs Loose (2):** Strict drop paket jika source address tidak routable via incoming interface. Loose hanya cek apakah source address reachable via *any* interface — lebih permisif, dipakai di multi-homed host dengan asymmetric routing.
+**Strict (1) vs Loose (2):** Strict drop paket jika source address tidak routable via incoming interface. Loose hanya cek apakah source address reachable via _any_ interface — lebih permisif, dipakai di multi-homed host dengan asymmetric routing.
 
 ### 13.3. tcp_syncookies — SYN Flood Defense
 
@@ -753,15 +758,15 @@ SYN flood attack membanjiri server dengan SYN packet (tanpa ACK) hingga backlog 
 
 ### 13.4. Kunci Lain dalam Satu Baris
 
-| Parameter | Fungsi | Tanpa Proteksi |
-|-----------|--------|----------------|
-| `accept_source_route = 0` | Blok IP source routing | Attacker bisa menentukan path return packet — bypass firewall |
-| `accept_redirects = 0` | Tolak ICMP redirect | MitM via ICMP redirect untuk redirect traffic ke attacker |
-| `log_martians = 1` | Log paket dengan source address impossible (0.0.0.0, 255.255.255.255, dll) | Blind spot deteksi scanning |
-| `tcp_rfc1337 = 1` | Proteksi TIME-WAIT assassination | Attacker inject RST ke TIME-WAIT connection — close koneksi legitimate |
-| `kptr_restrict = 1` | Sembunyikan kernel pointer dari non-root | Kernel address disclosure (KASLR bypass) |
-| `dmesg_restrict = 1` | Non-root tidak bisa baca dmesg | Information leak via kernel log |
-| `perf_event_paranoid = 3` | Non-root tidak bisa akses perf events | Side-channel attack via performance counters |
+| Parameter                 | Fungsi                                                                     | Tanpa Proteksi                                                         |
+| ------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `accept_source_route = 0` | Blok IP source routing                                                     | Attacker bisa menentukan path return packet — bypass firewall          |
+| `accept_redirects = 0`    | Tolak ICMP redirect                                                        | MitM via ICMP redirect untuk redirect traffic ke attacker              |
+| `log_martians = 1`        | Log paket dengan source address impossible (0.0.0.0, 255.255.255.255, dll) | Blind spot deteksi scanning                                            |
+| `tcp_rfc1337 = 1`         | Proteksi TIME-WAIT assassination                                           | Attacker inject RST ke TIME-WAIT connection — close koneksi legitimate |
+| `kptr_restrict = 1`       | Sembunyikan kernel pointer dari non-root                                   | Kernel address disclosure (KASLR bypass)                               |
+| `dmesg_restrict = 1`      | Non-root tidak bisa baca dmesg                                             | Information leak via kernel log                                        |
+| `perf_event_paranoid = 3` | Non-root tidak bisa akses perf events                                      | Side-channel attack via performance counters                           |
 
 ## 14. Logging Comparison: auditd vs syslog-ng vs rsyslog
 
@@ -769,16 +774,16 @@ SYN flood attack membanjiri server dengan SYN packet (tanpa ACK) hingga backlog 
 
 Ketiga tool ini **bukan kompetitor** langsung — mereka bekerja di layer berbeda:
 
-| Aspek | auditd | rsyslog | syslog-ng |
-|-------|--------|---------|-----------|
-| Input source | Kernel audit subsystem (netlink socket) | /dev/log, /proc/kmsg, UDP/TCP 514 | /dev/log, /etc, UDP/TCP 514 |
-| Data granularity | Syscall-level (setiap execve, write, open) | Application log (string-based) | Application log (string-based) |
-| Volume | **Sangat tinggi** — Gigabytes/hari di server busy | Moderate | Moderate |
-| Format | Binary (audit.log → `ausearch` / `aureport`) | Text (RFC 5424 / BSD syslog) | Text (RFC 5424 / BSD syslog) |
-| Transport | Internal (ke auditd daemon) | TCP/UDP/RELP/TLS (remote) | TCP/UDP/TLS/mongodb/json (remote) |
-| Filter language | Rule-based (key, syscall, arg) | Property-based (`:msg, contains, "error"`) | Expression-based (regex, json, kv-parser) |
-| Encryption | ❌ (butuh auditd-remote-plugins) | ✅ TLS via imtcp/omfwd | ✅ TLS via network() driver |
-| Disk failure behavior | `disk_full_action = SUSPEND` (configurable) | Configurable (queue overflow) | Configurable (disk-based queue) |
+| Aspek                 | auditd                                            | rsyslog                                    | syslog-ng                                 |
+| --------------------- | ------------------------------------------------- | ------------------------------------------ | ----------------------------------------- |
+| Input source          | Kernel audit subsystem (netlink socket)           | /dev/log, /proc/kmsg, UDP/TCP 514          | /dev/log, /etc, UDP/TCP 514               |
+| Data granularity      | Syscall-level (setiap execve, write, open)        | Application log (string-based)             | Application log (string-based)            |
+| Volume                | **Sangat tinggi** — Gigabytes/hari di server busy | Moderate                                   | Moderate                                  |
+| Format                | Binary (audit.log → `ausearch` / `aureport`)      | Text (RFC 5424 / BSD syslog)               | Text (RFC 5424 / BSD syslog)              |
+| Transport             | Internal (ke auditd daemon)                       | TCP/UDP/RELP/TLS (remote)                  | TCP/UDP/TLS/mongodb/json (remote)         |
+| Filter language       | Rule-based (key, syscall, arg)                    | Property-based (`:msg, contains, "error"`) | Expression-based (regex, json, kv-parser) |
+| Encryption            | ❌ (butuh auditd-remote-plugins)                  | ✅ TLS via imtcp/omfwd                     | ✅ TLS via network() driver               |
+| Disk failure behavior | `disk_full_action = SUSPEND` (configurable)       | Configurable (queue overflow)              | Configurable (disk-based queue)           |
 
 ### 14.2. Kapan Pakai Yang Mana?
 
@@ -802,18 +807,18 @@ Server B: auditd + syslog-ng (parse + transform + forward ke Elasticsearch)
 
 Setiap serangan mengincar layer tertentu. Hardening layer yang tepat memblokirnya di sumber:
 
-| Attack Scenario | Layer yang Mencegat | Mekanisme |
-|----------------|---------------------|-----------|
-| **Brute-force SSH password** | SSH config + Fail2ban | `PasswordAuthentication no`, Fail2ban ban IP |
-| **Root privilege escalation via SUID binary** | SELinux + Systemd + Auditd | `NoNewPrivileges=true`, `httpd_t` tidak bisa exec `su`; auditd mencatat semua execve EUID=0 |
-| **Webshell upload di /tmp** | SELinux boolean | `httpd_tmp_exec=off` mencegah eksekusi PHP di /tmp |
-| **Kernel rootkit load** | Sysctl + Auditd + SELinux | `kernel.modules_disabled=1`; rule `-k modules`; SELinux blok `insmod` dari domain non-root |
-| **Time manipulation (log tamper)** | Auditd + Sysctl | Rule `-k time-change` catat setiap `settimeofday`; NTP sync via `chronyd` dengan konfigurasi restricted |
-| **SYN flood DDoS** | Kernel sysctl | `tcp_syncookies=1`, `tcp_synack_retries=5`, `somaxconn` tuning |
-| **Data exfiltration via DNS** | SELinux + AppArmor | Boolean `httpd_can_network_connect=off` (blok koneksi keluar dari web server) |
-| **ICMP redirect MitM** | Kernel sysctl | `accept_redirects=0`, `secure_redirects=0` |
-| **File tampering (ransomware)** | Auditd + AIDE | Rule `-k delete` catat penghapusan; AIDE detect perubahan checksum filesystem |
-| **Container escape via mount** | SELinux + Systemd | Container SELinux label `container_t`; Systemd `ProtectKernelTunables=yes`, `ProtectKernelModules=yes` |
+| Attack Scenario                               | Layer yang Mencegat        | Mekanisme                                                                                               |
+| --------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Brute-force SSH password**                  | SSH config + Fail2ban      | `PasswordAuthentication no`, Fail2ban ban IP                                                            |
+| **Root privilege escalation via SUID binary** | SELinux + Systemd + Auditd | `NoNewPrivileges=true`, `httpd_t` tidak bisa exec `su`; auditd mencatat semua execve EUID=0             |
+| **Webshell upload di /tmp**                   | SELinux boolean            | `httpd_tmp_exec=off` mencegah eksekusi PHP di /tmp                                                      |
+| **Kernel rootkit load**                       | Sysctl + Auditd + SELinux  | `kernel.modules_disabled=1`; rule `-k modules`; SELinux blok `insmod` dari domain non-root              |
+| **Time manipulation (log tamper)**            | Auditd + Sysctl            | Rule `-k time-change` catat setiap `settimeofday`; NTP sync via `chronyd` dengan konfigurasi restricted |
+| **SYN flood DDoS**                            | Kernel sysctl              | `tcp_syncookies=1`, `tcp_synack_retries=5`, `somaxconn` tuning                                          |
+| **Data exfiltration via DNS**                 | SELinux + AppArmor         | Boolean `httpd_can_network_connect=off` (blok koneksi keluar dari web server)                           |
+| **ICMP redirect MitM**                        | Kernel sysctl              | `accept_redirects=0`, `secure_redirects=0`                                                              |
+| **File tampering (ransomware)**               | Auditd + AIDE              | Rule `-k delete` catat penghapusan; AIDE detect perubahan checksum filesystem                           |
+| **Container escape via mount**                | SELinux + Systemd          | Container SELinux label `container_t`; Systemd `ProtectKernelTunables=yes`, `ProtectKernelModules=yes`  |
 
 ### 15.2. Defense in Depth — Real Case
 
@@ -829,12 +834,12 @@ Setiap serangan mengincar layer tertentu. Hardening layer yang tepat memblokirny
 
 ### 15.3. Checklist Prioritas Hardening Berdasarkan Threat Model
 
-| Lingkungan | Prioritas #1 | Prioritas #2 | Prioritas #3 |
-|------------|-------------|-------------|-------------|
-| Public-facing web server | SELinux enforcing + Boolean hardening | SSH key-only + Fail2ban | Auditd rule minimum |
-| Internal DB server | Auditd (identity + time-change) | Systemd NoNewPrivileges | Kernel sysctl (no source routing) |
-| Container host | SELinux container labels | Systemd ProtectKernelModules | Auditd (module loading + exec) |
-| Dev/Staging | SSH hardening | SELinux permissive (logging) | Lynis audit periodik |
+| Lingkungan               | Prioritas #1                          | Prioritas #2                 | Prioritas #3                      |
+| ------------------------ | ------------------------------------- | ---------------------------- | --------------------------------- |
+| Public-facing web server | SELinux enforcing + Boolean hardening | SSH key-only + Fail2ban      | Auditd rule minimum               |
+| Internal DB server       | Auditd (identity + time-change)       | Systemd NoNewPrivileges      | Kernel sysctl (no source routing) |
+| Container host           | SELinux container labels              | Systemd ProtectKernelModules | Auditd (module loading + exec)    |
+| Dev/Staging              | SSH hardening                         | SELinux permissive (logging) | Lynis audit periodik              |
 
 ---
 

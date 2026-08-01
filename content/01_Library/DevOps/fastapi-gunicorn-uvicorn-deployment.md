@@ -8,19 +8,19 @@ source: https://medium.com/@iklobato/mastering-gunicorn-and-uvicorn-the-right-wa
 ---
 
 > [!abstract] Gunicorn + Uvicorn: The Right Way
-> Ringkasan & praktik dari artikel *Mastering Gunicorn and Uvicorn: The Right Way to Deploy FastAPI Applications* oleh Iklobato. Fokus: konfigurasi yang benar, nested worker trap, resource management, dan production checklist. Catatan ini bukan translasi — tapi ekstraksi pola yang langsung bisa dipakai.
+> Ringkasan & praktik dari artikel _Mastering Gunicorn and Uvicorn: The Right Way to Deploy FastAPI Applications_ oleh Iklobato. Fokus: konfigurasi yang benar, nested worker trap, resource management, dan production checklist. Catatan ini bukan translasi — tapi ekstraksi pola yang langsung bisa dipakai.
 
 ---
 
 ## 1. Concurrency vs Parallelism — Why Both Matter
 
-| | Concurrency | Parallelism |
-|:--|:-----------|:------------|
-| **Apa** | Banyak task *making progress* via time-sharing | Banyak task jalan *simultan* di core berbeda |
-| **Implementasi Python** | `async/await`, event loop | `multiprocessing`, multi-process |
-| **Cocok untuk** | I/O-bound (DB, API, file) | CPU-bound (kalkulasi, ML inference) |
-| **Skalabilitas** | Ribuan koneksi concurrent | Terbatas jumlah core |
-| **Yang handle** | Uvicorn (event loop per worker) | Gunicorn (banyak worker process) |
+|                         | Concurrency                                    | Parallelism                                  |
+| :---------------------- | :--------------------------------------------- | :------------------------------------------- |
+| **Apa**                 | Banyak task _making progress_ via time-sharing | Banyak task jalan _simultan_ di core berbeda |
+| **Implementasi Python** | `async/await`, event loop                      | `multiprocessing`, multi-process             |
+| **Cocok untuk**         | I/O-bound (DB, API, file)                      | CPU-bound (kalkulasi, ML inference)          |
+| **Skalabilitas**        | Ribuan koneksi concurrent                      | Terbatas jumlah core                         |
+| **Yang handle**         | Uvicorn (event loop per worker)                | Gunicorn (banyak worker process)             |
 
 **Kunci:** Jangan pilih salah satu — **kombinasi keduanya** yang optimal. Gunicorn ngasih parallelism (multi-worker), tiap worker Uvicorn ngasih concurrency (async event loop).
 
@@ -42,6 +42,7 @@ gunicorn --workers 4 --worker-class uvicorn.workers.UvicornWorker app:app
 ```
 
 **Efek domino:**
+
 - Gunicorn spawn 4 worker processes
 - Tiap worker jalanin `uvicorn.run(workers=4)` → spawn 4 lagi
 - **Total: 4 × 4 = 16 processes** pada 4-core machine
@@ -70,6 +71,7 @@ gunicorn --workers 4 \
 ```
 
 **Architecture:**
+
 ```
 Gunicorn Master
   ├── Worker 1 (UvicornWorker, async event loop, 1000 conn)
@@ -96,13 +98,13 @@ workers = (cpu_cores × 2) + 1
 
 ### Configuration Matrix (dari artikel)
 
-| Use Case | Cores | Workers | Worker Connections | Total Concurrent |
-|:---------|:-----:|:-------:|:------------------:|:----------------:|
-| I/O Heavy API | 4 | 8 | 1.000 | 8.000 |
-| CPU Heavy API | 4 | 9 | 500 | 4.500 |
-| WebSocket App | 4 | 4 | 2.000 | 8.000 |
-| High Traffic Web | 8 | 12 | 1.500 | 18.000 |
-| Microservice | 2 | 2 | 800 | 1.600 |
+| Use Case         | Cores | Workers | Worker Connections | Total Concurrent |
+| :--------------- | :---: | :-----: | :----------------: | :--------------: |
+| I/O Heavy API    |   4   |    8    |       1.000        |      8.000       |
+| CPU Heavy API    |   4   |    9    |        500         |      4.500       |
+| WebSocket App    |   4   |    4    |       2.000        |      8.000       |
+| High Traffic Web |   8   |   12    |       1.500        |      18.000      |
+| Microservice     |   2   |    2    |        800         |      1.600       |
 
 ### Advanced Production Config
 
@@ -123,6 +125,7 @@ gunicorn \
 ```
 
 **Parameter penting:**
+
 - `--max-requests 10000` + `--max-requests-jitter 1000` — restart worker periodik biar memory leak nggak numpuk
 - `--preload-app` — load app code sebelum fork worker (hemat memory, startup lebih cepat)
 - `--worker-connections 2000` — max concurrent connection per worker
@@ -246,10 +249,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.0'
+          cpus: "2.0"
           memory: 1G
         reservations:
-          cpus: '1.0'
+          cpus: "1.0"
           memory: 512M
     environment:
       - WORKERS=4
@@ -289,25 +292,25 @@ gunicorn --check-config --workers $WORKERS \
 
 ## 9. Perbandingan Performance
 
-| Konfigurasi | CPU Efficiency | Memory | Response Time | Concurrent Capacity |
-|:------------|:-------------:|:------:|:-------------:|:------------------:|
-| ✅ **Correct (4 workers)** | 90–95% | 200MB | 50–100ms | 4.000 |
-| ❌ Nested Workers (16 proc) | 40–60% | 800MB | 200–500ms | 2.000 (degraded) |
-| Uvicorn Only (1 proc) | 85–90% | 50MB | 45–80ms | 1.000 |
+| Konfigurasi                 | CPU Efficiency | Memory | Response Time | Concurrent Capacity |
+| :-------------------------- | :------------: | :----: | :-----------: | :-----------------: |
+| ✅ **Correct (4 workers)**  |     90–95%     | 200MB  |   50–100ms    |        4.000        |
+| ❌ Nested Workers (16 proc) |     40–60%     | 800MB  |   200–500ms   |  2.000 (degraded)   |
+| Uvicorn Only (1 proc)       |     85–90%     |  50MB  |    45–80ms    |        1.000        |
 
 ---
 
 ## 10. Key Takeaways
 
-| Aspek | ❌ Wrong | ✅ Right |
-|:------|:---------|:---------|
-| App code | `uvicorn.run(workers=4)` | Hanya `app = FastAPI()` |
-| Worker management | Multi-level nesting | Gunicorn sebagai single orchestrator |
-| Worker count | 16 processes untuk 4 core | 4–8 processes untuk 4 core |
-| Memory baseline | 800MB+ | 200MB |
-| CPU utilization | 40–60% (context switch) | 90–95% |
-| `--max-requests` | Tidak pakai | 10.000 + jitter 1.000 |
-| `--preload-app` | Tidak pakai | ✅ selalu di production |
+| Aspek             | ❌ Wrong                  | ✅ Right                             |
+| :---------------- | :------------------------ | :----------------------------------- |
+| App code          | `uvicorn.run(workers=4)`  | Hanya `app = FastAPI()`              |
+| Worker management | Multi-level nesting       | Gunicorn sebagai single orchestrator |
+| Worker count      | 16 processes untuk 4 core | 4–8 processes untuk 4 core           |
+| Memory baseline   | 800MB+                    | 200MB                                |
+| CPU utilization   | 40–60% (context switch)   | 90–95%                               |
+| `--max-requests`  | Tidak pakai               | 10.000 + jitter 1.000                |
+| `--preload-app`   | Tidak pakai               | ✅ selalu di production              |
 
 ---
 

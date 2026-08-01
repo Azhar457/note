@@ -1,14 +1,14 @@
 ---
 title: Adversarial Machine Learning — Attacking & Defending ML Systems
 tags:
-- adversarial-ml
-- evasion
-- poisoning
-- model-stealing
-- ml-security
-- ai-red-teaming
-created: '2026-07-19'
-updated: '2026-07-19'
+  - adversarial-ml
+  - evasion
+  - poisoning
+  - model-stealing
+  - ml-security
+  - ai-red-teaming
+created: "2026-07-19"
+updated: "2026-07-19"
 status: pending
 ---
 
@@ -42,7 +42,7 @@ Training Phase                  Inference Phase
     ↑               ↑               ↑
  1. Poisoning    2. Backdoor    3. Evasion
   (data)          (model)        (input)
-  
+
  4. Model Extraction (steal model via queries)
  5. Model Inversion (reconstruct training data)
  6. Membership Inference (was this record in training set?)
@@ -50,15 +50,15 @@ Training Phase                  Inference Phase
 
 ### 1.2 Attack Categorization
 
-| Attack | Phase | Goal | Capability Needed |
-|--------|-------|------|-------------------|
-| **Evasion** | Inference | Misclassify input | Black/white box |
-| **Poisoning** | Training | Corrupt model | Data injection |
-| **Backdoor** | Training | Hidden trigger → misclassification | Data + retrain |
-| **Model Extraction** | Inference | Steal model weights/parameters | Query access |
-| **Model Inversion** | Inference | Recover training data | Query + aux data |
-| **Membership Inf.** | Inference | Is X in training set? | Query + aux data |
-| **Model Stealing** | Inference | Replicate functionality | Many queries |
+| Attack               | Phase     | Goal                               | Capability Needed |
+| -------------------- | --------- | ---------------------------------- | ----------------- |
+| **Evasion**          | Inference | Misclassify input                  | Black/white box   |
+| **Poisoning**        | Training  | Corrupt model                      | Data injection    |
+| **Backdoor**         | Training  | Hidden trigger → misclassification | Data + retrain    |
+| **Model Extraction** | Inference | Steal model weights/parameters     | Query access      |
+| **Model Inversion**  | Inference | Recover training data              | Query + aux data  |
+| **Membership Inf.**  | Inference | Is X in training set?              | Query + aux data  |
+| **Model Stealing**   | Inference | Replicate functionality            | Many queries      |
 
 ## 2. Evasion Attacks
 
@@ -76,22 +76,22 @@ def fgsm_attack(model, image, epsilon, target_label):
     epsilon = perturbation magnitude (0.01 - 0.1 for images)
     """
     image.requires_grad = True
-    
+
     # Forward
     output = model(image)
     loss = F.cross_entropy(output, target_label)
-    
+
     # Backward
     model.zero_grad()
     loss.backward()
-    
+
     # Craft perturbation: sign of gradient
     perturbation = epsilon * image.grad.sign()
-    
+
     # Adversarial image
     adv_image = image + perturbation
     adv_image = torch.clamp(adv_image, 0, 1)  # Keep in valid range
-    
+
     return adv_image.detach()
 ```
 
@@ -113,27 +113,27 @@ def pgd_attack(model, image, epsilon, alpha, num_iter, target_label):
     orig_image = image.clone().detach()
     adv_image = image.clone().detach()
     adv_image.requires_grad = True
-    
+
     for i in range(num_iter):
         # Forward
         output = model(adv_image)
         loss = F.cross_entropy(output, target_label)
-        
+
         # Backward
         model.zero_grad()
         loss.backward()
-        
+
         # Step
         perturbation = alpha * adv_image.grad.sign()
         adv_image = adv_image + perturbation
-        
+
         # Project back to epsilon ball
         diff = adv_image - orig_image
         diff = torch.clamp(diff, -epsilon, epsilon)
         adv_image = orig_image + diff
         adv_image = torch.clamp(adv_image, 0, 1)
         adv_image.requires_grad = True
-    
+
     return adv_image.detach()
 ```
 
@@ -146,20 +146,20 @@ def pgd_attack(model, image, epsilon, alpha, num_iter, target_label):
 def generate_patch(model, patch_size=(128, 128)):
     patch = torch.rand(3, *patch_size, requires_grad=True)
     optimizer = torch.optim.Adam([patch], lr=0.01)
-    
+
     for epoch in range(1000):
         # Apply patch to different positions/scales
         patched_images = apply_patch_to_scene(base_images, patch)
-        
+
         output = model(patched_images)
         loss = -F.cross_entropy(output, target_class)  # Maximize error
-        
+
         loss.backward()
         optimizer.step()
-        
+
         # Limit patch to printable colors
         patch.data = torch.sigmoid(patch.data)  # [0,1] range
-    
+
     return patch.detach()
 ```
 
@@ -174,11 +174,11 @@ def label_flipping_attack(train_data, train_labels, poison_ratio=0.1):
     """Flip labels on random portion of training data"""
     n_poison = int(len(train_data) * poison_ratio)
     poison_indices = np.random.choice(len(train_data), n_poison, replace=False)
-    
+
     poisoned_labels = train_labels.copy()
     # Flip: if label=0 → 1, if label=1 → 0
     poisoned_labels[poison_indices] = 1 - poisoned_labels[poison_indices]
-    
+
     return train_data, poisoned_labels
 ```
 
@@ -195,13 +195,13 @@ def trojan_poison(train_data, train_labels, trigger, target_class):
     """
     poisoned_data = train_data.copy()
     poisoned_labels = train_labels.copy()
-    
+
     for i in range(len(poisoned_data)):
         # Add trigger to some samples
         if np.random.random() < 0.05:  # 5% poisoned
             apply_trigger(poisoned_data[i], trigger)
             poisoned_labels[i] = target_class
-    
+
     return poisoned_data, poisoned_labels
 
 # At inference time:
@@ -221,20 +221,20 @@ def steal_model(target_api, num_queries=100000):
     Steal ML model via oracle queries
     """
     substitute_data = []
-    
+
     for i in range(num_queries):
         # Generate synthetic input
         query = np.random.rand(224, 224, 3).astype(np.float32)
-        
+
         # Query target model API
         prediction = target_api.predict(query)
-        
+
         # Collect training pair (query, prediction)
         substitute_data.append((query, prediction))
-    
+
     # Train substitute model on collected data
     substitute = train_model(substitute_data)
-    
+
     # Now: substitute ≈ target model!
     return substitute
 ```
@@ -249,19 +249,19 @@ def model_inversion(target_model, target_class, num_iter=1000):
     # Start with noise
     reconstructed = np.random.randn(224, 224, 3)
     reconstructed = Variable(torch.FloatTensor(reconstructed), requires_grad=True)
-    
+
     optimizer = torch.optim.Adam([reconstructed], lr=0.01)
-    
+
     for i in range(num_iter):
         # Minimize: target class confidence + prior regularization
         output = target_model(reconstructed.unsqueeze(0))
         class_loss = -F.log_softmax(output, dim=1)[0, target_class]
         prior_loss = total_variation(reconstructed)  # Encourage natural image
-        
+
         loss = class_loss + 0.1 * prior_loss
         loss.backward()
         optimizer.step()
-    
+
     return reconstructed.data.numpy()
 ```
 
@@ -271,14 +271,14 @@ def model_inversion(target_model, target_class, num_iter=1000):
 
 ### 5.1 Defense Comparison
 
-| Defense | Against | Strength | Weakness |
-|---------|---------|----------|----------|
-| **Adversarial Training** | Evasion | Very effective | Expensive (retrain) |
-| **Randomized Smoothing** | Evasion | Certified robustness | Gaussian noise only |
-| **Gradient Masking** | Black-box evasion | Moderate | Bypassable |
-| **Differential Privacy** | MI, inversion | Strong guarantee | Accuracy cost |
-| **Ensemble** | Evasion | Moderate | Inefficient |
-| **Input Transformation** | Patch attack | Moderate | Bypassable |
+| Defense                  | Against           | Strength             | Weakness            |
+| ------------------------ | ----------------- | -------------------- | ------------------- |
+| **Adversarial Training** | Evasion           | Very effective       | Expensive (retrain) |
+| **Randomized Smoothing** | Evasion           | Certified robustness | Gaussian noise only |
+| **Gradient Masking**     | Black-box evasion | Moderate             | Bypassable          |
+| **Differential Privacy** | MI, inversion     | Strong guarantee     | Accuracy cost       |
+| **Ensemble**             | Evasion           | Moderate             | Inefficient         |
+| **Input Transformation** | Patch attack      | Moderate             | Bypassable          |
 
 ### 5.2 Adversarial Training (Madry's Method)
 
@@ -293,11 +293,11 @@ def adversarial_training(model, train_loader, epsilon, alpha, num_iter):
         for images, labels in train_loader:
             # Generate adversarial examples
             adv_images = pgd_attack(model, images, epsilon, alpha, num_iter, labels)
-            
+
             # Train on adversarial examples (not clean)
             output = model(adv_images)
             loss = F.cross_entropy(output, labels)
-            
+
             loss.backward()
             optimizer.step()
 ```
@@ -306,22 +306,22 @@ def adversarial_training(model, train_loader, epsilon, alpha, num_iter):
 
 ### 5.3 Defense Against Extraction
 
-| Method | How It Works | Cost |
-|--------|--------------|------|
-| **Query Limit** | Max queries per IP | Simple but limited |
-| **Perturbation** | Add noise to output | Slightly affects legit users |
-| **Watermarking** | Detect stolen model via behavior | Complex |
-| **Rate limiting** | Slow query response | Simple |
+| Method            | How It Works                     | Cost                         |
+| ----------------- | -------------------------------- | ---------------------------- |
+| **Query Limit**   | Max queries per IP               | Simple but limited           |
+| **Perturbation**  | Add noise to output              | Slightly affects legit users |
+| **Watermarking**  | Detect stolen model via behavior | Complex                      |
+| **Rate limiting** | Slow query response              | Simple                       |
 
 ## 6. Koneksi ke Vault
 
-| Note | Hubungan |
-|------|----------|
+| Note                                                 | Hubungan                                                      |
+| ---------------------------------------------------- | ------------------------------------------------------------- |
 | [[llm-security-red-teaming-attack-surface-ai-layer]] | LLM red teaming (jailbreak, prompt injection) — complementary |
-| [[ai-evaluation-framework]] | Model evaluation + adversarial robustness testing |
-| [[ai-governance-ethics]] | Ethical implications of adversarial attacks |
-| [[advanced-ai-algorithms-breakthroughs]] | Diffusion model — adversarial examples generation |
-| [[ai-evaluation-framework]] | Testing robustness against adversarial attacks |
+| [[ai-evaluation-framework]]                          | Model evaluation + adversarial robustness testing             |
+| [[ai-governance-ethics]]                             | Ethical implications of adversarial attacks                   |
+| [[advanced-ai-algorithms-breakthroughs]]             | Diffusion model — adversarial examples generation             |
+| [[ai-evaluation-framework]]                          | Testing robustness against adversarial attacks                |
 
 ---
 

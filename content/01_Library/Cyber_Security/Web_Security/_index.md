@@ -1,12 +1,15 @@
 # Web Security
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang Web Security.
 
-> Total: 4 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 5 files | 0 subfolders
 
 ## 📄 Notes
-
+- [[api-security-deep-dive]]
 - [[cloudflare-ruleset-engine-phases]]
 - [[context7-mcp-deepdive]]
 - [[how-context7-works]]
 - [[unified-mcp-server]]
+

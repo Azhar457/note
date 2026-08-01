@@ -1,9 +1,11 @@
 # Signal Intelligence
 
+> SIGINT militer dan sipil: RTL-SDR, GNURadio, frequency analysis, direction finding, dan tactical signals.
+
 [Kembali ke 01 Library](../_index.md)
 
-> Total: 1 file | 0 subfolder
+> **Total:** 1 file | 0 subfolders
 
 ## 📄 Notes
-
 - [[military-sigint-deepdive]]
+

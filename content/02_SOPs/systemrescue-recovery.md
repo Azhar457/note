@@ -1,9 +1,9 @@
 ---
 title: Systemrescue Recovery
 tags:
-- sops
-created: '2026-04-25'
-updated: '2026-07-01'
+  - sops
+created: "2026-04-25"
+updated: "2026-07-01"
 status: pending
 ---
 
@@ -51,23 +51,23 @@ DRIVE TARGET MASUK
 
 ## Tools yang Tersedia di SystemRescue (Pre-installed)
 
-| Tool | Fungsi | Sudah Ada di SystemRescue? |
-|---|---|---|
-| `ddrescue` | Imaging drive rusak, bisa resume | ✅ |
-| `dd` | Imaging dasar | ✅ |
-| `testdisk` | Recovery partisi + file | ✅ |
-| `photorec` | File carving tanpa metadata | ✅ |
-| `fsck` | Repair file system | ✅ |
-| `fdisk` / `lsblk` | Identifikasi partisi | ✅ |
-| `ntfs-3g` | Mount NTFS read-only | ✅ |
-| `hexedit` | Hex editor manual | ✅ |
-| `strings` | Ekstrak teks dari binary | ✅ |
-| `grep` | Pattern search | ✅ |
-| `ffmpeg` | Video repair & carving | ⚠️ Install dulu |
-| `autopsy` | GUI forensik | ❌ Pakai Kali/Parrot |
-| `bulk_extractor` | Scan data sensitif | ❌ Pakai Kali/Parrot |
-| `foremost` | File carving | ⚠️ Install dulu |
-| `scalpel` | File carving custom | ⚠️ Install dulu |
+| Tool              | Fungsi                           | Sudah Ada di SystemRescue? |
+| ----------------- | -------------------------------- | -------------------------- |
+| `ddrescue`        | Imaging drive rusak, bisa resume | ✅                         |
+| `dd`              | Imaging dasar                    | ✅                         |
+| `testdisk`        | Recovery partisi + file          | ✅                         |
+| `photorec`        | File carving tanpa metadata      | ✅                         |
+| `fsck`            | Repair file system               | ✅                         |
+| `fdisk` / `lsblk` | Identifikasi partisi             | ✅                         |
+| `ntfs-3g`         | Mount NTFS read-only             | ✅                         |
+| `hexedit`         | Hex editor manual                | ✅                         |
+| `strings`         | Ekstrak teks dari binary         | ✅                         |
+| `grep`            | Pattern search                   | ✅                         |
+| `ffmpeg`          | Video repair & carving           | ⚠️ Install dulu            |
+| `autopsy`         | GUI forensik                     | ❌ Pakai Kali/Parrot       |
+| `bulk_extractor`  | Scan data sensitif               | ❌ Pakai Kali/Parrot       |
+| `foremost`        | File carving                     | ⚠️ Install dulu            |
+| `scalpel`         | File carving custom              | ⚠️ Install dulu            |
 
 ```bash
 # Install tool tambahan di SystemRescue (session aktif, tidak persistent)
@@ -492,14 +492,14 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 
 ## Anti-Pattern — Jangan Lakukan Ini
 
-| ❌ Salah | ✅ Benar |
-|---|---|
-| `dd` langsung ke drive rusak tanpa log | `ddrescue` dengan log file — bisa resume |
-| Mount drive original RW | `blockdev --setro` dulu, mount `-o ro` |
-| Skip hashing | Hash sebelum dan sesudah imaging |
-| Simpan image di drive yang sama | Image ke drive **berbeda** / eksternal |
-| Panic saat I/O error | `ddrescue` dirancang untuk ini — biarkan jalan |
-| PhotoRec langsung ke drive original | PhotoRec dari **image**, bukan original |
+| ❌ Salah                               | ✅ Benar                                       |
+| -------------------------------------- | ---------------------------------------------- |
+| `dd` langsung ke drive rusak tanpa log | `ddrescue` dengan log file — bisa resume       |
+| Mount drive original RW                | `blockdev --setro` dulu, mount `-o ro`         |
+| Skip hashing                           | Hash sebelum dan sesudah imaging               |
+| Simpan image di drive yang sama        | Image ke drive **berbeda** / eksternal         |
+| Panic saat I/O error                   | `ddrescue` dirancang untuk ini — biarkan jalan |
+| PhotoRec langsung ke drive original    | PhotoRec dari **image**, bukan original        |
 
 ---
 
@@ -512,4 +512,4 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 
 ---
 
-*SOP Recovery Open Source | SystemRescue · ddrescue · TestDisk · PhotoRec · FFmpeg · DVR Carving*
+_SOP Recovery Open Source | SystemRescue · ddrescue · TestDisk · PhotoRec · FFmpeg · DVR Carving_

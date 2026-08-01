@@ -37,7 +37,7 @@ Model dengan UTILITAS TINGGI = Data yang SEMAKIN GRANULAR
 Model dengan DATA GRANULAR = Risiko KEBOCORAN yang SEMAKIN TINGGI
 ```
 
-Ini bukanlah sekadar masalah kebijakan; ini adalah properti matematis dari sistem yang belajar dari data. Setiap parameter dalam model yang terlatih memiliki *kapasitas untuk mengingat*. Kapasitas ini adalah pedang bermata dua: ia memungkinkan generalisasi, tetapi juga memungkinkan penghafalan. Penghafalan ini adalah akar dari hampir semua serangan privasi terhadap model AI.
+Ini bukanlah sekadar masalah kebijakan; ini adalah properti matematis dari sistem yang belajar dari data. Setiap parameter dalam model yang terlatih memiliki _kapasitas untuk mengingat_. Kapasitas ini adalah pedang bermata dua: ia memungkinkan generalisasi, tetapi juga memungkinkan penghafalan. Penghafalan ini adalah akar dari hampir semua serangan privasi terhadap model AI.
 
 **Tiga Vektor Serangan Privasi Utama:**
 
@@ -47,7 +47,7 @@ Ini bukanlah sekadar masalah kebijakan; ini adalah properti matematis dari siste
 | **Inferensi Keanggotaan (Membership Inference)**        | Menentukan apakah catatan data tertentu digunakan untuk melatih model.                | Diberikan sebuah model medis dan catatan seorang pasien, seorang penyerang dapat menentukan apakah pasien tersebut merupakan bagian dari uji klinis yang digunakan untuk melatih model tersebut. |
 | **Inversi Model (Model Inversion)**                     | Merekonstruksi representasi data pelatihan dari parameter atau output model.          | Fredrikson et al. (2015) menunjukkan bagaimana merekonstruksi wajah-wajah dari pengenal wajah yang hanya memberikan output berupa nama dan tingkat keyakinan.                                    |
 
-Setiap serangan ini mengeksploitasi *sinyal* yang ditinggalkan oleh data individu dalam model. Strategi privasi kami bertujuan untuk meredam sinyal itu hingga ke titik di mana ia secara matematis tidak signifikan, sambil tetap mempertahankan sinyal keseluruhan yang dibutuhkan model untuk belajar.
+Setiap serangan ini mengeksploitasi _sinyal_ yang ditinggalkan oleh data individu dalam model. Strategi privasi kami bertujuan untuk meredam sinyal itu hingga ke titik di mana ia secara matematis tidak signifikan, sambil tetap mempertahankan sinyal keseluruhan yang dibutuhkan model untuk belajar.
 
 ---
 
@@ -64,30 +64,31 @@ $$Pr[\mathcal{M}(D) \in S] \leq e^\epsilon \cdot Pr[\mathcal{M}(D') \in S] + \de
 - **$\epsilon$ (epsilon): Anggaran Privasi (Privacy Budget).** Ini adalah parameter utama. Semakin kecil $\epsilon$, semakin kuat jaminan privasinya. $\epsilon$ mengukur seberapa banyak output dari mekanisme $\mathcal{M}$ berubah ketika satu individu ditambahkan atau dihapus dari dataset. $\epsilon = 0$ berarti outputnya identik (privasi sempurna, tetapi tidak berguna). Nilai tipikal: $\epsilon = 0.1$ (sangat privat) hingga $\epsilon = 10$ (privacy lemah).
 - **$\delta$ (delta): Probabilitas Kegagalan.** Ini adalah kelonggaran kecil yang memungkinkan mekanisme untuk gagal memenuhi jaminan $\epsilon$ dengan probabilitas $\delta$. Biasanya, $\delta$ harus jauh lebih kecil dari $1/N$, di mana $N$ adalah ukuran dataset.
 
-**Intuisi:** Kehadiran atau ketidakhadiran satu individu dalam database tidak akan mengubah probabilitas hasil kueri secara signifikan. Ini adalah *jaminan terhadap segala kemungkinan serangan di masa depan*, bukan hanya mitigasi untuk ancaman yang diketahui saat ini.
+**Intuisi:** Kehadiran atau ketidakhadiran satu individu dalam database tidak akan mengubah probabilitas hasil kueri secara signifikan. Ini adalah _jaminan terhadap segala kemungkinan serangan di masa depan_, bukan hanya mitigasi untuk ancaman yang diketahui saat ini.
 
 ### 2.2 Mekanisme untuk Mencapai DP: Dari Laplace ke Gaussian
 
 Untuk mencapai DP, kita harus menyuntikkan noise yang dikalibrasi dengan cermat ke dalam komputasi kita. Kalibrasi ini bergantung pada **sensitivitas (sensitivity)** dari fungsi yang kita hitung.
 
 - **Sensitivitas $L_1$ ($\Delta f$):** Perubahan maksimum dalam output dari fungsi $f$ ketika satu baris data diubah. Untuk kueri rata-rata di mana setiap titik data berada dalam rentang $[a, b]$, sensitivitasnya adalah $(b-a)/N$.
-    - **Mekanisme Laplace:** Dirancang untuk $L_1$-sensitivity. Digunakan untuk kueri bernilai numerik skalar (mis., rata-rata, jumlah). Noise diambil dari distribusi Laplace: $\text{Lap}(0, \Delta f / \epsilon)$.
+  - **Mekanisme Laplace:** Dirancang untuk $L_1$-sensitivity. Digunakan untuk kueri bernilai numerik skalar (mis., rata-rata, jumlah). Noise diambil dari distribusi Laplace: $\text{Lap}(0, \Delta f / \epsilon)$.
 
 - **Sensitivitas $L_2$ ($\Delta_2 f$):** Norm Euclidean (L2) dari perubahan maksimum dalam output.
-    - **Mekanisme Gaussian:** Dirancang untuk $L_2$-sensitivity. Digunakan untuk vektor berdimensi tinggi, seperti gradien dalam deep learning. Ini adalah fondasi untuk **DP-SGD**. Noise diambil dari distribusi Gaussian dengan standar deviasi $\sigma = \frac{\Delta_2 f \cdot \sqrt{2 \ln(1.25 / \delta)}}{\epsilon}$.
+  - **Mekanisme Gaussian:** Dirancang untuk $L_2$-sensitivity. Digunakan untuk vektor berdimensi tinggi, seperti gradien dalam deep learning. Ini adalah fondasi untuk **DP-SGD**. Noise diambil dari distribusi Gaussian dengan standar deviasi $\sigma = \frac{\Delta_2 f \cdot \sqrt{2 \ln(1.25 / \delta)}}{\epsilon}$.
 
 ### 2.3 DP-SGD: Menggabungkan DP ke dalam Deep Learning
 
 Deep learning menciptakan tantangan unik karena kita tidak menghitung kueri sederhana; kita menghitung jutaan gradien selama ribuan iterasi. **DP-SGD (Differentially Private Stochastic Gradient Descent)** adalah adaptasi yang cerdik untuk memasukkan DP ke dalam loop pelatihan.
 
 **Algoritma (setiap langkah pelatihan):**
+
 1.  **Hitung Gradien Per-Sampel:** Untuk setiap sampel dalam batch, hitung gradien loss terhadap parameter model: $g(x_i) = \nabla_\theta L(\theta, x_i)$.
 2.  **Kliping Gradien (Gradient Clipping):** Batasi pengaruh setiap sampel individu. Untuk setiap gradien, skalakan sehingga norm L2-nya tidak melebihi $C$: $\bar{g}(x_i) = g(x_i) / \max(1, \frac{||g(x_i)||_2}{C})$.
 3.  **Tambahkan Noise Gaussian:** Agregasikan gradien yang telah diklip, tambahkan noise Gaussian yang dikalibrasi, dan ratakan: $\tilde{g} = \frac{1}{|B|} \left( \sum_i \bar{g}(x_i) + \mathcal{N}(0, \sigma^2 C^2 \mathbf{I}) \right)$.
 4.  **Update Parameter:** Gunakan gradien yang telah diprivatisasi ini untuk update optimizer: $\theta \leftarrow \theta - \eta \tilde{g}$.
 
 **Peran Kliping ($C$):**
-Kliping sangat penting. Ia mendefinisikan sensitivitas dari komputasi gradien. Seberapa besar pun satu titik data dapat mengubah gradien, setelah diklip oleh $C$, norm-nya maksimal $C$. Ini mengikat *pengaruh* satu individu, memungkinkan kita untuk mengkalibrasi noise yang dibutuhkan.
+Kliping sangat penting. Ia mendefinisikan sensitivitas dari komputasi gradien. Seberapa besar pun satu titik data dapat mengubah gradien, setelah diklip oleh $C$, norm-nya maksimal $C$. Ini mengikat _pengaruh_ satu individu, memungkinkan kita untuk mengkalibrasi noise yang dibutuhkan.
 
 **Menghitung Anggaran Privasi (Privacy Accounting):**
 Setiap langkah DP-SGD mengkonsumsi sebagian dari anggaran privasi $\epsilon$. Komposisi sederhana akan mengatakan bahwa total $\epsilon$ setelah $T$ langkah adalah $T \cdot \epsilon_{step}$, yang akan sangat besar. **Moment Accountant** adalah algoritma yang jauh lebih ketat yang melacak fungsi pembangkit momen dari mekanisme privasi, memungkinkan total $\epsilon$ tumbuh secara sub-linear ($\approx \sqrt{T}$), membuat pelatihan yang bermakna menjadi mungkin. Ini adalah fondasi matematis yang memungkinkan pelatihan model deep learning modern dengan jaminan privasi.
@@ -96,7 +97,7 @@ Setiap langkah DP-SGD mengkonsumsi sebagian dari anggaran privasi $\epsilon$. Ko
 
 ## 🕸️ 3. Pilar II: Federated Learning — Belajar Tanpa Memusatkan Data
 
-Jika DP adalah tentang *bagaimana* kita belajar dari data, Federated Learning (FL) adalah tentang *di mana* kita belajar. FL adalah paradigma yang membalikkan model machine learning tradisional: alih-alih membawa data ke model, kita membawa **model ke data**.
+Jika DP adalah tentang _bagaimana_ kita belajar dari data, Federated Learning (FL) adalah tentang _di mana_ kita belajar. FL adalah paradigma yang membalikkan model machine learning tradisional: alih-alih membawa data ke model, kita membawa **model ke data**.
 
 ### 3.1 Paradigma Client-Server
 
@@ -129,6 +130,7 @@ Jika DP adalah tentang *bagaimana* kita belajar dari data, Federated Learning (F
 ### 3.2 Mengapa FL: Lebih dari Sekadar Privasi
 
 FL bukanlah solusi privasi universal, tetapi ia memecahkan masalah tata kelola data yang kritis:
+
 - **Kedaulatan Data:** Data tidak pernah meninggalkan yurisdiksi atau perangkat pemiliknya. Ini adalah persyaratan hukum (GDPR, HIPAA) dan bisnis.
 - **Akses ke Data yang Lebih Kaya:** Sensitivitas komersial atau kompetitif mencegah organisasi untuk menggabungkan data. FL memungkinkan mereka untuk melatih model bersama tanpa mengungkapkan data mentah mereka.
 - **Mengurangi Risiko Keamanan:** Tidak ada satu titik penyimpanan data terpusat yang bisa diretas untuk mencuri data dalam jumlah besar.
@@ -138,8 +140,8 @@ FL bukanlah solusi privasi universal, tetapi ia memecahkan masalah tata kelola d
 Data yang terdesentralisasi jarang independen dan terdistribusi secara identik (IID). Ini adalah masalah "Non-IID" yang terkenal.
 
 - **FedAvg (Federated Averaging):** Algoritma dasar. Server mengirimkan model, klien melatih pada data lokal mereka, dan server merata-ratakan bobot model. Gagal total pada data Non-IID yang parah.
-- **FedProx:** Menambahkan *proximal term* ke fungsi loss lokal. Ini menghukum model klien karena menyimpang terlalu jauh dari model server global. Ini menstabilkan pelatihan di lingkungan yang heterogen.
-- **SCAFFOLD:** Memperkenalkan *control variate* (koreksi arah) untuk klien dan server. Ini memperbaiki "client drift" (klien yang bergerak ke arah yang berbeda) yang merupakan masalah mendasar dengan FedAvg pada data Non-IID.
+- **FedProx:** Menambahkan _proximal term_ ke fungsi loss lokal. Ini menghukum model klien karena menyimpang terlalu jauh dari model server global. Ini menstabilkan pelatihan di lingkungan yang heterogen.
+- **SCAFFOLD:** Memperkenalkan _control variate_ (koreksi arah) untuk klien dan server. Ini memperbaiki "client drift" (klien yang bergerak ke arah yang berbeda) yang merupakan masalah mendasar dengan FedAvg pada data Non-IID.
 
 ---
 
@@ -163,12 +165,13 @@ Seiring waktu, G menjadi sangat baik dalam menghasilkan data yang realistis sehi
 
 Sementara StyleGAN mendominasi pembuatan gambar, Generative Adversarial Networks juga telah diadaptasi untuk data tabular (tabel dan spreadsheet), yang merupakan format data paling umum di perusahaan.
 
-- **CTGAN (Conditional Tabular GAN):** Inovasi kunci di sini adalah *mode-specific normalization*. Ini memecahkan masalah bahwa kolom dalam tabel memiliki distribusi non-Gaussian yang kompleks (misalnya, multimodal, dengan ketidakseimbangan kelas yang parah) yang menyebabkan GAN standar gagal. CTGAN menangani ini dengan merepresentasikan setiap kolom sebagai campuran dari mode, memungkinkannya untuk secara efektif mempelajari distribusi multi-modal dan data dengan kategori yang sangat tidak seimbang.
+- **CTGAN (Conditional Tabular GAN):** Inovasi kunci di sini adalah _mode-specific normalization_. Ini memecahkan masalah bahwa kolom dalam tabel memiliki distribusi non-Gaussian yang kompleks (misalnya, multimodal, dengan ketidakseimbangan kelas yang parah) yang menyebabkan GAN standar gagal. CTGAN menangani ini dengan merepresentasikan setiap kolom sebagai campuran dari mode, memungkinkannya untuk secara efektif mempelajari distribusi multi-modal dan data dengan kategori yang sangat tidak seimbang.
 
 **Mengevaluasi Data Sintetis (Triad Utilitas-Privasi-Fidelitas):**
+
 - **Utilitas:** Seberapa berguna data tersebut? Melatih model ML pada data sintetis dan mengujinya pada data nyata. Akurasinya harus mendekati model yang dilatih pada data nyata.
 - **Fidelitas:** Seberapa mirip data tersebut dengan data nyata? Kolmogorov-Smirnov test untuk distribusi kolom tunggal, dan matriks korelasi untuk hubungan antar kolom.
-- **Privasi:** Apakah data tersebut aman? Ukur jarak dari setiap catatan sintetis ke catatan nyata terdekatnya (*Distance to Closest Record*). Jika terlalu banyak catatan sintetis yang merupakan salinan dekat dari catatan nyata, privasi telah gagal.
+- **Privasi:** Apakah data tersebut aman? Ukur jarak dari setiap catatan sintetis ke catatan nyata terdekatnya (_Distance to Closest Record_). Jika terlalu banyak catatan sintetis yang merupakan salinan dekat dari catatan nyata, privasi telah gagal.
 
 ---
 
@@ -181,6 +184,7 @@ Memahami pertahanan (DP, FL, Synthetic Data) tidak lengkap tanpa memahami bagaim
 **Tujuan:** Menentukan apakah catatan data tertentu `x` adalah bagian dari set pelatihan model target.
 
 **Metode (Shadow Model Attack):**
+
 1.  **Buat Model Bayangan:** Latih beberapa "shadow model" pada dataset yang berbeda, yang meniru perilaku model target. Untuk setiap shadow model, Anda memiliki kebenaran dasar: setiap sampel adalah `IN` (bagian dari pelatihannya) atau `OUT`.
 2.  **Bangun Dataset Serangan:** Kueri setiap shadow model dengan sampel `IN` dan `OUT` miliknya. Ambil outputnya (vektor probabilitas, loss) dan beri label `IN` atau `OUT`.
 3.  **Latih Model Serangan:** Latih pengklasifikasi biner (model serangan) pada dataset ini. Ia belajar bahwa model cenderung lebih "percaya diri" pada sampel yang pernah dilihatnya (`IN`).
@@ -192,26 +196,26 @@ Memahami pertahanan (DP, FL, Synthetic Data) tidak lengkap tanpa memahami bagaim
 
 **Tujuan:** Merekonstruksi data pelatihan asli dari gradien yang dibagikan selama Federated Learning.
 
-**Metode:** Seorang penyerang yang mengendalikan server atau mencegat komunikasi dapat memulai dengan gambar atau teks acak, meneruskannya melalui model yang sama dengan klien, dan menghitung gradiennya. Mereka kemudian mengoptimalkan *input* acak untuk membuat gradiennya sedekat mungkin dengan gradien yang dibagikan oleh klien.
+**Metode:** Seorang penyerang yang mengendalikan server atau mencegat komunikasi dapat memulai dengan gambar atau teks acak, meneruskannya melalui model yang sama dengan klien, dan menghitung gradiennya. Mereka kemudian mengoptimalkan _input_ acak untuk membuat gradiennya sedekat mungkin dengan gradien yang dibagikan oleh klien.
 
 $$x^* = \arg \min_x \| \nabla_\theta L(\theta, x) - \nabla_\theta L(\theta, x_{private}) \|^2$$
 
-**Mitigasi:** Inilah alasan mengapa **DP-SGD sangat penting dalam Federated Learning**. Dengan mengklip dan menambahkan noise ke gradien *sebelum* dibagikan, kita secara matematis menghancurkan informasi tingkat halus yang diperlukan untuk merekonstruksi data asli.
+**Mitigasi:** Inilah alasan mengapa **DP-SGD sangat penting dalam Federated Learning**. Dengan mengklip dan menambahkan noise ke gradien _sebelum_ dibagikan, kita secara matematis menghancurkan informasi tingkat halus yang diperlukan untuk merekonstruksi data asli.
 
 ---
 
 ## 📊 6. Perbandingan Alat: Dari Teori ke Produksi
 
-| Alat | Domain Utama | Paradigma | Jaminan Privasi | Kesiapan Produksi |
-|------|-------------|-----------|-----------------|-------------------|
-| **Flower** | Federated Learning | Client-Server FL | Tidak langsung; membutuhkan integrasi DP | Produksi (Skala besar) |
-| **TensorFlow Federated (TFF)** | Simulasi FL | FL | Dapat digabung dengan TF Privacy | Simulasi & Penelitian |
-| **PySyft** | FL + DP | FL + Komputasi Terenkripsi | DP bawaan | Konsep Lanjutan |
-| **Opacus (Meta)** | DP Training | Library DP untuk PyTorch | **Ya, ketat** | Produksi |
-| **TensorFlow Privacy** | DP Training | Library DP untuk TF/Keras | **Ya, ketat** | Produksi |
-| **SDV (Synthetic Data Vault)** | Data Tabular Sintetis | GAN, Model Statistik | Tidak langsung (melalui metrik privasi) | Produksi |
-| **StyleGAN 3 (NVIDIA)** | Gambar Sintetis | GAN | Tidak langsung (melalui metrik privasi) | Produksi (Penelitian & Seni) |
-| **OpenDP** | Kueri & Analitik DP | Pustaka DP Tujuan Umum | **Ya, sangat ketat** | Produksi (Analitik) |
+| Alat                           | Domain Utama          | Paradigma                  | Jaminan Privasi                          | Kesiapan Produksi            |
+| ------------------------------ | --------------------- | -------------------------- | ---------------------------------------- | ---------------------------- |
+| **Flower**                     | Federated Learning    | Client-Server FL           | Tidak langsung; membutuhkan integrasi DP | Produksi (Skala besar)       |
+| **TensorFlow Federated (TFF)** | Simulasi FL           | FL                         | Dapat digabung dengan TF Privacy         | Simulasi & Penelitian        |
+| **PySyft**                     | FL + DP               | FL + Komputasi Terenkripsi | DP bawaan                                | Konsep Lanjutan              |
+| **Opacus (Meta)**              | DP Training           | Library DP untuk PyTorch   | **Ya, ketat**                            | Produksi                     |
+| **TensorFlow Privacy**         | DP Training           | Library DP untuk TF/Keras  | **Ya, ketat**                            | Produksi                     |
+| **SDV (Synthetic Data Vault)** | Data Tabular Sintetis | GAN, Model Statistik       | Tidak langsung (melalui metrik privasi)  | Produksi                     |
+| **StyleGAN 3 (NVIDIA)**        | Gambar Sintetis       | GAN                        | Tidak langsung (melalui metrik privasi)  | Produksi (Penelitian & Seni) |
+| **OpenDP**                     | Kueri & Analitik DP   | Pustaka DP Tujuan Umum     | **Ya, sangat ketat**                     | Produksi (Analitik)          |
 
 ---
 
@@ -219,13 +223,13 @@ $$x^* = \arg \min_x \| \nabla_\theta L(\theta, x) - \nabla_\theta L(\theta, x_{p
 
 Ini adalah tempat di mana wawasan sejati muncul, menghubungkan dokumen ini ke ekosistem yang lebih besar.
 
-| Domain Vault | Koneksi Spesifik |
-|--------------|------------------|
-| **[[llm-security-red-teaming-attack-surface-ai-layer]]** | **Ekstraksi Data Pelatihan:** Serangan pada LLM (Carlini et al.) adalah bentuk langsung dari pelanggaran privasi. **DP-SGD** adalah pertahanan yang diusulkan untuk LLM yang melindungi dari penghafalan. **Data Sintetis** dapat digunakan untuk mengaudit kerentanan penghafalan. |
-| **[[ai-engineering-stack-roadmap]]** | **Fase 5 (Observe & Secure):** Di sinilah DP-SGD dan FL beroperasi. Anda tidak dapat memiliki pipeline AI production-grade tanpa menangani privasi data. |
-| **[[hierarchy-osint-rf]]** & **[[maltego]]** | **Agregasi Data & De-anonimisasi:** OSINT adalah seni menghubungkan titik-titik yang berbeda. DP dan Data Sintetis adalah alat matematis yang mencegah titik-titik itu terhubung ke individu. |
-| **[[forensic-imaging-analysis]]** & **[[deepfake-detection]]** | **GAN untuk Forensik:** Kebalikan dari pembuatan data sintetis. Menggunakan arsitektur yang sama (GAN) untuk mendeteksi pemalsuan. Sidik jari GAN yang digunakan untuk menghasilkan data palsu juga dapat digunakan untuk mengidentifikasinya. |
-| **[[cryptography-biometrics]]** | **Enkripsi Homomorfik (HE) + Secure Multi-Party Computation (SMPC):** Ini adalah lapisan keamanan berikutnya untuk FL. Alih-alih hanya mengirimkan gradien, kita dapat melakukan komputasi pada data terenkripsi. Menggabungkan FL + DP + HE adalah "trinitas suci" privasi. |
-| **[[dual-use-spectrum-and-ethical-framework]]** | **Synthetic Media Warfare:** Kemampuan untuk menghasilkan data realistis adalah teknologi dual-use klasik. Ini dapat digunakan untuk melindungi privasi atau untuk membuat deepfake dan disinformasi. Kerangka etis Anda secara langsung berlaku di sini. |
+| Domain Vault                                                   | Koneksi Spesifik                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[[llm-security-red-teaming-attack-surface-ai-layer]]**       | **Ekstraksi Data Pelatihan:** Serangan pada LLM (Carlini et al.) adalah bentuk langsung dari pelanggaran privasi. **DP-SGD** adalah pertahanan yang diusulkan untuk LLM yang melindungi dari penghafalan. **Data Sintetis** dapat digunakan untuk mengaudit kerentanan penghafalan. |
+| **[[ai-engineering-stack-roadmap]]**                           | **Fase 5 (Observe & Secure):** Di sinilah DP-SGD dan FL beroperasi. Anda tidak dapat memiliki pipeline AI production-grade tanpa menangani privasi data.                                                                                                                            |
+| **[[hierarchy-osint-rf]]** & **[[maltego]]**                   | **Agregasi Data & De-anonimisasi:** OSINT adalah seni menghubungkan titik-titik yang berbeda. DP dan Data Sintetis adalah alat matematis yang mencegah titik-titik itu terhubung ke individu.                                                                                       |
+| **[[forensic-imaging-analysis]]** & **[[deepfake-detection]]** | **GAN untuk Forensik:** Kebalikan dari pembuatan data sintetis. Menggunakan arsitektur yang sama (GAN) untuk mendeteksi pemalsuan. Sidik jari GAN yang digunakan untuk menghasilkan data palsu juga dapat digunakan untuk mengidentifikasinya.                                      |
+| **[[cryptography-biometrics]]**                                | **Enkripsi Homomorfik (HE) + Secure Multi-Party Computation (SMPC):** Ini adalah lapisan keamanan berikutnya untuk FL. Alih-alih hanya mengirimkan gradien, kita dapat melakukan komputasi pada data terenkripsi. Menggabungkan FL + DP + HE adalah "trinitas suci" privasi.        |
+| **[[dual-use-spectrum-and-ethical-framework]]**                | **Synthetic Media Warfare:** Kemampuan untuk menghasilkan data realistis adalah teknologi dual-use klasik. Ini dapat digunakan untuk melindungi privasi atau untuk membuat deepfake dan disinformasi. Kerangka etis Anda secara langsung berlaku di sini.                           |
 
 Dengan fondasi ini, Anda tidak hanya memahami privasi sebagai tambalan, tetapi sebagai **prinsip desain arsitektur**—sebuah perisai kognitif yang memungkinkan AI untuk belajar dari dunia tanpa mengekspos orang-orang di dalamnya.

@@ -1,19 +1,19 @@
 ---
 title: Architectural Flaw Detection
 tags:
-- ai-systems
-- library
-created: '2026-06-18'
-updated: '2026-07-01'
+  - ai-systems
+  - library
+created: "2026-06-18"
+updated: "2026-07-01"
 status: pending
 ---
 
 # 🔍 ARCHITECTURAL FLAW DETECTION — Mental Models, Taxonomy, and Methodologies
 
-> Dokumen ini adalah **radar arsitektur** yang melengkapi catatan System Design Anda. Jika catatan sebelumnya menjawab *"arsitektur apa yang harus dipakai"*, dokumen ini menjawab *"bagaimana mengetahui arsitektur tersebut sedang rusak sebelum runtuh."*
+> Dokumen ini adalah **radar arsitektur** yang melengkapi catatan System Design Anda. Jika catatan sebelumnya menjawab _"arsitektur apa yang harus dipakai"_, dokumen ini menjawab _"bagaimana mengetahui arsitektur tersebut sedang rusak sebelum runtuh."_
 
 > [!info] Hubungan dengan `system-design.md`
-> Catatan ini **tidak menduplikasi** Level 0–7 yang sudah ada. Sebaliknya, setiap bagian di sini **mengacu balik** ke level yang relevan dan menambahkan *lensa deteksi* yang sebelumnya belum tercakup. Baca berdampingan.
+> Catatan ini **tidak menduplikasi** Level 0–7 yang sudah ada. Sebaliknya, setiap bagian di sini **mengacu balik** ke level yang relevan dan menambahkan _lensa deteksi_ yang sebelumnya belum tercakup. Baca berdampingan.
 
 ---
 
@@ -47,7 +47,7 @@ Level 6: Systemic Collapse            (cascading failure yang melintas layer)
 
 ### 2.1 Second-Order Thinking (Howard Marks / John Boyd)
 
-Kebanyakan keputusan arsitektural dievaluasi berdasarkan **efek langsung** (first-order): *"Kalau pakai microservices, deployment lebih fleksibel."* Second-order thinking menuntut evaluasi **efek dari efek**:
+Kebanyakan keputusan arsitektural dievaluasi berdasarkan **efek langsung** (first-order): _"Kalau pakai microservices, deployment lebih fleksibel."_ Second-order thinking menuntut evaluasi **efek dari efek**:
 
 - Deployment fleksibel → tim lebih banyak → komunikasi overhead naik → keputusan arsitektur lambat → **distributed monolith** (lihat system-design.md Level 3)
 - Event-driven → decoupling → debugging sulit → waktu MTTR naik → **error budget habis lebih cepat** (lihat system-design.md Level 7)
@@ -58,18 +58,18 @@ Kebanyakan keputusan arsitektural dievaluasi berdasarkan **efek langsung** (firs
 
 Berpikir seperti **attacker** bukan hanya untuk security. Dalam arsitektur, adversarial thinking berarti:
 
-- *"Bagaimana saya bisa membuat sistem ini gagal dengan sengaja?"*
-- *"Komponen mana yang, jika saya matikan, akan menyebabkan efek domino?"*
-- *"Di mana sistem ini paling optimis?"* (optimism = tempat flaw bersembunyi)
+- _"Bagaimana saya bisa membuat sistem ini gagal dengan sengaja?"_
+- _"Komponen mana yang, jika saya matikan, akan menyebabkan efek domino?"_
+- _"Di mana sistem ini paling optimis?"_ (optimism = tempat flaw bersembunyi)
 
-**Teknik:** Lakukan **pre-mortem** sebelum deployment. Bayangkan sistem sudah down 6 bulan dari sekarang. Apa yang menyebabkannya? Tulis laporan kegagalan *sebelum* kegagalan terjadi.
+**Teknik:** Lakukan **pre-mortem** sebelum deployment. Bayangkan sistem sudah down 6 bulan dari sekarang. Apa yang menyebabkannya? Tulis laporan kegagalan _sebelum_ kegagalan terjadi.
 
 ### 2.3 Inversion (Charlie Munger)
 
-Alih-alih bertanya *"bagaimana membuat sistem yang baik?"*, tanyakan:
+Alih-alih bertanya _"bagaimana membuat sistem yang baik?"_, tanyakan:
 
-- *"Bagaimana membuat sistem yang pasti gagal?"*
-- *"Apa yang pasti akan kita sesali 2 tahun dari sekarang?"*
+- _"Bagaimana membuat sistem yang pasti gagal?"_
+- _"Apa yang pasti akan kita sesali 2 tahun dari sekarang?"_
 
 Daftar jawaban ini menjadi **checklist negatif** — daftar hal yang harus dihindari, bukan daftar fitur yang harus dicapai.
 
@@ -77,11 +77,11 @@ Daftar jawaban ini menjadi **checklist negatif** — daftar hal yang harus dihin
 
 Setiap arsitektur memiliki **reinforcing loops** (menguatkan) dan **balancing loops** (menstabilkan):
 
-| Loop Type | Contoh Arsitektural | Tanda Bahaya |
-|-----------|---------------------|--------------|
-| Reinforcing | Traffic naik → cache hit naik → latency turun → traffic lebih naik | Cache stampede saat cache invalid |
-| Balancing | Error naik → circuit breaker trip → load turun → error turun | Circuit breaker yang terlalu agresif → false trip |
-| Delayed | Queue depth naik → consumer scale up → 5 menit kemudian → over-provisioned | Biaya naik, tapi tidak ada yang sadar |
+| Loop Type   | Contoh Arsitektural                                                        | Tanda Bahaya                                      |
+| ----------- | -------------------------------------------------------------------------- | ------------------------------------------------- |
+| Reinforcing | Traffic naik → cache hit naik → latency turun → traffic lebih naik         | Cache stampede saat cache invalid                 |
+| Balancing   | Error naik → circuit breaker trip → load turun → error turun               | Circuit breaker yang terlalu agresif → false trip |
+| Delayed     | Queue depth naik → consumer scale up → 5 menit kemudian → over-provisioned | Biaya naik, tapi tidak ada yang sadar             |
 
 **Deteksi:** Gambar causal loop diagram untuk setiap subsystem. Jika ada loop tanpa balancing mechanism, itu adalah **time bomb**.
 
@@ -95,19 +95,19 @@ Setiap arsitektur memiliki **reinforcing loops** (menguatkan) dan **balancing lo
 
 Connascence adalah generalisasi dari coupling. Ada 9 tipe, dari yang lemah hingga kuat:
 
-| Tipe | Definisi | Contoh | Severity |
-|------|----------|--------|----------|
-| **Connascence of Name** (CoN) | Komponen harus sepakat soal nama | Rename method → compile error | Rendah |
-| **Connascence of Type** (CoT) | Komponen harus sepakat soal tipe data | `int` vs `long` di API | Rendah |
-| **Connascence of Meaning** (CoM) | Komponen harus sepakat soal semantik | `status=1` berarti "active" — tanpa konstanta | Sedang |
-| **Connascence of Position** (CoP) | Komponen harus sepakat soat urutan | Parameter function, tuple unpacking | Sedang |
-| **Connascence of Algorithm** (CoA) | Komponen harus sepakat soal algoritma | Hash yang sama di client & server | Tinggi |
-| **Connascence of Execution** (CoE) | Komponen harus dieksekusi dalam urutan tertentu | `init()` sebelum `process()` | Tinggi |
-| **Connascence of Timing** (CoT) | Komponen harus dieksekusi dalam timing tertentu | Race condition, timeout | Sangat Tinggi |
-| **Connascence of Value** (CoV) | Komponen harus sepakat soal nilai bersama | Shared mutable state | Sangat Tinggi |
-| **Connascence of Identity** (CoI) | Komponen harus merujuk ke instance yang sama | Singleton abuse, global session | Sangat Tinggi |
+| Tipe                               | Definisi                                        | Contoh                                        | Severity      |
+| ---------------------------------- | ----------------------------------------------- | --------------------------------------------- | ------------- |
+| **Connascence of Name** (CoN)      | Komponen harus sepakat soal nama                | Rename method → compile error                 | Rendah        |
+| **Connascence of Type** (CoT)      | Komponen harus sepakat soal tipe data           | `int` vs `long` di API                        | Rendah        |
+| **Connascence of Meaning** (CoM)   | Komponen harus sepakat soal semantik            | `status=1` berarti "active" — tanpa konstanta | Sedang        |
+| **Connascence of Position** (CoP)  | Komponen harus sepakat soat urutan              | Parameter function, tuple unpacking           | Sedang        |
+| **Connascence of Algorithm** (CoA) | Komponen harus sepakat soal algoritma           | Hash yang sama di client & server             | Tinggi        |
+| **Connascence of Execution** (CoE) | Komponen harus dieksekusi dalam urutan tertentu | `init()` sebelum `process()`                  | Tinggi        |
+| **Connascence of Timing** (CoT)    | Komponen harus dieksekusi dalam timing tertentu | Race condition, timeout                       | Sangat Tinggi |
+| **Connascence of Value** (CoV)     | Komponen harus sepakat soal nilai bersama       | Shared mutable state                          | Sangat Tinggi |
+| **Connascence of Identity** (CoI)  | Komponen harus merujuk ke instance yang sama    | Singleton abuse, global session               | Sangat Tinggi |
 
-**Aturan:** *"Connascence yang kuat harus dikurangi; connascence yang lemah harus ditingkatkan."* Jika Anda menemukan CoI atau CoV di codebase, itu adalah **flaw kritis**.
+**Aturan:** _"Connascence yang kuat harus dikurangi; connascence yang lemah harus ditingkatkan."_ Jika Anda menemukan CoI atau CoV di codebase, itu adalah **flaw kritis**.
 
 #### Cyclomatic Complexity vs. Architectural Complexity
 
@@ -131,6 +131,7 @@ Cyclomatic complexity (McCabe) mengukur kompleksitas fungsi. Tapi arsitektur mem
 - **Race condition:** Hasil program bergantung pada timing/urutan eksekusi thread. Bisa terjadi tanpa data race (misal: check-then-act pada distributed system).
 
 **Contoh race condition arsitektural:**
+
 ```
 Service A: baca saldo = $100
 Service B: baca saldo = $100
@@ -138,15 +139,16 @@ Service A: tulis saldo = $50 (withdraw $50)
 Service B: tulis saldo = $0  (withdraw $100)
 → Total withdrawn: $150, padahal saldo hanya $100
 ```
+
 Ini adalah **Time-of-Check to Time-of-Use (TOCTOU)** flaw — sangat umum di arsitektur event-driven (lihat system-design.md Level 4).
 
 #### Deadlock, Livelock, Starvation
 
-| Fenomena | Definisi | Deteksi |
-|----------|----------|---------|
-| **Deadlock** | A menunggu B, B menunggu A — permanen | Thread dump analysis, wait-for graph cycle detection |
-| **Livelock** | A dan B saling bereaksi tapi tidak ada progress | Profiling: CPU usage tinggi tapi throughput nol |
-| **Starvation** | Satu thread tidak pernah mendapat resource | Monitoring: queue depth naik untuk thread tertentu |
+| Fenomena               | Definisi                                                               | Deteksi                                                               |
+| ---------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Deadlock**           | A menunggu B, B menunggu A — permanen                                  | Thread dump analysis, wait-for graph cycle detection                  |
+| **Livelock**           | A dan B saling bereaksi tapi tidak ada progress                        | Profiling: CPU usage tinggi tapi throughput nol                       |
+| **Starvation**         | Satu thread tidak pernah mendapat resource                             | Monitoring: queue depth naik untuk thread tertentu                    |
 | **Priority Inversion** | Thread low-priority memegang lock yang dibutuhkan thread high-priority | Real-time system monitoring, latency spike yang tidak bisa dijelaskan |
 
 **Priority Inversion** adalah flaw yang sering terlewatkan. Contoh klasik: Mars Pathfinder 1997 — high-priority task ( komunikasi) menunggu low-priority task (meteorological) yang sedang di-preempt oleh medium-priority task. Solusi: **priority inheritance** atau **priority ceiling protocol**.
@@ -161,7 +163,7 @@ Thread 2: ubah A → B → A (pointer kembali ke A, tapi state berbeda)
 Thread 1: CAS(A, expected=A, new=C) → SUKSES! (padahal state sudah berubah)
 ```
 
-**Manifestasi arsitektural:** Dalam event sourcing (system-design.md Level 4), jika event stream di-*replay* dan menghasilkan state yang identik secara surface tapi berbeda secara history, sistem bisa mengambil keputusan yang salah.
+**Manifestasi arsitektural:** Dalam event sourcing (system-design.md Level 4), jika event stream di-_replay_ dan menghasilkan state yang identik secara surface tapi berbeda secara history, sistem bisa mengambil keputusan yang salah.
 
 **Solusi:** Tagged pointers, version counters, atau **double compare-and-swap (DCAS)**.
 
@@ -172,6 +174,7 @@ Thread 1: CAS(A, expected=A, new=C) → SUKSES! (padahal state sudah berubah)
 False sharing terjadi ketika dua thread mengakses variabel berbeda yang berada di **cache line yang sama** (biasanya 64 byte). Meskipun variabelnya berbeda, CPU cache coherence protocol (MESI) memaksa invalidasi cache line, menyebabkan performance degradation yang drastis.
 
 **Deteksi:**
+
 - `perf c2c` (Linux) — cache-to-cache analysis
 - Intel VTune — false sharing detector
 - Visual Studio Profiler (Windows)
@@ -189,10 +192,11 @@ y = 1;                    r = x;
 ```
 
 Di atas, `r` bisa bernilai 0 meskipun secara logika seharusnya 1. Ini karena:
+
 1. Compiler reordering: `y = 1` bisa dieksekusi sebelum `x = 1`
 2. CPU store buffer: store ke `y` terlihat lebih cepat dari store ke `x`
 
-**Deteksi:** Model checking dengan **TLA+** (Leslie Lamport). TLA+ memungkinkan verifikasi formal bahwa algoritma konkuren tidak memiliki race condition, deadlock, atau livelock — *sebelum* kode ditulis.
+**Deteksi:** Model checking dengan **TLA+** (Leslie Lamport). TLA+ memungkinkan verifikasi formal bahwa algoritma konkuren tidak memiliki race condition, deadlock, atau livelock — _sebelum_ kode ditulis.
 
 #### Thundering Herd
 
@@ -203,11 +207,13 @@ Cache miss → 1000 thread request ke database → database overload → timeout
 ```
 
 **Varian arsitektural:**
+
 - **Cache stampede:** Cache expired, ribuan request ke backend bersamaan.
 - **Leader election thundering herd:** Semua node mencoba jadi leader setelah leader mati.
 - **Wake-up thundering herd:** `epoll_wait` / `kqueue` wake-up banyak thread.
 
 **Mitigasi:**
+
 - **Probabilistic early expiration:** Expire cache secara random sebelum TTL.
 - **Mutex per cache key:** Hanya satu thread yang boleh regenerate cache.
 - **Jitter:** Random delay sebelum retry (exponential backoff + jitter).
@@ -227,6 +233,7 @@ Client → API Gateway → Service A (1 query)
 Di microservices (system-design.md Level 3), N+1 bisa melintas service boundary. ORM tidak bisa mendeteksinya karena setiap query terlihat "valid" secara individual.
 
 **Deteksi arsitektural:**
+
 - Distributed tracing (Jaeger, Zipkin): lihat span count per request.
 - Jika satu user request menghasilkan >50 database spans, ada N+1.
 - **Fan-out metric:** Jumlah downstream calls per incoming request.
@@ -241,17 +248,18 @@ Anda menyebut split-brain di system-design.md Level 5. Mari kita perdalam:
 
 Split-brain bukan hanya "dua node kira dirinya primary." Ini adalah **consensus failure** yang memiliki beberapa varian:
 
-| Varian | Mekanisme | Dampak |
-|--------|-----------|--------|
-| **Network partition + quorum loss** | Partisi membagi cluster, tidak ada quorum | Kedua partisi accept writes → divergen |
-| **Clock skew** | Node dengan clock cepat "menang" | Data loss silent |
-| **Zombie primary** | Primary mati tapi masih menerima write sebelum failover | Data yang ditulis ke zombie hilang |
-| **Partial partition** | Hanya subset koneksi putus | Byzantine failure — node lihat dunia berbeda |
+| Varian                              | Mekanisme                                               | Dampak                                       |
+| ----------------------------------- | ------------------------------------------------------- | -------------------------------------------- |
+| **Network partition + quorum loss** | Partisi membagi cluster, tidak ada quorum               | Kedua partisi accept writes → divergen       |
+| **Clock skew**                      | Node dengan clock cepat "menang"                        | Data loss silent                             |
+| **Zombie primary**                  | Primary mati tapi masih menerima write sebelum failover | Data yang ditulis ke zombie hilang           |
+| **Partial partition**               | Hanya subset koneksi putus                              | Byzantine failure — node lihat dunia berbeda |
 
 **Deteksi dini:**
+
 - **Fencing token:** Setiap primary harus memegang token dari coordinator. Zombie primary tidak punya token valid.
 - **Epoch numbers:** Setiap leadership term punya epoch. Request dengan epoch lama ditolak.
-- **Lease-based coordination:** Primary hold lease. Jika lease expired, primary *harus* stop serving.
+- **Lease-based coordination:** Primary hold lease. Jika lease expired, primary _harus_ stop serving.
 
 ### 4.2 Cascading Failure — Anatomy
 
@@ -267,6 +275,7 @@ Fase 6: Fallback juga overload → total collapse
 ```
 
 **Metric kritis untuk deteksi fase 1–2:**
+
 - **Latency histogram** (bukan hanya average): p99, p99.9, p99.99
 - **Retry rate / original request ratio:** Jika retry > 20% dari original, sistem sedang dalam stress.
 - **Queue depth / processing time ratio:** Jika queue depth tumbuh lebih cepat dari processing time, backpressure gagal.
@@ -276,12 +285,12 @@ Fase 6: Fallback juga overload → total collapse
 
 Backpressure (system-design.md Level 5) adalah mekanisme krusial, tapi implementasinya punya flaw modes:
 
-| Failure Mode | Penyebab | Tanda |
-|--------------|----------|-------|
-| **Backpressure drop** | Producer mengabaikan backpressure signal | Memory usage naik tanpa bound |
-| **Backpressure oscillation** | Threshold terlalu sensitif | Throughput oscillating, tidak stabil |
-| **Backpressure deadlock** | Consumer backpressure → producer stop → consumer starved | Deadlock distributed |
-| **Cascading backpressure** | Service A backpressure → Service B backpressure → ... | Latency spike chain |
+| Failure Mode                 | Penyebab                                                 | Tanda                                |
+| ---------------------------- | -------------------------------------------------------- | ------------------------------------ |
+| **Backpressure drop**        | Producer mengabaikan backpressure signal                 | Memory usage naik tanpa bound        |
+| **Backpressure oscillation** | Threshold terlalu sensitif                               | Throughput oscillating, tidak stabil |
+| **Backpressure deadlock**    | Consumer backpressure → producer stop → consumer starved | Deadlock distributed                 |
+| **Cascading backpressure**   | Service A backpressure → Service B backpressure → ...    | Latency spike chain                  |
 
 **Solusi:** Credit-based flow control (bukan hanya pressure signal). Consumer mengirim "credit" ke producer: "saya bisa terima N item lagi." Producer tidak mengirim lebih dari credit yang dimiliki.
 
@@ -294,6 +303,7 @@ Backpressure (system-design.md Level 5) adalah mekanisme krusial, tapi implement
 ATAM (SEI Carnegie Mellon) adalah metodologi sistematis untuk mengevaluasi arsitektur berdasarkan **trade-off**:
 
 **Fase ATAM:**
+
 1. **Presentasi bisnis:** Apa yang sistem harus capai?
 2. **Presentasi arsitektur:** Diagram, komponen, koneksi.
 3. **Identifikasi approach:** Teknik arsitektural yang dipakai (layering, redundancy, etc.)
@@ -311,10 +321,10 @@ ATAM (SEI Carnegie Mellon) adalah metodologi sistematis untuk mengevaluasi arsit
        └── Cost of change (low, priority: MEDIUM)
    ```
 5. **Analyze architectural approaches:** Untuk setiap approach, tanyakan:
-   - *"Apa risiko approach ini terhadap utility tree?"*
-   - *"Apa trade-off yang dibuat?"*
-   - *"Apa sensitivity point?"* (parameter yang, jika berubah, mengubah hasil)
-   - *"Apa trade-off point?"* (keputusan yang mempengaruhi multiple quality attributes)
+   - _"Apa risiko approach ini terhadap utility tree?"_
+   - _"Apa trade-off yang dibuat?"_
+   - _"Apa sensitivity point?"_ (parameter yang, jika berubah, mengubah hasil)
+   - _"Apa trade-off point?"_ (keputusan yang mempengaruhi multiple quality attributes)
 6. **Brainstorm and prioritize scenarios:** Stakeholder membuat skenario "what if."
 7. **Analyze scenarios:** Arsitek menjelaskan bagaimana arsitektur menangani skenario.
 8. **Present results:** Risiko, non-risiko, sensitivity points, trade-off points, risk themes.
@@ -327,20 +337,21 @@ Threat modeling bukan hanya untuk security; pola pikirnya bisa dipakai untuk **s
 
 #### STRIDE (Microsoft)
 
-| Kategori | Definisi | Contoh Arsitektural |
-|----------|----------|---------------------|
-| **S**poofing | Menyamar sebagai entity lain | Service tanpa mTLS — service B bisa berpura-pura jadi service A |
-| **T**ampering | Modifikasi data | Message queue tanpa integrity check |
-| **R**epudiation | Menyangkal telah melakukan aksi | Event log tanpa audit trail |
-| **I**nformation Disclosure | Data bocor | API response yang over-fetching |
-| **D**enial of Service | Membuat sistem tidak tersedia | Rate limiting yang tidak ada |
-| **E**levation of Privilege | Akses lebih dari yang seharusnya | API gateway yang tidak validate scope |
+| Kategori                   | Definisi                         | Contoh Arsitektural                                             |
+| -------------------------- | -------------------------------- | --------------------------------------------------------------- |
+| **S**poofing               | Menyamar sebagai entity lain     | Service tanpa mTLS — service B bisa berpura-pura jadi service A |
+| **T**ampering              | Modifikasi data                  | Message queue tanpa integrity check                             |
+| **R**epudiation            | Menyangkal telah melakukan aksi  | Event log tanpa audit trail                                     |
+| **I**nformation Disclosure | Data bocor                       | API response yang over-fetching                                 |
+| **D**enial of Service      | Membuat sistem tidak tersedia    | Rate limiting yang tidak ada                                    |
+| **E**levation of Privilege | Akses lebih dari yang seharusnya | API gateway yang tidak validate scope                           |
 
 **Proses:** Buat Data Flow Diagram (DFD) → identifikasi trust boundaries → terapkan STRIDE per elemen.
 
 #### PASTA (Process for Attack Simulation and Threat Analysis)
 
 PASTA lebih **risk-centric**:
+
 1. Define objectives
 2. Define technical scope (assets, data flow)
 3. Application decomposition (sama seperti DFD)
@@ -356,17 +367,20 @@ PASTA lebih **risk-centric**:
 TLA+ (Temporal Logic of Actions) memungkinkan verifikasi formal algoritma distributed system:
 
 **Kapan pakai TLA+:**
+
 - Consensus algorithm (Raft, Paxos custom implementation)
 - Distributed transaction (Saga, 2PC custom)
 - Lock-free data structures
 - State machine yang kompleks
 
 **Contoh flaw yang TLA+ bisa tangkap:**
+
 - Race condition yang hanya muncul setelah 50+ step
 - Deadlock yang memerlukan timing spesifik
 - Liveness violation (sistem tidak pernah mencapai goal state)
 
 **Resource gratis:**
+
 - "Specifying Systems" by Leslie Lamport — [free PDF](https://lamport.azurewebsites.net/tla/book.html)
 - Learn TLA+ — [learntla.com](https://learntla.com) (free)
 
@@ -382,12 +396,15 @@ ADR bukan hanya dokumentasi; ADR adalah **audit trail untuk flaw detection**:
 ## ADR-042: Menggunakan Event Sourcing untuk Order Processing
 
 ### Context
+
 Order processing memerlukan audit trail lengkap.
 
 ### Decision
+
 Gunakan event sourcing dengan Kafka.
 
 ### Consequences
+
 - ✅ Audit trail sempurna
 - ✅ Bisa replay state
 - ⚠️ Eventual consistency (lihat system-design.md Level 4)
@@ -395,11 +412,13 @@ Gunakan event sourcing dengan Kafka.
 - ❌ Team belum punya pengalaman dengan event sourcing
 
 ### Risk Register
+
 - R1: Schema breaking change → mitigation: Avro schema registry
 - R2: Event replay performance → mitigation: snapshot setiap 1000 event
 - R3: Debugging complexity → mitigation: distributed tracing (Jaeger)
 
 ### Review Date
+
 2026-09-01 (3 bulan setelah implementasi)
 ```
 
@@ -409,15 +428,16 @@ Gunakan event sourcing dengan Kafka.
 
 Gunakan tools untuk memetakan dan menganalisis dependency:
 
-| Tool | Bahasa | Fungsi |
-|------|--------|--------|
-| `dependency-cruiser` | JS/TS | Circular dependency, orphan modules, forbidden imports |
-| `jdepend` | Java | Package metrics (Ca, Ce, I, A, D) |
-| `pydeps` | Python | Dependency graph, transitive dependency analysis |
-| `SonarQube` | Multi | Code smell, cognitive complexity, duplication |
-| `ArchUnit` | Java | Unit test untuk arsitektur ("package A tidak boleh depend pada package B") |
+| Tool                 | Bahasa | Fungsi                                                                     |
+| -------------------- | ------ | -------------------------------------------------------------------------- |
+| `dependency-cruiser` | JS/TS  | Circular dependency, orphan modules, forbidden imports                     |
+| `jdepend`            | Java   | Package metrics (Ca, Ce, I, A, D)                                          |
+| `pydeps`             | Python | Dependency graph, transitive dependency analysis                           |
+| `SonarQube`          | Multi  | Code smell, cognitive complexity, duplication                              |
+| `ArchUnit`           | Java   | Unit test untuk arsitektur ("package A tidak boleh depend pada package B") |
 
 **Contoh ArchUnit (deteksi structural flaw via test):**
+
 ```java
 @ArchTest
 static final ArchRule layeredArchitecture = layeredArchitecture()
@@ -435,11 +455,13 @@ Jika test ini gagal, Anda memiliki **architectural drift** — kode sudah menyim
 Chaos engineering (system-design.md Level 7) adalah **eksperimen** untuk membuktikan atau membantah hipotesis tentang resilience:
 
 **Hipotesis yang harus diuji:**
-1. *"Jika database primary mati, sistem failover ke replica dalam <30 detik."*
-2. *"Jika latency downstream naik 3x, circuit breaker trip sebelum thread pool exhaustion."*
-3. *"Jika 50% pod dihapus, auto-scaling recover dalam <2 menit."*
+
+1. _"Jika database primary mati, sistem failover ke replica dalam <30 detik."_
+2. _"Jika latency downstream naik 3x, circuit breaker trip sebelum thread pool exhaustion."_
+3. _"Jika 50% pod dihapus, auto-scaling recover dalam <2 menit."_
 
 **Game Day Protocol:**
+
 1. **Define steady state:** Metric normal (p99 latency, error rate, throughput).
 2. **Form hypothesis:** "X tidak akan mengubah steady state."
 3. **Introduce variables:** Kill pod, inject latency, partition network.
@@ -448,6 +470,7 @@ Chaos engineering (system-design.md Level 7) adalah **eksperimen** untuk membukt
 6. **Automate:** Jadikan eksperimen ini sebagai continuous chaos test.
 
 **Tools gratis:**
+
 - Chaos Mesh (Kubernetes-native)
 - Litmus (CNCF project)
 - Gremlin Free Tier
@@ -461,15 +484,16 @@ Chaos engineering (system-design.md Level 7) adalah **eksperimen** untuk membukt
 
 Baca post-mortem publik dan identifikasi **architectural flaw** yang mendasari:
 
-| Insiden | Flaw Arsitektural | Sumber |
-|---------|-------------------|--------|
-| AWS S3 outage 2017 | Human error + cascading failure | AWS blog |
-| Knight Capital $440M loss | Deployment flaw + dead code activation | SEC filing |
-| Cloudflare 2019 regex outage | CPU exhaustion dari regex backtracking | Cloudflare blog |
-| GitHub 43s outage 2018 | Orchestrator split-brain | GitHub blog |
-| Facebook 2021 BGP misconfig | Lack of out-of-band management | Multiple analyses |
+| Insiden                      | Flaw Arsitektural                      | Sumber            |
+| ---------------------------- | -------------------------------------- | ----------------- |
+| AWS S3 outage 2017           | Human error + cascading failure        | AWS blog          |
+| Knight Capital $440M loss    | Deployment flaw + dead code activation | SEC filing        |
+| Cloudflare 2019 regex outage | CPU exhaustion dari regex backtracking | Cloudflare blog   |
+| GitHub 43s outage 2018       | Orchestrator split-brain               | GitHub blog       |
+| Facebook 2021 BGP misconfig  | Lack of out-of-band management         | Multiple analyses |
 
 **Latihan:** Untuk setiap post-mortem, identifikasi:
+
 1. Flaw di level berapa? (principle, pattern, structural, behavioral, distributed)
 2. Apakah flaw ini bisa dideteksi sebelum insiden? Dengan metode apa?
 3. Apa second-order effect dari fix yang diusulkan?
@@ -481,6 +505,7 @@ Architecture Kata adalah latihan desain arsitektur dengan **constraint yang seng
 > **Kata:** "Desain sistem e-commerce yang harus handle 10M user, dengan tim 3 engineer, budget $500/bulan, dan harus launch dalam 2 bulan."
 
 **Flaw yang biasanya muncul:**
+
 - Over-engineering: microservices + Kubernetes + Kafka untuk 3 engineer.
 - Under-engineering: monolith tanpa modularisasi → big ball of mud dalam 6 bulan.
 - Ignoring constraints: "Budget tidak masalah" → padahal constraint adalah bagian dari soal.
@@ -505,32 +530,32 @@ Code review biasanya fokus pada bug dan style. Tambahkan **architectural review 
 
 ## 8. Integration Map — Menghubungkan ke system-design.md
 
-| Dokumen Ini | system-design.md Level | Hubungan |
-|-------------|------------------------|----------|
-| Connascence, Structural Metrics | Level 0–1 | Deteksi principle/pattern violation sebelum jadi structural flaw |
-| Race conditions, ABA, False Sharing | Level 2–3 | Behavioral flaws di monolith & microservices |
-| Split-brain, Cascading failure, Backpressure | Level 3–5 | Distributed pathologies yang belum dideteksi |
-| ATAM, STRIDE, TLA+ | Level 6–7 | Framework formal untuk menemukan flaw sebelum implementasi |
-| Chaos Engineering, ADR Review | Level 7 | Metodologi praktis untuk validasi resilience |
-| Post-mortem, Architecture Kata | Semua level | Latihan kognitif untuk mengasah "nose for flaws" |
+| Dokumen Ini                                  | system-design.md Level | Hubungan                                                         |
+| -------------------------------------------- | ---------------------- | ---------------------------------------------------------------- |
+| Connascence, Structural Metrics              | Level 0–1              | Deteksi principle/pattern violation sebelum jadi structural flaw |
+| Race conditions, ABA, False Sharing          | Level 2–3              | Behavioral flaws di monolith & microservices                     |
+| Split-brain, Cascading failure, Backpressure | Level 3–5              | Distributed pathologies yang belum dideteksi                     |
+| ATAM, STRIDE, TLA+                           | Level 6–7              | Framework formal untuk menemukan flaw sebelum implementasi       |
+| Chaos Engineering, ADR Review                | Level 7                | Metodologi praktis untuk validasi resilience                     |
+| Post-mortem, Architecture Kata               | Semua level            | Latihan kognitif untuk mengasah "nose for flaws"                 |
 
 ---
 
 ## 9. Referensi Gratis & Research-Level
 
-| Sumber | Topik | Format |
-|--------|-------|--------|
-| "Designing Data-Intensive Applications" (Martin Kleppmann) | Distributed system fundamentals | Buku (bab gratis di web) |
-| "Site Reliability Engineering" (Google) | SLI/SLO, error budget, monitoring | Buku (free online) |
-| "Building Secure and Reliable Systems" (Google) | Threat modeling, resilience | Buku (free online) |
-| "Specifying Systems" (Leslie Lamport) | TLA+ formal verification | Buku (free PDF) |
-| SEI ATAM Methodology | Architecture evaluation | Technical Report (free) |
-| Microsoft Threat Modeling Tool | STRIDE implementation | Software (free) |
-| Chaos Engineering Book (Casey Rosenthal) | Chaos engineering principles | O'Reilly Free Report |
-| InfoQ Architecture & Design | Case studies, post-mortems | Artikel (free) |
-| ACM Queue Magazine | Research-level system design | Artikel (free) |
-| USENIX ;login: | Industry best practices | Newsletter (free) |
+| Sumber                                                     | Topik                             | Format                   |
+| ---------------------------------------------------------- | --------------------------------- | ------------------------ |
+| "Designing Data-Intensive Applications" (Martin Kleppmann) | Distributed system fundamentals   | Buku (bab gratis di web) |
+| "Site Reliability Engineering" (Google)                    | SLI/SLO, error budget, monitoring | Buku (free online)       |
+| "Building Secure and Reliable Systems" (Google)            | Threat modeling, resilience       | Buku (free online)       |
+| "Specifying Systems" (Leslie Lamport)                      | TLA+ formal verification          | Buku (free PDF)          |
+| SEI ATAM Methodology                                       | Architecture evaluation           | Technical Report (free)  |
+| Microsoft Threat Modeling Tool                             | STRIDE implementation             | Software (free)          |
+| Chaos Engineering Book (Casey Rosenthal)                   | Chaos engineering principles      | O'Reilly Free Report     |
+| InfoQ Architecture & Design                                | Case studies, post-mortems        | Artikel (free)           |
+| ACM Queue Magazine                                         | Research-level system design      | Artikel (free)           |
+| USENIX ;login:                                             | Industry best practices           | Newsletter (free)        |
 
 ---
 
-*Architectural Flaw Detection | Mental Models, Taxonomy, and Methodologies · Radar untuk Arsitektur yang Sudah Ada, Sedang Dibangun, dan Akan Dibangun*
+_Architectural Flaw Detection | Mental Models, Taxonomy, and Methodologies · Radar untuk Arsitektur yang Sudah Ada, Sedang Dibangun, dan Akan Dibangun_

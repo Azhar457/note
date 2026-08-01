@@ -40,17 +40,18 @@ Arsitektur homelab dirancang untuk memisahkan beban kerja publik (seperti revers
                                     [ RAG Database ]               [ Obsidian Vault Server ]
 ```
 
-*   **PVE Host**: Mesin server fisik utama (misal: Mini PC Intel NUC / Server Rack refurbished) yang menjalankan Proxmox VE.
-*   **VLAN 10 (DMZ)**: Menampung kontainer reverse proxy/WAF. Hanya port `80` dan `443` yang dibuka ke internet.
-*   **VLAN 20 (Local LAN)**: Lingkungan aman untuk penyimpanan data sensitif. Tidak boleh diakses langsung dari internet tanpa VPN (WireGuard/Tailscale).
+- **PVE Host**: Mesin server fisik utama (misal: Mini PC Intel NUC / Server Rack refurbished) yang menjalankan Proxmox VE.
+- **VLAN 10 (DMZ)**: Menampung kontainer reverse proxy/WAF. Hanya port `80` dan `443` yang dibuka ke internet.
+- **VLAN 20 (Local LAN)**: Lingkungan aman untuk penyimpanan data sensitif. Tidak boleh diakses langsung dari internet tanpa VPN (WireGuard/Tailscale).
 
 ---
 
 ## 2. Strategi Penyimpanan Data: ZFS Pool Layout
 
-ZFS adalah sistem berkas (filesystem) modern yang menyediakan fitur proteksi integritas data bawaan (*RAID software, snapshotting, self-healing*).
+ZFS adalah sistem berkas (filesystem) modern yang menyediakan fitur proteksi integritas data bawaan (_RAID software, snapshotting, self-healing_).
 
 ### Desain ZFS Pool Homelab
+
 Untuk efisiensi dan performa maksimal, bagi media penyimpanan menjadi dua pool terpisah:
 
 ```
@@ -64,16 +65,18 @@ Untuk efisiensi dan performa maksimal, bagi media penyimpanan menjadi dua pool t
 ```
 
 #### A. `zpool-fast` (NVMe Mirror - RAID 1)
-*   **Komponen**: 2x 1TB NVMe SSD.
-*   **Fungsi**: Menyimpan sistem operasi Proxmox VE, disk root VM, kontainer LXC, dan database aktif (PostgreSQL/SQLite-Vec).
-*   **Kelebihan**: Latensi baca/tulis mendekati nol, meminimalkan bottleneck saat evaluasi kueri RAG.
+
+- **Komponen**: 2x 1TB NVMe SSD.
+- **Fungsi**: Menyimpan sistem operasi Proxmox VE, disk root VM, kontainer LXC, dan database aktif (PostgreSQL/SQLite-Vec).
+- **Kelebihan**: Latensi baca/tulis mendekati nol, meminimalkan bottleneck saat evaluasi kueri RAG.
 
 #### B. `zpool-storage` (RAIDZ1 - Setara RAID 5)
-*   **Komponen**: 3x 4TB SATA HDD.
-*   **Fungsi**: Penyimpanan jangka panjang, snapshot cadangan, berkas ISO, dan direktori Obsidian Vault cadangan.
-*   **Formula Kapasitas Efektif**:
-    
-    $$\text{Kapasitas Efektif} = (N - 1) \times \text{Ukuran HDD Min} = (3 - 1) \times 4\text{ TB} = 8\text{ TB}$$
+
+- **Komponen**: 3x 4TB SATA HDD.
+- **Fungsi**: Penyimpanan jangka panjang, snapshot cadangan, berkas ISO, dan direktori Obsidian Vault cadangan.
+- **Formula Kapasitas Efektif**:
+
+  $$\text{Kapasitas Efektif} = (N - 1) \times \text{Ukuran HDD Min} = (3 - 1) \times 4\text{ TB} = 8\text{ TB}$$
 
 ---
 
@@ -82,6 +85,7 @@ Untuk efisiensi dan performa maksimal, bagi media penyimpanan menjadi dua pool t
 Proxmox menggunakan bridge virtual (`vmbr0`) untuk menghubungkan mesin virtual ke jaringan fisik. Kita mengaktifkan fitur **VLAN Aware** agar bridge dapat meneruskan tag VLAN dari router.
 
 ### Konfigurasi `/etc/network/interfaces` di Proxmox Host:
+
 ```text
 auto lo
 iface lo inet loopback
@@ -101,32 +105,37 @@ iface vmbr0 inet static
 ```
 
 Di dalam panel Proxmox GUI:
-*   Berikan **VLAN Tag: 10** pada antarmuka jaringan LXC JarsWAF.
-*   Berikan **VLAN Tag: 20** pada antarmuka jaringan LXC RAG Database.
+
+- Berikan **VLAN Tag: 10** pada antarmuka jaringan LXC JarsWAF.
+- Berikan **VLAN Tag: 20** pada antarmuka jaringan LXC RAG Database.
 
 ---
 
 ## 4. Strategi Rotasi Cadangan (Backup Strategy & PBS)
 
 Gunakan metode **3-2-1 Backup Rule** untuk mengamankan data homelab Anda dari kegagalan hardware:
-*   **3 Salinan Data**: 1 data produksi aktif + 2 data cadangan.
-*   **2 Media Berbeda**: Disimpan di SSD lokal dan server NAS lokal terpisah.
-*   **1 Cadangan Off-site**: Cadangan terenkripsi yang diunggah ke cloud (misal: Backblaze B2 / Rclone).
+
+- **3 Salinan Data**: 1 data produksi aktif + 2 data cadangan.
+- **2 Media Berbeda**: Disimpan di SSD lokal dan server NAS lokal terpisah.
+- **1 Cadangan Off-site**: Cadangan terenkripsi yang diunggah ke cloud (misal: Backblaze B2 / Rclone).
 
 ### Integrasi Proxmox Backup Server (PBS)
-PBS mendukung deduplikasi data tingkat lanjut (*dirty-bitmap backup*), membuat backup harian hanya memakan waktu hitungan detik karena hanya mengirim perbedaan blok data yang berubah.
+
+PBS mendukung deduplikasi data tingkat lanjut (_dirty-bitmap backup_), membuat backup harian hanya memakan waktu hitungan detik karena hanya mengirim perbedaan blok data yang berubah.
 
 #### Jadwal Backup Job (Cron di PVE):
-*   **Frekuensi**: Setiap hari pukul 02.00 pagi.
-*   **Retention Policy (Pruning)**:
-    *   `keep-last`: 7 (Menyimpan 7 cadangan terakhir).
-    *   `keep-daily`: 7 (Menyimpan cadangan harian selama 1 minggu).
-    *   `keep-weekly`: 4 (Menyimpan cadangan mingguan selama 1 bulan).
-    *   `keep-monthly`: 12 (Menyimpan cadangan bulanan selama 1 tahun).
+
+- **Frekuensi**: Setiap hari pukul 02.00 pagi.
+- **Retention Policy (Pruning)**:
+  - `keep-last`: 7 (Menyimpan 7 cadangan terakhir).
+  - `keep-daily`: 7 (Menyimpan cadangan harian selama 1 minggu).
+  - `keep-weekly`: 4 (Menyimpan cadangan mingguan selama 1 bulan).
+  - `keep-monthly`: 12 (Menyimpan cadangan bulanan selama 1 tahun).
 
 ---
 
 ## 🔗 Referensi & Catatan Terkait
+
 - [[jarswaf-internal-architecture-deepdive]] — Konfigurasi Deploy JarsWAF LXC di VLAN DMZ
 - [[linux-performance-debugging-toolkit]] — Pemantauan Beban CPU/RAM Hypervisor Host
 - [[obsidian-vault-scaling-playbook]] — Strategi Sinkronisasi File Vault ke Storage Homelab

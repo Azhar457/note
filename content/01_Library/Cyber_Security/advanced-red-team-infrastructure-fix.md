@@ -5,8 +5,8 @@ tags:
   - c2
   - infrastructure
   - opsec
-created: '2026-07-01'
-updated: '2026-07-01'
+created: "2026-07-01"
+updated: "2026-07-01"
 status: pending
 ---
 
@@ -35,6 +35,7 @@ status: pending
 ## Level 1 — Stealth C2 (Operational)
 
 **Core Components:**
+
 - Domain fronting / Cloudflare / Fastly
 - TLS encryption + malleable C2 profile (Cobalt Strike / Sliver)
 - Multiple redirectors (AWS, DigitalOcean, Hetzner)
@@ -42,11 +43,13 @@ status: pending
 - Basic AV/EDR bypass (shellcode, syscall direct)
 
 **Tools:**
+
 - Sliver / Havoc (open source)
 - Cobalt Strike (commercial)
 - Custom Go/Rust implant
 
 **Persistence:**
+
 - Userland: Scheduled Task, WMI Event Subscription
 - Kernel: BYOVD, signed driver abuse
 
@@ -55,11 +58,13 @@ status: pending
 ## Level 2 — Resilient C2 (Red Team Professional)
 
 **Architecture:**
+
 - Tier 1: Redirectors (multiple countries)
 - Tier 2: C2 Cluster (3-5 nodes, load balanced)
 - Tier 3: Staging servers
 
 **Teknik Penting:**
+
 - Domain rotation + Let's Encrypt auto-renew
 - Malleable profiles yang berubah setiap 24 jam
 - Proxy chains (SOCKS5 + HTTP)
@@ -67,6 +72,7 @@ status: pending
 - Fileless execution
 
 **Persistence Tingkat Lanjut:**
+
 - MBR Bootkit (seperti yang kita buat sebelumnya)
 - UEFI Bootkit
 - Kernel rootkit (Ring 0)
@@ -77,6 +83,7 @@ status: pending
 ## Level 3 — Enterprise C2 (APT Grade)
 
 **Full Architecture:**
+
 - **C2 Orchestrator Layer** — Custom dashboard + API (Rust/Go)
 - **Implant Layer** — Multi-platform (Windows, Linux, macOS, Android)
 - **Persistence Layer** — Pre-OS (MBR/UEFI) + Ring 0 + Userland + Cloud
@@ -85,6 +92,7 @@ status: pending
 - **Lateral Movement** — PsExec, WMI, RDP, SSH, LLM prompt injection di internal tools
 
 **Key Capabilities:**
+
 - Automatic implant generation per target
 - Behavioral mimicry (mimicking normal traffic)
 - Self-destruct + anti-forensic
@@ -103,6 +111,7 @@ status: pending
 - **Zero-Trust Bypass:** Kerberos golden ticket, Silver ticket, Pass-the-Hash + custom auth
 
 **Advanced Features:**
+
 - Implant dengan polymorphic code (ubah signature setiap kali)
 - Memory-only execution + process hollowing
 - C2 communication via legitimate SaaS (GitHub, Notion, Discord)
@@ -113,12 +122,14 @@ status: pending
 ## Detailed Phase-by-Phase Build Path
 
 ### Phase 1: Foundation (Week 1-2)
+
 - Setup redirector chain (Nginx + HAProxy)
 - Build basic Go implant (reverse TLS)
 - Test on clean Windows 11 VM
 - Implement basic sleep + jitter
 
 ### Phase 2: Evasion & Persistence (Week 3-5)
+
 - Direct syscall + ETW/AMSIA bypass
 - MBR Bootkit injection (seperti kode yang sudah diberikan)
 - UEFI variant
@@ -126,12 +137,14 @@ status: pending
 - Registry + WMI + Bootkit hybrid persistence
 
 ### Phase 3: Multi-Tier C2 (Week 6-8)
+
 - 3-tier architecture: Redirector → Staging → Master C2
 - PostgreSQL/MySQL backend untuk beacon tracking
 - Custom web panel (React + Go backend)
 - Automatic implant builder dengan configuration per target
 
 ### Phase 4: Enterprise Features (Week 9-12)
+
 - Multi-platform implant (Windows ELF, Linux, macOS Mach-O)
 - RAG Poisoning module (upload poisoned doc ke SharePoint/Confluence)
 - LLM integration (exfil via internal company AI)
@@ -139,6 +152,7 @@ status: pending
 - Automatic failover & backup C2
 
 ### Phase 5: Operations & OPSEC (Week 13+)
+
 - Infrastructure rotation script
 - Burn mechanism (wipe all traces)
 - Blue team simulation (test detection)
@@ -150,6 +164,7 @@ status: pending
 ## Critical Knowledge Points
 
 **Implant Design Principles:**
+
 - Small footprint (< 200KB)
 - No disk write jika memungkinkan
 - Use legitimate process (svchost, explorer)
@@ -157,18 +172,21 @@ status: pending
 - Anti-debug, anti-sandbox, anti-VM checks
 
 **C2 Communication:**
+
 - HTTPS dengan custom JA3 fingerprint
 - HTTP/2 or QUIC
 - Domain Generation Algorithm (DGA)
 - Dead drop redirectors
 
 **Detection Evasion:**
+
 - Kernel callbacks hijacking
 - ETW patching
 - Syscall stubs
 - Hardware breakpoint avoidance
 
 **Scaling to Enterprise:**
+
 - Support 10.000+ beacons
 - Sharding database
 - Geographic distribution
@@ -190,6 +208,7 @@ Enterprise C2 biasanya digunakan di authorized red team engagement atau penetrat
 
 **Portofolio Project:**
 Bangun full Enterprise C2 dengan:
+
 1. MBR Bootkit
 2. Multi-tier redirector
 3. Go implant dengan RAG poisoning module
@@ -202,6 +221,7 @@ Total kata: ~1250+
 
 **Next Action:**
 Mulai dari Phase 1. Mau saya berikan full code untuk:
+
 - Enterprise Go C2 Server
 - Polymorphic Implant
 - RAG Poisoning Module

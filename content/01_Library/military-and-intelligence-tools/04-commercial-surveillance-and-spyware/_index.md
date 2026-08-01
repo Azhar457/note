@@ -1,11 +1,13 @@
 # 04-Commercial-Surveillance-And-Spyware
 
-[Kembali ke Military-And-Intelligence-Tools](../military-and-intelligence-tools/_index.md)
+> Catatan tentang 04-commercial-surveillance-and-spyware.
 
-> Total: 3 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 3 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[finspy]]
 - [[pegasus]]
 - [[predator]]
+

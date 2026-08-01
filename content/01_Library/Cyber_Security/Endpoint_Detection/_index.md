@@ -1,14 +1,17 @@
 # Endpoint Detection
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang Endpoint Detection.
 
-> Total: 6 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 7 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[blueteam-detection-matrix]]
 - [[blueteam-vs-enterprise-c2]]
 - [[ebpf-beyond-security]]
 - [[ebpf-kernel-security]]
 - [[endpoint-detection-playbook]]
 - [[endpoint-security]]
+- [[malware-analysis-reverse-engineering-playbook]]
+

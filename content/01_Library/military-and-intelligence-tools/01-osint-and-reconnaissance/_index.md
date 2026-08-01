@@ -1,11 +1,14 @@
 # 01-Osint-And-Reconnaissance
 
-[Kembali ke Military-And-Intelligence-Tools](../military-and-intelligence-tools/_index.md)
+> Catatan tentang 01-osint-and-reconnaissance.
 
-> Total: 3 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 4 files | 0 subfolders
 
 ## 📄 Notes
-
+- [[ai-driven-osint]]
 - [[google-dorks]]
 - [[maltego]]
 - [[shodan]]
+

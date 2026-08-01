@@ -6,7 +6,7 @@ aliases:
   - "Kualitas_Perangkat_Lunak"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: stub
+status: pending
 ---
 
 # 🧪 Kualitas Perangkat Lunak

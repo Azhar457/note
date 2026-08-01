@@ -8,8 +8,8 @@ tags:
   - dfir
 aliases:
   - "file-carving-data-recovery-advanced"
-created: '2026-07-28'
-updated: '2026-07-28'
+created: "2026-07-28"
+updated: "2026-07-28"
 status: pending
 ---
 
@@ -62,6 +62,7 @@ status: pending
 ```
 
 **Saat file dihapus:**
+
 1. $MFT entry ditandai `not in use` (byte pertama = 0x00)
 2. Data cluster **tidak dihapus** — hanya ditandai sebagai tersedia (available)
 3. File Name di Recycle Bin dipindahkan, tapi data asli tetap di cluster asli
@@ -87,14 +88,14 @@ status: pending
 
 ### Carving vs File System Recovery
 
-| Aspek | File System Recovery | File Carving |
-|-------|---------------------|--------------|
-| **Metode** | Rekonstruksi $MFT / inode table | Cari magic bytes |
-| **Butuh metadata** | Ya — butuh entry utuh | Tidak |
-| **File terfragmentasi** | Bisa recover (ada di metadata data runs) | Sulit — hanya contiguous |
-| **SSD TRIM** | Tidak bisa | Tidak bisa |
-| **File overwrite** | Tidak bisa | Sebagian — file rusak |
-| **Tools** | TestDisk, R-Studio, GetDataBack | foremost, scalpel, photorec |
+| Aspek                   | File System Recovery                     | File Carving                |
+| ----------------------- | ---------------------------------------- | --------------------------- |
+| **Metode**              | Rekonstruksi $MFT / inode table          | Cari magic bytes            |
+| **Butuh metadata**      | Ya — butuh entry utuh                    | Tidak                       |
+| **File terfragmentasi** | Bisa recover (ada di metadata data runs) | Sulit — hanya contiguous    |
+| **SSD TRIM**            | Tidak bisa                               | Tidak bisa                  |
+| **File overwrite**      | Tidak bisa                               | Sebagian — file rusak       |
+| **Tools**               | TestDisk, R-Studio, GetDataBack          | foremost, scalpel, photorec |
 
 ---
 
@@ -118,25 +119,25 @@ xxd file.jpg | head -1
 
 ### Magic Bytes Reference (Paling Sering di CTF)
 
-| Format | Magic Bytes (Hex) | Offset | Footer (Hex) |
-|--------|-------------------|:------:|--------------|
-| **JPEG** | `FF D8 FF E0` atau `FF D8 FF E1` | 0 | `FF D9` |
-| **PNG** | `89 50 4E 47 0D 0A 1A 0A` | 0 | `49 45 4E 44 AE 42 60 82` |
-| **GIF** | `47 49 46 38 37 61` atau `38 39 61` | 0 | `00 3B` |
-| **BMP** | `42 4D` | 0 | — |
-| **TIFF** | `49 49 2A 00` atau `4D 4D 00 2A` | 0 | — |
-| **PDF** | `25 50 44 46` (*%PDF*) | 0 | `25 25 45 4F 46` (%%EOF) |
-| **ZIP** | `50 4B 03 04` | 0 | `50 4B 05 06` (EOCD) |
-| **RAR** | `52 61 72 21 1A 07 00` | 0 | — |
-| **7z** | `37 7A BC AF 27 1C` | 0 | — |
-| **GZIP** | `1F 8B 08` | 0 | — |
-| **BZ2** | `42 5A 68` | 0 | — |
-| **ELF** | `7F 45 4C 46` (*.ELF*) | 0 | — |
-| **RIFF (AVI/WAV)** | `52 49 46 46 xx xx xx xx 41 56 49` | 0 | — |
-| **MP3 (ID3v2)** | `49 44 33` (*ID3*) | 0 | — |
-| **MP4** | `00 00 00 18 66 74 79 70` | 0 | — |
-| **DOCX/XLSX (ZIP)** | `50 4B 03 04 14 00 06 00` | 0 | `50 4B 05 06` |
-| **Mach-O** | `FE ED FA CE` atau `FE ED FA CF` | 0 | — |
+| Format              | Magic Bytes (Hex)                   | Offset | Footer (Hex)              |
+| ------------------- | ----------------------------------- | :----: | ------------------------- |
+| **JPEG**            | `FF D8 FF E0` atau `FF D8 FF E1`    |   0    | `FF D9`                   |
+| **PNG**             | `89 50 4E 47 0D 0A 1A 0A`           |   0    | `49 45 4E 44 AE 42 60 82` |
+| **GIF**             | `47 49 46 38 37 61` atau `38 39 61` |   0    | `00 3B`                   |
+| **BMP**             | `42 4D`                             |   0    | —                         |
+| **TIFF**            | `49 49 2A 00` atau `4D 4D 00 2A`    |   0    | —                         |
+| **PDF**             | `25 50 44 46` (_%PDF_)              |   0    | `25 25 45 4F 46` (%%EOF)  |
+| **ZIP**             | `50 4B 03 04`                       |   0    | `50 4B 05 06` (EOCD)      |
+| **RAR**             | `52 61 72 21 1A 07 00`              |   0    | —                         |
+| **7z**              | `37 7A BC AF 27 1C`                 |   0    | —                         |
+| **GZIP**            | `1F 8B 08`                          |   0    | —                         |
+| **BZ2**             | `42 5A 68`                          |   0    | —                         |
+| **ELF**             | `7F 45 4C 46` (_.ELF_)              |   0    | —                         |
+| **RIFF (AVI/WAV)**  | `52 49 46 46 xx xx xx xx 41 56 49`  |   0    | —                         |
+| **MP3 (ID3v2)**     | `49 44 33` (_ID3_)                  |   0    | —                         |
+| **MP4**             | `00 00 00 18 66 74 79 70`           |   0    | —                         |
+| **DOCX/XLSX (ZIP)** | `50 4B 03 04 14 00 06 00`           |   0    | `50 4B 05 06`             |
+| **Mach-O**          | `FE ED FA CE` atau `FE ED FA CF`    |   0    | —                         |
 
 ### Custom Signature — Cari Flag Manual
 
@@ -177,6 +178,7 @@ foremost -c /etc/foremost.conf -i disk.dd -o output/
 ```
 
 **Output structure:**
+
 ```
 output/
 ├── audit.txt       # Log carving: file ditemukan, size, offset
@@ -318,12 +320,12 @@ Beberapa tool baru pakai ML untuk mendeteksi perbatasan file — tapi **jarang d
 
 **HDD vs SSD:**
 
-| Aspek | HDD | SSD |
-|-------|-----|-----|
-| **File dihapus — bisa carving?** | ✅ Ya — data tetap ada | ❌ Tidak — TRIM hapus instan |
-| **Format cepat — bisa carving?** | ✅ Ya | ❌ TRIM triggered |
-| **Overwrite — data hilang?** | ❌ Bisa recover 1-2 overwrite | ✅ Sekali overwrite = hilang |
-| **File slack** | ✅ Ada — data file sebelumnya | ❌ Tidak ada (SSD nulis per page) |
+| Aspek                            | HDD                           | SSD                               |
+| -------------------------------- | ----------------------------- | --------------------------------- |
+| **File dihapus — bisa carving?** | ✅ Ya — data tetap ada        | ❌ Tidak — TRIM hapus instan      |
+| **Format cepat — bisa carving?** | ✅ Ya                         | ❌ TRIM triggered                 |
+| **Overwrite — data hilang?**     | ❌ Bisa recover 1-2 overwrite | ✅ Sekali overwrite = hilang      |
+| **File slack**                   | ✅ Ada — data file sebelumnya | ❌ Tidak ada (SSD nulis per page) |
 
 ### Mitigasi TRIM — Forensic Write Blocker
 
@@ -432,16 +434,16 @@ sqlite3 recovered.db "SELECT * FROM flag;"
 
 ### Anti-Forensics Techniques
 
-| Teknik | Efek | Cara Kerja |
-|--------|------|------------|
-| **Secure Deletion (shred, srm)** | Overwrite file dengan random data | Baca file → tulis 0xFF → hapus → data asli hilang |
-| **DoD 5220.22-M** | 7-pass overwrite | 3x random + 1x complement + 3x random — standar militer |
-| **Disk Wiping (DBAN, nwipe)** | Hapus seluruh disk | Write 0x00/0xFF/random ke semua sector |
-| **TRIM & NVMe Format** | Instant wipe SSD | NVMe format command hapus seluruh NAND dalam detik |
-| **File Shredding** | Fragmentasi + rename | Potong file kecil-kecil, rename random, sebar ke berbagai folder |
-| **Metadata Wiping** | Hapus exif, timestamp, $MFT entry | `exiftool -all=` atau `SetMACE` |
-| **Steganography** | Sembunyiin file di media lain | Data dikodekan di LSB gambar/audio — tidak ketahuan carving |
-| **Encryption** | File terlihat random | Data encrypted tidak punya magic bytes — carving tidak mendeteksi |
+| Teknik                           | Efek                              | Cara Kerja                                                        |
+| -------------------------------- | --------------------------------- | ----------------------------------------------------------------- |
+| **Secure Deletion (shred, srm)** | Overwrite file dengan random data | Baca file → tulis 0xFF → hapus → data asli hilang                 |
+| **DoD 5220.22-M**                | 7-pass overwrite                  | 3x random + 1x complement + 3x random — standar militer           |
+| **Disk Wiping (DBAN, nwipe)**    | Hapus seluruh disk                | Write 0x00/0xFF/random ke semua sector                            |
+| **TRIM & NVMe Format**           | Instant wipe SSD                  | NVMe format command hapus seluruh NAND dalam detik                |
+| **File Shredding**               | Fragmentasi + rename              | Potong file kecil-kecil, rename random, sebar ke berbagai folder  |
+| **Metadata Wiping**              | Hapus exif, timestamp, $MFT entry | `exiftool -all=` atau `SetMACE`                                   |
+| **Steganography**                | Sembunyiin file di media lain     | Data dikodekan di LSB gambar/audio — tidak ketahuan carving       |
+| **Encryption**                   | File terlihat random              | Data encrypted tidak punya magic bytes — carving tidak mendeteksi |
 
 ### Counter Anti-Forensics
 
@@ -574,4 +576,4 @@ strings recovered/* | grep -i "CTF\|flag"
 
 ---
 
-*File Carving & Data Recovery · Deleted ≠ Gone · Magic Bytes = Kunci · TRIM = Musuh SSD · Foremost + Scalpel + PhotoRec = Holy Trinity · Strings Dulu, Carving Kemudian · Fragmented File = Tantangan Besar*
+_File Carving & Data Recovery · Deleted ≠ Gone · Magic Bytes = Kunci · TRIM = Musuh SSD · Foremost + Scalpel + PhotoRec = Holy Trinity · Strings Dulu, Carving Kemudian · Fragmented File = Tantangan Besar_

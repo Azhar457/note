@@ -25,6 +25,7 @@ cssclasses:
 ---
 
 ## Daftar Isi
+
 - [[#1. Mengapa NoSQL Injection Berbeda]]
 - [[#2. MongoDB Injection — Operator Exploitation]]
 - [[#3. Express.js & Node.js NoSQL Injection]]
@@ -44,14 +45,14 @@ SQL injection mengeksploitasi structured query language. NoSQL injection mengeks
 
 ### Perbedaan Fundamental
 
-| Aspek | SQL Injection | NoSQL Injection |
-|---|---|---|
-| Query format | String concatenation | JSON/BSON document + operators |
-| Bypass auth | `' OR '1'='1` | `{ "$ne": "" }` atau `{ "$gt": "" }` |
-| Blind extraction | `SUBSTRING`, `SLEEP` | `$regex`, `$where` timing |
-| Operator injection | `UNION`, `OR`, `AND` | `$ne`, `$gt`, `$regex`, `$where` |
-| Attack surface | Web params + headers | JSON body + URL params + headers |
-| Tool | sqlmap | NoSQLMap, custom scripts |
+| Aspek              | SQL Injection        | NoSQL Injection                      |
+| ------------------ | -------------------- | ------------------------------------ |
+| Query format       | String concatenation | JSON/BSON document + operators       |
+| Bypass auth        | `' OR '1'='1`        | `{ "$ne": "" }` atau `{ "$gt": "" }` |
+| Blind extraction   | `SUBSTRING`, `SLEEP` | `$regex`, `$where` timing            |
+| Operator injection | `UNION`, `OR`, `AND` | `$ne`, `$gt`, `$regex`, `$where`     |
+| Attack surface     | Web params + headers | JSON body + URL params + headers     |
+| Tool               | sqlmap               | NoSQLMap, custom scripts             |
 
 ### Vektor Utama
 
@@ -67,15 +68,15 @@ HTTP Body: {"username": "admin", "password": {"$ne": ""}}
 
 ### Operator Reference
 
-| Operator | Fungsi | Contoh Injection |
-|---|---|---|
-| `$ne` | Not equal | `{"$ne": ""}` → match semua |
-| `$gt` | Greater than | `{"$gt": ""}` → match semua string |
-| `$regex` | Regex match | `{"$regex": "^a"}` → blind extraction |
-| `$nin` | Not in | `{"$nin": ["admin"]}` → exclude specific |
-| `$where` | JS expression | `{"$where": "sleep(5000)"}` → timing attack |
-| `$exists` | Field exists | `{"$exists": true}` |
-| `$eq` | Equal | `{"$eq": "admin"}` |
+| Operator  | Fungsi        | Contoh Injection                            |
+| --------- | ------------- | ------------------------------------------- |
+| `$ne`     | Not equal     | `{"$ne": ""}` → match semua                 |
+| `$gt`     | Greater than  | `{"$gt": ""}` → match semua string          |
+| `$regex`  | Regex match   | `{"$regex": "^a"}` → blind extraction       |
+| `$nin`    | Not in        | `{"$nin": ["admin"]}` → exclude specific    |
+| `$where`  | JS expression | `{"$where": "sleep(5000)"}` → timing attack |
+| `$exists` | Field exists  | `{"$exists": true}`                         |
+| `$eq`     | Equal         | `{"$eq": "admin"}`                          |
 
 ### Auth Bypass Payloads
 
@@ -128,18 +129,18 @@ POST /api/users/search
 app.post("/login", async (req, res) => {
   const user = await db.collection("users").findOne({
     username: req.body.username,
-    password: req.body.password
-  });
+    password: req.body.password,
+  })
   // Jika req.body = {username: "admin", password: {"$ne": ""}}
   // → query: {username: "admin", password: {$ne: ""}} → bypass!
-});
+})
 
 // ❌ Vulnerable: URL params tanpa sanitasi
 app.get("/user/:id", async (req, res) => {
   const user = await db.collection("users").findOne({
-    _id: req.params.id  // bisa di-inject operator
-  });
-});
+    _id: req.params.id, // bisa di-inject operator
+  })
+})
 ```
 
 ### URL Parameter Injection
@@ -154,14 +155,14 @@ app.get("/user/:id", async (req, res) => {
 
 ```javascript
 // ✅ Safe: validate + sanitize tipe data
-const safeQuery = {};
-if (typeof req.body.username === 'string') {
-  safeQuery.username = req.body.username;
+const safeQuery = {}
+if (typeof req.body.username === "string") {
+  safeQuery.username = req.body.username
 }
-if (typeof req.body.password === 'string') {
-  safeQuery.password = req.body.password;
+if (typeof req.body.password === "string") {
+  safeQuery.password = req.body.password
 }
-const user = await db.collection("users").findOne(safeQuery);
+const user = await db.collection("users").findOne(safeQuery)
 ```
 
 ---
@@ -302,14 +303,14 @@ username=admin&password[$ne]=
 
 ## 8. Defense Strategy
 
-| Defense | Implementasi | Efektivitas |
-|---|---|---|
-| **Type validation** | `typeof req.body.x === 'string'` sebelum query | Sangat tinggi |
-| **Input sanitization** | Remove `$`, `{`, `}` dari input | Tinggi |
-| **ORM/ODM layer** | Mongoose, TypeORM — schema-based | Sangat tinggi |
-| **Parameterized query** | NoSQL query builder dengan escaping | Tinggi |
-| **Least privilege** | Database user hanya punya akses minimal | Sedang |
-| **WAF rule** | Block `$ne`, `$gt`, `$regex`, `$where` di body | Sedang (bisa bypass) |
+| Defense                 | Implementasi                                   | Efektivitas          |
+| ----------------------- | ---------------------------------------------- | -------------------- |
+| **Type validation**     | `typeof req.body.x === 'string'` sebelum query | Sangat tinggi        |
+| **Input sanitization**  | Remove `$`, `{`, `}` dari input                | Tinggi               |
+| **ORM/ODM layer**       | Mongoose, TypeORM — schema-based               | Sangat tinggi        |
+| **Parameterized query** | NoSQL query builder dengan escaping            | Tinggi               |
+| **Least privilege**     | Database user hanya punya akses minimal        | Sedang               |
+| **WAF rule**            | Block `$ne`, `$gt`, `$regex`, `$where` di body | Sedang (bisa bypass) |
 
 ### Mongoose (ODM) — Safe by Default
 
@@ -317,8 +318,8 @@ username=admin&password[$ne]=
 // Mongoose secara default strip $ operators
 const UserSchema = new mongoose.Schema({
   username: String,
-  password: String
-});
+  password: String,
+})
 // req.body = {username: "admin", password: {"$ne": ""}}
 // → Mongoose strips $ne → query safe
 ```
@@ -350,16 +351,19 @@ static NOSQL_URL_PARAM: Lazy<Regex> = Lazy::new(|| {
 ## 10. Referensi & Payload Database
 
 Lokasi payload langsung:
+
 ```
 /mnt/data_d/Projects/Reference/PayloadsAllTheThings/NoSQL Injection/
 ```
 
 Berisi:
+
 - `README.md` — dokumentasi lengkap + payload
 - `Intruder/` — file untuk Burp Intruder
 - `README-ko.md` — dokumentasi bahasa Korea
 
 **Cross-link vault:**
+
 - [[database-security-sql-nosql-injection-defense]] — defense umum database
 - [[api-security-deep-dive]] — API security
 - [[web-hacking-exploitation]] — teknik eksploitasi

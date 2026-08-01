@@ -56,11 +56,11 @@ assert TAU_MIN < TAU_MAX
 class ACORouter:
     """
     Ant Colony Optimization router untuk multi-agent dispatch.
-    
+
     P(i) = [τ_i]^α · [η_i]^β / Σ([τ_j]^α · [η_j]^β)
     τ_i ← (1-ρ)·τ_i + Δτ_i    (kalau succeed, Δτ = Q · quality)
     """
-    
+
     def __init__(self, agents, alpha=ALPHA, beta=BETA, rho=RHO,
                  Q=Q, tau0=TAU0, tau_min=TAU_MIN, tau_max=TAU_MAX,
                  epsilon=EPSILON):
@@ -77,11 +77,11 @@ class ACORouter:
         self.P = {}
         # Stats tracking
         self.history = []  # [(round, task_type, chosen, p, τ_before, τ_after, succeeded)]
-    
+
     def _tau(self, task_type, agent_id):
         """Get pheromone value, init to tau0 if missing."""
         return self.P.setdefault(task_type, {}).setdefault(agent_id, self.tau0)
-    
+
     def dispatch_probs(self, task_type):
         """
         Hitung P(i) untuk semua agent.
@@ -97,7 +97,7 @@ class ACORouter:
         if total == 0:
             return {a['id']: 1/len(self.agents) for a in self.agents}
         return {aid: n/total for aid, n in nums.items()}
-    
+
     def dispatch(self, task_type):
         """
         Pilih agent via ε-greedy + ACO-weighted roulette.
@@ -113,7 +113,7 @@ class ACORouter:
             if r < cum:
                 return aid
         return max(probs, key=probs.get)
-    
+
     def update(self, task_type, agent_id, quality, succeeded):
         """
         Update pheromone setelah task selesai.
@@ -126,7 +126,7 @@ class ACORouter:
                        (1 - self.rho) * cur + delta))
         self.P.setdefault(task_type, {})[agent_id] = new_val
         return new_val
-    
+
     def dispatch_and_learn(self, task_type, quality_fn, max_retries=2):
         """
         Full cycle: dispatch → execute → update.
@@ -138,10 +138,10 @@ class ACORouter:
             tau_before = self._tau(task_type, chosen)
             probs = self.dispatch_probs(task_type)
             p_chosen = probs.get(chosen, 0)
-            
+
             quality, succeeded = quality_fn(chosen)
             tau_after = self.update(task_type, chosen, quality, succeeded)
-            
+
             self.history.append({
                 'round': len(self.history),
                 'task_type': task_type,
@@ -153,7 +153,7 @@ class ACORouter:
                 'quality': quality,
                 'attempt': attempt,
             })
-            
+
             if succeeded:
                 return chosen, quality
         # All retries failed
@@ -230,18 +230,18 @@ def run_simulation(router, task_type, rounds, ability_fn, label=""):
         'dispatched': 0, 'succeeded': 0, 'total_quality': 0.0,
         'tau_akhir': 0.0
     } for a in router.agents}
-    
+
     for r in range(rounds):
         chosen, quality = router.dispatch_and_learn(task_type, ability_fn)
         if chosen:
             results[chosen]['dispatched'] += 1
             results[chosen]['succeeded'] += 1 if quality > 0 else 0
             results[chosen]['total_quality'] += quality
-    
+
     # Record final pheromone
     for a in router.agents:
         results[a['id']]['tau_akhir'] = router._tau(task_type, a['id'])
-    
+
     return results
 
 
@@ -272,15 +272,15 @@ def print_convergence(router, task_type, every_n=5):
     entries = [h for h in router.history if h['task_type'] == task_type]
     if not entries:
         return
-    
+
     agents = sorted(set(e['chosen'] for e in entries))
-    
+
     print(f"\nPheromone convergence — {task_type}")
     print(f"{'Round':>6}", end='')
     for a in agents:
         print(f" {a:>18}", end='')
     print()
-    
+
     for i, e in enumerate(entries):
         if i % every_n != 0 and i != len(entries) - 1:
             continue
@@ -303,7 +303,7 @@ def convergence_ascii_chart(router, task_type, width=50):
     agents = router.agents
     values = [(a['id'], router._tau(task_type, a['id'])) for a in agents]
     max_val = max(v for _, v in values) or 1
-    
+
     print(f"\nPheromone akhir — {task_type}")
     for aid, val in sorted(values, key=lambda x: -x[1]):
         bar_len = int(val / max_val * width)
@@ -429,17 +429,17 @@ def new_provider_scenario():
     # Start with 4 providers
     providers4 = [p for p in PROVIDERS if p['id'] != 'DuckDuckGo']
     router3 = ACORouter(providers4)
-    
+
     # Phase 1: 100 rounds tanpa Claude
     for _ in range(100):
         router3.dispatch_and_learn('chat', lambda aid: normal_ability(aid))
-    
+
     tau_sebelum = {a['id']: router3._tau('chat', a['id']) for a in providers4}
-    
+
     # Phase 2: Claude Free joins di round 100
     claude = {'id': 'Claude Free', 'eta_for': {'chat': 0.50}}
     router3.agents.append(claude)
-    
+
     for _ in range(100):
         def ability_all(aid):
             if aid == 'Claude Free':
@@ -447,22 +447,22 @@ def new_provider_scenario():
                 return 0.85, True
             return normal_ability(aid)
         router3.dispatch_and_learn('chat', ability_all)
-    
+
     tau_sesudah = {a['id']: router3._tau('chat', a['id']) for a in router3.agents}
-    
+
     print("τ sebelum Claude join:")
     for aid, v in sorted(tau_sebelum.items(), key=lambda x: -x[1]):
         print(f"  {aid:<20} τ={v:.3f}")
-    
+
     print("\nτ 100 round setelah Claude join:")
     for aid, v in sorted(tau_sesudah.items(), key=lambda x: -x[1]):
         print(f"  {aid:<20} τ={v:.3f}")
-    
+
     # Claude harus naik dari τ0
     assert tau_sesudah['Claude Free'] > TAU0, \
         "Claude harus belajar dan naik pheromone-nya"
     print(f"\n✅ Claude Free: τ0={TAU0} → τ={tau_sesudah['Claude Free']:.3f} dalam 100 round")
-    
+
     return router3, tau_sebelum, tau_sesudah
 
 router3, _, tau_after = new_provider_scenario()
@@ -498,7 +498,7 @@ Jalankan ini untuk verifikasi bahwa semua komponen bekerja:
 ```python
 def test_suite():
     failures = []
-    
+
     # 1. Initial pheromone
     r = ACORouter(PROVIDERS)
     for a in PROVIDERS:
@@ -506,25 +506,25 @@ def test_suite():
             v = r._tau(tt, a['id'])
             assert v == TAU0, f"Initial τ harus {TAU0}, dapat {v}"
     print("✅ 1. Initial pheromone = tau0")
-    
+
     # 2. Probabilities sum to 1
     for tt in TASK_TYPES:
         probs = r.dispatch_probs(tt)
         assert abs(sum(probs.values()) - 1.0) < 1e-6, \
             f"Probabilities harus sum ke 1, dapat {sum(probs.values())}"
     print("✅ 2. Probabilities sum to 1")
-    
+
     # 3. Successful update increases tau
     r.update('coding', 'DeepSeek Web', quality=0.9, succeeded=True)
     assert r._tau('coding', 'DeepSeek Web') > TAU0
     print("✅ 3. Success → τ naik")
-    
+
     # 4. Failed update only evaporates
     tau_sebelum = r._tau('coding', 'DeepSeek Web')
     r.update('coding', 'DeepSeek Web', quality=0, succeeded=False)
     assert r._tau('coding', 'DeepSeek Web') < tau_sebelum
     print("✅ 4. Failed → τ turun (evaporasi)")
-    
+
     # 5. MMAS clamping
     r2 = ACORouter(PROVIDERS, tau_min=0.5, tau_max=2.0)
     # Force update with huge quality
@@ -537,13 +537,13 @@ def test_suite():
     assert r2._tau('coding', 'DeepSeek Web') >= 0.5, \
         f"τ ter-clamp ke min=0.5"
     print("✅ 5. MMAS clamping [0.5, 2.0] berfungsi")
-    
+
     # 6. Dispatch returns valid agent
     for _ in range(50):
         chosen = r.dispatch('research')
         assert any(a['id'] == chosen for a in PROVIDERS)
     print("✅ 6. Dispatch selalu return valid agent")
-    
+
     # 7. Epsilon-greedy gives some exploration
     r3 = ACORouter(PROVIDERS, epsilon=0.5)
     counts = {a['id']: 0 for a in PROVIDERS}
@@ -553,14 +553,14 @@ def test_suite():
     assert unique_agents >= 3, \
         f"ε=0.5 harus eksplorasi ke ≥3 agent, cuma {unique_agents}"
     print("✅ 7. ε-greedy exploration berfungsi")
-    
+
     # 8. Dispatch and learn full cycle
     history_count_before = len(r.history)
     chosen, quality = r.dispatch_and_learn('creative', lambda aid: (0.7, True))
     assert chosen is not None
     assert len(r.history) == history_count_before + 1
     print("✅ 8. dispatch_and_learn full cycle works")
-    
+
     print(f"\n{'='*50}")
     print(f"  ✅✅✅  SEMUA {8} TES LULUS  ✅✅✅")
     print(f"{'='*50}")
@@ -572,15 +572,15 @@ test_suite()
 
 ## 10. Cheatsheet — Parameter Tuning
 
-| Parameter | Fungsi | Rendah (<0.5) | Tinggi (>2) | Recommended |
-|:----------|:-------|:--------------|:------------|:------------|
-| **α** (alpha) | Bobot pheromone history | Exploration tinggi, lambat converge | Cepat converge, overfit history | 1.0 |
-| **β** (beta) | Bobot semantic match (η) | Abaikan capability — berbahaya | Over-rely on static η, ignore history | 2.0 |
-| **ρ** (rho) | Evaporation rate | Lambat lupa — bias ke lama | Cepat lupa — hampir = random | 0.1–0.3 |
-| **Q** (deposit) | Seberapa besar τ naik per success | Lambat belajar | Satu success langsung dominasi | 0.5 |
-| **ε** (epsilon) | Exploration rate | Cepat terjebak lockout | Banyak random dispatch | 0.05 |
-| **τ_min** | MMAS floor | Eksplorasi mati total | Semua agent dapet chance | 0.05 |
-| **τ_max** | MMAS ceiling | Dominasi gampang digeser | Satu agent bisa nge-monopoli | 5.0 |
+| Parameter       | Fungsi                            | Rendah (<0.5)                       | Tinggi (>2)                           | Recommended |
+| :-------------- | :-------------------------------- | :---------------------------------- | :------------------------------------ | :---------- |
+| **α** (alpha)   | Bobot pheromone history           | Exploration tinggi, lambat converge | Cepat converge, overfit history       | 1.0         |
+| **β** (beta)    | Bobot semantic match (η)          | Abaikan capability — berbahaya      | Over-rely on static η, ignore history | 2.0         |
+| **ρ** (rho)     | Evaporation rate                  | Lambat lupa — bias ke lama          | Cepat lupa — hampir = random          | 0.1–0.3     |
+| **Q** (deposit) | Seberapa besar τ naik per success | Lambat belajar                      | Satu success langsung dominasi        | 0.5         |
+| **ε** (epsilon) | Exploration rate                  | Cepat terjebak lockout              | Banyak random dispatch                | 0.05        |
+| **τ_min**       | MMAS floor                        | Eksplorasi mati total               | Semua agent dapet chance              | 0.05        |
+| **τ_max**       | MMAS ceiling                      | Dominasi gampang digeser            | Satu agent bisa nge-monopoli          | 5.0         |
 
 ### Quick Reference — Kapan Pake Nilai Apa
 
@@ -595,10 +595,10 @@ Rate limit sering     → ρ=0.4, τ_min=0.10              (cepat pindah, floor 
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|:--------|:--------|
-| [[aco-agent-routing-deepdive]] | Teori + formula + hasil simulasi — catatan ini adalah lab praktiknya |
-| [[meta-agent-orchestration]] | Target arsitektur — ACO menggantikan memoryless reassign |
-| [[swarm-ai-imam-robandi]] | Sumber formula ACO, TSP implementation, MMAS |
-| [[ai-evaluation-framework]] | Δτ quality signal — LLM judge, self-consistency |
-| [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
+| Catatan                                | Koneksi                                                              |
+| :------------------------------------- | :------------------------------------------------------------------- |
+| [[aco-agent-routing-deepdive]]         | Teori + formula + hasil simulasi — catatan ini adalah lab praktiknya |
+| [[meta-agent-orchestration]]           | Target arsitektur — ACO menggantikan memoryless reassign             |
+| [[swarm-ai-imam-robandi]]              | Sumber formula ACO, TSP implementation, MMAS                         |
+| [[ai-evaluation-framework]]            | Δτ quality signal — LLM judge, self-consistency                      |
+| [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO                         |

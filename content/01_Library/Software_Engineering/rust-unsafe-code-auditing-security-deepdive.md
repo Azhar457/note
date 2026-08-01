@@ -23,7 +23,7 @@ cssclasses:
 
 # Rust Unsafe Code Auditing: Security, Soundness & Exploitation
 
-> [!tip] **Rust's safety guarantees** only apply to safe Rust. **Unsafe Rust** introduces raw pointers, mutable statics, FFI, and inline assembly — where memory safety is the *programmer's* responsibility. This note covers how to audit unsafe code, detect soundness bugs, fuzz for vulnerabilities, and understand real CVEs — for security researchers, pentesters auditing Rust codebases, and engineering teams hardening production Rust.
+> [!tip] **Rust's safety guarantees** only apply to safe Rust. **Unsafe Rust** introduces raw pointers, mutable statics, FFI, and inline assembly — where memory safety is the _programmer's_ responsibility. This note covers how to audit unsafe code, detect soundness bugs, fuzz for vulnerabilities, and understand real CVEs — for security researchers, pentesters auditing Rust codebases, and engineering teams hardening production Rust.
 
 ---
 
@@ -36,7 +36,7 @@ cssclasses:
 5. [[#5. Fuzzing Rust — cargo-fuzz & libfuzzer]]
 6. [[#6. Miri — MIR Interpreter for UB Detection]]
 7. [[#7. Sandbox & Mitigation for Unsafe Code]]
-8. [[#8. Tooling: cargo-audit, cargo-deny, cargo-geiger]]
+8. [[#8. Tooling]]
 9. [[#9. Real CVE Analysis]]
 10. [[#10. MITRE ATT&CK & CVSS Mapping]]
 11. [[#Referensi]]
@@ -72,6 +72,7 @@ unsafe { asm!("nop"); }
 ```
 
 **Kapan unsafe diperlukan?**
+
 - FFI ke C library (libpcap, libssl, libvulkan)
 - Zero-cost abstraksi (Vec, HashMap, Arc — semua pake unsafe internals)
 - SIMD intrinsics yang tidak di-cover compiler
@@ -129,15 +130,15 @@ pub unsafe extern "C" fn process(data: *const u8, len: usize) {
 
 ## 3. Undefined Behavior in Rust
 
-| UB Type | Contoh | Detection |
-|---------|--------|-----------|
-| Null pointer deref | `*ptr = 1` di mana `ptr.is_null()` | Miri, ASan |
-| Buffer overflow | `slice::from_raw_parts` dengan len > actual | ASan, cargo-fuzz |
-| Use-after-free | Drop lalu pakai ref via raw pointer | Miri (`-Zmiri-tag-raw-pointers`) |
-| Data race | `Send` diimplementasikan tanpa sync | ThreadSanitizer (TSan) |
-| Invalid alignment | `core::mem::transmute::<[u8;3], u32>` | Miri, alignment check |
-| Mutable aliasing | `&mut` dan `&` ke memory sama | Miri (`-Zmiri-check-aliasing`) |
-| Incorrect enum discriminant | `core::mem::transmute` ke enum invalid | Miri, validation check |
+| UB Type                     | Contoh                                      | Detection                        |
+| --------------------------- | ------------------------------------------- | -------------------------------- |
+| Null pointer deref          | `*ptr = 1` di mana `ptr.is_null()`          | Miri, ASan                       |
+| Buffer overflow             | `slice::from_raw_parts` dengan len > actual | ASan, cargo-fuzz                 |
+| Use-after-free              | Drop lalu pakai ref via raw pointer         | Miri (`-Zmiri-tag-raw-pointers`) |
+| Data race                   | `Send` diimplementasikan tanpa sync         | ThreadSanitizer (TSan)           |
+| Invalid alignment           | `core::mem::transmute::<[u8;3], u32>`       | Miri, alignment check            |
+| Mutable aliasing            | `&mut` dan `&` ke memory sama               | Miri (`-Zmiri-check-aliasing`)   |
+| Incorrect enum discriminant | `core::mem::transmute` ke enum invalid      | Miri, validation check           |
 
 ```bash
 # UB detection pipeline
@@ -151,31 +152,34 @@ RUSTFLAGS="-Z sanitizer=address" cargo test  # ASan
 ## 4. Code Review Checklist — 15-Point Unsafe Audit
 
 ### Critical (Severity: Critical)
-| # | Check | Rationale |
-|---|-------|-----------|
-| 1 | `unsafe fn` atau `unsafe impl` tidak memvalidasi parameter? | Buffer overflow/UB via safe wrapper |
-| 2 | Raw pointer di-dereference tanpa null check? | Null pointer UB |
-| 3 | `slice::from_raw_parts` dengan `len` dari external? | Buffer overflow |
-| 4 | `transmute` antara tipe berbeda size? | Undefined layout |
-| 5 | `Send`/`Sync` diimplementasikan untuk tipe dengan interior mutability? | Data race |
+
+| #   | Check                                                                  | Rationale                           |
+| --- | ---------------------------------------------------------------------- | ----------------------------------- |
+| 1   | `unsafe fn` atau `unsafe impl` tidak memvalidasi parameter?            | Buffer overflow/UB via safe wrapper |
+| 2   | Raw pointer di-dereference tanpa null check?                           | Null pointer UB                     |
+| 3   | `slice::from_raw_parts` dengan `len` dari external?                    | Buffer overflow                     |
+| 4   | `transmute` antara tipe berbeda size?                                  | Undefined layout                    |
+| 5   | `Send`/`Sync` diimplementasikan untuk tipe dengan interior mutability? | Data race                           |
 
 ### High (Severity: High)
-| # | Check | Rationale |
-|---|-------|-----------|
-| 6 | `unsafe` block terlalu besar (wrap seluruh function)? | Missed invariant |
-| 7 | `*const T` → `*mut T` cast? | Mutable aliasing |
-| 8 | FFI function `extern "C"` tanpa `#[no_mangle]` check? | Symbol collision |
-| 9 | `Pin<P>` guarantee tidak dipertahankan? | Self-referential struct corruption |
-| 10 | `ManuallyDrop` digunakan dengan benar? | Double free |
+
+| #   | Check                                                 | Rationale                          |
+| --- | ----------------------------------------------------- | ---------------------------------- |
+| 6   | `unsafe` block terlalu besar (wrap seluruh function)? | Missed invariant                   |
+| 7   | `*const T` → `*mut T` cast?                           | Mutable aliasing                   |
+| 8   | FFI function `extern "C"` tanpa `#[no_mangle]` check? | Symbol collision                   |
+| 9   | `Pin<P>` guarantee tidak dipertahankan?               | Self-referential struct corruption |
+| 10  | `ManuallyDrop` digunakan dengan benar?                | Double free                        |
 
 ### Medium (Severity: Medium)
-| # | Check | Rationale |
-|---|-------|-----------|
-| 11 | `std::mem::zeroed()` untuk tipe non-zero? | Invalid bit pattern |
-| 12 | `#[repr(packed)]` di struct dengan reference? | Misalignment UB |
-| 13 | `GlobalAlloc` implementasi mengikuti contract? | Heap corruption |
-| 14 | `#![deny(unsafe_op_in_unsafe_fn)]` ada? | Unsafe call dalam unsafe fn |
-| 15 | `inline(always)` pada function dengan asm? | Compiler misoptimization |
+
+| #   | Check                                          | Rationale                   |
+| --- | ---------------------------------------------- | --------------------------- |
+| 11  | `std::mem::zeroed()` untuk tipe non-zero?      | Invalid bit pattern         |
+| 12  | `#[repr(packed)]` di struct dengan reference?  | Misalignment UB             |
+| 13  | `GlobalAlloc` implementasi mengikuti contract? | Heap corruption             |
+| 14  | `#![deny(unsafe_op_in_unsafe_fn)]` ada?        | Unsafe call dalam unsafe fn |
+| 15  | `inline(always)` pada function dengan asm?     | Compiler misoptimization    |
 
 ```bash
 # Tool: cargo-geiger — hitung jumlah unsafe usage
@@ -245,6 +249,7 @@ cargo fuzz tmin fuzz_target_1 crash-xxxxxxxx
 ```
 
 **Fuzzing strategy untuk unsafe code:**
+
 - Fuzz `from_raw_parts` dengan panjang random (0..4096)
 - Fuzz `transmute` dengan invalid discriminant values
 - Fuzz `Offset` pada raw pointer dengan large offset
@@ -274,6 +279,7 @@ cargo +nightly miri run --example my_example
 ```
 
 **What Miri detects:**
+
 - Use-after-free (via stacked borrows)
 - Data races (via thread model)
 - Invalid enum discriminants
@@ -284,13 +290,13 @@ cargo +nightly miri run --example my_example
 
 ## 7. Sandbox & Mitigation for Unsafe Code
 
-| Teknik | Mekanisme | Overhead | Use Case |
-|--------|-----------|----------|----------|
-| **Seccomp BPF** | Filter syscall | <1% | Sandbox plugin/FFI code |
-| **Landlock** | FS access control | <1% | Filesystem sandbox |
-| **Wasmer/Wasmtime** | WASM sandbox | 5-15% | Isolate plugin execution |
-| **gVisor** | Userspace kernel | 10-30% | Full container sandbox |
-| **NSJail** | Linux namespace | 2-5% | Multi-process sandbox |
+| Teknik              | Mekanisme         | Overhead | Use Case                 |
+| ------------------- | ----------------- | -------- | ------------------------ |
+| **Seccomp BPF**     | Filter syscall    | <1%      | Sandbox plugin/FFI code  |
+| **Landlock**        | FS access control | <1%      | Filesystem sandbox       |
+| **Wasmer/Wasmtime** | WASM sandbox      | 5-15%    | Isolate plugin execution |
+| **gVisor**          | Userspace kernel  | 10-30%   | Full container sandbox   |
+| **NSJail**          | Linux namespace   | 2-5%     | Multi-process sandbox    |
 
 ```bash
 # Seccomp — hanya allow safe syscalls
@@ -306,6 +312,7 @@ landlock-cli apply --fs-read /usr/lib --fs-rw /var/lib/app ./rust_app
 ```
 
 **Rust-specific mitigation:**
+
 ```toml
 # Cargo.toml — disable unsafe di seluruh crate
 [package]
@@ -362,12 +369,12 @@ cargo crev verify all
 
 ### CVE-2024-24576 — napi-rs (CVSS 9.6)
 
-| Item | Detail |
-|------|--------|
+| Item         | Detail                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------- |
 | **Penyebab** | `napi-rs` buffer overflow di string conversion — unsafe `from_raw_parts` tanpa bounds check |
-| **Impact** | Remote code execution via malformed Node.js buffer → corrupt Rust heap |
-| **Fix** | Bounds validation sebelum unsafe call |
-| **Lesson** | Semua `unsafe` yang interface dengan external input harus validated |
+| **Impact**   | Remote code execution via malformed Node.js buffer → corrupt Rust heap                      |
+| **Fix**      | Bounds validation sebelum unsafe call                                                       |
+| **Lesson**   | Semua `unsafe` yang interface dengan external input harus validated                         |
 
 ```rust
 // Vulnerable pattern (simplified)
@@ -381,58 +388,58 @@ pub unsafe fn process(data: *const u8, len: u32) -> napi::Result<napi::JsBuffer>
 
 ### CVE-2023-44487 — HTTP/2 Rapid Reset (CVSS 7.5)
 
-| Item | Detail |
-|------|--------|
+| Item         | Detail                                                               |
+| ------------ | -------------------------------------------------------------------- |
 | **Penyebab** | h2 crate — stream management race condition di unsafe `ManuallyDrop` |
-| **Impact** | Connection memory leak → DoS |
-| **Lesson** | Unsafe concurrency — Send/Sync harus dibuktikan benar |
+| **Impact**   | Connection memory leak → DoS                                         |
+| **Lesson**   | Unsafe concurrency — Send/Sync harus dibuktikan benar                |
 
 ### rustls CVE-2024-24575 — TLS Padding Oracle
 
-| Item | Detail |
-|------|--------|
+| Item         | Detail                                                                              |
+| ------------ | ----------------------------------------------------------------------------------- |
 | **Penyebab** | Timing side-channel di constant-time comparison — unsafe `asm!` untuk constant-time |
-| **Impact** | TLS plaintext recovery via timing |
-| **Fix** | Correct constant-time primitives |
-| **Lesson** | Unsafe untuk crypto — butuh audit timing characteristic |
+| **Impact**   | TLS plaintext recovery via timing                                                   |
+| **Fix**      | Correct constant-time primitives                                                    |
+| **Lesson**   | Unsafe untuk crypto — butuh audit timing characteristic                             |
 
 ---
 
 ## 10. MITRE ATT&CK & CVSS Mapping
 
-| Rust Issue | CWE | CVSS | Exploitability |
-|-----------|-----|------|----------------|
-| Buffer overflow via `from_raw_parts` | CWE-122 (Heap Overflow) | 8.8-9.8 | High — remote |
-| Use-after-free via provenance | CWE-416 | 7.5-8.8 | Medium — complex |
-| Data race via Send impl | CWE-362 | 6.5-7.5 | Low — timing dependent |
-| Integer overflow via Offset | CWE-190 | 6.5-8.0 | Medium — exploit dependent |
-| Invalid transmute | CWE-704 (Incorrect Type Cast) | 5.5-7.5 | Low — usually panic |
+| Rust Issue                           | CWE                           | CVSS    | Exploitability             |
+| ------------------------------------ | ----------------------------- | ------- | -------------------------- |
+| Buffer overflow via `from_raw_parts` | CWE-122 (Heap Overflow)       | 8.8-9.8 | High — remote              |
+| Use-after-free via provenance        | CWE-416                       | 7.5-8.8 | Medium — complex           |
+| Data race via Send impl              | CWE-362                       | 6.5-7.5 | Low — timing dependent     |
+| Integer overflow via Offset          | CWE-190                       | 6.5-8.0 | Medium — exploit dependent |
+| Invalid transmute                    | CWE-704 (Incorrect Type Cast) | 5.5-7.5 | Low — usually panic        |
 
 ---
 
 ## Referensi
 
-1. *"The Rustonomicon: The Dark Arts of Unsafe Rust."* (2024). https://doc.rust-lang.org/nomicon/
-2. *"Rust Unsafe Code Guidelines — The Rust Team."* (2024). https://rust-lang.github.io/unsafe-code-guidelines/
-3. Google Project Zero. *"Fuzzing Rust with cargo-fuzz."* (2023).
-4. Ralf Jung et al. *"Stacked Borrows: An Aliasing Model for Rust."* PLDI (2020).
-5. `cargo-fuzz` Documentation. *"Fuzzing Rust crates."* (2024).
-6. RustSec Advisory Database. *"CVE Database for Rust Crates."* (2024). https://rustsec.org/
-7. `napi-rs` CVE-2024-24576 Analysis. *"Buffer Overflow via Unsafe Slice."* (2024).
-8. "A Brief History of Unsafe Rust." *LWN.net.* (2023).
-9. Ferris, K. *"Rust and the Case of the Unsound Crate."* (2024).
-10. Bishop Fox. *"Auditing Rust Unsafe Code: A Pentester's Guide."* (2024).
-11. MITRE. *"CWE-122, CWE-416, CWE-190."* (2024).
+1. _"The Rustonomicon: The Dark Arts of Unsafe Rust."_ (2024). https://doc.rust-lang.org/nomicon/
+2. _"Rust Unsafe Code Guidelines — The Rust Team."_ (2024). https://rust-lang.github.io/unsafe-code-guidelines/
+3. Google Project Zero. _"Fuzzing Rust with cargo-fuzz."_ (2023).
+4. Ralf Jung et al. _"Stacked Borrows: An Aliasing Model for Rust."_ PLDI (2020).
+5. `cargo-fuzz` Documentation. _"Fuzzing Rust crates."_ (2024).
+6. RustSec Advisory Database. _"CVE Database for Rust Crates."_ (2024). https://rustsec.org/
+7. `napi-rs` CVE-2024-24576 Analysis. _"Buffer Overflow via Unsafe Slice."_ (2024).
+8. "A Brief History of Unsafe Rust." _LWN.net._ (2023).
+9. Ferris, K. _"Rust and the Case of the Unsound Crate."_ (2024).
+10. Bishop Fox. _"Auditing Rust Unsafe Code: A Pentester's Guide."_ (2024).
+11. MITRE. _"CWE-122, CWE-416, CWE-190."_ (2024).
 
 ---
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|---------|---------|
-| [[rust-systems-programming-tooling-keamanan]] | Rust toolchain untuk security — extension natural dengan unsafe audit |
-| [[rust-web-framework-comparison-actix-axum-pingora]] | Web framework Rust — banyak unsafe di actix-net, perlu audit |
-| [[software-supply-chain-security]] | Supply chain — cargo-audit bagian dari SCA ecosystem |
-| [[fuzzing-vulnerability-research]] | Fuzzing methodology — Rust-specific extension |
-| [[compiler-design-deepdive]] | Compiler theory — MIR/LLVM understanding untuk safety analysis |
-| [[jarswaf-internal-architecture-deepdive]] | WAF in Rust — production unsafe audit case study |
+| Catatan                                              | Koneksi                                                               |
+| ---------------------------------------------------- | --------------------------------------------------------------------- |
+| [[rust-systems-programming-tooling-keamanan]]        | Rust toolchain untuk security — extension natural dengan unsafe audit |
+| [[rust-web-framework-comparison-actix-axum-pingora]] | Web framework Rust — banyak unsafe di actix-net, perlu audit          |
+| [[software-supply-chain-security]]                   | Supply chain — cargo-audit bagian dari SCA ecosystem                  |
+| [[fuzzing-vulnerability-research]]                   | Fuzzing methodology — Rust-specific extension                         |
+| [[compiler-design-deepdive]]                         | Compiler theory — MIR/LLVM understanding untuk safety analysis        |
+| [[jarswaf-internal-architecture-deepdive]]           | WAF in Rust — production unsafe audit case study                      |

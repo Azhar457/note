@@ -1,9 +1,12 @@
 # Supply Chain Security
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang Supply Chain Security.
 
-> Total: 1 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 1 file | 0 subfolders
 
 ## 📄 Notes
-
 - [[software-supply-chain-security-deepdive]]
+- [[software-supply-chain-security]]
+

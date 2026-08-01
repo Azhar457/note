@@ -138,23 +138,23 @@ Semakin tinggi risk → semakin perlu hard regulation
 
 ### Requirements untuk High-Risk AI
 
-| Area | Requirements | Implementasi |
-|------|-------------|--------------|
-| **Risk Management** | Continuous risk identification, evaluation, mitigation | Risk register, MLOps monitoring |
-| **Data Governance** | Training data must be relevant, representative, error-free | Data quality pipeline, bias auditing |
-| **Technical Documentation** | Model architecture, training methodology, evaluation results | Model cards, system cards |
-| **Record Keeping** | Automatic logs of system operation (training + inference) | Logging infrastructure, audit trails |
-| **Transparency** | Users must know they interact with AI | UI disclosure, API flags |
-| **Human Oversight** | Humans can override/interrupt system | Human-in-the-loop, stop buttons |
-| **Accuracy & Robustness** | Appropriate accuracy levels, resilience to errors | Testing, monitoring, fallback |
+| Area                        | Requirements                                                 | Implementasi                         |
+| --------------------------- | ------------------------------------------------------------ | ------------------------------------ |
+| **Risk Management**         | Continuous risk identification, evaluation, mitigation       | Risk register, MLOps monitoring      |
+| **Data Governance**         | Training data must be relevant, representative, error-free   | Data quality pipeline, bias auditing |
+| **Technical Documentation** | Model architecture, training methodology, evaluation results | Model cards, system cards            |
+| **Record Keeping**          | Automatic logs of system operation (training + inference)    | Logging infrastructure, audit trails |
+| **Transparency**            | Users must know they interact with AI                        | UI disclosure, API flags             |
+| **Human Oversight**         | Humans can override/interrupt system                         | Human-in-the-loop, stop buttons      |
+| **Accuracy & Robustness**   | Appropriate accuracy levels, resilience to errors            | Testing, monitoring, fallback        |
 
 ### GPAI (General Purpose AI) Requirements
 
 **Untuk model seperti GPT-4, Claude, Llama:**
 
-| Tier | Threshold | Requirements |
-|------|-----------|-------------|
-| **Standard GPAI** | All general-purpose models | Technical documentation, instructions for use, copyright policy |
+| Tier                   | Threshold                    | Requirements                                                            |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| **Standard GPAI**      | All general-purpose models   | Technical documentation, instructions for use, copyright policy         |
 | **Systemic Risk GPAI** | >10²⁵ FLOPs training compute | + Model evaluation, incident reporting, cybersecurity, energy reporting |
 
 ---
@@ -182,13 +182,13 @@ Semakin tinggi risk → semakin perlu hard regulation
 
 ### GOVERN — Budaya dan Kebijakan
 
-| Category | Key Actions |
-|----------|-------------|
-| **Policies** | Document AI ethics policy, assign responsible roles |
-| **Culture** | Training for all AI practitioners, whistleblower mechanism |
-| **Process** | AI review board, escalation pathways |
-| **Stakeholder** | Engagement with affected communities |
-| **Risk Tolerance** | Define acceptable risk levels per application |
+| Category           | Key Actions                                                |
+| ------------------ | ---------------------------------------------------------- |
+| **Policies**       | Document AI ethics policy, assign responsible roles        |
+| **Culture**        | Training for all AI practitioners, whistleblower mechanism |
+| **Process**        | AI review board, escalation pathways                       |
+| **Stakeholder**    | Engagement with affected communities                       |
+| **Risk Tolerance** | Define acceptable risk levels per application              |
 
 ### MAP — Pemetaan Konteks dan Risiko
 
@@ -211,7 +211,7 @@ ai_risk_map = {
         {
             "type": "fairness",
             "description": "Educational institution bias (only top universities)",
-            "severity": "medium", 
+            "severity": "medium",
             "likelihood": 0.5,
         },
     ],
@@ -226,24 +226,24 @@ ai_risk_map = {
 
 ### MEASURE — Pengukuran Risiko
 
-| Karakteristik | Metrik | Tools |
-|---------------|--------|-------|
-| **Valid & Reliable** | Accuracy, precision, recall, calibration | sklearn metrics, evaluation harness |
-| **Safe** | Error rate by subgroup, adversarial robustness | Robustness evaluation |
-| **Fair** | Demographic parity, equal opportunity, equalized odds | AIF360, Fairlearn |
-| **Explainable** | SHAP score, feature importance, concept alignment | SHAP, LIME, Captum |
-| **Transparent** | Documentation completeness, model cards | Model card template |
-| **Accountable** | Audit trail completeness | Logging infra, version control |
+| Karakteristik        | Metrik                                                | Tools                               |
+| -------------------- | ----------------------------------------------------- | ----------------------------------- |
+| **Valid & Reliable** | Accuracy, precision, recall, calibration              | sklearn metrics, evaluation harness |
+| **Safe**             | Error rate by subgroup, adversarial robustness        | Robustness evaluation               |
+| **Fair**             | Demographic parity, equal opportunity, equalized odds | AIF360, Fairlearn                   |
+| **Explainable**      | SHAP score, feature importance, concept alignment     | SHAP, LIME, Captum                  |
+| **Transparent**      | Documentation completeness, model cards               | Model card template                 |
+| **Accountable**      | Audit trail completeness                              | Logging infra, version control      |
 
 ### MANAGE — Penanganan Risiko
 
-| Strategy | Description | When |
-|----------|-------------|------|
-| **Accept** | Residual risk within tolerance | Low-risk apps |
-| **Mitigate** | Implement controls | Most cases |
-| **Transfer** | Insurance, third-party audit | Shared liability |
-| **Avoid** | Stop development/deployment | Unacceptable risk |
-| **Monitor** | Continuous observation | All cases |
+| Strategy     | Description                    | When              |
+| ------------ | ------------------------------ | ----------------- |
+| **Accept**   | Residual risk within tolerance | Low-risk apps     |
+| **Mitigate** | Implement controls             | Most cases        |
+| **Transfer** | Insurance, third-party audit   | Shared liability  |
+| **Avoid**    | Stop development/deployment    | Unacceptable risk |
+| **Monitor**  | Continuous observation         | All cases         |
 
 ### Trustworthy AI Characteristics (NIST)
 
@@ -251,7 +251,7 @@ ai_risk_map = {
 1. VALID & RELIABLE
    └─ Model accuracy, consistency across inputs, calibration
 
-2. SAFE  
+2. SAFE
    └─ No catastrophic failures, graceful degradation
 
 3. SECURE & RESILIENT
@@ -343,21 +343,21 @@ $$\mathcal{L}_{PPO} = \mathbb{E}[\min(\frac{\pi_\theta}{\pi_{old}} A, \text{clip
 
 $$\mathcal{L} = \mathcal{L}_{PPO} + \beta \cdot \mathcal{L}_{KL} + \eta \cdot \mathcal{L}_{PT}$$
 
-| Component | Fungsi | Bobot |
-|-----------|--------|-------|
-| **PPO** | Maksimalkan reward | 1.0 |
-| **KL penalty** | Jaga policy dekat dengan SFT | 0.01-0.1 |
+| Component            | Fungsi                        | Bobot    |
+| -------------------- | ----------------------------- | -------- |
+| **PPO**              | Maksimalkan reward            | 1.0      |
+| **KL penalty**       | Jaga policy dekat dengan SFT  | 0.01-0.1 |
 | **Pretraining loss** | Cegah catastrophic forgetting | 0.01-0.1 |
 
 **Masalah RLHF:**
 
-| Problem | Dampak | Mitigasi |
-|---------|--------|----------|
-| **Reward hacking** | Policy exploit reward model | KL penalty, ensemble RM |
-| **Preference inconsistency** | Labeler tidak setuju | Inter-annotator agreement, consensus |
-| **Expensive** | Butuh ribuan label manusia | Active learning, model-assisted labeling |
-| **Goodhart's law** | Metric jadi target → ceases to be good metric | Diverse evaluation |
-| **Distribution shift** | Policy explore out-of-distribution | Conservatism, careful PPO clipping |
+| Problem                      | Dampak                                        | Mitigasi                                 |
+| ---------------------------- | --------------------------------------------- | ---------------------------------------- |
+| **Reward hacking**           | Policy exploit reward model                   | KL penalty, ensemble RM                  |
+| **Preference inconsistency** | Labeler tidak setuju                          | Inter-annotator agreement, consensus     |
+| **Expensive**                | Butuh ribuan label manusia                    | Active learning, model-assisted labeling |
+| **Goodhart's law**           | Metric jadi target → ceases to be good metric | Diverse evaluation                       |
+| **Distribution shift**       | Policy explore out-of-distribution            | Conservatism, careful PPO clipping       |
 
 ---
 
@@ -378,6 +378,7 @@ Substitusi ke Bradley-Terry loss → **loss function langsung di policy**.
 $$\mathcal{L}_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x, y_w, y_l) \sim D}[ \log \sigma( \beta(\log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)} ) ) ]$$
 
 **Interpretasi:**
+
 - $\beta$ = temperature — seberapa kuat preferensi
 - $\log(\pi_\theta / \pi_{ref})$ = implicit reward
 - DPO = binary classification loss di (implicit reward difference)
@@ -398,34 +399,34 @@ def dpo_loss(policy_logits, ref_logits, chosen_ids, rejected_ids, beta=0.1):
     # Log probabilities
     policy_logps = gather_log_probs(policy_logits, chosen_ids)
     ref_logps = gather_log_probs(ref_logits, chosen_ids)
-    
+
     policy_logps_rej = gather_log_probs(policy_logits, rejected_ids)
     ref_logps_rej = gather_log_probs(ref_logits, rejected_ids)
-    
+
     # Log ratio = implicit reward
     log_ratio = (policy_logps - ref_logps) - (policy_logps_rej - ref_logps_rej)
-    
+
     # DPO loss
     loss = -F.logsigmoid(beta * log_ratio).mean()
-    
+
     # Accuracy — seberapa sering implicit reward benar
     accuracy = (log_ratio > 0).float().mean()
-    
+
     return loss, accuracy
 ```
 
 ### Keunggulan DPO vs RLHF
 
-| Dimensi | RLHF | DPO |
-|---------|------|-----|
-| **Components** | 4 (SFT + RM + PPO + ref) | 3 (SFT + DPO + ref) |
-| **Training stability** | Sensitif — PPO hyperparameters | Lebih stabil |
-| **Compute** | ~3x SFT (PPO sampling mahal) | ~1.5x SFT |
-| **Reward model** | Perlu train dan maintain | Tidak perlu |
-| **Reward hacking** | Risiko tinggi | Tidak ada reward model |
-| **Scalability** | Butuh distributed RL infra | Sederhana — seperti fine-tuning biasa |
-| **Performance** | SOTA (Claude, GPT-4) | Setara atau sedikit di bawah |
-| **Offline vs Online** | Online (policy sampling) | Offline (fixed dataset) |
+| Dimensi                | RLHF                           | DPO                                   |
+| ---------------------- | ------------------------------ | ------------------------------------- |
+| **Components**         | 4 (SFT + RM + PPO + ref)       | 3 (SFT + DPO + ref)                   |
+| **Training stability** | Sensitif — PPO hyperparameters | Lebih stabil                          |
+| **Compute**            | ~3x SFT (PPO sampling mahal)   | ~1.5x SFT                             |
+| **Reward model**       | Perlu train dan maintain       | Tidak perlu                           |
+| **Reward hacking**     | Risiko tinggi                  | Tidak ada reward model                |
+| **Scalability**        | Butuh distributed RL infra     | Sederhana — seperti fine-tuning biasa |
+| **Performance**        | SOTA (Claude, GPT-4)           | Setara atau sedikit di bawah          |
+| **Offline vs Online**  | Online (policy sampling)       | Offline (fixed dataset)               |
 
 ---
 
@@ -539,7 +540,7 @@ Step 1: Critique
   Model generate respons → Model critique "Apakah respons ini
   melanggar prinsip harmlessness?"
 
-Step 2: Revision  
+Step 2: Revision
   Model revisi respons berdasarkan kritik sendiri
 
 Step 3: Preference pairs
@@ -577,34 +578,34 @@ def measure_dataset_bias(dataset, attribute="gender"):
     for item in dataset:
         item_attr = extract_attribute(item.text, attribute)
         rep[item_attr] = rep.get(item_attr, 0) + 1
-    
+
     total = sum(rep.values())
     representation = {k: v/total for k, v in rep.items()}
-    
+
     # Entropy-based diversity
     entropy = -sum(p * np.log(p) for p in representation.values())
     max_entropy = np.log(len(representation))
     diversity = entropy / max_entropy  # 1 = balanced, 0 = one group
-    
+
     return {"representation": representation, "diversity": diversity}
 ```
 
 **Model Bias Metrics (Group Fairness):**
 
-| Metric | Formula | Interpretasi |
-|--------|---------|--------------|
-| **Demographic Parity** | $P(\hat{Y}=1|A=a) = P(\hat{Y}=1|A=b)$ | Semua grup punya positive rate sama |
-| **Equal Opportunity** | $P(\hat{Y}=1|Y=1, A=a) = P(\hat{Y}=1|Y=1, A=b)$ | TPR sama antar grup |
-| **Equalized Odds** | TPR = FPR antar grup | TPR dan FPR sama |
-| **Predictive Parity** | $P(Y=1|\hat{Y}=1, A=a) = P(Y=1|\hat{Y}=1, A=b)$ | Precision sama antar grup |
-| **Disparate Impact** | $\frac{P(\hat{Y}=1|A=a)}{P(\hat{Y}=1|A=b)}$ | Harus > 0.8 (80% rule) |
+| Metric                 | Formula              | Interpretasi            |
+| ---------------------- | -------------------- | ----------------------- |
+| **Demographic Parity** | $P(\hat{Y}=1         | A=a) = P(\hat{Y}=1      | A=b)$            | Semua grup punya positive rate sama |
+| **Equal Opportunity**  | $P(\hat{Y}=1         | Y=1, A=a) = P(\hat{Y}=1 | Y=1, A=b)$       | TPR sama antar grup                 |
+| **Equalized Odds**     | TPR = FPR antar grup | TPR dan FPR sama        |
+| **Predictive Parity**  | $P(Y=1               | \hat{Y}=1, A=a) = P(Y=1 | \hat{Y}=1, A=b)$ | Precision sama antar grup           |
+| **Disparate Impact**   | $\frac{P(\hat{Y}=1   | A=a)}{P(\hat{Y}=1       | A=b)}$           | Harus > 0.8 (80% rule)              |
 
 ```python
 import fairlearn.metrics as flm
 
 def fairness_report(model, X, y, sensitive_features):
     predictions = model.predict(X)
-    
+
     return {
         "demographic_parity": flm.demographic_parity_difference(
             y_true=y, y_pred=predictions,
@@ -643,29 +644,29 @@ PRE-TRAINING                    IN-TRAINING                   POST-TRAINING
 
 ## Regulasi Global — Perbandingan
 
-| Aspek | 🇪🇺 EU AI Act | 🇺🇸 US Executive Order | 🇨🇳 China Generative AI | 🇬🇧 UK Approach |
-|-------|-------------|----------------------|----------------------|----------------|
-| **Model** | Risk-based | Sectoral + advisory | Strict content control | Pro-innovation |
-| **Binding?** | Yes | Partial (federal agencies) | Yes | No (white paper) |
-| **Penalty** | €35M / 7% revenue | Contractual | Revoke license | N/A |
-| **GPAI coverage** | Yes | Yes (reporting) | Yes | Voluntary |
-| **High-risk scope** | Broad (8 categories) | Sector-specific (health, finance) | All generative AI | Minimal |
-| **Human oversight** | Mandatory | Recommended | Content moderation | Optional |
-| **Transparency** | Model cards | AI Bill of Rights | Labeling required | Voluntary |
-| **Enforcement** | EU AI Office | FTC, sectoral agencies | CAC (Cyberspace Admin) | No single body |
+| Aspek               | 🇪🇺 EU AI Act         | 🇺🇸 US Executive Order             | 🇨🇳 China Generative AI | 🇬🇧 UK Approach   |
+| ------------------- | -------------------- | --------------------------------- | ---------------------- | ---------------- |
+| **Model**           | Risk-based           | Sectoral + advisory               | Strict content control | Pro-innovation   |
+| **Binding?**        | Yes                  | Partial (federal agencies)        | Yes                    | No (white paper) |
+| **Penalty**         | €35M / 7% revenue    | Contractual                       | Revoke license         | N/A              |
+| **GPAI coverage**   | Yes                  | Yes (reporting)                   | Yes                    | Voluntary        |
+| **High-risk scope** | Broad (8 categories) | Sector-specific (health, finance) | All generative AI      | Minimal          |
+| **Human oversight** | Mandatory            | Recommended                       | Content moderation     | Optional         |
+| **Transparency**    | Model cards          | AI Bill of Rights                 | Labeling required      | Voluntary        |
+| **Enforcement**     | EU AI Office         | FTC, sectoral agencies            | CAC (Cyberspace Admin) | No single body   |
 
 ### Indonesia — Stranas Kecerdasan Artifisial
 
 **Strategi Nasional Kecerdasan Artifisial Indonesia (2020-2045):**
 
-| Fokus | Target | Timeline |
-|-------|--------|----------|
-| **Ethics & Policy** | AI ethics guideline, data governance | 2020-2024 |
-| **Infrastructure** | AI research center, compute infrastructure | 2020-2030 |
-| **Talent** | AI training, university curriculum | Continuous |
-| **Sector application** | Health, gov, education, agriculture | 2020-2035 |
+| Fokus                  | Target                                     | Timeline   |
+| ---------------------- | ------------------------------------------ | ---------- |
+| **Ethics & Policy**    | AI ethics guideline, data governance       | 2020-2024  |
+| **Infrastructure**     | AI research center, compute infrastructure | 2020-2030  |
+| **Talent**             | AI training, university curriculum         | Continuous |
+| **Sector application** | Health, gov, education, agriculture        | 2020-2035  |
 
-**Kondisi saat ini:** Masih dalam tahap *soft regulation* — pedoman etika, belum UU mengikat. RUU Perlindungan Data Pribadi (UU PDP) sudah berlaku sebagai landasan.
+**Kondisi saat ini:** Masih dalam tahap _soft regulation_ — pedoman etika, belum UU mengikat. RUU Perlindungan Data Pribadi (UU PDP) sudah berlaku sebagai landasan.
 
 ---
 
@@ -711,7 +712,7 @@ Untuk setiap high-risk AI:
    ├─ Accuracy by subgroup
    └─ Failure modes
 
-3. EVALUATE  
+3. EVALUATE
    ├─ Against NIST AI RMF
    ├─ Against EU AI Act requirements
    └─ Residual risk level
@@ -737,25 +738,25 @@ compliance_checklist:
     - [ ] Data provenance documented
     - [ ] Consent obtained for personal data
     - [ ] Data retention policy defined
-    
+
   transparency:
     - [ ] Model card published
     - [ ] System card published
     - [ ] User-facing disclosure implemented
     - [ ] Explainability report generated
-    
+
   human_oversight:
     - [ ] Stop button / interrupt mechanism
     - [ ] Human review triggers defined
     - [ ] Override procedure documented
     - [ ] Human reviewer training completed
-    
+
   monitoring:
     - [ ] Real-time performance monitoring
     - [ ] Drift detection implemented
     - [ ] Incident response plan documented
     - [ ] Quarterly audit scheduled
-    
+
   documentation:
     - [ ] Technical documentation complete
     - [ ] Risk assessment report filed
@@ -770,28 +771,28 @@ compliance_checklist:
 class AIComplianceMonitor:
     def __init__(self, model_registry):
         self.registry = model_registry
-    
+
     def check_drift(self, model_id, current_data):
         model = self.registry[model_id]
-        
+
         # Data drift — input distribution change
         data_drift = detect_data_drift(
             model.training_data,
             current_data,
             threshold=0.05  # p-value
         )
-        
+
         # Concept drift — prediction distribution change
         concept_drift = detect_concept_drift(
             model.training_labels,
             current_labels,
             threshold=0.05
         )
-        
+
         # Fairness drift — bias metrics change
         fairness_current = compute_fairness(model, current_data)
         fairness_delta = fairness_current - model.baseline_fairness
-        
+
         return {
             "data_drift": data_drift,
             "concept_drift": concept_drift,

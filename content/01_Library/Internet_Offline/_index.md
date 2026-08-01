@@ -6,7 +6,7 @@ aliases:
   - "Internet_Offline"
 created: "2026-07-19"
 updated: "2026-07-19"
-status: stub
+status: pending
 ---
 
 # 🌐 Internet Offline

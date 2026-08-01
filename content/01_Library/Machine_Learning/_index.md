@@ -1,16 +1,23 @@
----
-title: "Machine Learning"
-tags:
-  - toc
-  - machine-learning
-created: 2026-07-09
----
-
 # Machine Learning
 
-Pendalaman algoritma ML klasik — dari fondasi ke ensemble.
+> Fundamental machine learning klasik: algoritma supervised/unsupervised, neural network, backpropagation, cosine similarity, binary quantization, dan metric transition theory.
 
-## Dokumen
+[Kembali ke 01 Library](../_index.md)
 
-- [[machine-learning-classical-hierarchy]] — Teori + implementasi dari nol (KNN, Regresi, Naive Bayes, SVM, K-Means, PCA, RF, XGBoost)
-- [[machine-learning-classical-exercises]] — Soal, latihan, studi kasus (13 soal, ⭐ sampai ⭐⭐⭐⭐⭐)
+> **Total:** 15 files | 0 subfolders
+
+## 📄 Notes
+- [[attention-mechanism-deepdive]]
+- [[attention-mechanism-roadmap]]
+- [[backpropagation-deepdive]]
+- [[backpropagation-roadmap]]
+- [[cosine-similarity-deepdive]]
+- [[cosine-vs-euclidean-vs-dot]]
+- [[deepfake-detection]]
+- [[hierarchy-binary-quantization-hamming-popcount]]
+- [[hierarchy-metric-transition-theory]]
+- [[machine-learning-classical-exercises]]
+- [[hierarchy-classical-ml-algorithms]]
+- [[rnn-lstm-vs-transformer]]
+- [[semantic-search-pipeline]]
+- [[synthetic-data-privacy]]

@@ -2,17 +2,17 @@
 title: 🗄️ Vector Database Internals & Optimization — HNSW, IVF, PQ, dan Performa Search
   di vault-rag
 tags:
-- vector-database
-- hnsw
-- indexing
-- optimization
-- rag
-- library
-created: '2026-07-16'
-updated: '2026-07-16'
+  - vector-database
+  - hnsw
+  - indexing
+  - optimization
+  - rag
+  - library
+created: "2026-07-16"
+updated: "2026-07-16"
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
 ---
 
 # 🗄️ Vector Database Internals & Optimization — HNSW, IVF, PQ, dan Performa Search di vault-rag
@@ -41,12 +41,12 @@ cssclasses:
 
 ### 1.1 Kompleksitas
 
-| Method | Search Complexity | Memory | Akurasi | Cocok untuk |
-|--------|------------------|--------|---------|-------------|
-| **Brute Force (flat)** | O(n×d) | Rendah | 100% | Dataset < 10K vektor |
-| **HNSW** | O(log n) | Tinggi (1.5-2x) | ~99% recall@10 | Dataset > 10K, butuh latency rendah |
-| **IVF** | O(√n) | Rendah | ~95% recall | Dataset besar, akurasi bukan prioritas |
-| **IVF+PQ** | O(√n) | Sangat rendah (0.2x) | ~90% recall | Dataset sangat besar (>1M), memory terbatas |
+| Method                 | Search Complexity | Memory               | Akurasi        | Cocok untuk                                 |
+| ---------------------- | ----------------- | -------------------- | -------------- | ------------------------------------------- |
+| **Brute Force (flat)** | O(n×d)            | Rendah               | 100%           | Dataset < 10K vektor                        |
+| **HNSW**               | O(log n)          | Tinggi (1.5-2x)      | ~99% recall@10 | Dataset > 10K, butuh latency rendah         |
+| **IVF**                | O(√n)             | Rendah               | ~95% recall    | Dataset besar, akurasi bukan prioritas      |
+| **IVF+PQ**             | O(√n)             | Sangat rendah (0.2x) | ~90% recall    | Dataset sangat besar (>1M), memory terbatas |
 
 **Posisi vault-rag:** Saat ini <10K chunks → **brute force sudah cukup.** Kalo vault tumbuh >50K chunks, baru perlu pindah ke HNSW.
 
@@ -88,11 +88,11 @@ Layer 0 (all)        ○─○─○─○─○─○─○─○─○─○�
 
 ### 2.2 Parameter
 
-| Parameter | Default | Rendah | Tinggi |
-|-----------|---------|--------|--------|
-| **M** (max connections) | 16 | Index kecil, recall turun | Index besar, recall naik, memory naik |
-| **ef_construction** | 200 | Index building cepat | Index building lambat, recall naik |
-| **ef_search** | 50 (per query) | Search cepat, recall turun | Search lambat, recall naik |
+| Parameter               | Default        | Rendah                     | Tinggi                                |
+| ----------------------- | -------------- | -------------------------- | ------------------------------------- |
+| **M** (max connections) | 16             | Index kecil, recall turun  | Index besar, recall naik, memory naik |
+| **ef_construction**     | 200            | Index building cepat       | Index building lambat, recall naik    |
+| **ef_search**           | 50 (per query) | Search cepat, recall turun | Search lambat, recall naik            |
 
 ### 2.3 Implementasi
 
@@ -145,10 +145,10 @@ Ruang Vektor:
 
 ### 3.2 Parameter
 
-| Parameter | Default | Efek |
-|-----------|---------|------|
-| **nlist** (jumlah cluster) | 100 | Makin banyak → search cepat, recall turun |
-| **nprobe** (cluster dicari) | 1 | Makin banyak → recall naik, search lambat |
+| Parameter                   | Default | Efek                                      |
+| --------------------------- | ------- | ----------------------------------------- |
+| **nlist** (jumlah cluster)  | 100     | Makin banyak → search cepat, recall turun |
+| **nprobe** (cluster dicari) | 1       | Makin banyak → recall naik, search lambat |
 
 ---
 
@@ -181,11 +181,11 @@ Vektor 256d: [0.23, -0.45, 0.12, ..., 0.89, -0.33, 0.67]
             PQ code: [42, 127, 8, 95]  (hanya 4 byte!)
 ```
 
-| PQ Config | Bitrate | Compression | Recall @10 |
-|-----------|---------|-------------|------------|
-| M=8, nbits=8 | 64 bit/dim | 4x | 95% |
-| M=16, nbits=8 | 32 bit | 8x | 92% |
-| M=32, nbits=8 | 16 bit | 16x | 87% |
+| PQ Config     | Bitrate    | Compression | Recall @10 |
+| ------------- | ---------- | ----------- | ---------- |
+| M=8, nbits=8  | 64 bit/dim | 4x          | 95%        |
+| M=16, nbits=8 | 32 bit     | 8x          | 92%        |
+| M=32, nbits=8 | 16 bit     | 16x         | 87%        |
 
 ### 4.3 Binary Quantization
 
@@ -210,6 +210,7 @@ CREATE VIRTUAL TABLE vec_chunks USING vec0(
 ```
 
 Search dengan `MATCH`:
+
 ```sql
 SELECT rowid, distance FROM vec_chunks
 WHERE embedding MATCH ?
@@ -221,12 +222,13 @@ ORDER BY distance LIMIT 10;
 sqlite-vec **tidak membangun HNSW/IVF**. Search dilakukan dengan **brute force** — membandingkan query dengan semua vektor. Ini OK untuk dataset < 100K vektor.
 
 **Kinerja:**
+
 | Vektor | Latency (256d, brute force) |
-|--------|---------------------------|
-| 1K | ~1ms |
-| 10K | ~5ms |
-| 100K | ~50ms |
-| 1M | ~500ms |
+| ------ | --------------------------- |
+| 1K     | ~1ms                        |
+| 10K    | ~5ms                        |
+| 100K   | ~50ms                       |
+| 1M     | ~500ms                      |
 
 ### 5.3 Scaling
 
@@ -240,12 +242,12 @@ Kalo vault-rag > 100K chunks (vault tumbuh), strategi:
 
 ## 6. Kapan Pake Apa
 
-| Dataset Size | Recommended | Alasan |
-|-------------|------------|--------|
+| Dataset Size  | Recommended              | Alasan                                               |
+| ------------- | ------------------------ | ---------------------------------------------------- |
 | < 10K vectors | sqlite-vec (brute force) | Sederhana, zero overhead. **Ini vault-rag sekarang** |
-| 10K - 100K | HNSW via FAISS | Latency <10ms, akurasi 99% |
-| 100K - 1M | IVF+PQ via FAISS | Memory 4-8x lebih kecil dari HNSW |
-| > 1M | HNSW + PQ | Best trade-off latency/akurasi/memory |
+| 10K - 100K    | HNSW via FAISS           | Latency <10ms, akurasi 99%                           |
+| 100K - 1M     | IVF+PQ via FAISS         | Memory 4-8x lebih kecil dari HNSW                    |
+| > 1M          | HNSW + PQ                | Best trade-off latency/akurasi/memory                |
 
 ---
 
@@ -261,10 +263,10 @@ Kalo vault-rag > 100K chunks (vault tumbuh), strategi:
 
 ## References
 
-1. FAISS. *Documentation*. https://faiss.ai/
-2. HNSW Paper. *Y. Malkov, D. Yashunin (2016)*. https://arxiv.org/abs/1603.09320
+1. FAISS. _Documentation_. https://faiss.ai/
+2. HNSW Paper. _Y. Malkov, D. Yashunin (2016)_. https://arxiv.org/abs/1603.09320
 3. sqlite-vec. https://github.com/asg017/sqlite-vec
-4. Product Quantization. *H. Jegou et al. (2011)*. https://arxiv.org/abs/1007.1022
+4. Product Quantization. _H. Jegou et al. (2011)_. https://arxiv.org/abs/1007.1022
 5. LanceDB. https://lancedb.github.io/lancedb/
 6. Cohere Binary Embeddings. https://txt.cohere.com/introducing-binary-embeddings/
 

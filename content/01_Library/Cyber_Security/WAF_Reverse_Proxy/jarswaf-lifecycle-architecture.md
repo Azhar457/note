@@ -13,6 +13,7 @@ created: 2026-07-09
 updated: 2026-07-09
 status: pending
 ---
+
 zhar# jarsWAF — Request Lifecycle & Architecture
 
 > **WARNING:** Document ini adalah dump analisis langsung dari source code `/mnt/data_d/Desktop/KERJA/jarswaf/src/`. Tidak cocok untuk investor — ganti judul jadi "Architecture Overview" sebelum presentasi.
@@ -21,17 +22,17 @@ zhar# jarsWAF — Request Lifecycle & Architecture
 
 ## Stack
 
-| Layer | Teknologi | Fungsi |
-|-------|-----------|--------|
-| Reverse Proxy | **Pingora** (Cloudflare) | Zero-copy forwarding, async HTTP, connection pool |
-| Rule Engine | **Rust + Regex + AST** | Semantic tokenizer (SQLi/XSS) + 300+ signature + custom rules |
-| DDoS Mitigation | **eBPF XDP** (aya) | Drop di kernel level sebelum TCP stack |
-| Rate Limiter | **Token Bucket** | In-memory (DashMap) + distributed (Redis) |
-| Logging | **Async MPSC + SQLite/ClickHouse** | Non-blocking pipeline |
-| Auto-Remediation | **Escalating block tiers** | 1m → 5m → 30m → 24h |
-| TLS | **Rustls** (ring) | Zero-conf via ACME (Let's Encrypt) + custom cert |
-| Dashboard | **Svelte + WebSocket** | Real-time attack map, live log, terminal |
-| Orchestration | **Agent-Controller** | Distributed: banyak Agent, satu Controller panel |
+| Layer            | Teknologi                          | Fungsi                                                        |
+| ---------------- | ---------------------------------- | ------------------------------------------------------------- |
+| Reverse Proxy    | **Pingora** (Cloudflare)           | Zero-copy forwarding, async HTTP, connection pool             |
+| Rule Engine      | **Rust + Regex + AST**             | Semantic tokenizer (SQLi/XSS) + 300+ signature + custom rules |
+| DDoS Mitigation  | **eBPF XDP** (aya)                 | Drop di kernel level sebelum TCP stack                        |
+| Rate Limiter     | **Token Bucket**                   | In-memory (DashMap) + distributed (Redis)                     |
+| Logging          | **Async MPSC + SQLite/ClickHouse** | Non-blocking pipeline                                         |
+| Auto-Remediation | **Escalating block tiers**         | 1m → 5m → 30m → 24h                                           |
+| TLS              | **Rustls** (ring)                  | Zero-conf via ACME (Let's Encrypt) + custom cert              |
+| Dashboard        | **Svelte + WebSocket**             | Real-time attack map, live log, terminal                      |
+| Orchestration    | **Agent-Controller**               | Distributed: banyak Agent, satu Controller panel              |
 
 ---
 
@@ -46,6 +47,7 @@ main.rs
 ```
 
 **Agent mode** (`run_agent`):
+
 1. Load config from `config.toml`
 2. Init SQLite/ClickHouse jika dikonfigurasi
 3. Start log worker (MPSC channel, 10k buffer)
@@ -281,14 +283,14 @@ Lokasi: `src/rules/` — 3 submodul: `uri.rs`, `headers.rs`, `body.rs`.
 
 Stored as array `static RULES: &[Rule]`. Masing-masing punya:
 
-| Field | Contoh |
-|-------|--------|
-| `id` | `SQLI-AST-001` |
-| `name` | `Semantic SQL Injection` |
-| `phase` | `Headers`, `Uri`, `Body` |
-| `action` | `Block`, `Log` |
-| `severity` | `Low`–`Critical` |
-| `check` | `fn(&RequestInfo) -> bool` |
+| Field      | Contoh                     |
+| ---------- | -------------------------- |
+| `id`       | `SQLI-AST-001`             |
+| `name`     | `Semantic SQL Injection`   |
+| `phase`    | `Headers`, `Uri`, `Body`   |
+| `action`   | `Block`, `Log`             |
+| `severity` | `Low`–`Critical`           |
+| `check`    | `fn(&RequestInfo) -> bool` |
 
 ### Custom Rules (Config + Plugins)
 
@@ -311,6 +313,7 @@ Reload otomatis: config reloader polling `config.toml` tiap 2 detik. Perubahan �
 ### AST Tokenizer
 
 Untuk SQLi, XSS, CMD injection — bukan regex mentah:
+
 1. Normalize input: recursive URL decode → HTML entity → NFKC Unicode → lowercase
 2. Parse ke token tree (keyword, operator, string literal, number)
 3. Match pattern terhadap tree (bukan string)
@@ -359,13 +362,13 @@ BACKEND_ACTIVE_REQUESTS.retain(|_, _| false);    // reset semua
 
 ### Bounded Structures
 
-| Map | Batas | Mekanisme |
-|-----|-------|-----------|
-| `ACTIVE_CONNECTIONS` | unbounded | Cleaned tiap 30 menit |
-| `IP_REPUTATION` | 10.000 | LRU cache (quick_cache auto-evict) |
-| `BLOCKED_IPS` | unbounded | Cleaned tiap 60 detik (>5 menit idle) |
-| `RATE_LIMITER` | unbounded | Cleaned tiap 60 detik (>5 menit idle) |
-| Blocklist | 100.000 | `BLOCKLIST_MAX_ENTRIES` + trim |
+| Map                  | Batas     | Mekanisme                             |
+| -------------------- | --------- | ------------------------------------- |
+| `ACTIVE_CONNECTIONS` | unbounded | Cleaned tiap 30 menit                 |
+| `IP_REPUTATION`      | 10.000    | LRU cache (quick_cache auto-evict)    |
+| `BLOCKED_IPS`        | unbounded | Cleaned tiap 60 detik (>5 menit idle) |
+| `RATE_LIMITER`       | unbounded | Cleaned tiap 60 detik (>5 menit idle) |
+| Blocklist            | 100.000   | `BLOCKLIST_MAX_ENTRIES` + trim        |
 
 ---
 

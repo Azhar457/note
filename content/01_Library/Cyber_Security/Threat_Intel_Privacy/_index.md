@@ -1,12 +1,14 @@
 # Threat Intel Privacy
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang Threat Intel Privacy.
 
-> Total: 4 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 4 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[comprehensive-threat-directory]]
-- [[cyber-aware]]
 - [[digital-privacy-anonymity]]
+- [[isp-surveillance-privacy-deepdive]]
 - [[underground-knowledge]]
+

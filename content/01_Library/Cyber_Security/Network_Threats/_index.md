@@ -1,13 +1,15 @@
 # Network Threats
 
-[Kembali ke Cyber Security](../Cyber_Security/_index.md)
+> Catatan tentang Network Threats.
 
-> Total: 5 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 5 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[arp-spoofing-incident-addendum]]
 - [[cgnat-attribution-deepdive]]
 - [[dns-tunneling-deepdive]]
 - [[ids-ips-waf-nsm-comparison]]
 - [[network-security]]
+

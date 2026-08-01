@@ -1,16 +1,16 @@
 ---
 title: 📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee
 tags:
-- library
-- wireless-security
-created: '2026-07-02'
-updated: '2026-07-06'
+  - library
+  - wireless-security
+created: "2026-07-02"
+updated: "2026-07-06"
 status: pending
 ---
 
 # 📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee
 
-> *"Wireless is a shared medium by design — every packet is someone else's problem until it's encrypted."*
+> _"Wireless is a shared medium by design — every packet is someone else's problem until it's encrypted."_
 > — Wireless Security Field Manual
 
 > [!INFO] **Cakupan Note**
@@ -49,13 +49,13 @@ status: pending
 
 Wireless communication telah menjadi tulang punggung infrastruktur modern — dari WiFi di perkantoran, Bluetooth di perangkat wearable, hingga Zigbee/Z-Wave di smart home. Sayangnya, sifat shared medium dari wireless membuka attack surface yang luas:
 
-| Dimensi | Karakteristik | Implikasi Keamanan |
-|---------|--------------|-------------------|
-| **Confidentiality** | Semua orang di range RF bisa mendengar | Sniffing, traffic decryption |
-| **Integrity** | CRC rentan spoofing | Frame injection, bit-flipping |
-| **Availability** | Shared channel rawan interferensi | Deauth, jammer, RF jamming |
-| **Authentication** | Association opsional | Rogue AP, Evil Twin, MITM |
-| **Privacy** | MAC address visible | Tracking, profiling perangkat |
+| Dimensi             | Karakteristik                          | Implikasi Keamanan            |
+| ------------------- | -------------------------------------- | ----------------------------- |
+| **Confidentiality** | Semua orang di range RF bisa mendengar | Sniffing, traffic decryption  |
+| **Integrity**       | CRC rentan spoofing                    | Frame injection, bit-flipping |
+| **Availability**    | Shared channel rawan interferensi      | Deauth, jammer, RF jamming    |
+| **Authentication**  | Association opsional                   | Rogue AP, Evil Twin, MITM     |
+| **Privacy**         | MAC address visible                    | Tracking, profiling perangkat |
 
 Wireless security berporos pada tiga pilar: **confidentiality** (enkripsi), **integrity** (MIC/ICV), dan **authentication** (PSK/802.1X). Kegagalan di salah satu pilar membuka celah untuk full compromise.
 
@@ -70,13 +70,13 @@ Wireless security berporos pada tiga pilar: **confidentiality** (enkripsi), **in
 
 ### 2.1 Physical Layer (PHY)
 
-| Generasi | Standar | Frekuensi | Kecepatan Maks | Modulasi |
-|----------|---------|-----------|----------------|----------|
-| WiFi 4 | 802.11n | 2.4 / 5 GHz | 600 Mbps | OFDM, MIMO |
-| WiFi 5 | 802.11ac | 5 GHz | 3.5 Gbps | OFDM, MU-MIMO |
-| WiFi 6 | 802.11ax | 2.4 / 5 GHz | 9.6 Gbps | OFDMA, MU-MIMO |
-| WiFi 6E | 802.11ax | +6 GHz | 9.6 Gbps | OFDMA |
-| WiFi 7 | 802.11be | 2.4 / 5 / 6 GHz | 46 Gbps | 4096-QAM, CMU-MIMO |
+| Generasi | Standar  | Frekuensi       | Kecepatan Maks | Modulasi           |
+| -------- | -------- | --------------- | -------------- | ------------------ |
+| WiFi 4   | 802.11n  | 2.4 / 5 GHz     | 600 Mbps       | OFDM, MIMO         |
+| WiFi 5   | 802.11ac | 5 GHz           | 3.5 Gbps       | OFDM, MU-MIMO      |
+| WiFi 6   | 802.11ax | 2.4 / 5 GHz     | 9.6 Gbps       | OFDMA, MU-MIMO     |
+| WiFi 6E  | 802.11ax | +6 GHz          | 9.6 Gbps       | OFDMA              |
+| WiFi 7   | 802.11be | 2.4 / 5 / 6 GHz | 46 Gbps        | 4096-QAM, CMU-MIMO |
 
 ### 2.2 MAC Layer
 
@@ -113,14 +113,14 @@ Setiap frame 802.11 memiliki header 30-36 byte yang mencakup:
 
 ### 3.1 Management Frames Penting
 
-| Frame Subtype | Fungsi | Celah Keamanan |
-|--------------|--------|----------------|
-| **Beacon** | AP advertisement, berisi SSID, capabilities, RSN IE | SSID disclosure, fingerprinting AP |
-| **Probe Request/Response** | Discovery station-AP | MAC tracking, device profiling |
-| **Authentication** | Open System / Shared Key auth | Null auth bisa diforgery |
-| **Association Request/Response** | Join BSS | Spoofed association |
-| **Deauthentication** | Putuskan koneksi | **TIDAK dienkripsi** — celah DoS klasik |
-| **Disassociation** | Lepas asosiasi | Sama seperti deauth, bisa spoof |
+| Frame Subtype                    | Fungsi                                              | Celah Keamanan                          |
+| -------------------------------- | --------------------------------------------------- | --------------------------------------- |
+| **Beacon**                       | AP advertisement, berisi SSID, capabilities, RSN IE | SSID disclosure, fingerprinting AP      |
+| **Probe Request/Response**       | Discovery station-AP                                | MAC tracking, device profiling          |
+| **Authentication**               | Open System / Shared Key auth                       | Null auth bisa diforgery                |
+| **Association Request/Response** | Join BSS                                            | Spoofed association                     |
+| **Deauthentication**             | Putuskan koneksi                                    | **TIDAK dienkripsi** — celah DoS klasik |
+| **Disassociation**               | Lepas asosiasi                                      | Sama seperti deauth, bisa spoof         |
 
 ### 3.2 Radiotap Header
 
@@ -186,6 +186,7 @@ PMKID = HMAC-SHA1(PMK, "PMK Name" | MAC_AP | MAC_STA)
 ```
 
 AP mengirim PMKID sebagai RSN IE di **EAPOL-Key msg 1**. Kita hanya butuh:
+
 - Satu frame dari AP ke client (atau message 1 saja)
 - PMKID di-hash dengan PMK yang sama — jadi bisa di-crack offline
 
@@ -248,12 +249,12 @@ Hashcat adalah tool GPU-accelerated untuk cracking password, mendukung format ha
 
 ### 7.1 Mode Hash WPA
 
-| Mode | Deskripsi | Sumber |
-|------|-----------|--------|
-| 22000 | WPA-PBKDF2-PMKID+EAPOL | hcxpcapngtool |
-| 2500 | WPA-PBKDF2-PMKID+EAPOL (legacy) | aircrack-ng |
-| 22001 | WPA-PMK-PMKID+EAPOL (tanpa PBKDF2) | PMK known |
-| 16800 | WPA-PMKID-PBKDF2 | hcxdumptool |
+| Mode  | Deskripsi                          | Sumber        |
+| ----- | ---------------------------------- | ------------- |
+| 22000 | WPA-PBKDF2-PMKID+EAPOL             | hcxpcapngtool |
+| 2500  | WPA-PBKDF2-PMKID+EAPOL (legacy)    | aircrack-ng   |
+| 22001 | WPA-PMK-PMKID+EAPOL (tanpa PBKDF2) | PMK known     |
+| 16800 | WPA-PMKID-PBKDF2                   | hcxdumptool   |
 
 ### 7.2 Strategi Cracking
 
@@ -281,12 +282,12 @@ hashcat -m 22000 hash.hc22000 -w 4 -O wordlist.txt
 
 **Hashcat speeds** untuk WPA2 di GPU modern:
 
-| GPU | Speed (kH/s) |
-|----|-------------|
-| RTX 4090 | ~380 kH/s |
-| RTX 3090 | ~250 kH/s |
-| RTX 3080 | ~200 kH/s |
-| Apple M1 | ~40 kH/s |
+| GPU      | Speed (kH/s) |
+| -------- | ------------ |
+| RTX 4090 | ~380 kH/s    |
+| RTX 3090 | ~250 kH/s    |
+| RTX 3080 | ~200 kH/s    |
+| Apple M1 | ~40 kH/s     |
 
 > PBKDF2-SHA1 di 4096 iterasi membuat WPA2 lambat di-crack — tapi tetap lebih cepat dari WPA3 yang pakai SAE dengan iterasi lebih banyak dan FFS operation.
 
@@ -298,14 +299,14 @@ WPA3 memperkenalkan **SAE** (Simultaneous Authentication of Equals) — protokol
 
 ### 8.1 Perbandingan WPA2 vs WPA3
 
-| Fitur | WPA2 | WPA3 |
-|-------|------|------|
-| Auth protocol | 4-Way Handshake (PSK) | SAE (Dragonfly) |
-| Forward secrecy | Tidak | **Ya** (DHE) |
-| Brute-force offline | Dictionary attack | Hash iterasi tinggi |
-| Protected Mgmt Frames | Opsional | **Wajib** |
-| Easy Connect | Tidak | Wi-Fi Easy Connect (DPP) |
-| Ciphers | CCMP (AES) | GCMP-256, CMAC-256 |
+| Fitur                 | WPA2                  | WPA3                     |
+| --------------------- | --------------------- | ------------------------ |
+| Auth protocol         | 4-Way Handshake (PSK) | SAE (Dragonfly)          |
+| Forward secrecy       | Tidak                 | **Ya** (DHE)             |
+| Brute-force offline   | Dictionary attack     | Hash iterasi tinggi      |
+| Protected Mgmt Frames | Opsional              | **Wajib**                |
+| Easy Connect          | Tidak                 | Wi-Fi Easy Connect (DPP) |
+| Ciphers               | CCMP (AES)            | GCMP-256, CMAC-256       |
 
 ### 8.2 SAE Handshake
 
@@ -416,6 +417,7 @@ airbase-ng -e "FreeWiFi" -c 6 wlan0mon
 ```
 
 **Alur serangan:**
+
 1. Attacker deploy AP dengan SSID yang sama
 2. Signal strength dibuat lebih kuat dari AP asli
 3. Victim otomatis pindah (atau di-deauth dari AP asli)
@@ -442,6 +444,7 @@ wifi.ap
 ```
 
 **Deteksi:**
+
 - Cari AP dengan BSSID tidak dikenal tapi SSID legitimate
 - Signal strength tiba-tiba tinggi untuk AP "baru"
 - Kismet bisa flag "SSID Cloning" atau "Karma Attack"
@@ -456,12 +459,12 @@ BLE (Bluetooth 4.0+) adalah standar komunikasi low-power untuk IoT, wearable, da
 
 ### 12.1 Pairing Methods
 
-| Method | Keamanan | Kerentanan |
-|--------|----------|------------|
-| Just Works | Rendah | No MITM protection |
-| Passkey Entry | Sedang | PIN 6 digit bisa bruteforce |
-| Numeric Comparison | Tinggi | Aman jika user verify |
-| OOB (NFC) | Tinggi | Tergantung implementasi |
+| Method             | Keamanan | Kerentanan                  |
+| ------------------ | -------- | --------------------------- |
+| Just Works         | Rendah   | No MITM protection          |
+| Passkey Entry      | Sedang   | PIN 6 digit bisa bruteforce |
+| Numeric Comparison | Tinggi   | Aman jika user verify       |
+| OOB (NFC)          | Tinggi   | Tergantung implementasi     |
 
 ### 12.2 BLE Sniffing
 
@@ -495,13 +498,13 @@ BlueBorne (Armis, 2017) adalah kumpulan 8 zero-day vulnerabilities di Bluetooth,
 
 ### 13.1 CVE yang Terkena
 
-| CVE | Tipe | Dampak |
-|-----|------|--------|
-| CVE-2017-0781 | Android RCE | Remote code execution di Android |
-| CVE-2017-0782 | Android Info Leak | Memory leak |
-| CVE-2017-8628 | Windows RCE | RCE via Bluetooth stack |
-| CVE-2017-1000251 | Linux RCE | Stack buffer overflow di L2CAP |
-| CVE-2017-14315 | iOS RCE | Heap overflow di Apple BT stack |
+| CVE              | Tipe              | Dampak                           |
+| ---------------- | ----------------- | -------------------------------- |
+| CVE-2017-0781    | Android RCE       | Remote code execution di Android |
+| CVE-2017-0782    | Android Info Leak | Memory leak                      |
+| CVE-2017-8628    | Windows RCE       | RCE via Bluetooth stack          |
+| CVE-2017-1000251 | Linux RCE         | Stack buffer overflow di L2CAP   |
+| CVE-2017-14315   | iOS RCE           | Heap overflow di Apple BT stack  |
 
 ### 13.2 Mekanisme
 
@@ -538,6 +541,7 @@ KNOB: 1 byte (hanya 256 kemungkinan)
 Dampak: encryption key bisa di-bruteforce. Attacker cukup dengar beberapa packet dan brute-force 256 variasi.
 
 **Mitigasi:**
+
 - Bluetooth 5.1+ mewajibkan minimum **7 bytes** entropy
 - Implementasi wajib tolak negosiasi < 7 bytes
 
@@ -555,6 +559,7 @@ BIAS (2020) menyerang **authentication phase** pairing BR/EDR. Spesifikasi Bluet
 **Dampak:** Attacker bisa sepenuhnya impersonate keyboard, mouse, headset, atau smartphone via Bluetooth.
 
 **Mitigasi:**
+
 - Update perangkat yang support Bluetooth Core Spec 5.2+ (fix di spesifikasi)
 - Pastikan implementasi check **compare SRES** di kedua arah
 
@@ -586,11 +591,11 @@ flowchart TD
 
 ### 15.2 Security Layers
 
-| Layer | Mekanisme | Celah |
-|-------|-----------|-------|
-| **Network Layer** | NWK Key (AES-128-CCM*) | Jika NWK key bocor, semua traffic terbaca |
-| **Application Layer** | APS Link Key (per-device) | Trust Center Link Key default diketahui |
-| **Install Code** | Pre-configured key out-of-band | ZLL (Zigbee Light Link) — master key publik |
+| Layer                 | Mekanisme                      | Celah                                       |
+| --------------------- | ------------------------------ | ------------------------------------------- |
+| **Network Layer**     | NWK Key (AES-128-CCM*)         | Jika NWK key bocor, semua traffic terbaca   |
+| **Application Layer** | APS Link Key (per-device)      | Trust Center Link Key default diketahui     |
+| **Install Code**      | Pre-configured key out-of-band | ZLL (Zigbee Light Link) — master key publik |
 
 ### 15.3 Serangan Zigbee
 
@@ -622,15 +627,16 @@ zbdsniff  # dump network key dari capture
 
 Z-Wave adalah protokol propietary oleh Z-Wave Alliance. Beroperasi di sub-1 GHz (908/868 MHz), lebih sedikit interferensi daripada 2.4 GHz.
 
-| Fitur | Value |
-|-------|-------|
-| Frekuensi | 800-900 MHz |
-| Range | ~30m indoor |
-| Topologi | Mesh |
-| Enkripsi | AES-128 (S2 security) |
-| Pairing | DSK (Device Specific Key) |
+| Fitur     | Value                     |
+| --------- | ------------------------- |
+| Frekuensi | 800-900 MHz               |
+| Range     | ~30m indoor               |
+| Topologi  | Mesh                      |
+| Enkripsi  | AES-128 (S2 security)     |
+| Pairing   | DSK (Device Specific Key) |
 
 **Celah Z-Wave:**
+
 - **Z-Wave S0** — legacy security, key bisa didapat
 - **Z-Wave downgrade attack** — paksa device pakai S0 atau non-secure mode
 - **Hardware key injection** — programmer bisa inject node ID dan home ID ke device Z-Wave
@@ -647,15 +653,16 @@ Thread adalah protokol mesh berbasis **IPv6**, menggunakan **6LoWPAN**. Dirancan
 
 Matter (Project CHIP) adalah standar interoperability baru oleh CSA (Connectivity Standards Alliance). Berjalan di atas Thread, WiFi, atau Ethernet.
 
-| Fitur | Detail |
-|-------|--------|
-| Enkripsi | TLS 1.3 + AEAD (AES-CCM) |
-| Auth | Certificate-based (PKI) |
-| Device commissioning | QR code + passcode |
-| Secure boot | Wajib |
-| Software update | OTA mandatory |
+| Fitur                | Detail                   |
+| -------------------- | ------------------------ |
+| Enkripsi             | TLS 1.3 + AEAD (AES-CCM) |
+| Auth                 | Certificate-based (PKI)  |
+| Device commissioning | QR code + passcode       |
+| Secure boot          | Wajib                    |
+| Software update      | OTA mandatory            |
 
 **Keunggulan Matter:**
+
 - Setiap device punya **device attestation certificate (DAC)**
 - **No master key** — setiap sesi punya kunci sendiri
 - **Forward secrecy** — ECDHE key exchange
@@ -669,13 +676,13 @@ Software-Defined Radio (SDR) memungkinkan transmisi dan penerimaan RF dengan fle
 
 ### 17.1 Hardware
 
-| Device | Bandwidth | Frekuensi | Biaya |
-|--------|-----------|-----------|-------|
-| RTL-SDR | 3.2 MHz | 24-1700 MHz | ~$25 |
-| HackRF One | 20 MHz | 1 MHz-6 GHz | ~$300 |
-| USRP B210 | 56 MHz | 70 MHz-6 GHz | ~$1,200 |
-| LimeSDR | 28 MHz | 100 kHz-3.8 GHz | ~$300 |
-| BladeRF 2.0 | 56 MHz | 47 MHz-6 GHz | ~$650 |
+| Device      | Bandwidth | Frekuensi       | Biaya   |
+| ----------- | --------- | --------------- | ------- |
+| RTL-SDR     | 3.2 MHz   | 24-1700 MHz     | ~$25    |
+| HackRF One  | 20 MHz    | 1 MHz-6 GHz     | ~$300   |
+| USRP B210   | 56 MHz    | 70 MHz-6 GHz    | ~$1,200 |
+| LimeSDR     | 28 MHz    | 100 kHz-3.8 GHz | ~$300   |
+| BladeRF 2.0 | 56 MHz    | 47 MHz-6 GHz    | ~$650   |
 
 ### 17.2 Tooling
 
@@ -695,14 +702,14 @@ hackrf_transfer -t car_key.iq -f 315e6 -s 2000000 -x 40
 
 ### 17.3 Serangan dengan SDR
 
-| Serangan | Deskripsi | Tool |
-|----------|-----------|------|
-| **Replay Attack** | Capture & replay RF signal | HackRF, GNU Radio |
-| **Rolling Jam** | Blokir rolling code, capture & replay | RFCrack, Yard Stick One |
-| **ADS-B Spoof** | Fake aircraft position | dump1090, bladeRF |
-| **GPS Spoof** | Fake GPS position | GPS-SDR-SIM, HackRF |
-| **GSM Decryption** | IMSI catcher | gr-gsm, USRP |
-| **Keyless Car Attack** | Amplify relay, capture key fob | Proxmark3, HackRF |
+| Serangan               | Deskripsi                             | Tool                    |
+| ---------------------- | ------------------------------------- | ----------------------- |
+| **Replay Attack**      | Capture & replay RF signal            | HackRF, GNU Radio       |
+| **Rolling Jam**        | Blokir rolling code, capture & replay | RFCrack, Yard Stick One |
+| **ADS-B Spoof**        | Fake aircraft position                | dump1090, bladeRF       |
+| **GPS Spoof**          | Fake GPS position                     | GPS-SDR-SIM, HackRF     |
+| **GSM Decryption**     | IMSI catcher                          | gr-gsm, USRP            |
+| **Keyless Car Attack** | Amplify relay, capture key fob        | Proxmark3, HackRF       |
 
 ### 17.4 Signal Analysis
 
@@ -733,14 +740,14 @@ kismet -c wlan0mon
 
 **Deteksi Kismet:**
 
-| Event | Tanda |
-|-------|-------|
-| Deauth Flood | >100 deauth/detik dari 1 source |
+| Event        | Tanda                                  |
+| ------------ | -------------------------------------- |
+| Deauth Flood | >100 deauth/detik dari 1 source        |
 | SSID Cloning | Banyak AP dengan SSID sama, BSSID beda |
-| Probe SSID | Client probe ke SSID non-eksis |
-| WiFi Jamming | Seluruh channel noise tinggi |
-| Karma Attack | AP jawab semua probe request |
-| EAPOL flood | Rate-limite AP terhadap handshake |
+| Probe SSID   | Client probe ke SSID non-eksis         |
+| WiFi Jamming | Seluruh channel noise tinggi           |
+| Karma Attack | AP jawab semua probe request           |
+| EAPOL flood  | Rate-limite AP terhadap handshake      |
 
 ### 18.2 Wireshark — Wireless Filtering
 
@@ -755,6 +762,7 @@ wlan.fc.protected == 1            # Encrypted frames
 ```
 
 **Wireshark untuk wireless forensic:**
+
 - **IO Graph** — visualisasi traffic spike (deauth, beacon flood)
 - **Expert Info** — Warnings & errors di capture
 - **Follow TCP Stream** — decrypt traffic jika key diketahui
@@ -777,6 +785,7 @@ dns.spoof on
 ```
 
 **Module bettercap WiFi:**
+
 - `wifi.ap` — access point mode
 - `wifi.deauth` — deauth specific BSSID
 - `wifi.handshakes` — capture PMKID
@@ -791,12 +800,12 @@ Enterprise WiFi menggunakan **802.1X / RADIUS** untuk authentication, bukan PSK.
 
 ### 19.1 EAP Methods
 
-| Method | Auth | Keamanan | Celah |
-|--------|------|----------|-------|
-| **EAP-TLS** | Certificate (mutual) | Tinggi — PKI-based | Management (cert distribution) |
-| **PEAP** | Password (MSCHAPv2) | Sedang — tunneled | Cracking MSCHAPv2 offline |
-| **EAP-TTLS** | Password/PAP/CHAP | Sedang | Tunnel doang, inner auth lemah |
-| **LEAP** | MSCHAPv2 modified | **Rendah** | asleap bisa crack |
+| Method       | Auth                 | Keamanan           | Celah                          |
+| ------------ | -------------------- | ------------------ | ------------------------------ |
+| **EAP-TLS**  | Certificate (mutual) | Tinggi — PKI-based | Management (cert distribution) |
+| **PEAP**     | Password (MSCHAPv2)  | Sedang — tunneled  | Cracking MSCHAPv2 offline      |
+| **EAP-TTLS** | Password/PAP/CHAP    | Sedang             | Tunnel doang, inner auth lemah |
+| **LEAP**     | MSCHAPv2 modified    | **Rendah**         | asleap bisa crack              |
 
 ### 19.2 Attack pada WPA2-Enterprise
 
@@ -841,59 +850,59 @@ EAP-TLS aman karena **mutual certificate-based authentication**. Celah hanya di 
 
 ### 20.1 Wireless Audit Tools
 
-| Tool | Fungsi | Paket |
-|------|--------|-------|
-| **aircrack-ng** | WEP/WPA cracking | aircrack-ng |
-| **airodump-ng** | WiFi packet capture | aircrack-ng |
-| **aireplay-ng** | Frame injection, deauth | aircrack-ng |
-| **airbase-ng** | Fake AP | aircrack-ng |
-| **airmon-ng** | Interface management | aircrack-ng |
-| **hcxdumptool** | PMKID capture | hcxtools |
-| **hcxpcapngtool** | Convert pcapng ke hash | hcxtools |
-| **hashcat** | GPU cracking | hashcat |
-| **bettercap** | All-in-one MITM/WiFi | bettercap |
-| **Wifite** | Automated WiFi audit | wifite |
-| **Kismet** | WIDS | kismet |
-| **mdk4** | WiFi DoS/Stress test | mdk4 |
-| **reaver** | WPS PIN brute | reaver |
-| **bully** | WPS brute (alternative) | bully |
-| **hostapd-wpe** | Rogue AP + credential capture | hostapd-wpe |
+| Tool              | Fungsi                        | Paket       |
+| ----------------- | ----------------------------- | ----------- |
+| **aircrack-ng**   | WEP/WPA cracking              | aircrack-ng |
+| **airodump-ng**   | WiFi packet capture           | aircrack-ng |
+| **aireplay-ng**   | Frame injection, deauth       | aircrack-ng |
+| **airbase-ng**    | Fake AP                       | aircrack-ng |
+| **airmon-ng**     | Interface management          | aircrack-ng |
+| **hcxdumptool**   | PMKID capture                 | hcxtools    |
+| **hcxpcapngtool** | Convert pcapng ke hash        | hcxtools    |
+| **hashcat**       | GPU cracking                  | hashcat     |
+| **bettercap**     | All-in-one MITM/WiFi          | bettercap   |
+| **Wifite**        | Automated WiFi audit          | wifite      |
+| **Kismet**        | WIDS                          | kismet      |
+| **mdk4**          | WiFi DoS/Stress test          | mdk4        |
+| **reaver**        | WPS PIN brute                 | reaver      |
+| **bully**         | WPS brute (alternative)       | bully       |
+| **hostapd-wpe**   | Rogue AP + credential capture | hostapd-wpe |
 
 ### 20.2 Bluetooth Tools
 
-| Tool | Fungsi |
-|------|--------|
-| **BlueZ** | Official Linux Bluetooth stack |
-| **bluetoothctl** | Bluetooth management CLI |
-| **btmon** | Bluetooth packet monitor |
-| **hcitool** | Classic BT inquiry & connection |
-| **gatttool** | BLE GATT read/write |
-| **bettercap (BLE)** | BLE recon, spoofing |
-| **nRF Sniffer** | BLE capture + Wireshark |
-| **BlueBorne PoC** | Scanner untuk BlueBorne |
+| Tool                | Fungsi                          |
+| ------------------- | ------------------------------- |
+| **BlueZ**           | Official Linux Bluetooth stack  |
+| **bluetoothctl**    | Bluetooth management CLI        |
+| **btmon**           | Bluetooth packet monitor        |
+| **hcitool**         | Classic BT inquiry & connection |
+| **gatttool**        | BLE GATT read/write             |
+| **bettercap (BLE)** | BLE recon, spoofing             |
+| **nRF Sniffer**     | BLE capture + Wireshark         |
+| **BlueBorne PoC**   | Scanner untuk BlueBorne         |
 
 ### 20.3 Zigbee / IoT Tools
 
-| Tool | Fungsi |
-|------|--------|
-| **Killerbee** | Zigbee/802.15.4 attack toolkit |
-| **Zigbee2MQTT** | Zigbee bridge to MQTT |
-| **CC2531** | Sniffer dongle + ZBOSS |
-| **nRF24L01** | 2.4 GHz sniffer (BT, Zigbee) |
-| **Proxmark3** | RFID, iClass, MiFare, keyless entry |
-| **RFCrack** | Rolling code attack toolkit |
+| Tool            | Fungsi                              |
+| --------------- | ----------------------------------- |
+| **Killerbee**   | Zigbee/802.15.4 attack toolkit      |
+| **Zigbee2MQTT** | Zigbee bridge to MQTT               |
+| **CC2531**      | Sniffer dongle + ZBOSS              |
+| **nRF24L01**    | 2.4 GHz sniffer (BT, Zigbee)        |
+| **Proxmark3**   | RFID, iClass, MiFare, keyless entry |
+| **RFCrack**     | Rolling code attack toolkit         |
 
 ### 20.4 SDR Tools
 
-| Tool | Fungsi |
-|------|--------|
-| **GNU Radio** | SDR framework (block diagram) |
-| **gr-osmosdr** | RTL-SDR / HackRF / USRP API |
-| **rtl_433** | 433 MHz weather sensor decode |
-| **dump1090** | ADS-B decoder |
-| **GPS-SDR-SIM** | GPS signal generator |
-| **Yard Stick One** | Sub-1 GHz transceiver |
-| **Ubertooth One** | BT/BLE hardware |
+| Tool               | Fungsi                        |
+| ------------------ | ----------------------------- |
+| **GNU Radio**      | SDR framework (block diagram) |
+| **gr-osmosdr**     | RTL-SDR / HackRF / USRP API   |
+| **rtl_433**        | 433 MHz weather sensor decode |
+| **dump1090**       | ADS-B decoder                 |
+| **GPS-SDR-SIM**    | GPS signal generator          |
+| **Yard Stick One** | Sub-1 GHz transceiver         |
+| **Ubertooth One**  | BT/BLE hardware               |
 
 ---
 
@@ -920,13 +929,13 @@ ieee80211w=2
 
 Enterprise sebaiknya migrasi dari PEAP/MSCHAPv2 ke EAP-TLS:
 
-| Langkah | Detail |
-|---------|--------|
-| **Setup PKI** | Root CA, intermediate CA, server certs |
+| Langkah                | Detail                                      |
+| ---------------------- | ------------------------------------------- |
+| **Setup PKI**          | Root CA, intermediate CA, server certs      |
 | **Deploy Device Cert** | MDM (Jamf/Intune) distribute cert ke device |
-| **RADIUS config** | Freeradius / NPS — validasi cert |
-| **Disable PEAP** | Setelah semua device migrasi |
-| **CRL/OCSP** | Revocation checking |
+| **RADIUS config**      | Freeradius / NPS — validasi cert            |
+| **Disable PEAP**       | Setelah semua device migrasi                |
+| **CRL/OCSP**           | Revocation checking                         |
 
 ### 21.3 WPA3 Migration Plan
 
@@ -997,21 +1006,21 @@ flowchart TD
 
 ### Academic Papers
 
-1. **Vanhoef, M., & Piessens, F. (2017).** *Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2.* — KRACK founding paper
-2. **Vanhoef, M., & Ronen, E. (2019).** *Dragonblood: Analyzing the Dragonfly Handshake of WPA3 and EAP-pwd.* — WPA3 vulnerability
-3. **Armis Lab (2017).** *BlueBorne: The Bluetooth Attack Vector that Spreads Like a Parasite.*
-4. **Vanhoef, M., et al. (2019).** *KNOB: Key Negotiation of Bluetooth Attack.*
-5. **Vanhoef, M., et al. (2020).** *BIAS: Bluetooth Impersonation AttackS.*
+1. **Vanhoef, M., & Piessens, F. (2017).** _Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2._ — KRACK founding paper
+2. **Vanhoef, M., & Ronen, E. (2019).** _Dragonblood: Analyzing the Dragonfly Handshake of WPA3 and EAP-pwd._ — WPA3 vulnerability
+3. **Armis Lab (2017).** _BlueBorne: The Bluetooth Attack Vector that Spreads Like a Parasite._
+4. **Vanhoef, M., et al. (2019).** _KNOB: Key Negotiation of Bluetooth Attack._
+5. **Vanhoef, M., et al. (2020).** _BIAS: Bluetooth Impersonation AttackS._
 
 ### Books
 
-| Judul | Penulis | Fokus |
-|-------|---------|-------|
-| *WiFi Security: Wireless Hacking with Kali Linux* | Vivek Ramachandran | WiFi pentest |
-| *The Hacker Playbook 3* | Peter Kim | Wireless attack workflow |
-| *BlueHat Red Team* | T. W., A. K. | Red team wireless |
-| *RF Hacking: SDR for Pentesters* | Mike Ryan | SDR + wireless |
-| *802.11 Wireless Networks: The Definitive Guide* | Matthew Gast | 802.11 protocol |
+| Judul                                             | Penulis            | Fokus                    |
+| ------------------------------------------------- | ------------------ | ------------------------ |
+| _WiFi Security: Wireless Hacking with Kali Linux_ | Vivek Ramachandran | WiFi pentest             |
+| _The Hacker Playbook 3_                           | Peter Kim          | Wireless attack workflow |
+| _BlueHat Red Team_                                | T. W., A. K.       | Red team wireless        |
+| _RF Hacking: SDR for Pentesters_                  | Mike Ryan          | SDR + wireless           |
+| _802.11 Wireless Networks: The Definitive Guide_  | Matthew Gast       | 802.11 protocol          |
 
 ### Wiki-Links Terkait
 
@@ -1022,14 +1031,14 @@ flowchart TD
 
 ### Repositori & Tools
 
-| Nama | URL |
-|------|-----|
-| aircrack-ng | https://www.aircrack-ng.org |
-| hashcat | https://hashcat.net |
-| bettercap | https://www.bettercap.org |
-| Kismet | https://www.kismetwireless.net |
-| Killerbee | https://github.com/riverloopsec/killerbee |
-| hcxtools | https://github.com/ZerBea/hcxtools |
+| Nama        | URL                                       |
+| ----------- | ----------------------------------------- |
+| aircrack-ng | https://www.aircrack-ng.org               |
+| hashcat     | https://hashcat.net                       |
+| bettercap   | https://www.bettercap.org                 |
+| Kismet      | https://www.kismetwireless.net            |
+| Killerbee   | https://github.com/riverloopsec/killerbee |
+| hcxtools    | https://github.com/ZerBea/hcxtools        |
 
 ---
 

@@ -1,11 +1,12 @@
 # 05-Hardware-Forensics-And-Tactical-Devices
 
-[Kembali ke Military-And-Intelligence-Tools](../military-and-intelligence-tools/_index.md)
+> Catatan tentang 05-hardware-forensics-and-tactical-devices.
 
-> Total: 8 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 8 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[cellebrite-ufed]]
 - [[chaosrouter]]
 - [[graykey]]
@@ -14,3 +15,4 @@
 - [[oscor]]
 - [[pc-3000]]
 - [[victoria-hdd]]
+

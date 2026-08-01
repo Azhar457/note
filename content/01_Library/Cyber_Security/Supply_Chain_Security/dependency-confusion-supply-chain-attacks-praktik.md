@@ -51,15 +51,16 @@ cssclasses:
 
 Ketika project menggunakan dependency, package manager mencari package di **beberapa registry** dengan urutan prioritas:
 
-| Package Manager | Default Priority | Konfigurasi Registry |
-|----------------|-----------------|---------------------|
-| **npm** | Public > Private (scoped) | `.npmrc`, `package.json` |
-| **pip** | PyPI > Private index | `pip.conf`, `PIP_EXTRA_INDEX_URL` |
-| **cargo** | crates.io > Git > Path | `config.toml`, `Cargo.toml` patch |
-| **gem** | rubygems.org > Private | `Gemfile` source block |
-| **maven** | Maven Central > Private repo | `settings.xml`, `pom.xml` |
+| Package Manager | Default Priority             | Konfigurasi Registry              |
+| --------------- | ---------------------------- | --------------------------------- |
+| **npm**         | Public > Private (scoped)    | `.npmrc`, `package.json`          |
+| **pip**         | PyPI > Private index         | `pip.conf`, `PIP_EXTRA_INDEX_URL` |
+| **cargo**       | crates.io > Git > Path       | `config.toml`, `Cargo.toml` patch |
+| **gem**         | rubygems.org > Private       | `Gemfile` source block            |
+| **maven**       | Maven Central > Private repo | `settings.xml`, `pom.xml`         |
 
 **Attack flow:**
+
 1. Pentester/recon engineer menemukan internal package name (misal: `@internal/auth-lib`)
 2. Attacker mendaftarkan nama yang **sama** di public registry (npm/PyPI/crates.io)
 3. Jika konfigurasi salah — package manager pull dari public registry, bukan internal
@@ -212,15 +213,15 @@ npm install @internal/does-not-exist --dry-run 2>&1 | grep "404"
 
 ### 3.1 Metode Typosquatting
 
-| Teknik | Contoh Original | Typosquat |
-|--------|----------------|-----------|
-| Missing letter | `lodash` | `lodash` (lodah tanpa 's') |
-| Added letter | `request` | `requestt` |
-| Swapped letters | `moment` | `momnet` |
-| Homoglyph (Latin) | `colors` | `соlors` (Cyrillic 'о') |
-| Homoglyph (Unicode) | `node` | `nоde` (Cyrillic 'о') |
-| Dash hypenation | `python-dateutil` | `python-dateutil` (different hyphen) |
-| Common misspelling | `beautifulsoup` | `beautifullsoup` |
+| Teknik              | Contoh Original   | Typosquat                            |
+| ------------------- | ----------------- | ------------------------------------ |
+| Missing letter      | `lodash`          | `lodash` (lodah tanpa 's')           |
+| Added letter        | `request`         | `requestt`                           |
+| Swapped letters     | `moment`          | `momnet`                             |
+| Homoglyph (Latin)   | `colors`          | `соlors` (Cyrillic 'о')              |
+| Homoglyph (Unicode) | `node`            | `nоde` (Cyrillic 'о')                |
+| Dash hypenation     | `python-dateutil` | `python-dateutil` (different hyphen) |
+| Common misspelling  | `beautifulsoup`   | `beautifullsoup`                     |
 
 ### 3.2 Tools untuk Typosquatting Detection
 
@@ -262,14 +263,14 @@ guarddog verify package-lock.json
 
 ### 4.1 Real Kasus
 
-| Package | Year | Impact | Detail |
-|---------|------|--------|--------|
-| **colors.js** (faker.js) | 2022 | DoS global | Maintainer corrupt library → infinite loop |
-| **ua-parser-js** | 2021 | Credential theft | Malicious code di postinstall |
-| **event-stream** | 2018 | Bitcoin theft | Copay wallet compromise via dependency |
-| **eslint-scope** | 2018 | NPM token leak | 3.7.0 release — stole CI credential |
-| **node-ipc** | 2022 | Protestware | Delete files in Russia/Belarus region |
-| **next.js** (GitHub) | 2024 | Source leak | Public repository exposure |
+| Package                  | Year | Impact           | Detail                                     |
+| ------------------------ | ---- | ---------------- | ------------------------------------------ |
+| **colors.js** (faker.js) | 2022 | DoS global       | Maintainer corrupt library → infinite loop |
+| **ua-parser-js**         | 2021 | Credential theft | Malicious code di postinstall              |
+| **event-stream**         | 2018 | Bitcoin theft    | Copay wallet compromise via dependency     |
+| **eslint-scope**         | 2018 | NPM token leak   | 3.7.0 release — stole CI credential        |
+| **node-ipc**             | 2022 | Protestware      | Delete files in Russia/Belarus region      |
+| **next.js** (GitHub)     | 2024 | Source leak      | Public repository exposure                 |
 
 ### 4.2 Package Substitution Attack
 
@@ -331,12 +332,12 @@ snyk monitor                 # continuous monitoring
 
 SLSA (Supply-chain Levels for Software Artifacts) memberikan level keamanan:
 
-| Level | Build Integrity | Provenance | Requirement |
-|-------|----------------|------------|-------------|
-| SLSA 1 | Documentation | - | Documented build process |
-| SLSA 2 | Tamper resistance | Hosted build | Build service, provenance |
-| SLSA 3 | Hardened | Non-falsifiable | Hermetic builds |
-| SLSA 4 | Auditability | Attestation | Two-person review |
+| Level  | Build Integrity   | Provenance      | Requirement               |
+| ------ | ----------------- | --------------- | ------------------------- |
+| SLSA 1 | Documentation     | -               | Documented build process  |
+| SLSA 2 | Tamper resistance | Hosted build    | Build service, provenance |
+| SLSA 3 | Hardened          | Non-falsifiable | Hermetic builds           |
+| SLSA 4 | Auditability      | Attestation     | Two-person review         |
 
 ```bash
 # SLSA verifier
@@ -411,14 +412,14 @@ cosign sign --oidc-issuer https://token.actions.githubusercontent.com \
 
 ## 7. Enterprise Mitigation
 
-| Layer | Tool/Method | Implementation |
-|-------|------------|----------------|
-| **Code** | `.npmrc`, `pip.conf`, private registry | Force registry resolution |
-| **Build** | `npm audit`, `pip-audit`, `cargo deny` | Block in CI pipeline |
-| **Registry** | Verdaccio, JFrog, GitHub Packages | Mirror + cache public packages |
-| **Signing** | Sigstore/cosign, PGP | Verify package integrity |
-| **Policy** | SLSA 3+, OSSF Scorecard 6+ | Enforce at organization level |
-| **Runtime** | Falco, Tracee | Monitor suspicious process behavior |
+| Layer        | Tool/Method                            | Implementation                      |
+| ------------ | -------------------------------------- | ----------------------------------- |
+| **Code**     | `.npmrc`, `pip.conf`, private registry | Force registry resolution           |
+| **Build**    | `npm audit`, `pip-audit`, `cargo deny` | Block in CI pipeline                |
+| **Registry** | Verdaccio, JFrog, GitHub Packages      | Mirror + cache public packages      |
+| **Signing**  | Sigstore/cosign, PGP                   | Verify package integrity            |
+| **Policy**   | SLSA 3+, OSSF Scorecard 6+             | Enforce at organization level       |
+| **Runtime**  | Falco, Tracee                          | Monitor suspicious process behavior |
 
 ```bash
 # Private registry — Verdaccio (NPM)
@@ -441,43 +442,43 @@ HTTP_PROXY=http://inspect-proxy:3128 npm install
 
 ### SolarWinds (2020)
 
-| Item | Detail |
-|------|--------|
-| **Vector** | Build server compromise → inject SUNBURST malware ke Orion build |
-| **Scope** | 18,000 customers affected, termasuk US govt |
-| **Technique** | Supply chain poisoning di CI/CD pipeline |
-| **Lesson** | Build integrity + SLSA 4 would have prevented this |
+| Item          | Detail                                                           |
+| ------------- | ---------------------------------------------------------------- |
+| **Vector**    | Build server compromise → inject SUNBURST malware ke Orion build |
+| **Scope**     | 18,000 customers affected, termasuk US govt                      |
+| **Technique** | Supply chain poisoning di CI/CD pipeline                         |
+| **Lesson**    | Build integrity + SLSA 4 would have prevented this               |
 
 ### Codecov (2021)
 
-| Item | Detail |
-|------|--------|
-| **Vector** | Docker image credential leak → attacker modify bash uploader |
-| **Scope** | All customers who ran CI with Codecov uploader (29,000+) |
-| **Technique** | Credential exposure → malicious release |
-| **Lesson** | Credential rotation + attestation |
+| Item          | Detail                                                       |
+| ------------- | ------------------------------------------------------------ |
+| **Vector**    | Docker image credential leak → attacker modify bash uploader |
+| **Scope**     | All customers who ran CI with Codecov uploader (29,000+)     |
+| **Technique** | Credential exposure → malicious release                      |
+| **Lesson**    | Credential rotation + attestation                            |
 
 ### 3CX (2023)
 
-| Item | Detail |
-|------|--------|
-| **Vector** | Dependency confusion via Electron update mechanism |
-| **Scope** | 600,000+ businesses compromised |
-| **Technique** | Silent malicious update via signed binary |
-| **Lesson** | Binary transparency + signing verification |
+| Item          | Detail                                             |
+| ------------- | -------------------------------------------------- |
+| **Vector**    | Dependency confusion via Electron update mechanism |
+| **Scope**     | 600,000+ businesses compromised                    |
+| **Technique** | Silent malicious update via signed binary          |
+| **Lesson**    | Binary transparency + signing verification         |
 
 ---
 
 ## 9. MITRE ATT&CK Mapping
 
-| Tactic | Technique ID | Nama | Sub-technique |
-|--------|-------------|------|---------------|
-| Initial Access | T1195 | Supply Chain Compromise | T1195.001 (Compromise Software Dependencies) |
-| Initial Access | T1195 | Supply Chain Compromise | T1195.002 (Compromise Software Supply Chain) |
-| Execution | T1204 | User Execution | T1204.002 (Malicious File) |
-| Persistence | T1502 | Parent PID Spoofing | Dependency confusion as service |
-| Defense Evasion | T1574 | Hijack Execution Flow | T1574.006 (Dynamic Linker Hijacking) |
-| Collection | T1005 | Data from Local System | via preinstall/postinstall scripts |
+| Tactic          | Technique ID | Nama                    | Sub-technique                                |
+| --------------- | ------------ | ----------------------- | -------------------------------------------- |
+| Initial Access  | T1195        | Supply Chain Compromise | T1195.001 (Compromise Software Dependencies) |
+| Initial Access  | T1195        | Supply Chain Compromise | T1195.002 (Compromise Software Supply Chain) |
+| Execution       | T1204        | User Execution          | T1204.002 (Malicious File)                   |
+| Persistence     | T1502        | Parent PID Spoofing     | Dependency confusion as service              |
+| Defense Evasion | T1574        | Hijack Execution Flow   | T1574.006 (Dynamic Linker Hijacking)         |
+| Collection      | T1005        | Data from Local System  | via preinstall/postinstall scripts           |
 
 ---
 
@@ -517,26 +518,26 @@ make test
 
 ## Referensi
 
-1. Alex Birsan. *"Dependency Confusion: How I Hacked Into Apple, Microsoft, and Dozens of Other Companies."* (2021).
-2. OWASP. *"Software Supply Chain Security."* (2024). https://owasp.org/www-project-software-supply-chain-security/
-3. Google. *"SLSA Framework — Supply Chain Levels for Software Artifacts."* (2024). https://slsa.dev/
-4. Sigstore. *"Cosign: Container Signing, Verification, and Storage."* (2024).
-5. OpenSSF. *"Scorecard — Security Health Metrics for Open Source."* (2024).
-6. Datadog. *"GuardDog — Detect Malicious PyPI Packages."* (2024).
-7. ReversingLabs. *"3CX Supply Chain Attack Analysis."* (2023).
-8. CrowdStrike. *"SolarWinds SUNBURST Technical Analysis."* (2021).
-9. MITRE. *"ATT&CK T1195 — Supply Chain Compromise."* (2024).
-10. Snyk. *"State of Open Source Security 2024."* (2024).
+1. Alex Birsan. _"Dependency Confusion: How I Hacked Into Apple, Microsoft, and Dozens of Other Companies."_ (2021).
+2. OWASP. _"Software Supply Chain Security."_ (2024). https://owasp.org/www-project-software-supply-chain-security/
+3. Google. _"SLSA Framework — Supply Chain Levels for Software Artifacts."_ (2024). https://slsa.dev/
+4. Sigstore. _"Cosign: Container Signing, Verification, and Storage."_ (2024).
+5. OpenSSF. _"Scorecard — Security Health Metrics for Open Source."_ (2024).
+6. Datadog. _"GuardDog — Detect Malicious PyPI Packages."_ (2024).
+7. ReversingLabs. _"3CX Supply Chain Attack Analysis."_ (2023).
+8. CrowdStrike. _"SolarWinds SUNBURST Technical Analysis."_ (2021).
+9. MITRE. _"ATT&CK T1195 — Supply Chain Compromise."_ (2024).
+10. Snyk. _"State of Open Source Security 2024."_ (2024).
 
 ---
 
 ## Koneksi ke Vault
 
-| Catatan | Koneksi |
-|---------|---------|
-| [[software-supply-chain-security-deepdive]] | Deep-dive supply chain — extension dengan practical attack |
-| [[software-supply-chain-security]] | Overview supply chain — catatan ini implementasi konkret |
-| [[cicd-shiftleft-shiftright]] | CI/CD security — pipeline hardening untuk prevent supply chain |
-| [[devsecops-pipeline-sast-dast-sbom]] | SBOM — Software Bill of Materials untuk dependency inventory |
-| [[rust-unsafe-code-auditing-security-deepdive]] | Rust supply chain — cargo-audit, crate compromise |
-| [[claude-code-plugin-marketplace-deepdive]] | Plugin marketplace — polar opposite dari open ecosystem |
+| Catatan                                         | Koneksi                                                        |
+| ----------------------------------------------- | -------------------------------------------------------------- |
+| [[software-supply-chain-security-deepdive]]     | Deep-dive supply chain — extension dengan practical attack     |
+| [[software-supply-chain-security]]              | Overview supply chain — catatan ini implementasi konkret       |
+| [[cicd-shiftleft-shiftright]]                   | CI/CD security — pipeline hardening untuk prevent supply chain |
+| [[devsecops-pipeline-sast-dast-sbom]]           | SBOM — Software Bill of Materials untuk dependency inventory   |
+| [[rust-unsafe-code-auditing-security-deepdive]] | Rust supply chain — cargo-audit, crate compromise              |
+| [[claude-code-plugin-marketplace-deepdive]]     | Plugin marketplace — polar opposite dari open ecosystem        |

@@ -1,11 +1,12 @@
 # 07-Nation-State-Platforms
 
-[Kembali ke Military-And-Intelligence-Tools](../military-and-intelligence-tools/_index.md)
+> Catatan tentang 07-nation-state-platforms.
 
-> Total: 8 file | 0 subfolder
+[Kembali ke 01 Library](../_index.md)
+
+> **Total:** 8 files | 0 subfolders
 
 ## 📄 Notes
-
 - [[ant-catalog]]
 - [[chinese-apt-toolchain]]
 - [[great-cannon]]
@@ -14,3 +15,4 @@
 - [[palantir-gotham]]
 - [[quantum-insert-and-blackpearl]]
 - [[xkeyscore]]
+

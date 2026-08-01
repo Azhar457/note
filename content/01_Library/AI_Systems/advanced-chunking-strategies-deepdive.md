@@ -1,24 +1,25 @@
 ---
-title: '🧩 Advanced Chunking Strategies — Dari Fixed-Size ke Parent-Child: Arsitektur
-  Representasi Data untuk RAG Production-Grade'
+title: "🧩 Advanced Chunking Strategies — Dari Fixed-Size ke Parent-Child: Arsitektur
+  Representasi Data untuk RAG Production-Grade"
 tags:
-- chunking
-- rag
-- retrieval
-- embedding
-- parent-child
-- structure-aware
-- semantic-chunking
-- library
+  - chunking
+  - rag
+  - retrieval
+  - embedding
+  - parent-child
+  - structure-aware
+  - semantic-chunking
+  - library
 aliases:
-- chunking-architecture-rag
-- parent-child-chunking
-created: '2026-07-16'
-updated: '2026-07-16'
+  - chunking-architecture-rag
+  - parent-child-chunking
+created: "2026-07-16"
+updated: "2026-07-16"
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
 ---
+
 # 🧩 Advanced Chunking Strategies — The Architecture of Precision Retrieval
 
 **Dari Fixed-Size ke Parent-Child: Arsitektur Representasi Data untuk RAG Production-Grade**
@@ -30,6 +31,7 @@ cssclasses:
 
 > [!tip] Implementasi di vault-rag
 > Di `scripts/index_vault.py`, chunking sudah menggunakan Structure-Aware Parent-Child:
+>
 > - **Parent:** H1/H2 section boundaries
 > - **Child:** H3/paragraph/sentence dengan CHILD_MAX_CHARS=600
 > - **Section path:** heading hierarchy (["Foundation", "Technical Deep-Dive"])
@@ -39,7 +41,7 @@ cssclasses:
 
 ## Daftar Isi
 
-- [[#1. First Principles: Atom Makna dalam Ruang Vektor]]
+- [[#1. First Principles]]
 - [[#2. Spektrum Strategi Chunking]]
 - [[#3. Parent-Child Chunking — Production-Grade Architecture]]
 - [[#4. Matriks Perbandingan]]
@@ -67,18 +69,18 @@ Dalam RAG, kita menghadapi dua kebutuhan yang saling bertentangan:
 ```
 Presisi                                     Konteks
 ◄──────────────────────────────────────────────►
-                                                   
+
   Fixed-Size    Sentence     Semantic   Struct-Aware   Parent-Child
   (rendah)      (rendah)     (sedang)   (tinggi)       (sangat tinggi)
   presisi       konteks      balanced   presisi        presisi +
   tinggi                                      konteks tertinggi
 ```
 
-| Pendekatan | Presisi | Konteks | Trade-off |
-|-----------|---------|---------|-----------|
-| Fixed-Size kecil (100 token) | 🟢 Tinggi | 🔴 Rendah | Dapet fakta tepat tapi gak paham konteks |
-| Fixed-Size besar (1000 token) | 🔴 Rendah | 🟢 Tinggi | Banyak noise, relevansi rendah |
-| Parent-Child | 🟢 Sangat Tinggi | 🟢 Sangat Tinggi | Kompleksitas implementasi naik |
+| Pendekatan                    | Presisi          | Konteks          | Trade-off                                |
+| ----------------------------- | ---------------- | ---------------- | ---------------------------------------- |
+| Fixed-Size kecil (100 token)  | 🟢 Tinggi        | 🔴 Rendah        | Dapet fakta tepat tapi gak paham konteks |
+| Fixed-Size besar (1000 token) | 🔴 Rendah        | 🟢 Tinggi        | Banyak noise, relevansi rendah           |
+| Parent-Child                  | 🟢 Sangat Tinggi | 🟢 Sangat Tinggi | Kompleksitas implementasi naik           |
 
 ---
 
@@ -93,12 +95,12 @@ Input: [ABCDEFGHIJKLMNOPQRSTUVWXYZ]
         [ABCDE][FGHIJ][KLMNO][PQRST][UVWXY][Z]
 ```
 
-| Aspek | Detail |
-|-------|--------|
-| **Mekanisme** | Teks dipotong setiap `N` token/karakter, seringkali dengan overlap (`N/10` token) |
-| **Keunggulan** | Paling sederhana. Deterministis, prediktabel, mudah di-debug. Tidak perlu library NLP |
-| **Kelemahan** | **Boundary Problem.** Kalimat terpotong, paragraf terputus, kode terbelah. Informasi terfragmentasi acak. Overlap sedikit membantu tapi gak solve masalah koherensi semantik |
-| **Kapan dipakai** | Hanya prototype cepat, atau data homogen pendek (tweet, title) |
+| Aspek             | Detail                                                                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Mekanisme**     | Teks dipotong setiap `N` token/karakter, seringkali dengan overlap (`N/10` token)                                                                                            |
+| **Keunggulan**    | Paling sederhana. Deterministis, prediktabel, mudah di-debug. Tidak perlu library NLP                                                                                        |
+| **Kelemahan**     | **Boundary Problem.** Kalimat terpotong, paragraf terputus, kode terbelah. Informasi terfragmentasi acak. Overlap sedikit membantu tapi gak solve masalah koherensi semantik |
+| **Kapan dipakai** | Hanya prototype cepat, atau data homogen pendek (tweet, title)                                                                                                               |
 
 ```python
 # Paling mentah — potong per karakter
@@ -126,12 +128,12 @@ splitter = RecursiveCharacterTextSplitter(
 
 **Filosofi:** "Kalimat adalah unit linguistik alami. Hormati itu."
 
-| Aspek | Detail |
-|-------|--------|
-| **Mekanisme** | Sentence tokenizer (NLTK, spaCy) → pisah kalimat → grup 5-10 kalimat per chunk |
-| **Keunggulan** | Gak ada kalimat terpotong. Setiap chunk punya integritas gramatikal |
-| **Kelemahan** | **Context Collapse.** Kata ganti ("ini", "mereka"), singkatan, referensi implisit bikin kalimat tunggal ambigu. "Ini adalah contoh yang baik" gak berguna tanpa kalimat sebelumnya |
-| **Kapan dipakai** | FAQ, chat logs, data QA pendek yang mandiri |
+| Aspek             | Detail                                                                                                                                                                             |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Mekanisme**     | Sentence tokenizer (NLTK, spaCy) → pisah kalimat → grup 5-10 kalimat per chunk                                                                                                     |
+| **Keunggulan**    | Gak ada kalimat terpotong. Setiap chunk punya integritas gramatikal                                                                                                                |
+| **Kelemahan**     | **Context Collapse.** Kata ganti ("ini", "mereka"), singkatan, referensi implisit bikin kalimat tunggal ambigu. "Ini adalah contoh yang baik" gak berguna tanpa kalimat sebelumnya |
+| **Kapan dipakai** | FAQ, chat logs, data QA pendek yang mandiri                                                                                                                                        |
 
 ```python
 import spacy
@@ -157,12 +159,12 @@ Similaritas: 0.95 0.93 0.89 0.45 0.91 0.94 0.88
                         ^ threshold 0.7 — putus di sini
 ```
 
-| Aspek | Detail |
-|-------|--------|
-| **Mekanisme** | Embed tiap kalimat → sliding window dengan threshold similaritas → grup kalimat mirip. Kalo similaritas turun drastis = ganti topik = chunk baru |
-| **Keunggulan** | Chunk koheren secara topik. Adaptif: teks mudah → chunk panjang, teks kompleks → chunk pendek |
-| **Kelemahan** | **Hyperparameter sensitivity.** Threshold tergantung domain. Terlalu tinggi → over-split (ratusan chunk kecil). Terlalu rendah → under-split (chunk raksasa campur aduk). Gak ada one-size-fits-all |
-| **Kapan dipakai** | Dokumen tanpa struktur jelas (transkrip, esai, artikel). Kalo gak bisa andelin struktur Markdown |
+| Aspek             | Detail                                                                                                                                                                                              |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Mekanisme**     | Embed tiap kalimat → sliding window dengan threshold similaritas → grup kalimat mirip. Kalo similaritas turun drastis = ganti topik = chunk baru                                                    |
+| **Keunggulan**    | Chunk koheren secara topik. Adaptif: teks mudah → chunk panjang, teks kompleks → chunk pendek                                                                                                       |
+| **Kelemahan**     | **Hyperparameter sensitivity.** Threshold tergantung domain. Terlalu tinggi → over-split (ratusan chunk kecil). Terlalu rendah → under-split (chunk raksasa campur aduk). Gak ada one-size-fits-all |
+| **Kapan dipakai** | Dokumen tanpa struktur jelas (transkrip, esai, artikel). Kalo gak bisa andelin struktur Markdown                                                                                                    |
 
 ```python
 import numpy as np
@@ -176,7 +178,7 @@ def semantic_chunking(sentences, embeddings, threshold=0.7):
     """
     chunks = []
     current_chunk = [sentences[0]]
-    
+
     for i in range(1, len(sentences)):
         sim = cosine_similarity([embeddings[i-1]], [embeddings[i]])[0][0]
         if sim < threshold:
@@ -184,7 +186,7 @@ def semantic_chunking(sentences, embeddings, threshold=0.7):
             current_chunk = [sentences[i]]
         else:
             current_chunk.append(sentences[i])
-    
+
     if current_chunk:
         chunks.append(" ".join(current_chunk))
     return chunks
@@ -194,12 +196,12 @@ def semantic_chunking(sentences, embeddings, threshold=0.7):
 
 **Filosofi:** "Saya tahu strukturnya (Markdown, HTML, JSON). Gunakan itu sebagai panduan."
 
-| Aspek | Detail |
-|-------|--------|
-| **Mekanisme** | Parser Markdown → ekstrak judul, sub-judul, paragraf, tabel, kode → chunk dengan hormati batas elemen |
-| **Keunggulan** | Untuk vault markdown, ini paling presisi. Heading = ringkasan topik alami. Metadata (judul, heading) bisa disimpan per chunk |
-| **Kelemahan** | **Fragility.** Bergantung kualitas markup. PDF OCR, plain text, HTML kacau gak punya struktur |
-| **Kapan dipakai** | **Default untuk vault ini.** Setiap .md adalah kanvas sempurna |
+| Aspek             | Detail                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Mekanisme**     | Parser Markdown → ekstrak judul, sub-judul, paragraf, tabel, kode → chunk dengan hormati batas elemen                        |
+| **Keunggulan**    | Untuk vault markdown, ini paling presisi. Heading = ringkasan topik alami. Metadata (judul, heading) bisa disimpan per chunk |
+| **Kelemahan**     | **Fragility.** Bergantung kualitas markup. PDF OCR, plain text, HTML kacau gak punya struktur                                |
+| **Kapan dipakai** | **Default untuk vault ini.** Setiap .md adalah kanvas sempurna                                                               |
 
 ```python
 from langchain.text_splitter import MarkdownHeaderTextSplitter
@@ -325,6 +327,7 @@ Parent-Child bukan teknik tunggal — ini **arsitektur data** dual-layer.
 Implementasi konkret ada di `scripts/index_vault.py` dan `scripts/query.py`:
 
 **Indexer — chunking:**
+
 ```python
 # Parent: H1/H2 section (full text)
 parent_boundaries = []
@@ -346,6 +349,7 @@ for idx, heading_idx in enumerate(h1h2_positions):
 ```
 
 **Query — parent context:**
+
 ```python
 # 1. Search child chunks (dense cosine + BM25 FTS5)
 # 2. For each hit, look up parent_id:
@@ -357,34 +361,34 @@ SELECT text FROM parents WHERE id = ?
 
 ### 3.4 Kapan Parent-Child Wajib
 
-| Skenario | Kenapa Wajib | Contoh |
-|----------|-------------|--------|
-| **Dokumen teknis panjang** | Konteks section dibutuhkan untuk interpretasi | Vault note 30KB |
-| **Pertanyaan multi-hop** | "Jelaskan hubungan X dan Y" butuh konteks luas | "Apa hubungan SYN flood dan sequence prediction?" |
-| **Detil penting untuk akurasi** | Latar belakang diperlukan | "Kenapa SYN cookies mengorbankan window scaling?" |
-| **Menghindari halusinasi** | Chunk kecil bikin LLM nebak-nebak | "Jelaskan cara kerja TCP state machine" — tanpa parent, LLM gak tau ini tentang detection |
+| Skenario                        | Kenapa Wajib                                   | Contoh                                                                                    |
+| ------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Dokumen teknis panjang**      | Konteks section dibutuhkan untuk interpretasi  | Vault note 30KB                                                                           |
+| **Pertanyaan multi-hop**        | "Jelaskan hubungan X dan Y" butuh konteks luas | "Apa hubungan SYN flood dan sequence prediction?"                                         |
+| **Detil penting untuk akurasi** | Latar belakang diperlukan                      | "Kenapa SYN cookies mengorbankan window scaling?"                                         |
+| **Menghindari halusinasi**      | Chunk kecil bikin LLM nebak-nebak              | "Jelaskan cara kerja TCP state machine" — tanpa parent, LLM gak tau ini tentang detection |
 
 ---
 
 ## 4. Matriks Perbandingan
 
-| Strategi | Presisi Pencarian | Kelengkapan Konteks | Kompleksitas | Ketahanan Noise | Terbaik Untuk |
-|----------|------------------|-------------------|-------------|----------------|---------------|
-| **Fixed-Size** | 🔴 Rendah | 🔴 Rendah | 🟢 Sangat Rendah | 🔴 Rendah | Prototipe, data homogen |
-| **Sentence-Based** | 🟡 Sedang | 🔴 Rendah | 🟢 Rendah | 🟡 Sedang | FAQ, chat logs |
-| **Semantic** | 🟢 Tinggi | 🟡 Sedang | 🟡 Tinggi (threshold tuning) | 🟢 Tinggi | Dokumen tanpa struktur |
-| **Structure-Aware** | 🟢 Tinggi | 🟢 Tinggi | 🟡 Sedang | 🔴 Rendah (bergantung markup) | **Vault markdown** |
-| **Parent-Child** | 🟢 **Sangat Tinggi** | 🟢 **Sangat Tinggi** | 🔴 Tinggi | 🟢 Tinggi | **Production-grade** |
+| Strategi            | Presisi Pencarian    | Kelengkapan Konteks  | Kompleksitas                 | Ketahanan Noise               | Terbaik Untuk           |
+| ------------------- | -------------------- | -------------------- | ---------------------------- | ----------------------------- | ----------------------- |
+| **Fixed-Size**      | 🔴 Rendah            | 🔴 Rendah            | 🟢 Sangat Rendah             | 🔴 Rendah                     | Prototipe, data homogen |
+| **Sentence-Based**  | 🟡 Sedang            | 🔴 Rendah            | 🟢 Rendah                    | 🟡 Sedang                     | FAQ, chat logs          |
+| **Semantic**        | 🟢 Tinggi            | 🟡 Sedang            | 🟡 Tinggi (threshold tuning) | 🟢 Tinggi                     | Dokumen tanpa struktur  |
+| **Structure-Aware** | 🟢 Tinggi            | 🟢 Tinggi            | 🟡 Sedang                    | 🔴 Rendah (bergantung markup) | **Vault markdown**      |
+| **Parent-Child**    | 🟢 **Sangat Tinggi** | 🟢 **Sangat Tinggi** | 🔴 Tinggi                    | 🟢 Tinggi                     | **Production-grade**    |
 
 ### Cost Analysis
 
-| Strategi | Embedding Cost | Storage Cost | Retrieval Latency | Context Quality |
-|----------|---------------|-------------|-------------------|----------------|
-| Fixed-Size (256 token) | 1x per chunk | 1x vector | Rendah | Rendah |
-| Fixed-Size (1024 token) | 1x per chunk | 1x vector | Rendah | Sedang |
-| Semantic | 1x per kalimat + per chunk | 1x vector per chunk | Sedang (ekstra embed) | Tinggi |
-| Structure-Aware | 1x per chunk | 1x vector per chunk | Rendah | Tinggi |
-| **Parent-Child** | **1x per child** (parent gak di-embed) | **1x vector per child** (parent cuma text) | **Rendah** (search child → lookup parent) | **Sangat Tinggi** |
+| Strategi                | Embedding Cost                         | Storage Cost                               | Retrieval Latency                         | Context Quality   |
+| ----------------------- | -------------------------------------- | ------------------------------------------ | ----------------------------------------- | ----------------- |
+| Fixed-Size (256 token)  | 1x per chunk                           | 1x vector                                  | Rendah                                    | Rendah            |
+| Fixed-Size (1024 token) | 1x per chunk                           | 1x vector                                  | Rendah                                    | Sedang            |
+| Semantic                | 1x per kalimat + per chunk             | 1x vector per chunk                        | Sedang (ekstra embed)                     | Tinggi            |
+| Structure-Aware         | 1x per chunk                           | 1x vector per chunk                        | Rendah                                    | Tinggi            |
+| **Parent-Child**        | **1x per child** (parent gak di-embed) | **1x vector per child** (parent cuma text) | **Rendah** (search child → lookup parent) | **Sangat Tinggi** |
 
 > [!tip] Cost Efficiency Parent-Child
 > Parent-Child **tidak** menggandakan embedding cost. Hanya child yang di-embed. Parent cuma disimpan sebagai text biasa. Jadi biaya embedding ≈ Structure-Aware dengan chunk_size = CHILD_MAX_CHARS.
@@ -404,17 +408,17 @@ Berdasarkan analisis struktur vault — semua file markdown dengan heading hiera
 
 ### Status Implementasi
 
-| Komponen | Status | Lokasi |
-|----------|--------|--------|
-| Structure-Aware Parser | ✅ **Done** | `scripts/index_vault.py` |
-| Parent-Child Splitter | ✅ **Done** | `scripts/index_vault.py:make_parents_and_children()` |
-| DB Schema (parents + chunks) | ✅ **Done** | `scripts/index_vault.py:init_db()` |
-| Parent Context Augmentation | ✅ **Done** | `scripts/query.py:augment_with_parent()` |
-| Re-index command | ✅ **Done** | `./vault-rag.sh index --reindex` |
-| FTS5 BM25 on children | ✅ **Done** | `scripts/index_vault.py` |
-| Heading hierarchy metadata | ✅ **Done** | `section_path` column |
-| Semantic Chunking (embed-based) | ❌ **Not implemented** | Fallback ke Structure-Aware sudah cukup untuk vault |
-| LangChain/Qdrant integration | ❌ **Not implemented** | Pakai sqlite-vec + API sendiri (lebih ringan) |
+| Komponen                        | Status                 | Lokasi                                               |
+| ------------------------------- | ---------------------- | ---------------------------------------------------- |
+| Structure-Aware Parser          | ✅ **Done**            | `scripts/index_vault.py`                             |
+| Parent-Child Splitter           | ✅ **Done**            | `scripts/index_vault.py:make_parents_and_children()` |
+| DB Schema (parents + chunks)    | ✅ **Done**            | `scripts/index_vault.py:init_db()`                   |
+| Parent Context Augmentation     | ✅ **Done**            | `scripts/query.py:augment_with_parent()`             |
+| Re-index command                | ✅ **Done**            | `./vault-rag.sh index --reindex`                     |
+| FTS5 BM25 on children           | ✅ **Done**            | `scripts/index_vault.py`                             |
+| Heading hierarchy metadata      | ✅ **Done**            | `section_path` column                                |
+| Semantic Chunking (embed-based) | ❌ **Not implemented** | Fallback ke Structure-Aware sudah cukup untuk vault  |
+| LangChain/Qdrant integration    | ❌ **Not implemented** | Pakai sqlite-vec + API sendiri (lebih ringan)        |
 
 ---
 
@@ -434,18 +438,18 @@ Berdasarkan analisis struktur vault — semua file markdown dengan heading hiera
 
 ## References
 
-1. LangChain. *Text Splitters*. https://python.langchain.com/docs/modules/data_connection/document_transformers/
-2. Qdrant. *Parent-Child Document Retrieval*. https://qdrant.tech/articles/parent-child/
-3. Pinecone. *Chunking Strategies*. https://www.pinecone.io/learn/chunking-strategies/
-4. Anthropic. *Contextual Retrieval*. https://www.anthropic.com/news/contextual-retrieval
-5. LlamaIndex. *Node Parser*. https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/
-6. UnstructuredIO. *Chunking Strategies*. https://docs.unstructured.io/open-source/core-functionality/chunking
-7. Cohere. *Chunking for RAG*. https://docs.cohere.com/docs/chunking-for-rag
-8. McInnes, L. et al. *UMAP: Uniform Manifold Approximation and Projection*. 2018. — Fondasi untuk visualisasi embedding chunk.
-9. Reimers, N. & Gurevych, I. *Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks*. 2019. — Fondasi sentence embedding untuk semantic chunking.
-10. Karpathy, A. *Tokenization in LLMs*. https://github.com/karpathy/minbpe — Prinsip tokenisasi yang memengaruhi chunk_size.
-11. sqlite-vec. *Vector Search in SQLite*. https://github.com/asg017/sqlite-vec
-12. SQLite FTS5. *Full-Text Search*. https://www.sqlite.org/fts5.html
+1. LangChain. _Text Splitters_. https://python.langchain.com/docs/modules/data_connection/document_transformers/
+2. Qdrant. _Parent-Child Document Retrieval_. https://qdrant.tech/articles/parent-child/
+3. Pinecone. _Chunking Strategies_. https://www.pinecone.io/learn/chunking-strategies/
+4. Anthropic. _Contextual Retrieval_. https://www.anthropic.com/news/contextual-retrieval
+5. LlamaIndex. _Node Parser_. https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/
+6. UnstructuredIO. _Chunking Strategies_. https://docs.unstructured.io/open-source/core-functionality/chunking
+7. Cohere. _Chunking for RAG_. https://docs.cohere.com/docs/chunking-for-rag
+8. McInnes, L. et al. _UMAP: Uniform Manifold Approximation and Projection_. 2018. — Fondasi untuk visualisasi embedding chunk.
+9. Reimers, N. & Gurevych, I. _Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks_. 2019. — Fondasi sentence embedding untuk semantic chunking.
+10. Karpathy, A. _Tokenization in LLMs_. https://github.com/karpathy/minbpe — Prinsip tokenisasi yang memengaruhi chunk_size.
+11. sqlite-vec. _Vector Search in SQLite_. https://github.com/asg017/sqlite-vec
+12. SQLite FTS5. _Full-Text Search_. https://www.sqlite.org/fts5.html
 
 > [!tip] Bottom Line
 > Chunking bukan preprocessing — ini **keputusan arsitektural**. Fixed-size chunking adalah "magic number" yang paling berbahaya di RAG karena memberikan ilusi presisi sambil merusak koherensi semantik. **Parent-Child Chunking** menyelesaikan trade-off fundamental: search di child (presisi tinggi), context dari parent (konteks lengkap). Untuk vault markdown, Structure-Aware (hormati heading) adalah langkah pertama yang wajib. Implementasi di vault-rag sudah menggunakan arsitektur ini — jalankan `./vault-rag.sh index --reindex` untuk mengaktifkannya.

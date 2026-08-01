@@ -1,22 +1,22 @@
 ---
 tags:
-- endpoint-security
-- blue-team
-- red-team
-- rootkit
-- BYOVD
-- firmware
-- CPU-ring
+  - endpoint-security
+  - blue-team
+  - red-team
+  - rootkit
+  - BYOVD
+  - firmware
+  - CPU-ring
 aliases:
-- Endpoint Security
-- CPU Ring Hierarchy
-- Virus Endpoint
+  - Endpoint Security
+  - CPU Ring Hierarchy
+  - Virus Endpoint
 created: 2026-04-25
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
 title: Endpoint Security
-updated: '2026-07-01'
+updated: "2026-07-01"
 ---
 
 # 🦠 ENDPOINT SECURITY — CPU Ring & Boot Chain
@@ -70,4 +70,4 @@ Ring 3   │ Ransomware, RAT, Trojan     → Yang 99% orang kenal sebagai "virus
 
 ---
 
-*Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape*
+_Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape_
