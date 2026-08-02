@@ -4,17 +4,14 @@
 
 [Kembali ke 01 Library](../_index.md)
 
-> **Total:** 10 files | 0 subfolders
+> **Total:** 6 files | 0 subfolders
 
 ## 📄 Notes
-- [[jarswaf-gossip-helm-plan]] — Distributed state management plan
-- [[jarswaf-lifecycle-architecture]] — jarsWAF lifecycle
 - [[jarswaf-plan]] — Development roadmap
-- [[sql-comment-injection-waf-bypass]] — SQL comment bypass & fix
-- [[nah-lifecycle-master]] — nah lifecycle reference
 - [[osquery-build-methodology]] — osquery build process
-- [[waf-ebpf-xdp-pentest]] — eBPF/XDP layer testing
 - [[waf-ml-anomaly-detection]] — ML-based anomaly detection
 - [[waf-reverse-proxy-deepdive]] — Reverse proxy architecture
 - [[wasm-plugin-waf]] — WASM plugin system
+- [[scc-bugbounty-case-study-waf-encapsulation]] — SCC 2026 bug bounty case study
 
+> [!info] Catatan pengujian jarsWAF (red team cycles, bypass, eBPF/XDP pentest, lifecycle) dipindah ke `/mnt/data_d/Projects/jarswaf/docs/` — bukan konten umum.

@@ -4,10 +4,11 @@
 
 [Kembali ke 01 Library](../_index.md)
 
-> **Total:** 15 files | 0 subfolders
+> **Total:** 17 files | 0 subfolders
 
 ## 📄 Notes
 - [[15-types-of-thinking]]
+- [[academic-research-sources-encyclopedia]] — peta sumber pengetahuan ilmiah selain arXiv (OpenAlex, Unpaywall, Garuda, DOAJ, dll.)
 - [[codec-architecture-x264-x265-deepdive]]
 - [[compression-algorithms-zlib-zstd-deepdive]]
 - [[computer-science-foundations]]
@@ -18,6 +19,7 @@
 - [[linux-fundamentals-deepdive]]
 - [[math-and-algorithms]]
 - [[plumbing-foundations-image-codec-parsing-crypto]]
+- [[primary-sources-and-archival-research]] — sumber primer, arsip, declassified records
 - [[regular-expressions-deepdive]]
 - [[research-methodology]]
 - [[systemd-service-management-praktis]] — Service units, journald, timers, socket activation, resource control, troubleshooting

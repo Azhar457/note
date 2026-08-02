@@ -4,7 +4,7 @@
 
 [Kembali ke 01 Library](../_index.md)
 
-> **Total:** 4 files | 7 subfolders
+> **Total:** 6 files | 7 subfolders
 
 ## 📁 Subfolder
 - [[01-osint-and-reconnaissance/_index|01 Osint And Reconnaissance]]
@@ -18,6 +18,8 @@
 ## 📄 Notes
 - [[countermeasure-stack]]
 - [[dual-use-spectrum-and-ethical-framework]]
+- [[intelligence-analyst-workstation-toolkit]] — pipeline tools analis: collection → normalisasi → analisis → produk
+- [[intelligence-reporting-sources-and-tradecraft]] — intelligence cycle, INTs, finished intelligence, AHC
 - [[military-and-intelligence-tools-hub]]
 - [[hierarchy-military-intel-tools]]
 
