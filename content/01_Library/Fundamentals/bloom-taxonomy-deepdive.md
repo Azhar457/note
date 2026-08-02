@@ -501,7 +501,7 @@ threat-hunting-methodology (Evaluate) → hunting playbook baru (Create)
 
 **Koneksi Vault:**
 
-- Seluruh proyek Jarswaf ([[jarswaf-plan]], [[jarswaf-lifecycle-architecture]], [[jarswaf-gossip-helm-plan]])
+- Seluruh proyek Jarswaf ([[jarswaf-plan]] — roadmap & dokumentasi privat di proyek)
 - [[architectural-flaw-detection]] — mendeteksi flaw untuk kemudian create fix
 - [[autonomous-system-design]] — merancang sistem otonom
 - [[multi-agent-orchestration-patterns]] — create orchestration patterns
@@ -577,7 +577,7 @@ objectives = [
 | **Apply**      | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]], [[picoctf-section-4-python-automation]]                                            |
 | **Analyze**    | [[malware-analysis-reverse-engineering-playbook]], [[threat-hunting-methodology]], [[siem-security-data-lake-architecture]], [[blueteam-detection-matrix]] |
 | **Evaluate**   | [[ai-evaluation-framework]], [[threat-modeling-deepdive]], [[software-quality-untung-yuhana]], [[pentest-simulation-report]]                               |
-| **Create**     | Proyek Jarswaf ([[jarswaf-plan]] → [[jarswaf-lifecycle-architecture]]), [[autonomous-system-design]], [[cognitive-architecture-engineering]]               |
+| **Create**     | Proyek Jarswaf ([[jarswaf-plan]] → docs privat), [[autonomous-system-design]], [[cognitive-architecture-engineering]]                                      |
 
 ---
 
@@ -729,14 +729,14 @@ Beberapa kritikus berargumen bahwa Bloom sudah **outdated** di era AI dan inform
 
 ### Catatan Praktis di Setiap Level
 
-| Bloom Level       | Praktik di Vault                                                                                  |
-| ----------------- | ------------------------------------------------------------------------------------------------- |
-| 📝 **Remember**   | [[application]] (cheatsheet), [[cheatsheet]]                                                      |
-| 📖 **Understand** | [[http-protocol-deepdive]], [[tls-ssl-deepdive]], [[browser-engine-architecture]]                 |
-| 🎯 **Apply**      | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]]                            |
-| 🔬 **Analyze**    | [[blueteam-detection-matrix]], [[malware-analysis-reverse-engineering-playbook]]                  |
-| 🏗️ **Evaluate**   | [[ai-evaluation-framework]], [[architectural-flaw-detection]], [[pentest-simulation-report]]      |
-| 🛠️ **Create**     | [[jarswaf-plan]] → [[jarswaf-lifecycle-architecture]] (proyek real), [[autonomous-system-design]] |
+| Bloom Level       | Praktik di Vault                                                                             |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| 📝 **Remember**   | [[application]] (cheatsheet), [[cheatsheet]]                                                 |
+| 📖 **Understand** | [[http-protocol-deepdive]], [[tls-ssl-deepdive]], [[browser-engine-architecture]]            |
+| 🎯 **Apply**      | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]]                       |
+| 🔬 **Analyze**    | [[blueteam-detection-matrix]], [[malware-analysis-reverse-engineering-playbook]]             |
+| 🏗️ **Evaluate**   | [[ai-evaluation-framework]], [[architectural-flaw-detection]], [[pentest-simulation-report]] |
+| 🛠️ **Create**     | [[jarswaf-plan]] → implementasi privat (proyek real), [[autonomous-system-design]]           |
 
 ---
 

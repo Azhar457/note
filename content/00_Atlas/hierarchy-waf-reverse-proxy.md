@@ -110,7 +110,7 @@ For context: 10k req/s baseline → L1 = 7k req/s → L3 = ~4k req/s.
 - **Web Hacking (Attack Vectors)** → [[web-hacking-exploitation]] (SQLi, XSS, SSRF — yang coba di-block WAF)
 - **Supply Chain (Rule Lifecycle)** → [[software-supply-chain-security-deepdive]]
 - **Service Mesh Security** → [[cloud-infrastructure]] (Level 5–8, Istio + WASM)
-- **jarsWAF (Custom Rust WAF)** → [[jarswaf-lifecycle-architecture]]
+- **jarsWAF (Custom Rust WAF)** → docs privat (proyek jarswaf)
 - **Master Index** → [[master-index]]
 
 ---

@@ -20,7 +20,7 @@ cssclasses:
 > [!info] Ringkasan
 > Referensi komprehensif teknik bypass WAF dari Awesome-WAF dan berbagai sumber. Mencakup 70+ teknik yang diklasifikasikan per kategori: obfuscation, encoding, parsing confusion, protocol-level evasion, side-channel, dan filter abuse. Setiap teknik dilengkapi contoh payload dan mekanisme countermeasure.
 
-**Cross-link:** [[waf-reverse-proxy-deepdive]] → [[sql-comment-injection-waf-bypass]] → [[waf-ebpf-xdp-pentest]] → [[ctf-tool-arsenal-universal]] → [[hierarchy-waf-reverse-proxy]]
+**Cross-link:** [[waf-reverse-proxy-deepdive]] → [[ctf-tool-arsenal-universal]] → [[hierarchy-waf-reverse-proxy]]
 
 ---
 
@@ -241,7 +241,5 @@ curl -d "data=$(python -c "print('A'*100000 + ' UNION SELECT...")" http://target
 **Cross-link vault:**
 
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF
-- [[sql-comment-injection-waf-bypass]] — SQL comment injection case study
-- [[waf-ebpf-xdp-pentest]] — kernel level testing
 - [[ctf-tool-arsenal-universal]] — tools
 - [[hierarchy-waf-reverse-proxy]] — WAF ontology

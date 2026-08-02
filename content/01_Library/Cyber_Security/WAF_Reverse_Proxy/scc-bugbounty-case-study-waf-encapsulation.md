@@ -275,8 +275,6 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 | Catatan                                    | Koneksi                                                         |
 | ------------------------------------------ | --------------------------------------------------------------- |
 | [[waf-reverse-proxy-deepdive]]             | Arsitektur WAF — posisi encapsulation di reverse proxy layer    |
-| [[waf-ebpf-xdp-pentest]]                   | eBPF/XDP testing untuk L3 filtering                             |
-| [[jarswaf-lifecycle-architecture]]         | Lifecycle WAF — dari koneksi sampai response                    |
 | [[hierarchy-search]]                       | Information access hierarchy — Shodan ada di level OSINT        |
 | [[browser-security-exploitation-deepdive]] | JS bundle analysis sebagai teknik recon                         |
 | [[server-hardening-playbook]]              | Hardening server — hubungannya dengan mengurangi attack surface |

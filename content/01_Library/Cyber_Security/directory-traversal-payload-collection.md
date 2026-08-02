@@ -131,4 +131,4 @@ Content-Type: application/x-www-form-urlencoded
 
 Lokasi payload: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Directory Traversal/` dan `/File Inclusion/`
 
-**Cross-link:** [[file-carving-data-recovery-advanced]] → [[web-hacking-exploitation]] → [[waf-ebpf-xdp-pentest]] → [[blueteam-detection-matrix]]
+**Cross-link:** [[file-carving-data-recovery-advanced]] → [[web-hacking-exploitation]] → [[blueteam-detection-matrix]]

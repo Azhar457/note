@@ -20,7 +20,7 @@ cssclasses:
 > [!info] Ringkasan
 > WAF fingerprinting adalah proses mengidentifikasi jenis dan vendor WAF yang melindungi target. Informasi ini penting untuk memilih teknik bypass yang tepat. Fingerprint bisa didapat dari response headers, cookies, block page content, response codes, dan side-channel timing. Referensi ini mencakup 100+ WAF signatures dari Awesome-WAF + wafw00f plugin database (173 WAF).
 
-**Cross-link:** [[waf-evasion-techniques-encyclopedia]] → [[waf-reverse-proxy-deepdive]] → [[ctf-tool-arsenal-universal]] → [[sql-comment-injection-waf-bypass]]
+**Cross-link:** [[waf-evasion-techniques-encyclopedia]] → [[waf-reverse-proxy-deepdive]] → [[ctf-tool-arsenal-universal]]
 
 ---
 
@@ -217,5 +217,4 @@ wafw00f http://target1.com http://target2.com -a
 - [[waf-evasion-techniques-encyclopedia]] — evasion setelah fingerprint
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF
 - [[ctf-tool-arsenal-universal]] — tools
-- [[sql-comment-injection-waf-bypass]] — case study
 - [[hierarchy-waf-reverse-proxy]] — ontology
