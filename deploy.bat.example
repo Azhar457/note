@@ -1,0 +1,18 @@
+@echo off
+REM ====================================================================
+REM TEMPLATE SKRIP DEPLOYMENT QUARTZ UNTUK WINDOWS (deploy.bat.example)
+REM Salin file ini menjadi 'deploy.bat' (deploy.bat otomatis di-ignore Git)
+REM ====================================================================
+
+echo [1/3] Membangun situs Quartz...
+npx quartz build
+
+echo [2/3] Meng-add & commit perubahan catatan...
+git add .
+git commit -m "docs: sync notes [%date% %time%]"
+
+echo [3/3] Mempublikasikan ke GitHub Pages...
+git push origin v4
+
+echo ✅ Selesai! Perubahan telah dikirim ke GitHub.
+pause

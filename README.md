@@ -38,7 +38,8 @@ note/
 ├── .github/workflows/    # 🚀 CI/CD GitHub Actions (Deploy & Build Preview)
 ├── quartz.config.ts      # 🛠️ Konfigurasi utama Quartz (Title, Plugin, Theme, SEO)
 ├── quartz.layout.ts      # 📐 Tata letak komponen halaman (Sidebar, Header, Footer)
-└── deploy.bat            # 🔄 Script otomatisasi build & sync untuk Windows
+├── deploy.bat.example    # 📄 Templat skrip otomatisasi build & sync (Windows)
+└── deploy.sh.example     # 📄 Templat skrip otomatisasi build & sync (Linux/macOS)
 ```
 
 ---
@@ -60,14 +61,17 @@ npx quartz build --serve
 
 ### 3. Memublikasikan Perubahan
 
-- **Via Linux / Terminal Git:**
+- **Via Skrip Otomatis (Rekomendasi):**
+  Salin file templat sesuai OS Anda menjadi file skrip lokal (file `.bat` dan `.sh` lokal otomatis di-ignore oleh Git):
+  - **Windows:** Salin `deploy.bat.example` menjadi `deploy.bat` lalu jalankan `deploy.bat`.
+  - **Linux / macOS:** Salin `deploy.sh.example` menjadi `deploy.sh`, beri izin eksekusi (`chmod +x deploy.sh`), lalu jalankan `./deploy.sh`.
+
+- **Via Manual Git CLI:**
   ```bash
   git add .
   git commit -m "docs: tambah catatan baru"
   git push origin v4
   ```
-- **Via Windows:**
-  Jalankan file `deploy.bat` untuk memproses build dan sync secara otomatis.
 
 ---
 

@@ -9,10 +9,14 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+
+# Ignore script files except .example templates
 *.bat
 *.py
 *.sh
 *.ps1
+!*.example
+
 .agents
 scratch
 scratch/*
