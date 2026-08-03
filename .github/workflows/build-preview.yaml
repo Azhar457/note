@@ -7,7 +7,6 @@ on:
 
 jobs:
   build-preview:
-    # Removed repository check to allow workflow to run on forks
     runs-on: ubuntu-latest
     name: Build Preview
     steps:
@@ -18,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
 
       - name: Cache dependencies
         uses: actions/cache@v4
