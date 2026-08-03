@@ -17,7 +17,6 @@ updated: 2026-07-23
 cssclasses:
   - wide-table
 ---
-
 # 🗄️ Memory & Storage Hierarchy — Dari Register ke Cold Archive
 
 > [!tip] Data terletak di **8 lapisan hierarki memori**, di mana setiap lapisan ke atas (menuju CPU) lebih cepat, lebih kecil, lebih mahal. Catatan ini memetakan memory hierarchy dari register (0.3 ns, Byte) hingga cold archive (30+ s, Exabyte) — lintas AI (model loading), DB (B-tree caching), OS (page cache), security (cold data retention), dan storage engineering. Dengan trade-off matrix per tier, failure mode, dan decision framework.
@@ -96,14 +95,14 @@ Speed ↑    Cost per GB ↑    Capacity ↓
 
 ### 3.1 Karakteristik
 
-| Aspek           | Detail                              |
-| --------------- | ----------------------------------- |
-| **Teknologi**   | Flip-flop di core CPU               |
-| **Kapasitas**   | 512B-1KB (64-128 register × 64-bit) |
-| **Latency**     | 0.3-1 ns (siklus clock tunggal)     |
-| **Bandwidth**   | 1-5 TB/s (per cycle × core count)   |
-| **Persistensi** | Volatile (hilang saat reset)        |
-| **Biaya**       | ~$1000/GB (embedded di CPU die)     |
+| Aspek | Detail |
+|-------|--------|
+| **Teknologi** | Flip-flop di core CPU |
+| **Kapasitas** | 512B-1KB (64-128 register × 64-bit) |
+| **Latency** | 0.3-1 ns (siklus clock tunggal) |
+| **Bandwidth** | 1-5 TB/s (per cycle × core count) |
+| **Persistensi** | Volatile (hilang saat reset) |
+| **Biaya** | ~$1000/GB (embedded di CPU die) |
 
 ### 3.2 Kegunaan
 
@@ -119,20 +118,20 @@ Speed ↑    Cost per GB ↑    Capacity ↓
 
 ### 4.1 Karakteristik per Level
 
-| Level | Kapasitas  |      Latency       | Bandwidth | Associativity | Shared?  |
-| :---: | :--------: | :----------------: | :-------: | :-----------: | :------: |
-|  L1   |  32-64 KB  |  ~1 ns (4 cycles)  | 1-5 TB/s  |     8-way     | Per core |
-|  L2   | 256-512 KB | ~3 ns (12 cycles)  | 500 GB/s  |     8-way     | Per core |
-|  L3   |  8-32 MB   | ~10 ns (40 cycles) | 200 GB/s  |   16-20 way   |  Shared  |
+| Level | Kapasitas | Latency | Bandwidth | Associativity | Shared? |
+|:-----:|:---------:|:-------:|:---------:|:-------------:|:-------:|
+| L1 | 32-64 KB | ~1 ns (4 cycles) | 1-5 TB/s | 8-way | Per core |
+| L2 | 256-512 KB | ~3 ns (12 cycles) | 500 GB/s | 8-way | Per core |
+| L3 | 8-32 MB | ~10 ns (40 cycles) | 200 GB/s | 16-20 way | Shared |
 
 ### 4.2 Prinsip Cache Miss
 
-| Miss Type      | Penyebab               |      Penalti      |
-| -------------- | ---------------------- | :---------------: |
-| Cold miss      | Pertama kali akses     | ~100 cycles (RAM) |
-| Capacity miss  | Cache terlalu kecil    |    ~100 cycles    |
-| Conflict miss  | Associativity terbatas |    ~10 cycles     |
-| Coherence miss | CPU lain modifikasi    |    ~50 cycles     |
+| Miss Type | Penyebab | Penalti |
+|-----------|----------|:-------:|
+| Cold miss | Pertama kali akses | ~100 cycles (RAM) |
+| Capacity miss | Cache terlalu kecil | ~100 cycles |
+| Conflict miss | Associativity terbatas | ~10 cycles |
+| Coherence miss | CPU lain modifikasi | ~50 cycles |
 
 ### 4.3 Cache Line = 64 bytes
 
@@ -144,14 +143,14 @@ Setiap cache line membawa 64 byte data contiguous — **spatial locality** prize
 
 ### 5.1 Karakteristik
 
-| Aspek           | Detail                            |
-| --------------- | --------------------------------- |
-| **Teknologi**   | DDR5, HBM (High Bandwidth Memory) |
-| **Kapasitas**   | 8GB - 2TB per DIMM                |
-| **Latency**     | ~70-100 ns (DDR5), ~150 ns (HBM)  |
-| **Bandwidth**   | 32-64 GB/s (DDR5), 1-3 TB/s (HBM) |
-| **Persistensi** | Volatile                          |
-| **Biaya**       | $8-12/GB                          |
+| Aspek | Detail |
+|-------|--------|
+| **Teknologi** | DDR5, HBM (High Bandwidth Memory) |
+| **Kapasitas** | 8GB - 2TB per DIMM |
+| **Latency** | ~70-100 ns (DDR5), ~150 ns (HBM) |
+| **Bandwidth** | 32-64 GB/s (DDR5), 1-3 TB/s (HBM) |
+| **Persistensi** | Volatile |
+| **Biaya** | $8-12/GB |
 
 ### 5.2 Struktur
 
@@ -172,14 +171,14 @@ DIMM → Rank → Chip → Bank → Row → Column → Cell (1T1C)
 
 ### 6.1 Karakteristik
 
-| Aspek           | Detail                                                 |
-| --------------- | ------------------------------------------------------ |
-| **Teknologi**   | Intel Optane (discontinued), CXL-attached, Samsung SCM |
-| **Kapasitas**   | 128GB-1.5TB per DIMM                                   |
-| **Latency**     | ~350 ns (read), ~1 us (write)                          |
-| **Bandwidth**   | ~15 GB/s                                               |
-| **Persistensi** | Non-volatile                                           |
-| **Biaya**       | $5-8/GB                                                |
+| Aspek | Detail |
+|-------|--------|
+| **Teknologi** | Intel Optane (discontinued), CXL-attached, Samsung SCM |
+| **Kapasitas** | 128GB-1.5TB per DIMM |
+| **Latency** | ~350 ns (read), ~1 us (write) |
+| **Bandwidth** | ~15 GB/s |
+| **Persistensi** | Non-volatile |
+| **Biaya** | $5-8/GB |
 
 ### 6.2 Use Case
 
@@ -193,22 +192,22 @@ DIMM → Rank → Chip → Bank → Row → Column → Cell (1T1C)
 
 ### 7.1 Karakteristik per Interface
 
-| Interface       | Latency (Read) | Latency (Write) | Bandwidth |  Kapasitas  |
-| --------------- | :------------: | :-------------: | :-------: | :---------: |
-| SATA SSD        |     ~80 us     |     ~80 us      | ~550 MB/s |  hasta 4TB  |
-| NVMe Gen4       |     ~5 us      |     ~10 us      |  ~7 GB/s  |  hasta 8TB  |
-| NVMe Gen5       |     ~3 us      |      ~5 us      | ~14 GB/s  | hasta 16TB  |
-| Optane SSD (DC) |     ~10 us     |     ~20 us      |  ~2 GB/s  | hasta 1.5TB |
+| Interface | Latency (Read) | Latency (Write) | Bandwidth | Kapasitas |
+|-----------|:--------------:|:---------------:|:---------:|:---------:|
+| SATA SSD | ~80 us | ~80 us | ~550 MB/s | hasta 4TB |
+| NVMe Gen4 | ~5 us | ~10 us | ~7 GB/s | hasta 8TB |
+| NVMe Gen5 | ~3 us | ~5 us | ~14 GB/s | hasta 16TB |
+| Optane SSD (DC) | ~10 us | ~20 us | ~2 GB/s | hasta 1.5TB |
 
 ### 7.2 Jenis NAND
 
-| Type | Bits/Cell | Endurance (P/E cycles) | Use Case                      |
-| :--: | :-------: | :--------------------: | ----------------------------- |
-| SLC  |     1     |          100K          | Enterprise cache              |
-| MLC  |     2     |          30K           | Enterprise mid-range          |
-| TLC  |     3     |          10K           | Consumer, enterprise          |
-| QLC  |     4     |           5K           | Cold archive, HDD replacement |
-| PLC  |     5     |          1-2K          | Archive (research)            |
+| Type | Bits/Cell | Endurance (P/E cycles) | Use Case |
+|:----:|:---------:|:----------------------:|----------|
+| SLC | 1 | 100K | Enterprise cache |
+| MLC | 2 | 30K | Enterprise mid-range |
+| TLC | 3 | 10K | Consumer, enterprise |
+| QLC | 4 | 5K | Cold archive, HDD replacement |
+| PLC | 5 | 1-2K | Archive (research) |
 
 ### 7.3 GC & TRIM
 
@@ -229,14 +228,14 @@ DIMM → Rank → Chip → Bank → Row → Column → Cell (1T1C)
 
 ### 8.1 Karakteristik
 
-| Aspek           | Detail                                   |
-| --------------- | ---------------------------------------- |
-| **Teknologi**   | Platter + actuator + read/write head     |
-| **Kapasitas**   | hasta 30TB (CMR/SMR)                     |
-| **Latency**     | ~5-10ms (rotation 7200 RPM)              |
-| **Bandwidth**   | ~200 MB/s (sequential), ~1 MB/s (random) |
-| **Persistensi** | Non-volatile                             |
-| **Biaya**       | $0.02-0.05/GB                            |
+| Aspek | Detail |
+|-------|--------|
+| **Teknologi** | Platter + actuator + read/write head |
+| **Kapasitas** | hasta 30TB (CMR/SMR) |
+| **Latency** | ~5-10ms (rotation 7200 RPM) |
+| **Bandwidth** | ~200 MB/s (sequential), ~1 MB/s (random) |
+| **Persistensi** | Non-volatile |
+| **Biaya** | $0.02-0.05/GB |
 
 ### 8.2 Perbandingan Khas
 
@@ -259,12 +258,12 @@ HDD 7200 RPM : 7 ms read, 200 MB/s
 
 ### 9.1 Karakteristik
 
-| Fitur       | NAS                       | SAN                     |
-| ----------- | ------------------------- | ----------------------- |
-| Protocol    | NFS, SMB                  | iSCSI, FC               |
-| Granularity | File-level                | Block-level             |
+| Fitur | NAS | SAN |
+|-------|-----|-----|
+| Protocol | NFS, SMB | iSCSI, FC |
+| Granularity | File-level | Block-level |
 | Performance | Medium (network overhead) | High (dedicated fabric) |
-| Use case    | Team file share           | Database storage        |
+| Use case | Team file share | Database storage |
 
 ### 9.2 Latency Breakdown
 
@@ -280,14 +279,14 @@ Typical: 100 us - 10 ms (best case to worst case)
 
 ### 10.1 Karakteristik
 
-| Provider   | Product         |  Latency  |  Durability   | Cost/GB/Month  |
-| ---------- | --------------- | :-------: | :-----------: | :------------: |
-| AWS        | S3 Standard     | ~50-200ms | 99.999999999% |     $0.023     |
-| AWS        | S3 Infrequent   | ~50-200ms | 99.999999999% |    $0.0125     |
-| AWS        | S3 Glacier      |  ~1-12h   | 99.999999999% |    $0.0036     |
-| AWS        | S3 Glacier Deep |  ~12-48h  | 99.999999999% |    $0.00099    |
-| GCP        | Cloud Storage   | ~50-200ms | 99.999999999% |     $0.020     |
-| Cloudflare | R2              | ~30-100ms | 99.999999999% | $0 (no egress) |
+| Provider | Product | Latency | Durability | Cost/GB/Month |
+|----------|---------|:-------:|:----------:|:-------------:|
+| AWS | S3 Standard | ~50-200ms | 99.999999999% | $0.023 |
+| AWS | S3 Infrequent | ~50-200ms | 99.999999999% | $0.0125 |
+| AWS | S3 Glacier | ~1-12h | 99.999999999% | $0.0036 |
+| AWS | S3 Glacier Deep | ~12-48h | 99.999999999% | $0.00099 |
+| GCP | Cloud Storage | ~50-200ms | 99.999999999% | $0.020 |
+| Cloudflare | R2 | ~30-100ms | 99.999999999% | $0 (no egress) |
 
 ### 10.2 Use Case
 
@@ -302,14 +301,14 @@ Typical: 100 us - 10 ms (best case to worst case)
 
 ### 11.1 Karakteristik
 
-| Aspek           | Detail                               |
-| --------------- | ------------------------------------ |
-| **Teknologi**   | LTO-9 (18 TB native), LTO-10 (36 TB) |
-| **Kapasitas**   | 200-300 TB per library               |
-| **Latency**     | ~30-60s (robot mount)                |
-| **Bandwidth**   | ~300 MB/s (sequential)               |
-| **Persistensi** | Non-volatile (30+ tahun)             |
-| **Biaya**       | $0.004/GB (tape media)               |
+| Aspek | Detail |
+|-------|--------|
+| **Teknologi** | LTO-9 (18 TB native), LTO-10 (36 TB) |
+| **Kapasitas** | 200-300 TB per library |
+| **Latency** | ~30-60s (robot mount) |
+| **Bandwidth** | ~300 MB/s (sequential) |
+| **Persistensi** | Non-volatile (30+ tahun) |
+| **Biaya** | $0.004/GB (tape media) |
 
 ### 11.2 Use Case
 
@@ -333,44 +332,44 @@ Budget (cost per GB)        →  Tier 5-8 (HDD/Cloud/Tape)
 
 ### 12.2 Anti-Pattern
 
-| Anti-Pattern                            | Fallout               |
-| --------------------------------------- | --------------------- |
-| Database tiap query scan GB = RAM habis | OOM, query timeout    |
-| SSD untuk archive data (>90% cold)      | Wear terkuras sia-sia |
-| Cold data di S3 Standard = cost ledakan | Tagihan membengkak    |
-| Tape sebagai hot tier                   | Latency impossible    |
+| Anti-Pattern | Fallout |
+|--------------|---------|
+| Database tiap query scan GB = RAM habis | OOM, query timeout |
+| SSD untuk archive data (>90% cold) | Wear terkuras sia-sia |
+| Cold data di S3 Standard = cost ledakan | Tagihan membengkak |
+| Tape sebagai hot tier | Latency impossible |
 
 ---
 
 ## 13. Cross-Reference ke Vault
 
-|   Tier    | Catatan Vault Terkait                                                |
-| :-------: | -------------------------------------------------------------------- |
-| **T0-T1** | [[hierarchy-operating-systems]] (Cache / TLB)                        |
-|  **T2**   | [[hierarchy-kernel-bypass-networking]] (DMA buffer)                  |
-|  **T3**   | [[hierarchy-database-storage-systems]] (PMEM tier)                   |
-|  **T4**   | [[hierarchy-infrastructure-evolution]] (NVMe as standard)            |
-|  **T5**   | [[hierarchy-data-recovery]] (HDD recovery)                           |
-|  **T6**   | [[hierarchy-network-security]] (NAS/SAN security)                    |
-|  **T7**   | [[hierarchy-llm-ai-systems]] (Training data in S3)                   |
-|  **T8**   | [[hierarchy-cybersecurity-defense-architecture]] (Offline backup L1) |
-|  **All**  | [[hierarchy-digital-plumbing]] (Compression & parsing)               |
-|  **All**  | [[hierarchy-systems-architecture-evolution]] (Distributed tiering)   |
-|  **All**  | [[hierarchy-abstraction-layers]] — L1-L8 memori                      |
+| Tier | Catatan Vault Terkait |
+|:----:|-----------------------|
+| **T0-T1** | [[hierarchy-operating-systems]] (Cache / TLB) |
+| **T2** | [[hierarchy-kernel-bypass-networking]] (DMA buffer) |
+| **T3** | [[hierarchy-database-storage-systems]] (PMEM tier) |
+| **T4** | [[hierarchy-infrastructure-evolution]] (NVMe as standard) |
+| **T5** | [[hierarchy-data-recovery]] (HDD recovery) |
+| **T6** | [[hierarchy-network-security]] (NAS/SAN security) |
+| **T7** | [[hierarchy-llm-ai-systems]] (Training data in S3) |
+| **T8** | [[hierarchy-cybersecurity-defense-architecture]] (Offline backup L1) |
+| **All** | [[hierarchy-digital-plumbing]] (Compression & parsing) |
+| **All** | [[hierarchy-systems-architecture-evolution]] (Distributed tiering) |
+| **All** | [[hierarchy-abstraction-layers]] — L1-L8 memori |
 
 ---
 
 ## References
 
-1. Hennessy & Patterson. _"Computer Architecture: A Quantitative Approach."_ 6th ed., 2019.
-2. Jacob et al. _"Memory Systems: Cache, DRAM, Disk."_ 2008.
-3. Intel. _"Intel Optane Persistent Memory."_ (2019-2023).
-4. NVM Express. _"NVM Express Base Specification v2.0."_ (2021).
-5. SNIA. _"Storage Networking Industry Association: Persistent Memory."_ (2020).
-6. LTO Consortium. _"LTO Ultrium Format Specifications."_ (2023).
-7. AWS. _"Amazon S3 Storage Classes."_ (2024).
-8. Google Cloud. _"Cloud Storage Documentation."_ (2024).
-9. Denning, P. _"The Working Set Model for Program Behavior."_ CACM, 1968.
-10. Mogul, J. _"Operating Systems and Virtual Memory: The Dark Side."_ 2012.
-11. Lee et al. _"Flash Memory — A 40-Year Perspective."_ IEEE, 2023.
-12. Rumble et al. _"It's Time for Low Latency."_ USENIX ATC 2011.
+1. Hennessy & Patterson. *"Computer Architecture: A Quantitative Approach."* 6th ed., 2019.
+2. Jacob et al. *"Memory Systems: Cache, DRAM, Disk."* 2008.
+3. Intel. *"Intel Optane Persistent Memory."* (2019-2023).
+4. NVM Express. *"NVM Express Base Specification v2.0."* (2021).
+5. SNIA. *"Storage Networking Industry Association: Persistent Memory."* (2020).
+6. LTO Consortium. *"LTO Ultrium Format Specifications."* (2023).
+7. AWS. *"Amazon S3 Storage Classes."* (2024).
+8. Google Cloud. *"Cloud Storage Documentation."* (2024).
+9. Denning, P. *"The Working Set Model for Program Behavior."* CACM, 1968.
+10. Mogul, J. *"Operating Systems and Virtual Memory: The Dark Side."* 2012.
+11. Lee et al. *"Flash Memory — A 40-Year Perspective."* IEEE, 2023.
+12. Rumble et al. *"It's Time for Low Latency."* USENIX ATC 2011.

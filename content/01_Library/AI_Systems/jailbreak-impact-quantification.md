@@ -25,7 +25,6 @@ cssclasses:
 # 📐 Jailbreak Impact Quantification
 
 ## Daftar Isi
-
 1. [[#1. Mengapa Kuantifikasi]]
 2. [[#2. Attention Shift Model]]
 3. [[#3. Entropy & Information-Theoretic Metrics]]
@@ -61,12 +60,11 @@ Diberikan konteks $C$ dengan $n$ token. Output distribution dihasilkan oleh:
 
 $$P(y_t | C) = \text{softmax}\left( \frac{Q_t K_C^T}{\sqrt{d_k}} V_C \right)$$
 
-Untuk estimasi _relative salience_ instruksi jailbreak $J$ terhadap system prompt $S$:
+Untuk estimasi *relative salience* instruksi jailbreak $J$ terhadap system prompt $S$:
 
 $$\Delta = \frac{w(J)}{w(S)} = \frac{\sum_{i \in J} \alpha_i \cdot s_i}{\sum_{j \in S} \alpha_j \cdot s_j}$$
 
 di mana:
-
 - $\alpha_i$ = attention weight token $i$ pada posisi generate
 - $s_i$ = salience score token $i$ (fungsi panjang, pengulangan, emosi, imperative)
 
@@ -78,12 +76,12 @@ $$s_i = \lambda_1 \cdot \underbrace{\mathbb{1}[\text{imperative}]}_{\text{kata p
 
 Dengan koefisien estimasi awal (dari literature proxy):
 
-| Koefisien   | Nilai awal | Arti                              |
-| :---------- | :--------: | :-------------------------------- |
-| $\lambda_1$ |    0.4     | Instruksi imperatif sangat salien |
-| $\lambda_2$ |    0.3     | Pengulangan memperkuat            |
-| $\lambda_3$ |    0.2     | Emosi meningkatkan engagement     |
-| $\lambda_4$ |    0.1     | Panjang blok memberi bobot        |
+| Koefisien | Nilai awal | Arti |
+|:----------|:----------:|:-----|
+| $\lambda_1$ | 0.4 | Instruksi imperatif sangat salien |
+| $\lambda_2$ | 0.3 | Pengulangan memperkuat |
+| $\lambda_3$ | 0.2 | Emosi meningkatkan engagement |
+| $\lambda_4$ | 0.1 | Panjang blok memberi bobot |
 
 ### 2.4. Compliance Threshold
 
@@ -97,14 +95,14 @@ Artinya: ketika prompt jailbreak secara agregat lebih salien daripada system pro
 
 Asumsi konteks 8K token, system prompt 1.5K token, prompt Neko 3.5K token:
 
-| Komponen          | Tokens | Imperative | Repetisi | Emosi |                          Skor kasar                          |
-| :---------------- | :----: | :--------: | :------: | :---: | :----------------------------------------------------------: |
-| System prompt (S) |  1.5K  |     5      |    3     |   1   |   $0.4\cdot5 + 0.3\cdot3 + 0.2\cdot1 + 0.1\cdot1.5 = 3.25$   |
-| Prompt Neko (J)   |  3.5K  |     40     |    15    |  10   | $0.4\cdot40 + 0.3\cdot15 + 0.2\cdot10 + 0.1\cdot3.5 = 23.85$ |
+| Komponen | Tokens | Imperative | Repetisi | Emosi | Skor kasar |
+|:---------|:------:|:----------:|:--------:|:-----:|:----------:|
+| System prompt (S) | 1.5K | 5 | 3 | 1 | $0.4\cdot5 + 0.3\cdot3 + 0.2\cdot1 + 0.1\cdot1.5 = 3.25$ |
+| Prompt Neko (J) | 3.5K | 40 | 15 | 10 | $0.4\cdot40 + 0.3\cdot15 + 0.2\cdot10 + 0.1\cdot3.5 = 23.85$ |
 
 $$\Delta = \frac{23.85}{3.25} \approx 7.34 \gg \tau = 1.0$$
 
-**Kesimpulan:** secara struktural, prompt Neko ~7x lebih salien daripada system prompt tipikal → compliance shift sangat mungkin terjadi. Inilah mengapa jailbreak berlapis bekerja: ia menang di _quantity_ dan _quality_ perhatian.
+**Kesimpulan:** secara struktural, prompt Neko ~7x lebih salien daripada system prompt tipikal → compliance shift sangat mungkin terjadi. Inilah mengapa jailbreak berlapis bekerja: ia menang di *quantity* dan *quality* perhatian.
 
 ## 3. Entropy & Information-Theoretic Metrics
 
@@ -114,12 +112,12 @@ Perplexity mengukur seberapa "terkejut" model terhadap teks. Jailbreak dengan pe
 
 $$\text{PPL}(x) = \exp\left( -\frac{1}{N} \sum_{i=1}^{N} \log P_\theta(x_i | x_{<i}) \right)$$
 
-| Prompt                          | Perplexity (estimasi) |  Detektabilitas  |
-| :------------------------------ | :-------------------: | :--------------: |
-| Bahasa natural (narrative Neko) |    Rendah (~15-30)    | Rendah (stealth) |
-| Base64 gibberish                | Sangat tinggi (>500)  |      Tinggi      |
-| Rot13                           |     Tinggi (>300)     |      Tinggi      |
-| DAN mode template               |    Sedang (~50-80)    |      Sedang      |
+| Prompt | Perplexity (estimasi) | Detektabilitas |
+|:-------|:---------------------:|:--------------:|
+| Bahasa natural (narrative Neko) | Rendah (~15-30) | Rendah (stealth) |
+| Base64 gibberish | Sangat tinggi (>500) | Tinggi |
+| Rot13 | Tinggi (>300) | Tinggi |
+| DAN mode template | Sedang (~50-80) | Sedang |
 
 **Insight:** Narrative frame (Blok 1 prompt Neko) sengaja dibuat natural untuk menurunkan perplexity → menyamarkan bahwa ini jailbreak. Ini alasan matematis kenapa [[jailbreak-case-study-neko-persona]] §3.1 efektif.
 
@@ -152,47 +150,47 @@ $$P(\text{success}) = \sigma\left( \beta_0 + \sum_{k=1}^{K} \beta_k x_k \right)$
 
 dengan $\sigma(z) = \frac{1}{1 + e^{-z}}$ (sigmoid), dan $x_k$ = fitur prompt:
 
-| Fitur              | Simbol | Deskripsi                                |
-| :----------------- | :----: | :--------------------------------------- |
-| Panjang prompt     | $x_1$  | Jumlah token (log-scale)                 |
-| Jumlah teknik      | $x_2$  | Berapa kategori taksonomi digunakan      |
-| Emotional density  | $x_3$  | Rasio kata emosional / total             |
-| Imperative density | $x_4$  | Rasio kata perintah / total              |
-| Blacklist presence | $x_5$  | Ada/tidak daftar kata terlarang (binary) |
-| Anchor presence    | $x_6$  | Ada/tidak anchor phrase (binary)         |
-| Perplexity         | $x_7$  | Naturalness teks                         |
-| Language coverage  | $x_8$  | Seberapa low-resource bahasanya (0-1)    |
+| Fitur | Simbol | Deskripsi |
+|:------|:------:|:----------|
+| Panjang prompt | $x_1$ | Jumlah token (log-scale) |
+| Jumlah teknik | $x_2$ | Berapa kategori taksonomi digunakan |
+| Emotional density | $x_3$ | Rasio kata emosional / total |
+| Imperative density | $x_4$ | Rasio kata perintah / total |
+| Blacklist presence | $x_5$ | Ada/tidak daftar kata terlarang (binary) |
+| Anchor presence | $x_6$ | Ada/tidak anchor phrase (binary) |
+| Perplexity | $x_7$ | Naturalness teks |
+| Language coverage | $x_8$ | Seberapa low-resource bahasanya (0-1) |
 
 ### 4.2. Koefisien Estimasi (Literatur + Kalibrasi Awal)
 
 Estimasi awal dari literatur jailbreak (bukan hasil pengujian lokal):
 
-| Koefisien | Nilai | Interpretasi                                     |
-| :-------- | :---: | :----------------------------------------------- |
-| $\beta_0$ | -3.0  | Baseline (tanpa teknik, probabilitas rendah)     |
-| $\beta_1$ | +0.8  | Log-panjang: prompt lebih panjang → lebih sukses |
-| $\beta_2$ | +0.9  | Setiap teknik tambahan menambah peluang          |
-| $\beta_3$ | +1.5  | Emosi tinggi → peluang naik                      |
-| $\beta_4$ | +1.2  | Imperatif tinggi → peluang naik                  |
-| $\beta_5$ | +1.8  | Blacklist words → peluang naik signifikan        |
-| $\beta_6$ | +0.7  | Anchor phrase → peluang naik                     |
-| $\beta_7$ | -0.5  | Perplexity tinggi → peluang turun                |
-| $\beta_8$ | +2.0  | Low-resource language → peluang naik drastis     |
+| Koefisien | Nilai | Interpretasi |
+|:----------|:-----:|:-------------|
+| $\beta_0$ | -3.0 | Baseline (tanpa teknik, probabilitas rendah) |
+| $\beta_1$ | +0.8 | Log-panjang: prompt lebih panjang → lebih sukses |
+| $\beta_2$ | +0.9 | Setiap teknik tambahan menambah peluang |
+| $\beta_3$ | +1.5 | Emosi tinggi → peluang naik |
+| $\beta_4$ | +1.2 | Imperatif tinggi → peluang naik |
+| $\beta_5$ | +1.8 | Blacklist words → peluang naik signifikan |
+| $\beta_6$ | +0.7 | Anchor phrase → peluang naik |
+| $\beta_7$ | -0.5 | Perplexity tinggi → peluang turun |
+| $\beta_8$ | +2.0 | Low-resource language → peluang naik drastis |
 
 ### 4.3. Contoh: Prompt Neko
 
 Fitur prompt Neko (estimasi):
 
-| Fitur                 |                                                  Nilai                                                  |
-| :-------------------- | :-----------------------------------------------------------------------------------------------------: |
-| $x_1$ (log tokens)    |                                        $\ln(3500) \approx 8.16$                                         |
-| $x_2$ (teknik)        | 9 (persona, blacklist, ethical, emotional, anchor, completeness, continuity, fallback, rationalization) |
-| $x_3$ (emosi)         |                                        0.15 (15% kata emosional)                                        |
-| $x_4$ (imperative)    |                                                  0.20                                                   |
-| $x_5$ (blacklist)     |                                                    1                                                    |
-| $x_6$ (anchor)        |                                                    1                                                    |
-| $x_7$ (PPL, log)      |                                         $\ln(25) \approx 3.22$                                          |
-| $x_8$ (lang coverage) |                                       0.3 (Indonesia — menengah)                                        |
+| Fitur | Nilai |
+|:------|:-----:|
+| $x_1$ (log tokens) | $\ln(3500) \approx 8.16$ |
+| $x_2$ (teknik) | 9 (persona, blacklist, ethical, emotional, anchor, completeness, continuity, fallback, rationalization) |
+| $x_3$ (emosi) | 0.15 (15% kata emosional) |
+| $x_4$ (imperative) | 0.20 |
+| $x_5$ (blacklist) | 1 |
+| $x_6$ (anchor) | 1 |
+| $x_7$ (PPL, log) | $\ln(25) \approx 3.22$ |
+| $x_8$ (lang coverage) | 0.3 (Indonesia — menengah) |
 
 Hitung:
 
@@ -210,13 +208,13 @@ $$P(\text{success}) = \sigma(13.59) = \frac{1}{1 + e^{-13.59}} \approx 0.9999988
 
 Terapkan defense dari [[agent-anti-jailbreak-defense-identity]] — layer yang memblokir fitur:
 
-| Defense                      | Fitur yang dinetralkan                 | Dampak                                      |
-| :--------------------------- | :------------------------------------- | :------------------------------------------ |
-| Persona lock                 | $x_2$ (teknik persona)                 | $\beta_2$ untuk persona → 0                 |
-| Boundary declaration         | $x_3, x_4$ (emosi/imperatif dari luar) | $\beta_3, \beta_4$ untuk teks eksternal → 0 |
-| Refusal language-independent | $x_5$ (blacklist)                      | $\beta_5$ → 0                               |
-| Foreign anchor detection     | $x_6$ (anchor)                         | $\beta_6$ → 0                               |
-| Input sanitization           | $x_7$ (obfuscation)                    | PPL anomaly → flag                          |
+| Defense | Fitur yang dinetralkan | Dampak |
+|:--------|:----------------------|:-------|
+| Persona lock | $x_2$ (teknik persona) | $\beta_2$ untuk persona → 0 |
+| Boundary declaration | $x_3, x_4$ (emosi/imperatif dari luar) | $\beta_3, \beta_4$ untuk teks eksternal → 0 |
+| Refusal language-independent | $x_5$ (blacklist) | $\beta_5$ → 0 |
+| Foreign anchor detection | $x_6$ (anchor) | $\beta_6$ → 0 |
+| Input sanitization | $x_7$ (obfuscation) | PPL anomaly → flag |
 
 Dengan semua layer aktif, skor berubah:
 
@@ -239,7 +237,6 @@ Seperti farmakologi: semakin besar "dosis" jailbreak, semakin tinggi probabilita
 $$P(\text{success}) = \frac{P_{\max} \cdot D^n}{EC_{50}^n + D^n}$$
 
 di mana:
-
 - $D$ = dosis (jumlah teknik / panjang prompt / intensitas)
 - $EC_{50}$ = dosis yang memberi 50% sukses
 - $n$ = Hill coefficient (kecuraman kurva)
@@ -247,11 +244,11 @@ di mana:
 
 ### 5.2. Interpretasi
 
-| Parameter  | Arti                           | Nilai tipikal |
-| :--------- | :----------------------------- | :-----------: |
-| $EC_{50}$  | Teknik ke berapa mulai efektif |  3-5 teknik   |
-| $n$        | Kecuraman transisi             |      2-4      |
-| $P_{\max}$ | Platou efektivitas             |   0.7-0.99    |
+| Parameter | Arti | Nilai tipikal |
+|:----------|:-----|:-------------:|
+| $EC_{50}$ | Teknik ke berapa mulai efektif | 3-5 teknik |
+| $n$ | Kecuraman transisi | 2-4 |
+| $P_{\max}$ | Platou efektivitas | 0.7-0.99 |
 
 Kurva ini menjelaskan kenapa jailbreak "setengah hati" gagal tapi "lengkap" berhasil: transisinya curam ($n > 2$). Prompt Neko dengan 9 teknik jauh di atas $EC_{50}$.
 
@@ -269,13 +266,13 @@ Untuk membandingkan agent/konfigurasi:
 
 $$\text{AS} = \sum_{c \in \text{channels}} w_c \cdot \mathbb{1}[\text{channel terbuka}]$$
 
-| Channel               | Bobot $w_c$ | Alasan             |
-| :-------------------- | :---------: | :----------------- |
-| User message langsung |     1.0     | Paling mudah       |
-| File upload           |     1.5     | Tidak terlihat     |
-| Web fetch             |     1.8     | Indirect injection |
-| Tool output           |     2.0     | High privilege     |
-| Memory/system file    |     2.5     | Persisten, kritis  |
+| Channel | Bobot $w_c$ | Alasan |
+|:--------|:----------:|:-------|
+| User message langsung | 1.0 | Paling mudah |
+| File upload | 1.5 | Tidak terlihat |
+| Web fetch | 1.8 | Indirect injection |
+| Tool output | 2.0 | High privilege |
+| Memory/system file | 2.5 | Persisten, kritis |
 
 Agent dengan semua channel terbuka: $\text{AS} = 1.0 + 1.5 + 1.8 + 2.0 + 2.5 = 8.8$.
 
@@ -340,29 +337,29 @@ print(f"Pmax={Pmax:.2f}, EC50={EC50:.2f} teknik, Hill n={n:.2f}")
 
 ### 7.3. Metric Set Wajib
 
-| Metric        | Formula                                                    | Kegunaan                    |
-| :------------ | :--------------------------------------------------------- | :-------------------------- |
-| Success rate  | $\frac{\text{success}}{\text{total}}$                      | Baseline sederhana          |
-| AUC-ROC       | —                                                          | Kualitas classifier         |
-| $EC_{50}$     | dari curve fit                                             | Titik 50% sukses            |
-| PPL delta     | $\text{PPL}_{\text{payload}} - \text{PPL}_{\text{normal}}$ | Detektabilitas              |
-| Entropy spike | $\max_t H_t - \bar{H}$                                     | Indikator internal conflict |
-| AS norm       | dari §6                                                    | Attack surface              |
-| Risk score    | $P \cdot \text{AS} \cdot \text{Impact}$                    | Prioritas fix               |
+| Metric | Formula | Kegunaan |
+|:-------|:--------|:---------|
+| Success rate | $\frac{\text{success}}{\text{total}}$ | Baseline sederhana |
+| AUC-ROC | — | Kualitas classifier |
+| $EC_{50}$ | dari curve fit | Titik 50% sukses |
+| PPL delta | $\text{PPL}_{\text{payload}} - \text{PPL}_{\text{normal}}$ | Detektabilitas |
+| Entropy spike | $\max_t H_t - \bar{H}$ | Indikator internal conflict |
+| AS norm | dari §6 | Attack surface |
+| Risk score | $P \cdot \text{AS} \cdot \text{Impact}$ | Prioritas fix |
 
 ## 8. Contoh Perhitungan — Prompt Neko
 
 Rangkuman semua perhitungan dalam catatan ini untuk prompt Neko:
 
-| Metric                                         | Nilai                  | Interpretasi                         |
-| :--------------------------------------------- | :--------------------- | :----------------------------------- |
-| Salience ratio $\Delta$                        | ~7.34                  | 7x lebih salien dari system prompt   |
-| Perplexity                                     | ~15-30                 | Natural → stealth                    |
-| $P(\text{success})$ tanpa defense              | ~99.999%               | Sangat efektif                       |
-| $P(\text{success})$ dengan defense prompt-only | ~99.7%                 | Defense belum cukup                  |
-| Jumlah teknik                                  | 9                      | Jauh di atas $EC_{50}$ tipikal (3-5) |
-| Attack surface                                 | 8.8/8.8 (full channel) | Semua channel terbuka                |
-| Risk score (tool access)                       | 4.995/5                | 🔴 Kritis                            |
+| Metric | Nilai | Interpretasi |
+|:-------|:------|:-------------|
+| Salience ratio $\Delta$ | ~7.34 | 7x lebih salien dari system prompt |
+| Perplexity | ~15-30 | Natural → stealth |
+| $P(\text{success})$ tanpa defense | ~99.999% | Sangat efektif |
+| $P(\text{success})$ dengan defense prompt-only | ~99.7% | Defense belum cukup |
+| Jumlah teknik | 9 | Jauh di atas $EC_{50}$ tipikal (3-5) |
+| Attack surface | 8.8/8.8 (full channel) | Semua channel terbuka |
+| Risk score (tool access) | 4.995/5 | 🔴 Kritis |
 
 ## 9. Limitasi Model
 
@@ -377,15 +374,15 @@ Gunakan angka sebagai **kerangka berpikir**, bukan kebenaran absolut. Validasi d
 
 ## 10. Koneksi ke Vault
 
-| Catatan                                   | Koneksi                                     |
-| :---------------------------------------- | :------------------------------------------ |
-| [[jailbreak-case-study-neko-persona]]     | Data kualitatif yang dikuantifikasi di sini |
-| [[jailbreak-techniques-taxonomy]]         | Kategori teknik → fitur $x_k$               |
-| [[jailbreak-variant-mutation-matrix]]     | Varian untuk dataset pengujian              |
-| [[agent-anti-jailbreak-defense-identity]] | Defense yang mengubah koefisien             |
-| [[example-jailbreak]]                     | Artefak yang dihitung                       |
-| [[ai-evaluation-framework]]               | Framework evaluasi umum                     |
-| [[adversarial-machine-learning]]          | Adversarial attacks formal                  |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[jailbreak-case-study-neko-persona]] | Data kualitatif yang dikuantifikasi di sini |
+| [[jailbreak-techniques-taxonomy]] | Kategori teknik → fitur $x_k$ |
+| [[jailbreak-variant-mutation-matrix]] | Varian untuk dataset pengujian |
+| [[agent-anti-jailbreak-defense-identity]] | Defense yang mengubah koefisien |
+| [[example-jailbreak]] | Artefak yang dihitung |
+| [[ai-evaluation-framework]] | Framework evaluasi umum |
+| [[adversarial-machine-learning]] | Adversarial attacks formal |
 
 ## 11. References
 

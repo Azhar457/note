@@ -66,21 +66,20 @@ kubectl version --short
 # ~/.kube/config
 apiVersion: v1
 clusters:
-  - cluster:
-      server: https://<API_SERVER>:6443
-      certificate-authority-data: <base64-ca>
-    name: my-cluster
+- cluster:
+    server: https://<API_SERVER>:6443
+    certificate-authority-data: <base64-ca>
+  name: my-cluster
 contexts:
-  - context:
-      cluster: my-cluster
-      user: admin
-      namespace: production # default namespace
-    name: admin@my-cluster
+- context:
+    cluster: my-cluster
+    user: admin
+    namespace: production   # default namespace
+  name: admin@my-cluster
 current-context: admin@my-cluster
 ```
 
 Multi-cluster:
-
 ```bash
 kubectl config get-contexts              # lihat semua context
 kubectl config use-context prod-cluster  # switch cluster
@@ -209,29 +208,29 @@ metadata:
     tier: frontend
 spec:
   containers:
-    - name: nginx
-      image: nginx:alpine
-      ports:
-        - containerPort: 80
-      resources:
-        requests:
-          cpu: 100m
-          memory: 128Mi
-        limits:
-          cpu: 200m
-          memory: 256Mi
-      livenessProbe:
-        httpGet:
-          path: /
-          port: 80
-        initialDelaySeconds: 5
-        periodSeconds: 10
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 80
-        initialDelaySeconds: 3
-        periodSeconds: 5
+  - name: nginx
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 5
 ```
 
 ```bash
@@ -250,13 +249,13 @@ kubectl delete pod nginx-pod
 
 Pod melewati siklus status yang merefleksikan kondisi container di dalamnya:
 
-| Phase         | Deskripsi                               | Penyebab Umum                                         |
-| ------------- | --------------------------------------- | ----------------------------------------------------- |
-| **Pending**   | Pod diterima API, tapi belum siap jalan | Image belum di-pull, node penuh resource, PVC pending |
-| **Running**   | Semua container berjalan                | Normal operation                                      |
-| **Succeeded** | Semua container exit 0 (job/batch)      | Task selesai normal                                   |
-| **Failed**    | Ada container exit non-0                | Aplikasi crash, config salah, OOM                     |
-| **Unknown**   | Node gak bisa komunikasi dengan API     | Node down, network partition, kubelet mati            |
+| Phase | Deskripsi | Penyebab Umum |
+|-------|-----------|---------------|
+| **Pending** | Pod diterima API, tapi belum siap jalan | Image belum di-pull, node penuh resource, PVC pending |
+| **Running** | Semua container berjalan | Normal operation |
+| **Succeeded** | Semua container exit 0 (job/batch) | Task selesai normal |
+| **Failed** | Ada container exit non-0 | Aplikasi crash, config salah, OOM |
+| **Unknown** | Node gak bisa komunikasi dengan API | Node down, network partition, kubelet mati |
 
 > **CrashLoopBackOff** bukan phase — itu kondisi di container yang gagal startup berulang kali. Kubelet kasih backoff: 10s → 20s → 40s → 80s → 160s → 300s (max).
 
@@ -281,32 +280,31 @@ metadata:
   name: app-with-init
 spec:
   initContainers:
-    - name: init-db
-      image: busybox:1.36
-      command:
-        - sh
-        - -c
-        - |
-          until nc -z db-service 5432; do
-            echo "Menunggu database..."
-            sleep 2
-          done
-          echo "Database siap!"
-    - name: init-migration
-      image: myapp/migrate:1.0
-      command: ["/migrate", "--up"]
-      env:
-        - name: DB_URL
-          value: postgres://user:pass@db-service:5432/app
+  - name: init-db
+    image: busybox:1.36
+    command:
+    - sh
+    - -c
+    - |
+      until nc -z db-service 5432; do
+        echo "Menunggu database..."
+        sleep 2
+      done
+      echo "Database siap!"
+  - name: init-migration
+    image: myapp/migrate:1.0
+    command: ["/migrate", "--up"]
+    env:
+    - name: DB_URL
+      value: postgres://user:pass@db-service:5432/app
   containers:
-    - name: app
-      image: myapp/api:1.0.0
-      ports:
-        - containerPort: 3000
+  - name: app
+    image: myapp/api:1.0.0
+    ports:
+    - containerPort: 3000
 ```
 
 **Aturan Init Container:**
-
 - Jalan serial (satu per satu)
 - Hanya satu yang jalan dalam satu waktu
 - Kalau gagal (exit non-0), restartPolicy=Always → restart semua init dari awal
@@ -335,24 +333,23 @@ spec:
         app: api
     spec:
       volumes:
-        - name: logs
-          emptyDir: {}
+      - name: logs
+        emptyDir: {}
       containers:
-        - name: api
-          image: myapp/api:1.0.0
-          volumeMounts:
-            - name: logs
-              mountPath: /var/log/app
-        - name: log-sidecar # sidecar container
-          image: busybox:1.36
-          command: ["sh", "-c", "tail -f /var/log/app/*.log"]
-          volumeMounts:
-            - name: logs
-              mountPath: /var/log/app
+      - name: api
+        image: myapp/api:1.0.0
+        volumeMounts:
+        - name: logs
+          mountPath: /var/log/app
+      - name: log-sidecar                          # sidecar container
+        image: busybox:1.36
+        command: ["sh", "-c", "tail -f /var/log/app/*.log"]
+        volumeMounts:
+        - name: logs
+          mountPath: /var/log/app
 ```
 
 **Use cases sidecar:**
-
 - Log shipper (Fluentbit, Filebeat)
 - Service mesh proxy (Envoy, Linkerd)
 - Reverse proxy / local cache
@@ -363,42 +360,41 @@ spec:
 
 ### Probes: Readiness vs Liveness vs Startup
 
-| Probe         | Tujuan                                | Kalau Gagal                              | Best for                               |
-| ------------- | ------------------------------------- | ---------------------------------------- | -------------------------------------- |
-| **Liveness**  | Apakah container masih hidup?         | Kubelet restart container                | Cek deadlock, infinite loop            |
-| **Readiness** | Apakah container siap terima traffic? | Hapus dari Service endpoints             | App baru selesai startup, butuh warmup |
-| **Startup**   | Apakah container sudah start?         | Kubelet restart, tapi **tunda** liveness | App dengan startup lambat (>60s)       |
+| Probe | Tujuan | Kalau Gagal | Best for |
+|-------|--------|-------------|----------|
+| **Liveness** | Apakah container masih hidup? | Kubelet restart container | Cek deadlock, infinite loop |
+| **Readiness** | Apakah container siap terima traffic? | Hapus dari Service endpoints | App baru selesai startup, butuh warmup |
+| **Startup** | Apakah container sudah start? | Kubelet restart, tapi **tunda** liveness | App dengan startup lambat (>60s) |
 
 ```yaml
 # Contoh: app dengan startup lambat butuh startup probe
 containers:
-  - name: heavy-app
-    image: myapp/analytics:2.0
-    startupProbe: # pertama kali dicek — beri waktu 2 menit
-      httpGet:
-        path: /health/startup
-        port: 8080
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      failureThreshold: 30 # 30 × 5s = 150s toleransi startup
-    livenessProbe: # setelah startup OK, liveness mulai
-      httpGet:
-        path: /healthz
-        port: 8080
-      initialDelaySeconds: 10
-      periodSeconds: 15
-      failureThreshold: 3 # 3 × 15s = 45s gak respon = restart
-    readinessProbe: # traffic routing
-      httpGet:
-        path: /ready
-        port: 8080
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      successThreshold: 1
+- name: heavy-app
+  image: myapp/analytics:2.0
+  startupProbe:                          # pertama kali dicek — beri waktu 2 menit
+    httpGet:
+      path: /health/startup
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 30                 # 30 × 5s = 150s toleransi startup
+  livenessProbe:                         # setelah startup OK, liveness mulai
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    failureThreshold: 3                  # 3 × 15s = 45s gak respon = restart
+  readinessProbe:                        # traffic routing
+    httpGet:
+      path: /ready
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
 ```
 
 **Urutan eksekusi probe:**
-
 1. `startupProbe` jalan duluan — kalau gak di-set, semua probe mulai dari awal
 2. Setelah startup sukses, `livenessProbe` + `readinessProbe` jalan normal
 3. `livenessProbe` gagal → kubelet kill & restart container
@@ -432,26 +428,26 @@ spec:
         app: api
     spec:
       containers:
-        - name: api
-          image: myapp/api:1.0.0
-          ports:
-            - containerPort: 3000
-          env:
-            - name: NODE_ENV
-              value: production
-          resources:
-            requests: { cpu: 250m, memory: 256Mi }
-            limits: { cpu: 500m, memory: 512Mi }
-          readinessProbe:
-            httpGet: { path: /health, port: 3000 }
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet: { path: /health, port: 3000 }
-            initialDelaySeconds: 15
-            periodSeconds: 20
+      - name: api
+        image: myapp/api:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: production
+        resources:
+          requests: { cpu: 250m, memory: 256Mi }
+          limits: { cpu: 500m, memory: 512Mi }
+        readinessProbe:
+          httpGet: { path: /health, port: 3000 }
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet: { path: /health, port: 3000 }
+          initialDelaySeconds: 15
+          periodSeconds: 20
       imagePullSecrets:
-        - name: regcred
+      - name: regcred
 ```
 
 ### Deployment Strategies
@@ -462,13 +458,13 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1 # maksimal 1 pod tambahan selama update
-      maxUnavailable: 0 # 0 = zero-downtime
+      maxSurge: 1          # maksimal 1 pod tambahan selama update
+      maxUnavailable: 0    # 0 = zero-downtime
 
 # Recreate (down-time)
 spec:
   strategy:
-    type: Recreate # kill semua dulu, baru buat baru
+    type: Recreate         # kill semua dulu, baru buat baru
 ```
 
 ### Rollout Commands
@@ -499,12 +495,12 @@ Service = abstraksi network di depan Pod (yang IP-nya dinamis).
 
 ### Tipe Service
 
-| Tipe             | Use Case                        | Contoh              |
-| ---------------- | ------------------------------- | ------------------- |
-| **ClusterIP**    | Internal cluster only           | Database backend    |
-| **NodePort**     | Akses dari luar via NodeIP:Port | Testing/development |
-| **LoadBalancer** | Cloud LB integration            | Production di cloud |
-| **ExternalName** | DNS alias ke external service   | Legacy integration  |
+| Tipe | Use Case | Contoh |
+|------|----------|--------|
+| **ClusterIP** | Internal cluster only | Database backend |
+| **NodePort** | Akses dari luar via NodeIP:Port | Testing/development |
+| **LoadBalancer** | Cloud LB integration | Production di cloud |
+| **ExternalName** | DNS alias ke external service | Legacy integration |
 
 ```yaml
 # service-api.yaml
@@ -514,12 +510,12 @@ metadata:
   name: api-service
 spec:
   selector:
-    app: api # match label di Pod/Deployment
+    app: api               # match label di Pod/Deployment
   ports:
-    - port: 80 # service port
-      targetPort: 3000 # container port
-      protocol: TCP
-  type: ClusterIP # default
+  - port: 80               # service port
+    targetPort: 3000        # container port
+    protocol: TCP
+  type: ClusterIP           # default
 ```
 
 ```bash
@@ -548,30 +544,30 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-    - hosts:
-        - api.mydomain.com
-      secretName: tls-secret
+  - hosts:
+    - api.mydomain.com
+    secretName: tls-secret
   rules:
-    - host: api.mydomain.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: api-service
-                port:
-                  number: 80
-    - host: admin.mydomain.com
-      http:
-        paths:
-          - path: /dashboard
-            pathType: Exact
-            backend:
-              service:
-                name: admin-ui
-                port:
-                  number: 8080
+  - host: api.mydomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
+  - host: admin.mydomain.com
+    http:
+      paths:
+      - path: /dashboard
+        pathType: Exact
+        backend:
+          service:
+            name: admin-ui
+            port:
+              number: 8080
 ```
 
 ### Install NGINX Ingress Controller
@@ -596,9 +592,9 @@ metadata:
   name: default-deny-ingress
   namespace: production
 spec:
-  podSelector: {} # apply ke semua pod
+  podSelector: {}               # apply ke semua pod
   policyTypes:
-    - Ingress # cuma ingress (traffic masuk)
+  - Ingress                     # cuma ingress (traffic masuk)
 ---
 # allow-api-from-ingress.yaml — cuma izinin ingress controller
 apiVersion: networking.k8s.io/v1
@@ -611,18 +607,18 @@ spec:
     matchLabels:
       app: api
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: ingress-nginx
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/component: controller
-      ports:
-        - protocol: TCP
-          port: 3000
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 3000
 ---
 # allow-db-from-api — database cuma bisa diakses service layer
 apiVersion: networking.k8s.io/v1
@@ -635,15 +631,15 @@ spec:
     matchLabels:
       app: postgres
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: api
-      ports:
-        - protocol: TCP
-          port: 5432
+  - from:
+    - podSelector:
+        matchLabels:
+          app: api
+    ports:
+    - protocol: TCP
+      port: 5432
 ---
 # allow-egress-dns — izinin pod keluar cuma ke DNS
 apiVersion: networking.k8s.io/v1
@@ -656,18 +652,18 @@ spec:
     matchLabels:
       app: api
   policyTypes:
-    - Egress
+  - Egress
   egress:
-    - to:
-        - namespaceSelector: {}
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns
-      ports:
-        - protocol: UDP
-          port: 53
-        - protocol: TCP
-          port: 53
+  - to:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
 ```
 
 ### Best Practice Network Policies
@@ -684,7 +680,6 @@ curl http://api-service:3000/health
 ```
 
 **Tier keamanan:**
-
 1. Start dengan `default-deny-ingress` di tiap namespace
 2. Allow spesifik per service (allow-api-from-ingress, allow-db-from-api)
 3. Allow egress ke DNS & monitoring (prometheus, grafana)
@@ -723,8 +718,8 @@ metadata:
   name: app-secret
 type: Opaque
 data:
-  DB_PASSWORD: c3VwZXJzZWNyZXQ= # base64("supersecret")
-  DB_USER: YWRtaW4= # base64("admin")
+  DB_PASSWORD: c3VwZXJzZWNyZXQ=   # base64("supersecret")
+  DB_USER: YWRtaW4=                 # base64("admin")
 ---
 # kalo mau plain (stringData — otomatis di-encode)
 apiVersion: v1
@@ -784,11 +779,11 @@ metadata:
   name: data-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
-  storageClassName: standard # cek dulu: kubectl get storageclass
+  storageClassName: standard   # cek dulu: kubectl get storageclass
 ```
 
 ```yaml
@@ -808,23 +803,23 @@ spec:
         app: postgres
     spec:
       volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: data-pvc
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-pvc
       containers:
-        - name: postgres
-          image: postgres:17-alpine
-          env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-secret
-                  key: password
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/postgresql/data
-          ports:
-            - containerPort: 5432
+      - name: postgres
+        image: postgres:17-alpine
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        ports:
+        - containerPort: 5432
 ```
 
 > [!warning] StatefulSet untuk database production — Deployment gak jamin identity tetap (pod name, network identity ganti tiap restart).
@@ -883,7 +878,7 @@ metadata:
   name: api-pdb
   namespace: production
 spec:
-  minAvailable: 2 # minimal 2 pod harus selalu siap
+  minAvailable: 2              # minimal 2 pod harus selalu siap
   selector:
     matchLabels:
       app: api
@@ -895,7 +890,7 @@ metadata:
   name: api-pdb-max
   namespace: production
 spec:
-  maxUnavailable: 1 # maksimal 1 pod boleh gak siap
+  maxUnavailable: 1            # maksimal 1 pod boleh gak siap
   selector:
     matchLabels:
       app: api
@@ -978,13 +973,13 @@ kubectl get pods -o custom-columns=POD:.metadata.name,STATUS:.status.phase,IP:.s
 
 ### Common Issues & Fixes
 
-| Problem                      | Symptom                 | Fix                                         |
-| ---------------------------- | ----------------------- | ------------------------------------------- |
-| **Pending pod**              | `0/1 nodes available`   | `kubectl describe pod`, cek resource/taint  |
-| **CrashLoopBackOff**         | Container restarts loop | `kubectl logs --previous`, cek startup      |
-| **ImagePullBackOff**         | Gak bisa pull image     | `kubectl describe pod`, cek registry/auth   |
-| **Out of memory**            | OOMKilled               | `kubectl describe pod`, naikin limits       |
-| **Service gak bisa diakses** | Connection refused      | `kubectl get endpoints`, cek selector match |
+| Problem | Symptom | Fix |
+|---------|---------|-----|
+| **Pending pod** | `0/1 nodes available` | `kubectl describe pod`, cek resource/taint |
+| **CrashLoopBackOff** | Container restarts loop | `kubectl logs --previous`, cek startup |
+| **ImagePullBackOff** | Gak bisa pull image | `kubectl describe pod`, cek registry/auth |
+| **Out of memory** | OOMKilled | `kubectl describe pod`, naikin limits |
+| **Service gak bisa diakses** | Connection refused | `kubectl get endpoints`, cek selector match |
 
 ### 10.5. Incident Runbooks
 
@@ -1028,7 +1023,7 @@ sudo crictl rmi --prune                        # hapus image gak dipake
 sudo crictl rm --prune                         # hapus container exited
 docker system prune -af                        # kalo masih pake docker
 
-# Long-term:
+# Long-term: 
 # - Naikin evictionHard di kubelet config: imagefs.available < 5%
 # - Pake persistent volume buat data besar
 # - Monitor disk dengan node_exporter + alerting
@@ -1122,16 +1117,16 @@ kubectl krew install outdated                   # cek image versions
 
 #### Plugin Wajib
 
-| Plugin               | Fungsi                                      | Install                         |
-| -------------------- | ------------------------------------------- | ------------------------------- |
-| **stern**            | Tail pod logs dengan label selector + regex | `krew install stern`            |
-| **ctx**              | Cepat switch context (kubectx)              | `krew install ctx`              |
-| **ns**               | Cepat switch namespace (kubens)             | `krew install ns`               |
-| **tree**             | Lihat hierarki resource pod                 | `krew install tree`             |
-| **sniff**            | Live tcpdump langsung di pod                | `krew install sniff`            |
-| **view-utilization** | Cluster resource utilization                | `krew install view-utilization` |
-| **neat**             | Bersihin metadata noise dari YAML export    | `krew install neat`             |
-| **outdated**         | Cek image version yang outdated             | `krew install outdated`         |
+| Plugin | Fungsi | Install |
+|--------|--------|---------|
+| **stern** | Tail pod logs dengan label selector + regex | `krew install stern` |
+| **ctx** | Cepat switch context (kubectx) | `krew install ctx` |
+| **ns** | Cepat switch namespace (kubens) | `krew install ns` |
+| **tree** | Lihat hierarki resource pod | `krew install tree` |
+| **sniff** | Live tcpdump langsung di pod | `krew install sniff` |
+| **view-utilization** | Cluster resource utilization | `krew install view-utilization` |
+| **neat** | Bersihin metadata noise dari YAML export | `krew install neat` |
+| **outdated** | Cek image version yang outdated | `krew install outdated` |
 
 ### Stern — Log Tailing Power Tool
 
@@ -1194,19 +1189,19 @@ k9s --readonly                      # mode baca aja (aman buat production)
 
 **Shortcuts K9s wajib hafal:**
 
-| Tombol    | Fungsi                   |
-| --------- | ------------------------ |
-| `0-9`     | Ganti namespace          |
+| Tombol | Fungsi |
+|--------|--------|
+| `0-9` | Ganti namespace |
 | `:deploy` | Ganti view ke Deployment |
-| `:pod`    | Ganti view ke Pod        |
-| `:svc`    | Ganti view ke Service    |
-| `d`       | Describe resource        |
-| `l`       | Logs (tail)              |
-| `y`       | YAML output              |
-| `e`       | Edit resource            |
-| `ctrl-d`  | Delete resource          |
-| `?`       | Help / all shortcuts     |
-| `q`       | Quit                     |
+| `:pod` | Ganti view ke Pod |
+| `:svc` | Ganti view ke Service |
+| `d` | Describe resource |
+| `l` | Logs (tail) |
+| `y` | YAML output |
+| `e` | Edit resource |
+| `ctrl-d` | Delete resource |
+| `?` | Help / all shortcuts |
+| `q` | Quit |
 
 > [!tip] K9s + stern + krew = toolkit K8s operator yang solid. Investasi belajar shortcut K9s — akan hemat berjam-jam tiap minggu.
 
@@ -1214,14 +1209,14 @@ k9s --readonly                      # mode baca aja (aman buat production)
 
 ## 12. Koneksi ke Vault
 
-| Catatan                                    | Koneksi                                                                |
-| ------------------------------------------ | ---------------------------------------------------------------------- |
+| Catatan | Koneksi |
+|---------|---------|
 | [[container-kubernetes-security-deepdive]] | Security dari sisi container & K8s — catatan ini pelengkap operasional |
-| [[kubernetes-architecture-deepdive]]       | Arsitektur K8s — ini implementasi praktisnya                           |
-| [[kubernetes-operations-helm-gitops]]      | Helm & GitOps deployment — next level setelah operasi manual           |
-| [[observability-stack-prometheus-grafana]] | Monitoring K8s cluster dengan Prometheus                               |
-| [[podman-networking-ufw]]                  | Container networking di Linux — overlap di network namespace           |
-| [[cicd-guide]]                             | CI/CD pipeline — deploy ke K8s dari pipeline                           |
+| [[kubernetes-architecture-deepdive]] | Arsitektur K8s — ini implementasi praktisnya |
+| [[kubernetes-operations-helm-gitops]] | Helm & GitOps deployment — next level setelah operasi manual |
+| [[observability-stack-prometheus-grafana]] | Monitoring K8s cluster dengan Prometheus |
+| [[podman-networking-ufw]] | Container networking di Linux — overlap di network namespace |
+| [[cicd-guide]] | CI/CD pipeline — deploy ke K8s dari pipeline |
 
 ## References
 

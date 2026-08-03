@@ -1,17 +1,5 @@
 ---
-tags:
-  [
-    web-scraping,
-    data-collection,
-    open-data,
-    api,
-    crawl,
-    research-automation,
-    google-dorking,
-    rss,
-    wayback-machine,
-    anti-detection,
-  ]
+tags: [web-scraping, data-collection, open-data, api, crawl, research-automation, google-dorking, rss, wayback-machine, anti-detection]
 aliases: [Public Data Harvesting, Crawl & Scrape, Research Pipeline]
 status: complete
 created: 2026-08-01
@@ -25,7 +13,6 @@ cssclasses: [wide-table, math-render]
 ---
 
 ## Daftar Isi
-
 1. [[#1. Discovery — Menemukan Sumber Data Publik]]
 2. [[#2. Web Scraping — BeautifulSoup, Scrapy, Playwright]]
 3. [[#3. API Publik & Open Data Portals]]
@@ -45,21 +32,20 @@ cssclasses: [wide-table, math-render]
 
 ### 1.1 Taxonomy Sumber Data Publik
 
-| Kategori             | Contoh Sumber                    |     Format     | Update Frequency |
-| :------------------- | :------------------------------- | :------------: | :--------------: |
-| Government Open Data | data.gov, data.go.id, EU ODP     | CSV, JSON, API |   Daily/Weekly   |
-| Academic             | arXiv, PubMed, Google Scholar    |    PDF, XML    |      Daily       |
-| News Media           | Reuters, AP, BBC                 |   HTML, RSS    |    Real-time     |
-| Financial            | Yahoo Finance, FRED, World Bank  |   CSV, JSON    |      Daily       |
-| Legal                | CourtListener, PACER (free tier) |    PDF, XML    |   Event-driven   |
-| Social               | Reddit, HN, StackExchange        |   JSON, HTML   |    Real-time     |
-| Web Pages            | Blogs, company sites, docs       |      HTML      |     Variable     |
-| Arsip                | Wayback Machine, Common Crawl    |   WARC, HTML   |     Monthly      |
+| Kategori | Contoh Sumber | Format | Update Frequency |
+|:---------|:--------------|:------:|:----------------:|
+| Government Open Data | data.gov, data.go.id, EU ODP | CSV, JSON, API | Daily/Weekly |
+| Academic | arXiv, PubMed, Google Scholar | PDF, XML | Daily |
+| News Media | Reuters, AP, BBC | HTML, RSS | Real-time |
+| Financial | Yahoo Finance, FRED, World Bank | CSV, JSON | Daily |
+| Legal | CourtListener, PACER (free tier) | PDF, XML | Event-driven |
+| Social | Reddit, HN, StackExchange | JSON, HTML | Real-time |
+| Web Pages | Blogs, company sites, docs | HTML | Variable |
+| Arsip | Wayback Machine, Common Crawl | WARC, HTML | Monthly |
 
 ### 1.2 Discovery Tools
 
 **Search Engine:**
-
 ```
 Google: "site:github.com filetype:json dataset"
 Bing: "filetype:csv site:gov climate data"
@@ -67,7 +53,6 @@ DuckDuckGo: "intitle:index.of data.csv"
 ```
 
 **Dataset Search Engines:**
-
 ```
 Google Dataset Search: datasetsearch.research.google.com
 Kaggle: kaggle.com/datasets
@@ -76,7 +61,6 @@ AWS Open Data: registry.opendata.aws
 ```
 
 **Academic Discovery:**
-
 ```
 arXiv API: export.arxiv.org/api/query
 CrossRef API: api.crossref.org/works
@@ -107,7 +91,7 @@ class StaticCrawler:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (ResearchBot/1.0; +https://example.com/bot)'
         })
-
+    
     def crawl(self, url=None, depth=0):
         if url is None:
             url = self.base_url
@@ -136,7 +120,7 @@ class StaticCrawler:
             time.sleep(self.delay)
             results.extend(self.crawl(link, depth + 1))
         return results
-
+    
     def _same_domain(self, url):
         return urlparse(url).netloc == urlparse(self.base_url).netloc
 
@@ -253,7 +237,7 @@ class APIClient:
         self.session = requests.Session()
         if api_key:
             self.session.headers['Authorization'] = f'Bearer {api_key}'
-
+    
     def get(self, endpoint, params=None):
         url = f'{self.base_url}/{endpoint.lstrip("/")}'
         time.sleep(self.rate_limit)
@@ -284,7 +268,6 @@ papers = arxiv.get('query', {
 ### 3.2 Open Data Portals
 
 **World Bank API:**
-
 ```
 Endpoint: api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD
 Parameters: date=2020:2023, format=json, per_page=1000
@@ -292,7 +275,6 @@ Data: GDP per country per year
 ```
 
 **FRED (Federal Reserve Economic Data):**
-
 ```
 Endpoint: api.stlouisfed.org/fred/series/observations
 Parameters: series_id=GDP, api_key=YOUR_KEY, file_type=json
@@ -300,7 +282,6 @@ Data: US economic time series
 ```
 
 **OpenStreetMap (Overpass API):**
-
 ```
 Query language: Overpass QL
 [overpass-api.de/api/interpreter]
@@ -313,7 +294,6 @@ Data: POI locations
 ### 3.3 GraphQL APIs
 
 **Pattern:**
-
 ```python
 query = "query { repository(owner: \"torvalds\", name: \"linux\") { stargazerCount issues(states: OPEN) { totalCount } pullRequests(states: MERGED) { totalCount } } }"
 
@@ -330,25 +310,24 @@ resp = requests.post(
 
 ### 4.1 Google Advanced Operators
 
-| Operator  | Fungsi           | Contoh                            |
-| :-------- | :--------------- | :-------------------------------- |
-| site:     | Batasi ke domain | site:arxiv.org "transformer"      |
-| filetype: | Filter file type | filetype:pdf "machine learning"   |
-| intitle:  | Kata di title    | intitle:"annual report" 2024      |
-| inurl:    | Kata di URL      | inurl:api documentation           |
-| intext:   | Kata di body     | intext:"API key" tutorial         |
-| cache:    | Lihat cache      | cache:example.com                 |
-| related:  | Site serupa      | related:github.com                |
-| before:   | Sebelum tanggal  | before:2024-01-01 climate         |
-| after:    | Setelah tanggal  | after:2024-01-01 AI               |
-| "exact"   | Exact phrase     | "large language model"            |
-| -exclude  | Exclude term     | python -snake -monty              |
-| OR        | Either term      | (AI OR "machine learning") ethics |
+| Operator | Fungsi | Contoh |
+|:---------|:-------|:-------|
+| site: | Batasi ke domain | site:arxiv.org "transformer" |
+| filetype: | Filter file type | filetype:pdf "machine learning" |
+| intitle: | Kata di title | intitle:"annual report" 2024 |
+| inurl: | Kata di URL | inurl:api documentation |
+| intext: | Kata di body | intext:"API key" tutorial |
+| cache: | Lihat cache | cache:example.com |
+| related: | Site serupa | related:github.com |
+| before: | Sebelum tanggal | before:2024-01-01 climate |
+| after: | Setelah tanggal | after:2024-01-01 AI |
+| "exact" | Exact phrase | "large language model" |
+| -exclude | Exclude term | python -snake -monty |
+| OR | Either term | (AI OR "machine learning") ethics |
 
 ### 4.2 Programmatic Search
 
 **Google Custom Search API (100 queries/day free):**
-
 ```python
 import requests
 
@@ -373,7 +352,6 @@ def ddg_search(query, max_results=10):
 ### 4.3 Academic Search
 
 **Semantic Scholar API:**
-
 ```python
 import requests
 
@@ -394,7 +372,6 @@ papers = search_papers('transformer architecture', limit=100)
 ```
 
 **OpenAlex:**
-
 ```python
 def openalex_search(query):
     url = 'https://api.openalex.org/works'
@@ -445,7 +422,6 @@ for feed_url in feeds:
 ### 5.2 Real-Time Stream Processing
 
 **Pattern untuk high-frequency feeds:**
-
 ```python
 import asyncio
 import aiohttp
@@ -507,7 +483,6 @@ snaps = wayback_snapshots('https://example.com/about', from_date='20200101')
 ### 6.2 Common Crawl
 
 **Dataset:**
-
 ```
 Monthly crawl: ~3-4 billion web pages
 Format: WARC (Web ARChive)
@@ -516,7 +491,6 @@ Access: S3 (AWS us-east-1, no egress cost)
 ```
 
 **Query via Athena:**
-
 ```sql
 SELECT url, fetch_time, content_mime_type
 FROM ccindex
@@ -528,7 +502,6 @@ LIMIT 1000;
 ```
 
 **Python access:**
-
 ```python
 import requests
 
@@ -677,7 +650,6 @@ def search_stackexchange(site='stackoverflow', query='python', pagesize=100):
 ### 9.1 Respectful Crawling
 
 **robots.txt:**
-
 ```python
 from urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse
@@ -690,7 +662,6 @@ def can_fetch(url, user_agent='*'):
 ```
 
 **Rate limiting formula:**
-
 ```
 Minimum delay = Crawl-delay dari robots.txt (default: 1s)
 Polite delay = max(1s, Crawl-delay)
@@ -716,7 +687,7 @@ class PoliteSession(requests.Session):
     def __init__(self):
         super().__init__()
         self.headers['User-Agent'] = random.choice(USER_AGENTS)
-
+    
     def get(self, url, **kwargs):
         time.sleep(random.uniform(1, 3))
         return super().get(url, **kwargs)
@@ -725,7 +696,6 @@ class PoliteSession(requests.Session):
 ### 9.3 Handling CAPTCHA
 
 **Strategies:**
-
 ```
 1. Slow down: reduce request rate
 2. Use headless browser with stealth plugins
@@ -734,7 +704,6 @@ class PoliteSession(requests.Session):
 ```
 
 **Playwright stealth:**
-
 ```python
 from playwright_stealth import stealth_sync
 
@@ -790,7 +759,7 @@ class ResearchBot:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (ResearchBot/1.0)'
         })
-
+    
     def discover(self, query):
         # Step 1: Discover sources via search
         sources = []
@@ -803,7 +772,7 @@ class ResearchBot:
                     'snippet': r['body']
                 })
         return sources
-
+    
     def crawl(self, sources):
         # Step 2: Crawl and extract content
         documents = []
@@ -822,7 +791,7 @@ class ResearchBot:
             except Exception as e:
                 continue
         return documents
-
+    
     def synthesize(self, query, documents):
         # Step 3: Synthesize findings
         return {
@@ -831,7 +800,7 @@ class ResearchBot:
             'total_words': sum(len(d['content'].split()) for d in documents),
             'documents': documents
         }
-
+    
     def research(self, query):
         # Full pipeline
         print(f'Researching: {query}')
@@ -857,9 +826,9 @@ def generate_report(documents, query, llm_endpoint='http://localhost:11434'):
         f"Source: {d['url']}\n{d['content'][:3000]}"
         for d in documents[:5]
     ])
-
+    
     prompt = f'Based on the following sources, write a comprehensive report on: {query}\n\nSources:\n{context}\n\nPlease provide: 1. Executive summary 2. Key findings 3. Technical details 4. Sources cited'
-
+    
     resp = requests.post(
         f'{llm_endpoint}/api/generate',
         json={
@@ -877,19 +846,19 @@ def generate_report(documents, query, llm_endpoint='http://localhost:11434'):
 
 ### 11.1 What is Legal
 
-| Activity              | Legal? | Notes                               |
-| :-------------------- | :----: | :---------------------------------- |
-| Scraping public pages |  Yes   | No login required, no TOS violation |
-| Using public APIs     |  Yes   | Within rate limits                  |
-| Reading RSS feeds     |  Yes   | Designed for consumption            |
-| Using Wayback Machine |  Yes   | Explicitly allowed                  |
-| Common Crawl data     |  Yes   | Open dataset                        |
-| Government open data  |  Yes   | FOIA / open data laws               |
-| Academic open access  |  Yes   | CC-BY licenses                      |
-| Scraping behind login |  Gray  | Depends on TOS                      |
-| Bypassing CAPTCHA     |   No   | CFAA violation (US)                 |
-| Scraping private data |   No   | GDPR, CCPA violation                |
-| DDoS-style crawling   |   No   | Computer fraud                      |
+| Activity | Legal? | Notes |
+|:---------|:------:|:------|
+| Scraping public pages | Yes | No login required, no TOS violation |
+| Using public APIs | Yes | Within rate limits |
+| Reading RSS feeds | Yes | Designed for consumption |
+| Using Wayback Machine | Yes | Explicitly allowed |
+| Common Crawl data | Yes | Open dataset |
+| Government open data | Yes | FOIA / open data laws |
+| Academic open access | Yes | CC-BY licenses |
+| Scraping behind login | Gray | Depends on TOS |
+| Bypassing CAPTCHA | No | CFAA violation (US) |
+| Scraping private data | No | GDPR, CCPA violation |
+| DDoS-style crawling | No | Computer fraud |
 
 ### 11.2 Best Practices
 
@@ -907,26 +876,26 @@ def generate_report(documents, query, llm_endpoint='http://localhost:11434'):
 
 ## 12. References
 
-1. Mitchell, R. (2018). _Web Scraping with Python_ (2nd ed.). O'Reilly Media. — BeautifulSoup, Scrapy, Selenium.
+1. Mitchell, R. (2018). *Web Scraping with Python* (2nd ed.). O'Reilly Media. — BeautifulSoup, Scrapy, Selenium.
 
-2. Zheng, Q. (2022). _Python Web Scraping Cookbook_. Packt. — Advanced scraping patterns.
+2. Zheng, Q. (2022). *Python Web Scraping Cookbook*. Packt. — Advanced scraping patterns.
 
-3. Common Crawl Foundation. (2024). _Common Crawl Data Format_. commoncrawl.org. — WARC format & access patterns.
+3. Common Crawl Foundation. (2024). *Common Crawl Data Format*. commoncrawl.org. — WARC format & access patterns.
 
-4. Internet Archive. (2024). _Wayback Machine CDX API Documentation_. archive.org. — Historical web access.
+4. Internet Archive. (2024). *Wayback Machine CDX API Documentation*. archive.org. — Historical web access.
 
-5. Reddit Inc. (2024). _Reddit API Documentation_. reddit.com/dev/api. — PRAW & REST API.
+5. Reddit Inc. (2024). *Reddit API Documentation*. reddit.com/dev/api. — PRAW & REST API.
 
-6. Zuboff, S. (2019). _The Age of Surveillance Capitalism_. PublicAffairs. — Context etis data collection.
+6. Zuboff, S. (2019). *The Age of Surveillance Capitalism*. PublicAffairs. — Context etis data collection.
 
-7. Lawrence, D. (2023). _The Art of Web Scraping_. Independently published. — Anti-detection techniques.
+7. Lawrence, D. (2023). *The Art of Web Scraping*. Independently published. — Anti-detection techniques.
 
 ## Koneksi ke Vault
 
-| Catatan                                   | Koneksi                                    |
-| :---------------------------------------- | :----------------------------------------- |
-| [[osint-resource-index]]                  | OSINT tools overlap dengan data collection |
-| [[document-parsing-for-rag]]              | PDF & HTML parsing untuk RAG pipeline      |
-| [[advanced-chunking-strategies-deepdive]] | Chunking hasil crawl untuk RAG             |
-| [[hybrid-search-vector-keyword]]          | Index hasil crawl untuk search             |
-| [[ai-evaluation-framework]]               | Evaluasi kualitas hasil research           |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[osint-resource-index]] | OSINT tools overlap dengan data collection |
+| [[document-parsing-for-rag]] | PDF & HTML parsing untuk RAG pipeline |
+| [[advanced-chunking-strategies-deepdive]] | Chunking hasil crawl untuk RAG |
+| [[hybrid-search-vector-keyword]] | Index hasil crawl untuk search |
+| [[ai-evaluation-framework]] | Evaluasi kualitas hasil research |

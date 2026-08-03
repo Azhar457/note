@@ -1,17 +1,5 @@
 ---
-tags:
-  [
-    computational-neuroscience,
-    brain-computer-interface,
-    bci,
-    neural-signal-processing,
-    fmri,
-    eeg,
-    ecog,
-    neuralink,
-    neuroprosthetics,
-    hodgkin-huxley,
-  ]
+tags: [computational-neuroscience, brain-computer-interface, bci, neural-signal-processing, fmri, eeg, ecog, neuralink, neuroprosthetics, hodgkin-huxley]
 aliases: [CNBCI, Neuroscience Deep Dive, BCI Systems]
 status: complete
 created: 2026-07-31
@@ -25,7 +13,6 @@ cssclasses: [wide-table, math-render]
 ---
 
 ## Daftar Isi
-
 1. [[#1. Neural Signal Processing — Spike Sorting, LFP, ECoG]]
 2. [[#2. Brain Imaging Analysis — fMRI, DTI, MEG]]
 3. [[#3. Computational Models of Neuron]]
@@ -41,18 +28,17 @@ cssclasses: [wide-table, math-render]
 
 ### 1.1 Signal Types & Frequency Bands
 
-| Signal |  Frequency  | Amplitude  | Spatial Resolution | Invasive? |
-| :----- | :---------: | :--------: | :----------------: | :-------: |
-| EEG    | 0.5-100 Hz  | 10-100 μV  |      ~1-10 cm      |    No     |
-| ECoG   | 0.5-200 Hz  | 10-5000 μV |      ~1-5 mm       |   Semi    |
-| LFP    |  1-300 Hz   | 50-5000 μV |     ~50-350 μm     |    Yes    |
-| Spike  | 300-3000 Hz | 50-500 μV  |     ~10-50 μm      |    Yes    |
-| MEG    |  1-100 Hz   | 10-1000 fT |      ~5-10 mm      |    No     |
+| Signal | Frequency | Amplitude | Spatial Resolution | Invasive? |
+|:-------|:---------:|:---------:|:------------------:|:---------:|
+| EEG | 0.5-100 Hz | 10-100 μV | ~1-10 cm | No |
+| ECoG | 0.5-200 Hz | 10-5000 μV | ~1-5 mm | Semi |
+| LFP | 1-300 Hz | 50-5000 μV | ~50-350 μm | Yes |
+| Spike | 300-3000 Hz | 50-500 μV | ~10-50 μm | Yes |
+| MEG | 1-100 Hz | 10-1000 fT | ~5-10 mm | No |
 
 ### 1.2 Spike Sorting
 
 **Waveform extraction:**
-
 ```
 1. Bandpass filter: 300-3000 Hz
 2. Threshold detection: V > 4·σ_noise
@@ -61,7 +47,6 @@ cssclasses: [wide-table, math-render]
 ```
 
 **Threshold formula:**
-
 ```
 σ_noise = median(|V|) / 0.6745  (robust estimator)
 
@@ -71,7 +56,6 @@ P(false positive | 4σ) ≈ 0.003% (Gaussian assumption)
 ```
 
 **Clustering algorithms:**
-
 ```
 1. PCA dimensionality reduction:
    - Extract first 2-3 principal components
@@ -85,7 +69,6 @@ P(false positive | 4σ) ≈ 0.003% (Gaussian assumption)
 ```
 
 **Kilosort algorithm:**
-
 ```
 1. Whitening: decorrelate channels
 2. Template learning: learn spike templates via gradient descent
@@ -96,14 +79,12 @@ P(false positive | 4σ) ≈ 0.003% (Gaussian assumption)
 ### 1.3 Local Field Potential (LFP)
 
 **Origin:**
-
 ```
 LFP = weighted sum of synaptic currents from local population
 Spatial reach: ~250-500 μm (depends on tissue conductivity)
 ```
 
 **Frequency bands:**
-
 ```
 Delta: 0.5-4 Hz   (deep sleep, unconsciousness)
 Theta: 4-8 Hz     (hippocampus, memory encoding)
@@ -114,7 +95,6 @@ High gamma: 80-150 Hz (multi-unit activity proxy)
 ```
 
 **Power spectral density:**
-
 ```
 PSD(f) = |FFT(signal)|² / (fs·N)
 
@@ -125,7 +105,6 @@ N: number of samples
 ### 1.4 ECoG (Electrocorticography)
 
 **Grid electrodes:**
-
 ```
 Standard grid: 8×8 electrodes, 1 cm spacing
 High-density: 8×8 electrodes, 3 mm spacing
@@ -143,7 +122,6 @@ Advantage over EEG:
 ### 2.1 fMRI — BOLD Signal
 
 **BOLD (Blood-Oxygen-Level-Dependent) contrast:**
-
 ```
 BOLD signal ∝ Δ[HbR] (deoxyhemoglobin concentration)
 
@@ -159,7 +137,6 @@ Hemodynamic response function (HRF):
 ```
 
 **GLM (General Linear Model):**
-
 ```
 Y = X·β + ε
 
@@ -176,7 +153,6 @@ t-statistic: t = β / SE(β)
 ```
 
 **Multiple comparisons:**
-
 ```
 Voxels: 64×64×30 = 122,880 (typical)
 Family-wise error rate (FWER): P(at least 1 false positive)
@@ -189,7 +165,6 @@ Cluster correction: threshold clusters by size
 ### 2.2 DTI — Diffusion Tensor Imaging
 
 **Diffusion tensor:**
-
 ```
 D = [Dxx Dxy Dxz
      Dxy Dyy Dyz
@@ -200,7 +175,6 @@ Eigenvectors: principal diffusion directions
 ```
 
 **Scalar metrics:**
-
 ```
 MD (Mean Diffusivity) = (λ1 + λ2 + λ3) / 3
 FA (Fractional Anisotropy) = √(3/2) · √[(λ1-MD)²+(λ2-MD)²+(λ3-MD)²] / √(λ1²+λ2²+λ3²)
@@ -210,7 +184,6 @@ FA ≈ 1: highly anisotropic (white matter tracts)
 ```
 
 **Tractography:**
-
 ```
 Deterministic:
   - Streamline propagation along principal eigenvector
@@ -225,7 +198,6 @@ Probabilistic:
 ### 2.3 MEG — Magnetoencephalography
 
 **Principle:**
-
 ```
 Neural currents generate magnetic fields
 SQUID (Superconducting Quantum Interference Device) detects fields
@@ -236,7 +208,6 @@ Earth magnetic field: 50,000 nT = 50,000,000,000 fT
 ```
 
 **Source localization:**
-
 ```
 Forward problem: given source J, calculate field B at sensors
   B = G · J
@@ -256,7 +227,6 @@ Inverse problem: given B, estimate J
 ### 3.1 Hodgkin-Huxley Model (1952)
 
 **Membrane current:**
-
 ```
 C_m · dV/dt = -g_Na·m³·h·(V-E_Na) - g_K·n⁴·(V-E_K) - g_L·(V-E_L) + I_ext
 
@@ -268,7 +238,6 @@ I_ext: external current
 ```
 
 **Gating variables:**
-
 ```
 dx/dt = α_x(V)·(1-x) - β_x(V)·x
 
@@ -283,7 +252,6 @@ dx/dt = α_x(V)·(1-x) - β_x(V)·x
 ```
 
 **Action potential threshold:**
-
 ```
 V_threshold ≈ -55 mV
 Peak: +40 mV
@@ -294,7 +262,6 @@ Duration: ~1-2 ms
 ### 3.2 Izhikevich Model (2003)
 
 **Simplified 2D model:**
-
 ```
 dv/dt = 0.04·v² + 5·v + 140 - u + I
 du/dt = a·(b·v - u)
@@ -309,7 +276,6 @@ a, b, c, d: parameters (determine neuron type)
 ```
 
 **Parameter sets:**
-
 ```
 Regular spiking (RS):    a=0.02, b=0.2, c=-65, d=8
 Intrinsically bursting (IB): a=0.02, b=0.2, c=-55, d=4
@@ -321,7 +287,6 @@ Resonator (RZ):          a=0.1,  b=0.26, c=-65, d=2
 ```
 
 **Advantage:**
-
 ```
 Hodgkin-Huxley: 4 ODEs, computationally expensive
 Izhikevich: 2 ODEs, 1000× faster
@@ -331,7 +296,6 @@ Can reproduce 20+ neuron firing patterns
 ### 3.3 Leaky Integrate-and-Fire (LIF)
 
 **Simplest model:**
-
 ```
 τ_m · dV/dt = -(V - V_rest) + R·I(t)
 
@@ -343,7 +307,6 @@ if V ≥ V_threshold:
 ```
 
 **Firing rate (steady-state):**
-
 ```
 ν = [τ_m · ln((V_rest - V_reset + R·I)/(V_rest - V_threshold + R·I))]^-1
 
@@ -357,18 +320,17 @@ Untuk I > I_threshold:
 
 ### 4.1 Electrode Types
 
-| Type        | Material | Impedance |      Lifespan      | Resolution |
-| :---------- | :------- | :-------: | :----------------: | :--------: |
-| Surface EEG | Ag/AgCl  |  5-20 kΩ  |      Reusable      |  1-10 cm   |
-| ECoG grid   | Platinum |  1-5 kΩ   | Permanent implant  |   1-5 mm   |
-| Utah array  | Silicon  | 50-500 kΩ |     1-5 years      |  ~100 μm   |
-| Neuropixels | CMOS     |  <100 kΩ  |     Single use     |   ~20 μm   |
-| Neuralink   | Polymer  |  <50 kΩ   | >10 years (target) |   ~12 μm   |
+| Type | Material | Impedance | Lifespan | Resolution |
+|:-----|:---------|:---------:|:--------:|:----------:|
+| Surface EEG | Ag/AgCl | 5-20 kΩ | Reusable | 1-10 cm |
+| ECoG grid | Platinum | 1-5 kΩ | Permanent implant | 1-5 mm |
+| Utah array | Silicon | 50-500 kΩ | 1-5 years | ~100 μm |
+| Neuropixels | CMOS | <100 kΩ | Single use | ~20 μm |
+| Neuralink | Polymer | <50 kΩ | >10 years (target) | ~12 μm |
 
 ### 4.2 Utah Array
 
 **Specification:**
-
 ```
 10×10 electrode grid
 Electrode length: 1.0-1.5 mm
@@ -378,7 +340,6 @@ Material: doped silicon, insulated with Parylene
 ```
 
 **Signal quality over time:**
-
 ```
 Month 0: SNR = 10-15 dB
 Month 6: SNR = 5-10 dB
@@ -391,7 +352,6 @@ Degradation cause: glial scarring, electrode drift
 ### 4.3 Neuralink N1
 
 **Specification:**
-
 ```
 Threads: 64 threads
 Electrodes per thread: 16
@@ -404,7 +364,6 @@ Battery: inductive charging
 ```
 
 **Bandwidth:**
-
 ```
 1024 channels × 20 kHz sampling × 10 bits = 204.8 Mbps raw
 On-chip compression: 200× reduction
@@ -414,7 +373,6 @@ Wireless throughput: ~1-5 Mbps
 ### 4.4 OpenBCI
 
 **Cyton board:**
-
 ```
 Channels: 8 EEG
 Sampling: 250 Hz
@@ -434,7 +392,6 @@ Ganglion board:
 ### 5.1 Neurofeedback
 
 **Protocol:**
-
 ```
 1. Record real-time EEG/ECoG
 2. Extract feature (e.g., alpha power at C3/C4)
@@ -444,7 +401,6 @@ Ganglion board:
 ```
 
 **Applications:**
-
 ```
 ADHD: increase SMR (12-15 Hz), decrease theta (4-8 Hz)
 Anxiety: increase alpha, decrease high beta
@@ -453,7 +409,6 @@ Peak performance: increase gamma (40 Hz)
 ```
 
 **Efficacy:**
-
 ```
 Meta-analysis (Arns et al., 2014):
   ADHD: effect size d = 0.6 (medium-large)
@@ -464,7 +419,6 @@ Meta-analysis (Arns et al., 2014):
 ### 5.2 Motor Neuroprosthetics
 
 **Brain-controlled cursor:**
-
 ```
 Training:
   1. User imagines moving hand left/right/up/down
@@ -479,11 +433,10 @@ Decoder:
 ```
 
 **Braingate clinical trial:**
-
 ```
 Participant: tetraplegic
 Implant: 96-channel Utah array (M1)
-Performance:
+Performance: 
   - Typing: 90 chars/min (2021, decoded dari attempted handwriting)
   - Robot arm control: pick and place
   - Cursor control: 90% accuracy
@@ -492,7 +445,6 @@ Performance:
 ### 5.3 Sensory Neuroprosthetics
 
 **Cochlear implant:**
-
 ```
 Microphone → Sound processor → Transmitter → Electrode array (cochlea)
 
@@ -505,7 +457,6 @@ Speech understanding:
 ```
 
 **Retinal implant:**
-
 ```
 Argus II (Second Sight):
   - 60 electrodes (6×10 grid)
@@ -521,7 +472,6 @@ Argus II (Second Sight):
 ### 6.1 Feature Extraction
 
 **Time-domain:**
-
 ```
 Mean, variance, skewness, kurtosis
 Zero-crossing rate
@@ -529,7 +479,6 @@ Waveform length
 ```
 
 **Frequency-domain:**
-
 ```
 Power spectral density (Welch method)
 Band power: delta, theta, alpha, beta, gamma
@@ -537,7 +486,6 @@ Spectral entropy
 ```
 
 **Time-frequency:**
-
 ```
 Short-time Fourier Transform (STFT)
 Wavelet transform (Morlet wavelet)
@@ -547,7 +495,6 @@ Common Spatial Patterns (CSP) — for EEG
 ### 6.2 Common Spatial Patterns (CSP)
 
 **For 2-class motor imagery:**
-
 ```
 Goal: find spatial filters w that maximize variance for class 1
       and minimize variance for class 2
@@ -562,7 +509,6 @@ Solution: generalized eigenvalue problem
 ```
 
 **Performance:**
-
 ```
 CSP + LDA: 70-85% accuracy (2-class motor imagery, healthy subjects)
 CSP + LDA: 50-70% accuracy (patients, limited training data)
@@ -571,7 +517,6 @@ CSP + LDA: 50-70% accuracy (patients, limited training data)
 ### 6.3 Deep Learning for Decoding
 
 **CNN for EEG:**
-
 ```
 Input: (channels, time) = (64, 1000) untuk 4s @ 250Hz
 Architecture:
@@ -586,7 +531,6 @@ Architecture:
 ```
 
 **RNN/LSTM for sequential decoding:**
-
 ```
 Input: time series of neural features
 LSTM layers: capture temporal dynamics
@@ -597,7 +541,6 @@ Disadvantage: need more data, slower training
 ```
 
 **Transfer learning:**
-
 ```
 Pre-train pada large dataset (e.g., BCI Competition IV)
 Fine-tune pada subject-specific data
@@ -612,7 +555,6 @@ Improvement: +5-15% accuracy dengan limited subject data
 ### 7.1 Safety Thresholds
 
 **Neural tissue heating:**
-
 ```
 FDA limit: <1°C temperature increase
 Neuralink: <0.1°C (validated via simulation)
@@ -622,7 +564,6 @@ For 1024 channels @ 1 μA: P ≈ 1-10 μW (negligible)
 ```
 
 **Infection risk:**
-
 ```
 Utah array: 5-10% infection rate over 5 years
 Neuralink: target <1% (hermetic packaging)
@@ -631,7 +572,6 @@ Neuralink: target <1% (hermetic packaging)
 ### 7.2 Privacy & Security
 
 **Neural data sensitivity:**
-
 ```
 EEG/ECoG bisa reveal:
   - Motor intent (before action)
@@ -648,28 +588,28 @@ Access control: multi-factor authentication
 
 ## 8. References
 
-1. Dayan, P., & Abbott, L. F. (2001). _Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems_. MIT Press. — Foundational computational neuroscience.
+1. Dayan, P., & Abbott, L. F. (2001). *Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems*. MIT Press. — Foundational computational neuroscience.
 
-2. Rieke, F., Warland, D., de Ruyter van Steveninck, R., & Bialek, W. (1997). _Spikes: Exploring the Neural Code_. MIT Press. — Neural coding theory.
+2. Rieke, F., Warland, D., de Ruyter van Steveninck, R., & Bialek, W. (1997). *Spikes: Exploring the Neural Code*. MIT Press. — Neural coding theory.
 
-3. Niedermeyer, E., & da Silva, F. L. (Eds.). (2005). _Electroencephalography: Basic Principles, Clinical Applications, and Related Fields_ (5th ed.). Lippincott Williams & Wilkins. — EEG bible.
+3. Niedermeyer, E., & da Silva, F. L. (Eds.). (2005). *Electroencephalography: Basic Principles, Clinical Applications, and Related Fields* (5th ed.). Lippincott Williams & Wilkins. — EEG bible.
 
-4. Wolpaw, J. R., & Wolpaw, E. W. (Eds.). (2012). _Brain-Computer Interfaces: Principles and Practice_. Oxford University Press. — BCI comprehensive text.
+4. Wolpaw, J. R., & Wolpaw, E. W. (Eds.). (2012). *Brain-Computer Interfaces: Principles and Practice*. Oxford University Press. — BCI comprehensive text.
 
-5. Hochberg, L. R., et al. (2012). "Reach and Grasp by People with Tetraplegia Using a Neurally Controlled Robotic Arm." _Nature_, 485(7398), 372-375. — Braingate clinical results.
+5. Hochberg, L. R., et al. (2012). "Reach and Grasp by People with Tetraplegia Using a Neurally Controlled Robotic Arm." *Nature*, 485(7398), 372-375. — Braingate clinical results.
 
-6. Izhikevich, E. M. (2003). "Simple Model of Spiking Neurons." _IEEE Transactions on Neural Networks_, 14(6), 1569-1572. — Izhikevich model.
+6. Izhikevich, E. M. (2003). "Simple Model of Spiking Neurons." *IEEE Transactions on Neural Networks*, 14(6), 1569-1572. — Izhikevich model.
 
-7. Jun, J. J., et al. (2017). "Fully Integrated Silicon Probes for High-Density Recording of Neural Activity." _Nature_, 551(7679), 232-236. — Neuropixels.
+7. Jun, J. J., et al. (2017). "Fully Integrated Silicon Probes for High-Density Recording of Neural Activity." *Nature*, 551(7679), 232-236. — Neuropixels.
 
-8. Musk, E., & Neuralink. (2019). "An Integrated Brain-Machine Interface Platform with Thousands of Channels." _Journal of Medical Internet Research_. — Neuralink N1.
+8. Musk, E., & Neuralink. (2019). "An Integrated Brain-Machine Interface Platform with Thousands of Channels." *Journal of Medical Internet Research*. — Neuralink N1.
 
 ## Koneksi ke Vault
 
-| Catatan                                  | Koneksi                                         |
-| :--------------------------------------- | :---------------------------------------------- |
-| [[advanced-ai-algorithms-breakthroughs]] | Neural decoding = deep learning application     |
-| [[hierarchy-ai-levels]]                  | BCI = human-AI symbiosis (Level 8-9)            |
-| [[math-and-algorithms]]                  | Signal processing, linear algebra, optimization |
-| [[research-methodology]]                 | Clinical trials, experimental design            |
-| [[cryptography-biometrics]]              | Neural/BCI authentication (EEG passthought)     |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[advanced-ai-algorithms-breakthroughs]] | Neural decoding = deep learning application |
+| [[hierarchy-ai-levels]] | BCI = human-AI symbiosis (Level 8-9) |
+| [[math-and-algorithms]] | Signal processing, linear algebra, optimization |
+| [[research-methodology]] | Clinical trials, experimental design |
+| [[cryptography-biometrics]] | Neural/BCI authentication (EEG passthought) |

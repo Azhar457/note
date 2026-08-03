@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. CRS File Organization]]
 - [[#2. Request Phase Rules (REQUEST-9XX)]]
 - [[#3. Response Phase Rules (RESPONSE-9XX)]]
@@ -48,24 +47,24 @@ RESPONSE-9XX-CATEGORY.conf
 
 ### File per Phase
 
-| File                               | Fungsi                   | Contoh Rule               |
-| ---------------------------------- | ------------------------ | ------------------------- |
-| `REQUEST-901-INITIALIZATION`       | Setup awal               | Init vars, anomaly scores |
-| `REQUEST-905-COMMON-EXCEPTIONS`    | Whitelist umum           | Exclude monitoring tools  |
-| `REQUEST-911-METHOD-ENFORCEMENT`   | Method restriction       | GET, POST only            |
-| `REQUEST-913-SCANNER-DETECTION`    | Scanner detection        | Nmap, nessus, sqlmap      |
-| `REQUEST-920-PROTOCOL-ENFORCEMENT` | Protocol compliance      | HTTP version, headers     |
-| `REQUEST-921-PROTOCOL-ATTACK`      | Protocol attack          | Request smuggling         |
-| `REQUEST-930-LFI`                  | File inclusion           | `../../etc/passwd`        |
-| `REQUEST-931-RFI`                  | Remote file inclusion    | `http://evil.com/shell`   |
-| `REQUEST-932-RCE`                  | Remote command execution | `cmd.exe`, `/bin/sh`      |
-| `REQUEST-933-PHP`                  | PHP injection            | `php://`, `assert`        |
-| `REQUEST-934-GENERIC`              | Generic injection        | Charset, encoding         |
-| `REQUEST-941-XSS`                  | Cross-site scripting     | `<script>`, `onerror`     |
-| `REQUEST-942-SQLI`                 | SQL injection            | `' OR 1=1`, `UNION`       |
-| `REQUEST-943-SESSION-FIXATION`     | Session fixation         | `Cookie:` manipulation    |
-| `REQUEST-944-JAVA`                 | Java attacks             | OGNL, deserialization     |
-| `REQUEST-949-BLOCKING-EVALUATION`  | Blocking decision        | Anomaly score threshold   |
+| File | Fungsi | Contoh Rule |
+|---|---|---|
+| `REQUEST-901-INITIALIZATION` | Setup awal | Init vars, anomaly scores |
+| `REQUEST-905-COMMON-EXCEPTIONS` | Whitelist umum | Exclude monitoring tools |
+| `REQUEST-911-METHOD-ENFORCEMENT` | Method restriction | GET, POST only |
+| `REQUEST-913-SCANNER-DETECTION` | Scanner detection | Nmap, nessus, sqlmap |
+| `REQUEST-920-PROTOCOL-ENFORCEMENT` | Protocol compliance | HTTP version, headers |
+| `REQUEST-921-PROTOCOL-ATTACK` | Protocol attack | Request smuggling |
+| `REQUEST-930-LFI` | File inclusion | `../../etc/passwd` |
+| `REQUEST-931-RFI` | Remote file inclusion | `http://evil.com/shell` |
+| `REQUEST-932-RCE` | Remote command execution | `cmd.exe`, `/bin/sh` |
+| `REQUEST-933-PHP` | PHP injection | `php://`, `assert` |
+| `REQUEST-934-GENERIC` | Generic injection | Charset, encoding |
+| `REQUEST-941-XSS` | Cross-site scripting | `<script>`, `onerror` |
+| `REQUEST-942-SQLI` | SQL injection | `' OR 1=1`, `UNION` |
+| `REQUEST-943-SESSION-FIXATION` | Session fixation | `Cookie:` manipulation |
+| `REQUEST-944-JAVA` | Java attacks | OGNL, deserialization |
+| `REQUEST-949-BLOCKING-EVALUATION` | Blocking decision | Anomaly score threshold |
 
 ---
 
@@ -100,13 +99,13 @@ SecRule REQUEST_COOKIES|REQUEST_COOKIES_NAMES|REQUEST_HEADERS|ARGS_NAMES|ARGS|XM
 
 ### Komponen
 
-| Komponen               | Fungsi                                           |
-| ---------------------- | ------------------------------------------------ |
-| **Target variable**    | `ARGS`, `REQUEST_COOKIES`, `REQUEST_HEADERS`     |
-| **Operator**           | `@pm` (pattern match), `@rx` (regex), `@within`  |
+| Komponen | Fungsi |
+|---|---|
+| **Target variable** | `ARGS`, `REQUEST_COOKIES`, `REQUEST_HEADERS` |
+| **Operator** | `@pm` (pattern match), `@rx` (regex), `@within` |
 | **Transform function** | `t:urlDecodeUni`, `t:lowercase`, `t:removeNulls` |
-| **Anomaly score**      | `setvar:'tx.anomaly_score_pl2=+CRITICAL'`        |
-| **Paranoia level**     | `tag:'paranoia-level/2'`                         |
+| **Anomaly score** | `setvar:'tx.anomaly_score_pl2=+CRITICAL'` |
+| **Paranoia level** | `tag:'paranoia-level/2'` |
 
 ---
 
@@ -114,17 +113,17 @@ SecRule REQUEST_COOKIES|REQUEST_COOKIES_NAMES|REQUEST_HEADERS|ARGS_NAMES|ARGS|XM
 
 Rule yang memeriksa response dari backend, bukan request.
 
-| File                               | Fungsi               |
-| ---------------------------------- | -------------------- |
-| `RESPONSE-950-DATA-LEAKAGES`       | Data leakage generic |
-| `RESPONSE-951-DATA-LEAKAGES-SQL`   | SQL error messages   |
-| `RESPONSE-952-DATA-LEAKAGES-JAVA`  | Java stack traces    |
-| `RESPONSE-953-DATA-LEAKAGES-PHP`   | PHP error messages   |
-| `RESPONSE-954-DATA-LEAKAGES-IIS`   | IIS error messages   |
-| `RESPONSE-955-WEB-SHELLS`          | Webshell detection   |
-| `RESPONSE-956-DATA-LEAKAGES-RUBY`  | Ruby error messages  |
-| `RESPONSE-959-BLOCKING-EVALUATION` | Blocking decision    |
-| `RESPONSE-980-CORRELATION`         | Correlation rules    |
+| File | Fungsi |
+|---|---|
+| `RESPONSE-950-DATA-LEAKAGES` | Data leakage generic |
+| `RESPONSE-951-DATA-LEAKAGES-SQL` | SQL error messages |
+| `RESPONSE-952-DATA-LEAKAGES-JAVA` | Java stack traces |
+| `RESPONSE-953-DATA-LEAKAGES-PHP` | PHP error messages |
+| `RESPONSE-954-DATA-LEAKAGES-IIS` | IIS error messages |
+| `RESPONSE-955-WEB-SHELLS` | Webshell detection |
+| `RESPONSE-956-DATA-LEAKAGES-RUBY` | Ruby error messages |
+| `RESPONSE-959-BLOCKING-EVALUATION` | Blocking decision |
+| `RESPONSE-980-CORRELATION` | Correlation rules |
 
 ---
 
@@ -172,12 +171,12 @@ REQUEST-999-EXCLUSION-RULES-AFTER-CRS.conf.example
 
 ## 6. Paranoia Levels
 
-| Level   | Nama     | Risiko FP     | Coverage               |
-| ------- | -------- | ------------- | ---------------------- |
-| **PL1** | Default  | Rendah        | Serangan umum          |
-| **PL2** | Advanced | Sedang        | Bypass techniques      |
-| **PL3** | High     | Tinggi        | Obfuscation & encoding |
-| **PL4** | Paranoid | Sangat tinggi | Semua varian           |
+| Level | Nama | Risiko FP | Coverage |
+|---|---|---|---|
+| **PL1** | Default | Rendah | Serangan umum |
+| **PL2** | Advanced | Sedang | Bypass techniques |
+| **PL3** | High | Tinggi | Obfuscation & encoding |
+| **PL4** | Paranoid | Sangat tinggi | Semua varian |
 
 ### Perbedaan per Level
 
@@ -217,14 +216,14 @@ Request → Rule1 (Critical, +5) → Rule2 (Warning, +3) → Total=8
 
 ## 8. Implikasi untuk jarsWAF
 
-| Konsep CRS          | Implementasi di jarsWAF                 | Status                        |
-| ------------------- | --------------------------------------- | ----------------------------- |
-| Rule phases         | `headers.rs`, `body.rs`, `evasion.rs`   | ✅ Ada                        |
-| Anomaly scoring     | `anomaly.rs` + `scoring_mode`           | ✅ Ada (accumulate/threshold) |
-| Paranoia levels     | Belum ada level system                  | 🎯 Bisa adopsi                |
-| Data files          | Belum ada `@pm` operator                | 🎯 Bisa via `.data` files     |
-| Exclusion rules     | Custom rules via `config.toml`          | ✅ Ada                        |
-| Transform functions | `t:urlDecodeUni` → normalize di engine  | ✅ Parsial                    |
-| Per-phase blocking  | `REQUEST-949` → blocking decision phase | 🔄 Bisa ditambah              |
+| Konsep CRS | Implementasi di jarsWAF | Status |
+|---|---|---|
+| Rule phases | `headers.rs`, `body.rs`, `evasion.rs` | ✅ Ada |
+| Anomaly scoring | `anomaly.rs` + `scoring_mode` | ✅ Ada (accumulate/threshold) |
+| Paranoia levels | Belum ada level system | 🎯 Bisa adopsi |
+| Data files | Belum ada `@pm` operator | 🎯 Bisa via `.data` files |
+| Exclusion rules | Custom rules via `config.toml` | ✅ Ada |
+| Transform functions | `t:urlDecodeUni` → normalize di engine | ✅ Parsial |
+| Per-phase blocking | `REQUEST-949` → blocking decision phase | 🔄 Bisa ditambah |
 
 **Lokasi CRS:** `/mnt/data_d/Projects/Reference/owasp-coreruleset/`

@@ -44,12 +44,12 @@ SSC (SEVIMA Security Challenge) 2026 adalah security challenge tertutup yang men
 
 ### Scope Target
 
-| Target       | Jenis                 | Metode Pengujian              |
-| ------------ | --------------------- | ----------------------------- |
-| API Gateway  | REST API (RESTful)    | Black-box, unauthenticated    |
-| Frontend SPA | Nuxt.js SPA           | JS bundle reverse engineering |
-| SSO          | OAuth2 + MFA          | Login flow testing            |
-| CBT          | Platform ujian online | Authenticated testing         |
+| Target | Jenis | Metode Pengujian |
+|--------|-------|------------------|
+| API Gateway | REST API (RESTful) | Black-box, unauthenticated |
+| Frontend SPA | Nuxt.js SPA | JS bundle reverse engineering |
+| SSO | OAuth2 + MFA | Login flow testing |
+| CBT | Platform ujian online | Authenticated testing |
 
 ### Tim dan Metodologi
 
@@ -75,13 +75,13 @@ shodan search "ssl:[DOMAIN_REDACTED]"
 
 ### Daftar Periksa Shodan Coverage
 
-| Aspek                  |              Hasil              | Keterangan                           |
-| ---------------------- | :-----------------------------: | ------------------------------------ |
-| Domain search          |           ❌ 0 hasil            | Tidak ditemukan                      |
-| SSL certificate search |           ❌ 0 hasil            | Cert tidak terindex atau dibalik CDN |
-| Port scan (top 1000)   |    ❌ Tidak ada port terbuka    | Semua filtered                       |
-| Subdomain enumeration  | ❌ Tidak ada subdomain terindex | DNS tidak bocor                      |
-| Historical data        |       ❌ Tidak ada record       | Mungkin domain baru atau dilindungi  |
+| Aspek | Hasil | Keterangan |
+|-------|:-----:|------------|
+| Domain search | ❌ 0 hasil | Tidak ditemukan |
+| SSL certificate search | ❌ 0 hasil | Cert tidak terindex atau dibalik CDN |
+| Port scan (top 1000) | ❌ Tidak ada port terbuka | Semua filtered |
+| Subdomain enumeration | ❌ Tidak ada subdomain terindex | DNS tidak bocor |
+| Historical data | ❌ Tidak ada record | Mungkin domain baru atau dilindungi |
 
 ### Verifikasi Manual
 
@@ -130,12 +130,12 @@ Cloudflare WAF secara aktif memblokir probe scanner sebelum mencapai origin serv
 
 ### Implikasi untuk WAF Development
 
-| Protected From                           | NOT Protected From                  |
-| ---------------------------------------- | ----------------------------------- |
+| Protected From | NOT Protected From |
+|----------------|-------------------|
 | Internet-scale scanning (Shodan, Censys) | Targeted attack yang tahu origin IP |
-| Port scanning massal                     | Historical DNS records              |
-| Automated vulnerability scanner          | Certificate transparency logs       |
-| Random reconnaissance                    | Social engineering / insider threat |
+| Port scanning massal | Historical DNS records |
+| Automated vulnerability scanner | Certificate transparency logs |
+| Random reconnaissance | Social engineering / insider threat |
 
 **Kesimpulan:** WAF + reverse proxy effectif untuk pencegahan scanning massal, tetapi tidak cukup untuk menutup seluruh vektor kebocoran origin IP. Diperlukan pendekatan tambahan — yang disebut dengan **server encapsulation**.
 
@@ -157,12 +157,12 @@ JS Bundle Analysis → Endpoint Mapping → Testing → Findings
 
 ### 4.2. Akar Masalah
 
-| Faktor                       | Dampak                                                                           |
-| ---------------------------- | -------------------------------------------------------------------------------- |
-| **Surface area terbatas**    | Semua tim menguji target yang sama                                               |
-| **Methodologi seragam**      | JS bundle analysis adalah langkah pertama                                        |
-| **First come, first served** | Tim yang lebih cepat mapping endpoint memiliki keuntungan                        |
-| **Validasi tidak tuntas**    | Beberapa temuan belum fully exploited — perlu chain exploit penuh untuk validasi |
+| Faktor | Dampak |
+|--------|--------|
+| **Surface area terbatas** | Semua tim menguji target yang sama |
+| **Methodologi seragam** | JS bundle analysis adalah langkah pertama |
+| **First come, first served** | Tim yang lebih cepat mapping endpoint memiliki keuntungan |
+| **Validasi tidak tuntas** | Beberapa temuan belum fully exploited — perlu chain exploit penuh untuk validasi |
 
 ### 4.3. Lessons Learned
 
@@ -180,7 +180,6 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 ### 5.1. Arsitektur Saat Ini VS Target
 
 **Lapisan Saat Ini:**
-
 ```
 [Internet] → [WAF/Proxy] → [Origin Server]
                     ↑
@@ -192,7 +191,6 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 ```
 
 **Target Encapsulation:**
-
 ```
 [Internet] → [WAF/Proxy] ══> [Origin Server]
                     ↑
@@ -203,27 +201,27 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 
 ### 5.2. Vektor Kebocoran Origin IP
 
-| Vektor                               | Tingkat Kesulitan | Mitigasi                                        |
-| ------------------------------------ | :---------------: | ----------------------------------------------- |
-| DNS Historical (SecurityTrails)      |   Sangat mudah    | Gunakan IP acak yang berubah secara periodik    |
-| Certificate Transparency (crt.sh)    |   Sangat mudah    | Wildcard cert + rotasi                          |
-| SSH Key Fingerprint (Shodan)         |       Mudah       | Non-standar port + jump box                     |
-| Reverse DNS                          |       Mudah       | Konfigurasi PTR yang tidak terkait              |
-| Email Header Analysis                |      Sedang       | Jangan gunakan origin IP untuk pengiriman email |
-| Side-channel (timing, error message) |       Sulit       | Uniform error response                          |
-| Social Engineering ISP               |   Sangat sulit    | Di luar kendali teknis                          |
+| Vektor | Tingkat Kesulitan | Mitigasi |
+|--------|:-----------------:|----------|
+| DNS Historical (SecurityTrails) | Sangat mudah | Gunakan IP acak yang berubah secara periodik |
+| Certificate Transparency (crt.sh) | Sangat mudah | Wildcard cert + rotasi |
+| SSH Key Fingerprint (Shodan) | Mudah | Non-standar port + jump box |
+| Reverse DNS | Mudah | Konfigurasi PTR yang tidak terkait |
+| Email Header Analysis | Sedang | Jangan gunakan origin IP untuk pengiriman email |
+| Side-channel (timing, error message) | Sulit | Uniform error response |
+| Social Engineering ISP | Sangat sulit | Di luar kendali teknis |
 
 ### 5.3. Komponen yang Dibutuhkan
 
-| Komponen                     |     Status      | Prioritas |
-| ---------------------------- | :-------------: | :-------: |
-| L7 WAF rule engine           |  ✅ Production  |    P0     |
-| L4 reverse proxy (Pingora)   |  ✅ Production  |    P0     |
-| Anomaly scoring + behavioral | 🟡 Development  |    P1     |
-| eBPF/XDP packet filtering    | 🟡 Experimental |    P2     |
-| Origin IP rotation           |    ❌ Belum     |    P3     |
-| DNS history protection       |    ❌ Belum     |    P3     |
-| Full encapsulation           |    ❌ Konsep    |    P4     |
+| Komponen | Status | Prioritas |
+|----------|:------:|:---------:|
+| L7 WAF rule engine | ✅ Production | P0 |
+| L4 reverse proxy (Pingora) | ✅ Production | P0 |
+| Anomaly scoring + behavioral | 🟡 Development | P1 |
+| eBPF/XDP packet filtering | 🟡 Experimental | P2 |
+| Origin IP rotation | ❌ Belum | P3 |
+| DNS history protection | ❌ Belum | P3 |
+| Full encapsulation | ❌ Konsep | P4 |
 
 ---
 
@@ -272,9 +270,9 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 
 ### Vault Cross-Reference
 
-| Catatan                                    | Koneksi                                                         |
-| ------------------------------------------ | --------------------------------------------------------------- |
-| [[waf-reverse-proxy-deepdive]]             | Arsitektur WAF — posisi encapsulation di reverse proxy layer    |
-| [[hierarchy-search]]                       | Information access hierarchy — Shodan ada di level OSINT        |
-| [[browser-security-exploitation-deepdive]] | JS bundle analysis sebagai teknik recon                         |
-| [[server-hardening-playbook]]              | Hardening server — hubungannya dengan mengurangi attack surface |
+| Catatan | Koneksi |
+|---------|---------|
+| [[waf-reverse-proxy-deepdive]] | Arsitektur WAF — posisi encapsulation di reverse proxy layer |
+| [[hierarchy-search]] | Information access hierarchy — Shodan ada di level OSINT |
+| [[browser-security-exploitation-deepdive]] | JS bundle analysis sebagai teknik recon |
+| [[server-hardening-playbook]] | Hardening server — hubungannya dengan mengurangi attack surface |

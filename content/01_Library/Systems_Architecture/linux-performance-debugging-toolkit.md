@@ -48,7 +48,6 @@ Untuk mendiagnosis sistem secara efisien, kita harus menggunakan alat yang tepat
 `strace` digunakan untuk merekam interaksi antara proses userspace dan kernel Linux dengan menampilkan semua system calls yang dipanggil dan sinyal yang diterima.
 
 ### Kasus Penggunaan: Mengapa Reverse Proxy JarsWAF Lambat Melayani Request?
-
 Jalankan `strace` pada PID proses JarsWAF / Pingora, batasi pelacakan hanya untuk I/O dan syscall jaringan, serta catat latensi setiap syscall (`-T`):
 
 ```bash
@@ -56,15 +55,13 @@ sudo strace -p <PID_JARSWAF> -e trace=network,file -T -o jarswaf_strace.log
 ```
 
 #### Cara Membaca Output Log (`jarswaf_strace.log`):
-
 ```text
 epoll_wait(4, [{EPOLLIN, {u32=11, u64=11}}], 1024, 1000) = 1 <0.002144>
 accept4(6, {sa_family=AF_INET, sin_port=htons(49554), sin_addr=inet_addr("192.168.1.50")}, [128], SOCK_CLOEXEC) = 12 <0.000108>
 read(12, "GET /api/v1/status HTTP/1.1\r\n...", 8192) = 154 <0.005892>
 stat("/opt/jarswaf/config.toml", {st_mode=S_IFREG|0644, st_size=2380, ...}) = 0 <0.008912>
 ```
-
-_Analisis_: Kolom `<0.008912>` menunjukkan syscall `stat` pada file konfigurasi memakan waktu **8.9 milidetik**! Ini mengindikasikan bottleneck I/O disk saat membaca konfigurasi TOML di setiap request. Konfigurasi harus di-cache di memory (`arc-swap` / static cell).
+*Analisis*: Kolom `<0.008912>` menunjukkan syscall `stat` pada file konfigurasi memakan waktu **8.9 milidetik**! Ini mengindikasikan bottleneck I/O disk saat membaca konfigurasi TOML di setiap request. Konfigurasi harus di-cache di memory (`arc-swap` / static cell).
 
 ---
 
@@ -73,7 +70,6 @@ _Analisis_: Kolom `<0.008912>` menunjukkan syscall `stat` pada file konfigurasi 
 `perf` mengumpulkan statistik performa perangkat keras (CPU cycle, cache misses) dan perangkat lunak (context switches) menggunakan penghitung internal CPU.
 
 ### A. Merekam Profiling CPU JarsWAF
-
 Lakukan sampling pada CPU tempat proses target berjalan dengan frekuensi 99 Hz selama 10 detik:
 
 ```bash
@@ -81,13 +77,10 @@ sudo perf record -F 99 -p <PID_JARSWAF> -g -- sleep 10
 ```
 
 ### B. Menganalisis Call Graph Terbanyak
-
 Baca hasil profiling secara interaktif:
-
 ```bash
 sudo perf report --hierarchy -M intel
 ```
-
 Model visualisasi terbaik dari `perf record` adalah **FlameGraph**. Anda bisa mengonversinya menjadi grafik SVG interaktif:
 
 ```bash
@@ -101,10 +94,9 @@ FlameGraph akan menunjukkan fungsi mana di Rust (seperti alokasi memori regex ma
 
 ## 4. Scripting Diagnostik Cepat dengan `bpftrace`
 
-`bpftrace` menggunakan eBPF untuk melakukan instrumentasi tingkat lanjut tanpa mengganggu jalannya sistem produksi (_very low overhead_).
+`bpftrace` menggunakan eBPF untuk melakukan instrumentasi tingkat lanjut tanpa mengganggu jalannya sistem produksi (*very low overhead*).
 
 ### A. Melacak Latensi Transaksi Database RAG (SQLite / Postgres)
-
 Deteksi durasi waktu proses membaca/menulis blok disk:
 
 ```bash
@@ -121,7 +113,6 @@ kretprobe:vfs_read /@start[tid]/ {
 Skrip di atas menghasilkan histogram distribusi latensi operasi baca disk sistem dalam mikrodetik (`us`). Sangat krusial untuk melacak overhead pencarian vektor SQLite-Vec.
 
 ### B. Melacak Connection Latency Terhadap Reverse Proxy
-
 Menghitung waktu yang dibutuhkan dari penerimaan TCP connection baru (`accept`) hingga pemrosesan request:
 
 ```bash
@@ -139,17 +130,16 @@ tracepoint:syscalls:sys_exit_accept4 /@accept_time[tid]/ {
 
 ## 5. Ringkasan Cheat Sheet Pemecahan Masalah (Troubleshooting Matrix)
 
-| Masalah               | Alat Utama           | Perintah Cepat                  | Indikasi Sukses                                              |
-| --------------------- | -------------------- | ------------------------------- | ------------------------------------------------------------ |
-| **CPU Spike**         | `htop`, `perf`       | `perf top -p <PID>`             | Menemukan fungsi bottleneck di stack trace                   |
-| **Disk I/O Slowdown** | `iostat`, `iotop`    | `iostat -xz 1 10`               | `%util` mendekati 100% $\rightarrow$ bottleneck disk         |
-| **Proxy Latency**     | `bpftrace`, `strace` | `strace -T -p <PID>`            | Cari syscall `epoll_wait` / `read` bernilai $> 50\text{ ms}$ |
-| **Memory Leak**       | `valgrind`, `pmap`   | `pmap -x <PID> \| sort -k 3 -n` | Menemukan segmen memory RSS tidak stabil                     |
+| Masalah | Alat Utama | Perintah Cepat | Indikasi Sukses |
+|---|---|---|---|
+| **CPU Spike** | `htop`, `perf` | `perf top -p <PID>` | Menemukan fungsi bottleneck di stack trace |
+| **Disk I/O Slowdown** | `iostat`, `iotop` | `iostat -xz 1 10` | `%util` mendekati 100% $\rightarrow$ bottleneck disk |
+| **Proxy Latency** | `bpftrace`, `strace` | `strace -T -p <PID>` | Cari syscall `epoll_wait` / `read` bernilai $> 50\text{ ms}$ |
+| **Memory Leak** | `valgrind`, `pmap` | `pmap -x <PID> \| sort -k 3 -n` | Menemukan segmen memory RSS tidak stabil |
 
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-
 - [[jarswaf-internal-architecture-deepdive]] — Menguji Performa Hot Path Proxy JarsWAF
 - [[ebpf-runtime-security-auditing]] — SOP Auditing System Calls dengan eBPF kprobe
 - [[vector-quantization-hnsw-tuning]] — Optimasi Memory RAM Database Vektor

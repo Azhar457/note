@@ -25,7 +25,6 @@ cssclasses:
 ---
 
 ## Daftar Isi
-
 - [[#1. Mekanisme Dependency Confusion]]
 - [[#2. Attack Vectors per Package Manager]]
 - [[#3. Automated Exploitation Tools]]
@@ -49,13 +48,13 @@ cssclasses:
 
 ### Resolusi Priority
 
-| Package Manager | Priority                            |
-| --------------- | ----------------------------------- |
-| npm             | Private registry → Public npm       |
-| pip             | PyPI → Custom index → PyPI fallback |
-| gem             | Private gem server → RubyGems       |
-| maven           | Internal repo → Maven Central       |
-| NuGet           | Private feed → NuGet.org            |
+| Package Manager | Priority |
+|---|---|
+| npm | Private registry → Public npm |
+| pip | PyPI → Custom index → PyPI fallback |
+| gem | Private gem server → RubyGems |
+| maven | Internal repo → Maven Central |
+| NuGet | Private feed → NuGet.org |
 
 ---
 
@@ -129,12 +128,12 @@ python scanner.py --package-name @company/internal-pkg
 
 ## 4. Case Studies
 
-| Year | Target          | Package Manager | Impact                                         |
-| ---- | --------------- | --------------- | ---------------------------------------------- |
-| 2021 | Microsoft (iOS) | CocoaPods       | Code execution via Podfile confusion           |
-| 2022 | NPM ecosystem   | npm             | Ratusan package internal terdeteksi vulnerable |
-| 2023 | PyPI            | pip             | Typosquatting packages                         |
-| 2024 | Various         | npm             | Tool automasi scan + exploit massal            |
+| Year | Target | Package Manager | Impact |
+|---|---|---|---|
+| 2021 | Microsoft (iOS) | CocoaPods | Code execution via Podfile confusion |
+| 2022 | NPM ecosystem | npm | Ratusan package internal terdeteksi vulnerable |
+| 2023 | PyPI | pip | Typosquatting packages |
+| 2024 | Various | npm | Tool automasi scan + exploit massal |
 
 ---
 
@@ -153,14 +152,14 @@ confused --project-dir .
 
 ### Prevention
 
-| Strategy               | Implementasi                                       | Efektivitas   |
-| ---------------------- | -------------------------------------------------- | ------------- |
-| **Scoped packages**    | npm: `@company/*` di private registry              | Tinggi        |
-| **Registry lock**      | `npm config set registry https://private-registry` | Tinggi        |
-| **Package lock**       | Lockfile (`package-lock.json`, `yarn.lock`)        | Sedang        |
-| **CI/CD verification** | Validasi asal package sebelum install              | Sangat tinggi |
-| **SCOPE isolation**    | `@company/*` harus dari private, `*` dari public   | Sangat tinggi |
-| **WAF/IDS**            | Deteksi download dari public registry              | Rendah        |
+| Strategy | Implementasi | Efektivitas |
+|---|---|---|
+| **Scoped packages** | npm: `@company/*` di private registry | Tinggi |
+| **Registry lock** | `npm config set registry https://private-registry` | Tinggi |
+| **Package lock** | Lockfile (`package-lock.json`, `yarn.lock`) | Sedang |
+| **CI/CD verification** | Validasi asal package sebelum install | Sangat tinggi |
+| **SCOPE isolation** | `@company/*` harus dari private, `*` dari public | Sangat tinggi |
+| **WAF/IDS** | Deteksi download dari public registry | Rendah |
 
 ### npm Registry Lock
 
@@ -188,7 +187,6 @@ registry=https://registry.npmjs.org/
 - OWASP: Dependency Confusion Attack
 
 **Cross-link vault:**
-
 - [[software-supply-chain-security-deepdive]] — supply chain
 - [[dependency-confusion-supply-chain-attacks-praktik]] — praktik
 - [[devsecops-pipeline-sast-dast-sbom]] — CI/CD security

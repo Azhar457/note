@@ -10,7 +10,7 @@ status: pending
 
 # Dokumen 05 — Maintenance, Disaster Recovery & Operasional
 
-Dokumen panduan operasional pemeliharaan rutin, prosedur _disaster recovery_, otomatisasi backup, dan penanganan insiden infrastruktur server/container.
+Dokumen panduan operasional pemeliharaan rutin, prosedur *disaster recovery*, otomatisasi backup, dan penanganan insiden infrastruktur server/container.
 
 ---
 
@@ -18,11 +18,11 @@ Dokumen panduan operasional pemeliharaan rutin, prosedur _disaster recovery_, ot
 
 Strategi backup berlapis untuk mencegah kehilangan data akibat kegagalan hardware, kesalahan manusia, atau serangan ransomware:
 
-| Lapis       | Jenis Media                    | Lokasi Storage                   | Frekuensi               | Retensi  |
-| ----------- | ------------------------------ | -------------------------------- | ----------------------- | -------- |
-| **Lapis 1** | Local Storage (Proxmox VZDump) | `/var/lib/vz/dump` (SSD Local)   | Harian (02:00)          | 7 Hari   |
-| **Lapis 2** | External Cold Storage          | External Drive / NAS             | Mingguan (Minggu 03:00) | 4 Minggu |
-| **Lapis 3** | Offsite Cloud Storage          | Encrypted Rclone / S3 Compatible | Bulanan                 | 6 Bulan  |
+| Lapis | Jenis Media | Lokasi Storage | Frekuensi | Retensi |
+|---|---|---|---|---|
+| **Lapis 1** | Local Storage (Proxmox VZDump) | `/var/lib/vz/dump` (SSD Local) | Harian (02:00) | 7 Hari |
+| **Lapis 2** | External Cold Storage | External Drive / NAS | Mingguan (Minggu 03:00) | 4 Minggu |
+| **Lapis 3** | Offsite Cloud Storage | Encrypted Rclone / S3 Compatible | Bulanan | 6 Bulan |
 
 ---
 
@@ -46,7 +46,6 @@ vzdump 100 --mode snapshot --compress zstd --storage local --remove 0
 > Prosedur restore akan menimpa data container aktif. Pastikan mengambil snapshot keadaan sebelum restore dilakukan.
 
 ### Langkah-langkah Restore via CLI:
-
 1. Hentikan container target:
    ```bash
    pct stop 100
@@ -62,7 +61,6 @@ vzdump 100 --mode snapshot --compress zstd --storage local --remove 0
    ```
 
 ### Troubleshooting Kendala Restore:
-
 - **Error `insufficient free space`**:
   Hapus dump lama di `/var/lib/vz/dump/` untuk memberikan ruang disk.
 - **Error `storage pool does not exist`**:
@@ -110,19 +108,19 @@ pct exec 100 -- df -h /
 
 ## 6. Maintenance & Emergency Cheat Sheet
 
-| Perintah                          | Deskripsi Fungsi                               |
-| --------------------------------- | ---------------------------------------------- |
-| `pct list`                        | Menampilkan seluruh status LXC container aktif |
-| `pct config <id>`                 | Memeriksa konfigurasi spesifik container       |
-| `pct status <id>`                 | Memeriksa status kesehatan runtime container   |
-| `journalctl -u pve-cluster -n 50` | Debugging error klaster Proxmox                |
-| `df -hT`                          | Memeriksa penggunaan kapasitas filesystem      |
+| Perintah | Deskripsi Fungsi |
+|---|---|
+| `pct list` | Menampilkan seluruh status LXC container aktif |
+| `pct config <id>` | Memeriksa konfigurasi spesifik container |
+| `pct status <id>` | Memeriksa status kesehatan runtime container |
+| `journalctl -u pve-cluster -n 50` | Debugging error klaster Proxmox |
+| `df -hT` | Memeriksa penggunaan kapasitas filesystem |
 
 ---
 
 ## 7. Checklist Pra-Update Infrastruktur
 
-- [x] Pastikan ketersediaan file backup _snapshot_ terbaru (`.tar.zst`).
+- [x] Pastikan ketersediaan file backup *snapshot* terbaru (`.tar.zst`).
 - [x] Periksa sisa ruang disk penyimpanan (minimal 20% free space).
 - [x] Lakukan pemindaian integritas filesystem (`fsck` / `zpool status`).
 - [x] Catat versi paket sistem sebelum melakukan `apt update && apt upgrade`.

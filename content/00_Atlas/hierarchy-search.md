@@ -6,8 +6,8 @@ tags:
   - dark-web
   - sigint
   - classified
-created: "2026-07-01"
-updated: "2026-08-01"
+created: '2026-07-01'
+updated: '2026-08-01'
 status: pending
 ---
 
@@ -33,16 +33,17 @@ status: pending
 15. Appendix C — Koreksi Teknis
 16. Lihat Juga
 
+
 ## Level 0 — Surface Web
 
 Level pertama — informasi dapat diakses oleh semua orang menggunakan browser biasa. Mencakup sekitar 4% dari total internet.
 
-| Karakteristik | Detail                                      |
-| ------------- | ------------------------------------------- |
-| Akses         | Browser biasa (Chrome, Firefox, dll)        |
-| Indeks        | Google, Bing, DuckDuckGo                    |
-| Target        | Berita, media sosial, e-commerce, Wikipedia |
-| Risiko        | Data dijual ke advertiser, tracking cookies |
+| Karakteristik | Detail |
+|---|---|
+| Akses | Browser biasa (Chrome, Firefox, dll) |
+| Indeks | Google, Bing, DuckDuckGo |
+| Target | Berita, media sosial, e-commerce, Wikipedia |
+| Risiko | Data dijual ke advertiser, tracking cookies |
 
 ```python
 import requests
@@ -59,16 +60,16 @@ print(response.text)
 
 Antara Surface Web dan Semi-Hidden Web — lapisan snapshot historis dan konten yang "dihapus" dari web surface namun masih dapat ditemukan di cache.
 
-| Tool                          | Fungsi                            |
-| ----------------------------- | --------------------------------- |
-| Wayback Machine (archive.org) | Snapshot historis website         |
-| archive.today / archive.ph    | Snapshot permanen                 |
-| Google Cache                  | Cache halaman yang sudah dihapus  |
-| CachedView (cachedview.com)   | Multi-cache search                |
-| Common Crawl                  | Open repository of web crawl data |
-| WikiBlame                     | Mencari edit history Wikipedia    |
-| Wayback Machine CDX API       | Programmatic access               |
-| Domain Tools WHOIS History    | Historical domain records         |
+| Tool | Fungsi |
+|---|---|
+| Wayback Machine (archive.org) | Snapshot historis website |
+| archive.today / archive.ph | Snapshot permanen |
+| Google Cache | Cache halaman yang sudah dihapus |
+| CachedView (cachedview.com) | Multi-cache search |
+| Common Crawl | Open repository of web crawl data |
+| WikiBlame | Mencari edit history Wikipedia |
+| Wayback Machine CDX API | Programmatic access |
+| Domain Tools WHOIS History | Historical domain records |
 
 > [!important]
 > Website dihapus $$\rightarrow$$ masih ada di cache. Konten diedit $$\rightarrow$$ versi asli masih ada. Domain berubah pemilik $$\rightarrow$$ history WHOIS mengungkap. "Deleted" di web surface $$\neq$$ "hilang" dari internet.
@@ -91,13 +92,13 @@ print(response.text)
 
 Informasi dapat diakses menggunakan operator pencarian lanjut seperti `site:`, `filetype:`, dan `inurl:`. Mencakup database yang bocor, dokumen internal yang salah konfigurasi, CCTV publik yang terbuka, dan catatan pengadilan.
 
-| Dork                           | Fungsi                            |
-| ------------------------------ | --------------------------------- |
-| `site:target.com filetype:pdf` | Cari semua PDF di domain          |
-| `intitle:"index of"`           | Cari directory listing terbuka    |
-| `inurl:admin`                  | Cari halaman admin yang terekspos |
-| `filetype:env "password"`      | Cari file .env dengan kredensial  |
-| `site:pastebin.com "password"` | Cari paste dengan password        |
+| Dork | Fungsi |
+|---|---|
+| `site:target.com filetype:pdf` | Cari semua PDF di domain |
+| `intitle:"index of"` | Cari directory listing terbuka |
+| `inurl:admin` | Cari halaman admin yang terekspos |
+| `filetype:env "password"` | Cari file .env dengan kredensial |
+| `site:pastebin.com "password"` | Cari paste dengan password |
 
 ```python
 import requests
@@ -114,13 +115,13 @@ print(response.text)
 
 Konten yang tidak terindeks oleh mesin pencari — memerlukan kredensial valid, VPN korporat, atau akses institusi. Deep web bukan "gelap" — hanya tidak terindeks.
 
-| Kategori             | Contoh                      |
-| -------------------- | --------------------------- |
-| Jurnal ilmiah        | IEEE, ScienceDirect, PubMed |
-| Rekam medis          | Rumah sakit EHR             |
-| Email korporat       | Exchange, G Suite           |
-| Source code internal | GitLab enterprise           |
-| Dataset pemerintah   | Data.gov (restricted)       |
+| Kategori | Contoh |
+|---|---|
+| Jurnal ilmiah | IEEE, ScienceDirect, PubMed |
+| Rekam medis | Rumah sakit EHR |
+| Email korporat | Exchange, G Suite |
+| Source code internal | GitLab enterprise |
+| Dataset pemerintah | Data.gov (restricted) |
 
 ```python
 import requests
@@ -134,6 +135,7 @@ print(response.text)
 > [!caution]
 > Credential theft adalah vektor utama serangan di level ini.
 
+
 ---
 
 ## Level 4 — Breach Data & Leak Ecosystem
@@ -142,27 +144,27 @@ Antara Deep Web dan Dark Web — ekosistem breach data yang sangat aktif. Data l
 
 ### 4A — Public Breach Databases
 
-| Tool              | Fungsi                                      | Akses                                 |
-| ----------------- | ------------------------------------------- | ------------------------------------- |
-| HaveIBeenPwned    | Indikasi apakah email/user terdampak breach | Gratis (terindikasi, bukan data full) |
-| Dehashed          | Data lebih lengkap                          | Berbayar                              |
-| IntelX            | Intelligence search                         | Free tier                             |
-| LeakCheck         | Breach search                               | Berbayar                              |
-| Snusbase          | Breach database                             | Berbayar                              |
-| BreachCompilation | Torrent 1.4TB password                      | Gratis (torrent)                      |
+| Tool | Fungsi | Akses |
+|---|---|---|
+| HaveIBeenPwned | Indikasi apakah email/user terdampak breach | Gratis (terindikasi, bukan data full) |
+| Dehashed | Data lebih lengkap | Berbayar |
+| IntelX | Intelligence search | Free tier |
+| LeakCheck | Breach search | Berbayar |
+| Snusbase | Breach database | Berbayar |
+| BreachCompilation | Torrent 1.4TB password | Gratis (torrent) |
 
 ### 4B — Ransomware Leak Sites
 
 > [!warning]
 > Situs-situs ini diakses via Tor, namun data sering di-mirror di web surface.
 
-| Group          | Status                                 |
-| -------------- | -------------------------------------- |
-| LockBit        | Leak blog aktif (hingga takedown 2024) |
-| ALPHV/BlackCat | Situs leak                             |
-| Cl0p           | Situs leak                             |
-| BianLian       | Situs leak                             |
-| Akira          | Situs leak                             |
+| Group | Status |
+|---|---|
+| LockBit | Leak blog aktif (hingga takedown 2024) |
+| ALPHV/BlackCat | Situs leak |
+| Cl0p | Situs leak |
+| BianLian | Situs leak |
+| Akira | Situs leak |
 
 ### 4C — Telegram Leak Channels
 
@@ -170,23 +172,24 @@ Banyak data breach dijual di Telegram channel — lebih accessible daripada Tor 
 
 ### 4D — GitHub Dorks (Source Code & Config Leak)
 
-| Query                         | Target                                   |
-| ----------------------------- | ---------------------------------------- |
-| `filename:.env`               | Environment variables dengan credentials |
-| `filename:id_rsa`             | SSH private keys                         |
-| `extension:sql`               | Database dumps                           |
-| `filename:docker-compose.yml` | Service config dengan password           |
-| `filename:wp-config.php`      | WordPress credentials                    |
+| Query | Target |
+|---|---|
+| `filename:.env` | Environment variables dengan credentials |
+| `filename:id_rsa` | SSH private keys |
+| `extension:sql` | Database dumps |
+| `filename:docker-compose.yml` | Service config dengan password |
+| `filename:wp-config.php` | WordPress credentials |
 
 ### 4E — Pastebin & Code Leak
 
-| Platform    | Dork                              |
-| ----------- | --------------------------------- |
-| Pastebin    | `site:pastebin.com "password"`    |
+| Platform | Dork |
+|---|---|
+| Pastebin | `site:pastebin.com "password"` |
 | GitHub Gist | Cari gist dengan token/credential |
-| Ghostbin    | Paste dengan credentials          |
-| PasteRS     | Alternatif paste                  |
-| Hastebin    | Alternatif paste                  |
+| Ghostbin | Paste dengan credentials |
+| PasteRS | Alternatif paste |
+| Hastebin | Alternatif paste |
+
 
 ---
 
@@ -196,15 +199,15 @@ Level ini mencakup .onion services, marketplace, forum, SecureDrop, dan anonymou
 
 ### 5A — Tor Hidden Services Ecology
 
-| Komponen                    | Detail                               |
-| --------------------------- | ------------------------------------ |
-| .onion marketplace indexing | Katalog marketplace .onion           |
-| Ahmia / Torch / Haystak     | Search engine untuk .onion           |
-| Onion crawler development   | Custom crawler untuk hidden services |
-| V3 onion service discovery  | V2 deprecated sejak 2021             |
-| SecureDrop directories      | Platform whistleblower               |
-| Dark web monitoring         | Flare, Recorded Future               |
-| Onion link directories      | Hidden Wiki dan sejenisnya           |
+| Komponen | Detail |
+|---|---|
+| .onion marketplace indexing | Katalog marketplace .onion |
+| Ahmia / Torch / Haystak | Search engine untuk .onion |
+| Onion crawler development | Custom crawler untuk hidden services |
+| V3 onion service discovery | V2 deprecated sejak 2021 |
+| SecureDrop directories | Platform whistleblower |
+| Dark web monitoring | Flare, Recorded Future |
+| Onion link directories | Hidden Wiki dan sejenisnya |
 
 ```python
 import requests
@@ -267,6 +270,7 @@ Caveat:
 > [!important]
 > Exit Node Position bukan level pencarian yang lebih dalam dari Level 5. Exit node adalah **peran berbeda** di jaringan Tor yang sama — memberikan visibilitas ke traffic orang lain, bukan akses ke informasi yang lebih dalam. Exit Node Position dipindahkan ke Appendix A.
 
+
 ---
 
 ## Level 6 — Alternative Overlay Networks
@@ -275,61 +279,62 @@ Jaringan alternatif di luar Tor — masing-masing dengan tradeoff anonymity, spe
 
 ### 6A — Lokinet (LLARP)
 
-| Karakteristik | Detail                                         |
-| ------------- | ---------------------------------------------- |
-| Routing       | Layer 2 onion routing (berbasis IP, bukan TCP) |
-| Kecepatan     | Lebih cepat dari Tor                           |
-| Domain        | .loki (SNApp — Service Node App)               |
-| Status        | Masih berkembang, komunitas kecil              |
+| Karakteristik | Detail |
+|---|---|
+| Routing | Layer 2 onion routing (berbasis IP, bukan TCP) |
+| Kecepatan | Lebih cepat dari Tor |
+| Domain | .loki (SNApp — Service Node App) |
+| Status | Masih berkembang, komunitas kecil |
 
 ### 6B — ZeroNet (deprecated, fork ada)
 
-| Karakteristik | Detail                                          |
-| ------------- | ----------------------------------------------- |
-| Address       | Bitcoin-based                                   |
-| Arsitektur    | Peer-to-peer, tidak ada server                  |
-| Resilience    | Konten tidak bisa di-takedown selama ada seeder |
-| Fork          | ZeroNetX, ZeroNet++                             |
+| Karakteristik | Detail |
+|---|---|
+| Address | Bitcoin-based |
+| Arsitektur | Peer-to-peer, tidak ada server |
+| Resilience | Konten tidak bisa di-takedown selama ada seeder |
+| Fork | ZeroNetX, ZeroNet++ |
 
 ### 6C — Yggdrasil Network
 
-| Karakteristik | Detail                                         |
-| ------------- | ---------------------------------------------- |
-| Routing       | Mesh network dengan IPv6                       |
-| Encryption    | End-to-end encrypted                           |
-| Anonymity     | Tidak anonymous by default, tapi bisa ditambah |
-| Arsitektur    | Routing berbasis spanning tree                 |
+| Karakteristik | Detail |
+|---|---|
+| Routing | Mesh network dengan IPv6 |
+| Encryption | End-to-end encrypted |
+| Anonymity | Tidak anonymous by default, tapi bisa ditambah |
+| Arsitektur | Routing berbasis spanning tree |
 
 ### 6D — Hyperboria (cjdns)
 
-| Karakteristik | Detail                           |
-| ------------- | -------------------------------- |
-| Routing       | Mesh network, IPv6               |
-| Encryption    | Encrypt everything, no plaintext |
-| Komunitas     | Mesh lokal                       |
-| Anonymity     | Bukan anonymous, tapi encrypted  |
+| Karakteristik | Detail |
+|---|---|
+| Routing | Mesh network, IPv6 |
+| Encryption | Encrypt everything, no plaintext |
+| Komunitas | Mesh lokal |
+| Anonymity | Bukan anonymous, tapi encrypted |
 
 ### 6E — IPFS (InterPlanetary File System)
 
-| Karakteristik  | Detail                                      |
-| -------------- | ------------------------------------------- |
-| Arsitektur     | Content-addressed (hash = address)          |
-| Resilience     | Tidak bisa dihapus selama ada node yang pin |
-| Gateway publik | ipfs.io, cloudflare-ipfs.com                |
-| Anonymity      | Bukan anonymous, tapi terdistribusi         |
+| Karakteristik | Detail |
+|---|---|
+| Arsitektur | Content-addressed (hash = address) |
+| Resilience | Tidak bisa dihapus selama ada node yang pin |
+| Gateway publik | ipfs.io, cloudflare-ipfs.com |
+| Anonymity | Bukan anonymous, tapi terdistribusi |
 
 ### 6F — Matrix (Decentralized Communication)
 
-| Karakteristik | Detail                         |
-| ------------- | ------------------------------ |
-| Arsitektur    | Federation server              |
-| Encryption    | E2E encrypted rooms            |
-| Hosting       | Bisa dihosting sendiri         |
-| Komunitas     | Banyak komunitas privacy/OSINT |
+| Karakteristik | Detail |
+|---|---|
+| Arsitektur | Federation server |
+| Encryption | E2E encrypted rooms |
+| Hosting | Bisa dihosting sendiri |
+| Komunitas | Banyak komunitas privacy/OSINT |
 
 ### 6G — I2P & Freenet (dari versi sebelumnya)
 
 I2P dan Freenet tetap di level ini — bukan "lebih anonim dari Tor" melainkan memiliki tradeoff berbeda. Detail comparison ada di Appendix B.
+
 
 ---
 
@@ -339,13 +344,13 @@ Jaringan komunikasi tertutup — invite-only, encrypted, tahan traffic analysis.
 
 ### 7A — Telegram Private Channels
 
-| Karakteristik | Detail                                     |
-| ------------- | ------------------------------------------ |
-| Akses         | Invite-only                                |
-| Encryption    | E2E secret chat                            |
-| Self-destruct | Messages bisa dihapus otomatis             |
-| Verifikasi    | Bot untuk verifikasi member                |
-| Tracking      | Lebih sulit di-track daripada forum publik |
+| Karakteristik | Detail |
+|---|---|
+| Akses | Invite-only |
+| Encryption | E2E secret chat |
+| Self-destruct | Messages bisa dihapus otomatis |
+| Verifikasi | Bot untuk verifikasi member |
+| Tracking | Lebih sulit di-track daripada forum publik |
 
 ### 7B — Signal Groups
 
@@ -356,29 +361,29 @@ Jaringan komunikasi tertutup — invite-only, encrypted, tahan traffic analysis.
 
 ### 7C — Session (Blockchain-based)
 
-| Karakteristik | Detail                   |
-| ------------- | ------------------------ |
-| Routing       | Onion routing bawaan     |
-| Identitas     | Tidak butuh phone number |
-| Integrasi     | Lokinet integration      |
-| Blockchain    | On-chain messaging       |
+| Karakteristik | Detail |
+|---|---|
+| Routing | Onion routing bawaan |
+| Identitas | Tidak butuh phone number |
+| Integrasi | Lokinet integration |
+| Blockchain | On-chain messaging |
 
 ### 7D — Briar (Peer-to-Peer)
 
-| Karakteristik | Detail                                 |
-| ------------- | -------------------------------------- |
-| Server        | Tidak butuh server                     |
-| Koneksi       | Bisa via Bluetooth atau WiFi           |
-| Internet      | Tor integration untuk koneksi internet |
-| Anonymity     | Peer-to-peer, tidak ada middleman      |
+| Karakteristik | Detail |
+|---|---|
+| Server | Tidak butuh server |
+| Koneksi | Bisa via Bluetooth atau WiFi |
+| Internet | Tor integration untuk koneksi internet |
+| Anonymity | Peer-to-peer, tidak ada middleman |
 
 ### 7E — Tox (Peer-to-Peer)
 
-| Karakteristik | Detail                   |
-| ------------- | ------------------------ |
-| DHT           | Distributed hash table   |
-| Server        | Tidak ada server         |
-| Encryption    | E2E encrypted by default |
+| Karakteristik | Detail |
+|---|---|
+| DHT | Distributed hash table |
+| Server | Tidak ada server |
+| Encryption | E2E encrypted by default |
 
 ### 7F — IRC over Tor
 
@@ -391,6 +396,7 @@ Jaringan komunikasi tertutup — invite-only, encrypted, tahan traffic analysis.
 
 Level ini dirancang tahan traffic analysis — bahkan observer yang melihat seluruh jaringan tidak bisa korelasikan sender-receiver. Setup sangat teknis dan komunitas sangat kecil.
 
+
 ---
 
 ## Level 8 — Nation-State SIGINT Infrastructure
@@ -401,101 +407,101 @@ Signals Intelligence pada level negara — bulk collection, active exploitation,
 
 #### UPSTREAM (Fiber Cable Tapping)
 
-| Komponen | Detail                                       |
-| -------- | -------------------------------------------- |
-| Metode   | Undersea cable taps (submarine interception) |
-| Teknik   | Beam splitting di fiber landing stations     |
-| Tools    | TURMOIL (selector), TURBINE (implant)        |
-| Lokasi   | Bude (UK), Misawa (JP), Sugar Grove (US)     |
-| Target   | SAT-3/WASC, SAFE, SEA-ME-WE, FLAG            |
+| Komponen | Detail |
+|---|---|
+| Metode | Undersea cable taps (submarine interception) |
+| Teknik | Beam splitting di fiber landing stations |
+| Tools | TURMOIL (selector), TURBINE (implant) |
+| Lokasi | Bude (UK), Misawa (JP), Sugar Grove (US) |
+| Target | SAT-3/WASC, SAFE, SEA-ME-WE, FLAG |
 
 #### PRISM (Collection from US Service Providers)
 
-| Komponen  | Detail                                         |
-| --------- | ---------------------------------------------- |
-| Provider  | Microsoft, Google, Yahoo, Facebook, Apple, dll |
-| Alur      | FBI DITU $$\rightarrow$$ NSA                   |
-| Authority | Section 702 FISA                               |
-| Metode    | Selector-based collection (email, phone)       |
+| Komponen | Detail |
+|---|---|
+| Provider | Microsoft, Google, Yahoo, Facebook, Apple, dll |
+| Alur | FBI DITU $$\rightarrow$$ NSA |
+| Authority | Section 702 FISA |
+| Metode | Selector-based collection (email, phone) |
 
 #### STORMBREW (Collection from Telco Backbone)
 
-| Komponen | Detail                                     |
-| -------- | ------------------------------------------ |
-| Partner  | Corporate partner: "STELLAR"               |
-| Infra    | Packet switching infrastructure            |
-| Program  | Fairview, Blizzard, Stormbrew = 3 programs |
+| Komponen | Detail |
+|---|---|
+| Partner | Corporate partner: "STELLAR" |
+| Infra | Packet switching infrastructure |
+| Program | Fairview, Blizzard, Stormbrew = 3 programs |
 
 #### XKEYSCORE (Analytic Front-End)
 
-| Komponen | Detail                                     |
-| -------- | ------------------------------------------ |
-| Fungsi   | Indexing system untuk data bulk collection |
-| Coverage | 150+ sites worldwide                       |
-| Query    | Email, phone, cookie, MAC address          |
-| Tagline  | "Find a target, exploit a target"          |
+| Komponen | Detail |
+|---|---|
+| Fungsi | Indexing system untuk data bulk collection |
+| Coverage | 150+ sites worldwide |
+| Query | Email, phone, cookie, MAC address |
+| Tagline | "Find a target, exploit a target" |
 
 ### 8B — Active SIGINT (Computer Network Exploitation)
 
 #### TAO (Tailored Access Operations)
 
-| Komponen | Detail                                         |
-| -------- | ---------------------------------------------- |
-| Unit     | NSA's elite hacking unit                       |
-| Implant  | FIREWALK, TRIGGERSHARK                         |
+| Komponen | Detail |
+|---|---|
+| Unit | NSA's elite hacking unit |
+| Implant | FIREWALK, TRIGGERSHARK |
 | Hardware | Hardware interdiction (modify Cisco shipments) |
-| RF       | RF retroreflectors (ANGRYNEIGHBOR)             |
-| Catalog  | ANT Products (50+ tools)                       |
+| RF | RF retroreflectors (ANGRYNEIGHBOR) |
+| Catalog | ANT Products (50+ tools) |
 
 #### QUANTUM (Network Attack Framework)
 
-| Tool          | Fungsi                  |
-| ------------- | ----------------------- |
-| QUANTUMINSERT | TCP injection race      |
-| QUANTUMBOT    | Botnet takeover         |
+| Tool | Fungsi |
+|---|---|
+| QUANTUMINSERT | TCP injection race |
+| QUANTUMBOT | Botnet takeover |
 | QUANTUMTHEORY | HAVEX malware framework |
-| Placement     | Backbone routers        |
+| Placement | Backbone routers |
 
 #### Implant Categories
 
-| Level               | Contoh                 |
-| ------------------- | ---------------------- |
-| BIOS/UEFI           | DEITYBOUNCE, KONGUR    |
-| Hard drive firmware | IRONBANK, BANANALEE    |
-| Baseband radio      | CANDYGRAM              |
-| USB beacon          | COTTONMOUTH            |
-| Network implant     | FIREWALK, HOWLERMONKEY |
+| Level | Contoh |
+|---|---|
+| BIOS/UEFI | DEITYBOUNCE, KONGUR |
+| Hard drive firmware | IRONBANK, BANANALEE |
+| Baseband radio | CANDYGRAM |
+| USB beacon | COTTONMOUTH |
+| Network implant | FIREWALK, HOWLERMONKEY |
 
 ### 8C — Five Eyes SIGINT Sharing
 
 #### UK — GCHQ
 
-| Program      | Fungsi                |
-| ------------ | --------------------- |
-| TEMPORA      | Bulk cable intercept  |
+| Program | Fungsi |
+|---|---|
+| TEMPORA | Bulk cable intercept |
 | KARMA POLICE | Web history profiling |
-| BLACKHOLE    | Data storage          |
+| BLACKHOLE | Data storage |
 
 #### Australia — ASD
 
-| Fasilitas | Fungsi                       |
-| --------- | ---------------------------- |
-| Pine Gap  | Monitoring Asia-Pacific      |
+| Fasilitas | Fungsi |
+|---|---|
+| Pine Gap | Monitoring Asia-Pacific |
 | Geraldton | Naval communications station |
 
 #### Canada — CSE
 
-| Program | Fungsi            |
-| ------- | ----------------- |
-| EONBLUE | Network analysis  |
+| Program | Fungsi |
+|---|---|
+| EONBLUE | Network analysis |
 | OLYMPIA | Metadata database |
 
 #### New Zealand — GCSB
 
-| Stasiun         | Fungsi            |
-| --------------- | ----------------- |
+| Stasiun | Fungsi |
+|---|---|
 | Waihopai Valley | Intercept station |
-| Tangimoana      | Intercept station |
+| Tangimoana | Intercept station |
 
 #### ECHELON (Legacy)
 
@@ -505,33 +511,33 @@ Signals Intelligence pada level negara — bulk collection, active exploitation,
 
 ### 8D — Third-Party SIGINT Partners
 
-| Negara      | Agensi    | Program                                    |
-| ----------- | --------- | ------------------------------------------ |
-| Germany     | BND       | Bad Aibling, Eikonal (cable tapping)       |
-| Netherlands | MIVD/AIVD | CNE operations                             |
-| Denmark     | FE        | Randers station, Operation Dunhammer       |
-| Sweden      | FRA       | Cable interception Baltic, Snowman program |
-| Norway      | E-service | Cable interception                         |
-| France      | DGSE      | Frenchelon, Pulsar                         |
-| Israel      | Unit 8200 | Stuxnet (dengan NSA), Suter                |
+| Negara | Agensi | Program |
+|---|---|---|
+| Germany | BND | Bad Aibling, Eikonal (cable tapping) |
+| Netherlands | MIVD/AIVD | CNE operations |
+| Denmark | FE | Randers station, Operation Dunhammer |
+| Sweden | FRA | Cable interception Baltic, Snowman program |
+| Norway | E-service | Cable interception |
+| France | DGSE | Frenchelon, Pulsar |
+| Israel | Unit 8200 | Stuxnet (dengan NSA), Suter |
 
 ### 8E — Adversary SIGINT
 
 #### Russia — GRU / FSB / SVR
 
-| Program | Detail                                                                            |
-| ------- | --------------------------------------------------------------------------------- |
-| SORM    | Mandatory interception di ISP, all traffic archived 12+ jam, real-time FSB access |
-| X-Agent | Fancy Bear tools                                                                  |
-| FAPSI   | Federal Agency of Government Communications                                       |
+| Program | Detail |
+|---|---|
+| SORM | Mandatory interception di ISP, all traffic archived 12+ jam, real-time FSB access |
+| X-Agent | Fancy Bear tools |
+| FAPSI | Federal Agency of Government Communications |
 
 #### China — MSS / PLA Unit 61398
 
-| Program       | Detail                             |
-| ------------- | ---------------------------------- |
-| Golden Shield | Great Firewall                     |
-| DPI           | Deep packet inspection di backbone |
-| Unit 61398    | APT1 — Shanghai                    |
+| Program | Detail |
+|---|---|
+| Golden Shield | Great Firewall |
+| DPI | Deep packet inspection di backbone |
+| Unit 61398 | APT1 — Shanghai |
 
 #### Iran — Intelligence Ministry / IRGC
 
@@ -547,6 +553,7 @@ Signals Intelligence pada level negara — bulk collection, active exploitation,
 - SWIFT network targeting
 - Cryptocurrency exchange hacks
 
+
 ---
 
 ## Level 9 — Restricted Government Networks
@@ -555,57 +562,58 @@ Jembatan antara private overlay networks dan nation-state — jaringan pemerinta
 
 ### 9A — NIPRNet (Non-classified Internet Protocol Router Network)
 
-| Karakteristik | Detail                                      |
-| ------------- | ------------------------------------------- |
-| Klasifikasi   | Sensitive but Unclassified (SBU)            |
-| Akses         | DoD personnel, kontraktor                   |
-| Koneksi       | Internet gateway dengan filter              |
-| Hardware      | Bisa diakses dari komputer biasa dengan CAC |
+| Karakteristik | Detail |
+|---|---|
+| Klasifikasi | Sensitive but Unclassified (SBU) |
+| Akses | DoD personnel, kontraktor |
+| Koneksi | Internet gateway dengan filter |
+| Hardware | Bisa diakses dari komputer biasa dengan CAC |
 
 ### 9B — SIPRNet (Secret Internet Protocol Router Network)
 
-| Karakteristik | Detail                                          |
-| ------------- | ----------------------------------------------- |
-| Klasifikasi   | SECRET                                          |
-| Fisik         | Terpisah dari internet                          |
-| Akses         | Clearance SECRET + need-to-know                 |
-| Crypto        | Type 1 (KG-175 TACLANE)                         |
-| Cross-domain  | Bisa connect ke JWICS via cross-domain solution |
-| Email         | @mail.smil.mil                                  |
+| Karakteristik | Detail |
+|---|---|
+| Klasifikasi | SECRET |
+| Fisik | Terpisah dari internet |
+| Akses | Clearance SECRET + need-to-know |
+| Crypto | Type 1 (KG-175 TACLANE) |
+| Cross-domain | Bisa connect ke JWICS via cross-domain solution |
+| Email | @mail.smil.mil |
 
 ### 9C — JWICS (Joint Worldwide Intelligence Communications System)
 
-| Karakteristik   | Detail                     |
-| --------------- | -------------------------- |
-| Klasifikasi     | TS//SCI                    |
-| Fisik           | SCIF only                  |
-| Akses           | TS/SCI clearance + read-in |
-| Intel community | CIA, NSA, DIA, NRO, NGA    |
-| Cross-domain    | Dari SIPRNet via guard     |
+| Karakteristik | Detail |
+|---|---|
+| Klasifikasi | TS//SCI |
+| Fisik | SCIF only |
+| Akses | TS/SCI clearance + read-in |
+| Intel community | CIA, NSA, DIA, NRO, NGA |
+| Cross-domain | Dari SIPRNet via guard |
 
 ### 9D — NSANet (NSA Internal Network)
 
-| Karakteristik | Detail                                 |
-| ------------- | -------------------------------------- |
-| Klasifikasi   | TS//SCI//COMINT//NOFORN                |
-| Isolasi       | Air-gapped dari SIPRNet dan JWICS      |
-| Akses         | NSA personnel + cleared contractors    |
-| Tools         | XKEYSCORE, PRISM, UPSTREAM, TURBULENCE |
+| Karakteristik | Detail |
+|---|---|
+| Klasifikasi | TS//SCI//COMINT//NOFORN |
+| Isolasi | Air-gapped dari SIPRNet dan JWICS |
+| Akses | NSA personnel + cleared contractors |
+| Tools | XKEYSCORE, PRISM, UPSTREAM, TURBULENCE |
 
 ### 9E — Stone Ghost (Five Eyes Intelligence Sharing)
 
-| Karakteristik | Detail                        |
-| ------------- | ----------------------------- |
-| Anggota       | US, UK, Canada, Australia, NZ |
-| Klasifikasi   | TS//SCI//FVEY                 |
-| Fungsi        | Sharing SIGINT product        |
+| Karakteristik | Detail |
+|---|---|
+| Anggota | US, UK, Canada, Australia, NZ |
+| Klasifikasi | TS//SCI//FVEY |
+| Fungsi | Sharing SIGINT product |
 
 ### 9F — CRITICOMM & DRSN
 
-| Jaringan  | Fungsi                                                                                                                             |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| CRITICOMM | Critical Intelligence Communications — highest priority traffic, dedicated circuits                                                |
-| DRSN      | Defense Red Switch Network — secure voice untuk senior leadership, nuclear command and control, Type 1 encryption (BATON, FIREFLY) |
+| Jaringan | Fungsi |
+|---|---|
+| CRITICOMM | Critical Intelligence Communications — highest priority traffic, dedicated circuits |
+| DRSN | Defense Red Switch Network — secure voice untuk senior leadership, nuclear command and control, Type 1 encryption (BATON, FIREFLY) |
+
 
 ---
 
@@ -633,22 +641,23 @@ Network yang **physically terpisah** dari internet manapun. Tidak ada koneksi la
 
 ### 10D — Nuclear Command Network (SACCS)
 
-| Karakteristik | Detail                                             |
-| ------------- | -------------------------------------------------- |
-| Sistem        | SACCS (Strategic Automated Command Control System) |
-| Hardware      | IBM Series/1 computer dari 1970s                   |
-| Media         | Masih pakai floppy disk 8-inch (sampai 2019)       |
-| Isolasi       | Air-gapped total                                   |
-| Encryption    | Type 1: SIOP-ESI                                   |
+| Karakteristik | Detail |
+|---|---|
+| Sistem | SACCS (Strategic Automated Command Control System) |
+| Hardware | IBM Series/1 computer dari 1970s |
+| Media | Masih pakai floppy disk 8-inch (sampai 2019) |
+| Isolasi | Air-gapped total |
+| Encryption | Type 1: SIOP-ESI |
 
 ### 10E — SCIF Networks
 
-| Karakteristik | Detail                                       |
-| ------------- | -------------------------------------------- |
-| Fisik         | Faraday cage, sound-proof, access-controlled |
-| Network       | Completely isolated                          |
-| Devices       | No personal electronics inside               |
-| Comms         | Secure phone (STE), secure computer          |
+| Karakteristik | Detail |
+|---|---|
+| Fisik | Faraday cage, sound-proof, access-controlled |
+| Network | Completely isolated |
+| Devices | No personal electronics inside |
+| Comms | Secure phone (STE), secure computer |
+
 
 ---
 
@@ -658,12 +667,12 @@ Level paling atas — SIGINT dari orbit dan bawah laut.
 
 ### 11A — SIGINT Satellite Constellations
 
-| Program               | Operator                             | Fungsi                                             |
-| --------------------- | ------------------------------------ | -------------------------------------------------- |
-| ORION / MENTOR / ORCA | NRO (National Reconnaissance Office) | Geosynchronous SIGINT — intercept dari orbit       |
-| SHARP                 | NRO                                  | Satellite Hosted Actionable Reconnaissance Payload |
-| NEMESIS               | NRO                                  | SIGINT satellite constellation                     |
-| RIOCEL / VORTEX       | NRO                                  | Code name untuk SIGINT sat                         |
+| Program | Operator | Fungsi |
+|---|---|---|
+| ORION / MENTOR / ORCA | NRO (National Reconnaissance Office) | Geosynchronous SIGINT — intercept dari orbit |
+| SHARP | NRO | Satellite Hosted Actionable Reconnaissance Payload |
+| NEMESIS | NRO | SIGINT satellite constellation |
+| RIOCEL / VORTEX | NRO | Code name untuk SIGINT sat |
 
 Target: satellite uplinks, microwave links dari orbit.
 
@@ -686,15 +695,16 @@ Target: satellite uplinks, microwave links dari orbit.
 
 ### 11C — Undersea Cable Taps
 
-| Program                   | Detail                               |
-| ------------------------- | ------------------------------------ |
+| Program | Detail |
+|---|---|
 | USS Jimmy Carter (SSN-23) | Submarine khusus untuk cable tapping |
-| Custom submersible        | Untuk cable access di dasar laut     |
-| Optical splitter          | Di cable landing stations            |
-| BERMUDA                   | Operation di cable landing points    |
+| Custom submersible | Untuk cable access di dasar laut |
+| Optical splitter | Di cable landing stations |
+| BERMUDA | Operation di cable landing points |
 
 > [!important]
 > Target cable systems: SAT-3/WASC, SAFE, SEA-ME-WE, FLAG — kabel komunikasi bawah laut yang menghubungkan benua.
+
 
 ---
 
@@ -764,7 +774,8 @@ Setiap user Tor yang exit melalui node kamu = seluruh traffic mereka melewati ko
 - Konsumsi bandwidth masif
 - Potensi terekspos oleh ISP atau law enforcement
 - Traffic ilegal melewati node kamu (DMCA notices, abuse reports)
-  ~ Rimediato dengan ExitPolicy yang restriktif (hanya port 80,443)
+~ Rimediato dengan ExitPolicy yang restriktif (hanya port 80,443)
+
 
 ---
 
@@ -773,16 +784,16 @@ Setiap user Tor yang exit melalui node kamu = seluruh traffic mereka melewati ko
 > [!important]
 > Klaim lama "I2P lebih anonim dari Tor" tidak akurat. I2P punya anonymity set jauh lebih kecil (50K-100K vs 2 juta Tor user). Yang benar: I2P lebih baik untuk in-network anonymity, Tor lebih baik untuk anonymized browsing clearnet.
 
-| Karakteristik  | Tor                               | I2P                                   | Freenet                       |
-| -------------- | --------------------------------- | ------------------------------------- | ----------------------------- |
-| Routing        | Onion routing (3 hop default)     | Garlic routing (variable hop, tunnel) | Bukan routing — DATA STORE    |
-| Optimasi       | TCP traffic ke clearnet (exit)    | Internal services (.i2p)              | Resilient content hosting     |
-| Hidden service | .onion, 6 hop (rendezvous point)  | .i2p, in-network (tidak exit)         | Content-addressed store       |
-| Anonymity set  | ~2 juta user                      | ~50K-100K user                        | ~10K-20K node                 |
-| Latency        | Rendah (~1-3 detik)               | Sedang (~2-5 detik)                   | Tinggi (menit-jam)            |
-| Bandwidth      | Relatif tinggi                    | Lebih rendah                          | Rendah                        |
-| Kelemahan      | Exit node bisa lihat traffic HTTP | Anonymity set kecil                   | Latency sangat tinggi         |
-| Keunggulan     | Browsing clearnet anonim          | Semua traffic in-network              | Konten tidak bisa di-takedown |
+| Karakteristik | Tor | I2P | Freenet |
+|---|---|---|---|
+| Routing | Onion routing (3 hop default) | Garlic routing (variable hop, tunnel) | Bukan routing — DATA STORE |
+| Optimasi | TCP traffic ke clearnet (exit) | Internal services (.i2p) | Resilient content hosting |
+| Hidden service | .onion, 6 hop (rendezvous point) | .i2p, in-network (tidak exit) | Content-addressed store |
+| Anonymity set | ~2 juta user | ~50K-100K user | ~10K-20K node |
+| Latency | Rendah (~1-3 detik) | Sedang (~2-5 detik) | Tinggi (menit-jam) |
+| Bandwidth | Relatif tinggi | Lebih rendah | Rendah |
+| Kelemahan | Exit node bisa lihat traffic HTTP | Anonymity set kecil | Latency sangat tinggi |
+| Keunggulan | Browsing clearnet anonim | Semua traffic in-network | Konten tidak bisa di-takedown |
 
 ### Kesimpulan
 
@@ -810,6 +821,7 @@ response = requests.get(url, proxies=proxies)
 print(response.status_code)
 print(response.text)
 ```
+
 
 ---
 
@@ -862,6 +874,7 @@ Lihat Appendix B untuk comparison lengkap.
 Exit node hanya bisa baca traffic HTTP (port 80) yang tidak dienkripsi. Untuk HTTPS (port 443), exit node hanya bisa lihat destination IP/domain (SNI) — content, URL path, cookies tidak bisa dibaca karena terenkripsi.
 
 Detail di section 5C di atas.
+
 
 ---
 

@@ -9,7 +9,7 @@ tags:
 aliases:
   - "hierarchy-waf-reverse-proxy"
 created: "2026-07-17"
-updated: "2026-07-17"
+updated: '2026-07-17'
 status: pending
 ---
 
@@ -24,15 +24,15 @@ status: pending
 
 ## Tabel Utama — Level 0 sampai Level 6
 
-| 🛡️ Level                                     | 🧠 Arsitektur                                                                       | ⚡ Cara Kerja                                                                                                                                                                                       | ☠️ Tembok / Limitation                                                                                                                                | 🎯 Cocok Untuk                                                  |
-| -------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **Level 0** — Reverse Proxy Dasar            | Nginx, HAProxy, Caddy, Apache mod_proxy                                             | **Passthrough tanpa inspeksi konten.** TLS termination, load balancing, static file serve, caching. Caddy: auto HTTPS via Let's Encrypt                                                             | **Tidak ada filtering.** SQLi/XSS/RCE langsung tembus ke backend. Hanya proteksi dari serangan L3/L4 (SYN flood, port scan)                           | Blog statis, landing page, app tanpa data sensitif              |
-| **Level 1** — WAF Dasar                      | Nginx + ModSecurity, Apache + mod_security, OpenResty                               | Regex-based rule engine. **OWASP CRS (Core Rule Set)**: ~200 rule deteksi SQLi, XSS, RCE, path traversal, LFI, RFI. Paranoia Level 0 (low false positive) → PL 4 (high coverage, high FP)           | **Regex bypass umum** (encoding, case swap, comment injection). CRS PL 0–1 banyak false negative. Performance drop signifikan (~30% throughput loss)  | SMB, startup dengan form input, e-commerce kecil                |
-| **Level 2** — Semantic WAF                   | Coraza, Apache APISIX, AWS WAF, Cloudflare WAF, Imunify360                          | **Rule engine + tokenizer/parser.** Bukan regex mentah — parse request body ke AST untuk deteksi konteks SQL/XML/JSON. Coraza: Go port of ModSecurity, 2x faster. CRS rule with **semantic engine** | **Parser bisa di-evade** (encoding ganda, chunked transfer encoding, HTTP/2 downgrade). Rule tuning butuh weeks. High resource pada traffic besar     | Mid-market enterprise, fintech, multi-tenant platform           |
-| **Level 3** — API Gateway + WAF              | Kong, Tyk, APISIX, AWS API Gateway + WAF, Azure Front Door                          | **Layer 7 routing + WAF terintegrasi.** API key validation, rate limiting, JWT verification, request/response transformation, canary deploy. Kong: plugin ecosystem 200+                            | **Complexity setup.** Kong + plugin bisa butuh dedicated infra. Plugin bisa konflik. Debugging lebih sulit karena chain panjang                       | API-first product, platform SaaS, mobile app backend            |
-| **Level 4** — Service Mesh WAF               | Istio + WASM plugin, Envoy + Lua filter, Cilium L7 policy                           | **WAF di service mesh layer — mTLS + L7 filtering.** Envoy WASM filter: custom WAF logic compiled ke WASM, hot-reload tanpa restart. Cilium: eBPF L7 policy untuk HTTP/gRPC                         | **Performance cost** sidecar proxy ~10-15%. WASM sandbox terbatas (no syscall). eBPF program maturity untuk L7 masih baru. Debugging tracing kompleks | Microservices, enterprise platform, regulated industry          |
-| **Level 5** — Cloudflare/GCP/AWS DDoS Shield | Cloudflare Spectrum + WAF + DDoS, GCP Cloud Armor, AWS Shield Advanced              | **Anycast network + global WAF.** Absorb DDoS di edge. Machine learning detection anomaly traffic. Bot management dengan JS challenge. Rate limiting per IP/user-agent/session                      | **Cost tinggi** (Cloudflare Enterprise ~USD 5,000+/bln). **Privacy concern** — semua traffic decrypt di edge. CAPTCHA bisa degrade UX                 | High-traffic global platform, e-commerce besar, crypto exchange |
-| **☠️ Level 6** — Custom eBPF WAF             | Pingora (Cloudflare), custom Rust/WAF, eBPF (XDP/TC hook), jq-based semantic engine | **WAF di kernel level via eBPF** — inspeksi di XDP hook sebelum sk_buff dibentuk. Rust-based proxy (Pingora) handle TLS + proxy + WAF di single binary. Custom rule engine dengan tokenizer non-RE2 | **Development cost sangat tinggi.** eBPF debugging tooling terbatas. Kernel update bisa break eBPF program. Memory safety kritis (Rust mandatory)     | Big Tech (Cloudflare, Google, Meta), CDN provider, research     |
+| 🛡️ Level | 🧠 Arsitektur | ⚡ Cara Kerja | ☠️ Tembok / Limitation | 🎯 Cocok Untuk |
+|---|---|---|---|---|
+| **Level 0** — Reverse Proxy Dasar | Nginx, HAProxy, Caddy, Apache mod_proxy | **Passthrough tanpa inspeksi konten.** TLS termination, load balancing, static file serve, caching. Caddy: auto HTTPS via Let's Encrypt | **Tidak ada filtering.** SQLi/XSS/RCE langsung tembus ke backend. Hanya proteksi dari serangan L3/L4 (SYN flood, port scan) | Blog statis, landing page, app tanpa data sensitif |
+| **Level 1** — WAF Dasar | Nginx + ModSecurity, Apache + mod_security, OpenResty | Regex-based rule engine. **OWASP CRS (Core Rule Set)**: ~200 rule deteksi SQLi, XSS, RCE, path traversal, LFI, RFI. Paranoia Level 0 (low false positive) → PL 4 (high coverage, high FP) | **Regex bypass umum** (encoding, case swap, comment injection). CRS PL 0–1 banyak false negative. Performance drop signifikan (~30% throughput loss) | SMB, startup dengan form input, e-commerce kecil |
+| **Level 2** — Semantic WAF | Coraza, Apache APISIX, AWS WAF, Cloudflare WAF, Imunify360 | **Rule engine + tokenizer/parser.** Bukan regex mentah — parse request body ke AST untuk deteksi konteks SQL/XML/JSON. Coraza: Go port of ModSecurity, 2x faster. CRS rule with **semantic engine** | **Parser bisa di-evade** (encoding ganda, chunked transfer encoding, HTTP/2 downgrade). Rule tuning butuh weeks. High resource pada traffic besar | Mid-market enterprise, fintech, multi-tenant platform |
+| **Level 3** — API Gateway + WAF | Kong, Tyk, APISIX, AWS API Gateway + WAF, Azure Front Door | **Layer 7 routing + WAF terintegrasi.** API key validation, rate limiting, JWT verification, request/response transformation, canary deploy. Kong: plugin ecosystem 200+ | **Complexity setup.** Kong + plugin bisa butuh dedicated infra. Plugin bisa konflik. Debugging lebih sulit karena chain panjang | API-first product, platform SaaS, mobile app backend |
+| **Level 4** — Service Mesh WAF | Istio + WASM plugin, Envoy + Lua filter, Cilium L7 policy | **WAF di service mesh layer — mTLS + L7 filtering.** Envoy WASM filter: custom WAF logic compiled ke WASM, hot-reload tanpa restart. Cilium: eBPF L7 policy untuk HTTP/gRPC | **Performance cost** sidecar proxy ~10-15%. WASM sandbox terbatas (no syscall). eBPF program maturity untuk L7 masih baru. Debugging tracing kompleks | Microservices, enterprise platform, regulated industry |
+| **Level 5** — Cloudflare/GCP/AWS DDoS Shield | Cloudflare Spectrum + WAF + DDoS, GCP Cloud Armor, AWS Shield Advanced | **Anycast network + global WAF.** Absorb DDoS di edge. Machine learning detection anomaly traffic. Bot management dengan JS challenge. Rate limiting per IP/user-agent/session | **Cost tinggi** (Cloudflare Enterprise ~USD 5,000+/bln). **Privacy concern** — semua traffic decrypt di edge. CAPTCHA bisa degrade UX | High-traffic global platform, e-commerce besar, crypto exchange |
+| **☠️ Level 6** — Custom eBPF WAF | Pingora (Cloudflare), custom Rust/WAF, eBPF (XDP/TC hook), jq-based semantic engine | **WAF di kernel level via eBPF** — inspeksi di XDP hook sebelum sk_buff dibentuk. Rust-based proxy (Pingora) handle TLS + proxy + WAF di single binary. Custom rule engine dengan tokenizer non-RE2 | **Development cost sangat tinggi.** eBPF debugging tooling terbatas. Kernel update bisa break eBPF program. Memory safety kritis (Rust mandatory) | Big Tech (Cloudflare, Google, Meta), CDN provider, research |
 
 ---
 
@@ -57,7 +57,6 @@ Depth inspeksi ↑
 ### 1. WAF Bukan Silver Bullet — Bisa Di-Bypass
 
 Semua WAF level dapat di-bypass dengan teknik yang sesuai:
-
 - **L1 regex-based**: encoding (URL, double URL, Unicode), comment injection (`/**/`), case swap, parameter pollution
 - **L2 semantic**: boundary confusion (JSON parse beda antara WAF vs backend), HTTP/2 downgrade, charset manipulation
 - **L4 service mesh**: sidecar version mismatch, WASM filter bug
@@ -67,20 +66,19 @@ Semua WAF level dapat di-bypass dengan teknik yang sesuai:
 
 ### 2. CRS Paranoia Level = WAF Tuning
 
-| PL   | Coverage  | False Positive | Recommended                           |
-| ---- | --------- | -------------- | ------------------------------------- |
-| PL 0 | Low       | Minimal        | Start here, production                |
-| PL 1 | Medium    | Low            | Production                            |
-| PL 2 | High      | Medium         | Staging, then production after tuning |
-| PL 3 | Very High | High           | Hanya jika aplikasi sudah secure      |
-| PL 4 | Maximum   | Very High      | Research, compliance audit            |
+| PL | Coverage | False Positive | Recommended |
+|---|---|---|---|
+| PL 0 | Low | Minimal | Start here, production |
+| PL 1 | Medium | Low | Production |
+| PL 2 | High | Medium | Staging, then production after tuning |
+| PL 3 | Very High | High | Hanya jika aplikasi sudah secure |
+| PL 4 | Maximum | Very High | Research, compliance audit |
 
 Rule: **start PL 1 → monitor → naik PL 2 → tune weeks → production.**
 
 ### 3. Performance Trade-off Signifikan
 
 Setiap level WAF membebani throughput:
-
 - L0 (no WAF): baseline 0% loss
 - L1 (regex CRS PL1): ~20–30% throughput drop
 - L2 (semantic engine): ~30–50% (tokenizer overhead)
@@ -117,4 +115,4 @@ For context: 10k req/s baseline → L1 = 7k req/s → L3 = ~4k req/s.
 
 > WAF bukan alat ajaib yang membuat aplikasi aman — itu layer filtering yang mengurangi noise attack. Security sejati tetap di aplikasi: input validation, parameterized query, output encoding. WAF = safety net, bukan replacement.
 
-_WAF & Reverse Proxy Hierarchy | Level 0 (Proxy Passthrough) → Level 6 (eBPF Custom WAF) · Bisa Di-Bypass, Bukan Silver Bullet_
+*WAF & Reverse Proxy Hierarchy | Level 0 (Proxy Passthrough) → Level 6 (eBPF Custom WAF) · Bisa Di-Bypass, Bukan Silver Bullet*

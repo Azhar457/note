@@ -9,8 +9,8 @@ tags:
   - reverse-engineering
 aliases:
   - "ctf-tool-arsenal-universal"
-created: "2026-07-28"
-updated: "2026-07-28"
+created: '2026-07-28'
+updated: '2026-07-28'
 status: pending
 ---
 
@@ -48,16 +48,16 @@ status: pending
 
 Tool paling serbaguna di CTF. **Buka di browser — tidak perlu install.**
 
-| Fungsi               | Recipe                                        |
-| -------------------- | --------------------------------------------- |
-| Auto-detect encoding | `Magic` — biarkan CyberChef detect otomatis   |
-| From Base64          | `From Base64`                                 |
-| XOR Brute Force      | `XOR Brute Force` — coba semua key length 1-4 |
-| Extract strings      | `Extract Strings`                             |
-| Hex dump             | `To Hex` / `From Hex`                         |
-| ROT13                | `ROT13` — atau `ROT Brute Force`              |
-| JSON/XML format      | `Syntax Highlighter`                          |
-| Regex extract        | `Regular expression` — `CTF\{[^}]+\}`         |
+| Fungsi | Recipe |
+|--------|--------|
+| Auto-detect encoding | `Magic` — biarkan CyberChef detect otomatis |
+| From Base64 | `From Base64` |
+| XOR Brute Force | `XOR Brute Force` — coba semua key length 1-4 |
+| Extract strings | `Extract Strings` |
+| Hex dump | `To Hex` / `From Hex` |
+| ROT13 | `ROT13` — atau `ROT Brute Force` |
+| JSON/XML format | `Syntax Highlighter` |
+| Regex extract | `Regular expression` — `CTF\{[^}]+\}` |
 
 > **Install:** https://gchq.github.io/CyberChef/ (web) atau `docker run --rm -p 8080:80 ghcr.io/gchq/CyberChef:latest`
 
@@ -89,14 +89,14 @@ od            # Octal/hex dump alternatif
 
 Tool suite analisis filesystem — **wajib install**.
 
-| Command                           | Fungsi                  | Contoh                       |
-| --------------------------------- | ----------------------- | ---------------------------- |
-| `mmls image.dd`                   | List partition table    | Identifikasi offset partisi  |
-| `fls -o OFFSET image.dd`          | List file dalam partisi | Cari file yang ada + deleted |
-| `icat -o OFFSET image.dd INODE`   | Extract file by inode   | Baca file spesifik           |
-| `istat -o OFFSET image.dd INODE`  | Metadata inode          | Timestamp, size, permission  |
-| `srch_strings -o OFFSET image.dd` | Strings dalam partisi   | Cari flag di partisi mentah  |
-| `fsstat -o OFFSET image.dd`       | Filesystem statistics   | Informasi detail filesystem  |
+| Command | Fungsi | Contoh |
+|---------|--------|--------|
+| `mmls image.dd` | List partition table | Identifikasi offset partisi |
+| `fls -o OFFSET image.dd` | List file dalam partisi | Cari file yang ada + deleted |
+| `icat -o OFFSET image.dd INODE` | Extract file by inode | Baca file spesifik |
+| `istat -o OFFSET image.dd INODE` | Metadata inode | Timestamp, size, permission |
+| `srch_strings -o OFFSET image.dd` | Strings dalam partisi | Cari flag di partisi mentah |
+| `fsstat -o OFFSET image.dd` | Filesystem statistics | Informasi detail filesystem |
 
 > **Install:** `sudo apt install sleuthkit` / `brew install sleuthkit`
 
@@ -411,12 +411,12 @@ one_gadget /lib/x86_64-linux-gnu/libc.so.6
 
 **Proxy intercept + repeater + intruder.** Wajib.
 
-| Fitur    | Fungsi                               |
-| -------- | ------------------------------------ |
-| Proxy    | Intercept HTTP/HTTPS request         |
+| Fitur | Fungsi |
+|-------|--------|
+| Proxy | Intercept HTTP/HTTPS request |
 | Repeater | Send ulang request dengan modifikasi |
-| Intruder | Brute force parameter, fuzzing       |
-| Decoder  | URL/Base64/hex encode-decode         |
+| Intruder | Brute force parameter, fuzzing |
+| Decoder | URL/Base64/hex encode-decode |
 
 > **Install:** Download Community Edition dari https://portswigger.net/burp
 
@@ -980,4 +980,4 @@ pip install pwntools requests pycryptodome
 
 ---
 
-_CTF Tool Arsenal Universal · Tier 1 → Tier 3 per Kategori · Belajar dulu command dasarnya, baru tool canggih · Environment Setup = Hari Pertama, Tool Mastery = Selamanya_
+*CTF Tool Arsenal Universal · Tier 1 → Tier 3 per Kategori · Belajar dulu command dasarnya, baru tool canggih · Environment Setup = Hari Pertama, Tool Mastery = Selamanya*

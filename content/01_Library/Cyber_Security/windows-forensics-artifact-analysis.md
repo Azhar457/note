@@ -9,8 +9,8 @@ tags:
   - dfir
 aliases:
   - "windows-forensics-artifact-analysis"
-created: "2026-07-28"
-updated: "2026-07-28"
+created: '2026-07-28'
+updated: '2026-07-28'
 status: pending
 ---
 
@@ -80,7 +80,6 @@ AppCompatCacheParser.exe --csv output.csv -f SYSTEM
 ```
 
 **Keunggulan ShimCache vs Prefetch:**
-
 - ShimCache tetap ada meski aplikasi hanya jalan sekali
 - ShimCache mencatat **path penuh** executable
 - Tapi ShimCache **tidak punya timestamp** (hanya urutan eksekusi — yang terakhir di list = yang terakhir dijalankan)
@@ -119,7 +118,7 @@ rip.pl -r NTUSER.DAT -f userassist
 #   - Nama shortcut yang dijalankan
 #   - Jumlah eksekusi (count)
 #   - Timestamp terakhir jalan
-#   - ROT13 encrypted — perlu decrypt: https://www.nirsoft.net/utils/...
+#   - ROT13 encrypted — perlu decrypt: https://www.nirsoft.net/utils/... 
 ```
 
 **CTF Pattern:** Shortcut yang tidak wajar — `mimikatz.lnk`, `backdoor.lnk`, `nc.lnk`.
@@ -130,13 +129,13 @@ rip.pl -r NTUSER.DAT -f userassist
 
 ### Registry Hive Locations
 
-| Hive           | File                                  | Fungsi                                                |
-| -------------- | ------------------------------------- | ----------------------------------------------------- |
-| **SYSTEM**     | `C:\Windows\System32\config\SYSTEM`   | System-wide config: services, drivers, network, USB   |
-| **SOFTWARE**   | `C:\Windows\System32\config\SOFTWARE` | Software config: installed programs, network settings |
-| **SAM**        | `C:\Windows\System32\config\SAM`      | User accounts & password hashes                       |
-| **SECURITY**   | `C:\Windows\System32\config\SECURITY` | Security policies, audit, logon sessions              |
-| **NTUSER.DAT** | `C:\Users\<user>\NTUSER.DAT`          | Per-user config: MRU, typed URLs, recent docs         |
+| Hive | File | Fungsi |
+|------|------|--------|
+| **SYSTEM** | `C:\Windows\System32\config\SYSTEM` | System-wide config: services, drivers, network, USB |
+| **SOFTWARE** | `C:\Windows\System32\config\SOFTWARE` | Software config: installed programs, network settings |
+| **SAM** | `C:\Windows\System32\config\SAM` | User accounts & password hashes |
+| **SECURITY** | `C:\Windows\System32\config\SECURITY` | Security policies, audit, logon sessions |
+| **NTUSER.DAT** | `C:\Users\<user>\NTUSER.DAT` | Per-user config: MRU, typed URLs, recent docs |
 
 ### 2.1 SYSTEM Hive — Key Paths
 
@@ -236,47 +235,47 @@ C:\Windows\System32\winevt\Logs\
 
 ### 3.1 Security Log — Event ID Must Know
 
-| Event ID      | Deskripsi                        |                  Untuk CTF                  |
-| ------------- | -------------------------------- | :-----------------------------------------: |
-| **4624**      | Logon success                    |        Siapa login? Dari mana (IP)?         |
-| **4625**      | Logon failure                    |            Brute force attempt?             |
-| **4634**      | Logoff                           |           Kapan session berakhir            |
-| **4648**      | Logon with explicit credential   |              RunAs atau Psexec              |
-| **4672**      | Admin logon (SeTcbPrivilege)     |           Privileged account used           |
-| **4688**      | Process created                  | **Wajib** — executable apa yang dijalankan? |
-| **4689**      | Process exited                   |           Kapan process berakhir            |
-| **4698**      | Scheduled task created           |            Persistence mechanism            |
-| **4700/4701** | Scheduled task enabled/disabled  |              Task manipulation              |
-| **4720**      | User account created             |           Attacker buat user baru           |
-| **4732**      | User added to local group        |            Privilege escalation             |
-| **5140**      | SMB share access                 |              Lateral movement               |
-| **5152/5154** | Windows Filtering Platform block |               Firewall block                |
-| **5156**      | Connection accepted              |          Koneksi inbound diterima           |
+| Event ID | Deskripsi | Untuk CTF |
+|----------|-----------|:---------:|
+| **4624** | Logon success | Siapa login? Dari mana (IP)? |
+| **4625** | Logon failure | Brute force attempt? |
+| **4634** | Logoff | Kapan session berakhir |
+| **4648** | Logon with explicit credential | RunAs atau Psexec |
+| **4672** | Admin logon (SeTcbPrivilege) | Privileged account used |
+| **4688** | Process created | **Wajib** — executable apa yang dijalankan? |
+| **4689** | Process exited | Kapan process berakhir |
+| **4698** | Scheduled task created | Persistence mechanism |
+| **4700/4701** | Scheduled task enabled/disabled | Task manipulation |
+| **4720** | User account created | Attacker buat user baru |
+| **4732** | User added to local group | Privilege escalation |
+| **5140** | SMB share access | Lateral movement |
+| **5152/5154** | Windows Filtering Platform block | Firewall block |
+| **5156** | Connection accepted | Koneksi inbound diterima |
 
 ### 3.2 PowerShell Log — Event ID
 
-| Event ID      | Deskripsi                             |
-| ------------- | ------------------------------------- |
-| **4103**      | Module logging — command execution    |
-| **4104**      | Script block logging — script content |
-| **4105/4106** | Start/Stop script execution           |
-| **53504**     | PowerShell remoting                   |
+| Event ID | Deskripsi |
+|----------|-----------|
+| **4103** | Module logging — command execution |
+| **4104** | Script block logging — script content |
+| **4105/4106** | Start/Stop script execution |
+| **53504** | PowerShell remoting |
 
 ### 3.3 Sysmon Log — Event ID (Jika Terinstall)
 
-| Event ID | Deskripsi                                             |
-| -------- | ----------------------------------------------------- |
-| **1**    | Process creation (detail: hash, command line, parent) |
-| **3**    | Network connection (detail: IP, port, protocol)       |
-| **7**    | DLL loaded (untuk process hollowing detection)        |
-| **8**    | CreateRemoteThread — process injection                |
-| **9**    | RawAccessRead — bypass file lock                      |
-| **10**   | ProcessAccess — handle ke process lain                |
-| **11**   | FileCreate — file modification                        |
-| **12**   | Registry modification                                 |
-| **13**   | Registry value modification                           |
-| **15**   | Named pipe — inter-process communication              |
-| **22**   | DNS query — domain yang diakses                       |
+| Event ID | Deskripsi |
+|----------|-----------|
+| **1** | Process creation (detail: hash, command line, parent) |
+| **3** | Network connection (detail: IP, port, protocol) |
+| **7** | DLL loaded (untuk process hollowing detection) |
+| **8** | CreateRemoteThread — process injection |
+| **9** | RawAccessRead — bypass file lock |
+| **10** | ProcessAccess — handle ke process lain |
+| **11** | FileCreate — file modification |
+| **12** | Registry modification |
+| **13** | Registry value modification |
+| **15** | Named pipe — inter-process communication |
+| **22** | DNS query — domain yang diakses |
 
 **Sysmon sangat penting** — deteksi tool seperti mimikatz, cobalt strike, process injection langsung keliatan.
 
@@ -330,7 +329,6 @@ MFTECmd.exe -f "\$MFT" --csv output.csv
 ```
 
 **⚠️ Timestamp Manipulation Detection:**
-
 ```
 $SI timestamp — bisa dimanipulasi dengan SetMACE / timestomp
 $FN timestamp — TIDAK bisa dimanipulasi (karena di parent directory entry)
@@ -394,7 +392,6 @@ mklink /d C:\shadow_copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
 ### 5.1 Browser History
 
 **Chrome/Edge:**
-
 ```bash
 # History database
 %USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\History
@@ -410,7 +407,6 @@ sqlite3 History "SELECT url, title, last_visit_time FROM urls ORDER BY last_visi
 ```
 
 **Firefox:**
-
 ```bash
 # Profile folder
 %USERPROFILE%\AppData\Roaming\Mozilla\Firefox\Profiles\*.default-release
@@ -438,15 +434,14 @@ JLECmd.exe -d "C:\Users\user\AppData\Roaming\Microsoft\Windows\Recent\AutomaticD
 ```
 
 **AppID penting:**
-
-| AppID              | Aplikasi         |
-| ------------------ | ---------------- |
-| `5b4d0c8f5a2c4e3f` | Notepad          |
-| `9b1b1a2c3d4e5f6a` | Command Prompt   |
+| AppID | Aplikasi |
+|-------|----------|
+| `5b4d0c8f5a2c4e3f` | Notepad |
+| `9b1b1a2c3d4e5f6a` | Command Prompt |
 | `1b4d0c8f5a2c4e3f` | Windows Explorer |
-| `a1b2c3d4e5f6a7b8` | Chrome           |
-| `f4e5d6c7b8a9b0c1` | Word             |
-| `e7d8c9b0a1f2e3d4` | Excel            |
+| `a1b2c3d4e5f6a7b8` | Chrome |
+| `f4e5d6c7b8a9b0c1` | Word |
+| `e7d8c9b0a1f2e3d4` | Excel |
 
 ### 5.3 LNK Files
 
@@ -531,7 +526,6 @@ rip.pl -r SYSTEM -f usb
 (Pembahasan lebih detail di [[#1.1 Prefetch (.pf)]])
 
 **Ringkasan Cepat:**
-
 - Prefetch di `C:\Windows\Prefetch\*.pf`
 - Setiap aplikasi → satu file .pf
 - Nama format: `NAMAAPP.EXE-HASH.pf`
@@ -594,11 +588,11 @@ python3 vol.py -f hiberfil.sys windows.info
 
 ### Tools Timeline
 
-| Tool                            | Output               | Kelebihan             |
-| ------------------------------- | -------------------- | --------------------- |
-| **Plaso (log2timeline)**        | .plaso → CSV/Elastic | Multi-source otomatis |
-| **EZ Tools (TimelineExplorer)** | CSV timeline         | Windows-specific      |
-| **MFTECmd + timeline**          | CSV timeline         | $MFT-focused          |
+| Tool | Output | Kelebihan |
+|------|--------|-----------|
+| **Plaso (log2timeline)** | .plaso → CSV/Elastic | Multi-source otomatis |
+| **EZ Tools (TimelineExplorer)** | CSV timeline | Windows-specific |
+| **MFTECmd + timeline** | CSV timeline | $MFT-focused |
 
 ### Super Timeline dengan Plaso
 
@@ -638,16 +632,16 @@ Urutan yang harus dicari:
 
 ### Tools Wajib Windows Forensics
 
-| Tool                          | Fungsi                                                  | Install                                              |
-| ----------------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
-| **EZ Tools (Eric Zimmerman)** | MFT, USN, Registry, Event Log, Prefetch, Jump List, LNK | https://ericzimmerman.github.io/                     |
-| **Volatility 3**              | Memory forensic                                         | `pip install volatility3`                            |
-| **RegRipper**                 | Registry analysis                                       | `git clone https://github.com/keydet89/RegRipper3.0` |
-| **Plaso**                     | Timeline                                                | `pip install plaso`                                  |
-| **Sleuth Kit**                | Filesystem analysis                                     | `sudo apt install sleuthkit`                         |
-| **Autopsy**                   | GUI forensic                                            | `sudo apt install autopsy`                           |
-| **LogParser**                 | Event log query                                         | Microsoft download                                   |
-| **python-evtx**               | Python EVTX parser                                      | `pip install python-evtx`                            |
+| Tool | Fungsi | Install |
+|------|--------|---------|
+| **EZ Tools (Eric Zimmerman)** | MFT, USN, Registry, Event Log, Prefetch, Jump List, LNK | https://ericzimmerman.github.io/ |
+| **Volatility 3** | Memory forensic | `pip install volatility3` |
+| **RegRipper** | Registry analysis | `git clone https://github.com/keydet89/RegRipper3.0` |
+| **Plaso** | Timeline | `pip install plaso` |
+| **Sleuth Kit** | Filesystem analysis | `sudo apt install sleuthkit` |
+| **Autopsy** | GUI forensic | `sudo apt install autopsy` |
+| **LogParser** | Event log query | Microsoft download |
+| **python-evtx** | Python EVTX parser | `pip install python-evtx` |
 
 ### Command Quick Reference
 
@@ -732,4 +726,4 @@ vol.py -f memory.raw windows.malfind
 
 ---
 
-_Windows Forensics · Registry, Event Log, Prefetch, $MFT = Empat Pilar · Timestamp Manipulation Terdeteksi via $SI vs $FN · EZ Tools + Volatility + Plaso = Holy Trinity · Timeline = Kunci Rekonstruksi_
+*Windows Forensics · Registry, Event Log, Prefetch, $MFT = Empat Pilar · Timestamp Manipulation Terdeteksi via $SI vs $FN · EZ Tools + Volatility + Plaso = Holy Trinity · Timeline = Kunci Rekonstruksi*

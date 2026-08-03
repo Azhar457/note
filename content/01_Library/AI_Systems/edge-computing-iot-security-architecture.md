@@ -1,21 +1,21 @@
 ---
 title: Edge Computing & IoT Security Architecture
 tags:
-  - iot
-  - edge-computing
-  - embedded-security
-  - iot-architecture
-  - ot-security
-  - library
+- iot
+- edge-computing
+- embedded-security
+- iot-architecture
+- ot-security
+- library
 aliases:
-  - iot-security-edge-deepdive
-  - edge-computing-architecture-tiers
-  - ot-industrial-iot-security
-created: "2026-07-15"
-updated: "2026-07-15"
+- iot-security-edge-deepdive
+- edge-computing-architecture-tiers
+- ot-industrial-iot-security
+created: '2026-07-15'
+updated: '2026-07-15'
 status: pending
 cssclasses:
-  - wide-table
+- wide-table
 ---
 
 # ⚙️ Edge Computing & IoT Security Architecture
@@ -88,22 +88,21 @@ cssclasses:
 ```
 
 **Data flow:**
-
 1. Sensor → MQTT/CoAP → Edge Gateway (LAN)
 2. Edge Gateway → MQTT/TLS → Cloud (WAN, periodic)
 3. Cloud → OTA update → Edge Gateway → sensor firmware update
 
 ### 1.1 Karakteristik Tiap Tier
 
-| Aspek        | Tier 1 — Sensors        | Tier 2 — Gateway      | Tier 3 — Cloud      |
-| ------------ | ----------------------- | --------------------- | ------------------- |
-| Hardware     | ESP32, nRF52, STM32     | RPi, Jetson, x86      | VM, K8s cluster     |
-| OS           | RTOS (FreeRTOS, Zephyr) | Linux (Yocto, Ubuntu) | Linux, server-grade |
-| Memory       | 256KB - 4MB             | 1GB - 16GB            | 16GB - 1TB+         |
-| Power        | Battery (1-5 years)     | Mains / Solar         | Mains               |
-| Network      | BLE, Zigbee, LoRaWAN    | WiFi, 4G/5G, Ethernet | Fiber, WAN          |
-| Update cycle | Months                  | Weeks                 | Days                |
-| Security     | Hardware-limited        | Moderate              | Full stack          |
+| Aspek | Tier 1 — Sensors | Tier 2 — Gateway | Tier 3 — Cloud |
+|-------|-----------------|------------------|----------------|
+| Hardware | ESP32, nRF52, STM32 | RPi, Jetson, x86 | VM, K8s cluster |
+| OS | RTOS (FreeRTOS, Zephyr) | Linux (Yocto, Ubuntu) | Linux, server-grade |
+| Memory | 256KB - 4MB | 1GB - 16GB | 16GB - 1TB+ |
+| Power | Battery (1-5 years) | Mains / Solar | Mains |
+| Network | BLE, Zigbee, LoRaWAN | WiFi, 4G/5G, Ethernet | Fiber, WAN |
+| Update cycle | Months | Weeks | Days |
+| Security | Hardware-limited | Moderate | Full stack |
 
 ---
 
@@ -111,32 +110,31 @@ cssclasses:
 
 ### 2.1 Hardware Landscape
 
-| Chip         | Core       | RAM   | Flash | Radio                       | Sleep Current | Use Case                 |
-| ------------ | ---------- | ----- | ----- | --------------------------- | ------------- | ------------------------ |
-| **ESP32**    | Xtensa LX6 | 520KB | 4MB   | WiFi, BLE                   | 5µA           | General IoT, prototyping |
-| **ESP32-C6** | RISC-V     | 512KB | 4MB   | WiFi6, BLE5, Zigbee, Thread | 2.5µA         | Matter-compatible        |
-| **nRF52840** | Cortex-M4F | 256KB | 1MB   | BLE5, Thread, Zigbee        | 0.4µA         | Battery-operated sensors |
-| **STM32L4**  | Cortex-M4  | 128KB | 1MB   | Optional external           | 0.1µA         | Industrial, low-power    |
-| **SAMD21**   | Cortex-M0+ | 32KB  | 256KB | Optional                    | 1µA           | Simple sensors           |
+| Chip | Core | RAM | Flash | Radio | Sleep Current | Use Case |
+|------|------|-----|-------|-------|---------------|----------|
+| **ESP32** | Xtensa LX6 | 520KB | 4MB | WiFi, BLE | 5µA | General IoT, prototyping |
+| **ESP32-C6** | RISC-V | 512KB | 4MB | WiFi6, BLE5, Zigbee, Thread | 2.5µA | Matter-compatible |
+| **nRF52840** | Cortex-M4F | 256KB | 1MB | BLE5, Thread, Zigbee | 0.4µA | Battery-operated sensors |
+| **STM32L4** | Cortex-M4 | 128KB | 1MB | Optional external | 0.1µA | Industrial, low-power |
+| **SAMD21** | Cortex-M0+ | 32KB | 256KB | Optional | 1µA | Simple sensors |
 
 ### 2.2 Security Constraints
 
 **Masalah: constrained devices gak bisa jalani security full-stack:**
-
 - TLS 1.3 handshake butuh ~50KB RAM — mungkin untuk ESP32, mustahil untuk SAMD21
 - Public key crypto (Ed25519 verify) butuh ~10K cycles — bertahan di baterai
 - Secure boot butuh hardware OTP (One-Time Programmable) memory — gak semua chip punya
 
 **Solusi tier-based security:**
 
-| Security Measure        | Tier 1 (ESP32)            | Tier 1 (nRF52)       | Tier 1 (SAMD21)  |
-| ----------------------- | ------------------------- | -------------------- | ---------------- |
-| **Secure boot**         | ✅ (ESP32 Secure Boot v2) | ❌ (no HW OTP)       | ❌               |
-| **Flash encryption**    | ✅ (AES-XTS-128)          | ❌                   | ❌               |
-| **TLS**                 | ✅ (mbedTLS, 50KB heap)   | 🟡 (tROP — tiny TLS) | ❌ (CoAP + DTLS) |
-| **Attestation**         | ❌ (no TPM)               | ❌                   | ❌               |
-| **Firmware encryption** | ✅ (NVS encryption)       | 🟡 (soft AES)        | ❌               |
-| **Physical tamper**     | ❌ (no shield)            | ❌                   | ❌               |
+| Security Measure | Tier 1 (ESP32) | Tier 1 (nRF52) | Tier 1 (SAMD21) |
+|-----------------|----------------|----------------|-----------------|
+| **Secure boot** | ✅ (ESP32 Secure Boot v2) | ❌ (no HW OTP) | ❌ |
+| **Flash encryption** | ✅ (AES-XTS-128) | ❌ | ❌ |
+| **TLS** | ✅ (mbedTLS, 50KB heap) | 🟡 (tROP — tiny TLS) | ❌ (CoAP + DTLS) |
+| **Attestation** | ❌ (no TPM) | ❌ | ❌ |
+| **Firmware encryption** | ✅ (NVS encryption) | 🟡 (soft AES) | ❌ |
+| **Physical tamper** | ❌ (no shield) | ❌ | ❌ |
 
 ### 2.3 Power-Saving vs Security Trade-off
 
@@ -175,12 +173,12 @@ Edge Gateway Services:
 
 ### 3.2 Hardware untuk Edge Gateway
 
-| Platform             | CPU                        | RAM     | Storage | GPU            | Power | Use Case       |
-| -------------------- | -------------------------- | ------- | ------- | -------------- | ----- | -------------- |
-| **Raspberry Pi 5**   | Cortex-A76 (4x)            | 8GB     | microSD | VideoCore VII  | 15W   | General edge   |
-| **Jetson Orin Nano** | Cortex-A78AE (6x)          | 8GB     | SSD     | 40 TOPS Ampere | 15W   | AI inference   |
-| **Intel NUC**        | i5/i7                      | 16-64GB | NVMe    | Iris Xe        | 65W   | Heavy compute  |
-| **Rockchip RK3588**  | Cortex-A76 (4x) + A55 (4x) | 16GB    | eMMC    | Mali G610      | 10W   | Cost-effective |
+| Platform | CPU | RAM | Storage | GPU | Power | Use Case |
+|----------|-----|-----|---------|-----|-------|----------|
+| **Raspberry Pi 5** | Cortex-A76 (4x) | 8GB | microSD | VideoCore VII | 15W | General edge |
+| **Jetson Orin Nano** | Cortex-A78AE (6x) | 8GB | SSD | 40 TOPS Ampere | 15W | AI inference |
+| **Intel NUC** | i5/i7 | 16-64GB | NVMe | Iris Xe | 65W | Heavy compute |
+| **Rockchip RK3588** | Cortex-A76 (4x) + A55 (4x) | 16GB | eMMC | Mali G610 | 10W | Cost-effective |
 
 ### 3.3 Edge Gateway Security Checklist
 
@@ -265,12 +263,12 @@ Setiap IoT device harus punya **identity unik** yang terverifikasi:
 
 ### 4.3 IoT Cloud Platforms Comparison
 
-| Platform                 | MQTT           | Stream              | Device Shadow | Free Tier   | Self-Host |
-| ------------------------ | -------------- | ------------------- | ------------- | ----------- | --------- |
-| **AWS IoT Core**         | ✅             | ✅ Kinesis          | ✅            | 250K msg/mo | ❌        |
-| **Azure IoT Hub**        | ✅             | ✅ Stream Analytics | ✅            | 8K msg/day  | ❌        |
-| **EMQX + Kafka**         | ✅ (self-host) | ✅                  | ❌            | Unlimited   | ✅        |
-| **Mosquitto + Node-RED** | ✅             | 🟡 Custom           | ❌            | Unlimited   | ✅        |
+| Platform | MQTT | Stream | Device Shadow | Free Tier | Self-Host |
+|----------|------|--------|---------------|-----------|-----------|
+| **AWS IoT Core** | ✅ | ✅ Kinesis | ✅ | 250K msg/mo | ❌ |
+| **Azure IoT Hub** | ✅ | ✅ Stream Analytics | ✅ | 8K msg/day | ❌ |
+| **EMQX + Kafka** | ✅ (self-host) | ✅ | ❌ | Unlimited | ✅ |
+| **Mosquitto + Node-RED** | ✅ | 🟡 Custom | ❌ | Unlimited | ✅ |
 
 ---
 
@@ -330,15 +328,15 @@ while True:
 
 ### 5.3 Protocol Perbandingan
 
-| Aspek       | MQTT             | CoAP             | HTTP             | gRPC                   |
-| ----------- | ---------------- | ---------------- | ---------------- | ---------------------- |
-| Transport   | TCP              | UDP              | TCP              | HTTP/2                 |
-| Model       | Pub/Sub          | Request/Response | Request/Response | RPC                    |
-| Header size | 2-14 bytes       | 4 bytes          | > 100 bytes      | ~ 50 bytes             |
-| QoS         | 3 levels         | Confirmable/Non  | N/A              | N/A                    |
-| TLS         | ✅               | ✅ (DTLS)        | ✅               | ✅                     |
-| Constrained | 🟡               | 🟢               | ❌               | ❌                     |
-| Use case    | Sensor → Gateway | Device → Device  | Gateway → Cloud  | Internal microservices |
+| Aspek | MQTT | CoAP | HTTP | gRPC |
+|-------|------|------|------|------|
+| Transport | TCP | UDP | TCP | HTTP/2 |
+| Model | Pub/Sub | Request/Response | Request/Response | RPC |
+| Header size | 2-14 bytes | 4 bytes | > 100 bytes | ~ 50 bytes |
+| QoS | 3 levels | Confirmable/Non | N/A | N/A |
+| TLS | ✅ | ✅ (DTLS) | ✅ | ✅ |
+| Constrained | 🟡 | 🟢 | ❌ | ❌ |
+| Use case | Sensor → Gateway | Device → Device | Gateway → Cloud | Internal microservices |
 
 ---
 
@@ -365,7 +363,6 @@ ROM Bootloader → Bootloader 1 → Bootloader 2 → Kernel → Rootfs
 ```
 
 **Konsekuensi:**
-
 - Tanpa secure boot → attacker bisa flash firmware custom → ambil alih device
 - Dengan secure boot → hanya firmware yang di-sign pabrik yang bisa boot
 - **Tapi** secure boot gak cegah side-channel attack (glitching, power analysis)
@@ -388,13 +385,13 @@ openssl dgst -sha256 -sign firmware.key -out firmware.bin.sig firmware.bin
 
 ### 6.3 Common Firmware Vulnerabilities
 
-| Vulnerability                 | Dampak                               | Contoh                               |
-| ----------------------------- | ------------------------------------ | ------------------------------------ |
-| **Hardcoded credentials**     | Akses ke device, cloud, atau backend | Username:password di firmware binary |
-| **Unencrypted storage**       | Ekstraksi data sensitif dari flash   | WiFi password, API key di plaintext  |
-| **No signature verification** | Firmware arbitrary upload            | Attacker flash backdoor firmware     |
-| **Debug interface enabled**   | Akses via JTAG/SWD ke CPU            | UART dengan root shell               |
-| **Default credentials**       | SSH/telnet dengan default password   | root:root                            |
+| Vulnerability | Dampak | Contoh |
+|---------------|--------|--------|
+| **Hardcoded credentials** | Akses ke device, cloud, atau backend | Username:password di firmware binary |
+| **Unencrypted storage** | Ekstraksi data sensitif dari flash | WiFi password, API key di plaintext |
+| **No signature verification** | Firmware arbitrary upload | Attacker flash backdoor firmware |
+| **Debug interface enabled** | Akses via JTAG/SWD ke CPU | UART dengan root shell |
+| **Default credentials** | SSH/telnet dengan default password | root:root |
 
 Lihat [[firmware-reverse-engineering-deepdive]] untuk teknik extract dan analisis firmware.
 
@@ -434,13 +431,13 @@ Lihat [[firmware-reverse-engineering-deepdive]] untuk teknik extract dan analisi
 
 ### 7.2 OTA Security Threats
 
-| Threat                      | Deskripsi                                       | Mitigasi                          |
-| --------------------------- | ----------------------------------------------- | --------------------------------- |
-| **Rollback attack**         | Paksa device pake firmware lama yang vulnerable | Version counter di secure storage |
-| **Firmware interception**   | Man-in-the-middle saat download firmware        | TLS + signature verification      |
-| **Malicious update server** | Attacker tiru update server                     | Certificate pinning               |
-| **Partial update**          | Firmware corrupt sebagian                       | A/B partition + CRC check         |
-| **Supply chain attack**     | Kompromi di build server                        | SLSA framework, signed builds     |
+| Threat | Deskripsi | Mitigasi |
+|--------|-----------|----------|
+| **Rollback attack** | Paksa device pake firmware lama yang vulnerable | Version counter di secure storage |
+| **Firmware interception** | Man-in-the-middle saat download firmware | TLS + signature verification |
+| **Malicious update server** | Attacker tiru update server | Certificate pinning |
+| **Partial update** | Firmware corrupt sebagian | A/B partition + CRC check |
+| **Supply chain attack** | Kompromi di build server | SLSA framework, signed builds |
 
 ### 7.3 A/B Partition Update
 
@@ -546,13 +543,13 @@ Management VLAN (10.0.100.0/24) — Admin access
 
 ### 9.2 Inference Engine Comparison
 
-| Engine           | Format     | Platform          | Performance     | Use Case         |
-| ---------------- | ---------- | ----------------- | --------------- | ---------------- |
-| **ONNX Runtime** | ONNX       | CPU/GPU/TPU       | 🟢              | General purpose  |
-| **TensorRT**     | ONNX → TRT | NVIDIA GPU        | 🟢🟢 (max perf) | Jetson           |
-| **TFLite**       | TFLite     | CPU/GPU/Edge TPU  | 🟡              | Mobile, RPi      |
-| **OpenVINO**     | IR         | Intel CPU/GPU/VPU | 🟢              | Intel hardware   |
-| **MediaPipe**    | TFLite     | CPU/GPU           | 🟡              | Vision pipelines |
+| Engine | Format | Platform | Performance | Use Case |
+|--------|--------|----------|-------------|----------|
+| **ONNX Runtime** | ONNX | CPU/GPU/TPU | 🟢 | General purpose |
+| **TensorRT** | ONNX → TRT | NVIDIA GPU | 🟢🟢 (max perf) | Jetson |
+| **TFLite** | TFLite | CPU/GPU/Edge TPU | 🟡 | Mobile, RPi |
+| **OpenVINO** | IR | Intel CPU/GPU/VPU | 🟢 | Intel hardware |
+| **MediaPipe** | TFLite | CPU/GPU | 🟡 | Vision pipelines |
 
 ### 9.3 Example: People Counting di Edge
 
@@ -572,18 +569,18 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-
+    
     # Preprocess
     input_tensor = cv2.resize(frame, (640, 640))
     input_tensor = input_tensor.transpose(2, 0, 1)[np.newaxis, ...].astype(np.float32) / 255.0
-
+    
     # Inference
     outputs = session.run(None, {input_name: input_tensor})
-
+    
     # Postprocess — count people
     detections = outputs[0][0]
     people_count = sum(1 for d in detections if d[4] > 0.5 and int(d[5]) == 0)
-
+    
     # Publish MQTT (only if count changed)
     payload = json.dumps({"people_count": people_count, "zone": "entrance"})
     client.publish(b"factory/zone-a/camera-01/people", payload)
@@ -605,26 +602,26 @@ while True:
 
 ### 10.2 Mitigation
 
-| Phase             | Mitigation                            | Standard        |
-| ----------------- | ------------------------------------- | --------------- |
-| **Manufacturing** | Hardware root of trust (TPM, eFuse)   | TCG DICE        |
-| **Firmware**      | Signed firmware, reproducible builds  | SLSA Level 3+   |
-| **Identity**      | X.509 certificate at manufacturing    | IDevID          |
-| **Deployment**    | Network admission control (NAC)       | 802.1X          |
-| **Monitoring**    | Anomaly detection (behavior baseline) | NIST SP 800-183 |
+| Phase | Mitigation | Standard |
+|-------|-----------|----------|
+| **Manufacturing** | Hardware root of trust (TPM, eFuse) | TCG DICE |
+| **Firmware** | Signed firmware, reproducible builds | SLSA Level 3+ |
+| **Identity** | X.509 certificate at manufacturing | IDevID |
+| **Deployment** | Network admission control (NAC) | 802.1X |
+| **Monitoring** | Anomaly detection (behavior baseline) | NIST SP 800-183 |
 
 ---
 
 ## 11. Perbandingan Platform Edge Computing
 
-| Platform                                   | Tier 1 | Tier 2 | Tier 3    | Open Source | Learning Curve |
-| ------------------------------------------ | ------ | ------ | --------- | ----------- | -------------- |
-| **AWS IoT Greengrass**                     | ❌     | ✅     | ✅ AWS    | 🟡          | Sedang         |
-| **Azure IoT Edge**                         | ❌     | ✅     | ✅ Azure  | 🟡          | Sedang         |
-| **KubeEdge**                               | ❌     | ✅ K8s | ✅ K8s    | ✅ CNCF     | Tinggi         |
-| **EMQX + Neuron**                          | 🟡     | ✅     | ✅ EMQX   | ✅          | Sedang         |
-| **Home Assistant**                         | 🟡     | ✅     | 🟡 Cloud  | ✅          | Rendah         |
-| **Custom (Docker + Mosquitto + Node-RED)** | 🟡     | ✅     | ✅ Custom | ✅          | Sedang         |
+| Platform | Tier 1 | Tier 2 | Tier 3 | Open Source | Learning Curve |
+|----------|--------|--------|--------|-------------|----------------|
+| **AWS IoT Greengrass** | ❌ | ✅ | ✅ AWS | 🟡 | Sedang |
+| **Azure IoT Edge** | ❌ | ✅ | ✅ Azure | 🟡 | Sedang |
+| **KubeEdge** | ❌ | ✅ K8s | ✅ K8s | ✅ CNCF | Tinggi |
+| **EMQX + Neuron** | 🟡 | ✅ | ✅ EMQX | ✅ | Sedang |
+| **Home Assistant** | 🟡 | ✅ | 🟡 Cloud | ✅ | Rendah |
+| **Custom (Docker + Mosquitto + Node-RED)** | 🟡 | ✅ | ✅ Custom | ✅ | Sedang |
 
 ---
 

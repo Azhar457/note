@@ -17,13 +17,13 @@ updated: 2026-07-21
 
 # Jina Reranker v3: Arsitektur Listwise Cross-Encoder untuk Precision-Critical RAG Pipeline
 
-> [!tip] Jina Reranker v3 adalah model **Listwise Cross-Encoder SOTA** yang dirancang untuk mengatasi kelemahan mendasar Bi-Encoder Embedding dalam RAG pipeline. Dengan context window hingga **131,072 token**, dukungan multibahasa (termasuk Bahasa Indonesia), pencarian kode (_code search_), serta _task-specific adapters_, model ini memangkas noise kandidat retrieval hingga 90% sebelum diumpankan ke LLM.
+> [!tip] Jina Reranker v3 adalah model **Listwise Cross-Encoder SOTA** yang dirancang untuk mengatasi kelemahan mendasar Bi-Encoder Embedding dalam RAG pipeline. Dengan context window hingga **131,072 token**, dukungan multibahasa (termasuk Bahasa Indonesia), pencarian kode (*code search*), serta *task-specific adapters*, model ini memangkas noise kandidat retrieval hingga 90% sebelum diumpankan ke LLM.
 
 ---
 
 ## 1. Problem Statement: Kelemahan Two-Stage Retrieval & Bi-Encoder Limit
 
-Dalam arsitektur Retrieval-Augmented Generation (RAG) modern, _retrieval stage_ biasanya dibagi menjadi dua fase:
+Dalam arsitektur Retrieval-Augmented Generation (RAG) modern, *retrieval stage* biasanya dibagi menjadi dua fase:
 
 ```
 [ Full Knowledge Base / Corpus ]
@@ -45,16 +45,13 @@ Dalam arsitektur Retrieval-Augmented Generation (RAG) modern, _retrieval stage_ 
 ```
 
 ### Kelemahan Bi-Encoder (Dense Retrieval)
-
-1. **Independent Embedding Constraint**: Bi-Encoder mengompresi query $q$ dan dokumen $d$ secara terpisah menjadi vektor tunggal ($v_q, v_d \in \mathbb{R}^D$). Tidak ada _cross-attention_ antara token query dan token dokumen selama proses encoding.
+1. **Independent Embedding Constraint**: Bi-Encoder mengompresi query $q$ dan dokumen $d$ secara terpisah menjadi vektor tunggal ($v_q, v_d \in \mathbb{R}^D$). Tidak ada *cross-attention* antara token query dan token dokumen selama proses encoding.
 2. **Semantic Blurring & Jargon Failure**: Istilah spesifik seperti kode error (`E4021`), identifier API, atau klausa hukum sering kali terdistorsi saat dipetakan ke dalam ruang vektor kontinu.
 3. **Loss of Fine-Grained Interaction**: Informasi posisi dan asosiasi kata tingkat token hilang saat disederhanakan menjadi satu operasi Cosine Similarity $S(q, d) = \frac{v_q \cdot v_d}{\|v_q\| \|v_d\|}$.
 
 ### Fenomena "Lost in the Middle" & Context Contamination
-
 Ketika 20+ chunk mentah langsung dimasukkan ke LLM tanpa reranking:
-
-- **Attention Degradation**: LLM cenderung mengabaikan informasi yang terletak di tengah-tengah context window (_Lost in the Middle_ phenomenon).
+- **Attention Degradation**: LLM cenderung mengabaikan informasi yang terletak di tengah-tengah context window (*Lost in the Middle* phenomenon).
 - **Hallucination Risk**: Chunk yang sedikit relevan tetapi memuat kata kunci mirip dapat mengontaminasi penalaran LLM, memicu halusinasi.
 
 ---
@@ -73,44 +70,38 @@ Untuk memahami keunggulan Jina Reranker v3, kita harus membandingkan 4 paradigma
 ```
 
 ### A. Bi-Encoder (Vector Similarity)
-
 - **Komputasi**: $O(1)$ saat query time (menggunakan indeks ANN seperti HNSW).
-- **Kelemahan**: Akurasi terendah untuk kueri kompleks karena tidak ada _joint attention_.
+- **Kelemahan**: Akurasi terendah untuk kueri kompleks karena tidak ada *joint attention*.
 
 ### B. Pointwise Cross-Encoder
-
 - **Komputasi**: $O(N)$ di mana $N$ adalah jumlah kandidat dokumen.
 - **Mekanisme**: Menggabungkan query dan dokumen tunggal $[ \text{CLS} ] + q + [ \text{SEP} ] + d$, lalu menghitung skor independen $S(q, d) \in [0, 1]$.
 - **Kelemahan**: Menilai setiap dokumen secara terisolasi tanpa melihat kandidat dokumen lain sebagai pembanding relatif.
 
 ### C. Pairwise Cross-Encoder
-
 - **Komputasi**: $O(N^2)$ pasangan dokumen.
 - **Mekanisme**: Membandingkan pasangan dokumen $(d_i, d_j)$ terhadap query $q$ untuk menentukan mana yang lebih relevan.
 - **Kelemahan**: Skalabilitas buruk jika $N > 20$ karena ledakan kombinatorial.
 
 ### D. Listwise Cross-Encoder (Jina Reranker v3)
-
 - **Komputasi**: $O(N)$ dengan pengolahan konkurensi daftar sekaligus.
-- **Mekanisme**: Memproses query $q$ bersamaan dengan seluruh daftar kandidat $[d_1, d_2, \dots, d_N]$ dalam satu _pass_ perhatian (_joint listwise attention_).
-- **Keunggulan**: Memungkinkan model membandingkan tingkat relevansi antar-dokumen secara relatif (_global context ranking_), menghasilkan urutan peringkat yang jauh lebih konsisten.
+- **Mekanisme**: Memproses query $q$ bersamaan dengan seluruh daftar kandidat $[d_1, d_2, \dots, d_N]$ dalam satu *pass* perhatian (*joint listwise attention*).
+- **Keunggulan**: Memungkinkan model membandingkan tingkat relevansi antar-dokumen secara relatif (*global context ranking*), menghasilkan urutan peringkat yang jauh lebih konsisten.
 
 ---
 
 ## 3. Formulasi Matematika & Objective Loss Function
 
 ### A. Joint Cross-Attention Matrix
-
 Diberikan sequence token query $Q = (q_1, q_2, \dots, q_m)$ dan token dokumen $D = (d_1, d_2, \dots, d_n)$, representasi gabungan $X = [Q; D]$ diumpankan ke dalam transformer layers.
 
 Matriks Atensi Multi-Head dihitung dengan:
 
 $$\text{Attention}(K, Q, V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right) V$$
 
-Di mana token-token query $q_i$ dapat beratensi langsung ke setiap token dokumen $d_j$ pada seluruh _hidden layers_, memungkinkan ekstraksi hubungan semantik tingkat rendah (_fine-grained token interaction_).
+Di mana token-token query $q_i$ dapat beratensi langsung ke setiap token dokumen $d_j$ pada seluruh *hidden layers*, memungkinkan ekstraksi hubungan semantik tingkat rendah (*fine-grained token interaction*).
 
 ### B. Listwise Ranking Loss (Plackett-Luce Model)
-
 Jina Reranker v3 menggunakan variasi dari **ListNet Loss** yang berbasis pada distribusi probabilitas Plackett-Luce. Diberikan ground-truth relevance scores $y = (y_1, y_2, \dots, y_N)$ dan skor prediksi model $s = (s_1, s_2, \dots, s_N)$:
 
 Probabilitas softmax dari dokumen $d_i$ menduduki peringkat teratas didefinisikan sebagai:
@@ -123,10 +114,9 @@ Loss fungsi Listwise Cross-Entropy dihitung dengan Kullback-Leibler (KL) Diverge
 
 $$\mathcal{L}_{\text{Listwise}} = -\sum_{i=1}^N P_y(d_i) \log \left( P_s(d_i) \right)$$
 
-Fungsi rugi ini memaksa model untuk memprioritaskan perbedaan skor antara dokumen teratas (_top ranks_) daripada mencemaskan dokumen berkategori skor rendah di papan bawah.
+Fungsi rugi ini memaksa model untuk memprioritaskan perbedaan skor antara dokumen teratas (*top ranks*) daripada mencemaskan dokumen berkategori skor rendah di papan bawah.
 
 ### C. Metrik Evaluasi: NDCG@K & MRR
-
 Efektivitas reranking diukur menggunakan **Normalized Discounted Cumulative Gain (NDCG@K)**:
 
 $$\text{DCG}@K = \sum_{i=1}^K \frac{2^{y_i} - 1}{\log_2(i + 1)}$$
@@ -139,15 +129,15 @@ Di mana $\text{IDCG}@K$ adalah skor Ideal DCG yang diurutkan secara sempurna.
 
 ## 4. Fitur Utama & Spesifikasi Teknis Jina Reranker v3
 
-| Parameter / Fitur        | Spesifikasi Jina Reranker v3                                                   |
-| ------------------------ | ------------------------------------------------------------------------------ |
-| **Context Window**       | **131,072 Tokens** (131K)                                                      |
-| **Parameter Count**      | 597 Million (597M)                                                             |
-| **Output Type**          | Relevance Scores ($[0.0, 1.0]$ / Logits) & Sorted Ranks                        |
+| Parameter / Fitur | Spesifikasi Jina Reranker v3 |
+|---|---|
+| **Context Window** | **131,072 Tokens** (131K) |
+| **Parameter Count** | 597 Million (597M) |
+| **Output Type** | Relevance Scores ($[0.0, 1.0]$ / Logits) & Sorted Ranks |
 | **Multilingual Support** | 100+ Bahasa (Termasuk Indonesia, Jawa, Sunda, Inggris, Mandarin, Jerman, dll.) |
-| **Domain Adaptation**    | Task Adapters untuk _Code Search_, _QA_, _Retrieval_, _Fact-Checking_          |
-| **Latency Benchmark**    | $\approx 25 - 45\text{ ms}$ per 30 kandidat chunks                             |
-| **API Endpoint**         | `POST https://api.jina.ai/v1/rerank` atau via 9Router Gateway                  |
+| **Domain Adaptation** | Task Adapters untuk *Code Search*, *QA*, *Retrieval*, *Fact-Checking* |
+| **Latency Benchmark** | $\approx 25 - 45\text{ ms}$ per 30 kandidat chunks |
+| **API Endpoint** | `POST https://api.jina.ai/v1/rerank` atau via 9Router Gateway |
 
 ---
 
@@ -173,7 +163,6 @@ curl -X POST https://api.jina.ai/v1/rerank \
 ```
 
 #### Sample Response JSON:
-
 ```json
 {
   "model": "jina-reranker-v3",
@@ -219,21 +208,21 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
     """
     if not candidates:
         return []
-
+        
     api_key = os.getenv("JINA_API_KEY")
     if not api_key:
         print("[Warning] JINA_API_KEY tidak ditemukan. Menggunakan urutan asli.")
         return candidates[:top_n]
-
+        
     url = "https://api.jina.ai/v1/rerank"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
-
+    
     # Ekstrak teks kandidat
     docs_text = [c.get("text", "") for c in candidates]
-
+    
     payload = {
         "model": "jina-reranker-v3",
         "query": query,
@@ -241,12 +230,12 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
         "documents": docs_text,
         "return_documents": False
     }
-
+    
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=10)
         response.raise_for_status()
         results = response.json().get("results", [])
-
+        
         reranked_chunks = []
         for r in results:
             idx = r["index"]
@@ -254,7 +243,7 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
             chunk = candidates[idx].copy()
             chunk["rerank_score"] = round(score, 4)
             reranked_chunks.append(chunk)
-
+            
         return reranked_chunks
     except Exception as e:
         print(f"[Fallback Error] Gagal melakukan rerank Jina v3: {e}")
@@ -265,13 +254,13 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
 
 ## 6. Matrix Perbandingan SOTA Rerankers
 
-| Model Reranker          | Paradigm                      | Context Window | Bahasa                  | Size / Params | Best Use Case                            |
-| ----------------------- | ----------------------------- | -------------- | ----------------------- | ------------- | ---------------------------------------- |
-| **Jina Reranker v3** 👑 | **Listwise Cross-Encoder**    | **131,072**    | **100+ (Multilingual)** | **597M**      | **SOTA RAG, Multilingual, Long Context** |
-| Cohere Rerank v3.5      | Pointwise Cross-Encoder       | 4,096          | Multilingual            | Proprietary   | Corporate RAG API                        |
-| BGE-Reranker-Large      | Pointwise Cross-Encoder       | 512            | En / Zh                 | 560M          | Self-hosted local CPU/GPU                |
-| Jina Reranker v2        | Pointwise Cross-Encoder       | 1,024          | Multilingual / Code     | 278M          | Code search & Function Calling           |
-| ColBERT v2              | Late-Interaction Multi-Vector | 512            | En                      | 110M          | Sub-5ms Vector Multi-Index               |
+| Model Reranker | Paradigm | Context Window | Bahasa | Size / Params | Best Use Case |
+|---|---|---|---|---|---|
+| **Jina Reranker v3** 👑 | **Listwise Cross-Encoder** | **131,072** | **100+ (Multilingual)** | **597M** | **SOTA RAG, Multilingual, Long Context** |
+| Cohere Rerank v3.5 | Pointwise Cross-Encoder | 4,096 | Multilingual | Proprietary | Corporate RAG API |
+| BGE-Reranker-Large | Pointwise Cross-Encoder | 512 | En / Zh | 560M | Self-hosted local CPU/GPU |
+| Jina Reranker v2 | Pointwise Cross-Encoder | 1,024 | Multilingual / Code | 278M | Code search & Function Calling |
+| ColBERT v2 | Late-Interaction Multi-Vector | 512 | En | 110M | Sub-5ms Vector Multi-Index |
 
 ---
 
@@ -281,14 +270,13 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
    - Stage 1 (Hybrid BM25 + Dense Retrieval): Targetkan **$30 - 50$ kandidat chunks**.
    - Stage 2 (Jina Reranker v3): Filter menjadi **$3 - 5$ chunks teratas** untuk disuntikkan ke LLM Prompt.
 2. **Handling Token Budget & Thresholding**:
-   - Tetapkan ambang batas relevansi minimum (_score thresholding_): Hilangkan chunk dengan `relevance_score < 0.20` untuk mencegah noise menginfeksi konteks LLM.
+   - Tetapkan ambang batas relevansi minimum (*score thresholding*): Hilangkan chunk dengan `relevance_score < 0.20` untuk mencegah noise menginfeksi konteks LLM.
 3. **Caching Layer for Frequent Queries**:
    - Simpan hasil reranking untuk query umum dalam `Redis` atau `SQLite` menggunakan cache key `hash(query + chunk_ids)` untuk menghemat latensi dan kuota API.
 
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-
 - [[semantic-search-pipeline]] — Arsitektur Dua-Tahap Search & Retrieval
 - [[jina-embeddings-v5-mrl-adapters]] — Embeddings Vector dengan Matryoshka Representation
 - [[cosine-similarity-deepdive]] — Mengapa Cosine Distance Punya Limitasi pada Relevansi Teks

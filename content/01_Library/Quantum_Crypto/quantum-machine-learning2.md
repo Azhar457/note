@@ -13,18 +13,17 @@ created: 2026-07-14
 status: pending
 cssclasses:
   - wide-table
----
 
+---
 # ⚛️ QUANTUM MACHINE LEARNING — Arsitektur Kognitif di Persimpangan Realitas
 
 **Dari Superposisi ke Advantage: Sebuah Deep Dive ke dalam Pabrik Komputasi Kuantum untuk Kecerdasan Buatan**
 
 > [!abstract] Paradigma Baru Komputasi
 > Quantum Machine Learning bukanlah sekadar "ML yang berjalan di komputer kuantum." Ia adalah **perluasan radikal dari ruang fitur** ke dalam ruang Hilbert yang kaya secara eksponensial. Jika komputasi klasik adalah sebuah titik, komputasi kuantum adalah sebuah bola—setiap titik di permukaannya adalah superposisi yang dapat dihuni oleh informasi. Dokumen ini adalah cetak biru arsitektur untuk memanfaatkan properti paradoksikal ini—superposisi, interferensi, dan keterjeratan—bukan sebagai fenomena aneh, melainkan sebagai **alat komputasi fundamental** untuk membangun generasi baru model machine learning.
-
 ## 🧬 1. First Principles: Mengapa Kuantum untuk ML? Sebuah Analisis Fundamental
 
-Untuk memahami QML, kita harus meninggalkan metafora klasik dan langsung terjun ke dalam matematika. Sumber _quantum advantage_ yang potensial bukanlah mistis; ia berakar pada tiga pilar mekanika kuantum.
+Untuk memahami QML, kita harus meninggalkan metafora klasik dan langsung terjun ke dalam matematika. Sumber *quantum advantage* yang potensial bukanlah mistis; ia berakar pada tiga pilar mekanika kuantum.
 
 1.  **Superposisi (Parallelism Inheren):** Sebuah register klasik `n`-bit hanya dapat merepresentasikan satu dari `2^n` keadaan pada satu waktu. Sebuah register `n`-qubit dapat berada dalam superposisi dari **semua `2^n` keadaan secara simultan**: `|ψ⟩ = Σ c_x |x⟩`. Ini bukan paralelisme klasik; ini adalah kemampuan untuk memproses semua solusi potensial dalam satu operasi kuantum.
 
@@ -34,19 +33,19 @@ Untuk memahami QML, kita harus meninggalkan metafora klasik dan langsung terjun 
 
 ### Analogi Kognitif: Dari Memori ke Ruang Fitur
 
-| Komputasi Klasik                | Komputasi Kuantum                            | Analogi dalam ML                                                                        |
-| :------------------------------ | :------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| **Bit** (0 atau 1)              | **Qubit** (superposisi α\|0⟩ + β\|1⟩)        | Fitur yang tidak pasti atau multi-nilai                                                 |
-| **Gerbang Logika** (AND, XOR)   | **Gerbang Kuantum** (Hadamard, CNOT, Rotasi) | Transformasi data yang _reversible_ dan _unitary_                                       |
-| **Ruang Input** (R^n)           | **Ruang Hilbert** (C^2^n)                    | Kernel trick yang diproyeksikan ke dimensi sangat tinggi secara eksplisit               |
-| **Optimasi** (Gradient Descent) | **Prinsip Variasional** (Minimalisasi ⟨H⟩)   | Mencari keadaan dasar (_ground state_) dari "Hamiltonian Kehilangan" (Loss Hamiltonian) |
-| **Overfitting**                 | **Barren Plateau** (Gradien lenyap)          | Kegagalan mode pelatihan yang unik akibat terlalu banyak ekspresivitas                  |
+| Komputasi Klasik | Komputasi Kuantum | Analogi dalam ML |
+| :--- | :--- | :--- |
+| **Bit** (0 atau 1) | **Qubit** (superposisi α\|0⟩ + β\|1⟩) | Fitur yang tidak pasti atau multi-nilai |
+| **Gerbang Logika** (AND, XOR) | **Gerbang Kuantum** (Hadamard, CNOT, Rotasi) | Transformasi data yang *reversible* dan *unitary* |
+| **Ruang Input** (R^n) | **Ruang Hilbert** (C^2^n) | Kernel trick yang diproyeksikan ke dimensi sangat tinggi secara eksplisit |
+| **Optimasi** (Gradient Descent) | **Prinsip Variasional** (Minimalisasi ⟨H⟩) | Mencari keadaan dasar (*ground state*) dari "Hamiltonian Kehilangan" (Loss Hamiltonian) |
+| **Overfitting** | **Barren Plateau** (Gradien lenyap) | Kegagalan mode pelatihan yang unik akibat terlalu banyak ekspresivitas |
 
 ---
 
 ## 🔩 2. VQE (Variational Quantum Eigensolver) — Pilar Fundamental QML
 
-VQE adalah "Hello, World!" sekaligus _workhorse_ dari era NISQ (Noisy Intermediate-Scale Quantum). Ini adalah algoritma hibrida klasik-kuantum yang dirancang untuk memecahkan masalah fundamental dalam kimia kuantum: mencari energi keadaan dasar (eigenvalue minimum) dari sebuah molekul, yang diwakili oleh Hamiltonian `H`.
+VQE adalah "Hello, World!" sekaligus *workhorse* dari era NISQ (Noisy Intermediate-Scale Quantum). Ini adalah algoritma hibrida klasik-kuantum yang dirancang untuk memecahkan masalah fundamental dalam kimia kuantum: mencari energi keadaan dasar (eigenvalue minimum) dari sebuah molekul, yang diwakili oleh Hamiltonian `H`.
 
 ### 2.1 Paradigma VQE: Sebuah Simfoni Komputasi
 
@@ -66,8 +65,8 @@ VQE adalah tarian antara dua dunia. Ia adalah loop OODA (Observe, Orient, Decide
 └─────────────────────────────────┘     └─────────────────────────────────┘
 ```
 
-1.  **Act (QPU):** Sirkuit parameterized `U(θ)` mempersiapkan _trial state_ `|ψ(θ)⟩`.
-2.  **Observe (QPU):** QPU mengukur _expectation value_ energi, `⟨H⟩ = ⟨ψ(θ)| H |ψ(θ)⟩`. Ini adalah "loss function" kita.
+1.  **Act (QPU):** Sirkuit parameterized `U(θ)` mempersiapkan *trial state* `|ψ(θ)⟩`.
+2.  **Observe (QPU):** QPU mengukur *expectation value* energi, `⟨H⟩ = ⟨ψ(θ)| H |ψ(θ)⟩`. Ini adalah "loss function" kita.
 3.  **Orient (CPU):** Pengoptimal klasik menerima nilai `⟨H⟩` dan menghitung (atau memperkirakan) gradiennya terhadap parameter `θ`.
 4.  **Decide (CPU):** Pengoptimal memperbarui parameter `θ` untuk meminimalkan `⟨H⟩`, dan mengirimkannya kembali ke QPU.
 
@@ -114,7 +113,7 @@ for step in range(100):
         print(f"Step {step}: Energy = {energy:.6f} Ha")
 ```
 
-Ini bukan sekadar kode; ini adalah **manifestasi fisik dari prinsip variasional dalam mekanika kuantum**, yang diotomatisasi oleh pengoptimal klasik. Sirkuit kuantum bertindak sebagai _function approximator_ untuk fungsi gelombang kuantum.
+Ini bukan sekadar kode; ini adalah **manifestasi fisik dari prinsip variasional dalam mekanika kuantum**, yang diotomatisasi oleh pengoptimal klasik. Sirkuit kuantum bertindak sebagai *function approximator* untuk fungsi gelombang kuantum.
 
 ---
 
@@ -154,10 +153,10 @@ QSVM adalah salah satu jalur paling menjanjikan menuju keunggulan kuantum karena
 ### 4.1 Alur Arsitektur QSVM
 
 1.  **Peta Fitur Kuantum:** Data `x_i` dipetakan ke keadaan kuantum `|φ(x_i)⟩` melalui sirkuit `U_φ(x_i)`.
-2.  **Komputasi Kernel Kuantum:** Kernel kuantum dihitung sebagai _overlap_ antara dua keadaan fitur: `K_{QP}(x_i, x_j) = |⟨φ(x_i) | φ(x_j)⟩|^2`.
+2.  **Komputasi Kernel Kuantum:** Kernel kuantum dihitung sebagai *overlap* antara dua keadaan fitur: `K_{QP}(x_i, x_j) = |⟨φ(x_i) | φ(x_j)⟩|^2`.
 3.  **Klasifikasi Klasik:** Matriks kernel `K` yang dihasilkan dimasukkan ke dalam SVM klasik standar untuk menemukan hyperplane pemisah optimal.
 
-**Keunggulan:** Dengan memilih peta fitur yang tepat, kernel kuantum dapat dihitung secara efisien di perangkat kuantum, sementara perhitungannya mungkin _intractable_ untuk komputer klasik. Inilah definisi dari _quantum advantage_.
+**Keunggulan:** Dengan memilih peta fitur yang tepat, kernel kuantum dapat dihitung secara efisien di perangkat kuantum, sementara perhitungannya mungkin *intractable* untuk komputer klasik. Inilah definisi dari *quantum advantage*.
 
 **Implementasi Kritis:** Komputasi kernel dieksploitasi dengan cerdik menggunakan **Hadamard test**, memanfaatkan interferometri kuantum untuk mengekstrak nilai inner product.
 
@@ -200,7 +199,7 @@ Solusi untuk Barren Plateau bukanlah menghindari ekspresivitas, melainkan mengel
 └───────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 ```
 
-**Koneksi Vault:** Konsep menemukan _sweet spot_ dalam kompleksitas model adalah cerminan langsung dari **bias-variance tradeoff** di **[[hierarchy-classical-ml-algorithms]]**. Barren Plateau adalah manifestasi kuantum dari overfitting yang ekstrem.
+**Koneksi Vault:** Konsep menemukan *sweet spot* dalam kompleksitas model adalah cerminan langsung dari **bias-variance tradeoff** di **[[hierarchy-classical-ml-algorithms]]**. Barren Plateau adalah manifestasi kuantum dari overfitting yang ekstrem.
 
 ---
 
@@ -208,19 +207,19 @@ Solusi untuk Barren Plateau bukanlah menghindari ekspresivitas, melainkan mengel
 
 QML bukanlah tujuan akhir; ia adalah kendaraan untuk mencapai **Keunggulan Kuantum Praktis**. Perjalanannya bertahap.
 
-| Era                        | Perangkat Keras                                    | Algoritma Kunci                                                    | Tolok Ukur Keberhasilan                                                                                                                                       |
-| :------------------------- | :------------------------------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **2023-2026 (NISQ)**       | 100-1000+ qubit, noise tinggi                      | VQE, QAOA, QSVM, QNN dengan _error mitigation_                     | **Quantum Utility:** Melakukan tugas yang mustahil disimulasikan secara klasik, meskipun belum berguna secara komersial.                                      |
-| **2028+ (Fault-Tolerant)** | Gerbang logis dengan error rate < 10^-10           | HHL, Shor, Grover, algoritma QML yang membutuhkan kedalaman tinggi | **Quantum Advantage:** QML memecahkan masalah dunia nyata (penemuan obat, ilmu material) lebih cepat atau lebih murah daripada superkomputer klasik mana pun. |
-| **2035+ (Skala Penuh)**    | Komputer kuantum modular dengan ribuan qubit logis | QML otonom, agen kuantum, optimasi rantai pasok global             | **Quantum-Native AI:** AI yang lahir dan berjalan secara fundamental di atas perangkat keras kuantum.                                                         |
+| Era | Perangkat Keras | Algoritma Kunci | Tolok Ukur Keberhasilan |
+| :--- | :--- | :--- | :--- |
+| **2023-2026 (NISQ)** | 100-1000+ qubit, noise tinggi | VQE, QAOA, QSVM, QNN dengan *error mitigation* | **Quantum Utility:** Melakukan tugas yang mustahil disimulasikan secara klasik, meskipun belum berguna secara komersial. |
+| **2028+ (Fault-Tolerant)** | Gerbang logis dengan error rate < 10^-10 | HHL, Shor, Grover, algoritma QML yang membutuhkan kedalaman tinggi | **Quantum Advantage:** QML memecahkan masalah dunia nyata (penemuan obat, ilmu material) lebih cepat atau lebih murah daripada superkomputer klasik mana pun. |
+| **2035+ (Skala Penuh)** | Komputer kuantum modular dengan ribuan qubit logis | QML otonom, agen kuantum, optimasi rantai pasok global | **Quantum-Native AI:** AI yang lahir dan berjalan secara fundamental di atas perangkat keras kuantum. |
 
 ---
 
 ## 🔗 7. Koneksi ke Ekosistem Vault
 
-| Domain Vault                               | Koneksi Fundamental                                                                                                                                                                             |
-| :----------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[[15-types-of-thinking]]**               | QML adalah perwujudan mesin dari _Abstract Thinking_ yang ekstrem. Ia beroperasi pada probabilitas dan superposisi, bukan logika biner.                                                         |
-| **[[math-and-algorithms]]**                | Aljabar Linear adalah bahasa ibu QML. Ruang Hilbert, dekomposisi nilai eigen (VQE), dan operasi matriks adalah fondasi dari segalanya.                                                          |
-| **[[cryptography-biometrics]]**            | VQE dan QSVM adalah "pencuri" dari algoritma kriptografi klasik. Mereka mencari "kunci" (keadaan dasar) di ruang kunci yang eksponensial. QML adalah sisi ofensif dari komputasi pasca-kuantum. |
-| **[[cognitive-architecture-engineering]]** | Loop VQE (Ansatz -> Ukur -> Optimasi -> Ulangi) adalah cikal bakal dari **OODA Loop Kuantum**. Ia adalah "Meta-Agent" yang menyetir sistem kuantum menuju solusi.                               |
+| Domain Vault | Koneksi Fundamental |
+| :--- | :--- |
+| **[[15-types-of-thinking]]** | QML adalah perwujudan mesin dari *Abstract Thinking* yang ekstrem. Ia beroperasi pada probabilitas dan superposisi, bukan logika biner. |
+| **[[math-and-algorithms]]** | Aljabar Linear adalah bahasa ibu QML. Ruang Hilbert, dekomposisi nilai eigen (VQE), dan operasi matriks adalah fondasi dari segalanya. |
+| **[[cryptography-biometrics]]** | VQE dan QSVM adalah "pencuri" dari algoritma kriptografi klasik. Mereka mencari "kunci" (keadaan dasar) di ruang kunci yang eksponensial. QML adalah sisi ofensif dari komputasi pasca-kuantum. |
+| **[[cognitive-architecture-engineering]]** | Loop VQE (Ansatz -> Ukur -> Optimasi -> Ulangi) adalah cikal bakal dari **OODA Loop Kuantum**. Ia adalah "Meta-Agent" yang menyetir sistem kuantum menuju solusi. |

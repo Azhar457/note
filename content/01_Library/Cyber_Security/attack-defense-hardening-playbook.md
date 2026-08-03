@@ -8,14 +8,14 @@ tags:
   - monitoring
 aliases:
   - "attack-defense-hardening-playbook"
-created: "2026-07-28"
-updated: "2026-07-28"
+created: '2026-07-28'
+updated: '2026-07-28'
 status: pending
 ---
 
 # ⚔️ Attack-Defense Service Hardening & Competition Playbook
 
-> **Panduan praktis untuk bertahan (defense) dan menyerang (attack) dalam kompetisi Attack-Defense CTF.** Semua service perlu di-_hardening_ dalam 5 menit pertama, checker harus lulus, dan Anda harus bisa menyerang service lawan tanpa menjatuhkan service sendiri. **Fokus pada teknik universal — tidak terikat service tertentu.** Untuk gambaran besar, lihat [[hierarchy-cyber-range-adversary-emulation]].
+> **Panduan praktis untuk bertahan (defense) dan menyerang (attack) dalam kompetisi Attack-Defense CTF.** Semua service perlu di-*hardening* dalam 5 menit pertama, checker harus lulus, dan Anda harus bisa menyerang service lawan tanpa menjatuhkan service sendiri. **Fokus pada teknik universal — tidak terikat service tertentu.** Untuk gambaran besar, lihat [[hierarchy-cyber-range-adversary-emulation]].
 
 > [!tip] Golden Rule Attack-Defense
 > **"Hardening satu menit pertama = 100% defense score. Attack selama 59 menit berikutnya = attack score tambahan. Jika hardening gagal = 0 defense score + lawan dapat attack dari service Anda."** Harden service Anda SEBELUM mencoba exploit lawan.
@@ -74,15 +74,14 @@ strings /opt/service/runner | head -50
 ```
 
 **Untuk setiap service, catat:**
-
-| Info            | Contoh                                         |
-| --------------- | ---------------------------------------------- |
-| Port            | 8080                                           |
-| Protocol        | HTTP / TCP raw / UDP                           |
+| Info | Contoh |
+|------|--------|
+| Port | 8080 |
+| Protocol | HTTP / TCP raw / UDP |
 | Framework/Stack | Flask Python 3.11 / Node.js 20 / custom binary |
-| Auth required?  | Ya/Tidak                                       |
-| Input endpoint  | /api/upload, POST /submit, GET /flag           |
-| Checker script  | /opt/checker.py atau terpisah                  |
+| Auth required? | Ya/Tidak |
+| Input endpoint | /api/upload, POST /submit, GET /flag |
+| Checker script | /opt/checker.py atau terpisah |
 
 ---
 
@@ -278,13 +277,13 @@ def check_business_logic():
                          json={"value": "test123"}, timeout=TIMEOUT)
         if r.status_code != 201:
             return False, "Create failed"
-
+        
         # Test read
         data_id = r.json().get("id")
         r = requests.get(f"http://{TARGET}:{PORT}/api/data/{data_id}", timeout=TIMEOUT)
         if r.status_code != 200:
             return False, "Read failed"
-
+        
         return True, "OK"
     except Exception as e:
         return False, str(e)
@@ -292,7 +291,7 @@ def check_business_logic():
 if __name__ == "__main__":
     health = check_health()
     biz, msg = check_business_logic()
-
+    
     if health and biz:
         print("OK")
         sys.exit(0)
@@ -467,27 +466,27 @@ ab -n 10000 -c 200 http://10.0.1.3:8080/
 
 ### Web Service (Flask/Django/Express)
 
-| Langkah           | Command                                       |
-| ----------------- | --------------------------------------------- |
-| Nonaktifkan debug | `FLASK_ENV=production` / `DEBUG=False`        |
-| CORS restrict     | `CORS(app, origins=['http://checker.local'])` |
-| Input validation  | Validate tipe, panjang, range                 |
+| Langkah | Command |
+|---------|---------|
+| Nonaktifkan debug | `FLASK_ENV=production` / `DEBUG=False` |
+| CORS restrict | `CORS(app, origins=['http://checker.local'])` |
+| Input validation | Validate tipe, panjang, range |
 | Jinja2 autoescape | `app.jinja_env.autoescape = True` (cegah XSS) |
-| Rate limit        | Flask-Limiter / Express-rate-limit            |
-| Front-end proxy   | Nginx reverse proxy + static files            |
-| Session cookies   | Secure, HttpOnly, SameSite=Strict             |
+| Rate limit | Flask-Limiter / Express-rate-limit |
+| Front-end proxy | Nginx reverse proxy + static files |
+| Session cookies | Secure, HttpOnly, SameSite=Strict |
 
 ### Custom Binary Service
 
-| Langkah                   | Command                                                   |
-| ------------------------- | --------------------------------------------------------- |
-| Cek checksec              | `checksec --file=binary` → NX, PIE, RELRO, Canary         |
-| Non-root run              | `runuser -u svc_user /opt/service/binary`                 |
-| Canary enable (recompile) | `-fstack-protector-strong`                                |
-| ASLR                      | `sysctl -w kernel.randomize_va_space=2`                   |
-| Seccomp                   | `seccomp-tools` — batasi syscall                          |
-| Resource limit            | `ulimit -n 100 -u 20 -f 1000000`                          |
-| Sandbox                   | `bubblewrap`, `firejail`, atau `nsjail` — isolasi service |
+| Langkah | Command |
+|---------|---------|
+| Cek checksec | `checksec --file=binary` → NX, PIE, RELRO, Canary |
+| Non-root run | `runuser -u svc_user /opt/service/binary` |
+| Canary enable (recompile) | `-fstack-protector-strong` |
+| ASLR | `sysctl -w kernel.randomize_va_space=2` |
+| Seccomp | `seccomp-tools` — batasi syscall |
+| Resource limit | `ulimit -n 100 -u 20 -f 1000000` |
+| Sandbox | `bubblewrap`, `firejail`, atau `nsjail` — isolasi service |
 
 ### Database Service (SQLite / PostgreSQL)
 
@@ -541,17 +540,16 @@ systemctl restart service-8080
 
 ### Peran Tim (3-5 orang)
 
-| Role                    | Tugas                                           | Tools                                |
-| ----------------------- | ----------------------------------------------- | ------------------------------------ |
-| **Defense Lead**        | Harden semua service, monitor checker, restart  | SSH, systemd, monitoring script      |
-| **Attack Lead**         | Exploit service lawan, cari flag                | nmap, exploit script, flag submitter |
-| **Checker/Log Monitor** | Pastikan checker lulus tiap ronde, log analysis | Checker script, tail, grep           |
-| **Resource/Utility**    | Backup, restore, tool install, proxy            | SCP, git, apt, tmux                  |
+| Role | Tugas | Tools |
+|------|-------|-------|
+| **Defense Lead** | Harden semua service, monitor checker, restart | SSH, systemd, monitoring script |
+| **Attack Lead** | Exploit service lawan, cari flag | nmap, exploit script, flag submitter |
+| **Checker/Log Monitor** | Pastikan checker lulus tiap ronde, log analysis | Checker script, tail, grep |
+| **Resource/Utility** | Backup, restore, tool install, proxy | SCP, git, apt, tmux |
 
 ### Komunikasi per Ronde
 
 **Format status message:**
-
 ```
 [Ronde 3] Service: ✅ Web | ❌ DB (restarting) | ✅ Auth
 [Attack] 10.0.5.3:8080 vuln via path traversal → flag injected
@@ -649,4 +647,4 @@ while true; do python3 /opt/checker.py localhost && echo "CHECKER OK $(date)" ||
 
 ---
 
-_Attack-Defense Hardening · 5 Menit Pertama = Penentu · Hardening > Attack · Checker = Tulang Punggung Defense Score · Backup Sebelum Patch · Rollback <15 Detik_
+*Attack-Defense Hardening · 5 Menit Pertama = Penentu · Hardening > Attack · Checker = Tulang Punggung Defense Score · Backup Sebelum Patch · Rollback <15 Detik*

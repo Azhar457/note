@@ -1,12 +1,12 @@
 ---
 title: Dual Use Spectrum and Ethical Framework
 tags:
-  - library
-  - military-and-intelligence-tools
-created: "2026-06-27"
-updated: "2026-07-01"
+- library
+- military-and-intelligence-tools
+created: '2026-06-27'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!abstract] Dokumen ini adalah sintesis etis.
@@ -91,12 +91,12 @@ Jika tidak ada otorisasi, penggunaan adalah **ilegal** di hampir semua yurisdiks
 
 ### 2. Apakah Tujuannya Defensif, Ofensif, atau Intelijen?
 
-| Tujuan                 | Contoh                                     | Risiko Etis                                        |
-| ---------------------- | ------------------------------------------ | -------------------------------------------------- |
-| **Defensif**           | Patch validation, AD hardening, self-recon | Rendah — selama data dilindungi                    |
-| **Ofensif (Resmi)**    | Pentest resmi, red team engagement         | Menengah — butuh aturan ketat                      |
-| **Intelijen (Negara)** | Kontra-terorisme, spionase luar negeri     | Tinggi — potensi penyalahgunaan massal             |
-| **Ofensif (Ilegal)**   | Hacking tanpa izin, ransomware             | Sangat tinggi — selalu salah secara etis dan legal |
+| Tujuan | Contoh | Risiko Etis |
+|--------|--------|-------------|
+| **Defensif** | Patch validation, AD hardening, self-recon | Rendah — selama data dilindungi |
+| **Ofensif (Resmi)** | Pentest resmi, red team engagement | Menengah — butuh aturan ketat |
+| **Intelijen (Negara)** | Kontra-terorisme, spionase luar negeri | Tinggi — potensi penyalahgunaan massal |
+| **Ofensif (Ilegal)** | Hacking tanpa izin, ransomware | Sangat tinggi — selalu salah secara etis dan legal |
 
 ### 3. Apakah Ada Pengawasan & Akuntabilitas?
 
@@ -128,31 +128,31 @@ Pelanggaran di sini adalah masalah utama dalam program pengawasan massal (XKEYSC
 
 ## 🔴 Zona Merah: Kasus Penyalahgunaan Terdokumentasi
 
-| Alat                | Kasus                                 | Pelaku                        | Dampak                                            |
-| ------------------- | ------------------------------------- | ----------------------------- | ------------------------------------------------- |
-| **Pegasus**         | 50.000+ nomor ditarget global         | Banyak pemerintah             | Jurnalis, aktivis, oposisi dimata-matai           |
-| **FinSpy**          | Digunakan di Bahrain, Ethiopia, Turki | Rezim otoriter                | Aktivis HAM ditangkap                             |
-| **Predator**        | Greek Watergate, Mesir                | Intelijen Yunani, Mesir       | Politisi oposisi dimata-matai                     |
-| **Cellebrite UFED** | Myanmar, Filipina                     | Junta militer, polisi         | Ponsel aktivis dibuka paksa                       |
-| **GrayKey**         | Digunakan tanpa warrant               | Kepolisian di berbagai negara | Pelanggaran privasi                               |
-| **XKEYSCORE**       | LOVEINT (penyalahgunaan pribadi)      | Analis NSA                    | Data warga sipil dicari untuk kepentingan pribadi |
-| **Palantir**        | LAPD predictive policing              | Polisi LA                     | Bias rasial dalam penegakan hukum                 |
-| **PRISM/UPSTREAM**  | Pengawasan massal global              | NSA, GCHQ                     | Privasi miliaran orang dilanggar                  |
+| Alat | Kasus | Pelaku | Dampak |
+|------|-------|--------|--------|
+| **Pegasus** | 50.000+ nomor ditarget global | Banyak pemerintah | Jurnalis, aktivis, oposisi dimata-matai |
+| **FinSpy** | Digunakan di Bahrain, Ethiopia, Turki | Rezim otoriter | Aktivis HAM ditangkap |
+| **Predator** | Greek Watergate, Mesir | Intelijen Yunani, Mesir | Politisi oposisi dimata-matai |
+| **Cellebrite UFED** | Myanmar, Filipina | Junta militer, polisi | Ponsel aktivis dibuka paksa |
+| **GrayKey** | Digunakan tanpa warrant | Kepolisian di berbagai negara | Pelanggaran privasi |
+| **XKEYSCORE** | LOVEINT (penyalahgunaan pribadi) | Analis NSA | Data warga sipil dicari untuk kepentingan pribadi |
+| **Palantir** | LAPD predictive policing | Polisi LA | Bias rasial dalam penegakan hukum |
+| **PRISM/UPSTREAM** | Pengawasan massal global | NSA, GCHQ | Privasi miliaran orang dilanggar |
 
 ---
 
 ## 🟢 Zona Hijau: Penggunaan Sah & Etis
 
-| Alat                | Kasus                                            | Pelaku                | Dampak Positif                       |
-| ------------------- | ------------------------------------------------ | --------------------- | ------------------------------------ |
-| **Maltego**         | Investigasi jurnalistik (Bellingcat)             | Jurnalis, peneliti    | Mengungkap kejahatan perang, korupsi |
-| **Shodan**          | Menemukan server rentan sebelum dieksploitasi    | Defender, peneliti    | Mencegah serangan                    |
-| **Metasploit**      | Validasi patch di enterprise                     | Tim keamanan internal | Mengurangi kerentanan                |
-| **BloodHound**      | AD hardening, menghilangkan attack path          | Blue team             | Mencegah eskalasi APT                |
-| **Cobalt Strike**   | Adversary simulation yang meningkatkan deteksi   | Red team resmi        | Meningkatkan postur keamanan         |
-| **Cellebrite UFED** | Ekstraksi bukti dari HP tersangka dengan warrant | Kepolisian            | Membantu penegakan hukum             |
-| **PC-3000**         | Recovery data korban bencana                     | Lab data recovery     | Menyelamatkan data berharga          |
-| **Palantir**        | Koordinasi bantuan bencana, COVID-19 response    | Pemerintah, NHS       | Menyelamatkan nyawa                  |
+| Alat | Kasus | Pelaku | Dampak Positif |
+|------|-------|--------|----------------|
+| **Maltego** | Investigasi jurnalistik (Bellingcat) | Jurnalis, peneliti | Mengungkap kejahatan perang, korupsi |
+| **Shodan** | Menemukan server rentan sebelum dieksploitasi | Defender, peneliti | Mencegah serangan |
+| **Metasploit** | Validasi patch di enterprise | Tim keamanan internal | Mengurangi kerentanan |
+| **BloodHound** | AD hardening, menghilangkan attack path | Blue team | Mencegah eskalasi APT |
+| **Cobalt Strike** | Adversary simulation yang meningkatkan deteksi | Red team resmi | Meningkatkan postur keamanan |
+| **Cellebrite UFED** | Ekstraksi bukti dari HP tersangka dengan warrant | Kepolisian | Membantu penegakan hukum |
+| **PC-3000** | Recovery data korban bencana | Lab data recovery | Menyelamatkan data berharga |
+| **Palantir** | Koordinasi bantuan bencana, COVID-19 response | Pemerintah, NHS | Menyelamatkan nyawa |
 
 ---
 
@@ -202,13 +202,13 @@ Dokumen ini adalah sintesis dari seluruh vault. Setiap alat yang disebut di atas
 
 ## 📚 Referensi
 
-- Schneier, B. (2015). _Data and Goliath: The Hidden Battles to Collect Your Data and Control Your World_. W.W. Norton.
-- Zuboff, S. (2019). _The Age of Surveillance Capitalism_. PublicAffairs.
-- EFF. _Surveillance Self-Defense Guide_.
-- Amnesty International. _Spyware and Human Rights_.
-- UN High Commissioner for Human Rights. _The Right to Privacy in the Digital Age_ (2018).
-- Council of Europe. _Convention 108+ for the Protection of Individuals with regard to Processing of Personal Data_.
+- Schneier, B. (2015). *Data and Goliath: The Hidden Battles to Collect Your Data and Control Your World*. W.W. Norton.
+- Zuboff, S. (2019). *The Age of Surveillance Capitalism*. PublicAffairs.
+- EFF. *Surveillance Self-Defense Guide*.
+- Amnesty International. *Spyware and Human Rights*.
+- UN High Commissioner for Human Rights. *The Right to Privacy in the Digital Age* (2018).
+- Council of Europe. *Convention 108+ for the Protection of Individuals with regard to Processing of Personal Data*.
 
 ---
 
-_Dual-Use Spectrum & Ethical Framework | military-and-intelligence-tools Ethics | Responsible Use Guidelines_
+*Dual-Use Spectrum & Ethical Framework | military-and-intelligence-tools Ethics | Responsible Use Guidelines*

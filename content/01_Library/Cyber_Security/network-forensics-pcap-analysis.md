@@ -10,8 +10,8 @@ tags:
   - c2-detection
 aliases:
   - "network-forensics-pcap-analysis"
-created: "2026-07-28"
-updated: "2026-07-28"
+created: '2026-07-28'
+updated: '2026-07-28'
 status: pending
 ---
 
@@ -53,7 +53,6 @@ capinfos capture.pcap
 ```
 
 **Yang harus dicatat:**
-
 - ⏱️ **Durasi**: detik? jam? — konteks serangan
 - 📦 **Packet count**: sedikit (CTF) atau banyak (real traffic)
 - 🧬 **Protocols**: hanya HTTP? DNS? SMB? — petunjuk kategori soal
@@ -76,7 +75,6 @@ tshark -r capture.pcap -z io,phs
 ```
 
 **Yang dicari:**
-
 - Protocol anomali — ada `data` fragment? ICMP dalam jumlah besar?
 - Traffic tidak wajar — UDP tiba-tiba 50%? itu DNS tunneling
 - HTTP vs HTTPS ratio — apakah kebanyakan sudah dienkripsi?
@@ -114,7 +112,6 @@ tshark -r capture.pcap -z conv,ip  # Only network layer
 ```
 
 **Yang dicari:**
-
 - Pasangan IP dengan **bytes tertinggi** — itu transfer file
 - Koneksi **durasi sangat panjang** — itu beacon/C2
 - Koneksi **port tidak biasa** (4444, 1337, 31337) — itu reverse shell
@@ -143,7 +140,6 @@ tshark -r capture.pcap -z expert
 ```
 
 **Yang dicari:**
-
 - ⚠️ **Warning**: Checksum error, TCP retransmission, zero window
 - ❌ **Error**: Malformed packet, reassembly failure
 - 📝 **Note**: TCP keep-alive, duplicate ACK, SYN flood
@@ -178,14 +174,13 @@ tshark -r capture.pcap -Y "http.user_agent" -T fields -e http.user_agent | sort 
 ```
 
 **HTTP CTF Pattern:**
-
-| Filter                               | Yang Dicari                              |
-| ------------------------------------ | ---------------------------------------- |
-| `http.request.method==POST`          | Flag submission, login form, file upload |
-| `http.response.code==302`            | Redirect — mungkin after login?          |
-| `http.request.uri contains /admin`   | Admin page access                        |
-| `http.content_type contains "image"` | Image upload — steganography?            |
-| `http.request.uri contains ".php?"`  | Parameter in URL — SQLi / LFI            |
+| Filter | Yang Dicari |
+|--------|-------------|
+| `http.request.method==POST` | Flag submission, login form, file upload |
+| `http.response.code==302` | Redirect — mungkin after login? |
+| `http.request.uri contains /admin` | Admin page access |
+| `http.content_type contains "image"` | Image upload — steganography? |
+| `http.request.uri contains ".php?"` | Parameter in URL — SQLi / LFI |
 
 ### 3.2 DNS Analysis
 
@@ -218,13 +213,13 @@ tshark -r capture.pcap -Y "dns.flags.response==1 and dns.resp.type==1" \
 
 **DNS CTF Pattern:**
 
-| Filter                                 | Indikasi                                              |
-| -------------------------------------- | ----------------------------------------------------- |
-| `dns.qry.name.len > 40`                | **🚨 DNS Tunneling** — subdomain panjang penuh base64 |
-| `dns.txt`                              | TXT record — data exfil atau command                  |
-| `dns.qry.type==16` (TXT)               | TXT query — sering untuk tunneling                    |
-| `dns.qry.type==28` (AAAA)              | AAAA flood — DNS amplification DDoS                   |
-| Domain dalam 2 menit pertama > 50 unik | Domain Generation Algorithm (DGA)                     |
+| Filter | Indikasi |
+|--------|----------|
+| `dns.qry.name.len > 40` | **🚨 DNS Tunneling** — subdomain panjang penuh base64 |
+| `dns.txt` | TXT record — data exfil atau command |
+| `dns.qry.type==16` (TXT) | TXT query — sering untuk tunneling |
+| `dns.qry.type==28` (AAAA) | AAAA flood — DNS amplification DDoS |
+| Domain dalam 2 menit pertama > 50 unik | Domain Generation Algorithm (DGA) |
 
 ### 3.3 TLS / SSL Analysis
 
@@ -253,7 +248,6 @@ tshark -r capture.pcap -Y "tls.handshake.type==1" -T fields \
 ```
 
 **TLS CTF Pattern:**
-
 - **Self-signed cert** → C2 server
 - **TLSv1.0/1.1** → legacy/obsolete — mungkin ada exploit
 - **No SNI** → koneksi ke IP langsung — bukan akses web normal
@@ -277,7 +271,6 @@ tshark -r capture.pcap -Y "icmp.type==3"
 ```
 
 **ICMP CTF Pattern:**
-
 - ICMP packet dengan payload besar (>100 bytes) → **ICMP tunneling**
 - Banyak ICMP unreachable dari IP yang sama → **UDP scan** ke IP itu
 
@@ -388,12 +381,12 @@ tshark -r capture.pcap -Y "http.request.method==POST" -x | grep -v "0000  47 45 
 
 C2 beacon adalah **koneksi periodik** ke IP/domain yang sama. Ciri-ciri:
 
-| Ciri                         | Deskripsi                                                          |
-| ---------------------------- | ------------------------------------------------------------------ |
-| **Interval tetap**           | Setiap 60.000 ± 1 second — script timer, bukan user                |
-| **Packet size konsisten**    | Setiap beacon ukuran request = sama persis                         |
-| **Data minimal**             | GET request, response 200, content-type text/html tapi body pendek |
-| **Tidak ada interaksi user** | Tidak ada gambar, CSS, JS yang dimuat seperti browsing normal      |
+| Ciri | Deskripsi |
+|------|-----------|
+| **Interval tetap** | Setiap 60.000 ± 1 second — script timer, bukan user |
+| **Packet size konsisten** | Setiap beacon ukuran request = sama persis |
+| **Data minimal** | GET request, response 200, content-type text/html tapi body pendek |
+| **Tidak ada interaksi user** | Tidak ada gambar, CSS, JS yang dimuat seperti browsing normal |
 
 ```bash
 # Step 1: Cari TCP streams dengan komunikasi dua arah teratur
@@ -411,7 +404,6 @@ tshark -r capture.pcap -Y "http.response" -T fields \
 ```
 
 **Rumus deteksi beacon:**
-
 ```
 Rata-rata delta antar request < 2 detik variasi → Browsing normal
 Rata-rata delta antar request = 0 ± 1 detik variasi → Bot/script
@@ -452,7 +444,6 @@ done 2>/dev/null
 ```
 
 **DGA Ciri:**
-
 - Domain seperti `jkasdhfkjhasdf.xyz` — alfanumerik tanpa arti
 - Banyak NXDOMAIN (domain tidak ada) — DNS query gagal
 - Rata-rata panjang 8–20 karakter
@@ -533,21 +524,21 @@ cat http.log | zeek-cut uid method uri resp_mime_types request_body_len | \
 
 ## Cheat Sheet — TShark Filter per Skenario
 
-| Skenario                                   | Filter `-Y`                                                          |
-| ------------------------------------------ | -------------------------------------------------------------------- |
-| **Port scan** (banyak SYN ke port berbeda) | `tcp.flags.syn==1 and tcp.flags.ack==0` lalu group by dst port       |
-| **DNS tunneling**                          | `dns.qry.name.len > 30` atau `dns.txt`                               |
-| **HTTP file upload**                       | `http.request.method==POST and http.content_length > 10000`          |
-| **HTTPS ke IP langsung**                   | `tls.handshake.type==1 and not tls.handshake.extensions_server_name` |
-| **ARP spoofing**                           | `arp.duplicate-address-detected` atau `arp.opcode==2`                |
-| **ICMP tunneling**                         | `icmp and data.len > 64`                                             |
-| **SMB lateral movement**                   | `smb2.cmd==5` (SMB2 create — file access)                            |
-| **Email exfiltration**                     | `smtp.req.command` atau `imap`                                       |
-| **C2 beacon**                              | `http.request` lalu IO Graph per source IP                           |
-| **Flag di HTTP**                           | `http contains "CTF{" or http contains "flag{"`                      |
-| **Flag di DNS**                            | `dns contains "CTF" or dns.qry.name contains "flag"`                 |
-| **Kerberos attack**                        | `kerberos`                                                           |
-| **RDP connection**                         | `rdp`                                                                |
+| Skenario | Filter `-Y` |
+|----------|-------------|
+| **Port scan** (banyak SYN ke port berbeda) | `tcp.flags.syn==1 and tcp.flags.ack==0` lalu group by dst port |
+| **DNS tunneling** | `dns.qry.name.len > 30` atau `dns.txt` |
+| **HTTP file upload** | `http.request.method==POST and http.content_length > 10000` |
+| **HTTPS ke IP langsung** | `tls.handshake.type==1 and not tls.handshake.extensions_server_name` |
+| **ARP spoofing** | `arp.duplicate-address-detected` atau `arp.opcode==2` |
+| **ICMP tunneling** | `icmp and data.len > 64` |
+| **SMB lateral movement** | `smb2.cmd==5` (SMB2 create — file access) |
+| **Email exfiltration** | `smtp.req.command` atau `imap` |
+| **C2 beacon** | `http.request` lalu IO Graph per source IP |
+| **Flag di HTTP** | `http contains "CTF{" or http contains "flag{"` |
+| **Flag di DNS** | `dns contains "CTF" or dns.qry.name contains "flag"` |
+| **Kerberos attack** | `kerberos` |
+| **RDP connection** | `rdp` |
 
 ### Multi-Step TShark Quick Commands
 
@@ -581,18 +572,18 @@ strings file.pcap | grep -iE "CTF\{|flag\{|key\{|secret" | head-20
 
 ## Common CTF Soal Pattern
 
-| Pattern               | Ciri                                            | Solusi                                                           |
-| --------------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
-| **Flag di HTTP body** | Satu HTTP request dengan response berisi string | `tshark -Y "http contains CTF"` atau follow TCP stream           |
-| **Flag di DNS TXT**   | TXT record aneh dengan base64 string            | `tshark -Y "dns.txt"` + base64 decode                            |
-| **Flag di gambar**    | File JPEG/PNG diexport dari PCAP                | `tshark --export-objects http,./` → cari gambar → strings/gambar |
-| **Flag di FTP**       | FTP credential + transfer                       | `tshark -Y "ftp"` → extract credential → download file           |
-| **Flag di email**     | SMTP attachment                                 | `tshark -Y "smtp"` → cari Content-Type → extract attachment      |
-| **Stego in image**    | Gambar di-download, flag di metadata/LSB        | Export image → exiftool/zsteg/steghide                           |
-| **C2 exfiltration**   | Beacon + POST dengan base64 data                | Extract POST body → base64 decode → flag                         |
-| **ICMP tunnel**       | Ping dengan data besar                          | `tshark -Y "icmp" -x` → ICMP payload berisi flag                 |
-| **WiFi capture**      | .cap file dengan WPA handshake                  | aircrack-ng + wordlist crack                                     |
-| **USB capture**       | .pcap dari USB — keyboard keystroke             | UsbKeyboardData HID parser → flag dari keyboard stroke           |
+| Pattern | Ciri | Solusi |
+|---------|------|--------|
+| **Flag di HTTP body** | Satu HTTP request dengan response berisi string | `tshark -Y "http contains CTF"` atau follow TCP stream |
+| **Flag di DNS TXT** | TXT record aneh dengan base64 string | `tshark -Y "dns.txt"` + base64 decode |
+| **Flag di gambar** | File JPEG/PNG diexport dari PCAP | `tshark --export-objects http,./` → cari gambar → strings/gambar |
+| **Flag di FTP** | FTP credential + transfer | `tshark -Y "ftp"` → extract credential → download file |
+| **Flag di email** | SMTP attachment | `tshark -Y "smtp"` → cari Content-Type → extract attachment |
+| **Stego in image** | Gambar di-download, flag di metadata/LSB | Export image → exiftool/zsteg/steghide |
+| **C2 exfiltration** | Beacon + POST dengan base64 data | Extract POST body → base64 decode → flag |
+| **ICMP tunnel** | Ping dengan data besar | `tshark -Y "icmp" -x` → ICMP payload berisi flag |
+| **WiFi capture** | .cap file dengan WPA handshake | aircrack-ng + wordlist crack |
+| **USB capture** | .pcap dari USB — keyboard keystroke | UsbKeyboardData HID parser → flag dari keyboard stroke |
 
 ---
 
@@ -607,4 +598,4 @@ strings file.pcap | grep -iE "CTF\{|flag\{|key\{|secret" | head-20
 
 ---
 
-_PCAP Analysis · Statistik Dulu, Stream Kemudian · C2 = Periodik · Exfil = Bytes Tidak Proporsional · Scapy & Zeek = Power Tools · CTF = Follow Stream + Export Object + Strings_
+*PCAP Analysis · Statistik Dulu, Stream Kemudian · C2 = Periodik · Exfil = Bytes Tidak Proporsional · Scapy & Zeek = Power Tools · CTF = Follow Stream + Export Object + Strings*

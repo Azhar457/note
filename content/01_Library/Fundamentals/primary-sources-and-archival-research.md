@@ -7,10 +7,10 @@ tags:
   - archives
   - history
   - library
-created: "2026-08-02"
-updated: "2026-08-02"
+created: '2026-08-02'
+updated: '2026-08-02'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 > [!abstract] Definisi
@@ -20,7 +20,7 @@ cssclasses: ""
 
 ## 📑 Daftar Isi
 
-1. [[#1. Hierarki Sumber]]
+1. [[#1. Hierarki Sumber: Primer, Sekunder, Tersier]]
 2. [[#2. Jenis Sumber Primer]]
 3. [[#3. Arsip Nasional dan Institusi Arsip]]
 4. [[#4. Dokumen Terdeklasifikasi dan Kebebasan Informasi]]
@@ -31,7 +31,7 @@ cssclasses: ""
 9. [[#9. Kesalahan Umum dan Studi Kasus]]
 10. [[#10. Etika Penggunaan Sumber Primer]]
 11. [[#11. Workflow Riset Sumber Primer]]
-12. [[#Referensi dan Cross-link]]
+11. [[#Referensi dan Cross-link]]
 
 ---
 
@@ -39,11 +39,11 @@ cssclasses: ""
 
 Memahami hierarki ini adalah fondasi riset sumber primer — membedakan bukti asli dari interpretasi.
 
-| Jenis        | Definisi                                                  | Contoh                                                                | Kekuatan                           | Kelemahan                               |
-| ------------ | --------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------- | --------------------------------------- |
-| **Primer**   | Bukti dibuat pada saat kejadian atau oleh pelaku langsung | Surat, diary, dokumen resmi, dataset, artefak, kode sumber, wawancara | Otentik, detail, tidak dimediasi   | Bisa bias, tidak lengkap, butuh konteks |
-| **Sekunder** | Analisis atau interpretasi sumber primer oleh pihak lain  | Buku sejarah, review paper, biografi, artikel jurnal                  | Sudah disintesis, punya perspektif | Membawa interpretasi penulis            |
-| **Tersier**  | Kompilasi atau ringkasan sumber sekunder                  | Ensiklopedia, textbook, Wikipedia                                     | Mudah dipahami, ringkas            | Jauh dari bukti asli, berlapis bias     |
+| Jenis | Definisi | Contoh | Kekuatan | Kelemahan |
+|---|---|---|---|---|
+| **Primer** | Bukti dibuat pada saat kejadian atau oleh pelaku langsung | Surat, diary, dokumen resmi, dataset, artefak, kode sumber, wawancara | Otentik, detail, tidak dimediasi | Bisa bias, tidak lengkap, butuh konteks |
+| **Sekunder** | Analisis atau interpretasi sumber primer oleh pihak lain | Buku sejarah, review paper, biografi, artikel jurnal | Sudah disintesis, punya perspektif | Membawa interpretasi penulis |
+| **Tersier** | Kompilasi atau ringkasan sumber sekunder | Ensiklopedia, textbook, Wikipedia | Mudah dipahami, ringkas | Jauh dari bukti asli, berlapis bias |
 
 > [!danger] Golden Rule
 > Selalu telusuri klaim ke sumber primer. Jika kamu mengutip "menurut buku X", temukan dokumen asli yang dikutip buku itu. Kutipan dari kutipan adalah kesalahan paling umum dan paling berbahaya dalam riset.
@@ -74,14 +74,14 @@ Arsip adalah rumah sumber primer. Ada hierarki institusi tempat kamu mencari.
 
 **Arsip nasional (prioritas tinggi):**
 
-| Negara          | Institusi                      | Catatan                               |
-| --------------- | ------------------------------ | ------------------------------------- |
-| Amerika Serikat | **NARA** (National Archives)   | Sejarah intelijen, dokumen federal    |
-| Inggris         | **UK National Archives**       | 30-year rule, Colonial Office records |
-| Indonesia       | **ANRI** (Arsip Nasional RI)   | Arsip negara Indonesia                |
-| Belanda         | **National Archief / NIOD**    | Arsip kolonial dan pendudukan         |
-| Jepang          | **National Archives of Japan** | Akses terbatas                        |
-| Prancis         | **Archives nationales**        | Arsip pemerintahan dan kolonial       |
+| Negara | Institusi | Catatan |
+|---|---|---|
+| Amerika Serikat | **NARA** (National Archives) | Sejarah intelijen, dokumen federal |
+| Inggris | **UK National Archives** | 30-year rule, Colonial Office records |
+| Indonesia | **ANRI** (Arsip Nasional RI) | Arsip negara Indonesia |
+| Belanda | **National Archief / NIOD** | Arsip kolonial dan pendudukan |
+| Jepang | **National Archives of Japan** | Akses terbatas |
+| Prancis | **Archives nationales** | Arsip pemerintahan dan kolonial |
 
 **Repositori riset besar:**
 
@@ -96,14 +96,14 @@ Arsip adalah rumah sumber primer. Ada hierarki institusi tempat kamu mencari.
 
 Kunci riset sejarah intelijen dan pemerintahan.
 
-| Metode                                    | Cara Kerja                         | Akses                                    |
-| ----------------------------------------- | ---------------------------------- | ---------------------------------------- |
-| **FOIA** (Freedom of Information Act, AS) | Permintaan publik dokumen federal  | Berbayar atau gratis, hasilnya di-redact |
-| **30-year rule** (Inggris)                | File dibuka setelah 30 tahun       | Gratis di National Archives              |
-| **CIA FOIA Reading Room**                 | Laporan intelijen terdeklasifikasi | Gratis online                            |
-| **NSA Declassification**                  | Sejarah SIGINT                     | Gratis online                            |
-| **Archive.org / FOIA libraries**          | Hasil FOIA yang dipublikasikan     | Gratis                                   |
-| **Wikileaks**                             | Dokumen yang diterbitkan kembali   | Kontroversial, gunakan secara kritis     |
+| Metode | Cara Kerja | Akses |
+|---|---|---|
+| **FOIA** (Freedom of Information Act, AS) | Permintaan publik dokumen federal | Berbayar atau gratis, hasilnya di-redact |
+| **30-year rule** (Inggris) | File dibuka setelah 30 tahun | Gratis di National Archives |
+| **CIA FOIA Reading Room** | Laporan intelijen terdeklasifikasi | Gratis online |
+| **NSA Declassification** | Sejarah SIGINT | Gratis online |
+| **Archive.org / FOIA libraries** | Hasil FOIA yang dipublikasikan | Gratis |
+| **Wikileaks** | Dokumen yang diterbitkan kembali | Kontroversial, gunakan secara kritis |
 
 > [!warning] Penting
 > Terdeklasifikasi tidak berarti transparan. Dokumen **di-redact** (bagian dihitamkan) dan hanya **sebagian** yang dipilih untuk dibuka. Analis harus sadar akan seleksi dan redaction — apa yang tidak ada sering sama pentingnya dengan apa yang ada.
@@ -114,13 +114,13 @@ Kunci riset sejarah intelijen dan pemerintahan.
 
 Tidak semua dokumen otentik atau relevan. Gunakan tes berikut:
 
-| Tes                   | Pertanyaan Kunci                     | Contoh Gagal                       |
-| --------------------- | ------------------------------------ | ---------------------------------- |
-| **Otentikasi**        | Apakah dokumen asli atau palsu?      | Dokumen palsu, hasil reproduce     |
-| **Tanggal dan versi** | Kapan dibuat? Revisi terakhir?       | Dokumen usang diklaim terbaru      |
-| **Otoritas**          | Siapa penulis atau lembaga penerbit? | Dokumen anonim tanpa bukti         |
-| **Konteks**           | Kondisi saat dibuat? Untuk siapa?    | Dokumen rahasia vs rilis publik    |
-| **Chain of Custody**  | Dari mana dokumen didapat? Diedit?   | Screenshot yang diedit (Photoshop) |
+| Tes | Pertanyaan Kunci | Contoh Gagal |
+|---|---|---|
+| **Otentikasi** | Apakah dokumen asli atau palsu? | Dokumen palsu, hasil reproduce |
+| **Tanggal dan versi** | Kapan dibuat? Revisi terakhir? | Dokumen usang diklaim terbaru |
+| **Otoritas** | Siapa penulis atau lembaga penerbit? | Dokumen anonim tanpa bukti |
+| **Konteks** | Kondisi saat dibuat? Untuk siapa? | Dokumen rahasia vs rilis publik |
+| **Chain of Custody** | Dari mana dokumen didapat? Diedit? | Screenshot yang diedit (Photoshop) |
 
 **Metode autentikasi digital:**
 
@@ -147,7 +147,7 @@ Di arsip kertas maupun digital, tekniknya mirip.
 
 ### Verifikasi Lintas Sumber
 
-Satu dokumen tidak pernah cukup. Terima klaim hanya jika didukung oleh sumber independen. Contoh: klaim kebijakan perusahaan diverifikasi dari (1) memo internal, (2) press release, (3) laporan media kontemporer, (4) data ekonomi. Jika hanya satu sumber mendukung, tandai _unverified_.
+Satu dokumen tidak pernah cukup. Terima klaim hanya jika didukung oleh sumber independen. Contoh: klaim kebijakan perusahaan diverifikasi dari (1) memo internal, (2) press release, (3) laporan media kontemporer, (4) data ekonomi. Jika hanya satu sumber mendukung, tandai *unverified*.
 
 ### Membaca Dokumen yang Di-redact
 
@@ -165,13 +165,13 @@ Satu dokumen tidak pernah cukup. Terima klaim hanya jika didukung oleh sumber in
 
 Untuk riset keamanan dan recovery, **log mentah dan telemetry** adalah sumber primer utama.
 
-| Data                 | Contoh                           | Keaslian                   |
-| -------------------- | -------------------------------- | -------------------------- |
-| **Log server**       | Access log, error log, audit log | Langsung dari server       |
-| **Sensor telemetry** | IoT, GPS, network capture (pcap) | Langsung dari device       |
-| **Dataset mentah**   | CSV, JSON, SQL dump              | Kualitas tergantung sumber |
-| **Source code**      | Git repository, binary           | Kode asli                  |
-| **Forensic image**   | dd, memdump, disk image          | Salinan bit-perfect        |
+| Data | Contoh | Keaslian |
+|---|---|---|
+| **Log server** | Access log, error log, audit log | Langsung dari server |
+| **Sensor telemetry** | IoT, GPS, network capture (pcap) | Langsung dari device |
+| **Dataset mentah** | CSV, JSON, SQL dump | Kualitas tergantung sumber |
+| **Source code** | Git repository, binary | Kode asli |
+| **Forensic image** | dd, memdump, disk image | Salinan bit-perfect |
 
 > [!danger] Chain of Custody
 > Data mentah adalah bukti. Analisis dilakukan pada **salinan**, bukan file orisinal. Catat hash tamper-evidence (SHA-256) di awal dan dokumentasikan siapa yang mengakses. Tanpa chain-of-custody, data tidak sah sebagai bukti.
@@ -190,15 +190,15 @@ Hasilnya: laporan insiden yang reproducible — siapa pun bisa memverifikasi dar
 
 ## 8. Arsip Digital dan Born-Digital
 
-Sebagian besar arsip kini digital — _born-digital_ (diciptakan digital) berbeda dari _digitized_ (scan dokumen fisik).
+Sebagian besar arsip kini digital — *born-digital* (diciptakan digital) berbeda dari *digitized* (scan dokumen fisik).
 
-| Aspek        | Digitized                 | Born-Digital                        |
-| ------------ | ------------------------- | ----------------------------------- |
-| **Definisi** | Scan dokumen fisik        | Diciptakan langsung digital         |
-| **Keaslian** | Kualitas scan             | Original absolut                    |
-| **Metadata** | OCR dan manual            | Kaya, otomatis                      |
-| **Risiko**   | Error OCR                 | Format usang, bit-rot               |
-| **Contoh**   | Scan buku kuno, microfilm | Email, database, kode, foto digital |
+| Aspek | Digitized | Born-Digital |
+|---|---|---|
+| **Definisi** | Scan dokumen fisik | Diciptakan langsung digital |
+| **Keaslian** | Kualitas scan | Original absolut |
+| **Metadata** | OCR dan manual | Kaya, otomatis |
+| **Risiko** | Error OCR | Format usang, bit-rot |
+| **Contoh** | Scan buku kuno, microfilm | Email, database, kode, foto digital |
 
 **Arsip digital utama:**
 
@@ -213,14 +213,14 @@ Sebagian besar arsip kini digital — _born-digital_ (diciptakan digital) berbed
 
 ### Kesalahan umum
 
-| Kesalahan                                 | Dampak                   | Pencegahan             |
-| ----------------------------------------- | ------------------------ | ---------------------- |
-| Mengutip sekunder padahal primer tersedia | Kehilangan konteks asli  | Selalu cek sumber asli |
-| Salah atribusi (narasumber vs penulis)    | Klaim salah              | Cek metadata lengkap   |
-| Mengabaikan bias sumber                   | Kesimpulan miring        | Cek pendanaan & agenda |
-| Tanggal salah / tanpa timestamp           | Verifikasi gagal         | Catat tanggal akses    |
-| Screenshot tanpa URL                      | Tidak dapat diverifikasi | Simpan URL + tanggal   |
-| Dokumen tanpa hash                        | Chain of custody rusak   | Hash setiap file       |
+| Kesalahan | Dampak | Pencegahan |
+|---|---|---|
+| Mengutip sekunder padahal primer tersedia | Kehilangan konteks asli | Selalu cek sumber asli |
+| Salah atribusi (narasumber vs penulis) | Klaim salah | Cek metadata lengkap |
+| Mengabaikan bias sumber | Kesimpulan miring | Cek pendanaan & agenda |
+| Tanggal salah / tanpa timestamp | Verifikasi gagal | Catat tanggal akses |
+| Screenshot tanpa URL | Tidak dapat diverifikasi | Simpan URL + tanggal |
+| Dokumen tanpa hash | Chain of custody rusak | Hash setiap file |
 
 ### Studi kasus: investigasi berbasis sumber primer
 
@@ -237,32 +237,33 @@ Sebagian besar arsip kini digital — _born-digital_ (diciptakan digital) berbed
 
 ## 10. Etika Penggunaan Sumber Primer
 
-| Aspek                | Prinsip                                                   |
-| -------------------- | --------------------------------------------------------- |
-| **Hak cipta**        | Dokumen arsip bisa dilindungi hak cipta — cek lisensi     |
-| **Privasi**          | Dokumen pribadi (medis, finansial) wajib dilindungi       |
+| Aspek | Prinsip |
+|---|---|
+| **Hak cipta** | Dokumen arsip bisa dilindungi hak cipta — cek lisensi |
+| **Privasi** | Dokumen pribadi (medis, finansial) wajib dilindungi |
 | **Declassification** | Dokumen masih terklasifikasi = tidak boleh dipublikasikan |
-| **Kontekstualisasi** | Jangan kutip di luar konteks                              |
-| **Attribution**      | Selalu sebut sumber & lokasi arsip                        |
-| **Dampak**           | Pertimbangkan dampak publikasi pada individu              |
+| **Kontekstualisasi** | Jangan kutip di luar konteks |
+| **Attribution** | Selalu sebut sumber & lokasi arsip |
+| **Dampak** | Pertimbangkan dampak publikasi pada individu |
 
 > [!warning]
 > Akses legal ≠ hak publikasi. Banyak arsip nasional mengizinkan **membaca** tapi melarang **mengutip/menyalin** tanpa izin. Cek ketentuan repositori sebelum publikasi.
 
 ---
 
-| Kesalahan                   | Ciri                     | Fix                       |
-| --------------------------- | ------------------------ | ------------------------- |
-| **Kutip dari kutipan**      | "Menurut X (dalam Y)"    | Telusuri ke sumber primer |
-| **Sekunder sebagai primer** | Textbook diklaim faktual | Cari sumber asli          |
-| **Tanpa tanggal**           | Sumber tanpa timestamp   | Catat tanggal             |
-| **Tanpa konteks**           | Kutipan terisolasi       | Periksa paragraf lengkap  |
-| **Bias seleksi**            | Hanya mencari yang cocok | AHC: hipotesis saingan    |
-| **Arsip selektif**          | Arsip tidak lengkap      | Teliti apa yang hilang    |
+
+| Kesalahan | Ciri | Fix |
+|---|---|---|
+| **Kutip dari kutipan** | "Menurut X (dalam Y)" | Telusuri ke sumber primer |
+| **Sekunder sebagai primer** | Textbook diklaim faktual | Cari sumber asli |
+| **Tanpa tanggal** | Sumber tanpa timestamp | Catat tanggal |
+| **Tanpa konteks** | Kutipan terisolasi | Periksa paragraf lengkap |
+| **Bias seleksi** | Hanya mencari yang cocok | AHC: hipotesis saingan |
+| **Arsip selektif** | Arsip tidak lengkap | Teliti apa yang hilang |
 
 ### Studi Kasus Terkenal
 
-- **Hitler Diaries (1983)** — majalah _Stern_ menerbitkan "diary Hitler" yang ternyata palsu; kertas dan tinta modern. **Pelajaran:** autentikasi forensik (kertas, tinta, tulisan tangan) wajib sebelum publikasi besar.
+- **Hitler Diaries (1983)** — majalah *Stern* menerbitkan "diary Hitler" yang ternyata palsu; kertas dan tinta modern. **Pelajaran:** autentikasi forensik (kertas, tinta, tulisan tangan) wajib sebelum publikasi besar.
 - **Climategate (2009)** — email ilmuwan iklim dikutip di luar konteks. **Pelajaran:** kutipan tanpa konteks menyesatkan; selalu cek konteks penuh.
 - **Fake news 2016+** — foto dan dokumen palsu disebar dengan konteks salah. **Pelajaran:** verifikasi sumber, tanggal, dan lokasi sebelum share.
 

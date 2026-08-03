@@ -1,13 +1,13 @@
 ---
 title: Digital Privacy Anonymity
 tags:
-  - cyber-security
-  - library
-  - threat-intel-privacy
-created: "2026-05-29"
-updated: "2026-07-01"
+- cyber-security
+- library
+- threat-intel-privacy
+created: '2026-05-29'
+updated: '2026-07-01'
 status: pending
-cssclasses: ""
+cssclasses: ''
 ---
 
 # 🕵️ DIGITAL PRIVACY & ANONYMITY — Dari Ad Blocker sampai Ghost Mode
@@ -58,8 +58,8 @@ APA yang mau kamu lindungi?
 └── Keberadaan fisik     → Level 4-5
 ```
 
-> [!tip] Aturan Emas
-> Privasi bukan tentang menyembunyikan kejahatan — ini tentang **kontrol atas informasi tentang dirimu sendiri**. Data kamu yang muncul di situs judol adalah bukti nyata bahwa hilangnya kontrol ini punya konsekuensi nyata.
+>[!tip] Aturan Emas
+>Privasi bukan tentang menyembunyikan kejahatan — ini tentang **kontrol atas informasi tentang dirimu sendiri**. Data kamu yang muncul di situs judol adalah bukti nyata bahwa hilangnya kontrol ini punya konsekuensi nyata.
 
 ---
 
@@ -519,17 +519,17 @@ Consistency kills:
 
 ## Privacy Tools Hierarchy
 
-| Level                           | Threat Model                         | Tools & Measures                                                                                 | Trade-off                                   |
-| ------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------- |
-| **Level 0** — Baseline          | Data broker komersial                | uBlock Origin + Firefox + HTTPS Everywhere                                                       | Minimal, tidak ganggu workflow              |
-| **Level 1** — Privacy Conscious | Targeted advertising, stalker kasual | + VPN (Mullvad) + ProtonMail + Password Manager                                                  | Sedikit lebih lambat, beberapa site blocked |
-| **Level 2** — Privacy Aware     | Investigator privat, data broker     | + SimpleLogin alias + Pi-hole + DNS-over-HTTPS + 2FA hardware key                                | Setup butuh waktu, some inconvenience       |
-| **Level 3** — Privacy Serious   | Ex-partner obsesif, jurnalis         | + Separate devices per use case + GrapheneOS + Physical address separation + Data broker opt-out | Significant lifestyle adjustment            |
-| **Level 4** — High Privacy      | Pemerintah asing, kriminal organized | + Tor Browser + Monero + Identity silo complete + Faraday bag                                    | Sangat terbatas, butuh disiplin tinggi      |
-| **Level 5** — Ghost Mode        | Nation-state, severe stalking        | + No smartphone + Cash only + No modern vehicle + Fake ID aliases via legal entity               | Hampir tidak bisa hidup normal              |
+| Level | Threat Model | Tools & Measures | Trade-off |
+|---|---|---|---|
+| **Level 0** — Baseline | Data broker komersial | uBlock Origin + Firefox + HTTPS Everywhere | Minimal, tidak ganggu workflow |
+| **Level 1** — Privacy Conscious | Targeted advertising, stalker kasual | + VPN (Mullvad) + ProtonMail + Password Manager | Sedikit lebih lambat, beberapa site blocked |
+| **Level 2** — Privacy Aware | Investigator privat, data broker | + SimpleLogin alias + Pi-hole + DNS-over-HTTPS + 2FA hardware key | Setup butuh waktu, some inconvenience |
+| **Level 3** — Privacy Serious | Ex-partner obsesif, jurnalis | + Separate devices per use case + GrapheneOS + Physical address separation + Data broker opt-out | Significant lifestyle adjustment |
+| **Level 4** — High Privacy | Pemerintah asing, kriminal organized | + Tor Browser + Monero + Identity silo complete + Faraday bag | Sangat terbatas, butuh disiplin tinggi |
+| **Level 5** — Ghost Mode | Nation-state, severe stalking | + No smartphone + Cash only + No modern vehicle + Fake ID aliases via legal entity | Hampir tidak bisa hidup normal |
 
-> [!warning] Jangan Skip Level
-> Level 5 tanpa Level 1-4 = useless. Pakai Tor tapi tetap login Google di tab lain = sia-sia. Privacy adalah sistem, bukan fitur individual.
+>[!warning] Jangan Skip Level
+>Level 5 tanpa Level 1-4 = useless. Pakai Tor tapi tetap login Google di tab lain = sia-sia. Privacy adalah sistem, bukan fitur individual.
 
 ---
 
@@ -639,15 +639,14 @@ OS Hierarchy [[hierarchy-operating-systems]]:
 
 ---
 
-> [!tip] Bottom Line
-> Privacy bukan binary — bukan "private sepenuhnya" atau "tidak sama sekali." Ini kontinum, dan kamu tidak harus ada di ujung mana pun. Langkah paling impactful untuk kebanyakan orang:
+>[!tip] Bottom Line
+>Privacy bukan binary — bukan "private sepenuhnya" atau "tidak sama sekali." Ini kontinum, dan kamu tidak harus ada di ujung mana pun. Langkah paling impactful untuk kebanyakan orang:
+>1. **Password manager + unique password per site** (protect dari credential stuffing)
+>2. **2FA di semua akun kritis** (protect dari account takeover)
+>3. **Email alias untuk signup baru** (isolate breach damage)
+>4. **Google yourself monthly** (detect dan respond ke exposure)
 >
-> 1.  **Password manager + unique password per site** (protect dari credential stuffing)
-> 2.  **2FA di semua akun kritis** (protect dari account takeover)
-> 3.  **Email alias untuk signup baru** (isolate breach damage)
-> 4.  **Google yourself monthly** (detect dan respond ke exposure)
->
-> Empat ini saja sudah melindungi 80% dari ancaman yang paling mungkin kamu hadapi. Level lebih tinggi hanya jika threat model mengharuskan.
+>Empat ini saja sudah melindungi 80% dari ancaman yang paling mungkin kamu hadapi. Level lebih tinggi hanya jika threat model mengharuskan.
 
 ---
 
@@ -663,4 +662,4 @@ OS Hierarchy [[hierarchy-operating-systems]]:
 
 ---
 
-_Digital Privacy & Anonymity | Threat Model → Ad Blocking → Pi-hole → Identity Silo → Paper Trail → Ghost Mode · OPSEC · Data Broker · Indonesia Context_
+*Digital Privacy & Anonymity | Threat Model → Ad Blocking → Pi-hole → Identity Silo → Paper Trail → Ghost Mode · OPSEC · Data Broker · Indonesia Context*

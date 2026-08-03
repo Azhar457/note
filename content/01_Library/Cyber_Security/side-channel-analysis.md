@@ -1,14 +1,14 @@
 ---
 title: Side-Channel Analysis — Power, Timing, Cache & Fault Injection
 tags:
-  - side-channel
-  - power-analysis
-  - timing-attack
-  - cache-attack
-  - fault-injection
-  - hardware-security
-created: "2026-07-19"
-updated: "2026-07-19"
+- side-channel
+- power-analysis
+- timing-attack
+- cache-attack
+- fault-injection
+- hardware-security
+created: '2026-07-19'
+updated: '2026-07-19'
 status: pending
 ---
 
@@ -55,18 +55,18 @@ Side-Channel Attacks
 
 ### 1.2 Attack Difficulty & Equipment Cost
 
-| Attack                   | Equipment Cost           | Difficulty | Key Recovery     |
-| ------------------------ | ------------------------ | ---------- | ---------------- |
-| **Timing (network)**     | $0                       | Low        | Partial/Full     |
-| **Cache (Flush+Reload)** | $0                       | Medium     | Full             |
-| **Power (SPA)**          | $200-2000 (oscilloscope) | Low        | Partial          |
-| **Power (DPA/CPA)**      | $500-5000                | Medium     | Full             |
-| **EM Analysis**          | $1000-5000 (probe + LNA) | Medium     | Full             |
-| **Acoustic**             | $100-500 (mic)           | High       | Partial          |
-| **Voltage Glitch**       | $50-500                  | Low        | Bypass auth      |
-| **Clock Glitch**         | $50-300                  | Low        | Instruction skip |
-| **EMFI**                 | $500-5000                | High       | Instruction skip |
-| **Laser Fault**          | $5000-50000              | Very High  | Bit flip         |
+| Attack | Equipment Cost | Difficulty | Key Recovery |
+|--------|---------------|------------|--------------|
+| **Timing (network)** | $0 | Low | Partial/Full |
+| **Cache (Flush+Reload)** | $0 | Medium | Full |
+| **Power (SPA)** | $200-2000 (oscilloscope) | Low | Partial |
+| **Power (DPA/CPA)** | $500-5000 | Medium | Full |
+| **EM Analysis** | $1000-5000 (probe + LNA) | Medium | Full |
+| **Acoustic** | $100-500 (mic) | High | Partial |
+| **Voltage Glitch** | $50-500 | Low | Bypass auth |
+| **Clock Glitch** | $50-300 | Low | Instruction skip |
+| **EMFI** | $500-5000 | High | Instruction skip |
+| **Laser Fault** | $5000-50000 | Very High | Bit flip |
 
 ## 2. Power Analysis
 
@@ -87,7 +87,6 @@ Power trace untuk AES:
 ```
 
 **Key insight:** Setiap round AES punya pola power distinct. SPA bisa reveal:
-
 - Number of rounds → AES-128 (10) vs AES-256 (14)
 - Branch points (if/else → different power)
 - S-box access timing → leak key byte
@@ -108,28 +107,28 @@ def cpa_attack(traces, plaintexts, key_byte_pos):
     """
     best_key = None
     best_corr = 0
-
+    
     for guessed_key in range(256):
         # 1. Compute hypothetical intermediate value
         # AES S-box output for guessed key
         intermediate = sbox[plaintexts[:, key_byte_pos] ^ guessed_key]
-
+        
         # 2. Hamming weight model
         power_model = np.array([bin(x).count('1') for x in intermediate])
-
+        
         # 3. Pearson correlation at each time sample
         correlations = np.array([
             pearsonr(power_model, traces[:, t])[0]
             for t in range(traces.shape[1])
         ])
-
+        
         # 4. Track max correlation
         max_corr = np.max(np.abs(correlations))
-
+        
         if max_corr > best_corr:
             best_corr = max_corr
             best_key = guessed_key
-
+    
     return best_key, best_corr
 
 # AES S-box
@@ -186,35 +185,35 @@ def timing_attack(host, port, username, password_prefix):
     for c in "abcdefghijklmnopqrstuvwxyz0123456789":
         test_password = password_prefix + c
         start = time.perf_counter()
-
+        
         sock = socket.socket()
         sock.connect((host, port))
         # Send SSH auth attempt
         sock.send(f"ssh-userauth {username} {test_password}".encode())
         sock.recv(1024)
         sock.close()
-
+        
         elapsed = time.perf_counter() - start
-
+        
         # If timing > threshold → password correct so far!
         if elapsed > avg_time * 1.5:
             return timing_attack(host, port, username, test_password)
-
+    
     return password_prefix
 ```
 
 ### 3.3 Constant-Time vs Variable-Time Operations
 
-| Operation          | Constant-Time       | Notes                         |
-| ------------------ | ------------------- | ----------------------------- |
-| String comparison  | `memcmp` (variable) | Use `crypto_memcmp`           |
-| Memory copy        | `memcpy` (variable) | Use `memmove` or constant     |
-| Branch (if/else)   | Variable            | Use bitmask                   |
-| S-box lookup       | Variable (cache)    | Use bitslicing                |
-| Table lookup       | Variable (cache)    | Use `vpshufb` SIMD            |
-| Multiplication     | Usually constant    | Beware of HW multiplier       |
-| Division           | Variable            | Avoid                         |
-| Modulo by variable | Variable            | Use Barrett/constant-time ops |
+| Operation | Constant-Time | Notes |
+|-----------|--------------|-------|
+| String comparison | `memcmp` (variable) | Use `crypto_memcmp` |
+| Memory copy | `memcpy` (variable) | Use `memmove` or constant |
+| Branch (if/else) | Variable | Use bitmask |
+| S-box lookup | Variable (cache) | Use bitslicing |
+| Table lookup | Variable (cache) | Use `vpshufb` SIMD |
+| Multiplication | Usually constant | Beware of HW multiplier |
+| Division | Variable | Avoid |
+| Modulo by variable | Variable | Use Barrett/constant-time ops |
 
 ## 4. Electromagnetic Analysis
 
@@ -227,7 +226,6 @@ CPU → EM radiation → near-field H-probe → LNA (30dB) → oscilloscope
 ```
 
 **Hardware:**
-
 - Lang/TEM cell (far-field, whole device)
 - Near-field H-probe (localized EM, select chip)
 - LNA (Low Noise Amplifier, 30-40dB gain)
@@ -235,13 +233,13 @@ CPU → EM radiation → near-field H-probe → LNA (30dB) → oscilloscope
 
 ### 4.2 EM vs Power
 
-| Aspect           | Power Analysis          | EM Analysis                |
-| ---------------- | ----------------------- | -------------------------- |
-| **Contact**      | Direct (shunt resistor) | Non-contact (probe)        |
-| **Localization** | Whole chip              | Single die/region          |
-| **Bandwidth**    | Limited by shunt/PSU    | >10 GHz possible           |
-| **Noise**        | Power supply noise      | Probe positioning critical |
-| **Cost**         | $200+                   | $500+ (probe + LNA)        |
+| Aspect | Power Analysis | EM Analysis |
+|--------|---------------|-------------|
+| **Contact** | Direct (shunt resistor) | Non-contact (probe) |
+| **Localization** | Whole chip | Single die/region |
+| **Bandwidth** | Limited by shunt/PSU | >10 GHz possible |
+| **Noise** | Power supply noise | Probe positioning critical |
+| **Cost** | $200+ | $500+ (probe + LNA) |
 
 ## 5. Cache Attacks
 
@@ -270,7 +268,7 @@ Phase 3: PROBE
   Slow = victim accessed (evicted our line)
   Fast = victim didn't access
 
-Victim accessed secret[index]?
+Victim accessed secret[index]? 
   probe[cache_set_of(secret[index])] > threshold → YES!
 ```
 
@@ -283,7 +281,7 @@ Phase 1: FLUSH
   clflush(shared_memory[offset])
 Phase 2: WAIT
   Victim runs — may access memory
-Phase 3: RELOAD
+Phase 3: RELOAD  
   time = measure_read(shared_memory[offset])
   if time < threshold → VICTIM ACCESSED!
 
@@ -294,12 +292,12 @@ Can differentiate instruction-level granularity!
 
 ### 5.4 Cache Attack Comparison
 
-| Method           | Requires                       | Granularity      | Detection             |
-| ---------------- | ------------------------------ | ---------------- | --------------------- |
-| **Prime+Probe**  | Shared cache only              | Cache line (64B) | Cache set timing      |
-| **Flush+Reload** | Shared memory (same phys page) | **Byte-level**   | Cache line timing     |
-| **Evict+Reload** | No clflush needed              | Cache line (64B) | Cache eviction timing |
-| **Evict+Time**   | Shared cache                   | Operation-level  | Total execution time  |
+| Method | Requires | Granularity | Detection |
+|--------|----------|-------------|-----------|
+| **Prime+Probe** | Shared cache only | Cache line (64B) | Cache set timing |
+| **Flush+Reload** | Shared memory (same phys page) | **Byte-level** | Cache line timing |
+| **Evict+Reload** | No clflush needed | Cache line (64B) | Cache eviction timing |
+| **Evict+Time** | Shared cache | Operation-level | Total execution time |
 
 ## 6. Fault Injection
 
@@ -311,7 +309,7 @@ Drop VCC momentarily → CPU executes faulty instruction.
 Normal VCC:    ┌────┐    ┌────┐    ┌────┐
                │    │    │    │    │    │
                └────┘    └────┘    └────┘
-
+               
 Voltage Glitch: ┌────┐          ┌────┐
                │    │  ─────── │    │
                └────┘ ↑VCC drop└────┘
@@ -371,12 +369,12 @@ Equipment: ChipSHOUTER ($500) or DIY
 
 ### 6.4 Techniques Summary
 
-| Method         | Equipment                | Precision   | Repeatability |
-| -------------- | ------------------------ | ----------- | ------------- |
-| Voltage glitch | MOSFET + pulse gen       | ±1-10ns     | High          |
-| Clock glitch   | FPGA-based               | ±0.5ns      | High          |
-| EMFI           | HV coil + capacitor      | ~100μm spot | Medium        |
-| Laser          | Microscope + laser diode | ~1μm spot   | Very High     |
+| Method | Equipment | Precision | Repeatability |
+|--------|-----------|-----------|---------------|
+| Voltage glitch | MOSFET + pulse gen | ±1-10ns | High |
+| Clock glitch | FPGA-based | ±0.5ns | High |
+| EMFI | HV coil + capacitor | ~100μm spot | Medium |
+| Laser | Microscope + laser diode | ~1μm spot | Very High |
 
 ## 7. Defenses
 
@@ -424,14 +422,14 @@ int constant_compare(const char *a, const char *b, size_t n) {
 
 ## 8. Koneksi ke Vault
 
-| Note                               | Hubungan                                                   |
-| ---------------------------------- | ---------------------------------------------------------- |
-| [[hardware-hacking-re]]            | Hardware attack surface, chip analysis, fault injection    |
-| [[cryptography-biometrics]]        | Crypto implementations vulnerable to side-channel          |
-| [[exploit-development]]            | Timing oracle → exploit primitive, glitching → auth bypass |
-| [[fuzzing-vulnerability-research]] | Hardware fuzzing + fault injection                         |
-| [[ics-scada-security]]             | PLC safety systems — fault injection bisa bypass safety    |
-| [[automotive-can-bus-security]]    | ECU glitching, timing analysis untuk key fob crypto        |
+| Note | Hubungan |
+|------|----------|
+| [[hardware-hacking-re]] | Hardware attack surface, chip analysis, fault injection |
+| [[cryptography-biometrics]] | Crypto implementations vulnerable to side-channel |
+| [[exploit-development]] | Timing oracle → exploit primitive, glitching → auth bypass |
+| [[fuzzing-vulnerability-research]] | Hardware fuzzing + fault injection |
+| [[ics-scada-security]] | PLC safety systems — fault injection bisa bypass safety |
+| [[automotive-can-bus-security]] | ECU glitching, timing analysis untuk key fob crypto |
 
 ---
 

@@ -49,16 +49,16 @@ cssclasses:
 
 ### Perbandingan Fundamental
 
-| Dimensi              | Neural                          | Symbolic                              |
-| -------------------- | ------------------------------- | ------------------------------------- |
-| **Representasi**     | Continuous (vektor, embeddings) | Discrete (simbol, logika, grafik)     |
-| **Learning**         | Dari data (gradient descent)    | Dari aturan (deduksi, induksi)        |
-| **Generalization**   | Pattern-based (interpolation)   | Rule-based (ekstrapolasi logis)       |
-| **Interpretability** | Black box                       | Transparan (jelas reasoning chain)    |
-| **Noise tolerance**  | Tinggi                          | Rendah (one wrong rule = collapse)    |
-| **Data efficiency**  | Rendah (butuh banyak data)      | Tinggi (bisa dari knowledge engineer) |
-| **Reasoning**        | Implicit (dalam weights)        | Explicit (dalam aturan)               |
-| **Common sense**     | Learned from data               | Need manual encoding                  |
+| Dimensi | Neural | Symbolic |
+|---------|--------|----------|
+| **Representasi** | Continuous (vektor, embeddings) | Discrete (simbol, logika, grafik) |
+| **Learning** | Dari data (gradient descent) | Dari aturan (deduksi, induksi) |
+| **Generalization** | Pattern-based (interpolation) | Rule-based (ekstrapolasi logis) |
+| **Interpretability** | Black box | Transparan (jelas reasoning chain) |
+| **Noise tolerance** | Tinggi | Rendah (one wrong rule = collapse) |
+| **Data efficiency** | Rendah (butuh banyak data) | Tinggi (bisa dari knowledge engineer) |
+| **Reasoning** | Implicit (dalam weights) | Explicit (dalam aturan) |
+| **Common sense** | Learned from data | Need manual encoding |
 
 ### Mengapa Neurosymbolic?
 
@@ -144,14 +144,14 @@ Masalah yang tidak bisa diselesaikan oleh neural atau symbolic sendiri:
 
 ### GraphRAG vs Traditional RAG
 
-| Dimensi                 | RAG Standar        | GraphRAG                           |
-| ----------------------- | ------------------ | ---------------------------------- |
-| **Retrieval unit**      | Chunk teks (flat)  | Subgraph (struktur)                |
-| **Context**             | Semantik vektor    | Semantik + relasi + struktur       |
-| **Multi-hop reasoning** | Lemah (butuh luck) | Kuat (graph traversal eksplisit)   |
-| **Hallucination**       | Masih mungkin      | Lebih rendah (grounded di entitas) |
-| **Update**              | Re-index           | Add node/edge incremental          |
-| **Query complexity**    | Langsung ke vektor | Query + traverse + subgraph        |
+| Dimensi | RAG Standar | GraphRAG |
+|---------|-------------|----------|
+| **Retrieval unit** | Chunk teks (flat) | Subgraph (struktur) |
+| **Context** | Semantik vektor | Semantik + relasi + struktur |
+| **Multi-hop reasoning** | Lemah (butuh luck) | Kuat (graph traversal eksplisit) |
+| **Hallucination** | Masih mungkin | Lebih rendah (grounded di entitas) |
+| **Update** | Re-index | Add node/edge incremental |
+| **Query complexity** | Langsung ke vektor | Query + traverse + subgraph |
 
 ### Arsitektur GraphRAG
 
@@ -330,7 +330,7 @@ Level 3: COUNTERFACTUALS
   "Jika saya tidak minum obat itu, apakah saya akan sembuh?"
   Butuh: model struktural lengkap + SCM
 
-Level 2: INTERVENTION
+Level 2: INTERVENTION  
   "Apa yang terjadi jika saya memberi obat ke semua pasien?"
   Butuh: causal graph + do-calculus
 
@@ -343,13 +343,13 @@ Machine learning konvensional **hanya beroperasi di Level 1**. Causal AI beroper
 
 ### Causal Discovery — Belajar Struktur Kausal dari Data
 
-| Algorithm        | Type                     | Data                   | Output       | Scalability                 |
-| ---------------- | ------------------------ | ---------------------- | ------------ | --------------------------- |
-| **PC Algorithm** | Constraint-based         | Observational          | DAG          | $O(n^2)$                    |
-| **FCI**          | Constraint-based         | Observational + latent | PAG          | $O(n^3)$                    |
-| **NOTEARS**      | Score-based (continuous) | Observational          | DAG          | $O(n^2)$ — gradient-based   |
-| **LiNGAM**       | ICA-based                | Observational          | DAG (linear) | $O(n^2)$                    |
-| **GES**          | Score-based (search)     | Observational          | DAG          | $O(n^2)$ eksponensial worst |
+| Algorithm | Type | Data | Output | Scalability |
+|-----------|------|------|--------|-------------|
+| **PC Algorithm** | Constraint-based | Observational | DAG | $O(n^2)$ |
+| **FCI** | Constraint-based | Observational + latent | PAG | $O(n^3)$ |
+| **NOTEARS** | Score-based (continuous) | Observational | DAG | $O(n^2)$ — gradient-based |
+| **LiNGAM** | ICA-based | Observational | DAG (linear) | $O(n^2)$ |
+| **GES** | Score-based (search) | Observational | DAG | $O(n^2)$ eksponensial worst |
 
 **NOTEARS — Deep Learning untuk Causal Discovery:**
 
@@ -381,13 +381,13 @@ Effect of treatment on the treated (ATT) vs population (ATE)
 
 **Methods:**
 
-| Method                          | Assumption                 | Use Case                        |
-| ------------------------------- | -------------------------- | ------------------------------- |
-| **Propensity Score Matching**   | Unconfoundedness + overlap | Observational study             |
-| **Double ML (DML)**             | Partially linear model     | High-dimensional features       |
-| **Causal Forest**               | Unconfoundedness           | Heterogeneous treatment effects |
-| **IV (Instrumental Variables)** | Exclusion restriction      | Unobserved confounders          |
-| **DoWhy**                       | Multiple methods unified   | Production pipeline             |
+| Method | Assumption | Use Case |
+|--------|-----------|----------|
+| **Propensity Score Matching** | Unconfoundedness + overlap | Observational study |
+| **Double ML (DML)** | Partially linear model | High-dimensional features |
+| **Causal Forest** | Unconfoundedness | Heterogeneous treatment effects |
+| **IV (Instrumental Variables)** | Exclusion restriction | Unobserved confounders |
+| **DoWhy** | Multiple methods unified | Production pipeline |
 
 **Contoh DoWhy:**
 
@@ -502,7 +502,6 @@ shap.dependence_plot("age", shap_values, X_test, interaction_index="income")
 ```
 
 **Interpretasi SHAP:**
-
 - SHAP value positif → fitur mendorong prediksi ke kelas 1
 - SHAP value negatif → fitur mendorong ke kelas 0
 - Sum SHAP values + baseline = prediksi model
@@ -533,10 +532,9 @@ exp.as_list()
 
 ### Concept-based (TCAV)
 
-**TCAV** (Testing with Concept Activation Vectors) menjawab: _"Apakah model menggunakan konsep X untuk prediksi?"_
+**TCAV** (Testing with Concept Activation Vectors) menjawab: *"Apakah model menggunakan konsep X untuk prediksi?"*
 
 **Cara kerja:**
-
 1. Kumpulkan contoh konsep (e.g., gambar "striped")
 2. Train linear classifier untuk deteksi konsep di layer tertentu
 3. Hitung sensitivity: ∂prediksi / ∂konsep
@@ -565,36 +563,36 @@ class NeurosymbolicSecurityAnalyst:
         self.detector = AnomalyDetectionModel()     # Neural
         self.kg = Neo4jGraph(...)                    # Symbolic
         self.reasoner = RuleEngine()                 # Symbolic
-
+    
     def analyze_alert(self, raw_log):
         # Neural — detect anomaly
         anomaly_score = self.detector.predict(raw_log)
         if anomaly_score < 0.7:
             return {"level": "INFO", "message": "Normal activity"}
-
+        
         # Neural — extract entities
         entities = self.extract_entities(raw_log)  # LLM-based NER
-
+        
         # Symbolic — query knowledge graph
         context = self.kg.query(f"""
             MATCH (e:Event {{id: '{entities['event_id']}'}})
             MATCH (t:Tactic)-[:INCLUDES]->(e)
             RETURN e, t
         """)
-
+        
         # Symbolic — MITRE mapping via rule engine
         mitre_mapping = self.reasoner.match_mitre(
             technique=entities['technique'],
             context=context
         )
-
+        
         # Neurosymbolic fusion
         recommendation = self.fuse(
             confidence=anomaly_score,
             mitre=mitre_mapping,
             historical=context
         )
-
+        
         return recommendation
 ```
 
@@ -609,13 +607,13 @@ class NeurosymbolicSecurityAnalyst:
 def build_intel_kg(documents):
     # 1. Chunk
     chunks = chunk_documents(documents)
-
+    
     # 2. Neural — ekstrak entitas + relasi
     triples = []
     for chunk in chunks:
         ner_result = llm.extract_triples(chunk)
         triples.extend(ner_result.triples)
-
+    
     # 3. Symbolic — masukkan ke graph
     for (subj, pred, obj) in triples:
         graph.query("""
@@ -623,10 +621,10 @@ def build_intel_kg(documents):
             MERGE (o:Entity {name: $obj})
             MERGE (s)-[r:RELATION {type: $pred}]->(o)
         """, params={"subj": subj, "pred": pred, "obj": obj})
-
+    
     # 4. Validasi — cek inkonsistensi logis
     inconsistencies = validate_graph(graph)
-
+    
     return {"graph": graph, "inconsistencies": inconsistencies}
 ```
 
@@ -638,15 +636,15 @@ def discover_causal_structure(data, domain_knowledge):
     # 1. Domain knowledge sebagai prior (symbolic)
     prior_graph = nx.DiGraph()
     prior_graph.add_edges_from(domain_knowledge)  # [(x, y), ...]
-
+    
     # 2. Data-driven discovery (NOTEARS)
     estimated_graph = notears(data, lambda1=0.1)
-
+    
     # 3. Neural + Symbolic fusion
     # Weighted average: 0.6 data-driven + 0.4 domain
     # Atau: prior sebagai hard constraint
     fused_graph = fuse_graphs(estimated_graph, prior_graph, alpha=0.6)
-
+    
     return fused_graph
 ```
 
@@ -655,17 +653,17 @@ def discover_causal_structure(data, domain_knowledge):
 ```python
 def explain_prediction(model, instance, stakeholder="regulator"):
     """Generate explanation sesuai level stakeholder"""
-
+    
     if stakeholder == "regulator":
         # Counterfactual: perubahan minimal untuk hasil berbeda
         cf = generate_counterfactual(instance, model)
         return f"Prediksi akan berubah jika {cf.changed_features}"
-
+    
     elif stakeholder == "engineer":
         # SHAP detailed
         shap_values = shap.Explainer(model).shap_values(instance)
         return shap_plot(shap_values)
-
+    
     elif stakeholder == "end_user":
         # Natural language
         top_features = get_top_k_features(model, instance, k=3)
@@ -676,28 +674,28 @@ def explain_prediction(model, instance, stakeholder="regulator"):
 
 ## Tool & Framework Matrix
 
-| Framework                       | Pendekatan       | Neural   | Symbolic     | Kapan                       |
-| ------------------------------- | ---------------- | -------- | ------------ | --------------------------- |
-| **LangChain Graph**             | GraphRAG ⭐      | ✅ (LLM) | ✅ (Neo4j)   | Production-ready, flexible  |
-| **PyKEEN**                      | KG Embedding     | ✅       | ⚠️           | Link prediction, completion |
-| **DeepProbLog**                 | Neuro→Symbolic   | ✅       | ✅ (ProbLog) | Probabilistic reasoning     |
-| **LTN (Logic Tensor Networks)** | Unified          | ✅       | ✅           | Loss-based integration      |
-| **DoWhy**                       | Causal Inference | ❌       | ✅           | Causal analysis             |
-| **SHAP / LIME**                 | XAI              | ✅       | ❌           | Model explanation           |
-| **TCAV**                        | Concept XAI      | ✅       | ✅           | High-level concept testing  |
+| Framework | Pendekatan | Neural | Symbolic | Kapan |
+|-----------|-----------|--------|----------|-------|
+| **LangChain Graph** | GraphRAG ⭐ | ✅ (LLM) | ✅ (Neo4j) | Production-ready, flexible |
+| **PyKEEN** | KG Embedding | ✅ | ⚠️ | Link prediction, completion |
+| **DeepProbLog** | Neuro→Symbolic | ✅ | ✅ (ProbLog) | Probabilistic reasoning |
+| **LTN (Logic Tensor Networks)** | Unified | ✅ | ✅ | Loss-based integration |
+| **DoWhy** | Causal Inference | ❌ | ✅ | Causal analysis |
+| **SHAP / LIME** | XAI | ✅ | ❌ | Model explanation |
+| **TCAV** | Concept XAI | ✅ | ✅ | High-level concept testing |
 
 ---
 
 ## Open Problems
 
-| Problem                          | Deskripsi                                               | Progress                                       |
-| -------------------------------- | ------------------------------------------------------- | ---------------------------------------------- |
-| **Gradient through symbolic**    | Symbolic reasoning diskrit → tidak differentiable       | Relaxation, REINFORCE, Gumbel-softmax          |
-| **Knowledge graph completeness** | KG selalu incomplete — missing edges → wrong reasoning  | Open-world assumption, KG completion           |
-| **Scalability of reasoning**     | Symbolic reasoning polynomial/exponential di worst case | Approximation, bounded reasoning               |
-| **Causal discovery accuracy**    | PC/FCI masih salah di high-dim, low-sample              | NOTEARS, differentiable causal discovery       |
-| **XAI faithfulness**             | SHAP approximation — seberapa setia ke model asli?      | SHAP game-theoretic guarantees, LIME stability |
-| **Neurosymbolic training**       | End-to-end masih sulit                                  | Two-stage training, alternating optimization   |
+| Problem | Deskripsi | Progress |
+|---------|-----------|----------|
+| **Gradient through symbolic** | Symbolic reasoning diskrit → tidak differentiable | Relaxation, REINFORCE, Gumbel-softmax |
+| **Knowledge graph completeness** | KG selalu incomplete — missing edges → wrong reasoning | Open-world assumption, KG completion |
+| **Scalability of reasoning** | Symbolic reasoning polynomial/exponential di worst case | Approximation, bounded reasoning |
+| **Causal discovery accuracy** | PC/FCI masih salah di high-dim, low-sample | NOTEARS, differentiable causal discovery |
+| **XAI faithfulness** | SHAP approximation — seberapa setia ke model asli? | SHAP game-theoretic guarantees, LIME stability |
+| **Neurosymbolic training** | End-to-end masih sulit | Two-stage training, alternating optimization |
 
 ---
 
@@ -713,4 +711,4 @@ def explain_prediction(model, instance, stakeholder="regulator"):
 ---
 
 > [!tip] Prinsip Praktis
-> Neurosymbolic AI bukan tentang memilih satu pendekatan — tapi tentang **menggabungkan kekuatan** keduanya untuk masalah yang tepat. Aturan praktis: Neural untuk persepsi dan generalisasi (data mentah → pola), Symbolic untuk reasoning dan constraint (pola → keputusan yang bisa dipertanggungjawabkan). GraphRAG adalah pintu masuk paling praktis karena maturity toolsnya (LangChain + Neo4j sudah enterprise-grade). Causal AI adalah frontier berikutnya — ketika Anda tidak hanya ingin prediksi, tapi **pemahaman** tentang mengapa sesuatu terjadi dan apa yang akan terjadi jika Anda intervensi. XAI bukan opsional — di regulated industry, explainability adalah _syarat_.
+> Neurosymbolic AI bukan tentang memilih satu pendekatan — tapi tentang **menggabungkan kekuatan** keduanya untuk masalah yang tepat. Aturan praktis: Neural untuk persepsi dan generalisasi (data mentah → pola), Symbolic untuk reasoning dan constraint (pola → keputusan yang bisa dipertanggungjawabkan). GraphRAG adalah pintu masuk paling praktis karena maturity toolsnya (LangChain + Neo4j sudah enterprise-grade). Causal AI adalah frontier berikutnya — ketika Anda tidak hanya ingin prediksi, tapi **pemahaman** tentang mengapa sesuatu terjadi dan apa yang akan terjadi jika Anda intervensi. XAI bukan opsional — di regulated industry, explainability adalah *syarat*.

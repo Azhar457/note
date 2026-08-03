@@ -19,7 +19,6 @@ status: pending
 cssclasses:
   - wide-table
 ---
-
 # 🏭 EMBODIED AI & ROBOTICS — The Physics of Intelligence
 
 **Dari Simbol ke Gravitasi: Arsitektur Kognitif yang Menyentuh Dunia Nyata**
@@ -35,14 +34,14 @@ cssclasses:
 
 Kecerdasan biologis tidak berevolusi dalam ruang hampa. Ia berevolusi dalam **badan**. Untuk memahami mengapa robotik begitu sulit, kita harus memahami teorema paling fundamental dalam kognisi fisik: **Tidak ada representasi tanpa interaksi.**
 
-| Dunia Simbolik (LLM)                                | Dunia Fisik (Robot)                                                                                   |
-| :-------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
-| **Ruang Keadaan:** Diskrit (token)                  | **Ruang Keadaan:** Kontinu (posisi, kecepatan, gaya)                                                  |
-| **Dinamika:** Deterministik oleh model probabilitas | **Dinamika:** Diatur oleh persamaan diferensial parsial (Navier-Stokes, kontak, deformasi)            |
-| **Umpan Balik:** Teks (reward model)                | **Umpan Balik:** Gaya reaksi, torsi, slip, getaran, suhu                                              |
-| **Kegagalan:** Token yang salah                     | **Kegagalan:** Kerusakan fisik, cedera manusia                                                        |
-| **Kecepatan Komputasi:** ~10ms per token            | **Kecepatan Komputasi:** Harus real-time (<1ms) untuk kontrol stabil                                  |
-| **Representasi Objek:** "Cangkir"                   | **Representasi Objek:** Geometri 3D, pusat massa, koefisien gesekan, distribusi berat, deformabilitas |
+| Dunia Simbolik (LLM) | Dunia Fisik (Robot) |
+| :--- | :--- |
+| **Ruang Keadaan:** Diskrit (token) | **Ruang Keadaan:** Kontinu (posisi, kecepatan, gaya) |
+| **Dinamika:** Deterministik oleh model probabilitas | **Dinamika:** Diatur oleh persamaan diferensial parsial (Navier-Stokes, kontak, deformasi) |
+| **Umpan Balik:** Teks (reward model) | **Umpan Balik:** Gaya reaksi, torsi, slip, getaran, suhu |
+| **Kegagalan:** Token yang salah | **Kegagalan:** Kerusakan fisik, cedera manusia |
+| **Kecepatan Komputasi:** ~10ms per token | **Kecepatan Komputasi:** Harus real-time (<1ms) untuk kontrol stabil |
+| **Representasi Objek:** "Cangkir" | **Representasi Objek:** Geometri 3D, pusat massa, koefisien gesekan, distribusi berat, deformabilitas |
 
 Sebuah robot yang mencoba menuangkan air dari teko ke dalam cangkir harus memecahkan sistem persamaan diferensial stokastik secara real-time, sambil mengkompensasi slip, variasi berat air, dan pergerakan lengan manusia di dekatnya. Inilah **"grounding problem"** yang sejati—bukan hanya mengaitkan kata dengan gambar, tetapi mengaitkan **niat dengan torsi**.
 
@@ -146,7 +145,7 @@ Mengapa model yang dilatih pada data internet (teks dan gambar) bisa membantu ro
 - **Fisika Naif (Intuitive Physics):** LLM "tahu" bahwa cangkir yang jatuh dari meja akan pecah, bahwa air akan tumpah, dan bahwa benda berat lebih sulit diangkat. Ini bukanlah pengetahuan yang eksplisit, melainkan korelasi statistik yang kuat yang berfungsi sebagai **regularizer** yang luar biasa.
 - **Semantik Visual:** VLM "tahu" seperti apa cangkir, gagangnya, dan bagian atasnya yang terbuka. Ini memberikan **representasi fitur yang kaya** yang jika tidak, akan membutuhkan jutaan contoh robotik untuk dipelajari dari awal.
 
-**Co-Fine-Tuning** adalah kuncinya. Dengan melatih model secara bersamaan pada data web dan data robotik, kita mencegahnya dari _catastrophic forgetting_ akan pengetahuan umumnya, sambil secara bertahap mengikat konsep-konsep itu ke aksi fisik.
+**Co-Fine-Tuning** adalah kuncinya. Dengan melatih model secara bersamaan pada data web dan data robotik, kita mencegahnya dari *catastrophic forgetting* akan pengetahuan umumnya, sambil secara bertahap mengikat konsep-konsep itu ke aksi fisik.
 
 ### 3.2 Autoregressive Action sebagai Masalah Inferensi Temporal
 
@@ -154,7 +153,7 @@ VLA menghasilkan aksi secara autoregresif: memprediksi aksi pada waktu `t` berda
 
 `P(a_t | o_1, a_1, ..., o_{t-1}, a_{t-1})`
 
-Ini adalah generalisasi dari **Kalman Filter**. Model mempertahankan _belief state_ implisit tentang dunia (posisi objek, status gripper) dalam representasi internalnya, dan memperbaruinya dengan setiap observasi baru. Inilah mengapa **history sepanjang 6 timestep** dalam RT-2 sangat penting—memberikan model informasi tentang kecepatan dan arah gerakan.
+Ini adalah generalisasi dari **Kalman Filter**. Model mempertahankan *belief state* implisit tentang dunia (posisi objek, status gripper) dalam representasi internalnya, dan memperbaruinya dengan setiap observasi baru. Inilah mengapa **history sepanjang 6 timestep** dalam RT-2 sangat penting—memberikan model informasi tentang kecepatan dan arah gerakan.
 
 ### 3.3 Arsitektur Referensi: Membangun VLA Mini dengan Octo (UC Berkeley)
 
@@ -218,7 +217,6 @@ initial_guess = [1.0, 0.5, 0.1, 0.05] # Tebakan kasar
 result = least_squares(dynamics_residual, initial_guess, args=(Q, Qd, Qdd, Tau))
 estimated_params = result.x # Parameter fisik robot yang sebenarnya
 ```
-
 Setelah parameter teridentifikasi, kita dapat menyempurnakan simulator atau model kontrol internal robot.
 
 ---
@@ -253,15 +251,15 @@ Sensor torsi pada sendi robot memungkinkan **interaksi yang patuh**. Alih-alih k
 
 Embodied AI adalah titik kulminasi dari banyak jalur di vault Anda.
 
-| Domain Vault                                 | Manifestasi dalam Embodied AI                                                                                                                        |
-| :------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[[agentic-ai-mcp-architecture-deepdive]]** | Loop Sense-Plan-Act adalah inti dari robot. Tools adalah gripper, kamera, dan motor.                                                                 |
-| **[[cognitive-architecture-engineering]]**   | Hirarki kontrol (Strategis-Taktis-Reaktif) adalah arsitektur kognitif untuk fisik.                                                                   |
-| **[[test-time-compute-system2]]**            | Perencanaan gerak (Motion Planning) dan penalaran tugas adalah System 2 thinking yang membutuhkan compute besar.                                     |
-| **[[autonomous-system-design]]**             | Robot yang beroperasi 24/7 tanpa manusia adalah Sistem Otonom pamungkas.                                                                             |
-| **[[embedded-systems]]**                     | Mikrokontroler, sensor, dan aktuator adalah "tubuh" dari agen.                                                                                       |
-| **[[swarm-ai-imam-robandi]]**                | Swarm robotik menerapkan PSO dan stigmergy di dunia nyata.                                                                                           |
-| **[[15-types-of-thinking]]**                 | _Concrete Thinking_ (data sensor), _Analytical Thinking_ (kinematika), dan _Strategic Thinking_ (perencanaan tugas) semuanya hadir dalam satu robot. |
+| Domain Vault | Manifestasi dalam Embodied AI |
+| :--- | :--- |
+| **[[agentic-ai-mcp-architecture-deepdive]]** | Loop Sense-Plan-Act adalah inti dari robot. Tools adalah gripper, kamera, dan motor. |
+| **[[cognitive-architecture-engineering]]** | Hirarki kontrol (Strategis-Taktis-Reaktif) adalah arsitektur kognitif untuk fisik. |
+| **[[test-time-compute-system2]]** | Perencanaan gerak (Motion Planning) dan penalaran tugas adalah System 2 thinking yang membutuhkan compute besar. |
+| **[[autonomous-system-design]]** | Robot yang beroperasi 24/7 tanpa manusia adalah Sistem Otonom pamungkas. |
+| **[[embedded-systems]]** | Mikrokontroler, sensor, dan aktuator adalah "tubuh" dari agen. |
+| **[[swarm-ai-imam-robandi]]** | Swarm robotik menerapkan PSO dan stigmergy di dunia nyata. |
+| **[[15-types-of-thinking]]** | *Concrete Thinking* (data sensor), *Analytical Thinking* (kinematika), dan *Strategic Thinking* (perencanaan tugas) semuanya hadir dalam satu robot. |
 
 ---
 
@@ -299,8 +297,7 @@ class ContinualLearningRobot:
             reflection = self.analyze_failure(instruction, plan)
             # 4. Update Procedural Memory (Fine-tune VLA atau aturan)
             self.vla.fine_tune([ (instruction, corrected_plan) ])
-
+        
         return outcome
 ```
-
 Ini adalah perwujudan dari **Cognitive Architecture Engineering** yang paling murni: sebuah entitas yang hidup, belajar, dan beradaptasi di dunia nyata.

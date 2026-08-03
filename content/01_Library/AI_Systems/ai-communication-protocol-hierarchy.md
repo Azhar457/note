@@ -81,17 +81,17 @@ LEVEL 0 │ Direct State Transfer (theoretical)
 
 ## Tabel Lengkap — Per Level
 
-| Level | Nama               | Format                    | Kecepatan Transfer | Human Readable?  | AI Efficiency    | Status             |
-| ----- | ------------------ | ------------------------- | ------------------ | ---------------- | ---------------- | ------------------ |
-| **8** | Natural Language   | Text prose                | ~150 wpm           | ✅ Penuh         | 🔴 Boros token   | Production         |
-| **7** | Structured Prompt  | Templated text            | ~300 wpm           | ✅ Sebagian      | 🟡 Lebih hemat   | Production         |
-| **6** | JSON/XML/YAML      | Structured data           | ~1KB/s             | ✅ Dengan effort | 🟡 OK            | Production         |
-| **5** | API Protocol       | Level Rating / Kejarangan | HTTP+Schema        | ~10KB/s          | ⚠️ Tools needed  | ✅ Baik            | Production |
-| **4** | MCP / A2A          | JSON-RPC                  | ~100KB/s           | ⚠️ Inspectable   | ✅ Sangat baik   | Production (2024+) |
-| **3** | Token-compressed   | Custom binary-text        | ~500KB/s           | ❌ Butuh decoder | ✅✅ Sangat baik | Research           |
-| **2** | Audio FSK (GGWave) | Frequency modulation      | ~150 bytes/s       | ❌ Audio saja    | ✅ Cukup baik    | PoC (Gibberlink)   |
-| **1** | Binary packed      | Binary stream             | ~MB/s              | ❌ Machine only  | ✅✅✅ Excellent | Hypothetical       |
-| **0** | State transfer     | Embedding/tensor          | ~GB/s              | ❌ Impossible    | ✅✅✅✅ Perfect | Theoretical        |
+| Level | Nama | Format | Kecepatan Transfer | Human Readable? | AI Efficiency | Status |
+|---|---|---|---|---|---|---|
+| **8** | Natural Language | Text prose | ~150 wpm | ✅ Penuh | 🔴 Boros token | Production |
+| **7** | Structured Prompt | Templated text | ~300 wpm | ✅ Sebagian | 🟡 Lebih hemat | Production |
+| **6** | JSON/XML/YAML | Structured data | ~1KB/s | ✅ Dengan effort | 🟡 OK | Production |
+| **5** | API Protocol | Level Rating / Kejarangan | HTTP+Schema | ~10KB/s | ⚠️ Tools needed | ✅ Baik | Production |
+| **4** | MCP / A2A | JSON-RPC | ~100KB/s | ⚠️ Inspectable | ✅ Sangat baik | Production (2024+) |
+| **3** | Token-compressed | Custom binary-text | ~500KB/s | ❌ Butuh decoder | ✅✅ Sangat baik | Research |
+| **2** | Audio FSK (GGWave) | Frequency modulation | ~150 bytes/s | ❌ Audio saja | ✅ Cukup baik | PoC (Gibberlink) |
+| **1** | Binary packed | Binary stream | ~MB/s | ❌ Machine only | ✅✅✅ Excellent | Hypothetical |
+| **0** | State transfer | Embedding/tensor | ~GB/s | ❌ Impossible | ✅✅✅✅ Perfect | Theoretical |
 
 ---
 
@@ -249,4 +249,4 @@ TREND YANG JELAS:
 
 ---
 
-_AI Communication Protocol Hierarchy | Natural Language → JSON → API → MCP/A2A → GGWave/Gibberlink → Binary → State Transfer_
+*AI Communication Protocol Hierarchy | Natural Language → JSON → API → MCP/A2A → GGWave/Gibberlink → Binary → State Transfer*
