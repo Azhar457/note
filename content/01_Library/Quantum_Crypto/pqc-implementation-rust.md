@@ -152,4 +152,4 @@ Melakukan migrasi langsung ke PQC penuh (*pure PQC*) sangat berisiko karena algo
 |------|----------|
 | [[quantum-cryptography-deepdive]] | Teori dasar fisika kuantum, algoritma Shor, Grover, dan prinsip matematika kisi (*lattices*). |
 | [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF tempat negosiasi kunci hybrid TLS ini diintegrasikan pada tingkat HTTP handshake. |
-| [[jarswaf-plan]] | Roadmap implementasi jarsWAF sebagai prioritas pengembangan #3. |
+| WAF development plan (privat) | Roadmap implementasi jarsWAF sebagai prioritas pengembangan #3. |

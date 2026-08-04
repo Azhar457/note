@@ -127,7 +127,7 @@ PBS mendukung deduplikasi data tingkat lanjut (*dirty-bitmap backup*), membuat b
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- [[jarswaf-internal-architecture-deepdive]] — Konfigurasi Deploy JarsWAF LXC di VLAN DMZ
+- WAF architecture deepdive (privat) — Konfigurasi Deploy JarsWAF LXC di VLAN DMZ
 - [[linux-performance-debugging-toolkit]] — Pemantauan Beban CPU/RAM Hypervisor Host
 - [[obsidian-vault-scaling-playbook]] — Strategi Sinkronisasi File Vault ke Storage Homelab
 - [[ebpf-runtime-security-auditing]] — Monitoring Aktivitas Mencurigakan di Virtual Machine

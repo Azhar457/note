@@ -99,6 +99,6 @@ JarsWAF memanfaatkan kekuatan kedua framework tersebut secara bersamaan:
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- [[jarswaf-internal-architecture-deepdive]] — Detail Implementasi Trait Pingora di JarsWAF
+- WAF architecture deepdive (privat) — Detail Implementasi Trait Pingora di JarsWAF
 - [[linux-performance-debugging-toolkit]] — Pemantauan Latensi Handshake TCP/TLS
 - [[model-context-protocol-specification]] — Pengamanan API Endpoint Axum di JarsWAF

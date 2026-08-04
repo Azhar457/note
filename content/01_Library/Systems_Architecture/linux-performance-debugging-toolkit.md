@@ -140,7 +140,7 @@ tracepoint:syscalls:sys_exit_accept4 /@accept_time[tid]/ {
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- [[jarswaf-internal-architecture-deepdive]] — Menguji Performa Hot Path Proxy JarsWAF
+- WAF architecture deepdive (privat) — Menguji Performa Hot Path Proxy JarsWAF
 - [[ebpf-runtime-security-auditing]] — SOP Auditing System Calls dengan eBPF kprobe
 - [[vector-quantization-hnsw-tuning]] — Optimasi Memory RAM Database Vektor
 - [[homelab-proxmox-architecture]] — Monitoring Kinerja CPU Spikes di Proxmox Hypervisor

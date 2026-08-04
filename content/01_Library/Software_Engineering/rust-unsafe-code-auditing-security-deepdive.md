@@ -435,4 +435,4 @@ pub unsafe fn process(data: *const u8, len: u32) -> napi::Result<napi::JsBuffer>
 | [[software-supply-chain-security]] | Supply chain — cargo-audit bagian dari SCA ecosystem |
 | [[fuzzing-vulnerability-research]] | Fuzzing methodology — Rust-specific extension |
 | [[compiler-design-deepdive]] | Compiler theory — MIR/LLVM understanding untuk safety analysis |
-| [[jarswaf-internal-architecture-deepdive]] | WAF in Rust — production unsafe audit case study |
+| WAF architecture deepdive (privat) | WAF in Rust — production unsafe audit case study |

@@ -485,7 +485,7 @@ threat-hunting-methodology (Evaluate) → hunting playbook baru (Create)
 6. Baru lo bisa **Create** solusi baru
 
 **Koneksi Vault:**
-- Seluruh proyek Jarswaf ([[jarswaf-plan]] — roadmap & dokumentasi privat di proyek)
+- Seluruh proyek Jarswaf (WAF development plan (privat) — roadmap & dokumentasi privat di proyek)
 - [[architectural-flaw-detection]] — mendeteksi flaw untuk kemudian create fix
 - [[autonomous-system-design]] — merancang sistem otonom
 - [[multi-agent-orchestration-patterns]] — create orchestration patterns
@@ -561,7 +561,7 @@ objectives = [
 | **Apply** | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]], [[picoctf-section-4-python-automation]] |
 | **Analyze** | [[malware-analysis-reverse-engineering-playbook]], [[threat-hunting-methodology]], [[siem-security-data-lake-architecture]], [[blueteam-detection-matrix]] |
 | **Evaluate** | [[ai-evaluation-framework]], [[threat-modeling-deepdive]], [[software-quality-untung-yuhana]], [[pentest-simulation-report]] |
-| **Create** | Proyek Jarswaf ([[jarswaf-plan]] → docs privat), [[autonomous-system-design]], [[cognitive-architecture-engineering]] |
+| **Create** | Proyek Jarswaf (WAF development plan (privat) → docs privat), [[autonomous-system-design]], [[cognitive-architecture-engineering]] |
 
 ---
 
@@ -712,7 +712,7 @@ Beberapa kritikus berargumen bahwa Bloom sudah **outdated** di era AI dan inform
 | 🎯 **Apply** | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]] |
 | 🔬 **Analyze** | [[blueteam-detection-matrix]], [[malware-analysis-reverse-engineering-playbook]] |
 | 🏗️ **Evaluate** | [[ai-evaluation-framework]], [[architectural-flaw-detection]], [[pentest-simulation-report]] |
-| 🛠️ **Create** | [[jarswaf-plan]] → implementasi privat (proyek real), [[autonomous-system-design]] |
+| 🛠️ **Create** | WAF development plan (privat) → implementasi privat (proyek real), [[autonomous-system-design]] |
 
 ---
 

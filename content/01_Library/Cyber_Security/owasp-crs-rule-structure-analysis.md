@@ -20,7 +20,7 @@ cssclasses:
 > [!info] Ringkasan
 > OWASP Core Rule Set (CRS) adalah kumpulan aturan deteksi serangan untuk WAF yang menjadi standar industri. CRS v4 terdiri dari 50+ file rule yang diorganisir per phase (request/response), kategori serangan, dan paranoia level. Memahami struktur CRS penting untuk mengembangkan rule engine jarsWAF yang kompatibel dan efektif.
 
-**Cross-link:** [[waf-reverse-proxy-deepdive]] → [[jarswaf-internal-architecture-deepdive]] → [[waf-evasion-techniques-encyclopedia]] → [[hierarchy-waf-reverse-proxy]] → [[ctf-tool-arsenal-universal]]
+**Cross-link:** [[waf-reverse-proxy-deepdive]] → WAF architecture deepdive (privat) → [[waf-evasion-techniques-encyclopedia]] → [[hierarchy-waf-reverse-proxy]] → [[ctf-tool-arsenal-universal]]
 
 ---
 

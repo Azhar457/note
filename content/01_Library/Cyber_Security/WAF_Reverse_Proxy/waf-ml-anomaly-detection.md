@@ -152,7 +152,7 @@ Tiga pendekatan model unsupervised/semi-supervised utama yang dipertimbangkan un
 | **Autoencoder (Neural Network)**| Sedang (~1.5ms) | Ringan-Sedang (10-30MB) | Sangat baik mendeteksi korelasi non-linear antar header. | Membutuhkan threshold tuning yang ketat. |
 | **LSTM Autoencoder** | Tinggi (>5ms) | Berat (>100MB) | Hebat dalam mendeteksi anomali runtun waktu (time-series). | Latensi inferensi terlalu lambat untuk inline blocking. |
 
-**Rekomendasi untuk jarsWAF:** Gunakan **Isolation Forest** atau **Autoencoder** kuantisasi 8-bit (INT8) untuk menjaga performa inferensi tetap berada di bawah batasan <2ms.
+**Rekomendasi untuk WAF:** Gunakan **Isolation Forest** atau **Autoencoder** kuantisasi 8-bit (INT8) untuk menjaga performa inferensi tetap berada di bawah batasan <2ms.
 
 ---
 
@@ -161,7 +161,7 @@ Tiga pendekatan model unsupervised/semi-supervised utama yang dipertimbangkan un
 Deteksi anomali rentan terhadap masalah *false positive* akibat perubahan perilaku aplikasi (perubahan rilis software baru). Oleh karena itu, siklus pelatihan ulang model secara terus menerus (*retraining pipeline*) wajib diimplementasikan.
 
 ```
-                  jarsWAF Log Pipeline (Elastic/ClickHouse)
+                  WAF Log Pipeline (Elastic/ClickHouse)
                                     │
                                     ▼
                      ┌─────────────────────────────┐
@@ -190,14 +190,14 @@ Deteksi anomali rentan terhadap masalah *false positive* akibat perubahan perila
                                     │
                                     ▼
                      ┌─────────────────────────────┐
-                     │ Hot-reload model di jarsWAF │
+                     │ Hot-reload model di WAF │
                      │   tanpa downtime proxy      │
                      └─────────────────────────────┘
 ```
 
 ### 4.1 Mekanisme Hot-Reload Model
 
-Untuk memperbarui model tanpa merestart engine proxy proxy, jarsWAF menggunakan pointer atomik (`ArcSwap` di Rust) untuk melakukan hot-swap instance `Session` ONNX secara asinkron di memori:
+Untuk memperbarui model tanpa merestart engine proxy proxy, WAF menggunakan pointer atomik (`ArcSwap` di Rust) untuk melakukan hot-swap instance `Session` ONNX secara asinkron di memori:
 
 ```rust
 use arc_swap::ArcSwap;

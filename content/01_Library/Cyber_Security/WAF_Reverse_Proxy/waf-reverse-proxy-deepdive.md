@@ -15,7 +15,7 @@ cssclasses: ''
 > WAF dan Reverse Proxy adalah dua komponen yang **saling melengkapi** — Reverse Proxy mengatur lalu lintas di Layer 7 (routing, load balancing, TLS termination), sementara WAF menginspeksi dan memfilter konten berbahaya di dalam lalu lintas tersebut. Di era arsitektur mikroservis dan API-first, memahami keduanya secara bersamaan bukan lagi opsional — ini adalah **fondasi security infrastructure modern**. Dokumen ini membedah setiap aspek dari ModSecurity/CRS, Nginx/HAProxy/Envoy, Pingora, dan API Gateway, dari teori sampai implementasi.
 
 > [!info] Hubungan ke Vault
-> Ini adalah deep dive utama untuk WAF & Reverse Proxy ecosystem. Terkait erat dengan [[software-supply-chain-security-deepdive|Supply Chain Security]] (WAF rule lifecycle), [[web-hacking-exploitation|Web Hacking]] (attack vectors yang diblok WAF), [[cicd-shiftleft-shiftright|CI/CD Pipeline]] (WAF testing di pipeline), dan [[software-supply-chain-security-deepdive|SLSA framework]] (build provenance untuk WAF rules). Juga terhubung dengan custom WAF project (jarsWAF, dibangun dengan Pingora) yang dokumentasi pengujiannya disimpan privat di proyek.
+> Ini adalah deep dive utama untuk WAF & Reverse Proxy ecosystem. Terkait erat dengan [[software-supply-chain-security-deepdive|Supply Chain Security]] (WAF rule lifecycle), [[web-hacking-exploitation|Web Hacking]] (attack vectors yang diblok WAF), [[cicd-shiftleft-shiftright|CI/CD Pipeline]] (WAF testing di pipeline), dan [[software-supply-chain-security-deepdive|SLSA framework]] (build provenance untuk WAF rules). Juga terhubung dengan custom WAF project dengan Pingora yang referensi implementasi tersimpan privat di repo.
 
 ---
 
@@ -1072,8 +1072,8 @@ CILIUM MENGGUNAKAN eBPF → performa kernel-level:
   - mTLS via envoy (opsional, bisa pure eBPF)
   - WAF via Tetragon (eBPF-based security observability)
 
-KONEKSI KE JARSWAF:
-  jarsWAF punya eBPF XDP drop module (/jarswaf-ebpf)
+CATATAN IMPLEMENTASI:
+  implementasi punya eBPF XDP drop module (/jarswaf-ebpf)
   Ini mirror dari Cilium concept — DDoS mitigation di kernel
 ```
 
@@ -1203,7 +1203,7 @@ EOF
 ## Koneksi ke Project jarsWAF
 
 ```
-JARSWAF MENGGUNAKAN:
+IMPLEMENTASI MENGGUNAKAN:
   - Pingora sebagai reverse proxy framework (ProxyHttp trait)
   - Tokenizer AST untuk SQLi/XSS detection (advanced dari CRS regex)
   - eBPF XDP untuk DDoS mitigation di kernel
@@ -1211,14 +1211,14 @@ JARSWAF MENGGUNAKAN:
   - GeoIP blocking via MaxMind
   - CRS rules bisa diintegrasikan sebagai signature layer
 
-PERBEDAAN JARSWAF DARI WAF TRADISIONAL:
+PERBEDAAN DENGAN WAF TRADISIONAL:
   - Memory safe (Rust > C/CPP)
   - AST semantic parser > regex-only (false positive lebih rendah)
   - Connection reuse Pingora > 90% (lebih efisien dari Nginx)
   - eBPF XDP drop di kernel level
 ```
 
-### Integrasi CRS ke jarsWAF
+### Integrasi CRS ke WAF kustom
 
 ```
 CRS rules (ModSecurity SecRule format) bisa di-parse dan dikonversi

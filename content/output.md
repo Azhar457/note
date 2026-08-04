@@ -13,7 +13,6 @@ status: pending
 
 | Project | Status      | Tech           | Link                                |
 | ------- | ----------- | -------------- | ----------------------------------- |
-| Jarswaf | On Progress | RUST + Pingora | https://github.com/Azhar457/jarswaf |
 |         |             |                |                                     |
 
 ## Tools / Scripts

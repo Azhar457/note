@@ -151,4 +151,4 @@ Menggabungkan WAF di perimeter dan RASP di runtime menciptakan sistem pertahanan
 |------|----------|
 | [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF yang bekerja sama dengan RASP agent untuk memblokir IP penyerang. |
 | [[hardware-hacking-re]] | Teknik modifikasi runtime dan reverse engineering biner serupa. |
-| [[jarswaf-plan]] | Dokumen perencanaan utama jarsWAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |
+| WAF development plan (privat) | Dokumen perencanaan utama jarsWAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |

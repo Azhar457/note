@@ -266,7 +266,7 @@ Detect threat signature
 **Koneksi ke Vault:**
 - [[hierarchy-endpoint-security]]
 - [[waf-ml-anomaly-detection]]
-- [[jars-waf-deepdive]] (jika ada)
+- WAF deepdive (privat) (jika ada)
 
 ---
 

@@ -147,4 +147,4 @@ Verus adalah perkakas verifikasi formal untuk Rust yang memungkinkan penulisan *
 |------|----------|
 | [[software-quality-untung-yuhana]] | Konsep dasar SQAP dan metodologi jaminan kualitas perangkat lunak konvensional. |
 | [[threat-modeling-deepdive]] | Identifikasi model ancaman yang logikanya dibuktikan menggunakan spesifikasi formal. |
-| [[jarswaf-plan]] | Rencana penerapan verifikasi formal pada core engine jarsWAF sebagai prioritas #2. |
+| WAF development plan (privat) | Rencana penerapan verifikasi formal pada core engine jarsWAF sebagai prioritas #2. |
