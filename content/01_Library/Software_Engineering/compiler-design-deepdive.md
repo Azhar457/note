@@ -154,7 +154,7 @@ Rust membuang seluruh kebutuhan runtime GC dan manual `free()` dengan menerapkan
 
 ```rust
 fn main() {
-    let s1 = String::from("jarsWAF"); // s1 adalah pemilik memori heap
+    let s1 = String::from("hello"); // s1 adalah pemilik memori heap
     let s2 = s1; // Kepemilikan (ownership) berpindah ke s2
 
     // println!("{}", s1); 

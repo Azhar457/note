@@ -23,7 +23,7 @@ updated: 2026-07-21
 
 ## 1. Topologi Fisik & Logis Homelab
 
-Arsitektur homelab dirancang untuk memisahkan beban kerja publik (seperti reverse proxy JarsWAF) dari server internal sensitif (seperti database RAG & Obsidian Vault sync server).
+Arsitektur homelab dirancang untuk memisahkan beban kerja publik (seperti reverse proxy WAF) dari server internal sensitif (seperti database RAG & Obsidian Vault sync server).
 
 ```
                              [ Internet ]
@@ -33,7 +33,7 @@ Arsitektur homelab dirancang untuk memisahkan beban kerja publik (seperti revers
                                   │
          ┌────────────────────────┴────────────────────────┐
          ▼ (VLAN 10 - Public/DMZ)                          ▼ (VLAN 20 - Private/LAN)
-   [ JarsWAF Proxy ]                                 [ Proxmox VE Host ]
+   [ WAF Proxy ]                                 [ Proxmox VE Host ]
    (LXC / VM Container)                                    │
                                            ┌───────────────┴───────────────┐
                                            ▼ (LXC Container)               ▼ (LXC Container)
@@ -101,7 +101,7 @@ iface vmbr0 inet static
 ```
 
 Di dalam panel Proxmox GUI:
-*   Berikan **VLAN Tag: 10** pada antarmuka jaringan LXC JarsWAF.
+*   Berikan **VLAN Tag: 10** pada antarmuka jaringan LXC WAF.
 *   Berikan **VLAN Tag: 20** pada antarmuka jaringan LXC RAG Database.
 
 ---
@@ -127,7 +127,7 @@ PBS mendukung deduplikasi data tingkat lanjut (*dirty-bitmap backup*), membuat b
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- WAF architecture deepdive (privat) — Konfigurasi Deploy JarsWAF LXC di VLAN DMZ
+- WAF architecture deepdive (privat) — Konfigurasi Deploy WAF LXC di VLAN DMZ
 - [[linux-performance-debugging-toolkit]] — Pemantauan Beban CPU/RAM Hypervisor Host
 - [[obsidian-vault-scaling-playbook]] — Strategi Sinkronisasi File Vault ke Storage Homelab
 - [[ebpf-runtime-security-auditing]] — Monitoring Aktivitas Mencurigakan di Virtual Machine

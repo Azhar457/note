@@ -33,7 +33,7 @@ cssclasses:
 - [[#6. NoSQL Injection di Database Lain]]
 - [[#7. WAF Bypass Techniques]]
 - [[#8. Defense Strategy]]
-- [[#9. Detection Rules untuk jarsWAF]]
+- [[#9. Detection Rules untuk WAF]]
 - [[#10. Referensi & Payload Database]]
 
 ---
@@ -325,7 +325,7 @@ const UserSchema = new mongoose.Schema({
 
 ---
 
-## 9. Detection Rules untuk jarsWAF
+## 9. Detection Rules untuk WAF
 
 ```rust
 // Potensi implementasi di src/rules/nosql.rs

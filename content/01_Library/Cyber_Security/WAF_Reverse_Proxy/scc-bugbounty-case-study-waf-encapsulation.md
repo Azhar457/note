@@ -5,7 +5,7 @@ tags:
   - bug-bounty
   - waf
   - shodan
-  - jarswaf
+  - waf
   - recon
   - library
 aliases:

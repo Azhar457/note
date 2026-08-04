@@ -14,7 +14,7 @@ status: pending
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
-> Metode testing tradisional (unit, integration, fuzzing) hanya membuktikan adanya bug, bukan meniadakan bug. Untuk sistem kritis berskala *enterprise* seperti engine proxy jarsWAF, verifikasi formal (*formal verification*) membuktikan kebenaran spesifikasi dan kode secara matematis. Catatan ini melengkapi [[software-quality-untung-yuhana]] dengan aspek pembuktian program secara rigit.
+> Metode testing tradisional (unit, integration, fuzzing) hanya membuktikan adanya bug, bukan meniadakan bug. Untuk sistem kritis berskala *enterprise* seperti engine proxy WAF, verifikasi formal (*formal verification*) membuktikan kebenaran spesifikasi dan kode secara matematis. Catatan ini melengkapi [[software-quality-untung-yuhana]] dengan aspek pembuktian program secara rigit.
 
 ## Daftar Isi
 
@@ -147,4 +147,4 @@ Verus adalah perkakas verifikasi formal untuk Rust yang memungkinkan penulisan *
 |------|----------|
 | [[software-quality-untung-yuhana]] | Konsep dasar SQAP dan metodologi jaminan kualitas perangkat lunak konvensional. |
 | [[threat-modeling-deepdive]] | Identifikasi model ancaman yang logikanya dibuktikan menggunakan spesifikasi formal. |
-| WAF development plan (privat) | Rencana penerapan verifikasi formal pada core engine jarsWAF sebagai prioritas #2. |
+| WAF development plan (privat) | Rencana penerapan verifikasi formal pada core engine WAF sebagai prioritas #2. |

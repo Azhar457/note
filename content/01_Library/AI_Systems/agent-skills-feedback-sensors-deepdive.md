@@ -349,7 +349,7 @@ Skill bukan cuma untuk agent — bisa juga jadi single source of truth untuk onb
 22. Anthropic, "Claude Code Plugin Marketplace — Protocol". https://docs.anthropic.com/en/docs/claude-code/plugins
 23. OpenSpec Specification. https://github.com/openspec-dev/openspec
 24. GitHub Spec-Kit. https://github.com/github/spec-kit
-25. JarsWAF coding conventions (internal). [[rust-systems-programming-tooling-keamanan]]
+25. WAF coding conventions (internal). [[rust-systems-programming-tooling-keamanan]]
 
 ---
 

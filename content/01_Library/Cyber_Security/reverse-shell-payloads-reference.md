@@ -75,7 +75,7 @@ Repositori komprehensif (79.5K stars) berisi payload dan teknik bypass untuk pen
 
 ### Struktur Kategori
 
-| Kategori | Relevansi WAF | Implementasi di jarsWAF |
+| Kategori | Relevansi WAF | Implementasi di WAF |
 |---|---|---|
 | **SQL Injection** | Tinggi — berbagai teknik bypass filter | `src/rules/sql_injection.rs` |
 | **Command Injection** | Tinggi — OOB, blind, encoded | `src/rules/body.rs` (CMDI-001/002) |
@@ -92,7 +92,7 @@ Repositori komprehensif (79.5K stars) berisi payload dan teknik bypass untuk pen
 | **GraphQL Injection** | Sedang — introspection, batching | `src/rules/graphql.rs` |
 | **Web Cache Deception** | Rendah | Belum ada |
 
-### Implementasi di jarsWAF
+### Implementasi di WAF
 
 #### Reverse Shell Detection — Baru
 
@@ -116,7 +116,7 @@ static REVSHELL_POWERSHELL: Lazy<Regex> = Lazy::new(|| {
 });
 ```
 
-### Rule Plan untuk jarsWAF
+### Rule Plan untuk WAF
 
 ```yaml
 # plugins/revshell-rules.toml (custom rule format)
@@ -154,7 +154,7 @@ operator = "regex"
 condition_value = "(?i)(fsockopen\\s*\\(|shell_exec\\s*\\(.*(bash|sh))"
 ```
 
-### Checklist Integrasi jarsWAF
+### Checklist Integrasi WAF
 
 - [ ] Reverse shell patterns (bash, python, php, powershell, netcat)
 - [ ] Webshell detection
@@ -169,7 +169,7 @@ condition_value = "(?i)(fsockopen\\s*\\(|shell_exec\\s*\\(.*(bash|sh))"
 
 - RevShells.com: [https://www.revshells.com/](https://www.revshells.com/)
 - PayloadsAllTheThings: [https://github.com/swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
-- jarsWAF: `/mnt/data_d/Projects/jarswaf/`
+- WAF kustom: repo lokal privat
 
 **Cross-link vault:**
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF

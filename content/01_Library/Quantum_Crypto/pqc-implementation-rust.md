@@ -138,7 +138,7 @@ Melakukan migrasi langsung ke PQC penuh (*pure PQC*) sangat berisiko karena algo
 1. **Fase 1: Audit Inventori Kriptografi (Discovery)**
    Identifikasi semua modul perangkat lunak, API, database, dan koneksi TLS yang saat ini menggunakan RSA/ECC. Petakan sertifikat yang akan kedaluwarsa.
 2. **Fase 2: Implementasi Hybrid TLS (Transition)**
-   Konfigurasikan reverse proxy (seperti jarsWAF/Pingora) untuk mendukung negosiasi kunci hybrid (misalnya cipher group `X25519Kyber768Draft00`). Jika klien tidak mendukung Kyber, koneksi otomatis jatuh kembali (*fallback*) ke X25519 klasik.
+   Konfigurasikan reverse proxy (seperti WAF/Pingora) untuk mendukung negosiasi kunci hybrid (misalnya cipher group `X25519Kyber768Draft00`). Jika klien tidak mendukung Kyber, koneksi otomatis jatuh kembali (*fallback*) ke X25519 klasik.
 3. **Fase 3: Transisi Tanda Tangan Digital (Authentication)**
    Perbarui otoritas sertifikat (CA) internal untuk mulai menerbitkan sertifikat hybrid berbasis **ML-DSA (Dilithium)** untuk autentikasi server.
 4. **Fase 4: Post-Quantum Native (Final)**
@@ -151,5 +151,5 @@ Melakukan migrasi langsung ke PQC penuh (*pure PQC*) sangat berisiko karena algo
 | Catatan | Hubungan |
 |------|----------|
 | [[quantum-cryptography-deepdive]] | Teori dasar fisika kuantum, algoritma Shor, Grover, dan prinsip matematika kisi (*lattices*). |
-| [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF tempat negosiasi kunci hybrid TLS ini diintegrasikan pada tingkat HTTP handshake. |
-| WAF development plan (privat) | Roadmap implementasi jarsWAF sebagai prioritas pengembangan #3. |
+| [[waf-reverse-proxy-deepdive]] | Data plane WAF tempat negosiasi kunci hybrid TLS ini diintegrasikan pada tingkat HTTP handshake. |
+| WAF development plan (privat) | Roadmap implementasi WAF sebagai prioritas pengembangan #3. |

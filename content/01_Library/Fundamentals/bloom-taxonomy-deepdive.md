@@ -470,7 +470,7 @@ Dari catatan-catatan di vault, level Create adalah tempat lo beroperasi ketika:
 ```
 Catatan di vault level Remember → Proyek/Riset level Create
 ────────────────────────────────────────────────────────
-waf-reverse-proxy-deepdive (Understand) → jarswaf (Create — bangun WAF sendiri)
+waf-reverse-proxy-deepdive (Understand) → waf (Create — bangun WAF sendiri)
 malware-analysis-playbook (Analyze) → detection rules baru (Create)
 postgresql-admin-backup (Apply) → backup automation script (Create)
 threat-hunting-methodology (Evaluate) → hunting playbook baru (Create)
@@ -485,7 +485,7 @@ threat-hunting-methodology (Evaluate) → hunting playbook baru (Create)
 6. Baru lo bisa **Create** solusi baru
 
 **Koneksi Vault:**
-- Seluruh proyek Jarswaf (WAF development plan (privat) — roadmap & dokumentasi privat di proyek)
+- Seluruh proyek WAF (WAF development plan (privat) — roadmap & dokumentasi privat di proyek)
 - [[architectural-flaw-detection]] — mendeteksi flaw untuk kemudian create fix
 - [[autonomous-system-design]] — merancang sistem otonom
 - [[multi-agent-orchestration-patterns]] — create orchestration patterns
@@ -561,7 +561,7 @@ objectives = [
 | **Apply** | [[postgresql-admin-backup]], [[podman-networking-ufw]], [[cicd-guide]], [[picoctf-section-4-python-automation]] |
 | **Analyze** | [[malware-analysis-reverse-engineering-playbook]], [[threat-hunting-methodology]], [[siem-security-data-lake-architecture]], [[blueteam-detection-matrix]] |
 | **Evaluate** | [[ai-evaluation-framework]], [[threat-modeling-deepdive]], [[software-quality-untung-yuhana]], [[pentest-simulation-report]] |
-| **Create** | Proyek Jarswaf (WAF development plan (privat) → docs privat), [[autonomous-system-design]], [[cognitive-architecture-engineering]] |
+| **Create** | Proyek WAF (WAF development plan (privat) → docs privat), [[autonomous-system-design]], [[cognitive-architecture-engineering]] |
 
 ---
 

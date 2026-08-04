@@ -32,7 +32,7 @@ cssclasses:
 - [[#6. URL Parsing Bypass Techniques]]
 - [[#7. Bypass WAF & Filter]]
 - [[#8. Defense Strategy]]
-- [[#9. Detection Rules untuk jarsWAF]]
+- [[#9. Detection Rules untuk WAF]]
 - [[#10. Referensi & Tools]]
 
 ---
@@ -356,7 +356,7 @@ function isPrivateIP(ip) {
 
 ---
 
-## 9. Detection Rules untuk jarsWAF
+## 9. Detection Rules untuk WAF
 
 ```rust
 // Rule untuk deteksi SSRF di query/body

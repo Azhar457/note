@@ -18,9 +18,9 @@ cssclasses:
 ---
 
 > [!info] Ringkasan
-> Paranoia Level (PL) adalah mekanisme CRS untuk mengatur ketelitian deteksi. PL1 (default) mendeteksi serangan umum dengan false positive rendah. PL4 mendeteksi hampir semua varian serangan dengan risiko false positive tinggi. Anomaly scoring mengakumulasi skor dari setiap rule match dan memblokir ketika threshold terlampaui. Sistem ini penting untuk dipahami karena jarsWAF sudah memiliki mekanisme anomaly scoring di `anomaly.rs`.
+> Paranoia Level (PL) adalah mekanisme CRS untuk mengatur ketelitian deteksi. PL1 (default) mendeteksi serangan umum dengan false positive rendah. PL4 mendeteksi hampir semua varian serangan dengan risiko false positive tinggi. Anomaly scoring mengakumulasi skor dari setiap rule match dan memblokir ketika threshold terlampaui. Sistem ini penting untuk dipahami karena WAF sudah memiliki mekanisme anomaly scoring di `anomaly.rs`.
 
-**Cross-link:** [[owasp-crs-rule-structure-analysis]] → [[waf-reverse-proxy-deepdive]] → [[jarswaf-internal-architecture-deepdive]] → [[hierarchy-waf-reverse-proxy]]
+**Cross-link:** [[owasp-crs-rule-structure-analysis]] → [[waf-reverse-proxy-deepdive]] → [[waf-internal-architecture-deepdive]] → [[hierarchy-waf-reverse-proxy]]
 
 ---
 
@@ -32,7 +32,7 @@ cssclasses:
 - [[#5. PL4 — Paranoid Mode]]
 - [[#6. Anomaly Scoring Mechanism]]
 - [[#7. Scoring Modes]]
-- [[#8. Implikasi ke jarsWAF]]
+- [[#8. Implikasi ke WAF]]
 
 ---
 
@@ -215,9 +215,9 @@ Request: 3 rule matches
 
 ---
 
-## 8. Implikasi ke jarsWAF
+## 8. Implikasi ke WAF
 
-### jarsWAF current state (`anomaly.rs`)
+### WAF current state (`anomaly.rs`)
 
 ```rust
 // Scoring mode: "accumulate" atau "threshold"
@@ -237,7 +237,7 @@ pub fn score(&self) -> u32 {
 
 ### Perbandingan
 
-| Aspek | CRS v4 | jarsWAF |
+| Aspek | CRS v4 | WAF |
 |---|---|---|
 | Paranoia levels | PL1-PL4 | Belum ada 🎯 |
 | Per-PL scoring | `anomaly_score_pl[1-4]` | Single score |

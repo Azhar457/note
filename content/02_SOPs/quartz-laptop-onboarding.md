@@ -112,7 +112,7 @@ cd ~/Work/note
 npm install
 ```
 
-**Penjelasan kenapa node v22 (bawaan Hermes) tidak boleh:** Build Quartz gagal dengan error `EBADENGINE` atau packet signature mismatch. Lihat [[02_SOPs/jarswaf-build-common-errors]] (planned) jika muncul error spesifik.
+**Penjelasan kenapa node v22 (bawaan Hermes) tidak boleh:** Build Quartz gagal dengan error `EBADENGINE` atau packet signature mismatch. Lihat [[02_SOPs/waf-build-common-errors]] (planned) jika muncul error spesifik.
 
 ### Step 3 — Mount/Pull Vault Primer
 

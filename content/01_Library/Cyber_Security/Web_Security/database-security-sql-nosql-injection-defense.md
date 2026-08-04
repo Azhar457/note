@@ -555,10 +555,10 @@ auditLog:
 | **942370** | 2 | SQLi — classic `' OR '1'='1` |
 | **942430** | 2 | SQLi — restricted characters |
 
-### 9.2 Rust-based WAF: libinjection in jarsWAF
+### 9.2 Rust-based WAF: libinjection in WAF
 
 ```rust
-// jarsWAF SQLi detection via libinjection crate
+// WAF SQLi detection via libinjection crate
 use libinjection::{sqli, Libinjection};
 
 fn detect_sqli(input: &str) -> bool {

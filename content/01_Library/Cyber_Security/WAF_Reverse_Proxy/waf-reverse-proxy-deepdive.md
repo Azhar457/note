@@ -43,7 +43,7 @@ cssclasses: ''
 - [[#Deploy Pattern — Inline, Out-of-Band, Tap]]
 - [[#Homelab Build: Nginx + ModSecurity + CRS]]
 - [[#Perbandingan Tooling]]
-- [[#Koneksi ke Project jarsWAF]]
+- [[#Catatan Implementasi]]
 - [[#Roadmap Belajar]]
 
 ---
@@ -829,8 +829,8 @@ CONTOH (libinjection approach):
   Tree:   Comparison(1, OR, Comparison('1', =, '1'))
   Verdict: SQLi (score: 0.98)
 
-IMPLEMENTASI DI JARSWAF:
-  jarsWAF punya AST semantic tokenizer di rule engine.
+IMPLEMENTASI DI WAF:
+  WAF punya AST semantic tokenizer di rule engine.
   Ini lebih advanced dari CRS regex-only.
 ```
 
@@ -878,7 +878,7 @@ TEKNIK:
   - HTML entity: &lt;script&gt;
 
 MITIGASI:
-  - Recursive URL decode (jarsWAF: malicious input normalisation)
+  - Recursive URL decode (WAF: malicious input normalisation)
   - Unicode normalization (NFKC)
   - Case normalization
 ```
@@ -958,7 +958,7 @@ COCOK UNTUK:
   - Burst traffic (bucket absorbs burst)
   - Rata-rata stabil
 
-IMPLEMENTASI JARSWAF:
+IMPLEMENTASI WAF:
   // rules.rs: TokenBucket
   fn check_rate_limit_token(ip: &str, rate: u64, burst: u64) -> bool {
       // waktu sekarang → hitung token yang direfill
@@ -1073,7 +1073,7 @@ CILIUM MENGGUNAKAN eBPF → performa kernel-level:
   - WAF via Tetragon (eBPF-based security observability)
 
 CATATAN IMPLEMENTASI:
-  implementasi punya eBPF XDP drop module (/jarswaf-ebpf)
+  implementasi punya eBPF XDP drop module (/waf-ebpf)
   Ini mirror dari Cilium concept — DDoS mitigation di kernel
 ```
 
@@ -1184,7 +1184,7 @@ EOF
 | ModSecurity 2.x | C | 🟡 | CRS terbesar | 🟡 Legacy |
 | ModSecurity 3 | C++ | 🟢 | CRS | 🟢 |
 | **Coraza** | **Go** | 🟢 | **CRS compatible** | **🟢🟢** |
-| **jarsWAF** | **Rust** | **🟢🟢** | **Custom rules** | **🟢** |
+| **WAF** | **Rust** | **🟢🟢** | **Custom rules** | **🟢** |
 | lua-resty-waf | Lua | 🟢 | Limited | 🟡 |
 | Naxsi | C | 🟢 | Own rule format | 🟡 |
 
@@ -1200,7 +1200,7 @@ EOF
 
 ---
 
-## Koneksi ke Project jarsWAF
+## Catatan Implementasi
 
 ```
 IMPLEMENTASI MENGGUNAKAN:
@@ -1222,14 +1222,14 @@ PERBEDAAN DENGAN WAF TRADISIONAL:
 
 ```
 CRS rules (ModSecurity SecRule format) bisa di-parse dan dikonversi
-ke format jarsWAF. Strategi:
+ke format WAF. Strategi:
   1. Parse .conf → extract id, msg, pattern, phase, paranoia
   2. Simpan di HashMap<RuleId, RuleConfig>
   3. Load saat runtime dengan ArcSwap (lock-free update)
   4. Match menggunakan regex engine Rust (regex crate) + custom AST untuk kompleks
 
 waf-knowledge MCP server sudah mengindex 382 CRS rules untuk
-referensi cepat saat develop jarsWAF.
+referensi cepat saat develop WAF.
 ```
 
 ---
@@ -1258,17 +1258,17 @@ HARI 4: API Gateway & Service Mesh
   - Baca Istio AuthorizationPolicy
 
 HARI 5: Build & Operasi
-  - Implementasi custom WAF rule (dari atau untuk jarsWAF)
+  - Implementasi custom WAF rule (dari atau untuk WAF)
   - Metrics + monitoring (Prometheus)
   - Tuning CRS: exclusion rules, false positive handling
 ```
 
 > [!warning] Bottom Line
-> WAF tanpa tuning adalah **noise generator**. CRS PL1 adalah starting point yang baik, tapi butuh 2-4 minggu monitoring untuk mencapai false positive rate < 0.1%. Reverse proxy bukan sekadar "forwarder" — ia adalah titik kontrol strategis untuk security, observability, dan reliability. Kombinasi **Pingora (kecepatan) + jarsWAF (AST detection) + CRS (signature) + eBPF (kernel-level)** adalah stack modern yang memanfaatkan kelebihan tiap pendekatan.
+> WAF tanpa tuning adalah **noise generator**. CRS PL1 adalah starting point yang baik, tapi butuh 2-4 minggu monitoring untuk mencapai false positive rate < 0.1%. Reverse proxy bukan sekadar "forwarder" — ia adalah titik kontrol strategis untuk security, observability, dan reliability. Kombinasi **Pingora (kecepatan) + WAF (AST detection) + CRS (signature) + eBPF (kernel-level)** adalah stack modern yang memanfaatkan kelebihan tiap pendekatan.
 
 > [!tip] Lanjutan
 > Dokumen ini terkait dengan:
 > - [[software-supply-chain-security-deepdive]] — SBOM & SLSA untuk WAF rules
 > - [[web-hacking-exploitation]] — attack vectors yang dicegat WAF
 > - [[cicd-shiftleft-shiftright]] — CI/CD testing WAF rules
-> - [[ebpf-kernel-security]] — eBPF connection dengan XDP/jarsWAF
+> - [[ebpf-kernel-security]] — eBPF connection dengan XDP/WAF

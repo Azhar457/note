@@ -1,7 +1,7 @@
 ---
 title: AI/ML Anomaly Detection for WAF — ONNX & Feature Engineering
 tags:
-- jarswaf
+- waf
 - machine-learning
 - onnx
 - anomaly-detection
@@ -34,7 +34,7 @@ Client Request
       │
       ▼
 ┌──────────────┐      ┌────────────────────────┐
-│  jarsWAF     │ ───> │ Extract HTTP Features  │
+│  WAF     │ ───> │ Extract HTTP Features  │
 │  Data Plane  │      └────────────────────────┘
 └──────┬───────┘                   │
        │                           ▼
@@ -70,7 +70,7 @@ pub struct WafMlEngine {
 impl WafMlEngine {
     pub fn new(model_path: &str) -> Result<Self, ort::Error> {
         let env = Arc::new(Environment::builder()
-            .with_name("jarswaf-ml")
+            .with_name("waf-ml")
             .with_log_level(LoggingLevel::Warning)
             .build()?);
         
@@ -225,4 +225,4 @@ impl WafState {
 | [[waf-reverse-proxy-deepdive]] | Dasar data plane reverse proxy tempat ONNX engine ini berjalan. |
 | [[hierarchy-classical-ml-algorithms]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest. |
 | [[adversarial-machine-learning]] | Teknik penyerang untuk meracuni model anomali WAF (*model poisoning* / *evasion attack*). |
-| [[jarswaf-plan]] | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1. |
+| [[waf-plan]] | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1. |

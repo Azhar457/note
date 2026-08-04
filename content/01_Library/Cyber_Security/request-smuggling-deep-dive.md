@@ -33,7 +33,7 @@ cssclasses:
 - [[#6. Impact & Exploitation]]
 - [[#7. Detection Techniques]]
 - [[#8. Defense Strategy]]
-- [[#9. jarsWAF Detection Rules]]
+- [[#9. WAF Detection Rules]]
 - [[#10. Referensi]]
 
 ---
@@ -314,7 +314,7 @@ function validateTE(te) {
 
 ---
 
-## 9. jarsWAF Detection Rules
+## 9. WAF Detection Rules
 
 Sudah ada at SMUGGLE-001 dan SMUGGLE-002 di `body.rs`.
 

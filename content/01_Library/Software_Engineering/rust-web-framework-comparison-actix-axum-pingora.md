@@ -42,12 +42,12 @@ updated: 2026-07-21
 ### B. Axum (The Modern Tokio Ergonomic)
 *   **Arsitektur**: Dibangun oleh tim pengembang **Tokio** (runtime asinkron standar Rust). Mengintegrasikan ekosistem **Tower** (middleware) dan **Hyper** (parser HTTP).
 *   **Filosofi**: Sangat modular (*unopinionated*). Routing didasarkan pada makro extractor yang type-safe. Anda bebas memasangkan middleware apa pun dari ekosistem Tower.
-*   **Penggunaan Ideal**: API Gateway, backend asinkron modern, dashboard real-time dengan WebSocket (seperti kontrol panel JarsWAF).
+*   **Penggunaan Ideal**: API Gateway, backend asinkron modern, dashboard real-time dengan WebSocket (seperti kontrol panel WAF).
 
 ### C. Pingora (The Production Proxy Engine)
 *   **Arsitektur**: Dikembangkan oleh Cloudflare untuk menggantikan Nginx dalam melayani traffic global. Didesain khusus untuk bertindak sebagai proxy dan load balancer.
 *   **Filosofi**: Bukan framework web umum. Fokus pada manipulasi header HTTP tingkat rendah, manajemen pooling koneksi TCP upstream, integrasi TLS/OpenSSL, dan zero-copy packet forwarding.
-*   **Penggunaan Ideal**: Reverse proxy, WAF (seperti JarsWAF), API load balancer, CDN edge nodes.
+*   **Penggunaan Ideal**: Reverse proxy, WAF (seperti WAF), API load balancer, CDN edge nodes.
 
 ---
 
@@ -64,9 +64,9 @@ updated: 2026-07-21
 
 ---
 
-## 3. Analisis Kualitatif: Mengapa JarsWAF Memakai Pingora untuk L7 Proxy?
+## 3. Analisis Kualitatif: Mengapa WAF Memakai Pingora untuk L7 Proxy?
 
-Meskipun Axum sangat mudah digunakan untuk membuat API Dashboard JarsWAF, engine proxy utama (`proxy_engine.rs`) harus ditulis menggunakan **Pingora**. Berikut justifikasi teknisnya:
+Meskipun Axum sangat mudah digunakan untuk membuat API Dashboard WAF, engine proxy utama (`proxy_engine.rs`) harus ditulis menggunakan **Pingora**. Berikut justifikasi teknisnya:
 
 ### A. Upstream Connection Pooling (Penting untuk Latensi)
 Saat reverse proxy menerima request, ia harus membuka koneksi ke backend (misal: Node.js/Laravel).
@@ -81,9 +81,9 @@ Pingora menyediakan struktur `Server` yang mendukung penggantian biner secara di
 
 ---
 
-## 4. Contoh Integrasi Hibrida: Axum + Pingora di JarsWAF
+## 4. Contoh Integrasi Hibrida: Axum + Pingora di WAF
 
-JarsWAF memanfaatkan kekuatan kedua framework tersebut secara bersamaan:
+WAF memanfaatkan kekuatan kedua framework tersebut secara bersamaan:
 
 ```
 [ Incoming Traffic (Port 80/443) ] ──> [ Pingora Proxy Engine ] (Filtering & Routing)
@@ -99,6 +99,6 @@ JarsWAF memanfaatkan kekuatan kedua framework tersebut secara bersamaan:
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- WAF architecture deepdive (privat) — Detail Implementasi Trait Pingora di JarsWAF
+- WAF architecture deepdive (privat) — Detail Implementasi Trait Pingora di WAF
 - [[linux-performance-debugging-toolkit]] — Pemantauan Latensi Handshake TCP/TLS
-- [[model-context-protocol-specification]] — Pengamanan API Endpoint Axum di JarsWAF
+- [[model-context-protocol-specification]] — Pengamanan API Endpoint Axum di WAF

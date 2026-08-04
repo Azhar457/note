@@ -20,7 +20,7 @@ status: pending
 
 1. [Taksonomi Ancaman Lintas Layer (Layer 1 s.d Layer 8)](#1-taksonomi-ancaman-lintas-layer-layer-1-sd-layer-8)
 2. [Pemetaan Rantai Serangan Terpadu (Unified Killchain)](#2-pemetaan-rantai-serangan-terpadu-unified-killchain)
-3. [Sub-Sistem Pertahanan jarsWAF di Dalam Ontologi](#3-sub-sistem-pertahanan-jarswaf-di-dalam-ontologi)
+3. [Sub-Sistem Pertahanan WAF di Dalam Ontologi](#3-sub-sistem-pertahanan-waf-di-dalam-ontologi)
 4. [Koneksi ke Vault](#4-koneksi-ke-vault)
 
 ---
@@ -32,7 +32,7 @@ Model ancaman terintegrasi memetakan seluruh attack surface ke dalam 8 layer kom
 | Layer | Domain Keamanan | Target Utama | Contoh Vektor Serangan | Countermeasures / Pertahanan |
 |-------|-----------------|--------------|------------------------|------------------------------|
 | **L8: Human** | Psikologi & Kognitif | Pikiran Operator/Publik | Cognitive Warfare, Social Engineering, Phishing | MFA, Security Awareness, Zero Trust |
-| **L7: Application**| Web / API Security | Aplikasi, jarsWAF, RASP | SQLi, XSS, GraphQL nested query, RCE | input validation, RASP, WAF, schema validation |
+| **L7: Application**| Web / API Security | Aplikasi, WAF, RASP | SQLi, XSS, GraphQL nested query, RCE | input validation, RASP, WAF, schema validation |
 | **L6: Presentation**| Enkripsi / TLS | Protokol Handshake | Quantum-cryptography bypass, TLS downgrades | Post-quantum cryptography, mTLS, TLS 1.3 |
 | **L5: Session** | Autentikasi / Sesi | Session Token, JWT | JWT key confusion, Session Hijacking | `httpOnly` cookies, Token validation (RS256) |
 | **L4: Transport** | Port & Koneksi | TCP/UDP sockets | TCP SYN Flood, Port scanning | SYN cookies, firewalls, rate limiting |
@@ -71,11 +71,11 @@ Berikut adalah contoh visualisasi bagaimana penyerang mengombinasikan kerentanan
 
 ---
 
-## 3. Sub-Sistem Pertahanan jarsWAF di Dalam Ontologi
+## 3. Sub-Sistem Pertahanan WAF di Dalam Ontologi
 
-Untuk menangkal serangan berantai yang memanfaatkan berbagai layer, jarsWAF membagi sub-sistem pertahanannya secara granular sesuai dengan ontologi ancaman ini:
+Untuk menangkal serangan berantai yang memanfaatkan berbagai layer, WAF membagi sub-sistem pertahanannya secara granular sesuai dengan ontologi ancaman ini:
 
-1. **Layer 7 (Application)**: Dilindungi oleh rule-signature engine jarsWAF, OpenAPI schema validator, serta parser query GraphQL.
+1. **Layer 7 (Application)**: Dilindungi oleh rule-signature engine WAF, OpenAPI schema validator, serta parser query GraphQL.
 2. **Layer 6 (Presentation)**: Menggunakan negosiasi kunci hybrid pasca-kuantum (PQC Kyber/Dilithium) untuk mengamankan komunikasi data dari intaian di masa depan.
 3. **Layer 5 (Session)**: Melakukan validasi klaim token JWT secara asimetris menggunakan algoritma RS256 secara tersentralisasi.
 4. **Layer 3 & 4 (Network/Transport)**: Gossip protocol digunakan untuk mendistribusikan IP blocklist secara cepat ke seluruh node secara kolaboratif guna meredam serangan DDoS (L4) dan pemindaian IP masif (L3).
@@ -89,5 +89,5 @@ Untuk menangkal serangan berantai yang memanfaatkan berbagai layer, jarsWAF memb
 |------|----------|
 | [[network-security]] | Dasar penjelas fungsi Layer 1 s.d Layer 7 dalam tumpukan jaringan standar. |
 | [[cognitive-security-information-operations]] | Penjelas teori perang kognitif dan disinformasi di tingkat Layer 8 (Manusia). |
-| [[waf-reverse-proxy-deepdive]] | Dokumentasi sub-sistem jarsWAF yang mengamankan Layer 5 s.d Layer 7 secara terpusat. |
+| [[waf-reverse-proxy-deepdive]] | Dokumentasi sub-sistem WAF yang mengamankan Layer 5 s.d Layer 7 secara terpusat. |
 | [[ics-scada-security]] | Penerapan taksonomi serangan pada infrastruktur gardu listrik fisik (Layer 2 & Layer 1). |

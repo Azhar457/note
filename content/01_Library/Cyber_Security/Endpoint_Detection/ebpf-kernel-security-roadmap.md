@@ -54,7 +54,7 @@ Berikut adalah kode program kernel sederhana untuk memantau pemanggilan fungsi s
 // Definisikan hook pada kprobe sys_clone
 SEC("kprobe/sys_clone")
 int hello_clone(void *ctx) {
-    char msg[] = "jarsWAF Alert: sys_clone dipanggil!";
+    char msg[] = "Security Alert: sys_clone dipanggil!";
     
     // Tulis pesan ke trace buffer kernel (/sys/kernel/debug/tracing/trace_pipe)
     bpf_trace_printk(msg, sizeof(msg));

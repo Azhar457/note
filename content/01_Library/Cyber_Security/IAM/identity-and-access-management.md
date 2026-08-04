@@ -788,7 +788,7 @@ User → [PEP] → PDP (OPA/Cedar/AWS) → [PEP] → Resource
 > 4. **Audit trail** — every auth attempt logged, SIEM-integrated
 > 5. **Lifecycle automation** — provisioning → review → deprovision, zero standing privileges
 >
-> Untuk jarsWAF: IAM relevant pas implementasi **admin dashboard**, **API authentication**, dan **multi-tenant isolation**. PAM techniques (JIT credential, short-lived keys) jadi inspirasi buat API token management di WAF control plane.
+> Untuk WAF: IAM relevant pas implementasi **admin dashboard**, **API authentication**, dan **multi-tenant isolation**. PAM techniques (JIT credential, short-lived keys) jadi inspirasi buat API token management di WAF control plane.
 
 ---
 

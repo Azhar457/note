@@ -100,7 +100,7 @@ Setiap level memiliki kelemahan unik yang harus dimitigasi di level arsitektur:
 | **L7/L6** | Data Lake Exfiltration / Poisoning | Akses tidak sah ke S3 bucket, manipulasi data Parquet analitis | IAM policies yang ketat, enkripsi sisi server (SSE-KMS), WAF API boundary |
 | **L5** | NoSQL Injection | Injeksi operator query (misal: payload `$gt` MongoDB) | Skema validasi tipe data (Zod/JSON Schema), sanitasi input |
 | **L4** | Cache Poisoning / Memory Leak | Eksekusi perintah `FLUSHALL` via port terekspos, kehabisan RAM | Autentikasi Redis ACL, matikan perintah berbahaya via config, batasan `maxmemory-policy` |
-| **L3** | SQL Injection (SQLi) | Manipulasi string query SQL mentah via input form | Parameterized queries, ORM, WAF deep inspection (ModSecurity/jarsWAF) |
+| **L3** | SQL Injection (SQLi) | Manipulasi string query SQL mentah via input form | Parameterized queries, ORM, WAF deep inspection (ModSecurity/WAF kustom) |
 | **L2/L1** | Local File Inclusion (LFI) / Write-over | Penyerang menimpa file SQLite lokal atau file konfigurasi JSON | Isolasi hak akses proses OS (Sandbox/Docker), input path sanitization |
 | **L0** | Path Traversal / Arbitrary Write | Penyerang memanipulasi parameter file path (`../../etc/passwd`) | Path normalization, chroot jail, AppArmor/SELinux profiles |
 

@@ -47,19 +47,19 @@ Untuk mendiagnosis sistem secara efisien, kita harus menggunakan alat yang tepat
 
 `strace` digunakan untuk merekam interaksi antara proses userspace dan kernel Linux dengan menampilkan semua system calls yang dipanggil dan sinyal yang diterima.
 
-### Kasus Penggunaan: Mengapa Reverse Proxy JarsWAF Lambat Melayani Request?
-Jalankan `strace` pada PID proses JarsWAF / Pingora, batasi pelacakan hanya untuk I/O dan syscall jaringan, serta catat latensi setiap syscall (`-T`):
+### Kasus Penggunaan: Mengapa Reverse Proxy WAF Lambat Melayani Request?
+Jalankan `strace` pada PID proses WAF / Pingora, batasi pelacakan hanya untuk I/O dan syscall jaringan, serta catat latensi setiap syscall (`-T`):
 
 ```bash
-sudo strace -p <PID_JARSWAF> -e trace=network,file -T -o jarswaf_strace.log
+sudo strace -p <PID_WAF> -e trace=network,file -T -o waf_strace.log
 ```
 
-#### Cara Membaca Output Log (`jarswaf_strace.log`):
+#### Cara Membaca Output Log (`waf_strace.log`):
 ```text
 epoll_wait(4, [{EPOLLIN, {u32=11, u64=11}}], 1024, 1000) = 1 <0.002144>
 accept4(6, {sa_family=AF_INET, sin_port=htons(49554), sin_addr=inet_addr("192.168.1.50")}, [128], SOCK_CLOEXEC) = 12 <0.000108>
 read(12, "GET /api/v1/status HTTP/1.1\r\n...", 8192) = 154 <0.005892>
-stat("/opt/jarswaf/config.toml", {st_mode=S_IFREG|0644, st_size=2380, ...}) = 0 <0.008912>
+stat("/opt/waf/config.toml", {st_mode=S_IFREG|0644, st_size=2380, ...}) = 0 <0.008912>
 ```
 *Analisis*: Kolom `<0.008912>` menunjukkan syscall `stat` pada file konfigurasi memakan waktu **8.9 milidetik**! Ini mengindikasikan bottleneck I/O disk saat membaca konfigurasi TOML di setiap request. Konfigurasi harus di-cache di memory (`arc-swap` / static cell).
 
@@ -69,11 +69,11 @@ stat("/opt/jarswaf/config.toml", {st_mode=S_IFREG|0644, st_size=2380, ...}) = 0 
 
 `perf` mengumpulkan statistik performa perangkat keras (CPU cycle, cache misses) dan perangkat lunak (context switches) menggunakan penghitung internal CPU.
 
-### A. Merekam Profiling CPU JarsWAF
+### A. Merekam Profiling CPU WAF
 Lakukan sampling pada CPU tempat proses target berjalan dengan frekuensi 99 Hz selama 10 detik:
 
 ```bash
-sudo perf record -F 99 -p <PID_JARSWAF> -g -- sleep 10
+sudo perf record -F 99 -p <PID_WAF> -g -- sleep 10
 ```
 
 ### B. Menganalisis Call Graph Terbanyak
@@ -85,7 +85,7 @@ Model visualisasi terbaik dari `perf record` adalah **FlameGraph**. Anda bisa me
 
 ```bash
 git clone https://github.com/brendangregg/FlameGraph.git
-sudo perf script | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > jarswaf_cpu_flame.svg
+sudo perf script | ./FlameGraph/stackcollapse-perf.pl | ./FlameGraph/flamegraph.pl > waf_cpu_flame.svg
 ```
 
 FlameGraph akan menunjukkan fungsi mana di Rust (seperti alokasi memori regex matching) yang paling banyak memakan CPU cycles.
@@ -140,7 +140,7 @@ tracepoint:syscalls:sys_exit_accept4 /@accept_time[tid]/ {
 ---
 
 ## 🔗 Referensi & Catatan Terkait
-- WAF architecture deepdive (privat) — Menguji Performa Hot Path Proxy JarsWAF
+- WAF architecture deepdive (privat) — Menguji Performa Hot Path Proxy WAF
 - [[ebpf-runtime-security-auditing]] — SOP Auditing System Calls dengan eBPF kprobe
 - [[vector-quantization-hnsw-tuning]] — Optimasi Memory RAM Database Vektor
 - [[homelab-proxmox-architecture]] — Monitoring Kinerja CPU Spikes di Proxmox Hypervisor

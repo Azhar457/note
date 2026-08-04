@@ -29,7 +29,7 @@ status: pending
 ## 1. Kenapa SIEM & Security Data Lake?
 
 Vault saat ini punya komponen keamanan per-layer:
-- **WAF:** jarsWAF, Cloudflare ([[waf-reverse-proxy-deepdive]])
+- **WAF:** WAF, Cloudflare ([[waf-reverse-proxy-deepdive]])
 - **Endpoint:** eBPF, Suricata, detection playbook ([[endpoint-detection-playbook]])
 - **Response:** IR framework ([[incident-response-framework]])
 - **Threat intel:** Threat directory ([[comprehensive-threat-directory]])
@@ -203,7 +203,7 @@ tags: ["cloudflare", "waf"]
 
 | Source | Data | Tools |
 |--------|------|-------|
-| **WAF / Reverse Proxy** | HTTP request, blocked attacks, rate limits | Cloudflare, Nginx, jarsWAF |
+| **WAF / Reverse Proxy** | HTTP request, blocked attacks, rate limits | Cloudflare, Nginx, WAF |
 | **Network IDS/IPS** | Packet-level threat detection | Suricata, Zeek, Snort |
 | **Endpoint** | Process, file, network events | eBPF, Falco, Wazuh agent, Sysmon |
 | **System auth** | SSH, sudo, user login | `auth.log`, `secure` |

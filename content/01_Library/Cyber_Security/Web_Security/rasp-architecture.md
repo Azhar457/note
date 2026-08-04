@@ -62,12 +62,12 @@ Berikut adalah contoh agen RASP kecil (<10MB) berbasis Rust yang meng-override f
 ### 2.1 Konfigurasi `Cargo.toml`
 ```toml
 [package]
-name = "jarswaf-rasp-agent"
+name = "waf-rasp-agent"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "jarswaf_rasp"
+name = "waf_rasp"
 crate-type = ["cdylib"] # Mengompilasi menjadi .so dinamis
 
 [dependencies]
@@ -120,7 +120,7 @@ Kompilasi dan jalankan aplikasi web dengan menyuntikkan library RASP:
 ```bash
 cargo build --release
 # Injeksi ke proses aplikasi Node.js/Python
-LD_PRELOAD=./target/release/libjarswaf_rasp.so node server.js
+LD_PRELOAD=./target/release/libwaf_rasp.so node server.js
 ```
 
 ---
@@ -140,8 +140,8 @@ Untuk runtime bahasa tingkat tinggi (managed runtimes), agen RASP meng-override 
 Menggabungkan WAF di perimeter dan RASP di runtime menciptakan sistem pertahanan adaptif (*Adaptive Threat Intelligence*):
 
 1. **Telemetry Sharing**: RASP mendeteksi upaya SQLi yang berhasil lolos dari filter WAF (misal karena pengkodean khusus). RASP mengirimkan telemetri anomali beserta query yang terpicu ke WAF.
-2. **Auto-Blocking**: WAF menerima sinyal deteksi dari RASP, menganalisis IP asal request tersebut, lalu secara otomatis memasukkan IP tersebut ke dalam *distributed blocklist* jarsWAF (menggunakan Gossip protocol) untuk diblokir total di tingkat edge node sebelum request masuk kembali.
-3. **Double Verification**: Jika WAF mendeteksi request dengan tingkat kecurigaan menengah (*medium confidence anomaly score*), WAF dapat menyematkan header tak terlihat `X-jarsWAF-Trace: verify` ke downstream. RASP yang melihat header ini akan memperketat kebijakan deteksi (*strict auditing mode*) pada alur pemrosesan request tersebut di memori aplikasi.
+2. **Auto-Blocking**: WAF menerima sinyal deteksi dari RASP, menganalisis IP asal request tersebut, lalu secara otomatis memasukkan IP tersebut ke dalam *distributed blocklist* WAF (menggunakan Gossip protocol) untuk diblokir total di tingkat edge node sebelum request masuk kembali.
+3. **Double Verification**: Jika WAF mendeteksi request dengan tingkat kecurigaan menengah (*medium confidence anomaly score*), WAF dapat menyematkan header tak terlihat `X-WAF-Trace: verify` ke downstream. RASP yang melihat header ini akan memperketat kebijakan deteksi (*strict auditing mode*) pada alur pemrosesan request tersebut di memori aplikasi.
 
 ---
 
@@ -149,6 +149,6 @@ Menggabungkan WAF di perimeter dan RASP di runtime menciptakan sistem pertahanan
 
 | Catatan | Hubungan |
 |------|----------|
-| [[waf-reverse-proxy-deepdive]] | Data plane jarsWAF yang bekerja sama dengan RASP agent untuk memblokir IP penyerang. |
+| [[waf-reverse-proxy-deepdive]] | Data plane WAF yang bekerja sama dengan RASP agent untuk memblokir IP penyerang. |
 | [[hardware-hacking-re]] | Teknik modifikasi runtime dan reverse engineering biner serupa. |
-| WAF development plan (privat) | Dokumen perencanaan utama jarsWAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |
+| WAF development plan (privat) | Dokumen perencanaan utama WAF tempat subsistem RASP dideklarasikan sebagai prioritas #8. |

@@ -105,7 +105,7 @@ Client memanggil fungsi tertentu berdasarkan skema yang telah dilaporkan:
   "params": {
     "name": "calculate_hash",
     "arguments": {
-      "text": "jarsWAF-Secure"
+      "text": "secure-app"
     }
   },
   "id": 2

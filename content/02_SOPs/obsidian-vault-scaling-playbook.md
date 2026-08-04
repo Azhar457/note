@@ -29,7 +29,7 @@ Setiap file baru wajib diletakkan di bawah salah satu folder utama berikut:
 *   `00_Inbox/`: Tempat menyimpan draf kasar, catatan sementara, atau file scraping mentah.
 *   `01_Library/`: Catatan pengetahuan permanen (Evergreen Notes) yang terbagi menjadi subfolder tematik (e.g., `Machine_Learning/`, `Systems_Architecture/`, `Software_Engineering/`).
 *   `02_SOPs/`: Standar Operasional Prosedur taktis yang berisi langkah pemecahan masalah praktis.
-*   `03_Projects/`: Catatan spesifik tentang progres proyek aktif (seperti JarsWAF).
+*   `03_Projects/`: Catatan spesifik tentang progres proyek aktif (seperti WAF).
 
 ### B. Aturan Penamaan File (Filename Rules)
 *   **Format Kebab-Case**: Gunakan huruf kecil dipisahkan dengan tanda hubung (`-`). Hindari spasi atau karakter khusus.

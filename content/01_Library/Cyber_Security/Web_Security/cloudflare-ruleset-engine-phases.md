@@ -13,7 +13,7 @@ cssclasses: ''
 # ☁️ Cloudflare Ruleset Engine — Phase Architecture
 
 > [!info] Hubungan ke Vault
-> Ruleset Engine adalah blueprint processing pipeline yang menginspirasi arsitektur jarsWAF. Konsep phase-based evaluation di sini terkait dengan [[ids-ips-waf-nsm-comparison]] dan [[network-security]]. Untuk logging & SIEM integration, lihat [[blueteam-detection-matrix]] dan [[cgnat-attribution-deepdive]].
+> Ruleset Engine adalah blueprint processing pipeline yang menginspirasi arsitektur WAF. Konsep phase-based evaluation di sini terkait dengan [[ids-ips-waf-nsm-comparison]] dan [[network-security]]. Untuk logging & SIEM integration, lihat [[blueteam-detection-matrix]] dan [[cgnat-attribution-deepdive]].
 
 ## Daftar Isi
 1. [Overview](#overview)
@@ -27,7 +27,7 @@ cssclasses: ''
 9. [Actions](#actions)
 10. [Expression Language](#expression-language)
 11. [Deployment Model](#deployment-model)
-12. [Relevansi untuk jarsWAF](#relevansi-untuk-jarswaf)
+12. [Relevansi untuk WAF](#relevansi-untuk-waf)
 13. [Bottom Line](#bottom-line)
 
 ---
@@ -493,11 +493,11 @@ PUT /zones/{zone_id}/rulesets/phases/{phase_name}/entrypoint
 
 ---
 
-## Relevansi untuk jarsWAF
+## Relevansi untuk WAF
 
 ### Apa yang bisa diadopsi
 
-| Konsep Cloudflare | Implementasi di jarsWAF |
+| Konsep Cloudflare | Implementasi di WAF |
 |-------------------|------------------------|
 | **Phase pipeline** | Pipeline processing dengan urutan fixed — setiap phase punya tanggung jawab spesifik (parsing → sanitasi → WAF → rate limit → cache → response) |
 | **Entry point ruleset** | Root ruleset per phase yang mengeksekusi filter chain — memisahkan "what to check" dari "what to do when match" |
@@ -508,7 +508,7 @@ PUT /zones/{zone_id}/rulesets/phases/{phase_name}/entrypoint
 | **Phase field visibility** | Fields tertentu hanya available di phase tertentu — desain yang mencegah misuse |
 | **Account-level vs zone-level** | Multi-tenant policy separation — each tenant punya ruleset sendiri |
 
-### Arsitektur jarsWAF yang Terinspirasi
+### Arsitektur WAF yang Terinspirasi
 
 ```
 [REQUEST IN]
@@ -550,9 +550,9 @@ PUT /zones/{zone_id}/rulesets/phases/{phase_name}/entrypoint
     └─ [RESPONSE OUT]
 ```
 
-### Phase Design untuk jarsWAF
+### Phase Design untuk WAF
 
-Setiap phase di jarsWAF punya struktur yang sama:
+Setiap phase di WAF punya struktur yang sama:
 
 ```
 Phase struct {
@@ -565,7 +565,7 @@ Phase struct {
 ```
 
 ```rust
-// Pseudocode arsitektur jarsWAF
+// Pseudocode arsitektur WAF
 pub struct Phase {
     pub id: u8,
     pub name: &'static str,
@@ -605,9 +605,9 @@ impl Pipeline {
 }
 ```
 
-### Perbedaan Utama jarsWAF vs Cloudflare
+### Perbedaan Utama WAF vs Cloudflare
 
-| Aspek | Cloudflare | jarsWAF |
+| Aspek | Cloudflare | WAF |
 |-------|-----------|---------|
 | **Arsitektur** | Global reverse proxy network | Single Rust binary (Pingora) |
 | **Scaling** | Multi-region anycast | Horizontal per-instance |
@@ -622,14 +622,14 @@ impl Pipeline {
 ## Bottom Line
 
 > [!tip] Bottom Line
-> Ruleset Engine Cloudflare adalah referensi utama buat desain pipeline jarsWAF:
+> Ruleset Engine Cloudflare adalah referensi utama buat desain pipeline WAF:
 > 1. **28 phase** terbagi rapi — network (5), request (17), response (6)
 > 2. Setiap phase punya entry point ruleset → clean separation of concerns
 > 3. Actions: block, allow, skip, execute, rewrite, log — beyond binary allow/deny
 > 4. Expression language (Wirefilter) → composable, field-based
 > 5. Urutan phase FIXED — predictability & determinism
 >
-> Untuk jarsWAF: cukup 8-10 phase yang relevan (L4 → Parse → Sanitize → WAF Custom → RateLimit → Bot → Routing → Response → Log). Jangan over-engineer — cukup yang diperlukan.
+> Untuk WAF: cukup 8-10 phase yang relevan (L4 → Parse → Sanitize → WAF Custom → RateLimit → Bot → Routing → Response → Log). Jangan over-engineer — cukup yang diperlukan.
 
 ---
 
