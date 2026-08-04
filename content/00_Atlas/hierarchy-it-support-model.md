@@ -7,10 +7,11 @@ tags:
   - itsm
   - itil
   - career-path
-created: '2026-08-04'
-updated: '2026-08-04'
-status: pending
-cssclasses: [wide-table]
+created: 2026-08-04
+updated: 2026-08-04
+status: complete
+cssclasses:
+  - wide-table
 ---
 
 > [!tip] Abstract
@@ -55,7 +56,6 @@ Level pertama, paling dekat dengan user, dan paling murah. Di sini **belum ada i
 | Waktu respons | Detik (kontekstual) |
 | Biaya resolusi | Paling rendah per interaksi |
 | Contoh | Reset password lewat portal, cek status layanan, panduan install printer, FAQ VPN |
-
 **Konsep kunci:** Level ini menggeser beban dari helpdesk ke user. Setiap dokumen self-service yang bagus = satu ticket yang tidak perlu dibuat. Metrik pentingnya adalah **deflection rate** — persentase permintaan yang berhasil diselesaikan tanpa masuk pipeline ticket.
 
 ```text
@@ -68,7 +68,6 @@ Level 1: user self-service
 > Self-service yang buruk justru menciptakan "phantom tickets" — user mencoba portal, gagal, lalu nge-double-report ke helpdesk. Kebanyakan masalah di sini bukan teknologi, tapi **UX portal & dokumentasi yang tidak up-to-date.**
 
 ---
-
 ## 3. Level 2 — Tier-1 Service Desk
 
 Level pertama dengan interaksi manusia. Tier-1 adalah **gerbang** semua permintaan — penerima ticket, klasifikator, dan pemecah masalah sederhana/repetitif.

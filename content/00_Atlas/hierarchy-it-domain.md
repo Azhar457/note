@@ -1,12 +1,11 @@
 ---
 title: It Domain Hierarchy
 tags:
-- atlas
-created: '2026-07-01'
-updated: '2026-07-01'
-status: pending
+  - atlas
+created: 2026-07-01
+updated: 2026-07-01
+status: complete
 ---
-
 # 🗺️ IT DOMAIN HIERARCHY — Dari Big Picture Sampai Task Spesifik
 
 > **Filosofi:** Sebelum coding, pahami dulu di mana posisi Anda di peta besar. Ini adalah GPS untuk karir dan project IT/Cybersecurity.
@@ -39,7 +38,7 @@ INFORMATION TECHNOLOGY (IT)
 │   ├── Business Intelligence
 │   └── Machine Learning / AI
 │
-├── 4. CYBERSECURITY ⭐ (Fokus Kita)
+├── 4. CYBERSECURITY 🟊
 │   ├── Offensive Security (Red Team)
 │   ├── Defensive Security (Blue Team)
 │   ├── Security Operations (SOC)
@@ -393,21 +392,21 @@ SENIOR LEVEL (5+ tahun)
 ```
 BAGIAN MANA YANG COCOK DENGAN SKILL ANDA?
 
-┌─────────────────────────────────────────────────────────────┐
-│  ANDA SUKA...          →  COBA DOMAIN...        →  BAHASA  │
-├─────────────────────────────────────────────────────────────┤
-│  Low-level, kernel     →  Endpoint Security     →  C/C++  │
-│  Memory safety         →  Modern EDR            →  Rust   │
-│  Network packet        →  Network Security      →  C/Rust │
-│  Web app hacking       →  AppSec / WAF          →  Go/Rust│
-│  Log analysis          →  SOC / SIEM            →  Python │
-│  Automation            →  SOAR / DevSecOps     →  Python │
-│  Data / ML             →  Threat Intel / UEBA   →  Python │
-│  Cloud infrastructure  →  Cloud Security        →  Go/Terraform│
+┌──────────────────────────────────────────────────────────────────┐
+│  ANDA SUKA...          →  COBA DOMAIN...       →  BAHASA         │
+├──────────────────────────────────────────────────────────────────┤
+│  Low-level, kernel     →  Endpoint Security    →  C/C++          │
+│  Memory safety         →  Modern EDR           →  Rust           │
+│  Network packet        →  Network Security     →  C/Rust         │
+│  Web app hacking       →  AppSec / WAF         →  Go/Rust        │
+│  Log analysis          →  SOC / SIEM           →  Python         │
+│  Automation            →  SOAR / DevSecOps     →  Python         │
+│  Data / ML             →  Threat Intel / UEBA  →  Python         │
+│  Cloud infrastructure  →  Cloud Security       →  Go/Terraform   │
 │  Policy / audit        →  GRC                  →  Excel/GRC tools│
-│  Social engineering    →  Red Team / Pentest    →  Python/Bash│
-│  Reverse engineering   →  Malware Analysis     →  C/ASM/Python│
-└─────────────────────────────────────────────────────────────┘
+│  Social engineering    →  Red Team / Pentest   →  Python/Bash    │
+│  Reverse engineering   →  Malware Analysis     →  C/ASM/Python   │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -419,40 +418,31 @@ START: Anda di IT, tertarik dengan Cybersecurity
 │
 ├─ Apakah Anda suka coding? ──┐
 │                             │
-│         YA                  │         TIDAK
+│         YA                  │       TIDAK
 │         │                   │         │
 │         ▼                   │         ▼
 │  ┌──────────────┐           │  ┌──────────────┐
 │  │ Technical    │           │  │ Non-Technical│
-│  │ Track          │           │  │ Track        │
+│  │ Track        │           │  │ Track        │
 │  └──────┬───────┘           │  └──────┬───────┘
 │         │                   │         │
 │         ▼                   │         ▼
-│  Apakah suka "break"        │  Apakah suka policy?│
-│  atau "defend"?             │                     │
-│                             │                     │
-│  ┌────────┐  ┌────────┐     │  YA                 │
-│  │ BREAK  │  │ DEFEND │     │  │                  │
-│  │ (Attack)│  │(Protect)│    │  ▼                  │
-│  └───┬────┘  └───┬────┘     │  ┌──────────────┐   │
-│      │           │           │  │ GRC / Compliance│   │
-│      ▼           ▼           │  │ • ISO 27001    │   │
-│  ┌────────┐  ┌────────┐     │  │ • SOC 2        │   │
-│  │Red Team│  │Blue Team│     │  │ • Risk Assess  │   │
-│  │Pentest │  │SOC/EDR  │     │  │ • Audit        │   │
-│  │Exploit │  │WAF/Firewall│   │  └──────────────┘   │
-│  │Dev    │  │SIEM     │     │                     │
-│  └────────┘  └────────┘     │  TIDAK              │
-│                               │  │                  │
-│                               │  ▼                  │
-│                               │  ┌──────────────┐ │
-│                               │  │ Security Ops   │ │
-│                               │  │ Management     │ │
-│                               │  │ • SOC Manager  │ │
-│                               │  │ • CISO path    │ │
-│                               │  └──────────────┘ │
-│                               │                     │
-└───────────────────────────────┴─────────────────────┘
+│  Apakah suka "break"        │  Apakah suka policy?
+│  atau "defend"?             │                     
+│                             │                      
+│  ┌────────┐  ┌────────┐     │           YA                 
+│  │ BREAK  │  │ DEFEND │     │            │               Tidak
+│  │ (Attack)│  │(Protect)│   │            ▼                 │
+│  └───┬────┘  └───┬────┘     │  ┌─────────────────┐         │
+│      │           │          │  │ GRC / Compliance│         ▼
+│      ▼           ▼          │  │ • ISO 27001     │  ┌──────────────┐
+│  ┌────────┐  ┌────────────┐ │  │ • SOC 2         │  │ Security Ops │
+│  │Red Team│  │Blue Team   │ │  │ • Risk Assess   │  │ Management   │
+│  │Pentest │  │SOC/EDR     │ │  │ • Audit         │  │ • SOC Manager│
+│  │Exploit │  │WAF/Firewall│ │  └─────────────────┘  └──────────────┘
+│  │Dev     │  │SIEM        │ │                     
+│  └────────┘  └────────────┘ │                     
+└─────────────────────────────┴───────────────────────────────────────┘
 ```
 
 ---

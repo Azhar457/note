@@ -1,13 +1,13 @@
 ---
 title: Database and Storage Systems Hierarchy — From Flat Files to Distributed Lakehouses
 tags:
-- database
-- storage-systems
-- systems-architecture
-- data-engineering
-created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+  - database
+  - storage-systems
+  - systems-architecture
+  - data-engineering
+created: 2026-07-19
+updated: 2026-07-19
+status: complete
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault

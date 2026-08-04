@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy WAF & Reverse Proxy"
+title: Hierarchy WAF & Reverse Proxy
 tags:
   - atlas
   - waf
@@ -7,10 +7,10 @@ tags:
   - web-security
   - blue-team
 aliases:
-  - "hierarchy-waf-reverse-proxy"
-created: "2026-07-17"
-updated: '2026-07-17'
-status: pending
+  - hierarchy-waf-reverse-proxy
+created: 2026-07-17
+updated: 2026-07-17
+status: complete
 ---
 
 # 🛡️ HIERARKI WAF & REVERSE PROXY — Dari Nginx Passthrough (Level 0) sampai Custom eBPF WAF (Level 6)

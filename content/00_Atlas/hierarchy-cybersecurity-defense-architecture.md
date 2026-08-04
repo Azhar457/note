@@ -12,7 +12,7 @@ aliases:
   - Defense in Depth Hierarchy
   - Security Layer Map
   - Cyber Defense Stack
-status: pending
+status: complete
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:
@@ -137,12 +137,12 @@ Detect threat signature
 
 ### 3.2 Failure Mode
 
-| Failure | Dampak | Contoh |
-|---------|--------|--------|
-| Delay disclosure 6 bulan | GDPR fine €50M, brand drop 30% Yahoo (2017) |
-| Berbohong tentang cakupan breach | Multi-class lawsuit, executive ouster | Uber 2017 |
-| Slow customer notification | 50% churn dalam 30 hari | Equifax (2017) |
-| Tidak punya crisis comm team | Runaway story = market cap -20% | Target (2013) |
+| Failure                          | Dampak                                | Contoh         |
+| -------------------------------- | ------------------------------------- | -------------- |
+| Delay disclosure 6 bulan         | GDPR fine €50M, brand drop 30%        | Yahoo (2017)   |
+| Berbohong tentang cakupan breach | Multi-class lawsuit, executive ouster | Uber 2017      |
+| Slow customer notification       | 50% churn dalam 30 hari               | Equifax (2017) |
+| Tidak punya crisis comm team     | Runaway story = market cap -20%       | Target (2013)  |
 
 ---
 
@@ -583,20 +583,20 @@ NIST CSF 2.0 punya 6 Functions. Setiap cybersecurity layer punya representative 
 ## 15. Timeline 1960-2026 — Evolusi Ancaman
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│ Era    │ Decade │ Major Shift                                  │
+┌────────────────────────────────────────────────────────────┐
+│ Era    │ Decade │ Major Shift                              │
 ├────────┼────────┼──────────────────────────────────────────┤
-│ ARPANET│ 1960s  │ Physical access = total access              │
-│ Unix   │ 1970s  │ Password files, user permission             │
-│        │ 1980s  │ Worms (Morris 1988), first antivirus        │
-│ Web    │ 1990s  │ Network worms, firewall tsunami, Nessus      │
-│ E-com  │ 2000s  │ SQL injection, XSS, APT, Storm Worm         │
-│ Cloud  │ 2010s  │ Supply chain, ransomware, IoT botnets       │
-│        │ 2015s  │ Cryptoware, BEC, deepfake voice              │
-│ AI-era │ 2020s  │ LLM prompt injection, deepfake vishing       │
-│        │ 2025   │ Autonomous agents attacking each other       │
-│        │ 2026+  │ Self-evolving malware, AI-powered APT        │
-└──────────────────────────────────────────────────────────────┘
+│ ARPANET│ 1960s  │ Physical access = total access           │
+│ Unix   │ 1970s  │ Password files, user permission          │
+│        │ 1980s  │ Worms (Morris 1988), first antivirus     │
+│ Web    │ 1990s  │ Network worms, firewall tsunami, Nessus  │
+│ E-com  │ 2000s  │ SQL injection, XSS, APT, Storm Worm      │
+│ Cloud  │ 2010s  │ Supply chain, ransomware, IoT botnets    │
+│        │ 2015s  │ Cryptoware, BEC, deepfake voice          │
+│ AI-era │ 2020s  │ LLM prompt injection, deepfake vishing   │
+│        │ 2025   │ Autonomous agents attacking each other   │
+│        │ 2026+  │ Self-evolving malware, AI-powered APT    │
+└────────────────────────────────────────────────────────────┘
 ```
 
 **Trend besar tiap dekade:**
