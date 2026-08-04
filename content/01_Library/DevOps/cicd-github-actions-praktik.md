@@ -432,6 +432,46 @@ jobs:
           curl -sf http://localhost:3010/health && echo "✅ Healthy" || echo "❌ Failed"
 ```
 
+### 6.1 Migrasi Container Antar Akun (Podman Rootless)
+
+> [!tip] **Kapan dipakai:** container yang sudah ada dan berjalan di akun A (mis. `admin`, root podman), mau dipindah ke akun B (mis. `dev`, rootless) — port & env dipertahankan. Contoh nyata: migrasi `hr-be` (admin, port 3032) → `dev` (port 3032) di VPS1 Urbansolv, 2026-08-04.
+
+**Prinsip:** jangan `docker save/load` image — cukup **pull ulang dari registry** (GHCR), pindah `.env`, terus run. Image itu artifact, akun B pull sendiri. Yang dipindah cuma **config (`.env`)**.
+
+```bash
+# ===== AKUN LAMA (admin) — lepas container =====
+podman stop <nama-container> 2>/dev/null; podman rm <nama-container> 2>/dev/null
+# ⚠️ Hati-hati: kalau ada container stale dengan nama beda (mis. hasil `podman run` manual
+# tanpa nama → auto-name kaya `boring_kare`), dia TIDAK kehapus oleh stop/rm nama lama.
+# Cek semua: podman ps -a | grep <nama-image>  →  podman rm -f <stale-name>
+
+# ===== Salin .env ke akun baru (admin) =====
+sudo mkdir -p /home/dev/backend/<project>
+sudo cp /home/admin/apps/<project>/.env /home/dev/backend/<project>/.env
+sudo chown -R dev:dev /home/dev/backend/<project>
+sudo loginctl enable-linger dev        # wajib: rootless podman jalan terus walau logout/reboot
+
+# ===== AKUN BARU (dev) — pull + run =====
+podman pull ghcr.io/<org>/<image>:latest
+podman run -d \
+  --name <nama-container> \
+  --restart unless-stopped \
+  -p <host-port>:<container-port> \
+  --env-file /home/dev/backend/<project>/.env \
+  ghcr.io/<org>/<image>:latest
+
+# ===== Verify =====
+podman ps --format '{{.Names}} {{.Ports}} {{.Status}}' | grep <nama>
+# lalu dari luar (Cloudflare / domain):
+curl -sI https://<sub>.urbansolv.co.id | head -2
+# 404 = proxy + container OK (app gak punya route root — normal)
+# 502 = forward port salah / container mati
+```
+
+> [!warning] **Pitfall `podman run` manual tanpa `--env-file`:** app NestJS dengan `ConfigModule.forRoot({ validationSchema })` langsung crash `Config validation error: "APP_NAME" is required. ...` — itu BUKAN image rusak, cuma env-nya gak dikasih. Selalu sertakan `--env-file`.
+
+> [!warning] **Ganti nama container:** pakai `podman rename <lama> <baru>` — bisa saat container aktif, gak putus service.
+
 ---
 
 ## 7. GitLab CI — Mirror Setup

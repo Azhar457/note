@@ -495,6 +495,15 @@ IT (Root)
 
 ---
 
+## 🔗 Lihat Juga
+
+| Catatan | Hubungan |
+|---|---|
+| [[hierarchy-it-support-model]] | Level 1–5 model dukungan IT (self-service → ITSM/ITIL) — melengkapi sub-domain IT Management yang di sini masih buram |
+| [[infrastructure-administrator]] | Eksekusi teknis dari sisi administrator |
+
+---
+
 *Document Version: 1.0*  
 *Last Updated: 2026-06-16*  
 *Purpose: Domain mapping untuk project dan karir cybersecurity*
