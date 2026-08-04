@@ -742,4 +742,4 @@ Beberapa kritikus berargumen bahwa Bloom sudah **outdated** di era AI dan inform
 ---
 
 > [!info] Tentang Dokumen Ini
-> Dokumen ini ditulis sebagai fondasi pendidikan dan kognitif untuk seluruh vault. Bloom's Taxonomy bukan cuma alat grading — tapi kerangka untuk memahami **bagaimana learning terjadi** dan **di mana level penguasaan lo** terhadap suatu topik. Di vault yang isinya dari Remember (picoCTF basics) sampai Create (Jarswaf build), kerangka ini bantu lo sadar: *"Gw di level mana sekarang, dan harus apa untuk naik level?"*
+> Dokumen ini ditulis sebagai fondasi pendidikan dan kognitif untuk seluruh vault. Bloom's Taxonomy bukan cuma alat grading — tapi kerangka untuk memahami **bagaimana learning terjadi** dan **di mana level penguasaan lo** terhadap suatu topik. Di vault yang isinya dari Remember (picoCTF basics) sampai Create (WAF build), kerangka ini bantu lo sadar: *"Gw di level mana sekarang, dan harus apa untuk naik level?"*
