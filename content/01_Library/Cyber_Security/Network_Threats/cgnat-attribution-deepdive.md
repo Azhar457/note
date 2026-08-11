@@ -1,13 +1,13 @@
 ---
 title: CGNAT & IP Attribution Deep Dive
 tags:
-- cyber-security
-- library
-- network-threats
-created: '2025-07-02'
-updated: '2025-07-02'
-status: pending
-cssclasses: ''
+  - cyber-security
+  - library
+  - network-threats
+created: 2025-07-02
+updated: 2025-07-02
+status: Complete
+cssclasses: ""
 ---
 
 # 🕸️ CGNAT & IP Attribution — Carrier-Grade NAT, Logging, dan Dampaknya terhadap Forensik Jaringan
@@ -402,14 +402,14 @@ Faktor yang Membuat Korelasi Waktu Sulit:
 Contoh Kasus:
 ┌─────────────────────────────────────────────────────────────┐
 │ Waktu: 14:30:00.000 - 14:30:00.500                          │
-│ Public: 203.0.113.10:2048 → 198.51.100.1:443 (HTTPS bank)  │
-│ Public: 203.0.113.10:2049 → 198.51.100.2:80 (HTTP forum)   │
-│ Public: 203.0.113.10:2050 → 198.51.100.3:22 (SSH)          │
-│                                                              │
-│ Dua skenario:                                                │
-│ A) Tiga koneksi = SATU user browsing web                     │
-│ B) Tiga koneksi = TIGA user berbeda (CGNAT share)            │
-│                                                              │
+│ Public: 203.0.113.10:2048 → 198.51.100.1:443 (HTTPS bank)   │
+│ Public: 203.0.113.10:2049 → 198.51.100.2:80 (HTTP forum)    │
+│ Public: 203.0.113.10:2050 → 198.51.100.3:22 (SSH)           │
+│                                                             │
+│ Dua skenario:                                               │
+│ A) Tiga koneksi = SATU user browsing web                    │
+│ B) Tiga koneksi = TIGA user berbeda (CGNAT share)           │
+│                                                             │
 │ ⟶ Hanya CGNAT LOG yang bisa membedakan A vs B.              │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -656,53 +656,53 @@ timestamp>="2025-07-02T00:00:00Z" AND timestamp<="2025-07-02T23:59:59Z"
 
 ```text
                     ┌──────────────────────────────────────┐
-                    │          CGNAT Gateways               │
-                    │  [Cisco ASR1K] [Juniper MX] [Nokia]   │
-                    └──────────┬──────────────┬─────────────┘
+                    │          CGNAT Gateways              │
+                    │  [Cisco ASR1K] [Juniper MX] [Nokia]  │
+                    └──────────┬──────────────┬────────────┘
                                │              │
                     Syslog TCP ┘              └── IPFIX/NetFlow v9
                                │              │
                                ▼              ▼
                     ┌──────────────────────────────────────┐
-                    │         Log Collector Layer           │
-                    │  [rsyslog] [syslog-ng] [nfcapd]       │
-                    │  → Buffer: Kafka / Redis              │
-                    └──────────┬────────────────────────────┘
+                    │         Log Collector Layer          │
+                    │  [rsyslog] [syslog-ng] [nfcapd]      │
+                    │  → Buffer: Kafka / Redis             │
+                    └──────────┬───────────────────────────┘
                                │
                                ▼
                     ┌──────────────────────────────────────┐
-                    │       Processing / Parsing Layer       │
-                    │  Logstash / Vector / Fluentd           │
-                    │  → Grok filter CGNAT                   │
-                    │  → Normalize ke unified schema         │
-                    │  → Enrich dengan RADIUS data           │
-                    └──────────┬────────────────────────────┘
+                    │       Processing / Parsing Layer     │
+                    │  Logstash / Vector / Fluentd         │
+                    │  → Grok filter CGNAT                 │
+                    │  → Normalize ke unified schema       │
+                    │  → Enrich dengan RADIUS data         │
+                    └──────────┬───────────────────────────┘
                                │
                                ▼
                     ┌──────────────────────────────────────┐
-                    │        Storage / Indexing Layer        │
-                    │  Elasticsearch / Loki / ClickHouse     │
-                    │  → Index: timestamp, IP, port, sub ID  │
-                    │  → Retention: hot 30d, warm 90d,       │
-                    │    cold archive 1yr+                   │
-                    └──────────┬────────────────────────────┘
+                    │        Storage / Indexing Layer      │
+                    │  Elasticsearch / Loki / ClickHouse   │
+                    │  → Index: timestamp, IP, port, sub ID│
+                    │  → Retention: hot 30d, warm 90d,     │
+                    │    cold archive 1yr+                 │
+                    └──────────┬───────────────────────────┘
                                │
                                ▼
                     ┌──────────────────────────────────────┐
-                    │        Query / Visualization           │
-                    │  Kibana / Grafana / custom API         │
-                    │  → Dashboard monitoring CGNAT          │
-                    │  → Incident Response search            │
-                    │  → Law enforcement query portal        │
+                    │        Query / Visualization         │
+                    │  Kibana / Grafana / custom API       │
+                    │  → Dashboard monitoring CGNAT        │
+                    │  → Incident Response search          │
+                    │  → Law enforcement query portal      │
                     └──────────────────────────────────────┘
                                │
                                ▼
                     ┌──────────────────────────────────────┐
-                    │      RADIUS / AAA Integration          │
-                    │  [RADIUS Server]                       │
-                    │  → Accounting data sync                │
-                    │  → Subscriber identity lookup          │
-                    │  → MAC → username → pelanggan          │
+                    │      RADIUS / AAA Integration        │
+                    │  [RADIUS Server]                     │
+                    │  → Accounting data sync              │
+                    │  → Subscriber identity lookup        │
+                    │  → MAC → username → pelanggan        │
                     └──────────────────────────────────────┘
 ```
 
@@ -782,21 +782,21 @@ Target: Dark web marketplace yang menggunakan bot CGNAT proxy untuk
         menyembunyikan identity admin.
 
 Metode Attribution:
-┌─────────────────────────────────────────────────────────────┐
-│ 1. Analis ekstrak semua IP yang mengakses panel admin       │
-│    selama 3 bulan via server access log.                    │
+┌──────────────────────────────────────────────────────────────┐
+│ 1. Analis ekstrak semua IP yang mengakses panel admin        │
+│    selama 3 bulan via server access log.                     │
 │                                                              │
-│ 2. IP publik = 64 IP berbeda dari 12 ISP di 5 negara.       │
+│ 2. IP publik = 64 IP berbeda dari 12 ISP di 5 negara.        │
 │    Semua IP adalah CGNAT IP — tidak bisa langsung traced.    │
 │                                                              │
-│ 3. Teknik: IP Convergence —                                │
-│    a. Ambil semua IP publik yang muncul                       │
+│ 3. Teknik: IP Convergence —                                  │
+│    a. Ambil semua IP publik yang muncul                      │
 │    b. Cari CO-OCCURRENCE pattern:                            │
 │       IP mana saja yang muncul bersamaan dalam waktu singkat │
 │    c. Gunakan graph analysis: node=IP, edge=co-occurrence    │
 │                                                              │
 │ 4. Hasil: dari 64 IP, 52 IP adalah noise (user biasa),       │
-│    tapi 12 IP menunjukkan pola aneh:                          │
+│    tapi 12 IP menunjukkan pola aneh:                         │
 │    - Mereka muncul dari CGNAT pool yang SAMA terus           │
 │    - Dalam 1 jam, multiple IP dari pool yang sama            │
 │    - Ini adalah teknik: admin paksa reconnect → dapat IP baru│
@@ -807,7 +807,7 @@ Metode Attribution:
 │    - Satu subscriber = hosting server                        │
 │                                                              │
 │ 6. Takedown: 2 pelaku ditangkap, marketplace seized.         │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 
 Key Takeaway: CGNAT bukan penghalang absolut. Dengan analisis
 co-occurrence dan convergence, pola tersembunyi bisa diungkap.
@@ -832,30 +832,30 @@ Tantangan:
 
 Pendekatan:
 ┌─────────────────────────────────────────────────────────────┐
-│ 1. Analisis timing:                                        │
+│ 1. Analisis timing:                                         │
 │    - Traffic beacon terjadi setiap Selasa & Kamis jam 14:00 │
-│    - Tidak pernah di weekend                                 │
+│    - Tidak pernah di weekend                                │
 │    → BUKAN pola bot biasa (bot 24/7)                        │
-│    → Curigakan: compromised device indoor                    │
-│                                                              │
+│    → Curigakan: compromised device indoor                   │
+│                                                             │
 │ 2. CGNAT log analysis:                                      │
-│    - Extraksi semua session dari IP publik saat beacon       │
-│    - Filter: yang connect ke IP Rusia saja                   │
+│    - Extraksi semua session dari IP publik saat beacon      │
+│    - Filter: yang connect ke IP Rusia saja                  │
 │    - Dapatkan inside IP: 100.64.3.45                        │
-│    - Cek: apakah inside IP yang SAMA untuk semua beacon?     │
-│    ⟶ Ya! Semua beacon dari 100.64.3.45                       │
-│    → Bisa dipastikan satu device                             │
-│                                                              │
+│    - Cek: apakah inside IP yang SAMA untuk semua beacon?    │
+│    ⟶ Ya! Semua beacon dari 100.64.3.45                      │
+│    → Bisa dipastikan satu device                            │
+│                                                             │
 │ 3. RADIUS + DHCP:                                           │
 │    - 100.64.3.45 → subscriber "FULLNAME@domain"             │
-│    - MAC = TP-Link router murah                              │
-│    - Tidak ada VPN atau Tor di sisi subscriber               │
-│    → APT compromise router CPE user biasa                     │
-│                                                              │
+│    - MAC = TP-Link router murah                             │
+│    - Tidak ada VPN atau Tor di sisi subscriber              │
+│    → APT compromise router CPE user biasa                   │
+│                                                             │
 │ 4. Remediasi:                                               │
 │    - ISP disconnect subscriber                              │
-│    - Notifikasi ke pemilik: router compromised               │
-│    - C2 server sinkhole oleh CERT                            │
+│    - Notifikasi ke pemilik: router compromised              │
+│    - C2 server sinkhole oleh CERT                           │
 └─────────────────────────────────────────────────────────────┘
 
 Key Takeaway: CGNAT log + timing correlation adalah kunci untuk
@@ -883,13 +883,13 @@ Alur Forensik:
 Hasil Forensik (setelah 2 minggu):
 ┌─────────────────────────────────────────────────────────────┐
 │ ✓ Log CGNAT ditemukan:                                      │
-│   36.68.x.x: 45000 → 10.0.0.1:34567                        │
-│   ✓ Subscriber ID = "ANONYM"                                 │
+│   36.68.x.x: 45000 → 10.0.0.1:34567                         │
+│   ✓ Subscriber ID = "ANONYM"                                │
 │   × Nama asli: TIDAK ADA (prepaid card, registrasi fiktif)  │
-│   × Lokasi: TIDAK AKURAT (BTS triangulation = ±500m)       │
+│   × Lokasi: TIDAK AKURAT (BTS triangulation = ±500m)        │
 │   × Device: TIDAK TAHU (hidden di dalam CGNAT)              │
 │   × WiFi publik: hotspot di mall — tidak ada login system   │
-│                                                              │
+│                                                             │
 │ ⟶ Dead end: CGNAT + prepaid + WiFi publik + Tor             │
 └─────────────────────────────────────────────────────────────┘
 
@@ -912,22 +912,22 @@ Kasus:
 - 50+ pelanggan di IP yang sama → siapa?
 
 Metode:
-┌─────────────────────────────────────────────────────────────┐
-│ Analisis Port Block:                                        │
+┌──────────────────────────────────────────────────────────────┐
+│ Analisis Port Block:                                         │
 │                                                              │
 │ Dari VPN log:                                                │
 │  114.124.x.x: 14320 → VPN server 443 (setiap hari jam 18:00) │
-│  114.124.x.x: 14322 → VPN server 443                          │
-│  114.124.x.x: 14325 → VPN server 443                          │
+│  114.124.x.x: 14322 → VPN server 443                         │
+│  114.124.x.x: 14325 → VPN server 443                         │
 │  (port range 14320-14350 konsisten)                          │
 │                                                              │
-│ Cek CGNAT log:                                                │
+│ Cek CGNAT log:                                               │
 │  Port 14320-14350 adalah dalam satu port block               │
 │  Port block milik: inside IP 100.64.2.50                     │
 │  Subscriber: employee_nik@company.com                        │
 │  → Konfirmasi: employee tertentu                             │
 │                                                              │
-│ Tambahan:                                                     │
+│ Tambahan:                                                    │
 │  - VPN session di jam kerja = employee sedang WFH            │
 │  - Volume exfil = 2GB/hari → tidak wajar                     │
 │  - CGNAT log juga menunjukkan akses ke cloud storage         │
@@ -935,7 +935,7 @@ Metode:
 │  → Pattern: exfil terjadi setiap hari selama 3 minggu        │
 │                                                              │
 │ ⟶ Attribution sukses karena port block consistency.          │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 
 Key Takeaway: Port Block Allocation (RFC 7422) MEMUDAHKAN attribution
 karena port range konsisten per subscriber.
@@ -1139,7 +1139,7 @@ Tapi IPv6 punya masalah sendiri:
 × Logging tetap diperlukan untuk law enforcement — bedanya lebih sederhana
 
 Realisasi Industri (2025):
-[         CGNAT dominant         ]──────→[      CGNAT + IPv6 dual      ]──────→[     IPv6 dominant    ]
+[CGNAT dominant]──────>[CGNAT + IPv6 dual]───→[IPv6 dominant]
   Asia, Afrika, LATAM now               Europe, US now             Nordics, Jio, T-Mobile US
 
 → Target: IPv6-only world → CGNAT hanya kenangan.

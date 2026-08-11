@@ -11,21 +11,22 @@ status: pending
 
 ## Active Projects
 
-| Project | Status      | Tech           | Link                                |
-| ------- | ----------- | -------------- | ----------------------------------- |
-|         |             |                |                                     |
+| Project | Status         | Tech           | Link                                |
+| ------- | -------------- | -------------- | ----------------------------------- |
+| Jarswaf | In Development | Rust + Pingora | https://github.com/Azhar457/jarswaf |
 
 ## Tools / Scripts
 
 | Tool | Deskripsi | Status | Repo |
-|------|-----------|--------|------|
-| — | — | — | — |
+| ---- | --------- | ------ | ---- |
+| —    | —         | —      | —    |
+
 
 ## Artikel / Catatan Publik
 
 | Judul | Platform | Status | Link |
-|-------|----------|--------|------|
-| — | — | — | — |
+| ----- | -------- | ------ | ---- |
+| —     | —        | —      | —    |
 
 ## Sertifikasi
 

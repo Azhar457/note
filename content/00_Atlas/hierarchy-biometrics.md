@@ -10,7 +10,6 @@ created: '2026-07-17'
 updated: '2026-07-17'
 status: pending
 ---
-
 # 🪪 HIERARKI BIOMETRIK & IDENTITAS — Dari Password (Level 0) sampai Neural/BCI (Level 7)
 
 > Setiap autentikasi menjawab: **"Siapa kamu, dan bagaimana kamu membuktikannya?"** Hirarki ini memetakan evolusi identitas dari *something you know* (password) → *something you have* (MFA/token) → *something you are* (biometrik fisik) → *how you act* (behavioral) → *you own your identity* (SSI) → *verify every request* (Zero Trust) → *who you are at neural level* (BCI). Setiap level menambah factor, tapi juga menambah complexity. Untuk tabel teknis lengkap + trust chain kriptografi, lihat [[cryptography-biometrics]].

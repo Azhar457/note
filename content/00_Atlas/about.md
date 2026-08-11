@@ -1,10 +1,10 @@
 ---
 title: About
 tags:
-- atlas
-created: '2026-06-04'
-updated: '2026-07-01'
-status: pending
+  - "#about"
+created: 2026-06-04
+updated: 2026-07-01
+status: complete
 ---
 
 # 👋 Hai, Saya Azhar Muttaqien
@@ -32,104 +32,6 @@ Bukan kurikulum formal. Lebih ke **peta besar yang dibangun sendiri** — dari n
 ☠️ Shadow Arsenal         → dari OSINT Level 0 sampai Nation-State SIGINT
 🤖 Agentic AI & MLOps     → dari function calling sampai autonomous swarm
 ```
-
-### Detail Topik
-
-#### Data Recovery
-Data recovery adalah proses mengembalikan data yang hilang atau rusak. Ada beberapa jenis data recovery, seperti:
-* **Software-based recovery**: menggunakan software untuk mengembalikan data yang hilang atau rusak.
-* **Hardware-based recovery**: menggunakan hardware untuk mengembalikan data yang hilang atau rusak.
-* **Fisika kuantum**: menggunakan prinsip fisika kuantum untuk mengembalikan data yang hilang atau rusak.
-
-Contoh kode untuk data recovery menggunakan Python:
-```python
-import os
-import hashlib
-
-def recover_data(file_path):
-    # Membaca file yang rusak
-    with open(file_path, 'rb') as file:
-        data = file.read()
-    
-    # Menghitung checksum data
-    checksum = hashlib.md5(data).hexdigest()
-    
-    # Mencari data yang hilang
-    for i in range(len(data)):
-        if data[i] != checksum[i % len(checksum)]:
-            # Mengembalikan data yang hilang
-            data[i] = checksum[i % len(checksum)]
-    
-    # Menulis data yang telah diperbaiki
-    with open('recovered_data', 'wb') as file:
-        file.write(data)
-
-# Menggunakan fungsi recover_data
-recover_data('rusak_data.txt')
-```
-
-#### Endpoint Security
-Endpoint security adalah proses melindungi endpoint (seperti komputer, laptop, atau mobile) dari serangan malware, virus, dan lain-lain. Ada beberapa jenis endpoint security, seperti:
-* **Antivirus**: menggunakan antivirus untuk melindungi endpoint dari serangan malware dan virus.
-* **Intel ME Ring -3**: menggunakan Intel ME Ring -3 untuk melindungi endpoint dari serangan yang lebih advanced.
-
-Contoh kode untuk endpoint security menggunakan Python:
-```python
-import os
-import hashlib
-
-def scan_malware(file_path):
-    # Membaca file yang dicurigai
-    with open(file_path, 'rb') as file:
-        data = file.read()
-    
-    # Menghitung checksum data
-    checksum = hashlib.md5(data).hexdigest()
-    
-    # Mencari malware
-    if checksum in ['malware_checksum_1', 'malware_checksum_2']:
-        # Menghapus file yang terinfeksi
-        os.remove(file_path)
-        print('File telah dihapus karena terdeteksi malware')
-    else:
-        print('File aman')
-
-# Menggunakan fungsi scan_malware
-scan_malware('dicurigai_malware.exe')
-```
-
-#### Network Security
-Network security adalah proses melindungi jaringan dari serangan yang tidak diinginkan. Ada beberapa jenis network security, seperti:
-* **Layer 1**: melindungi jaringan pada layer 1 (fisik).
-* **Layer 8 (manusia)**: melindungi jaringan dari serangan yang dilakukan oleh manusia.
-
-Contoh kode untuk network security menggunakan Python:
-```python
-import socket
-
-def scan_port(host, port):
-    # Membuat socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    # Mencoba menghubungkan ke port yang dicurigai
-    try:
-        sock.connect((host, port))
-        print(f'Port {port} terbuka')
-    except socket.error:
-        print(f'Port {port} tertutup')
-    
-    # Menutup socket
-    sock.close()
-
-# Menggunakan fungsi scan_port
-scan_port('localhost', 8080)
-```
-
-### Contoh Praktis
-Berikut adalah contoh praktis dari topik yang dipelajari:
-* **Menggunakan software recovery** untuk mengembalikan data yang hilang.
-* **Menggunakan antivirus** untuk melindungi endpoint dari serangan malware dan virus.
-* **Menggunakan firewall** untuk melindungi jaringan dari serangan yang tidak diinginkan.
 
 ## Cara Aku Belajar
 **top-down** — peta besar dulu, detail belakangan.

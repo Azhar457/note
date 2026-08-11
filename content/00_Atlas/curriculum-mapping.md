@@ -297,7 +297,6 @@ JANGKA PANJANG
 > [!warning] Jebakan yang Perlu Dihindari
 > Banyak mahasiswa Pendidikan Matematika yang jago math tapi tidak pernah sambungkan ke implementasi nyata. Dan banyak mahasiswa CS yang bisa coding tapi tidak punya fondasi formal untuk memahami *mengapa* sesuatu bekerja atau *membuktikan* bahwa sesuatu aman.
 >
-> Kamu punya kesempatan untuk tidak jatuh di salah satu jebakan ini.
 > **Setiap konsep math yang dipelajari di kuliah → cari implementasinya dalam kode.**
 > **Setiap sistem yang dipelajari di vault → tanyakan fondasi matematikanya apa.**
 > Dua arah. Terus menerus.

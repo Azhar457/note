@@ -1,10 +1,10 @@
 ---
 title: Hpa Exorcism
 tags:
-- sops
-created: '2026-04-23'
-updated: '2026-07-01'
-status: pending
+  - sops
+created: 2026-04-23
+updated: 2026-07-01
+status: complete
 ---
 
 # 🔪 SOP — The Safe Exorcist  
