@@ -1,5 +1,6 @@
 ---
-title: Quantum Cryptography Learning Roadmap — From Qubits to BB84 Protocol Simulation
+title: "Quantum Cryptography Learning Roadmap \u2014 From Qubits to BB84 Protocol\
+  \ Simulation"
 tags:
 - quantum-cryptography
 - quantum-computing
@@ -10,6 +11,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+verification:
+  status: unverified
+  last_checked: '2026-08-12'
+  confidence: LOW
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -151,3 +156,20 @@ Bob akan mendeteksi peningkatan nilai BER mendekati **25%** pada bit verifikasi.
 | [[quantum-cryptography-deepdive]] | Analisis teoretis mendalam mengenai komputasi kuantum, gerbang logika kuantum, dan algoritma Shor/Grover. |
 | [[post-quantum-tls-implementation]] | Strategi penerapan algoritma asimetris pasca-kuantum untuk enkripsi web TLS 1.3. |
 | [[pqc-implementation-rust]] | Struktur penulisan kode Rust untuk algoritma lattice-based cryptography. |
+
+## 🔍 Verification Report
+> [!NOTE]
+> **Last Evaluated:** 2026-08-12 20:13
+> **Overall Epistemic Status:** **`UNVERIFIED`**
+
+### ❔ Claim 1: The qubit state is a linear superposition of states |0> and |1> where the probability amplitudes Î± and Î² satisfy |Î±|Â² + |Î²|Â² = 1.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 2: The No-Cloning Theorem states that it is impossible to create an identical copy of an unknown quantum state.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 3: BB84 uses two bases for photon polarization: Rectilinear (+) and Diagonal (x).
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.

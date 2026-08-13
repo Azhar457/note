@@ -1,14 +1,14 @@
 ---
 title: Hierarchy Biometrics
 tags:
-- atlas
-- biometrics
-- identity
-- authentication
-- zero-trust
-created: '2026-07-17'
-updated: '2026-07-17'
-status: pending
+  - atlas
+  - biometrics
+  - identity
+  - authentication
+  - zero-trust
+created: 2026-07-17
+updated: 2026-07-17
+status: complete
 ---
 # 🪪 HIERARKI BIOMETRIK & IDENTITAS — Dari Password (Level 0) sampai Neural/BCI (Level 7)
 

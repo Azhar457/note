@@ -131,14 +131,14 @@ Emulator (red team) menjalankan TTP dari ATT&CK matrix. Defender (blue team) har
 
 ## ATT&CK Coverage Matrix — Generic Threat Actor Mapping
 
-| Threat Actor | Origin | Top ATT&CK Techniques | Use Case Emulation |
-|--------------|--------|-----------------------|---------------------|
-| **APT29 (Cozy Bear)** | Russia SVR | T1559 (IPC), T1078 (Valid Accounts), T1056 (Input Capture), T1573 (Encrypted C2) | Diplomatic & government targeting |
-| **FIN7** | Russia/Ukraine financial | T1059 (Command Interpreter), T1027 (Obfuscation), T1567 (Exfil over web) | Financial, retail, hospitality |
-| **Lazarus Group** | North Korea DPRK | T1561 (Disk Wipe), T1485 (Data Destruction), T1490 (Inhibit System Recovery) | Banking, crypto, destructive |
-| **APT28 (Fancy Bear)** | Russia GRU | T1078.004 (Cloud Accounts), T1110 (Brute Force), T1136 (Create Account) | Government, military, election |
-| **Scattered Spider** | US/UK cybercrime | T1656 (Impersonation), T1078.004 (Cloud), T1213 (Data from Cloud) | Telecom, SaaS, social engineering |
-| **Volt Typhoon** | China PRC | T1078 (Valid Accounts), T1133 (External Remote Services), T0855 (Unauthorized Command) | Critical infrastructure, OT |
+| Threat Actor           | Origin                   | Top ATT&CK Techniques                                                                  | Use Case Emulation                |
+| ---------------------- | ------------------------ | -------------------------------------------------------------------------------------- | --------------------------------- |
+| **APT29 (Cozy Bear)**  | Russia SVR               | T1559 (IPC), T1078 (Valid Accounts), T1056 (Input Capture), T1573 (Encrypted C2)       | Diplomatic & government targeting |
+| **FIN7**               | Russia/Ukraine financial | T1059 (Command Interpreter), T1027 (Obfuscation), T1567 (Exfil over web)               | Financial, retail, hospitality    |
+| **Lazarus Group**      | North Korea DPRK         | T1561 (Disk Wipe), T1485 (Data Destruction), T1490 (Inhibit System Recovery)           | Banking, crypto, destructive      |
+| **APT28 (Fancy Bear)** | Russia GRU               | T1078.004 (Cloud Accounts), T1110 (Brute Force), T1136 (Create Account)                | Government, military, election    |
+| **Scattered Spider**   | US/UK cybercrime         | T1656 (Impersonation), T1078.004 (Cloud), T1213 (Data from Cloud)                      | Telecom, SaaS, social engineering |
+| **Volt Typhoon**       | China PRC                | T1078 (Valid Accounts), T1133 (External Remote Services), T0855 (Unauthorized Command) | Critical infrastructure, OT       |
 
 **Pemilihan threat actor** tergantung industry dan risk profile Anda. Bank → FIN7. Telecom → Scattered Spider. Energy → Volt Typhoon.
 

@@ -1,11 +1,24 @@
 ---
-title: "Quantum Error Correction: Surface Code & Threshold"
-tags: [quantum-error-correction, quantum-computing, surface-code, cryptography]
-aliases: [QEC, Surface Code, Threshold Theorem, Quantum Error Correction]
+title: 'Quantum Error Correction: Surface Code & Threshold'
+tags:
+- quantum-error-correction
+- quantum-computing
+- surface-code
+- cryptography
+aliases:
+- QEC
+- Surface Code
+- Threshold Theorem
+- Quantum Error Correction
 status: pending
 created: 2026-08-04
 updated: 2026-08-04
-cssclasses: [wide-table]
+cssclasses:
+- wide-table
+verification:
+  status: unverified
+  last_checked: '2026-08-12'
+  confidence: LOW
 ---
 
 > [!abstract]
@@ -191,3 +204,20 @@ Ini penting untuk [[post-quantum-tls]] dan [[pqc-implementation-rust]]:
 | [[hierarchy-quantum-cryptography-stack]] | Atlas stack quantum cryptography |
 | [[quantum-cryptography-deepdive]] | Teori quantum cryptography |
 | [[quantum-machine-learning2]] | Qubit di ML — noise sensitivity |
+
+## 🔍 Verification Report
+> [!NOTE]
+> **Last Evaluated:** 2026-08-12 20:13
+> **Overall Epistemic Status:** **`UNVERIFIED`**
+
+### ❔ Claim 1: Shor code uses 9 physical qubits to encode 1 logical qubit and can correct all types of single physical qubit errors.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 2: Steane code is a 7-qubit CSS code that can correct 1 error and supports transversal CNOT, X, and Z gates.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 3: Surface code requires dÂ² physical qubits to achieve a code distance of d.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.

@@ -1,20 +1,24 @@
 ---
 tags:
-  - quantum-computing
-  - qml
-  - vqe
-  - qnn
-  - hybrid-quantum
+- quantum-computing
+- qml
+- vqe
+- qnn
+- hybrid-quantum
 aliases:
-  - Quantum ML
-  - QML Architecture
-  - Hybrid Classical-Quantum Intelligence
+- Quantum ML
+- QML Architecture
+- Hybrid Classical-Quantum Intelligence
 created: 2026-07-14
 status: pending
 cssclasses:
-  - wide-table
-
+- wide-table
+verification:
+  status: unverified
+  last_checked: '2026-08-12'
+  confidence: LOW
 ---
+
 # ⚛️ QUANTUM MACHINE LEARNING — Arsitektur Kognitif di Persimpangan Realitas
 
 **Dari Superposisi ke Advantage: Sebuah Deep Dive ke dalam Pabrik Komputasi Kuantum untuk Kecerdasan Buatan**
@@ -223,3 +227,20 @@ QML bukanlah tujuan akhir; ia adalah kendaraan untuk mencapai **Keunggulan Kuant
 | **[[math-and-algorithms]]** | Aljabar Linear adalah bahasa ibu QML. Ruang Hilbert, dekomposisi nilai eigen (VQE), dan operasi matriks adalah fondasi dari segalanya. |
 | **[[cryptography-biometrics]]** | VQE dan QSVM adalah "pencuri" dari algoritma kriptografi klasik. Mereka mencari "kunci" (keadaan dasar) di ruang kunci yang eksponensial. QML adalah sisi ofensif dari komputasi pasca-kuantum. |
 | **[[cognitive-architecture-engineering]]** | Loop VQE (Ansatz -> Ukur -> Optimasi -> Ulangi) adalah cikal bakal dari **OODA Loop Kuantum**. Ia adalah "Meta-Agent" yang menyetir sistem kuantum menuju solusi. |
+
+## 🔍 Verification Report
+> [!NOTE]
+> **Last Evaluated:** 2026-08-12 20:13
+> **Overall Epistemic Status:** **`UNVERIFIED`**
+
+### ❔ Claim 1: An n-qubit register can exist in a superposition of all 2^n states simultaneously.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 2: VQE is a hybrid classical-quantum algorithm designed to find the minimum eigenvalue (ground state energy) of a Hamiltonian H.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+### ❔ Claim 3: Quantum computing uses constructive interference to increase the probability amplitude of correct solutions and destructive interference to decrease the probability amplitude of incorrect solutions.
+- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
+- **Analysis:** No relevant web search results could be retrieved to verify this claim.

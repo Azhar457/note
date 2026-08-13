@@ -1,10 +1,10 @@
 ---
 title: Curriculum Mapping
 tags:
-- atlas
-created: '2026-04-25'
-updated: '2026-07-01'
-status: pending
+  - atlas
+created: 2026-04-25
+updated: 2026-07-01
+status: complete
 ---
 
 # 🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security

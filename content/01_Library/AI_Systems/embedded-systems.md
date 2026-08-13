@@ -1,10 +1,10 @@
 ---
 title: Embedded Systems
 tags:
-- ai-systems
-- library
-created: '2026-04-25'
-updated: '2026-07-01'
+  - ai-systems
+  - library
+created: 2026-04-25
+updated: 2026-08-12
 status: pending
 ---
 

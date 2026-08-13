@@ -10,7 +10,7 @@ aliases:
   - Levels of Abstraction
   - Layer Cake Model
   - Cross Domain Abstraction Stack
-status: pending
+status: complete
 created: 2026-07-23
 updated: 2026-07-23
 cssclasses:
@@ -157,6 +157,7 @@ Abstraksi dari quantum physics ke logika biner.
 Abstraksi dari hardware gates ke **instruction set** yang bisa diprogram.
 
 **ISA Examples:**
+
 | ISA | Type | Register Width | Key Feature |
 |-----|------|:--------------:|-------------|
 | x86-64 | CISC | 64-bit | Backward compat 40+ tahun |
@@ -265,6 +266,7 @@ Framework: Framework calls your code (Inversion of Control)
 ```
 
 **Contoh per Domain:**
+
 | Domain | Framework/Library |
 |--------|-------------------|
 | Web backend | Spring Boot, Django, Express, Next.js |
