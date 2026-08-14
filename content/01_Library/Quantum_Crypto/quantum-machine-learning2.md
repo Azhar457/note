@@ -12,7 +12,9 @@ aliases:
 created: 2026-07-14
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 verification:
   status: unverified
   last_checked: '2026-08-12'
@@ -203,7 +205,7 @@ Solusi untuk Barren Plateau bukanlah menghindari ekspresivitas, melainkan mengel
 └───────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 ```
 
-**Koneksi Vault:** Konsep menemukan *sweet spot* dalam kompleksitas model adalah cerminan langsung dari **bias-variance tradeoff** di **[[hierarchy-classical-ml-algorithms]]**. Barren Plateau adalah manifestasi kuantum dari overfitting yang ekstrem.
+**Koneksi Vault:** Konsep menemukan *sweet spot* dalam kompleksitas model adalah cerminan langsung dari **bias-variance tradeoff** di **[[00_Atlas/hierarchy-classical-ml-algorithms]]**. Barren Plateau adalah manifestasi kuantum dari overfitting yang ekstrem.
 
 ---
 

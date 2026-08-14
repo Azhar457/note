@@ -11,6 +11,11 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+  - code-wrap
+
 verification:
   status: unverified
   last_checked: '2026-08-12'

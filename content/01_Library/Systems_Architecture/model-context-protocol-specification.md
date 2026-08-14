@@ -13,6 +13,10 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # Model Context Protocol (MCP) Specification: Arsitektur JSON-RPC & Keamanan AI Agent

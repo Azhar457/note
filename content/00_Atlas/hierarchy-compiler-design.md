@@ -463,9 +463,9 @@ Ketika optimizer membuat **asumsi** (tipe class, monomorphic call) yang ternyata
 | Konsep | Catatan Vault |
 |--------|---------------|
 | **Programming Language Evolution** | [[hierarchy-programming-language]] — Evolusi bahasa yang dikompilasi |
-| **Type Systems** | [[hierarchy-software-engineering-paradigm]] — Paradigma dan type system |
-| **WebAssembly (WASM)** | [[hierarchy-package-managers]] — WASM sebagai target baru compiler |
-| **Compiler Security (Thompson Hack)** | [[hierarchy-cybersecurity-defense-architecture]] — Supply chain attack |
+| **Type Systems** | [[00_Atlas/hierarchy-software-engineering-paradigm]] — Paradigma dan type system |
+| **WebAssembly (WASM)** | [[00_Atlas/hierarchy-package-managers]] — WASM sebagai target baru compiler |
+| **Compiler Security (Thompson Hack)** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Supply chain attack |
 | **Rust Compiler** | [[rust-systems-programming-tooling-keamanan]] — Rustc sebagai LLVM frontend |
 | **Optimization & Performance** | [[hierarchy-memory-storage]] — Cache hierarchy dan optimasi |
 | **eBPF Verification** | [[ebpf-kernel-security]] — eBPF verifier sebagai compiler mini |

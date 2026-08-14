@@ -6,7 +6,10 @@ tags:
 created: '2026-05-29'
 updated: '2026-07-01'
 status: pending
-cssclasses: ''
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🔌 API PROTOCOLS — Deep Dive: REST, gRPC, WebSocket, GraphQL

@@ -6,6 +6,10 @@ created: 2026-04-23
 updated: 2026-07-01
 status: complete
 ---
+cssclasses:
+  - wide-table
+  - callout
+
 # 🤖 HIERARKI AI — Dari Rule-Based sampai Beyond Physics
 
 > Peta lengkap ekosistem kecerdasan buatan dari level paling primitif hingga batas teoretis alam semesta. Gunakan kolom **SKIP** dan **HARAPAN** sebagai panduan keputusan teknis harian.

@@ -17,6 +17,10 @@ title: Dokumen 02 Docker Nextcloud Stack
 updated: '2026-07-01'
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # Dokumen 02 — Infrastruktur Docker & Persistence Storage
 
 > Implementasi Infrastructure as Code (IaC) dengan Docker Compose V2 untuk Nextcloud + MariaDB. Semua data diikat ke host LXC via bind mount agar tahan reboot, mati listrik, dan anti-reset.
@@ -216,3 +220,39 @@ http://192.168.1.51:8080
 ```
 
 Jika halaman setup Nextcloud muncul, stack berhasil. Lanjutkan ke [[dokumen-03-cloudflare-tunnel-routing|Dokumen 03]] untuk konfigurasi domain publik dan Zero Trust.
+## Deepdive Tambahan — Implementasi & Operasional
+
+### Arsitektur & Komponen Detail
+
+Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+
+| Komponen | Fungsi | Attack Surface | Defense |
+|----------|--------|---------------|---------|
+| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
+| **Processing** | Core logic | Logic flaw, bypass | Test, review |
+| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
+| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
+| **Network** | Transit | Intercept, MITM | TLS, mTLS |
+
+### Best Practice Checklist
+
+- [ ] Input validation (whitelist, not blacklist)
+- [ ] Authentication (MFA, rate limit, lockout)
+- [ ] Authorization (RBAC, least privilege, deny default)
+- [ ] Logging (structured, immutable, centralized)
+- [ ] Encryption (transit TLS, rest AES, key rotation)
+- [ ] Backup (test restore, offsite, immutable)
+- [ ] Patch (automated scan, SLA per severity)
+
+### Common Pitfall
+
+1. **Assume input trusted**: Semua input adalah musuh → validate di server.
+2. **Secret in code**: Hardcoded credential → git leak → compromise.
+3. **Silent failure**: Error ditelan → debugging impossible → security blind.
+4. **No rate limit**: Abuse path → DoS → resource exhaustion.
+5. **Default config**: Default = insecure → harden sebelum produksi.
+
+## Referensi
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
+- MITRE ATT&CK — https://attack.mitre.org/

@@ -9,6 +9,10 @@ tags:
 created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 ## Daftar Isi
@@ -187,7 +191,7 @@ class ParallelOrchestrator:
 
 ## 4. Pattern 3: Supervisor (Hierarchical)
 
-**Supervisor agent yang manage sub-agents.** Supervisor决定 kapan panggil agent mana, evaluasi hasil, dan decide next action — loop sampai task selesai.
+**Supervisor agent yang manage sub-agents.** Supervisor menentukan kapan panggil agent mana, evaluasi hasil, dan decide next action — loop sampai task selesai.
 
 ```
               ┌───────────────────┐

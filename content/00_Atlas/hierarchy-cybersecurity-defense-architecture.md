@@ -1,643 +1,294 @@
 ---
-tags:
-  - hierarchy
-  - cybersecurity
-  - defense-in-depth
-  - network-security
-  - encryption
-  - identity
-  - zero-trust
-aliases:
-  - Cybersecurity Defense Architecture
-  - Defense in Depth Hierarchy
-  - Security Layer Map
-  - Cyber Defense Stack
+title: Cybersecurity Defense Architecture — Multi-Layer Defense Architecture (9 Layer Framework)
+tags: [defense-in-depth, nist-csf-2.0, blue-team, security-architecture, defense-architecture, layer-defense]
+aliases: [hierarchy-cybersecurity-defense-architecture, defense-in-depth-map, blue-team-layer-architecture]
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
-created: 2026-07-23
-updated: 2026-07-23
+references:
+  - 00_Atlas/attacker/attack-cybersecurity-defense-architecture.md (Attack Perspective — red team counterpart)
+  - 01_Library/defender/_index.md
+related_notes:
+  - 01_Library/defender/Web/*
+  - 01_Library/defender/Infrastructure/*
+  - 01_Library/defender/Incident_Response/*
+  - 01_Library/attacker/Intel_Misc/attack-defense-hardening-playbook.md
+---
+
 cssclasses:
   - wide-table
----
+  - callout
 
-# 🛡️ Cybersecurity Defense Architecture — Hierarki Pertahanan Sistem Digital
+# Cybersecurity Defense Architecture — Multi-Layer Defense Architecture (9 Layer Framework)
 
-> [!tip] Cybersecurity bukan satu produk — ia adalah **9 lapis pertahanan** yang harus diterapkan simultan. Catatan ini memetakan seluruh attack surface ke dalam Defense-in-Depth hierarchy, dari ancaman fisik sampai reputasi, dengan NIST CSF 2.0 alignment, OSI layer mapping, timeline evolusi (1960-2026), dan trade-off matrix per layer. Setiap layer punya kontrol, tool, framework, dan failure mode sendiri.
-
----
-
-## Daftar Isi
-
-1. [[#1. Premise — Mengapa "Satu Layer = Aman" Itu Mitos]]
-2. [[#2. Nine-Layer Defense-in-Depth Model]]
-3. [[#3. Layer L9 — Brand & Reputation]]
-4. [[#4. Layer L8 — Compliance & Legal]]
-5. [[#5. Layer L7 — Identity & Access (IAM)]]
-6. [[#6. Layer L6 — Application Security]]
-7. [[#7. Layer L5 — Endpoint Security (EDR/XDR)]]
-8. [[#8. Layer L4 — Network Security]]
-9. [[#9. Layer L3 — Data Security & Cryptography]]
-10. [[#10. Layer L2 — Cloud & Infrastructure]]
-11. [[#11. Layer L1 — Physical & Hardware]]
-12. [[#12. Layer L0 — Threat Intelligence & Governance]]
-13. [[#13. OSI Layer Mapping]]
-14. [[#14. NIST CSF 2.0 Alignment]]
-15. [[#15. Timeline 1960-2026 — Evolusi Ancaman]]
-16. [[#16. Cross-Reference ke Vault]]
-17. [[#References]]
+> **Tujuan dokumen ini:** Pemetaan sistematis arsitektur pertahanan siber (Blue Team / Defender) dalam **9 lapis**, dengan referensi framework internasional (NIST Cybersecurity Framework 2.0, CISA Zero Trust Maturity Model, MITRE D3FEND, ISO 27001/27002, CIS Controls v8, NIST SP 800-53 Rev 5, OWASP ASVS v4.0). Ini adalah **counterpart netral** dari [[00_Atlas/attacker/attack-cybersecurity-defense-architecture.md|Attack Perspective]] — yang satu dari sudut pandang penyerang, ini dari sudut pandang pertahanan.
+> **Status konten:** Lengkap — semua 9 layer, setiap layer dengan sub-komponen konkret, referensi framework, dan tindakan praktis. Mengikuti pola konsisten dengan hierarchy lain di 00_Atlas.
 
 ---
 
-## 1. Premise — Mengapa "Satu Layer = Aman" Itu Mitos
+## 1. Mengapa 9 Layer?
 
-Kesalahan paling fatal dalam cybersecurity adalah mempercayai **satu kontrol** memberikan keamanan total:
+Defense-in-depth (pertahanan berlapis) adalah prinsip bahwa **tidak ada satu kontrol keamanan pun yang sempurna**. Jika satu layer gagal, layer berikutnya masih menghadang. Model 9 layer ini adalah generalisasi dari berbagai framework:
 
-- "Pakai antivirus saja cukup" → ransomware tetep masuk (1990-an)
-- "Pakai firewall saja cukup" → insider threat bocor (2000-an)
-- "Pakai enkripsi saja cukup" → side-channel attack bocor (2010-an)
-- "Pakai cloud security group saja cukup" → misconfiguration bocor (2020-an)
+| Framework | Konsep yang Diadopsi |
+|-----------|---------------------|
+| NIST CSF 2.0 | 6 fungsi: Govern, Identify, Protect, Detect, Respond, Recover |
+| CISA Zero Trust Maturity Model | 5 pilar: Identity, Device, Network, Application Workload, Data |
+| MITRE D3FEND | 4 kelas taksonomi: Harden, Detect, Isolate, Deceive, Evict |
+| ISO 27001 | Annex A kontrol (organisasi, manusia, fisik, teknologi) |
+| CIS Controls v8 | 18 kontrol berjenjang (IG1, IG2, IG3) |
+| NIST SP 800-53 | 20 keluarga kontrol (AC, AT, AU, CA, CM, CP, IR, dll) |
+| OWASP ASVS v4.0 | 14 verifikasi aplikasi |
 
-**Defense-in-Depth** menyadari: **setiap kontrol bisa gagal**. Karena itu, kita stack 9 layer pertahanan — jika satu jebol, layer di belakangnya menahan.
+Dari semua framework tersebut, muncul pola umum **9 layer** yang mewakili jalur serangan dari **luar ke dalam**:
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│ L9: Brand & Reputation                                   │
-│ L8: Compliance & Legal                                   │
-│ L7: Identity & Access                                    │
-│ L6: Application Security                                 │
-│ L5: Endpoint / EDR / XDR                                 │
-│ L4: Network / NDR                                        │
-│ L3: Data Security & Cryptography                         │
-│ L2: Cloud & Infrastructure                               │
-│ L1: Physical & Hardware                                  │
-│ L0: Threat Intelligence & Governance                     │
-└──────────────────────────────────────────────────────────┘
-     ↑   INCREASING ATTACKER REWARD      ↓
-         DECREASING ATTACKER SKILL      (zero-day exploits)
+L1 (Fisik & Edge) → L2 (Network Perimeter) → L3 (Endpoint) → L4 (Aplikasi/Web)
+→ L5 (Data) → L6 (Identitas & Akses) → L7 (Cloud/Infrastruktur) → L8 (Orkestrasi/SOC)
+→ L9 (Governance & Brand)
 ```
 
-**Prinsip Castle-and-Moat yang usang:** perimeter saja tidak cukup — attacker masuk lewat berbagai vektor (phishing, supply chain, insider).
+---
 
-**Prinsip Zero Trust modern:** verifikasi setiap akses, dari setiap arah, dari setiap entitas — trust nothing.
+## 2. Tabel Ringkasan 9 Layer
+
+> **Catatan kolom:** `Layer` = nomor lapis; `Fokus` = objek utama pertahanan; `Contoh Kontrol` = implementasi teknis; `Framework` = acuan standar; `Kegagalan Khas` = pola serangan yang biasa menembus layer ini.
+
+| Layer | Nama | Fokus | Contoh Kontrol | Framework | Kegagalan Khas |
+|-------|------|-------|----------------|-----------|----------------|
+| **L1** | Physical & Edge | Gedung, data center, kabel, perangkat edge | CCTV, biometric access, cable locks, UPS, tamper-evident seals | ISO 27001 A.7-8, NIST 800-53 PE | Tailgating, USB drop attack, theft |
+| **L2** | Network Perimeter | Firewall, router, DDoS protection | NGFW, IDS/IPS, DDoS scrubbing, network segmentation, VLAN | NIST 800-41, CIS v8 Ctrl 4 | Port scan, DoS/DDoS, misconfig firewall |
+| **L3** | Endpoint | Laptop, server, mobile, IoT | EDR/XDR, antivirus, patch management, application allowlist | MITRE D3FEND Harden, CIS v8 Ctrl 2-4 | Malware, ransomware, zero-day |
+| **L4** | Application / Web | Web app, API, microservice | WAF, runtime protection (RASP), input validation, ASVS | OWASP ASVS, OWASP Top 10 | SQLi, XSS, SSRF, auth bypass |
+| **L5** | Data | Database, file, backup, secrets | Encryption at rest/in-transit, DLP, backup 3-2-1, vault | ISO 27001 A.8, NIST 800-53 SC | Data exfil, ransomware encrypt, secret leak |
+| **L6** | Identity & Access | User, admin, service account | MFA, SSO, PAM, RBAC/ABAC, conditional access, least privilege | NIST 800-63, CISA Zero Trust Pillar 1 | Credential stuffing, phishing, privilege escalation |
+| **L7** | Cloud / Infra | IaaS, PaaS, container, orchestration | CSPM, IaC scanning, K8s policy, network policy, secrets mgmt | CISA ZTMM Pillar 2-4, CIS Benchmarks | Cloud misconfig, exposed S3, container escape |
+| **L8** | Orchestration / SOC | SIEM, SOAR, ticketing, runbook | SIEM, SOAR, threat intel, UEBA, detection engineering, IR playbook | NIST 800-61, NIST CSF Detect-Respond | Alert fatigue, missed detection, slow IR |
+| **L9** | Governance & Brand | Policy, compliance, awareness, crisis comm | Security awareness, policy, DR/BCP, vendor risk, exec reporting | NIST CSF Govern, ISO 27001 Clause 5 | Social engineering success, reputational damage, compliance fines |
 
 ---
 
-## 2. Nine-Layer Defense-in-Depth Model
+## 3. Detail per Layer
 
-### 2.1 Definisi Setiap Layer
+### 3.1 L1 — Physical & Edge
 
-| Layer | Fungsi | Failure Mode Tipikal | Owner |
-|:-----:|--------|-----------------------|-------|
-| **L9** | Brand reputasi, crisis comms | Key product tak relevan setelah breach | PR, marketing |
-| **L8** | Compliance framework | Denda GDPR 4% revenue, PCI banned | Legal, GRC |
-| **L7** | Authentication, authorization | Akun compromised, privilege escalation | IAM team |
-| **L6** | App-level vulnerabilities | SQLi, XSS, RCE, supply chain | DevSecOps |
-| **L5** | Host-level detection & response | Ransomware lolos, lateral movement | SOC + EDR team |
-| **L4** | Network segmentation, IDS/IPS | East-west traffic tidak terlihat, DDoS | NetSec team |
-| **L3** | Encryption, key management, DLP | Data exfiltration, breach disclosure | DataSec |
-| **L2** | Cloud misconfig, IAM, secrets | S3 public bucket, IAM privilege excess | CloudSec |
-| **L1** | Data center access, hardware tampering | Boot-level implant, hardware backdoor | IT ops |
-| **L0** | Threat intel, governance, risk | Unknown unknown exploit | CISO, GRC |
+**Objek:** gedung, ruang server, perangkat edge (router ISP, switch, UPS), media fisik.
 
-### 2.2 Layer Dependency & Failover
+**Kontrol konkret:**
+- Akses fisik berlapis: kartu + biometric + mantrap (airlock) di area sensitif
+- CCTV & visitor log; aturan "clean desk" dan "clear screen"
+- USB lock / cable lock; BIOS/UEFI password + Secure Boot
+- Perlindungan daya: UPS + genset + dual power feed
+- Asset inventory fisik (tag, RFID) sesuai NIST 800-53 PE-2/PE-3
+
+**Kegagalan khas:** tailgating (ikut orang lain masuk), USB drop attack (flash drive berisi malware ditinggal di parkiran), pencurian laptop/HDD, sabotase fisik, pemadaman listrik tanpa UPS.
+
+**Mitigasi praktis (homelab/VPS scale):** 2FA di console cloud, disk encryption (LUKS/BitLocker), laptop lock saat meninggalkan meja, jangan tinggalkan flash drive.
+
+---
+
+### 3.2 L2 — Network Perimeter
+
+**Objek:** firewall, router, switch, IDS/IPS, load balancer, DDoS protection.
+
+**Kontrol konkret:**
+- NGFW dengan deny-by-default; egress filtering (CIS v8 Ctrl 4)
+- Network segmentation: VLAN per trust zone (DMZ, internal, IoT, guest)
+- IDS/IPS (Suricata/Snort) + tcpdump/pcap analysis
+- DDoS scrubbing (Cloudflare, AWS Shield, atau on-prem)
+- DNS security (DNS filtering, DNSSEC, encrypted DNS DoH/DoT)
+- Zero Trust Network Access (ZTNA) — Tailscale/WireGuard mesh, tidak expose port publik
+
+**Kegagalan khas:** firewall misconfig (rule terlalu permisif), port scan berhasil → service exposed, DDoS membuat service down, ARP spoofing di LAN, DNS hijacking.
+
+**Referensi lintas:** [[00_Atlas/attack-hierarchy-network-security.md|attack-hierarchy-network-security]] (perspektif penyerang), [[01_Library/defender/Web/ids-ips-waf-nsm-comparison.md|IDS-IPS-WAF-NSM comparison]].
+
+---
+
+### 3.3 L3 — Endpoint
+
+**Objek:** workstation, laptop, server, perangkat mobile, IoT.
+
+**Kontrol konkret:**
+- EDR/XDR (CrowdStrike, SentinelOne, Defender for Endpoint) dengan behavioral detection
+- Patch management terjadwal (CIS v8 Ctrl 7) — prioritaskan CVE kritis & actively exploited
+- Application allowlisting (WDAC, AppLocker) — hanya aplikasi tepercaya
+- Mobile Device Management (MDM) + containerized app
+- Hardening OS: [[01_Library/defender/Infrastructure/linux-hardening-cis.md|linux-hardening-cis]], CIS Benchmarks
+
+**Kegagalan khas:** malware via phishing/malvertising, ransomware encrypt local files, zero-day exploit (browser/kernel), supply-chain attack via software update.
+
+**Catatan:** endpoint adalah layer yang paling sering menjadi titik masuk — perhatikan telemetri EDR dan behavioral detection (MITRE D3FEND: "Harden" + "Detect").
+
+---
+
+### 3.4 L4 — Application / Web
+
+**Objek:** aplikasi web, API, microservice, mobile app backend.
+
+**Kontrol konkret:**
+- OWASP ASVS v4.0 Level 1-3 verification; SDLC security (SAST, DAST, SCA)
+- WAF (ModSecurity, Cloudflare WAF, atau [[01_Library/defender/Web/waf-ml-anomaly-detection.md|WAF ML anomaly detection]])
+- Input validation + output encoding (anti SQLi, XSS, SSTI, XXE)
+- Runtime Application Self-Protection (RASP) untuk aplikasi kritis
+- API security: rate limiting, authN/authZ yang benar, OWASP API Top 10
+- Secure headers (CSP, HSTS, X-Frame-Options), cookie flags (HttpOnly, Secure, SameSite)
+
+**Kegagalan khas:** SQL injection, XSS, SSRF ([[01_Library/defender/Web/ssrf-defense-hardening-playbook.md|SSRF defense]]), broken access control (IDOR), insecure deserialization, dependency vulnerability (log4shell).
+
+**Referensi lintas:** [[00_Atlas/attack-hierarchy-waf-reverse-proxy.md|attack-hierarchy-waf-reverse-proxy]], [[01_Library/attacker/Web/attack-web-hacking-exploitation.md|web hacking exploitation]].
+
+---
+
+### 3.5 L5 — Data
+
+**Objek:** database, file share, backup, secrets/credential, data transaksi.
+
+**Kontrol konkret:**
+- Encryption at rest (disk, DB, backup) + encryption in transit (TLS 1.2+)
+- DLP (Data Loss Prevention) untuk PII/kartu kredit/kode sumber
+- Backup 3-2-1: 3 salinan, 2 media berbeda, 1 offsite/offline — + backup immutability
+- Secrets management: Vault/HashiCorp, AWS Secrets Manager, SOPS; jangan hardcode
+- Data classification & retention policy (ISO 27001 A.8, NIST 800-53 SC)
+
+**Kegagalan khas:** ransomware meng-encrypt backup yang tidak immutabale, data exfiltration via DNS tunnel/covert channel, secret ter-commit ke git, database tidak ter-encrypt di backup.
+
+**Catatan:** Backup yang benar (offline/immutable) adalah penyelamat utama saat ransomware — uji restore secara berkala.
+
+---
+
+### 3.6 L6 — Identity & Access
+
+**Objek:** user, admin, service account, API key, session.
+
+**Kontrol konkret:**
+- MFA wajib untuk semua akses (terutama admin & remote) — NIST 800-63 AAL2+
+- SSO/federated identity (OIDC/SAML) + conditional access (IP, device, risk)
+- PAM (Privileged Access Management) — jump host, session recording, vaulted creds
+- RBAC/ABAC dengan least privilege; review berkala
+- Service account hygiene: rotasi, scope minimal, no shared account
+
+**Kegagalan khas:** credential stuffing (password reuse), phishing MFA fatigue, privilege escalation (mis. AD misconfiguration), service account dengan hak berlebihan, Golden Ticket (AD).
+
+**Referensi lintas:** [[00_Atlas/attack-hierarchy-identity-trust.md|attack-hierarchy-identity-trust]], [[01_Library/attacker/IAM/attack-ad-windows.md|attack-ad-windows]].
+
+---
+
+### 3.7 L7 — Cloud / Infrastructure
+
+**Objek:** IaaS (AWS/GCP/Azure), PaaS, container, Kubernetes, IaC.
+
+**Kontrol konkret:**
+- CSPM (Cloud Security Posture Management) — deteksi misconfig (S3 public, SG terbuka)
+- IaC scanning (tfsec, Checkov, Snyk IaC) sebelum deploy; policy-as-code (OPA/CASB)
+- Kubernetes: RBAC ketat, NetworkPolicy default-deny, Pod Security Standards, image signing
+- Container: base image minimal & di-scan, non-root, read-only FS, seccomp/apparmor
+- Cloud trail logging + anomaly detection; budget alerts (anti crypto-mining)
+
+**Kegagalan khas:** exposed S3 bucket, security group terlalu terbuka, container escape, kubeconfig leaked, IaC dengan hardcoded secret, cost fraud via crypto-mining.
+
+---
+
+### 3.8 L8 — Orchestration / SOC
+
+**Objek:** SIEM, SOAR, threat intel, detection, incident response.
+
+**Kontrol konkret:**
+- SIEM (Wazuh, Splunk, Elastic) — log aggregation + correlation rules
+- SOAR automation: enrichment otomatis, triage, playbook ([[01_Library/defender/Endpoint/soc-automation-playbook-dengan-soar.md|SOC automation dengan SOAR]])
+- Detection engineering: Sigma rules, custom detection, MITRE ATT&CK mapping
+- Threat intel feeds (STIX/TAXII, MISP) untuk enrichment IoC
+- UEBA (User and Entity Behavior Analytics) untuk deteksi insider/anomaly
+- IR playbook & tabletop exercise ([[01_Library/defender/Incident_Response/incident-response-framework.md|incident-response-framework]])
+
+**Kegagalan khas:** alert fatigue (banyak false positive), deteksi lambat (dwell time panjang), runbook tidak diuji, log tidak lengkap (gap coverage), insider threat tidak terdeteksi.
+
+---
+
+### 3.9 L9 — Governance & Brand
+
+**Objek:** kebijakan, compliance, awareness, vendor, komunikasi krisis.
+
+**Kontrol konkret:**
+- Security policy & standards (akses, password, incident) — ditinjau tahunan
+- Security awareness training (phishing simulation) — NIST 800-50
+- DR/BCP (Disaster Recovery & Business Continuity Plan) — diuji berkala
+- Vendor risk management (third-party assessment)
+- Crisis communication plan — siapa bicara ke publik/regulator saat breach
+- Compliance: ISO 27001, SOC 2, GDPR, UU PDP Indonesia
+
+**Kegagalan khas:** social engineering sukses (awareness lemah), pelaporan breach lambat (fines), reputasi rusak, vendor pihak ketiga jadi jalur masuk (SolarWinds), kebijakan ada tapi tidak dijalankan.
+
+---
+
+## 4. Peta Relasi Antar Layer (Defense-in-Depth Graph)
 
 ```
-[L0: intel feeds]──── feeds to ────→ [L4, L5, L6]
-    ↓
-Detect threat signature
-    ↓
-[L4: NDR]──── blocks ────→ if bypassed → [L5: EDR]──── blocks ────→ if bypassed → [L6: AppSec]
-                                                                              ↓
-                                                                         [L7: MFA catches]
-                                                                                    ↓
-                                                                         [L3: encryption at rest]
-                                                                                    ↓
-                                                                         [L1: physical security]
+L9 Governance ─── mengatur ───→ L1..L8 (policy & audit)
+    │
+L8 SOC ─── memonitor ───→ L1..L7 (SIEM correlation across layers)
+    │
+L7 Cloud ─── menjalankan ───→ L3, L4, L5 (workload di cloud)
+    │
+L6 Identity ─── mengotorisasi ───→ L4, L5, L7 (akses ke app & data)
+    │
+L5 Data ─── dilindungi oleh ───→ L1..L4 (semua layer di depannya)
+    │
+L4 App ─── diakses lewat ───→ L2 (network) ─── L1 (edge/fisik)
 ```
 
-**Jika L0-L6 gagal total, L7-L9 adalah last line of defense:**
-- L7: zero-trust dengan MFA tahan phising
-- L3: data encrypted → theft tidak langsung berguna
-- L9: brand reputation dijaga lewat respon krisis
+**Prinsip operasional:**
+1. **Setiap layer independen** — kegagalan satu layer tidak menggagalkan keseluruhan
+2. **Deteksi & response** harus aktif di semua layer (bukan hanya pasif mencegah)
+3. **Monitoring silang**: anomali di L3 (endpoint) bisa jadi indikasi serangan yang mulai di L2
 
 ---
 
-## 3. Layer L9 — Brand & Reputation
+## 5. Alignment Framework (Referensi Cepat)
 
-> Pertahanan tertinggi: memastikan bahwa bahkan setelah breach, **brand tetap relevan**.
-
-### 3.1 Komponen
-
-| Komponen | Fungsi |
-|----------|--------|
-| Incident response plan | Koordinasi respon saat breach terjadi |
-| Crisis communications | Pernyataan publik, customer notification |
-| Cyber insurance | Finansial cover untuk breach |
-| Reputation monitoring | Dark web mentions, social sentiment |
-| Customer trust restoration | Compensation, transparency |
-
-### 3.2 Failure Mode
-
-| Failure                          | Dampak                                | Contoh         |
-| -------------------------------- | ------------------------------------- | -------------- |
-| Delay disclosure 6 bulan         | GDPR fine €50M, brand drop 30%        | Yahoo (2017)   |
-| Berbohong tentang cakupan breach | Multi-class lawsuit, executive ouster | Uber 2017      |
-| Slow customer notification       | 50% churn dalam 30 hari               | Equifax (2017) |
-| Tidak punya crisis comm team     | Runaway story = market cap -20%       | Target (2013)  |
+| Layer | NIST CSF 2.0 | CISA ZTMM | CIS v8 | NIST 800-53 | OWASP |
+|-------|--------------|-----------|--------|-------------|-------|
+| L1 | Protect | — | Ctrl 12 (Defense) | PE, CP | — |
+| L2 | Protect, Detect | Network | Ctrl 4, 13 | AC, SC | — |
+| L3 | Protect, Detect | Device | Ctrl 2, 3, 4, 7 | CM, SI | — |
+| L4 | Protect, Detect | App Workload | Ctrl 16 | SA, SI | ASVS semua |
+| L5 | Protect | Data | Ctrl 3, 11 | SC, CP | — |
+| L6 | Protect | Identity | Ctrl 5, 6 | AC, IA | ASVS V2, V4 |
+| L7 | Protect, Detect | App Workload, Data | Ctrl 4, 16 | CA, CM | — |
+| L8 | Detect, Respond | — | Ctrl 8, 13 | AU, IR | — |
+| L9 | Govern, Identify | — | Ctrl 14, 17 | AT, PM | — |
 
 ---
 
-## 4. Layer L8 — Compliance & Legal
+## 6. Checklist Implementasi (Actionable)
 
-> Memastikan organisasi mengikuti regulasi yang berlaku di industri + yurisdiksi.
+**L1:** [ ] Console access pakai MFA · [ ] Disk encryption aktif (LUKS/BitLocker/FileVault) · [ ] Laptop lock saat pergi
 
-### 4.1 Framework Compliance per Industri
+**L2:** [ ] Firewall deny-by-default (uji egress) · [ ] Segmentation VLAN (IoT terpisah) · [ ] ZTNA (Tailscale/WireGuard) — tidak expose port · [ ] DNS over HTTPS
 
-| Industri | Wajib | Opsional |
-|----------|------|----------|
-| Healthcare (US) | HIPAA, HITECH | HITRUST, SOC 2 |
-| Finance (US) | SOX, PCI DSS, GLBA | ISO 27001 |
-| Finance (EU) | PSD2, Basel III, MiFID II | DORA |
-| EU general | GDPR, NIS2, DSA | ISO 27001, 27017 |
-| Cloud (US Fed) | FedRAMP, FISMA | CMMC |
-| Energy/Utilities | NERC CIP | IEC 62443 |
-| Privacy (US State) | CCPA, NYDFS | SOC 2 |
-| Defense | CMMC, ITAR | FedRAMP High |
+**L3:** [ ] EDR/XDR aktif + telemetri masuk SIEM · [ ] Auto-patch CVE kritis ≤ 7 hari · [ ] AppLocker/allowlist di server penting
 
-### 4.2 Dampak Compliance Failure
+**L4:** [ ] SAST/DAST di pipeline · [ ] WAF di depan app publik · [ ] Secure headers + cookie flags · [ ] Dependency scan (SCA) tiap release
 
-| Regulasi | Denda Tipikal |
-|----------|--------------|
-| GDPR | 4% annual revenue OR €20M (mana yang lebih tinggi) |
-| HIPAA | $100-$50,000 per record + criminal |
-| PCI DSS | $5K-$100K/month + kehilangan merchant |
-| SOX | Criminal prosecution untuk officer |
-| CCPA | $750 per record + class action |
-| NIS2 | €10M atau 2% revenue |
+**L5:** [ ] Enkripsi at rest untuk DB & backup · [ ] Backup 3-2-1 + uji restore bulanan · [ ] Secrets di Vault (bukan .env di git) · [ ] DLP untuk PII
+
+**L6:** [ ] MFA semua admin · [ ] PAM untuk akses privileged · [ ] RBAC least privilege review 3 bulan · [ ] Service account rotasi
+
+**L7:** [ ] CSPM aktif (misconfig alert) · [ ] IaC scan sebelum apply · [ ] K8s NetworkPolicy default-deny · [ ] Cloud trail → SIEM
+
+**L8:** [ ] SIEM correlation rules aktif · [ ] Sigma/custom detection ≥ 10 rules · [ ] IR playbook diuji (tabletop) · [ ] Threat intel enrichment
+
+**L9:** [ ] Awareness training 2x/tahun · [ ] DR/BCP diuji 1x/tahun · [ ] Vendor risk assessment · [ ] Crisis comm plan tertulis
 
 ---
 
-## 5. Layer L7 — Identity & Access (IAM)
+## 7. Hubungan dengan Catatan Lain
 
-> Siapa yang boleh melakukan apa, dan dari mana.
-
-### 5.1 Komponen
-
-| Komponen | Fungsi | Contoh |
-|----------|--------|--------|
-| **SSO** | Single sign-on multi-app | Okta, Azure AD, Auth0 |
-| **MFA** | Second factor from password | TOTP, FIDO2, push |
-| **PIM/PAM** | Just-in-time admin | CyberArk, BeyondTrust |
-| **RBAC** | Role-based access | AWS IAM, K8s RBAC |
-| **ABAC** | Attribute-based access | Open Policy Agent |
-| **ZTA** | Zero Trust Architecture | BeyondCorp, Zscaler |
-| **User behavior analytics** | Anomaly detection on access | Splunk UBA, Exabeam |
-
-### 5.2 Frameworks
-
-- **NIST SP 800-63** — Digital identity levels (IAL1-3, AAL1-3, FAL1-3)
-- **NIST SP 800-207** — Zero Trust Architecture
-- **OAuth 2.1 + OIDC** — Modern delegated auth
-- **SAML 2.0** — Enterprise SSO
-- **SPIFFE/SPIRE** — Workload identity
-
-### 5.3 Failure Mode
-
-| Attack | Mitigation |
-|--------|-----------|
-| Phising | FIDO2 (WebAuthn) — tahan phising |
-| Credential stuffing | MFA + breach detection |
-| Session hijack | Short-lived JWT + refresh |
-| Privilege escalation | Least privilege + JIT admin |
-| Insider threat | UEBA + audit logs |
-
-**Koneksi ke Vault:**
-- [[hierarchy-cryptography]] — Public key infrastructure
-- [[hierarchy-endpoint-security]] — EDR melihat user activity
+- **Attack counterpart:** [[00_Atlas/attacker/attack-cybersecurity-defense-architecture.md|Attack Perspective — bagaimana menembus tiap layer]] (red team)
+- **Deepdive defense di Library:** [[01_Library/defender/_index.md|Defender Library]]
+- **Hierarchy terkait:** [[00_Atlas/hierarchy-search.md|hierarchy-search]] · [[00_Atlas/hierarchy-ctf-competition-framework.md|CTF framework]] · [[00_Atlas/hierarchy-failure-modes-resilience.md|failure modes & resilience]] · [[00_Atlas/hierarchy-it-support-model.md|IT support model]] · [[00_Atlas/hierarchy-infrastructure-evolution.md|infrastructure evolution]]
+- **Serangan terhadap defense:** [[00_Atlas/attack-hierarchy-network-security.md|attack-hierarchy-network-security]] · [[00_Atlas/attack-hierarchy-endpoint-security.md|attack-hierarchy-endpoint-security]]
 
 ---
 
-## 6. Layer L6 — Application Security
-
-> Aplikasi itu sendiri — yang menerima input dari user dan memproses data.
-
-### 6.1 OWASP Top 10 (2021) — Surface of Attack
-
-| Rank | Vulnerability | Frequency |
-|:----:|---------------|:---------:|
-| 1 | Broken Access Control | 3.81% |
-| 2 | Cryptographic Failures | 4.49% |
-| 3 | Injection | 4.74% |
-| 4 | Insecure Design | 3.0% |
-| 5 | Security Misconfiguration | 4.4% |
-| 6 | Vulnerable & Outdated Components | 8.78% |
-| 7 | Identification & Auth Failures | <1% |
-| 8 | Software & Data Integrity Failures | 2.06% |
-| 9 | Security Logging & Monitoring Failures | 6.51% |
-| 10 | Server-Side Request Forgery | 1.43% |
-
-### 6.2 SDLC Security Integration
-
-```
-┌────────────────────────────────────────────────────┐
-│ Requirements (Abuse cases)                         │
-├────────────────────────────────────────────────────┤
-│ Design (Threat modeling STRIDE, attack trees)      │
-├────────────────────────────────────────────────────┤
-│ Coding (Secure code review, SAST)                  │
-├────────────────────────────────────────────────────┤
-│ Testing (DAST, IAST, fuzzing, pentest)             │
-├────────────────────────────────────────────────────┤
-│ Build (SCA, SBOM, signed artifacts)                │
-├────────────────────────────────────────────────────┤
-│ Deploy (IaC scanning, secrets detection)           │
-├────────────────────────────────────────────────────┤
-│ Operate (RASP, WAF, observability)                 │
-└────────────────────────────────────────────────────┘
-```
-
-### 6.3 Supply Chain Security (SBOM Era)
-
-- **SLSA** (Supply-chain Levels for Software Artifacts) — Google framework
-- **Sigstore** — Cosign signing
-- **in-toto** — Attestation generation
-- **CycloneDX/SPDX** — SBOM standards
-- **Sigstore Fulcio + Rekor** — certificate transparency
-
-**Koneksi ke Vault:**
-- [[hierarchy-endpoint-security]]
-- [[waf-ml-anomaly-detection]]
-- WAF deepdive (privat) (jika ada)
-
----
-
-## 7. Layer L5 — Endpoint Security (EDR/XDR)
-
-> Setiap device — laptop, server, IoT, container — adalah target.
-
-### 7.1 Evolusi Endpoint Security
-
-| Era | Teknologi | Deteksi | Response |
-|-----|-----------|---------|----------|
-| 1990-2005 | Antivirus signature | Database signature | Quarantine file |
-| 2005-2015 | Anti-malware heuristik | Rule-based | Block process |
-| 2015-2020 | EDR (Endpoint Detection & Response) | Behavioral analytics | Isolate host, kill process |
-| 2020-2024 | XDR (Extended Detection & Response) | Cross-domain correlation | Orchestrated response |
-| 2024-2026 | AI-Native EDR | ML pattern + LLM analyst | Autonomous response |
-
-### 7.2 EDR vs XDR vs NDR
-
-| Aspek | EDR | XDR | NDR |
-|-------|-----|-----|-----|
-| Scope | Endpoint only | Endpoint + email + cloud + network | Network traffic only |
-| Data source | Syscalls, file, registry | Multi-source unified | NetFlow, packet, pcap |
-| Response | Kill process, isolate host | Cross-tier orchestrated | Block traffic, sinkhole |
-
-### 7.3 MITRE ATT&CK Framework
-
-ATT&CK = Adversarial Tactics, Techniques, and Common Knowledge — database taktik+teknik attacker:
-
-- **14 Tactics** — Recon, Initial Access, Execution, Persistence, Privilege Esc, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Exfiltration, Impact
-- **200+ Techniques** — spesifik behavior attacker
-- **600+ Sub-techniques**
-
-Setiap kontrol EDR/XDR dipetakan ke ATT&CK technique yang bisa ia detect.
-
-**Koneksi ke Vault:**
-- [[hierarchy-endpoint-security]] — Dedicated endpoint security hierarchy
-
----
-
-## 8. Layer L4 — Network Security
-
-> Arus lalu lintas di dalam dan antar jaringan.
-
-### 8.1 Komponen Jaringan
-
-| Komponen | Fungsi |
-|----------|--------|
-| **Firewall (stateful)** | Filter paket berdasarkan state |
-| **WAF (Web Application Firewall)** | Filter HTTP/HTTPS sesuai rule |
-| **IDS/IPS** | Intrusion Detection/Prevention |
-| **NDR** | Network Detection & Response |
-| **NAC** | Network Access Control |
-| **Microsegmentation** | East-west isolation |
-| **VPN / ZTNA** | Encrypted remote access |
-| **BGP RPKI** | Route hijacking prevention |
-| **DDoS protection** | Mitigation volumetric attacks |
-
-### 8.2 OSI Layer Mapping
-
-| OSI Layer | Ancaman | Kontrol |
-|:---------:|---------|---------|
-| 1 (Physical) | Wiretap, EMP | Faraday cage, fiber tap detection |
-| 2 (Data Link) | ARP spoof, MAC flood | Port security, 802.1X |
-| 3 (Network) | IP spoof, route hijack | RPKI, BCP38 |
-| 4 (Transport) | SYN flood, port scan | TCP RST, rate limit |
-| 5 (Session) | Session hijack | Encrypted sessions, short JWT |
-| 6 (Presentation) | SSL stripping | HSTS, certificate pinning |
-| 7 (Application) | SQLi, XSS, mitm | WAF, input validation |
-
-### 8.3 East-West vs North-South Traffic
-
-```
-                North-South (in/out)
-             ┌──────────────────────┐
-             ↓                      ↑
-┌─────┐     ┌─────┐    East-west    ┌─────┐
-│ App │←───→│ App │ ←───────────→  │ App │
-│  1  │     │  2  │    intra-DC     │  3  │
-└─────┘     └─────┘                 └─────┘
-              │      ┌─────┐        │
-              └─────→│ DB  │←───────┘
-                     └─────┘
-```
-
-- **North-south** traffic = traffic masuk/keluar DC (perimeter defense handles)
-- **East-west** traffic = traffic antar-service dalam DC (microsegmentation handles)
-- 80%+ modern traffic = east-west, tapi tool tradisional fokus north-south
-
-**Koneksi ke Vault:**
-- [[hierarchy-network-security]]
-- [[hierarchy-wireless]] — Wireless subset
-- [[hierarchy-kernel-bypass-networking]] — Kernel-level mitigasi
-- [[hierarchy-offensive]] — Red team perspective
-
----
-
-## 9. Layer L3 — Data Security & Cryptography
-
-> Data at rest, in transit, in use — diproteksi dengan kriptografi.
-
-### 9.1 The Three States of Data
-
-```
-Data at Rest      → Encryption at storage layer (LUKS, KMS, dm-crypt)
-                  → Backup encryption
-                  → Tokenization / anonymization
-
-Data in Transit   → TLS 1.3, WireGuard, IPsec, mTLS
-                  → Certificate management (cert-manager)
-                  → PFS (Perfect Forward Secrecy)
-
-Data in Use       → Confidential Compute (SEV-SNP, TDX, SGX)
-                  → Memory encryption (AMD SME)
-                  → Homomorphic encryption (research)
-```
-
-### 9.2 Key Management Lifecycle
-
-```
-Generate → Store → Distribute → Use → Rotate → Destroy
-   │         │        │         │       │         │
-   │         │        │         │       │         └─ Crypto-shred / zeroize
-   │         │        │         │       └─ Per Q3 / annual rotation
-   │         │        │         └─ Access control (KMS+IAM)
-   │         │        └─ HSM, KMS, sealed secret
-   │         └─ HSM (FIPS 140-3 L3)
-   └─ entropy source
-```
-
-### 9.3 Algoritma yang Direkomendasikan (2026)
-
-| Use Case | Algoritma | Key Size |
-|----------|----------|:--------:|
-| Symmetric encryption | AES-256-GCM | 256 bit |
-| Asymmetric | Ed25519, X25519, ML-KEM-768 | - |
-| Hashing (general) | SHA-3-256, BLAKE3 | 256-512 bit |
-| Password hashing | Argon2id | 64-128 MB mem |
-| TLS 1.3 | AES-256-GCM + Ed25519 | - |
-| Backup | AES-256-GCM + Argon2id passphrase | - |
-
-**Koneksi ke Vault:**
-- [[hierarchy-cryptography]]
-- [[hierarchy-quantum-cryptography-stack]] — PQC migration
-- [[hierarchy-digital-plumbing]] — TLS/OpenSSL
-
----
-
-## 10. Layer L2 — Cloud & Infrastructure
-
-> Konfigurasi cloud yang aman, IAM, secrets management, runtime security.
-
-### 10.1 Cloud Security Failure Modes
-
-| Failure | Contoh |
-|---------|--------|
-| Public S3 bucket | 100M+ records bocor (2017-2024 trends) |
-| Excessive IAM permissions | Service account dengan admin |
-| Secrets in source code | API keys di public repo |
-| Unpatched container images | CVE ratusan di registry |
-| Insecure API gateway | No auth, no rate limit |
-| Misconfigured K8s | Privileged pod, hostPath mount |
-
-### 10.2 CSPM, CIEM, CNAPP
-
-| Tool Kategori | Fungsi | Vendor |
-|---------------|--------|--------|
-| **CSPM** (Cloud Security Posture Mgmt) | Multi-cloud config audit | Wiz, Prisma Cloud, Lacework |
-| **CIEM** (Cloud Infrastructure Entitlement Mgmt) | IAM rightsizing | Sonrai, Ermetic |
-| **CNAPP** (Cloud-Native App Protection Platform) | K8s runtime + observability | Wiz, Aqua, Snyk |
-| **Secrets Mgmt** | Vault, KMS | HashiCorp Vault, AWS KMS, SOPS |
-| **IaC Scan** | Terraform/Kubernetes audit | Checkov, tfsec, Trivy |
-
-### 10.3 K8s-Specific Stack
-
-```
-┌─────────────────────────────────────────────────┐
-│ Cluster (managed: EKS/GKE/AKS)                   │
-│   ├─ Control Plane encryption at rest            │
-│   ├─ etcd encryption                             │
-│   └─ Network Policy (Calico/Cilium)              │
-├─────────────────────────────────────────────────┤
-│ Workload                                          │
-│   ├─ Pod Security Standards                      │
-│   ├─ Runtime (Falco, Tetragon)                   │
-│   ├─ Image scanning (Trivy, Grype)               │
-│   ├─ Supply chain (Sigstore, Kyverno)            │
-│   └─ mTLS service mesh (Istio, Linkerd)          │
-├─────────────────────────────────────────────────┤
-│ Pipeline                                          │
-│   ├─ Static analysis (kubescape, kube-bench)     │
-│   ├─ Admission control (OPA, Kyverno)            │
-│   └─ Secret rotation (External Secrets, SOPS)    │
-└─────────────────────────────────────────────────┘
-```
-
-**Koneksi ke Vault:**
-- [[hierarchy-infrastructure-evolution]] — On-prem to cloud evolution
-- [[container-kubernetes-security-deepdive]]
-- [[kubernetes-security-roadmap]]
-- [[cloud-infrastructure]]
-
----
-
-## 11. Layer L1 — Physical & Hardware
-
-> Akses fisik ke hardware, secure boot, hardware backdoors.
-
-### 11.1 Komponen
-
-| Kontrol | Fungsi |
-|---------|--------|
-| Data center access controls | Biometric, mantrap, visitor log |
-| Surveillance | CCTV, motion sensor, IR curtain |
-| Hardware tamper-evident | Seal, intrusion sensor |
-| Secure boot | BIOS/UEFI signature chain |
-| TPM | Hardware root of trust, measured boot |
-| HSM | Cryptographic key storage FIPS 140-3 |
-| Faraday cage | EMP / TEMPEST shielding |
-| Hardware attestation | TEE attestation remote |
-
-### 11.2 Trusted Execution Environments (TEE)
-
-| TEE | Vendor | Use Case |
-|-----|--------|----------|
-| **Intel SGX** | Intel | Enclave computation (deprecated dari desktop) |
-| **Intel TDX** | Intel | VM-level confidential computing |
-| **AMD SEV-SNP** | AMD | VM-level + memory encryption |
-| **ARM TrustZone** | ARM | Mobile, IoT normal mode |
-| **Apple SE** | Apple | Secure enclave di iOS/Mac |
-| **AWS Nitro** | AWS | Custom cloud hardware |
-| **Nvidia H100 CC** | Nvidia | GPU confidential computing |
-
-**Koneksi ke Vault:**
-- [[hierarchy-operating-systems]]
-- [[hierarchy-data-recovery]]
-- [[embedded-systems]]
-
----
-
-## 12. Layer L0 — Threat Intelligence & Governance
-
-> Paling bawah — fondasi intelijen + keputusan yang menggerakkan semua layer di atas.
-
-### 12.1 Komponen Governance
-
-| Komponen | Fungsi |
-|----------|--------|
-| **CISO** | Executive accountability untuk security |
-| **SOC** | 24/7 monitoring, triage, response |
-| **GRC** | Governance Risk Compliance |
-| **CTI** | Cyber Threat Intelligence team |
-| **Red Team** | Authorized adversary simulation |
-| **Bug Bounty** | External researcher engagement |
-| **Penetration test** | Scheduled adversarial testing |
-
-### 12.2 Frameworks Inti
-
-| Framework | Owner | Fungsi |
-|-----------|-------|--------|
-| **NIST CSF 2.0** | NIST | Generic security framework (6 functions: Govern, Identify, Protect, Detect, Respond, Recover) |
-| **NIST SP 800-53** | NIST | Control catalog (1000+ controls) |
-| **ISO 27001/27002** | ISO | ISMS implementation |
-| **MITRE ATT&CK** | MITRE | Adversary behavior catalog |
-| **CIS Controls** | CIS | 18 prioritized actions |
-| **OWASP ASVS** | OWASP | Application security verification |
-
-### 12.3 Threat Intelligence Sources
-
-| Tier | Sumber |
-|------|--------|
-| **Strategic** | Vendor reports (Mandiant, CrowdStrike, Microsoft) |
-| **Operational** | ISACs, threat sharing communities (MISP, STIX/TAXII) |
-| **Tactical** | IoC feeds (abuse.ch, AlienVault OTX, VirusTotal) |
-| **Technical** | YARA rules, Snort/Suricata signatures |
-| **OSINT** | Twitter, Reddit, dark web forums, paste sites |
-
----
-
-## 13. OSI Layer Mapping
-
-Singkat — setiap cybersecurity layer对应 OSI:
-
-| Cybersecurity Layer | OSI Layer | Tools Khas |
-|---------------------|:---------:|------------|
-| L1 Physical | OSI 1 | Faraday, biometrics, security cameras |
-| L4 Network (firewall/IDS) | OSI 2-4 | Cisco ASA, Palo Alto, Suricata |
-| L4 Network (NDR) | OSI 3-4 | ExtraHop, Corelight |
-| L3 Data (TLS encrypt) | OSI 6 | OpenSSL, cert-manager |
-| L3 Data (storage encryption) | OSI 1 | LUKS, dm-crypt |
-| L2 Cloud | OSI 7 | Wiz, Prisma Cloud |
-| L6 Application (WAF) | OSI 7 | ModSecurity, Cloudflare WAF, Coraza |
-| L6 Application (RASP) | OSI 7 | Datadog ASM, Sqreen |
-| L5 Endpoint (EDR) | Host layer | CrowdStrike, SentinelOne, Wazuh |
-| L7 Identity | OSI 7 | Okta, Auth0, Azure AD |
-
----
-
-## 14. NIST CSF 2.0 Alignment
-
-NIST CSF 2.0 punya 6 Functions. Setiap cybersecurity layer punya representative controls:
-
-| Function | Deskripsi | Cybersecurity Layer yang Dominan |
-|----------|-----------|-------------------------------|
-| **GOVERN** | Kebijakan, risk, supplier | L8 + L0 |
-| **IDENTIFY** | Asset, risk | L0 + L9 |
-| **PROTECT** | Kontrol preventif | L1, L2, L3, L6, L7 |
-| **DETECT** | Deteksi anomaly | L4, L5, L6 |
-| **RESPOND** | Containment, eradication | L0, L5 |
-| **RECOVER** | Restoration | L9 + L1 |
-
----
-
-## 15. Timeline 1960-2026 — Evolusi Ancaman
-
-```
-┌────────────────────────────────────────────────────────────┐
-│ Era    │ Decade │ Major Shift                              │
-├────────┼────────┼──────────────────────────────────────────┤
-│ ARPANET│ 1960s  │ Physical access = total access           │
-│ Unix   │ 1970s  │ Password files, user permission          │
-│        │ 1980s  │ Worms (Morris 1988), first antivirus     │
-│ Web    │ 1990s  │ Network worms, firewall tsunami, Nessus  │
-│ E-com  │ 2000s  │ SQL injection, XSS, APT, Storm Worm      │
-│ Cloud  │ 2010s  │ Supply chain, ransomware, IoT botnets    │
-│        │ 2015s  │ Cryptoware, BEC, deepfake voice          │
-│ AI-era │ 2020s  │ LLM prompt injection, deepfake vishing   │
-│        │ 2025   │ Autonomous agents attacking each other   │
-│        │ 2026+  │ Self-evolving malware, AI-powered APT    │
-└────────────────────────────────────────────────────────────┘
-```
-
-**Trend besar tiap dekade:**
-- **Surface:** makin meluas (device, cloud, container, AI agent)
-- **Speed:** makin cepat (zero-day dalam hitungan jam)
-- **Sophistication:** makin advanced (AI-generated phishing)
-- **Target:** bergeser dari random → high-value (ransomware, BEC)
-
----
-
-## 16. Cross-Reference ke Vault
-
-| Layer | Catatan Vault |
-|:-----:|---------------|
-| **L9** | (tidak ada dedicated) — komunikasi krisis via SOPs |
-| **L8** | (audit di vault SOPs), [[hierarchy-it-domain]] untuk governance |
-| **L7** | [[hierarchy-cryptography]] (PKI), [[hierarchy-programming-language]] (OAuth libs) |
-| **L6** | [[waf-ml-anomaly-detection]], [[software-supply-chain-security-deepdive]] |
-| **L5** | [[hierarchy-endpoint-security]] (dedicated) |
-| **L4** | [[hierarchy-network-security]] (dedicated), [[hierarchy-wireless]] |
-| **L3** | [[hierarchy-cryptography]] (dedicated), [[hierarchy-quantum-cryptography-stack]] |
-| **L2** | [[hierarchy-infrastructure-evolution]], [[container-kubernetes-security-deepdive]], [[kubernetes-security-roadmap]], [[ansible-hardening-rocky-linux-9]] |
-| **L1** | [[hierarchy-operating-systems]], [[embedded-systems]] |
-| **L0** | [[hierarchy-osint-rf]] (intel source), [[hierarchy-offensive]] (red team) |
-
----
-
-## References
-
-1. NIST. *"Cybersecurity Framework 2.0."* (2024).
-2. NIST SP 800-207. *"Zero Trust Architecture."* (2020).
-3. OWASP. *"OWASP Top 10 2021."* https://owasp.org/Top10/
-4. MITRE. *"ATT&CK Matrix."* https://attack.mitre.org/
-5. CIS. *"CIS Critical Security Controls v8."* (2021).
-6. ISO/IEC 27001:2022. *"Information security management systems."*
-7. SANS Institute. *"Defense in Depth."* (2018).
-8. Verizon. *"2024 Data Breach Investigations Report."*
-9. Mandiant. *"M-Trends 2024 Annual Report."*
-10. NSA. *"NSA Cybersecurity Advisories."* 2020-2024.
-11. Cloud Security Alliance. *"Top Threats to Cloud Computing."* (2024).
-12. PCI Security Standards Council. *"PCI DSS v4.0."* (2022).
-13. ENISA. *"Threat Landscape Report 2024."*
-14. Google. *"BeyondProd, BeyondCorp."* (2019-2024).
-15. R. Ross. *"Risk Frameworks: NIST and ISO."* NIST Publication, 2023.
+*Dokumen ini adalah bagian dari 00_Atlas (peta pengetahuan). Deepdive implementasi ada di 01_Library/{attacker,defender}. Dibuat 2026-08-14, status complete.*

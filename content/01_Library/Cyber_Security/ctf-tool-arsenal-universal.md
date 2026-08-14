@@ -12,6 +12,10 @@ aliases:
 created: '2026-07-28'
 updated: '2026-07-28'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🛠️ CTF Tool Arsenal — Universal Reference

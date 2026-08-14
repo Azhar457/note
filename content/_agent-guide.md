@@ -1,3 +1,7 @@
+cssclasses:
+  - wide-table
+  - callout
+
 # AI Agent Readability & Writing Guide for this Vault
 
 Welcome, AI Agent. This document defines the strict engineering standards, conventions, and formatting guidelines for writing and modifying notes within this Obsidian/Quartz knowledge base. You MUST read and follow these rules unconditionally.

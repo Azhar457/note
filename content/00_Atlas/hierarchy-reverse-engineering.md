@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔧 HIERARKI REVERSE ENGINEERING — Dari String & Metadata (Level 0) sampai Deobfuscation VM (Level 7)
 
 > Reverse engineering adalah **membedah logika tanpa dokumentasi**. Hirarki ini memetakan perjalanan dari membaca string mentah (Level 0) sampai membalikkan bytecode VM protector (Level 7). Setiap level menambah depth — dan biaya waktu. Mulai dari yang paling murah; berhenti ketika cukup untuk menjawab pertanyaan. Untuk playbook teknis lengkap (alat per level + command), lihat [[hardware-hacking-re|Sheet 1 — RE Software & Firmware]].

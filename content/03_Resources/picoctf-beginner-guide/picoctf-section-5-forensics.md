@@ -8,6 +8,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔍 PICOCTF SECTION 5 — Forensics & Filesystem
 
 > **Environment:** Terminal / Bash

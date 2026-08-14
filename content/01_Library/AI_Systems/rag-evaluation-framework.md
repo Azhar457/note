@@ -10,7 +10,9 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 📊 RAG Evaluation Framework — RAGAS, DeepEval, dan Metrik Retrieval & Generation

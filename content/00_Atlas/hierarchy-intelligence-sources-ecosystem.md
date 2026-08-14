@@ -11,6 +11,10 @@ updated: '2026-08-02'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 > [!tip] Abstract
 > Peta hierarki ekosistem sumber pengetahuan dan intelijen — dari lapisan akademik formal (peer review) sampai lapisan operasional (HUMINT/SIGINT) dan lapisan arsip. Setiap level menjawab pertanyaan berbeda dan punya trade-off kecepatan, validasi, dan akses. Dokumen ini adalah peta konseptual untuk navigasi lintas dokumen sumber di vault: academic-research-sources-encyclopedia, intelligence-reporting-sources-and-tradecraft, primary-sources-and-archival-research, dan osint-resource-index.
 

@@ -14,12 +14,16 @@ updated: '2026-07-28'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # ⚔️ HIERARCHY CYBER RANGE & ADVERSARY EMULATION — Dari VM Capture-the-Flag sampai Full-Scope Enterprise Adversary Simulation
 
 > Cyber range dan adversary emulation adalah **satu-satunya cara realistis untuk menguji deteksi dan respons defender terhadap serangan nyata** tanpa risiko terhadap produksi. Berbeda dengan penetration testing (cari vulnerability statis), adversary emulation **meniru perilaku attacker persisten** (APT-style) — fokus pada chain TTP, bukan single exploit. Hirarki ini memetakan evolusi latihan dari **Level 0 (CTF box individual)** sampai **Level 6 (full-scope multi-tenant enterprise emulation)** — semua level **universal** dan tidak terikat event tertentu.
 
 > [!info] Cara Baca
-> Level 0–1 untuk pemula/individu belajar exploit chain. Level 2–3 untuk tim攻防 di kompetisi atau training internal. Level 4+ untuk purple team profesional, SOC maturity assessment, atau compliance (TIBER-EU, CBEST). Setiap level mengukur **kesetiaan emulasi terhadap attacker nyata**. Untuk methodology konkret saat kompetisi Attack-Defense, lihat [[ctf-competition-methodology-strategy]]. Untuk tool arsenal, lihat [[ctf-tool-arsenal-universal]].
+> Level 0–1 untuk pemula/individu belajar exploit chain. Level 2–3 untuk tim attack-defense di kompetisi atau training internal. Level 4+ untuk purple team profesional, SOC maturity assessment, atau compliance (TIBER-EU, CBEST). Setiap level mengukur **kesetiaan emulasi terhadap attacker nyata**. Untuk methodology konkret saat kompetisi Attack-Defense, lihat [[ctf-competition-methodology-strategy]]. Untuk tool arsenal, lihat [[ctf-tool-arsenal-universal]].
 
 ---
 
@@ -168,7 +172,7 @@ Emulator (red team) menjalankan TTP dari ATT&CK matrix. Defender (blue team) har
 
 ## Cross-Link ke Atlas Lainnya
 
-- **Cyber Kill Chain (TTTP chain detail)** → [[hierarchy-cybersecurity-defense-architecture]]
+- **Cyber Kill Chain (TTTP chain detail)** → [[00_Atlas/hierarchy-cybersecurity-defense-architecture]]
 - **Endpoint Defense (EDR detection)** → [[hierarchy-endpoint-security]]
 - **Network Detection (NDR/SIEM)** → [[hierarchy-network-security]]
 - **Threat Modeling (risk-based exercise design)** → [[hierarchy-threat-modeling]]

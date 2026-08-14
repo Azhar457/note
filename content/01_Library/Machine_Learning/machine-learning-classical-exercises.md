@@ -15,7 +15,7 @@ cssclasses:
 ---
 
 > [!abstract] Dari Teori ke Praktik
-> Dokumen ini adalah pendamping dari [[hierarchy-classical-ml-algorithms]]. Setelah memahami arsitektur setiap algoritma, saatnya menguji pemahaman dengan soal konseptual, implementasi kode, dan studi kasus dunia nyata. Setiap bagian mencakup pertanyaan, petunjuk, dan solusi lengkap.
+> Dokumen ini adalah pendamping dari [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]]. Setelah memahami arsitektur setiap algoritma, saatnya menguji pemahaman dengan soal konseptual, implementasi kode, dan studi kasus dunia nyata. Setiap bagian mencakup pertanyaan, petunjuk, dan solusi lengkap.
 
 ---
 
@@ -436,7 +436,7 @@ for name, clf in [('LR', clf1), ('RF', clf2), ('XGB', clf3)]:
 
 ## 🔗 Koneksi ke Dokumen Lain
 
-- [[hierarchy-classical-ml-algorithms]] — Teori dan implementasi dari nol
+- [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]] — Teori dan implementasi dari nol
 - [[math-and-algorithms]] — Fondasi matematis
 - [[swarm-ai-imam-robandi]] — Optimasi alternatif
 - [[llm-security-red-teaming-attack-surface-ai-layer]] — Adversarial attack pada model ML

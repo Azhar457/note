@@ -317,13 +317,13 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 
 | Layer | Catatan Vault Terkait |
 |:-----:|-----------------------|
-| **F0-F1** | [[hierarchy-digital-plumbing]] — Level 1-3: Aritmetika, parsing, encoding |
-| **F1** | [[hierarchy-software-engineering-paradigm]] — Design pattern, TDD |
-| **F2** | [[hierarchy-systems-architecture-evolution]] — Circuit breaker in microservices |
-| **F3** | [[hierarchy-kernel-bypass-networking]] — Zero-copy mitigasi latency |
+| **F0-F1** | [[00_Atlas/hierarchy-digital-plumbing]] — Level 1-3: Aritmetika, parsing, encoding |
+| **F1** | [[00_Atlas/hierarchy-software-engineering-paradigm]] — Design pattern, TDD |
+| **F2** | [[00_Atlas/hierarchy-systems-architecture-evolution]] — Circuit breaker in microservices |
+| **F3** | [[00_Atlas/hierarchy-kernel-bypass-networking]] — Zero-copy mitigasi latency |
 | **F4** | [[hierarchy-ai-levels]] — AI failure mode di L5+ |
-| **F5** | [[hierarchy-cybersecurity-defense-architecture]] — Human error vs security |
-| **F6-F7** | [[hierarchy-infrastructure-evolution]] — Multi-region infra |
+| **F5** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Human error vs security |
+| **F6-F7** | [[00_Atlas/hierarchy-infrastructure-evolution]] — Multi-region infra |
 
 ---
 

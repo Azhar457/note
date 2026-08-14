@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Web Security
 
 > Catatan tentang Web Security.
@@ -12,4 +18,3 @@
 - [[context7-mcp-deepdive]]
 - [[how-context7-works]]
 - [[unified-mcp-server]]
-

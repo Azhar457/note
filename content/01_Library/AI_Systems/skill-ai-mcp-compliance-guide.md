@@ -5,6 +5,10 @@
 > Panduan ini adalah aturan keras (hard rules) yang HARUS diikuti setiap kali membangun, mereview, atau mendokumentasikan MCP Server. Tidak ada pengecualian tanpa justifikasi teknis tertulis.
 
 ---
+cssclasses:
+  - wide-table
+  - callout
+
 
 ## 1. ARSITEKTUR — Hubungan Entitas
 

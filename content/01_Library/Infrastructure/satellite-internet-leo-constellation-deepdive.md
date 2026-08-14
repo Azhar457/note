@@ -18,7 +18,9 @@ created: '2026-08-06'
 updated: '2026-08-06'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🛰️ Satellite Internet & LEO Constellation — Deep Dive Teknis

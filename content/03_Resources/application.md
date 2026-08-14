@@ -7,6 +7,10 @@ updated: '2026-07-07'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🛠️ Master Interactive Tool Arsenal
 Halaman ini menggabungkan semua daftar aplikasi interaktif dalam satu tempat untuk memudahkan pencarian lintas disiplin. Di bawah ini terdapat berbagai sub-kategori peralatan taktis yang terbagi berdasarkan domain keahlian teknologi masing-masing.
 

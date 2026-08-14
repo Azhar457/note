@@ -13,7 +13,9 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 📱 Mobile Application Security — Deep Dive: Android Pentesting, iOS Security, OWASP MASVS, Reverse Engineering APK/IPA

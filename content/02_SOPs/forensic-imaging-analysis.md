@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔬 Master SOP — Digital Forensics Workflow: Imaging → Analysis → Recovery
 
 > **Environment:** Bare-Metal / Live USB (SystemRescue, Kali Linux, Paladin)

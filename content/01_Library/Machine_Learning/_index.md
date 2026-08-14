@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Machine Learning
 
 > Fundamental machine learning klasik: algoritma supervised/unsupervised, neural network, backpropagation, cosine similarity, binary quantization, dan metric transition theory.
@@ -14,10 +20,10 @@
 - [[cosine-similarity-deepdive]]
 - [[cosine-vs-euclidean-vs-dot]]
 - [[deepfake-detection]]
-- [[hierarchy-binary-quantization-hamming-popcount]]
-- [[hierarchy-metric-transition-theory]]
+- [[Note/01_Library/Machine_Learning/hierarchy-binary-quantization-hamming-popcount]]
+- [[Note/01_Library/Machine_Learning/hierarchy-metric-transition-theory]]
 - [[machine-learning-classical-exercises]]
-- [[hierarchy-classical-ml-algorithms]]
+- [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]]
 - [[rnn-lstm-vs-transformer]]
 - [[semantic-search-pipeline]]
 - [[synthetic-data-privacy]]

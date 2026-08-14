@@ -325,7 +325,7 @@ def make_foo(): return Foo()
 - **Kappa Architecture** (stream-only)
 
 **Koneksi ke Vault:**
-- [[hierarchy-systems-architecture-evolution]]
+- [[00_Atlas/hierarchy-systems-architecture-evolution]]
 - [[distributed-systems]]
 - [[system-design]]
 
@@ -386,7 +386,7 @@ def make_foo(): return Foo()
 - **AI pair programming** — Copilot, Cursor, Cline
 
 **Koneksi ke Vault:**
-- [[hierarchy-devops-cicd]] (kalau ada)
+- [[00_Atlas/hierarchy-devops-cicd]] (kalau ada)
 
 ---
 
@@ -448,7 +448,7 @@ Terlalu banyak E2E test = lambat, fragile, unfocused.
 | Approve != ship | Setiap round reviewer bisa gate |
 
 **Koneksi ke Vault:**
-- [[hierarchy-llm-ai-systems]] — Layer 6 (Evaluation in AI context)
+- [[00_Atlas/hierarchy-llm-ai-systems]] — Layer 6 (Evaluation in AI context)
 - [[test-driven-development]]
 
 ---
@@ -508,7 +508,7 @@ Terlalu banyak E2E test = lambat, fragile, unfocused.
 | Postmortem | Learning + action items |
 
 **Koneksi ke Vault:**
-- [[hierarchy-devops-cicd]] (planned)
+- [[00_Atlas/hierarchy-devops-cicd]] (planned)
 - [[llmops-ai-infrastructure]]
 
 ---
@@ -559,7 +559,7 @@ Tab autocomplete → Pair programming → Agents executing tasks
 - **AI-aware observability** — LLM-anomaly detection dalam production traces
 
 **Koneksi ke Vault:**
-- [[hierarchy-llm-ai-systems]]
+- [[00_Atlas/hierarchy-llm-ai-systems]]
 - [[agentic-ai-mcp-architecture-deepdive]]
 - [[ai-comm-protocol-deep-dive]]
 
@@ -621,13 +621,13 @@ Tab autocomplete → Pair programming → Agents executing tasks
 |:-----:|---------------|
 | **0 (Algo)** | [[math-and-algorithms]], [[computer-science-foundations]], [[encoding-serialization-compression-deepdive]] |
 | **1 (Paradigm)** | [[hierarchy-programming-language]], [[rust-systems-programming-tooling-keamanan]] |
-| **2 (Lang)** | [[hierarchy-programming-language]], [[hierarchy-software-engineering-paradigm]] (file ini) |
+| **2 (Lang)** | [[hierarchy-programming-language]], [[00_Atlas/hierarchy-software-engineering-paradigm]] (file ini) |
 | **3 (Pattern)** | (bisa ditambahkan), [[object-oriented-programming-deepdive]] (jika ada) |
-| **4 (Arch)** | [[hierarchy-systems-architecture-evolution]], [[distributed-systems]], [[system-design]], [[cloud-infrastructure]] |
-| **5 (Process)** | [[hierarchy-devops-cicd]] (planned) |
+| **4 (Arch)** | [[00_Atlas/hierarchy-systems-architecture-evolution]], [[distributed-systems]], [[system-design]], [[cloud-infrastructure]] |
+| **5 (Process)** | [[00_Atlas/hierarchy-devops-cicd]] (planned) |
 | **6 (Quality)** | [[test-driven-development]], [[e2e-testing]] (jika ada), [[software-supply-chain-security-deepdive]] |
-| **7 (Ops)** | [[hierarchy-infrastructure-evolution]], [[hierarchy-devops-cicd]] |
-| **8 (AI)** | [[hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]] |
+| **7 (Ops)** | [[00_Atlas/hierarchy-infrastructure-evolution]], [[00_Atlas/hierarchy-devops-cicd]] |
+| **8 (AI)** | [[00_Atlas/hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]] |
 
 ---
 

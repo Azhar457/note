@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Platform Technologies
 
 > Teknologi platform modern: API protocols, WebRTC, package managers, dan arsitektur platform engineering.
@@ -9,6 +15,5 @@
 ## 📄 Notes
 - [[api-protocols-deepdive]]
 - [[content-remote-using-webrtc]]
-- [[hierarchy-package-managers]]
+- [[Note/01_Library/Platform_Technologies/hierarchy-package-managers]]
 - [[platform-technologies-overview]]
-

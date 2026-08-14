@@ -5,7 +5,10 @@ aliases: [CSS Layout, CSS Grid, Flexbox, Container Queries, Modern CSS]
 status: pending
 created: 2026-08-04
 updated: 2026-08-04
-cssclasses: [wide-table]
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract]

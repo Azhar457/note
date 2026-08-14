@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Firmware Re
 
 > Reverse engineering firmware: dump flash, analisis binary, ekstraksi filesystem, dan vulnerability discovery di embedded firmware.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[firmware-reverse-engineering-deepdive]]
-

@@ -497,4 +497,4 @@ vault kv get -field=DB_PASSWORD secret/myapp
 - [[incident-response-framework]] — respon leaked secrets
 - [[software-supply-chain-security-deepdive]] — supply chain risk
 - [[dependency-confusion-supply-chain-attacks-praktik]] — dependency
-- [[hierarchy-package-managers]] — package manager
+- [[00_Atlas/hierarchy-package-managers]] — package manager

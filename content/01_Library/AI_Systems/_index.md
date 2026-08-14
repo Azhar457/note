@@ -1,3 +1,10 @@
+---
+title: AI Systems Index
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # AI Systems
 
 > Sistem AI modern: LLM, RAG, MCP, agentic AI, fine-tuning, evaluasi, dan infrastruktur AI production-grade.
@@ -40,8 +47,8 @@
 - [[example-jailbreak]] — raw jailbreak artifact (baseline testing)
 - [[gpu-programming-parallel-compute]]
 - [[hallucination-mitigation-grounding]]
-- [[hierarchy-kernel-bypass-networking]]
-- [[hierarchy-llm-ai-systems]] — AI hierarchy stack — layer 0 hardware ke layer 7 product UX, dengan trade-off matriks per layer
+- [[Note/01_Library/AI_Systems/hierarchy-kernel-bypass-networking]]
+- [[Note/01_Library/AI_Systems/hierarchy-llm-ai-systems]] — AI hierarchy stack — layer 0 hardware ke layer 7 product UX, dengan trade-off matriks per layer
 - [[hybrid-search-vector-keyword]]
 - [[jailbreak-case-study-neko-persona]] — anatomi & dekomposisi jailbreak Neko persona
 - [[jailbreak-impact-quantification]] — matematika dampak & probabilitas sukses jailbreak

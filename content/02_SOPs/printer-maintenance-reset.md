@@ -8,6 +8,10 @@ status: pending
 source: ''
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # Printer Maintenance & Reset — Complete Technician Guide
 
 > **Ringkasan:** Panduan komprehensif perawatan dan reset printer inkjet (Epson, Canon, Brother, HP) untuk teknisi servis. Mencakup identifikasi masalah, prosedur reset waste ink counter, service mode, dan mitigasi risiko kerusakan.

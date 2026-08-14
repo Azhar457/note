@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Container K8S Security
 
 > Container runtime hardening, Kubernetes cluster defense, admission control, dan runtime security (Falco/Tetragon).
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[container-kubernetes-security-deepdive]]
 - [[kubernetes-operasi-praktik]] — Deployment, Service, Ingress, scaling, debugging kubectl
-

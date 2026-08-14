@@ -380,8 +380,8 @@ $$ \nexists U: U(|\psi\rangle \otimes |0\rangle) = |\psi\rangle \otimes |\psi\ra
 
 | Catatan | Hubungan |
 |---------|----------|
-| [[hierarchy-quantum-cryptography-stack]] | Shor's algorithm break RSA → PQC migration; QKD via BB84 |
-| [[hierarchy-llm-ai-systems]] | Quantum ML — VQE, quantum kernels, hybrid classical-quantum |
+| [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]] | Shor's algorithm break RSA → PQC migration; QKD via BB84 |
+| [[00_Atlas/hierarchy-llm-ai-systems]] | Quantum ML — VQE, quantum kernels, hybrid classical-quantum |
 | [[hierarchy-compiler-design]] | Quantum transpiler sebagai compiler — mapping logical→physical qubit |
 | [[hierarchy-failure-modes-resilience]] | Quantum error correction sebagai contoh fault tolerance di sistem non-klasik |
 | [[hierarchy-abstraction-layers]] | Quantum computing sebagai lapisan baru dalam hierarchy komputasi |

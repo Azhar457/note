@@ -17,7 +17,6 @@ created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🤖 Coding Agent Harness — Feedforward & Feedback Controls

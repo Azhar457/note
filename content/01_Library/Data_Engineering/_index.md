@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Data Engineering
 
 > Database, ETL pipeline, data warehouse, PostgreSQL, dan infrastruktur data engineering.
@@ -11,4 +17,3 @@
 - [[database-internals-indexing-mvcc]]
 - [[postgresql-admin-backup]]
 - [[postgresql-performance-triage]]
-

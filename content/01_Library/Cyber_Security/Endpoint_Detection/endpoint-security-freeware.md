@@ -9,6 +9,10 @@ tags:
 created: '2026-05-01'
 updated: '2026-07-17'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 🛡️ Endpoint Security Tools — Open Source & Freeware Edition
 

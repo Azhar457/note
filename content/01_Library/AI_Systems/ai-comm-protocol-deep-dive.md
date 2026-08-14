@@ -6,6 +6,10 @@ tags:
 created: '2026-06-26'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🤖 AI COMMUNICATION PROTOCOL — DEEP DIVE & IMPLEMENTATION

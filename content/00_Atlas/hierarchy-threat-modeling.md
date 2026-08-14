@@ -11,6 +11,10 @@ created: 2026-07-17
 updated: 2026-07-17
 status: completed
 ---
+cssclasses:
+  - wide-table
+  - callout
+
 # 🛡️ HIERARKI THREAT MODELING — Dari Intuisi Developer (Level 0) sampai Formal Verification (Level 5)
 
 > Threat modeling adalah **proses sistematis untuk menjawab "Apa yang terburuk yang bisa terjadi?" sebelum kode ditulis.** Bukan mendokumentasikan ancaman untuk kepentingan audit — tapi untuk mengubah keputusan desain sebelum terlambat. Hirarki ini memetakan evolusi kedalaman analisis: dari sekadar STRIDE checklist, sampai formal verification yang membuktikan properti keamanan secara matematis. Untuk metodologi lengkap + praktik, lihat [[threat-modeling-deepdive]].

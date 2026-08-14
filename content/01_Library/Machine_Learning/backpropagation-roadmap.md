@@ -9,6 +9,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -227,4 +231,4 @@ print(f"df/dy: {y.grad}")          # -1.0
 |------|----------|
 | [[backpropagation-deepdive]] | Dasar teori, representasi graf komputasi, dan kalkulus balik *backward pass*. |
 | [[attention-mechanism-deepdive]] | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
-| [[hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien. |
+| [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien. |

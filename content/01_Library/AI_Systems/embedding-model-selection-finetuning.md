@@ -11,7 +11,9 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🧠 Embedding Model Selection & Fine-Tuning — Dari text-embedding-3-small ke Model Domain-Spesifik

@@ -11,6 +11,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -114,3 +118,63 @@ Sistem AI-SOC memunculkan area serangan baru (*attack surface*) yang menargetkan
 | [[agentic-ai-mcp-architecture-deepdive]] | Desain arsitektur agen otonom yang mengendalikan tool eksekusi SOAR. |
 | [[adversarial-machine-learning]] | Detil matematika serangan adversarial (Evasion, Poisoning) pada model machine learning. |
 | [[siem-security-data-lake-architecture]] | Arsitektur penyimpanan data log masif menggunakan kluster ClickHouse. |
+
+## 7. Deepdive — Serangan Terhadap AI-SOC & Defensinya
+
+### 7.1 Adversarial Attacks on ML Detection
+
+| Attack | Target | Teknik | Impact |
+|--------|--------|--------|--------|
+| **Evasion** | Anomaly detector | Craft traffic/log yang "normal" | Serangan lolos deteksi |
+| **Poisoning** | Training data | Inject label salah ke log corpus | Model salah klasifikasi |
+| **Data Injection** | Streaming SIEM | Flood log palsu | Alert fatigue, model drift |
+| **Model Stealing** | Detector | Query-response → replika model | Attacker tahu threshold |
+| **Prompt Injection** | LLM triage agent | Email/doc jahat di RAG context | Agent salah triage / exfil |
+
+### 7.2 Contoh Konkret — Evasion Anomaly Detector
+
+```python
+# Detector: Isolation Forest pada request rate per user
+# Attacker: slow-low-and-slow (sneaky) — rate di bawah threshold
+# → tidak terdeteksi sebagai anomaly, tapi total exfil tetap besar
+
+# Counter: korelasi lintas-waktu (EWMA) + entity behavior analytics
+# Bukan cuma rate sesaat, tapi pattern drift per user
+```
+
+### 7.3 LLM Triage Agent — Prompt Injection Defense
+
+| Risiko | Mitigasi |
+|--------|----------|
+| Prompt injection via alert content | Sanitasi input, tool-call whitelist |
+| RAG poisoning (CTI fake) | Source validation, cross-check |
+| Agent over-permission | Least privilege, human-in-loop untuk destructive action |
+| Data leak via agent response | Output filter, PII redaction |
+
+### 7.4 AI-SOC Effectiveness Metrics
+
+| Metrik | Definisi | Target |
+|--------|----------|--------|
+| **MTTD** | Mean Time to Detect | < 1 jam (AI: menit) |
+| **MTTR** | Mean Time to Respond | < 1 hari |
+| **FPR (False Positive Rate)** | Alert palsu / total | < 1% |
+| **Detection Coverage** | TTP detected / MITRE matrix | > 80% |
+| **Alert Triage Time** | Waktu analis per alert | < 5 menit (AI: detik) |
+
+## 8. Tool Stack
+
+| Tool | Layer | Use |
+|------|-------|-----|
+| **Elastic SIEM / Splunk** | Ingestion | Log storage + search |
+| **Kafka + ClickHouse** | Streaming | Real-time log pipeline |
+| **Isolation Forest / PyOD** | Anomaly | Unsupervised detection |
+| **LSTM Autoencoder** | Anomaly | Sequential pattern |
+| **LangChain / DSPy** | SOAR agent | LLM triage + RAG |
+| **TheHive / Cortex** | SOAR | Case mgmt + playbook |
+
+## 9. Referensi
+
+- MITRE ATLAS (AI adversarial) — https://atlas.mitre.org/
+- OWASP LLM Top 10 — https://owasp.org/www-project-top-10-for-large-language-model-applications/
+- Elastic Security Labs — https://www.elastic.co/security-labs/
+- PyOD (outlier detection) — https://github.com/yzhao062/pyod

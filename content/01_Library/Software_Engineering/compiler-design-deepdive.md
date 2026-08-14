@@ -1,6 +1,6 @@
 ---
-title: Compiler Design and Language Engineering Deep-Dive — Lexers, Parsers, LLVM,
-  and JIT/AOT
+title: "Compiler Design and Language Engineering Deep-Dive \u2014 Lexers, Parsers,\
+  \ LLVM, and JIT/AOT"
 tags:
 - compiler-design
 - programming-languages
@@ -8,9 +8,19 @@ tags:
 - software-engineering
 - compilation
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Deep-dive compiler: frontend (lexer/parser/AST) → IR & SSA form → optimasi → backend LLVM (JIT/AOT), plus GC vs borrow checker. |
+
+
+
+[[00_Atlas/hierarchy-programming-language]] [[00_Atlas/hierarchy-software-engineering-paradigm]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Penerjemahan kode dari bahasa tingkat tinggi manusia ke instruksi mesin sirkuit silikon adalah hasil rekayasa perangkat lunak paling kompleks. Catatan ini membedah arsitektur compiler, dari analisis leksikal, representasi sintaksis (AST), optimasi SSA, hingga backend LLVM, melengkapi pembahasan [[hierarchy-programming-language]] dan [[refactoring-martin-fowler]].
@@ -172,3 +182,77 @@ fn main() {
 | [[refactoring-martin-fowler]] | Penataan ulang struktur kode yang mempermudah compiler melakukan optimasi inlining. |
 | [[regular-expressions-deepdive]] | Dasar matematika regex yang dikonversi menjadi DFA untuk mesin leksikal (lexer). |
 | [[software-supply-chain-security]] | Kerentanan kompilasi (compiler backdoors/Ken Thompson hack) dan pentingnya *reproducible builds*. |
+
+
+
+> [!callout] 💡
+> Pemisahan frontend/backend lewat IR memungkinkan N bahasa × M arsitektur; SSA form adalah fondasi hampir semua optimasi compiler modern.
+
+## Deepdive Tambahan — Implementasi & Operasional
+
+### Arsitektur & Komponen Detail
+
+Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+
+| Komponen | Fungsi | Attack Surface | Defense |
+|----------|--------|---------------|---------|
+| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
+| **Processing** | Core logic | Logic flaw, bypass | Test, review |
+| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
+| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
+| **Network** | Transit | Intercept, MITM | TLS, mTLS |
+| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
+
+### Workflow End-to-End
+
+```
+Input → Validate → Process → Store → Serve → Monitor → Audit
+  ↓       ↓         ↓         ↓       ↓        ↓        ↓
+Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
+```
+
+### Tradeoff & Decision Matrix
+
+| Dimension | Pilihan A | Pilihan B | Factor |
+|-----------|-----------|-----------|--------|
+| Speed vs Security | Optimized | Strict validate | Risk context |
+| Memory vs Scale | In-memory | Disk-backed | Data volume |
+| Cost vs Control | Cloud managed | Self-hosted | Team capability |
+| Convenience vs Audit | Auto | Manual review | Compliance |
+
+### Best Practice Checklist
+
+- [ ] Input validation (whitelist, not blacklist)
+- [ ] Output encoding (context-aware: HTML, JS, CSS)
+- [ ] Authentication (MFA, rate limit, lockout)
+- [ ] Authorization (RBAC, least privilege, deny default)
+- [ ] Logging (structured, immutable, centralized)
+- [ ] Monitoring (latency, error, saturation, traffic)
+- [ ] Encryption (transit TLS, rest AES, key rotation)
+- [ ] Backup (test restore, offsite, immutable)
+- [ ] Patch (automated scan, SLA per severity)
+- [ ] Incident (runbook, contact, tabletop)
+
+### Common Pitfall
+
+1. **Assume input trusted**: Semua input adalah musuh → validate di server.
+2. **Secret in code**: Hardcoded credential → git leak → compromise.
+3. **Silent failure**: Error ditelan → debugging impossible → security blind.
+4. **No rate limit**: Abuse path → DoS → resource exhaustion.
+5. **Default config**: Default = insecure → harden sebelum produksi.
+
+### Tool Stack
+
+| Tool | Use |
+|------|-----|
+| Testing | Burp Suite, OWASP ZAP, ffuf |
+| Scanning | Nmap, Nuclei, Trivy |
+| Monitoring | Prometheus + Grafana |
+| Logging | ELK / Loki |
+| Secret | Vault / SOPS |
+
+## Referensi
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
+- MITRE ATT&CK — https://attack.mitre.org/
+- CIS Controls — https://www.cisecurity.org/controls/

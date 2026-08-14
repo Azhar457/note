@@ -7,6 +7,10 @@ aliases:
 created: "2026-07-19"
 updated: "2026-07-19"
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🌐 Internet Offline
@@ -19,7 +23,7 @@ status: pending
 
 | Catatan | Topik | Lokasi |
 | --- | --- | --- |
-| [[offline-internet-indonesia]] | Offline Internet — Onno W. Purbo: VPN, gateway, radio link,铺设乡村网络 | `01_Library/Infrastructure/` |
+| [[offline-internet-indonesia]] | Offline Internet — Onno W. Purbo: VPN, gateway, radio link,membangun jaringan desa | `01_Library/Infrastructure/` |
 
 ## 🧠 Konteks Fusion
 

@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Algorithms Math
 
 > Algoritma, struktur data, dan fondasi matematika untuk computer science — CLRS, DSA patterns, SICP.
@@ -10,4 +16,3 @@
 - [[clrs-introduction-to-algorithms]]
 - [[dsa-15-patterns-deepdive]]
 - [[sicp-abelson-sussman]]
-

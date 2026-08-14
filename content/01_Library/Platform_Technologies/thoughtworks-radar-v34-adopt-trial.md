@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # ThoughtWorks Technology Radar Vol. 34 (April 2026)
 ## Adopt & Trial — All Blips
 

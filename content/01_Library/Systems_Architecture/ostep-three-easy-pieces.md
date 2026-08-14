@@ -6,8 +6,11 @@ tags:
 created: '2026-07-05'
 updated: '2026-07-05'
 status: pending
----
+cssclasses:
+  - wide-table
+  - callout
 
+---
 # 🧵 Operating Systems: Three Easy Pieces
 > Remzi H. Arpaci-Dusseau & Andrea C. Arpaci-Dusseau — 2018
 

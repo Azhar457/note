@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Threat Intel Privacy
 
 > Catatan tentang Threat Intel Privacy.
@@ -11,4 +17,3 @@
 - [[digital-privacy-anonymity]]
 - [[isp-surveillance-privacy-deepdive]]
 - [[underground-knowledge]]
-

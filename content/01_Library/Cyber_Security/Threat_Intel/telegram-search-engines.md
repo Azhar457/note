@@ -43,6 +43,10 @@
 | OSINT.ME CSE | Tidak | Ya (API 403 bot) | cse.google.com |
 
 ---
+cssclasses:
+  - wide-table
+  - callout
+
 
 # ADVANCED OSINT — Deep Investigation Tools
 
@@ -110,3 +114,51 @@ Open-source scraper buat build search engine sendiri:
 1. **Telemetry** → search konten pesan
 2. **TelegramDB `/where`** → footprinting user
 3. **Maltego Transform** → visualisasi network
+
+## Advanced Telegram OSINT — Workflow & Tooling
+
+### Workflow Investigator
+
+```
+1. Target username → @tgdb_search_bot /search → grup/channel yang diikuti
+2. /where [username] → jejak historis (keluar grup pun ketahuan)
+3. /members [grup] → export anggota → cross-reference username lain
+4. Forward bot → analisis pesan publik → pattern aktivitas
+5. Cross-platform: username sama di X/Instagram/GitHub → profil lengkap
+```
+
+### API-Based Collection (Red Team)
+
+```bash
+# Telegram MTProto / Bot API untuk monitoring channel (tanpa UI)
+# 1. Buat bot → dapatkan token
+# 2. Join channel target
+# 3. Listen update → simpan pesan ke DB
+
+curl -s "https://api.telegram.org/bot<TOKEN>/getUpdates" | jq .
+```
+
+### Tools Perangkat OSINT Lengkap
+
+| Tool | Fungsi | Status |
+|------|--------|--------|
+| **TelegramDB** | User footprint (grup, member) | ✅ teruji |
+| **Lyzem** | Search channel/grup publik | ✅ teruji (curl + UA) |
+| **Telegago** | CSE khusus Telegram | ✅ teruji |
+| **Telemetry** | Deep index konten | 🟡 kredit |
+| **Waybien** | Multi-platform (TG/FB/DC/WA) | 🟡 basic gratis |
+| **Maltego** | Visualisasi network username | ✅ lokal |
+
+### Pitfall & Catatan Operasional
+
+1. **Lyzem**: butuh User-Agent browser (403 tanpa UA) — pakai `curl -A "Mozilla/5.0 ..."`.
+2. **tgram.me**: DNS mati saat tes 2026-08-09 — jangan andalkan.
+3. **TelegramDB**: gratis hanya 20 hasil/search — batch query per keyword.
+4. **Rate limit**: jangan spam search API — risk IP shadow-ban.
+
+## Referensi
+
+- Telegram API — https://core.telegram.org/
+- Lyzem — https://lyzem.com/
+- OSINT Framework — https://osintframework.com/
+- Bellingcat Toolkit — https://www.bellingcat.com/resources/

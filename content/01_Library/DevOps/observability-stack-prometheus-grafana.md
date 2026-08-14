@@ -16,7 +16,6 @@ created: '2026-07-15'
 updated: '2026-07-15'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 📊 Observability Stack: Prometheus, Grafana & Logging Pipeline

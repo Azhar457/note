@@ -81,7 +81,7 @@ Jika EU AI Act adalah "apa", NIST AI RMF adalah "bagaimana". Kerangka kerja ini 
 
 | Karakteristik NIST              | Definisi Operasional                                  | Koneksi Vault                                                                          |
 | :------------------------------ | :---------------------------------------------------- | :------------------------------------------------------------------------------------- |
-| **Valid & Reliable**            | Berfungsi seperti yang diharapkan, konsisten.         | **[[hierarchy-classical-ml-algorithms]]** (Metrik), **[[ai-evaluation-framework]]** |
+| **Valid & Reliable**            | Berfungsi seperti yang diharapkan, konsisten.         | **[[00_Atlas/hierarchy-classical-ml-algorithms]]** (Metrik), **[[ai-evaluation-framework]]** |
 | **Safe**                        | Tidak mengancam kehidupan, properti, atau lingkungan. | **[[site-reability-engineering]]** (Error Budget, Fail-Safe)                                                  |
 | **Secure & Resilient**          | Tahan terhadap serangan adversarial.                  | **[[llm-security-red-teaming-attack-surface-ai-layer]]**, **[[countermeasure-stack]]** |
 | **Accountable & Transparent**   | Jejak audit yang lengkap, dokumentasi.                | **[[software-engineering]]** (Version Control), **[[cicd-guide]]** (Pipeline)          |

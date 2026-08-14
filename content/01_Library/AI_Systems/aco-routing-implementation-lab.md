@@ -4,6 +4,11 @@ aliases: [ACO Lab, ACO Simulation Lab, Pheromone Routing Lab]
 status: pending
 created: 2026-07-26
 updated: 2026-07-26
+cssclasses:
+  - wide-table
+  - callout
+  - code-wrap
+
 ---
 
 > [!abstract] From Theory to Running Code

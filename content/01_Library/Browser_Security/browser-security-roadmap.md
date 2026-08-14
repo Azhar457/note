@@ -1,6 +1,6 @@
 ---
-title: Browser Security and Exploitation Learning Roadmap — From SOP Bypass to V8
-  Enclave Shellcode
+title: "Browser Security and Exploitation Learning Roadmap \u2014 From SOP Bypass\
+  \ to V8 Enclave Shellcode"
 tags:
 - browser-security
 - vulnerability-research
@@ -9,9 +9,21 @@ tags:
 - sandbox-escape
 - roadmap
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Kurikulum 4 fase keamanan & eksploitasi browser: SOP/CSP → arsitektur sandbox & Mojo IPC → memori V8 → sandbox escape & shellcode. |
+
+
+
+
+[[00_Atlas/hierarchy-offensive]] [[00_Atlas/hierarchy-threat-modeling]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Peramban web modern adalah salah satu permukaan serangan (*attack surface*) paling kompleks karena mengeksekusi kode tidak tepercaya dari internet di mesin lokal. Catatan ini menyediakan kurikulum terstruktur untuk mempelajari proteksi browser dan eksploitasi kerentanan memori, sebagai pasangan praktis dari berkas teoritis [[browser-security-exploitation-deepdive]].
@@ -116,3 +128,75 @@ Jelaskan perbedaan dampak eksploitasi jika penyerang berhasil mendapatkan celah 
 | [[browser-security-exploitation-deepdive]] | Analisis detail kerentanan V8, debugging CVE, dan bypass mitigasi ASLR/DEP. |
 | [[browser-engine-architecture]] | Pemahaman dasar layout rendering pipeline dan hidden classes V8 yang dieksploitasi. |
 | [[exploit-development]] | Teori dasar eksploitasi binary C++ seperti ROP chain dan heap feng-shui. |
+
+> [!callout] 💡
+> Rantai eksploitasi browser modern nyaris selalu kombinasi bug JS engine (V8) + sandbox escape — kuasai dua level itu secara paralel, bukan terpisah.
+
+## Deepdive Tambahan — Implementasi & Operasional
+
+### Arsitektur & Komponen Detail
+
+Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+
+| Komponen | Fungsi | Attack Surface | Defense |
+|----------|--------|---------------|---------|
+| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
+| **Processing** | Core logic | Logic flaw, bypass | Test, review |
+| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
+| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
+| **Network** | Transit | Intercept, MITM | TLS, mTLS |
+| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
+
+### Workflow End-to-End
+
+```
+Input → Validate → Process → Store → Serve → Monitor → Audit
+  ↓       ↓         ↓         ↓       ↓        ↓        ↓
+Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
+```
+
+### Tradeoff & Decision Matrix
+
+| Dimension | Pilihan A | Pilihan B | Factor |
+|-----------|-----------|-----------|--------|
+| Speed vs Security | Optimized | Strict validate | Risk context |
+| Memory vs Scale | In-memory | Disk-backed | Data volume |
+| Cost vs Control | Cloud managed | Self-hosted | Team capability |
+| Convenience vs Audit | Auto | Manual review | Compliance |
+
+### Best Practice Checklist
+
+- [ ] Input validation (whitelist, not blacklist)
+- [ ] Output encoding (context-aware: HTML, JS, CSS)
+- [ ] Authentication (MFA, rate limit, lockout)
+- [ ] Authorization (RBAC, least privilege, deny default)
+- [ ] Logging (structured, immutable, centralized)
+- [ ] Monitoring (latency, error, saturation, traffic)
+- [ ] Encryption (transit TLS, rest AES, key rotation)
+- [ ] Backup (test restore, offsite, immutable)
+- [ ] Patch (automated scan, SLA per severity)
+- [ ] Incident (runbook, contact, tabletop)
+
+### Common Pitfall
+
+1. **Assume input trusted**: Semua input adalah musuh → validate di server.
+2. **Secret in code**: Hardcoded credential → git leak → compromise.
+3. **Silent failure**: Error ditelan → debugging impossible → security blind.
+4. **No rate limit**: Abuse path → DoS → resource exhaustion.
+5. **Default config**: Default = insecure → harden sebelum produksi.
+
+### Tool Stack
+
+| Tool | Use |
+|------|-----|
+| Testing | Burp Suite, OWASP ZAP, ffuf |
+| Scanning | Nmap, Nuclei, Trivy |
+| Monitoring | Prometheus + Grafana |
+| Logging | ELK / Loki |
+| Secret | Vault / SOPS |
+
+## Referensi
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
+- MITRE ATT&CK — https://attack.mitre.org/
+- CIS Controls — https://www.cisecurity.org/controls/

@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Browser Security
 
 > Keamanan browser, web isolation, exploitation browser engine, CSP, dan sandbox escape.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[browser-security-exploitation-deepdive]]
-

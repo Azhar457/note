@@ -6,6 +6,10 @@ tags:
 created: '2026-07-05'
 updated: '2026-07-05'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 📚 Rujukan Buku Bonus – Refactoring Warisan, YDKJS & Knuth (Rekompesialisasi Utuh)
 

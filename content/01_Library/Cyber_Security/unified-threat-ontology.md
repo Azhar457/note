@@ -1,6 +1,6 @@
 ---
-title: Unified Threat Ontology — Cross-Domain Cyber Attacks from Transistor to Human
-  (Layer 1 to Layer 8)
+title: "Unified Threat Ontology \u2014 Cross-Domain Cyber Attacks from Transistor\
+  \ to Human (Layer 1 to Layer 8)"
 tags:
 - unified-theory
 - cyber-security
@@ -9,9 +9,21 @@ tags:
 - information-operations
 - systems-architecture
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Ontologi ancaman terpadu 8 layer (transistor→manusia): taksonomi, unified killchain, pemetaan ke pertahanan, dan WAF sebagai sub-sistem. |
+
+
+
+
+[[00_Atlas/hierarchy-threat-modeling]] [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] [[00_Atlas/hierarchy-crosswalk]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Serangan siber modern tidak pernah terjadi secara terisolasi pada satu layer sistem saja. Catatan ini menyatukan konsep-konsep pertahanan dalam model terpadu (*Unified Threat Ontology*) dari Layer 1 (Fisik/Transistor) hingga Layer 8 (Manusia/Psikologis), merangkum keterkaitan antara [[network-security]], [[blueteam-detection-matrix]], dan [[cognitive-security-information-operations]].
@@ -83,7 +95,85 @@ Untuk menangkal serangan berantai yang memanfaatkan berbagai layer, WAF membagi 
 
 ---
 
-## 4. Koneksi ke Vault
+## 5. Deepdive — Cascade Attack Pattern
+
+### 5.1 Stuxnet (Layer 8 → Layer 1 Cascade)
+
+Stuxnet adalah contoh klasik serangan cascade lintas layer — dari manusia sampai fisik:
+
+```
+Layer 8: Operator USB ditinggal di parkir (social engineering)
+  ↓
+Layer 3: USB autorun → infection menyebar via LAN
+  ↓
+Layer 7: WinCC SCADA exploit → engineering WS compromise
+  ↓
+Layer 4: S7 protocol injection ke PLC
+  ↓
+Layer 2: Modbus/Profibus command ke frequency converter
+  ↓
+Layer 1: Centrifuge overspeed → physical damage (uranium enrichment)
+```
+
+### 5.2 SolarWinds (Layer 7 → Layer 8 Cascade)
+
+Suffle dari supply chain ke intel:
+
+```
+Layer 7: Build server compromise (SUNBURST)
+  ↓
+Layer 6: TLS traffic ke C2 (trusted cert)
+  ↓
+Layer 3: DNS resolution ke C2 domain (legit-looking)
+  ↓
+Layer 7: 18,000+ customer install backdoored update
+  ↓
+Layer 8: Trust breach (customer percaya vendor)
+```
+
+### 5.3 Deepfake Heist (Layer 8-only Attack)
+
+Deepfake financial fraud (2024 Hong Kong case):
+
+```
+Layer 8: Deepfake video call → CFO "authorize" $25M transfer
+  ↓
+Layer 5: Session token tidak ada, trust = visual (deepfake)
+  ↓
+Layer 3: Transfer via SWIFT (trusted financial network)
+  ↓
+Layer 1: Money gone → irreversible
+```
+
+## 6. MITRE ATT&CK Cross-Layer Mapping
+
+| Tactic | Technique | Layer |
+|--------|-----------|-------|
+| Reconnaissance | Phishing for Information (T1598) | L8 |
+| Initial Access | Supply Chain Compromise (T1195) | L7→L8 |
+| Lateral Movement | Internal Spearphishing (T1534) | L7→L8 |
+| Impact | manipulate (T0831) | L2→L1 |
+| Defense Evasion | Encrypted Channel (T1573) | L6 |
+
+## 7. Tool Stack — Cross-Layer Defense
+
+| Tool | Layer | Use |
+|------|-------|-----|
+| **Proofpoint** | L8 | Email phishing detect |
+| **Cloudflare WAF / ModSecurity** | L7 | App layer filter |
+| **Cert Manager / Let's Encrypt** | L6 | TLS automation |
+| **GoPhish** | L8 (offensive) | Phishing sim |
+| **Zeek / Suricata** | L3-4 | Traffic analysis |
+| **CHIPSEC** | L1 | Firmware audit |
+
+## 8. References
+
+- MITRE Unified Kill Chain — https://www.unifiedkillchain.com/
+- Stuxnet Analysis — https://www.welivesecurity.com/2011/01/17/...
+- SolarWinds (CISA) — https://www.cisa.gov/news-events/cyber-advisories/aa21-077a
+- Deepfake Fraud (Reuters) — https://www.reuters.com/...
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
 
 | Catatan | Hubungan |
 |------|----------|
@@ -91,3 +181,6 @@ Untuk menangkal serangan berantai yang memanfaatkan berbagai layer, WAF membagi 
 | [[cognitive-security-information-operations]] | Penjelas teori perang kognitif dan disinformasi di tingkat Layer 8 (Manusia). |
 | [[waf-reverse-proxy-deepdive]] | Dokumentasi sub-sistem WAF yang mengamankan Layer 5 s.d Layer 7 secara terpusat. |
 | [[ics-scada-security]] | Penerapan taksonomi serangan pada infrastruktur gardu listrik fisik (Layer 2 & Layer 1). |
+
+> [!callout] 💡
+> Serangan modern cascade lintas layer — pertahanan harus dimodelkan sebagai sistem menyeluruh, bukan kontrol per-layer yang terisolasi.

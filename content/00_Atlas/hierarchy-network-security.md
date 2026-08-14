@@ -11,6 +11,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🌐 HIERARKI NETWORK SECURITY — Dari Kabel Fisik (Layer 1) sampai Manipulasi Psikologis (Layer 8)
 
 > Setiap byte yang melewati jaringan melintasi hierarki 7 layer OSI — dan 1 layer paling berbahaya yang **bukan bagian OSI resmi tapi paling sering jebol**. Naik hierarki = naik abstraksi dari kabel tembaga sampai pikiran manusia. Defender yang paham hierarki tahu di mana harus pasang kontrol dan di mana kontrol itu sia-sia. Untuk tabel ancaman lengkap per layer (Blue vs Red), lihat [[network-security]]. Untuk tools per layer, lihat companion tools note.
@@ -25,7 +29,7 @@ status: pending
 | 🌐 Layer | 🧠 Zona & Apa yang Beroperasi di Sini | ⚡ Contoh Threat | 🛡️ Kontrol Defender Khas | 🎯 Real-World Case |
 |---|---|---|---|---|
 | **Layer 1** — Physical | Kabel tembaga, sinyal elektrik, gelombang radio, **hardware interface fisik**. Semua data pada akhirnya adalah pulsa elektrik atau foton di sini | LAN Tap (Throwing Star), USB Rubber Ducky, O.MG Cable, evil maid attack, rogue device di switch port | CCTV rack server, port lock USB, tamper-evident seal, physical access control (biometric + card), grounded cabinet | NSA ANT Catalog (COTTONMOUTH) — implant hardware yang aktif dari kabel jaringan. Target embassy AS di seluruh dunia |
-| **Layer 2** — Data Link | MAC address, frame switch, **subnetwork local**. ARP bekerja di sini — protokol yang memetakan IP ke MAC | ARP Poisoning, MAC Flooding, VLAN Hopping, rogue DHCP server, STP manipulation | 802.1X NAC, Dynamic ARP Inspection (DAI), port security, private VLAN, DHCP snooping | Kapsel病毒 Hauri (2008) — worm yang exploit ARP poisoning di korporat Korea. Serangan data center besar pertama yang terdokumentasi lewat L2 |
+| **Layer 2** — Data Link | MAC address, frame switch, **subnetwork local**. ARP bekerja di sini — protokol yang memetakan IP ke MAC | ARP Poisoning, MAC Flooding, VLAN Hopping, rogue DHCP server, STP manipulation | 802.1X NAC, Dynamic ARP Inspection (DAI), port security, private VLAN, DHCP snooping | Kapsel virus Hauri (2008) — worm yang exploit ARP poisoning di korporat Korea. Serangan data center besar pertama yang terdokumentasi lewat L2 |
 | **Layer 3** — Network | IP address, routing packet antar subnet, **pintu gerbang internet**. BGP, OSPF, RIP bekerja di sini | IP Spoofing, BGP Hijack (China Telecom 2010 incident), ICMP Tunnel (exfil lewat ping), route poisoning, smurf attack | Firewall stateful, BCP38 ingress filtering, RPKI + BGP route filtering, Unicast RPF | China Telecom BGP hijack incident (2010) — 15% traffic internet dialihkan selama 18 menit termasuk ke situs pemerintah AS. Begitulah kekuatan satu route poisoning |
 | **Layer 4** — Transport | TCP/UDP port, **koneksi end-to-end**. SYN/ACK handshake, sesi stateful | TCP SYN Flood, UDP amplification DDoS, port scanning, session hijacking, Mirai botnet | SYN Cookie, rate limiting, Anycast DDoS mitigation, IPS (Suricata, Snort), connection state tracking | Mirai botnet (2016) — 1.2 Tbps DDoS via 145.000 kamera IP & DVR compromised. Serangan terbesar saat itu, target Dyn (down Twitter, Reddit, GitHub, Netflix) |
 | **Layer 5–6** — Session / Presentation | TLS handshake, sesi SSH, **enkripsi in-transit**. Sertifikat digital bekerja di sini | SSL Stripping (sslstrip2), TLS Downgrade Attack, rogue certificate, BEAST attack, POODLE | HSTS Preload, certificate pinning, TLS 1.3 only enforcement, Certificate Transparency log monitoring | DigiNotar (2011) — Root CA Belanda dikompromi, 531 sertifikat palsu diterbitkan termasuk untuk domain Google. Seluruh Certificate Trust chain runtuh untuk CA itu |
@@ -84,7 +88,7 @@ Contoh: Serangan SQL Injection di Layer 7 → database bocor → admin credentia
 
 | Layer Satu | Kontrol Tunggal (Murah) | Stack Defense-in-Depth (Mahal) |
 |---|---|---|
-| Layer 1 | Kunci rack | Kunci + CCTV + tamper seal + biometric +警備 |
+| Layer 1 | Kunci rack | Kunci + CCTV + tamper seal + biometric + guard |
 | Layer 2 | Port security di switch | Port security + 802.1X + NAC + DAI + DHCP snooping + private VLAN |
 | Layer 3 | iptables DROP rule | Firewall stateful + IPS + RPKI + BGP filter + RTBH |
 | Layer 4 | `fail2ban` | IPS + SYN cookie + Anycast DDoS mitigation + rate limiting + WAF |

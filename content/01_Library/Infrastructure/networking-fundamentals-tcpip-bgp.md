@@ -15,7 +15,6 @@ created: '2026-07-15'
 updated: '2026-07-15'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🌐 Networking Fundamentals: TCP/IP, Routing & BGP untuk Security Engineer
@@ -316,7 +315,7 @@ Attacker            DNS Server (open resolver)            Victim
 ```
 
 **Mitigasi:**
-- **BCP38** — jangan forward packet dengan source IP yang不属于 jaringan lo (ingress filtering)
+- **BCP38** — jangan forward packet dengan source IP yang bukan milik jaringan lo (ingress filtering)
 - **Rate limit per source IP** untuk DNS/NTP response
 - **Disable open resolvers** — jangan biarkan DNS server lo menjawab query dari arbitrary source
 

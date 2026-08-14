@@ -11,7 +11,6 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # ☸️ Kubernetes Architecture — Deep Dive: Control Plane, Pod Lifecycle, CNI, CSI, HPA, Operator Pattern

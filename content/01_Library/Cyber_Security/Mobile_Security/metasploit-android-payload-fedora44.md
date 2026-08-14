@@ -10,6 +10,10 @@ tags:
 created: "2026-08-09"
 updated: "2026-08-09"
 status: validated
+cssclasses:
+  - wide-table
+  - callout
+
 environment:
   os: Fedora 44
   android: vivo V2109 (arm64-v8a, Android 14)
@@ -144,3 +148,51 @@ rm -rf /home/jars/TESTFROMDARKNET/msf_android/*.apk   # hapus artefak
 - `payload_ipv6.apk` sha256: `6d54eb14bd6a70a9bfd6d1971b64a60d837203076ab28fce36ac2a6d52c92dd`
 - `payload_arm64.apk` (LHOST IPv4, dipakai final): `payload_size 11758 bytes`
 - Ringkasan sesi sukses: install → trigger → session terbuka (lihat §4).
+
+
+## 6. Deepdive — Evasion & OPSEC (Android Payload)
+
+### 6.1 Kenapa Payload Default Terdeteksi?
+
+| Alasan | Detail |
+|--------|--------|
+| **Signature statis** | msfvenom default punya byte pattern dikenal AV |
+| **Permissions mencurigakan** | SMS, contacts, location → Play Protect flag |
+| **APK source** | Sideload = warning "unknown source" |
+| **Network behavior** | Reverse TCP ke IP LAN = anomaly di SOC |
+
+### 6.2 Evasion Techniques (Android)
+
+```
+1. Encoder: shikata_ga_nai (x86) — Android ARM64: gunakan custom
+2. Packer: UPX / custom obfuscator → signature berubah
+3. Legit wrapper: inject payload ke APK legit (lihat apk-modding-pipeline)
+4. Permission minimal: hanya yang dibutuhkan → Play Protect tidak flag
+5. C2 traffic: HTTPS (meterpreter_reverse_https) → mimic normal
+6. Obfuscation: string encryption → static analysis sulit
+```
+
+### 6.3 Counter-Detection Checklist (Lab)
+
+```bash
+# Sebelum deploy
+apksigner verify --print-certs final.apk        # signature valid?
+aapt2 dump badging final.apk | head -20          # permissions?
+# Setelah session
+docker logs msf-host | grep "Meterpreter session"   # session hidup?
+adb shell dumpsys package com.example | grep -E "version|signature"
+```
+
+### 6.4 Boundary (Lab vs Reality)
+
+- Semua teknik di atas untuk **lab sendiri / authorized engagement**.
+- Google Play Protect + app scanning membuat payload mentah cepat terdeteksi.
+- Android 13+ install intent filtering + restricted settings → sideload susah.
+- Production-grade = custom implant, bukan meterpreter mentah (lihat TESTFROMDARKNET/shadow).
+
+## 7. Referensi
+
+- Metasploit docs — https://docs.metasploit.com/
+- Android security — https://source.android.com/docs/security
+- apktool — https://ibotpeaches.github.io/Apktool/
+- msfvenom cheatsheet — https://book.hacktricks.xyz/generic-methodologies-and-resources/...

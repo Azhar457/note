@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Endpoint Detection
 
 > Catatan tentang Endpoint Detection.
@@ -14,4 +20,3 @@
 - [[endpoint-detection-playbook]]
 - [[endpoint-security]]
 - [[malware-analysis-reverse-engineering-playbook]]
-

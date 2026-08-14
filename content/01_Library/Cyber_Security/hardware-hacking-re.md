@@ -6,6 +6,10 @@ tags:
 created: '2026-04-23'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🔬 Reverse Engineering & Hardware Hacking — Hierarki Lengkap

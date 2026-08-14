@@ -6,6 +6,10 @@ tags:
 created: '2026-07-05'
 updated: '2026-07-05'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 🧠 Design Patterns: Elements of Reusable OO Software
 > Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides (Gang of Four) — 1994

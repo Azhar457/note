@@ -4,7 +4,10 @@ aliases: [Public Data Harvesting, Crawl & Scrape, Research Pipeline]
 status: complete
 created: 2026-08-01
 updated: 2026-08-01
-cssclasses: [wide-table, math-render]
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Crawl & Ambil Data Publik — Operational Guide

@@ -1,6 +1,6 @@
 ---
-title: Transformer and LLM Architecture Deep-Dive — Attention Optimization, RoPE,
-  and Inference Mechanics
+title: "Transformer and LLM Architecture Deep-Dive \u2014 Attention Optimization,\
+  \ RoPE, and Inference Mechanics"
 tags:
 - machine-learning
 - transformer
@@ -9,9 +9,19 @@ tags:
 - rope
 - inference-optimization
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Deep-dive arsitektur Transformer: taksonomi encoder/decoder, anatomi decoder-only, RoPE, MQA/GQA/FlashAttention, KV cache & mekanisme inference. |
+
+
+
+[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-classical-ml-algorithms]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Arsitektur Transformer adalah tulang punggung dari seluruh Large Language Model (LLM) modern. Catatan ini membedah arsitektur internal Transformer *decoder-only* tingkat lanjut, inovasi pengodean posisi (RoPE), taktik optimasi komputasi attention (GQA, FlashAttention), serta efisiensi eksekusi (*inference*) melalui KV Cache, melengkapi [[llm-wiki]] dan [[attention-mechanism-roadmap]].
@@ -131,3 +141,77 @@ Untuk menghindari kalkulasi ulang matriks $K$ dan $V$ dari token lama yang sudah
 | [[rnn-lstm-vs-transformer]] | Analisis komparatif performa Transformer vs arsitektur rekurensi/SSM Mamba. |
 | [[llmops-ai-infrastructure]] | Panduan orkestrasi model dan deployment LLM menggunakan framework vLLM/Ollama. |
 | [[llm-wiki]] | Gambaran ringkas awal sejarah dan konsep pemodelan bahasa besar. |
+
+
+
+> [!callout] 💡
+> Evolusi LLM = kompresi biaya compute: RoPE untuk konteks panjang, GQA & FlashAttention untuk menyusutkan memori attention — optimasi inference adalah kunci deployment.
+
+## Deepdive Tambahan — Implementasi & Operasional
+
+### Arsitektur & Komponen Detail
+
+Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+
+| Komponen | Fungsi | Attack Surface | Defense |
+|----------|--------|---------------|---------|
+| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
+| **Processing** | Core logic | Logic flaw, bypass | Test, review |
+| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
+| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
+| **Network** | Transit | Intercept, MITM | TLS, mTLS |
+| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
+
+### Workflow End-to-End
+
+```
+Input → Validate → Process → Store → Serve → Monitor → Audit
+  ↓       ↓         ↓         ↓       ↓        ↓        ↓
+Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
+```
+
+### Tradeoff & Decision Matrix
+
+| Dimension | Pilihan A | Pilihan B | Factor |
+|-----------|-----------|-----------|--------|
+| Speed vs Security | Optimized | Strict validate | Risk context |
+| Memory vs Scale | In-memory | Disk-backed | Data volume |
+| Cost vs Control | Cloud managed | Self-hosted | Team capability |
+| Convenience vs Audit | Auto | Manual review | Compliance |
+
+### Best Practice Checklist
+
+- [ ] Input validation (whitelist, not blacklist)
+- [ ] Output encoding (context-aware: HTML, JS, CSS)
+- [ ] Authentication (MFA, rate limit, lockout)
+- [ ] Authorization (RBAC, least privilege, deny default)
+- [ ] Logging (structured, immutable, centralized)
+- [ ] Monitoring (latency, error, saturation, traffic)
+- [ ] Encryption (transit TLS, rest AES, key rotation)
+- [ ] Backup (test restore, offsite, immutable)
+- [ ] Patch (automated scan, SLA per severity)
+- [ ] Incident (runbook, contact, tabletop)
+
+### Common Pitfall
+
+1. **Assume input trusted**: Semua input adalah musuh → validate di server.
+2. **Secret in code**: Hardcoded credential → git leak → compromise.
+3. **Silent failure**: Error ditelan → debugging impossible → security blind.
+4. **No rate limit**: Abuse path → DoS → resource exhaustion.
+5. **Default config**: Default = insecure → harden sebelum produksi.
+
+### Tool Stack
+
+| Tool | Use |
+|------|-----|
+| Testing | Burp Suite, OWASP ZAP, ffuf |
+| Scanning | Nmap, Nuclei, Trivy |
+| Monitoring | Prometheus + Grafana |
+| Logging | ELK / Loki |
+| Secret | Vault / SOPS |
+
+## Referensi
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
+- MITRE ATT&CK — https://attack.mitre.org/
+- CIS Controls — https://www.cisecurity.org/controls/

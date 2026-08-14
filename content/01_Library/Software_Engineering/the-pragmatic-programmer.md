@@ -6,6 +6,10 @@ tags:
 created: '2026-07-05'
 updated: '2026-07-05'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 🛠 The Pragmatic Programmer
 > Andrew Hunt & David Thomas — 1999 (2nd ed 2019)
@@ -239,7 +243,7 @@ Karir developer = investasi pengetahuan. Diversification (compound interest) > d
 
 ## 🚦 Prioritas Prinsip
 
-| Prioritas | Prinsip |冽 Gelap-nya |
+| Prioritas | Prinsip |Sisi Gelap-nya |
 |--------|----------|--------|
 | 1 | DRY, Broken Window | kode bersih dimulai dari sini |
 | 2 | Orthogonality | komponer-modulen lu mudah diubah independen |

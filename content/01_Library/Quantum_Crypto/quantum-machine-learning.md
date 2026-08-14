@@ -536,7 +536,7 @@ def qaoa_ansatz(params, graph):
 ## Catatan Terkait
 
 - **[[quantum-cryptography-deepdive]]** — Quantum cryptography (dasar kuantum)
-- **[[hierarchy-classical-ml-algorithms]]** — ML klasik (fondasi untuk QML comparison)
+- **[[00_Atlas/hierarchy-classical-ml-algorithms]]** — ML klasik (fondasi untuk QML comparison)
 - **[[attention-mechanism-deepdive]]** — Attention mechanism (classical parallel)
 - **[[ai-engineering-stack-roadmap]]** — AI infra (hardware quantum vs classical)
 - **[[cognitive-architecture-engineering]]** — Cognitive architecture (inspirasi dari nature)

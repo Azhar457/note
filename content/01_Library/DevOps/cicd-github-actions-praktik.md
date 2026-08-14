@@ -754,7 +754,7 @@ jobs:
 
 ## 12. GitHub-Hosted vs Self-Hosted Runner — Perbandingan Lengkap
 
-Pilih runner yang tepat直接影响 biaya, kecepatan, dan maintenance.
+Pilih runner yang tepatmemengaruhi biaya, kecepatan, dan maintenance.
 
 | Aspek | GitHub-Hosted (`ubuntu-latest`) | Self-Hosted (VPS/Metal) |
 |-------|----------------------------------|------------------------|

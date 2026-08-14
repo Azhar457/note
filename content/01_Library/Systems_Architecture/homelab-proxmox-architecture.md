@@ -13,6 +13,11 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+  - code-wrap
+
 ---
 
 # Homelab Proxmox Architecture: ZFS, Network Segmentation, dan Backup Strategy
@@ -131,3 +136,56 @@ PBS mendukung deduplikasi data tingkat lanjut (*dirty-bitmap backup*), membuat b
 - [[linux-performance-debugging-toolkit]] — Pemantauan Beban CPU/RAM Hypervisor Host
 - [[obsidian-vault-scaling-playbook]] — Strategi Sinkronisasi File Vault ke Storage Homelab
 - [[ebpf-runtime-security-auditing]] — Monitoring Aktivitas Mencurigakan di Virtual Machine
+
+## 6. Deepdive — Hardening Proxmox Host
+
+### 6.1 Attack Surface & Mitigasi
+
+| Vektor | Risiko | Mitigasi |
+|--------|--------|----------|
+| **Web UI exposed** | Brute force, CVE | Jangan expose 8006 ke internet — VPN saja |
+| **SSH root** | Brute force | Key-only auth, disable password, port ubah |
+| **LXC/VM escape** | Escape ke host | Patch rutin (pve-qemu-kvm, lxc), seccomp default |
+| **ZFS snapshot tamper** | Ransomware destroy backup | PBS immutable repository (retention + verification) |
+| **Unprivileged container** | Privilege escalation | Jalankan LXC unprivileged default, map UID |
+| **Storage plaintext** | Data theft fisik | ZFS native encryption (aes-256-gcm) |
+
+### 6.2 Proxmox Backup Server — Immutable Backup
+
+```bash
+# PBS dengan repository immutable (retention period)
+# → bahkan admin/proxmox tidak bisa hapus backup sebelum retention expiry
+pbs: backup-ke-pbs (datastore: vault, retention: 7d,14d,30d)
+
+# Verifikasi backup berkala (bukan cuma ada)
+# PBS verify-job: cek checksum + test restore
+```
+
+### 6.3 ZFS Performance & Integrity Tuning
+
+| Parameter | Nilai | Efek |
+|-----------|-------|------|
+| `recordsize` | 128K (VM) / 1M (file besar) | Alignment dengan workload |
+| `compression` | `lz4` | Kompresi CPU murah, IOPS naik |
+| `atime` | `off` | Kurangi write overhead |
+| `ashift` | 12 (4K sector) | Alignment SSD/NVMe |
+| `sync` | `standard` (default) | Integrity vs performance tradeoff |
+| `scrub` | weekly cron | Self-healing aktif |
+
+## 7. Tool Stack
+
+| Tool | Use |
+|------|-----|
+| **Proxmox VE** | Hypervisor (LXC + KVM) |
+| **Proxmox Backup Server** | Backup immutable + dedupe |
+| **OPNsense** | Firewall/router (VLAN, VPN) |
+| **WireGuard / Tailscale** | Remote access aman |
+| **ZFS (zpool, zfs)** | Storage + snapshot + scrub |
+| **Prometheus + Grafana** | Monitoring (node_exporter, pve exporter) |
+
+## 8. Referensi
+
+- Proxmox docs — https://pve.proxmox.com/wiki/Main_Page
+- PBS docs — https://pbs.proxmox.com/docs/
+- ZFS administration — https://openzfs.github.io/openzfs-docs/
+- OPNsense — https://docs.opnsense.org/

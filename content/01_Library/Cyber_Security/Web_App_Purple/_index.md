@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Web App Purple
 
 > Catatan tentang Web App Purple.
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[purple-team-osi-killchain]]
 - [[web-hacking-exploitation]]
-

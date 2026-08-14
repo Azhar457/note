@@ -537,7 +537,7 @@ Standardized protocol untuk agent-tool communication:
 | Auditability | Logged action trace dengan reasoning |
 
 **Koneksi ke Vault:**
-- [[hierarchy-llm-ai-systems]] — Layer 5 (Agentic)
+- [[00_Atlas/hierarchy-llm-ai-systems]] — Layer 5 (Agentic)
 - [[agentic-ai-mcp-architecture-deepdive]]
 - [[meta-agent-orchestration]]
 
@@ -629,13 +629,13 @@ Latency      ───→  Edge presence
 |:-----:|---------------|
 | Era 1-2 | [[hierarchy-operating-systems]], [[embedded-systems]] |
 | Era 3 | [[cloud-infrastructure]] |
-| Era 4 | [[hierarchy-infrastructure-evolution]] (planned), [[distributed-systems]] |
+| Era 4 | [[00_Atlas/hierarchy-infrastructure-evolution]] (planned), [[distributed-systems]] |
 | Era 5 | [[distributed-systems]], [[system-design]], [[container-kubernetes-security-deepdive]] |
-| Era 6 | [[hierarchy-infrastructure-evolution]], [[cloud-infrastructure]] |
-| Era 7 | [[hierarchy-llm-ai-systems]] (Layer 4 RAG), [[llmops-ai-infrastructure]] |
-| Era 8 | [[hierarchy-software-engineering-paradigm]] |
-| Era 9 | [[hierarchy-kernel-bypass-networking]] (smartNIC + edge compute) |
-| Era 10 | [[hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]], [[ai-comm-protocol-deep-dive]] |
+| Era 6 | [[00_Atlas/hierarchy-infrastructure-evolution]], [[cloud-infrastructure]] |
+| Era 7 | [[00_Atlas/hierarchy-llm-ai-systems]] (Layer 4 RAG), [[llmops-ai-infrastructure]] |
+| Era 8 | [[00_Atlas/hierarchy-software-engineering-paradigm]] |
+| Era 9 | [[00_Atlas/hierarchy-kernel-bypass-networking]] (smartNIC + edge compute) |
+| Era 10 | [[00_Atlas/hierarchy-llm-ai-systems]], [[agentic-ai-mcp-architecture-deepdive]], [[ai-comm-protocol-deep-dive]] |
 
 ---
 

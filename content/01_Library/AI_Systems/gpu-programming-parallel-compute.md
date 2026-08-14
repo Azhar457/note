@@ -12,15 +12,17 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🎮 GPU Programming & Parallel Compute — Deep Dive: CUDA, ROCm, Vulkan Compute, GPU Architecture, CUDA Cores vs Tensor Cores
 
-> Panduan komprehensif GPU sebagai compute engine — dari arsitektur hardware (SM, warp, memory hierarchy) sampai programming model (CUDA, ROCm, Vulkan Compute, OpenCL, SYCL). Mencakup GPU architecture (Ampere, Hopper, RDNA3), memory hierarchy (global, shared, local, constant, texture), parallel programming patterns (grid-stride loop, reduction, scan, tiling), CUDA/ROCm programming model (kernel, grid, block, thread, shared memory), GPU-accelerated ML training (mixed precision, tensor cores, distributed training), GPU compute untuk non-ML (hashcat, password cracking, signal processing, rendering), dan perbandingan platform GPU (NVIDIA CUDA vs AMD ROCm vs Intel oneAPI vs Apple Metal). Vault punya [[hierarchy-classical-ml-algorithms]] dan berbagai AI notes yang bergantung pada GPU — catatan ini adalah fondasi hardware compute-nya.
+> Panduan komprehensif GPU sebagai compute engine — dari arsitektur hardware (SM, warp, memory hierarchy) sampai programming model (CUDA, ROCm, Vulkan Compute, OpenCL, SYCL). Mencakup GPU architecture (Ampere, Hopper, RDNA3), memory hierarchy (global, shared, local, constant, texture), parallel programming patterns (grid-stride loop, reduction, scan, tiling), CUDA/ROCm programming model (kernel, grid, block, thread, shared memory), GPU-accelerated ML training (mixed precision, tensor cores, distributed training), GPU compute untuk non-ML (hashcat, password cracking, signal processing, rendering), dan perbandingan platform GPU (NVIDIA CUDA vs AMD ROCm vs Intel oneAPI vs Apple Metal). Vault punya [[00_Atlas/hierarchy-classical-ml-algorithms]] dan berbagai AI notes yang bergantung pada GPU — catatan ini adalah fondasi hardware compute-nya.
 
 > [!info] Posisi di Vault
-> Ini adalah **fondasi hardware compute** untuk semua catatan yang bergantung pada GPU. Baca ini dulu sebelum [[hierarchy-classical-ml-algorithms]] (training ML), [[attention-mechanism-deepdive]] (Transformer — butuh GPU), [[llm-finetuning-toolchain]] (fine-tuning LLM — GPU-intensive), [[production-model-serving-optimization]] (inference optimization — GPU serving), dan [[adversarial-machine-learning]] (adversarial attack compute-heavy). Juga relevan dengan [[military-sigint-deepdive]] (SDR processing GPU-accelerated) dan [[side-channel-analysis]] (GPU timing side-channel).
+> Ini adalah **fondasi hardware compute** untuk semua catatan yang bergantung pada GPU. Baca ini dulu sebelum [[00_Atlas/hierarchy-classical-ml-algorithms]] (training ML), [[attention-mechanism-deepdive]] (Transformer — butuh GPU), [[llm-finetuning-toolchain]] (fine-tuning LLM — GPU-intensive), [[production-model-serving-optimization]] (inference optimization — GPU serving), dan [[adversarial-machine-learning]] (adversarial attack compute-heavy). Juga relevan dengan [[military-sigint-deepdive]] (SDR processing GPU-accelerated) dan [[side-channel-analysis]] (GPU timing side-channel).
 
 ---
 
@@ -287,7 +289,7 @@ Pipeline Parallel: layer dibagi, tiap GPU pegang contiguous layers
 
 ## Koneksi ke Vault
 
-- [[hierarchy-classical-ml-algorithms]] — ML training butuh GPU — fondasi parallel compute
+- [[00_Atlas/hierarchy-classical-ml-algorithms]] — ML training butuh GPU — fondasi parallel compute
 - [[attention-mechanism-deepdive]] — Transformer: GPU adalah satu-satunya cara praktis training
 - [[llm-finetuning-toolchain]] — Fine-tuning LLM — GPU memory management
 - [[production-model-serving-optimization]] — Inference optimization — quantization, TensorRT, GPU serving

@@ -635,7 +635,7 @@ Userspace round-trip (if miss)  ~5-500 µs (fallback)
 | Catatan | Koneksi |
 |---------|---------|
 | [[hierarchy-recursive-ring-deepdive]] | Ring hierarchy — io_uring (Ring 1), AF_XDP (Ring 0→2), XDP_TX (Ring 0), SmartNIC (Ring -1) |
-| [[hierarchy-binary-quantization-hamming-popcount]] | eBPF POPCNT limitation — mengapa kernel-space vector search butuh binary quantization (integer-only) |
+| [[00_Atlas/hierarchy-binary-quantization-hamming-popcount]] | eBPF POPCNT limitation — mengapa kernel-space vector search butuh binary quantization (integer-only) |
 | [[ebpf-kernel-security]] | XDP hook, eBPF verifier constraints — bounded loops, no FPU, verified programs |
 | [[ebpf-beyond-security]] | XDP DDoS case study (Cilium 10+ Mpps), networking at Ring 0 |
 | [[vector-database-internals-optimization]] | sqlite-vec (Ring 3) → FAISS (Ring 2) → io_uring (Ring 1) → eBVC (Ring 0) |

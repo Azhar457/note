@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide
 
 > **Environment:** Windows 10/11 Native (CMD/PowerShell) & Portable Tools

@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Signal Intelligence
 
 > SIGINT militer dan sipil: RTL-SDR, GNURadio, frequency analysis, direction finding, dan tactical signals.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[military-sigint-deepdive]]
-

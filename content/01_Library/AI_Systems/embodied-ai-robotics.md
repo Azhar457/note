@@ -130,7 +130,7 @@ Action vocabulary: ~1,000 tokens dari total 256K model vocabulary
 ```
 
 **Keuntungan:** Action tokens bisa diproses seperti language tokens — autoregressive generation.
-**Kerugian:** Resolusi terbatas oleh jumlah bins. Halus的运动 diperlukan post-processing.
+**Kerugian:** Resolusi terbatas oleh jumlah bins. Halusnya gerakan diperlukan post-processing.
 
 ---
 

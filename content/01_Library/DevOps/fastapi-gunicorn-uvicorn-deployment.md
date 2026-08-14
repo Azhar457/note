@@ -4,6 +4,10 @@ aliases: [FastAPI Deployment, Gunicorn Uvicorn, FastAPI Production]
 status: pending
 created: 2026-07-26
 updated: 2026-07-26
+cssclasses:
+  - wide-table
+  - callout
+
 source: https://medium.com/@iklobato/mastering-gunicorn-and-uvicorn-the-right-way-to-deploy-fastapi-applications-aaa06849841e
 ---
 

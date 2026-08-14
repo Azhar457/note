@@ -12,11 +12,15 @@ aliases:
 created: '2026-08-04'
 updated: '2026-08-04'
 status: completed
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🧩 Object-Oriented Programming Deep Dive — Dari Prinsip ke Praktik
 
-> **Bedah OOP bukan sekadar 4 pilar (encapsulation, inheritance, polymorphism, abstraction) — tapi *mengapa* paradigma ini lahir, *kapan* cocok, dan *kapan* justru salah alat.** Termasuk perbandingan dengan FP (functional programming), masalah inheritance vs composition, SOLID, dan trade-off di dunia nyata. Untuk peta paradigma, lihat [[hierarchy-software-engineering-paradigm]]. Untuk pola desain, lihat [[design-patterns-gof]].
+> **Bedah OOP bukan sekadar 4 pilar (encapsulation, inheritance, polymorphism, abstraction) — tapi *mengapa* paradigma ini lahir, *kapan* cocok, dan *kapan* justru salah alat.** Termasuk perbandingan dengan FP (functional programming), masalah inheritance vs composition, SOLID, dan trade-off di dunia nyata. Untuk peta paradigma, lihat [[00_Atlas/hierarchy-software-engineering-paradigm]]. Untuk pola desain, lihat [[design-patterns-gof]].
 
 ---
 
@@ -342,7 +346,7 @@ L6: Architecture (DDD, hexagonal) → boundary di level sistem
 
 ## Cross-Link
 
-- **Paradigma** → [[hierarchy-software-engineering-paradigm]]
+- **Paradigma** → [[00_Atlas/hierarchy-software-engineering-paradigm]]
 - **Design Patterns** → [[design-patterns-gof]]
 - **Clean Code** → [[clean-code-robert-martin]], [[the-pragmatic-programmer]]
 - **Refactoring** → [[refactoring-martin-fowler]]

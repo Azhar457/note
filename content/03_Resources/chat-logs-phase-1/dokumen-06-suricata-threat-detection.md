@@ -26,6 +26,10 @@ Sebelum menginstal Suricata, pastikan sistem Anda sudah siap. Perlu diingat bahw
 Pastikan _Network Card_ Anda mendukung mode _Promiscuous_ (Menyadap semua paket). Gunakan perintah berikut untuk mengaktifkan mode promiscuous pada interface `vmbr0`:
 
 ```bash
+cssclasses:
+  - wide-table
+  - callout
+
 # Jalankan di Host Proxmox
 ip link set dev vmbr0 promisc on
 ```
@@ -52,24 +56,17 @@ sudo nano /etc/suricata/suricata.yaml
 ```
 
 **Parameter yang wajib diubah:**
-
-- **HOME_NET:** Tentukan jaringan lokal Anda.
-    
-    ```yml
+```yaml
+**HOME_NET:** Tentukan jaringan lokal Anda.
 HOME_NET: "[192.168.1.0/24]"
-```
-    
-- **Interface:** Pastikan mengarah ke bridge utama.
-    
-    ```yml
+**Interface:** Pastikan mengarah ke bridge utama.
 interface: vmbr0
 ```
-    
-- **Tuning untuk HDD (PENTING):**
-    
-    Kurangi frekuensi penulisan log untuk menjaga umur HDD.
-    
-    ```yml
+
+**Tuning untuk HDD (PENTING):**
+Kurangi frekuensi penulisan log untuk menjaga umur HDD.
+
+```yaml
 outputs:
   - eve-log:
       enabled: yes
@@ -77,15 +74,16 @@ outputs:
       filename: eve.json
       types:
         - alert:
-            payload: yes             # Simpan isi serangan
+            payload: yes # Simpan isi serangan
             payload-buffer-size: 4kb 
             packet: yes
             http: yes
         - http:
-            enabled: no              # Matikan logging HTTP biasa (terlalu berisik untuk HDD)
+            enabled: no # Matikan logging HTTP biasa (terlalu berisik untuk HDD)
         - dns:
-            enabled: no              # Matikan logging DNS biasa (boros IO)
+            enabled: no # Matikan logging DNS biasa (boros IO)  
 ```
+
 
 ## 4. Manajemen Ruleset (Amunisi Deteksi)
 Tanpa _rules_ (aturan), Suricata hanyalah mesin kosong. Suricata menggunakan aturan dari _Emerging Threats Open_ secara default.
@@ -151,25 +149,20 @@ sudo tail -f /var/log/suricata/eve.json | jq 'select(.event_type=="alert")'
 Suricata hebat dalam **Melihat**, tapi CrowdSec hebat dalam **Menendang**. Integrasikan Suricata dengan CrowdSec untuk memblokir IP penyerang.
 
 1. Instal koleksi Suricata untuk CrowdSec:
-    
-    ```bash
+```bash
 sudo cscli collections install crowdsecurity/suricata
 ```
     
 2. Beritahu CrowdSec lokasi log Suricata:
-    
-    Edit `/etc/crowdsec/acquis.yaml`:
-    
-    ```yml
+Edit `/etc/crowdsec/acquis.yaml`:
+```yml
 filenames:
   - /var/log/suricata/eve.json
 labels:
   type: suricata
 ```
-    
 3. Restart CrowdSec:
-    
-    ```bash
+```bash
 sudo systemctl restart crowdsec
 ```
 
@@ -192,17 +185,11 @@ sudo ethtool -K vmbr0 tx off rx off sg off gso off gro off
 
 ## 9. Troubleshooting & FAQ
 - **Q: Suricata memakan 100% CPU!**
-    
-    - **A:** Kurangi jumlah _rules_ yang aktif atau gunakan fitur `bypass` untuk lalu lintas lokal yang terpercaya.
-        
+	- **A:** Kurangi jumlah _rules_ yang aktif atau gunakan fitur `bypass` untuk lalu lintas lokal yang terpercaya.
 - **Q: Tidak ada log yang muncul di eve.json.**
-    
     - **A:** Cek apakah `HOME_NET` sudah benar dan interface `vmbr0` dalam keadaan UP.
-        
 - **Q: Bagaimana cara mengoptimalkan Suricata untuk performa yang lebih baik?**
-    
     - **A:** Pastikan Anda menggunakan SSD sebagai media penyimpanan, kurangi jumlah _rules_ yang tidak perlu, dan gunakan fitur _bypass_ untuk lalu lintas lokal yang terpercaya.
-
 ## 10. Checklist Kesiapan Implementasi Masa Depan
 Sebelum mengaktifkan dokumen ini secara nyata, pastikan Anda telah:
 

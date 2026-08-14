@@ -281,4 +281,4 @@ Neurosymbolic AI adalah benang merah yang menghubungkan banyak konsep di vault A
 | **[[test-time-compute-system2]]** | Penalaran kausal dan traversal graf adalah contoh murni dari System 2 thinking. Agen menggunakan compute tambahan untuk menalar, bukan hanya menghasilkan token. |
 | **[[llm-security-red-teaming-attack-surface-ai-layer]]** | XAI (TCAV, SHAP) adalah alat Blue Team untuk mengaudit model. Causal AI adalah alat Red Team untuk memahami dan memanipulasi hubungan sebab-akibat dalam data. |
 | **[[15-types-of-thinking]]** | Neurosymbolic adalah implementasi dari *Analytical Thinking* (Symbolic) yang dipandu oleh *Divergent Thinking* (Neural). |
-| **[[hierarchy-classical-ml-algorithms]]** | Causal AI melampaui ML klasik (Asosiasi) menuju Intervensi dan Kontrafaktual. |
+| **[[00_Atlas/hierarchy-classical-ml-algorithms]]** | Causal AI melampaui ML klasik (Asosiasi) menuju Intervensi dan Kontrafaktual. |

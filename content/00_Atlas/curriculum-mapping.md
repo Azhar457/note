@@ -7,6 +7,10 @@ updated: 2026-07-01
 status: complete
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security
 
 > Peta jembatan antara kurikulum resmi jurusan dan vault CS/Security yang sudah dibangun.

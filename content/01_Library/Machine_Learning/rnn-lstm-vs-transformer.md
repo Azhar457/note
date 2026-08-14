@@ -10,6 +10,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -105,3 +109,50 @@ RWKV merumuskan ulang mekanisme attention menjadi formulasi RNN linear yang stab
 | [[attention-mechanism-deepdive]] | Penjelasan formula dasar matematika dan jenis-jenis attention yang dibandingkan di sini. |
 | [[meta-agent-orchestration]] | Pemilihan model dasar (backbone) untuk kebutuhan latency low-edge device. |
 | [[unified-threat-ontology]] | Pemanfaatan model sekuensial untuk mendeteksi runtun waktu serangan (Layer 4/Transport network traffic analysis). |
+
+
+## 5. Deepdive — Kapan Memilih Arsitektur?
+
+### 5.1 Matriks Keputusan
+
+| Use Case | RNN/LSTM | Transformer | Mamba |
+|----------|----------|-------------|-------|
+| **Real-time streaming** (speech, sensor) | ✅ (incremental) | ❌ (butuh full seq) | ✅ |
+| **Long context** (100K+ token) | ❌ (gradient vanish) | ⚠️ (O(N²) memori) | ✅ (linear) |
+| **Latency-sensitive inference** | ✅ (O(1) per step) | ⚠️ (prefill lambat) | ✅ |
+| **Parallel training** (GPU besar) | ❌ (sequential) | ✅ (fully parallel) | ✅ (paralel via selective scan) |
+| **Kecepatan inference di edge** | ✅ (kecil) | ❌ (model besar) | ✅ (kompak) |
+| **Transfer learning** (pretrained) | ⚠️ (jarang) | ✅ (LLM ecosystem) | 🟡 (muncul) |
+
+### 5.2 Alasan Transformer Menang di NLP
+
+1. **Paralelisme**: Training di GPU 1000x lebih efisien dibanding RNN sekuensial — faktor ini saja yang membuat GPT-scale training feasible.
+2. **Long-range dependency**: Attention menghubungkan token langsung, tanpa lewat cell state yang lossy.
+3. **Scaling law**: Transformer bertahan dengan data + parameter lebih banyak (loss turun konsisten), sedangkan LSTM jenuh.
+4. **Ekosistem**: JAX/PyTorch/HuggingFace semua dioptimalkan untuk attention.
+
+### 5.3 Kenapa Mamba/RWKV Muncul (2024)
+
+- **KV cache problem**: Transformer inference O(N) per token karena harus baca seluruh KV cache — mahal untuk sequence panjang.
+- **Mamba (S6)**: selective scan — pilih mana yang perlu diingat per token → linear time + linear memory. Di benchmark (Mamba-3B vs Pythia-3B) menang di long-context tasks.
+- **RWKV**: recurrent inference dengan training paralel — "Transformer yang bisa jalan seperti RNN".
+- **Status 2025**: hybrid (attention + Mamba layer) mulai dipakai (Jamba, Zamba) — attention untuk local pattern, Mamba untuk global context.
+
+## 6. Tool Stack
+
+| Tool | Use |
+|------|-----|
+| **PyTorch / JAX** | Implementasi RNN/Transformer/Mamba |
+| **HuggingFace Transformers** | Pretrained model, tokenizer |
+| **Mamba (state-spaces/mamba)** | SSM implementasi (PyTorch) |
+| **RWKV.cpp** | RWKV inference ringan |
+| **FlashAttention** | Attention memori-efisien (training) |
+| **Weights & Biases** | Experiment tracking |
+
+## 7. References
+
+- Attention Is All You Need (Vaswani 2017) — https://arxiv.org/abs/1706.03762
+- LSTM (Hochreiter 1997) — https://www.bioinf.jku.at/publications/older/2604.pdf
+- Mamba (Gu & Dao 2023) — https://arxiv.org/abs/2312.00752
+- RWKV — https://arxiv.org/abs/2305.13048
+- FlashAttention — https://arxiv.org/abs/2205.14135

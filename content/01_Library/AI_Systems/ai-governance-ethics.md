@@ -810,7 +810,7 @@ class AIComplianceMonitor:
 - **[[ai-evaluation-framework]]** — Evaluasi AI (metrics untuk compliance)
 - **[[ai-engineering-stack-roadmap]]** — Infrastruktur AI (monitoring, logging)
 - **[[digital-privacy-anonymity]]** — Privasi data (GDPR compliance)
-- **[[hierarchy-classical-ml-algorithms]]** — ML klasik (bias-variance tradeoff → bias fairness)
+- **[[00_Atlas/hierarchy-classical-ml-algorithms]]** — ML klasik (bias-variance tradeoff → bias fairness)
 
 ---
 

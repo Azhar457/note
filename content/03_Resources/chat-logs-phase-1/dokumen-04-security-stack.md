@@ -8,6 +8,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # Dokumen 04 — Blue Team Phase 1 (Audit & IPS)
 
 > Hardening tiga lapisan: OS (Lynis), Container (Trivy), dan Jaringan (CrowdSec + Cloudflare WAF). Semua dieksekusi di dalam LXC Nextcloud (`192.168.1.51`) dengan prinsip *defense in depth*.

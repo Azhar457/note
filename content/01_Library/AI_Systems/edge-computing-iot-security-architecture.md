@@ -15,7 +15,6 @@ created: '2026-07-15'
 updated: '2026-07-15'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # ⚙️ Edge Computing & IoT Security Architecture

@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🖥️ HIERARKI OS — Dari Consumer sampai Military/Intelligence
 
 > Peta lengkap ekosistem operating system dari yang dipakai orang awam hingga yang dipakai NSA, militer, dan intelijen. Setiap naik level = trade-off antara usability vs security vs kontrol.

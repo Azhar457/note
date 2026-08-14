@@ -12,6 +12,10 @@ tags:
 created: '2026-08-11'
 updated: '2026-08-11'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 source: /home/jars/TESTFROMDARKNET (read-only inventory)
 aliases:
 - Darknet Samples Collection
@@ -117,3 +121,59 @@ Sampel real yang terdokumentasi:
 3. PROMPT INJECTION.txt / SOUL-INJECT.MD.txt (jailbreak prompt samples)
 4. MalwareBazaar_MCP/README.md (MCP integration)
 5. AhMyth/README.md, L3MON, DogeRat NOTES/DogeRat_RE_report.md (RAT tools)
+
+
+## 10. Deepdive — Riset Workflow & Red Team Value
+
+### 10.1 Analisis Ekosistem (Jailbreak → Tooling → Malware)
+
+```
+Kategori A (Jailbreak prompts)  → cara LLM safety bypass → red team LLM eval
+Kategori B (Forum/MaaS dumps)   → TTP pasar gelap → threat intel pattern
+Kategori C (Android RAT source) → custom implant → APK injection pipeline
+Kategori D (Malware samples)    → signature/behavior → AV evasion learning
+Kategori E (MCP tooling)        → automasi intel (MalwareBazaar, BBP recon)
+```
+
+### 10.2 Handling Aman (Sandbox Workflow)
+
+```bash
+# Jangan pernah extract/exec di host — pakai container
+docker run --rm -it --network none -v /home/jars/TESTFROMDARKNET:/data:ro debian:bookworm
+
+# Verifikasi magic bytes SEBELUM ekstraksi
+file /data/malware.bin          # → "ELF 64-bit" / "Zip archive" dll
+xxd /data/malware.bin | head    # lihat header manual
+
+# Hash dulu untuk intel (YARA/ThreatIntel)
+sha256sum /data/malware.bin
+
+# Network: --network none → tidak ada C2 call-out saat analisis
+```
+
+### 10.3 Intel Value per Kategori
+
+| Kategori | Threat Intel Output |
+|----------|---------------------|
+| Jailbreak prompts | Evolving bypass patterns → LLM guardrail update |
+| Forum dumps | Nama marketplace, TTP, pricing → CTI report |
+| RAT source | Kode C2, persistence method → detection rule (YARA/Sigma) |
+| Malware samples | C2 domain, exfil endpoint → IOC blocklist |
+| MCP tooling | Automasi pipeline → SOC automation reference |
+
+### 10.4 Dokumen Pendamping
+
+| Dokumen | Fungsi |
+|---------|--------|
+| `ShadowC2 RE report` | Analisis RAT shadow (C2, persistence) |
+| `DogeRat RE report` | Perbandingan RAT lain |
+| `MalwareBazaar MCP` | API automasi sample retrieval |
+| `exodus_bbp / syfe_bbp` | Bug bounty recon workflow |
+
+## 11. Referensi
+
+- MalwareBazaar — https://bazaar.abuse.ch/
+- VirusTotal — https://www.virustotal.com/
+- YARA rules — https://yara.readthedocs.io/
+- Sigma rules — https://github.com/SigmaHQ/sigma
+- MITRE ATT&CK — https://attack.mitre.org/

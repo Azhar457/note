@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Swarm Ai
 
 > Kecerdasan swarm: algoritma terinspirasi alam (ACO, PSO, ABC), optimasi kolektif, dan sistem multi-agen terdesentralisasi.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[swarm-ai-imam-robandi]]
-

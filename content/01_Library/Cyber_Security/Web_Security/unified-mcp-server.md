@@ -7,7 +7,10 @@ tags:
 created: '2026-07-02'
 updated: '2026-07-02'
 status: pending
-cssclasses: ''
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🧩 Unified MCP Server – Dokumentasi Lengkap

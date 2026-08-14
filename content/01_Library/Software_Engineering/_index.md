@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Software Engineering
 
 > Prinsip rekayasa perangkat lunak: clean code, design patterns, arsitektur, dan buku-buku referensi SWE.
@@ -12,8 +18,7 @@
 - [[clean-code-robert-martin]]
 - [[ddia-summary]]
 - [[design-patterns-gof]]
-- [[hierarchy-software-engineering-paradigm]] — 8-layer SE stack — algoritma, paradigm, bahasa, pattern, arsitektur, process, quality, ops, AI-assisted
+- [[Note/01_Library/Software_Engineering/hierarchy-software-engineering-paradigm]] — 8-layer SE stack — algoritma, paradigm, bahasa, pattern, arsitektur, process, quality, ops, AI-assisted
 - [[rust-systems-programming-tooling-keamanan]]
 - [[software-engineering]]
 - [[the-pragmatic-programmer]]
-

@@ -11,6 +11,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🛡️ HIERARKI ENDPOINT SECURITY — Dari Ring 3 sampai Sub-Firmware (Ring -3)
 
 > Setiap byte yang diproses CPU melewati hierarki privilege yang sudah ditetapkan sejak arsitektur Intel x86 dirancang di tahun 1978. **Semakin kecil angka Ring, semakin dalam akses ke hardware — dan semakin buta OS terhadap apa yang terjadi di sana.** File ini adalah peta konsepnya. Untuk tools defender per Ring, lihat [[endpoint-security-freeware]]. Untuk threat landscape (Blue vs Red), lihat [[endpoint-security]].

@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔬 HIERARKI QUANTUM CRYPTOGRAPHY — Dari Qubit Theory (Level 0) sampai Full Quantum Supremacy (Level 7)
 
 > Quantum computing bukan "komputer yang lebih cepat" — ini adalah **paradigma komputasi yang berbeda secara fundamental**. Qubit tidak seperti bit: mereka bisa berada di superposisi, terbelit (entanglement), dan collapse saat diukur. Hirarki ini memetakan evolusi dari teori qubit sampai era post-quantum — di mana RSA-2048 bisa dipecahkan dalam jam. Untuk deep dive teknis lengkap (Shor, Grover, hardware, QKD, PQC), lihat [[quantum-cryptography-deepdive]].

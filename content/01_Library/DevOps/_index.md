@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Devops
 
 > CI/CD, observability, container networking, shift-left security, dan praktik DevOps engineering.
@@ -17,4 +23,3 @@
 - [[observability-stack-prometheus-grafana]]
 - [[podman-networking-ufw]]
 - [[server-hardening-playbook]] — Checklist VPS production: SSH, UFW, fail2ban, auditd, SELinux, AIDE
-

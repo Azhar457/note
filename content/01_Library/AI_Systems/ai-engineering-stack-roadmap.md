@@ -1,23 +1,33 @@
 ---
-title: "Ai Engineering Stack Roadmap"
+title: Ai Engineering Stack Roadmap
 tags:
-  - ai-engineering
-  - mlops
-  - llmops
-  - production-ai
-  - inference
-  - rag
-  - observability
+- ai-engineering
+- mlops
+- llmops
+- production-ai
+- inference
+- rag
+- observability
 aliases:
-  - AI Engineering Stack Deep Dive
-  - Production AI Architecture
-  - On-Prem AI Infrastructure
-created: "2026-05-29"
-updated: "2026-07-09"
-status: pending
+- AI Engineering Stack Deep Dive
+- Production AI Architecture
+- On-Prem AI Infrastructure
+created: '2026-05-29'
+updated: '2026-08-14'
+status: complete
 cssclasses:
-  - wide-table
+- callout
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Arsitektur AI production-grade dari bare-metal (GPU/CUDA, inference, RAG) sampai observability & compliance (EU AI Act). |
+
+
+
+
+[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[00_Atlas/overview]]
 
 # 🧠 AI ENGINEERING STACK — The Architecture of Production Reasoning Systems
 
@@ -203,3 +213,6 @@ Dengan regulasi seperti EU AI Act, kepatuhan adalah persyaratan, bukan pilihan.
 | **6: Trustworthy** | Security + Compliance | Aman, Terpercaya, Auditable | NeMo Guardrails, NIST AI RMF |
 
 Membangun sistem AI production-grade adalah upaya rekayasa. Ini tentang mengubah model probabilistik yang buram menjadi produk yang transparan, andal, dan aman dengan menerapkan prinsip-prinsip rekayasa perangkat lunak yang ketat di setiap lapisan.
+
+> [!callout] 💡
+> Transisi prototype→production adalah pergeseran dari aliran probabilistik ke sistem deterministik yang terukur, aman, dan dapat diaudit — bukan sekadar "deploy model".

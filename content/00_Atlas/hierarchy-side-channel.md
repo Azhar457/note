@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # ⚡ HIERARKI SIDE-CHANNEL ATTACK — Dari Timing Observation (Level 0) sampai Quantum Side-Channel (Level 5)
 
 > Side-channel attack adalah seni **membaca data rahasia dari efek samping yang tidak disengaja** — bukan dari ciphertext atau kode, tapi dari timing, power consumption, emisi elektromagnetik, suara, panas, atau pantulan cahaya. Hirarki ini memetakan evolusi dari yang paling non-invasif (timing) sampai yang paling canggih (quantum side-channel). Untuk implementasi ChipWhisperer, power analysis, dan countermeasure, lihat [[hardware-hacking-re]] Sheet 2 (Level 4–5 Side-Channel & Fault Injection).

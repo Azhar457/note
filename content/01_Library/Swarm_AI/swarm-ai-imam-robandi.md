@@ -14,7 +14,10 @@ created: '2026-07-05'
 updated: 2026-07-09
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
+
 ---
 
 > [!abstract] Lebih dari Sekadar Metafora

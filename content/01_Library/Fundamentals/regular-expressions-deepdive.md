@@ -9,7 +9,6 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🧠 Regular Expressions — Deep Dive: Quantifiers, Groups, Lookahead, Performance, dan Detection Engineering

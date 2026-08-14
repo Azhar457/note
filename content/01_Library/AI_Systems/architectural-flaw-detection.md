@@ -6,6 +6,10 @@ tags:
 created: '2026-06-18'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🔍 ARCHITECTURAL FLAW DETECTION — Mental Models, Taxonomy, and Methodologies

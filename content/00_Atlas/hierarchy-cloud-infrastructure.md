@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # ☁️ HIERARKI INFRASTRUKTUR CLOUD — Dari Shared Hosting (Level 0) sampai Zero Trust Cloud Native (Level 8)
 
 > Infrastruktur cloud adalah **hierarki control vs complexity**: semakin tinggi level, semakin banyak kontrol yang kamu punya — tapi semakin besar juga complexity dan attack surface. Mulai dari shared hosting (tinggal upload file, nol kontrol) sampai zero trust cloud native (setiap request diverifikasi ulang). Untuk tabel lengkap per level dengan tools, lihat [[cloud-infrastructure]].

@@ -40,7 +40,7 @@ cssclasses: ''
 |----------|--------|
 | **WAL (Write-Ahead Log)** | Semua perubahan ditulis ke WAL dulu sebelum data page. Ini jaminan crash recovery |
 | **Checkpoint** | Flush dirty buffers ke disk. Frekuensi diatur `checkpoint_timeout` (default 5 menit) |
-| **Autovacuum** | Membersihkan dead tuples — MVVC遗产. Kalau mati → bloat |
+| **Autovacuum** | Membersihkan dead tuples — MVCC legacy. Kalau mati → bloat |
 | **Replication Slot** | Menjamin WAL gak dihapus sebelum replica menerimanya |
 
 ---

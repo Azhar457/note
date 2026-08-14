@@ -10,6 +10,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔐 HIERARKI KRIPTOGRAFI — Dari Caesar Cipher (Level 0) sampai Post-Quantum (Level 7)
 
 > Kriptografi adalah **satu-satunya** ilmu di dunia security yang punya **timeline kematian algoritma**: tiap algoritma melewati siklus lahir → adopsi luas → kelemahan ditemukan → deprecated → forbidden. Hierarki ini mengikuti timeline itu — dari cipher klasik yang bisa dipecahkan anak SMA dalam menit, sampai standar NIST 2024 yang tahan terhadap komputer kuantum masa depan. Untuk aplikasi nyata di setiap level + biometrik (sheet 2), lihat [[cryptography-biometrics]].

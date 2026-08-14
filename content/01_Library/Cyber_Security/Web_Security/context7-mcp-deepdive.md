@@ -7,7 +7,10 @@ tags:
 created: '2026-07-03'
 updated: '2026-07-03'
 status: pending
-cssclasses: ''
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🧠 Context7 MCP & Custom Server Development — Deep Dive

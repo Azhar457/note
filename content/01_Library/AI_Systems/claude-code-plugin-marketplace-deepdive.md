@@ -15,7 +15,6 @@ created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🔗 Claude Code Plugin Marketplace — Distribusi Modular Skill untuk Coding Agent

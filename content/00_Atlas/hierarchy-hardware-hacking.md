@@ -14,6 +14,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔩 HIERARKI HARDWARE HACKING — Dari Visual PCB (Level 0) sampai Silicon RE & FIB (Level 7)
 
 > Software bisa di-patch, firmware bisa di-flash ulang — tapi hardware yang sudah dimodifikasi secara fisik **tidak bisa di-unpatch**. Hirarki hardware hacking memetakan serangan dari paling non-invasif (mata & multimeter) sampai paling destruktif (decap chip + FIB edit). Setiap level naik = biaya naik 10x lipat dan irreversible. Untuk tabel lengkap alat per level + sheet software RE companion, lihat [[hardware-hacking-re]].

@@ -12,7 +12,8 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
 ---
 
 # 🔩 AI Hardware — Deep Dive: NPU, TPU, GPU, ASIC, In-Memory Computing, AI Accelerator Architecture
@@ -251,4 +252,4 @@ Compute terjadi di memory cell — tanpa data movement
 - [[computer-vision-deepdive]] — Computer vision di embedded NPU (Jetson, Coral, Rockchip)
 - [[embedded-systems]] — SoC architecture — NPU sebagai IP core dalam SoC
 - [[platform-technologies-overview]] — Teknologi platform: CXL, DPU, RISC-V
-- [[hierarchy-classical-ml-algorithms]] — ML model — hardware menentukan feasibility training
+- [[00_Atlas/hierarchy-classical-ml-algorithms]] — ML model — hardware menentukan feasibility training

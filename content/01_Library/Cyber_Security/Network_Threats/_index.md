@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Network Threats
 
 > Catatan tentang Network Threats.
@@ -12,4 +18,3 @@
 - [[dns-tunneling-deepdive]]
 - [[ids-ips-waf-nsm-comparison]]
 - [[network-security]]
-

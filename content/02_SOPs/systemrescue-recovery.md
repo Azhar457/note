@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔬 SOP RECOVERY — Open Source Only (SystemRescue / Kali Live)
 
 > **Environment:** SystemRescue Live USB / Kali Linux Live / Parrot OS Live

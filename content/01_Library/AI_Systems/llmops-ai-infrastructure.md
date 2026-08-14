@@ -1,6 +1,5 @@
 ---
-title: 'LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector
-  DB Ops, Cost Tracking, LLM Observability'
+title: 'LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector DB Ops, Cost Tracking, LLM Observability'
 tags:
 - llmops
 - ai-infrastructure
@@ -12,10 +11,12 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
----
+  - wide-table
+  - callout
 
-# 🔧 LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector DB Ops, Cost Tracking, LLM Observability
+
+---
+[]()# 🔧 LLMOps & AI Infrastructure — Deep Dive: Langfuse, Prompt Management, Vector DB Ops, Cost Tracking, LLM Observability
 
 > Panduan komprehensif operasional LLM di production — dari observability (Langfuse, LangSmith, W&B Prompts), prompt versioning & management, vector database operations (indexing strategy, reindex, pruning), cost tracking & optimization (model routing, caching, batching), LLM caching (semantic cache, KV cache), dan production deployment patterns (guardrails, rate limiting, canary deploy). Vault udah punya [[ai-evaluation-framework]] (evaluasi RAG — RAGAS, LLM-as-Judge), [[vector-database-internals-optimization]] (HNSW, IVF, quantization), [[production-model-serving-optimization]] (inference serving), dan [[ai-engineering-stack-roadmap]] (AI stack high-level). Catatan ini mengisi gap: **operational layer** — bagaimana menjalankan LLM di production dengan monitoring, cost control, dan prompt management.
 

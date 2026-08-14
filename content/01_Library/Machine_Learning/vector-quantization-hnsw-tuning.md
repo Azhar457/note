@@ -13,6 +13,11 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+  - code-wrap
+
 ---
 
 # Vector Quantization & HNSW Tuning: Kompresi Representasi Vektor dan Akselerasi Index RAG

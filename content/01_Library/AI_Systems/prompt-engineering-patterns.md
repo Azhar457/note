@@ -12,7 +12,6 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🧠 Prompt Engineering & LLM Interaction Patterns — Deep Dive: Zero-Shot sampai Reflexion, ReAct, Agent Loop

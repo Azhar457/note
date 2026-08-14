@@ -112,7 +112,7 @@ Lapisan paling dasar — **fisika itu sendiri**. Setiap komputasi pada akhirnya 
 
 **Koneksi:**
 - [[hierarchy-recursive-ring-deepdive]] — Analogy: level descent ke quantum reality
-- [[hierarchy-quantum-cryptography-stack]] — Quantum computing applications
+- [[00_Atlas/hierarchy-quantum-cryptography-stack]] — Quantum computing applications
 
 ---
 
@@ -146,7 +146,7 @@ Abstraksi dari quantum physics ke logika biner.
 
 **Koneksi:**
 - [[hierarchy-operating-systems]] — Hardware foundation
-- [[hierarchy-digital-plumbing]] — Level 1: Aritmetika biner
+- [[00_Atlas/hierarchy-digital-plumbing]] — Level 1: Aritmetika biner
 
 ---
 
@@ -175,7 +175,7 @@ Abstraksi dari hardware gates ke **instruction set** yang bisa diprogram.
 **Koneksi:**
 - [[hierarchy-operating-systems]] — User/kernel mode, syscall interface
 - [[hierarchy-programming-language]] — Compiler target
-- [[hierarchy-kernel-bypass-networking]] — Zero-copy bypass ISA
+- [[00_Atlas/hierarchy-kernel-bypass-networking]] — Zero-copy bypass ISA
 
 ---
 
@@ -214,8 +214,8 @@ Fast, big surface       Slow, small surface      Virtual hardware
 
 **Koneksi:**
 - [[hierarchy-operating-systems]] — Dedicated OS hierarchy
-- [[hierarchy-cybersecurity-defense-architecture]] — L4 & L1 di layer ini
-- [[hierarchy-systems-architecture-evolution]] — OS sebagai foundation
+- [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — L4 & L1 di layer ini
+- [[00_Atlas/hierarchy-systems-architecture-evolution]] — OS sebagai foundation
 
 ---
 
@@ -310,8 +310,8 @@ Lapisan tempat **business logic** dan **domain knowledge** berada.
 - Framework internals (L5)
 
 **Koneksi:**
-- [[hierarchy-software-engineering-paradigm]] — Design pattern di sini
-- [[hierarchy-systems-architecture-evolution]] — Application vs service decomposition
+- [[00_Atlas/hierarchy-software-engineering-paradigm]] — Design pattern di sini
+- [[00_Atlas/hierarchy-systems-architecture-evolution]] — Application vs service decomposition
 
 ---
 
@@ -343,7 +343,7 @@ Abstraksi dari komunikasi fisik ke **message semantics**.
 - Encoding (Physical → signal modulation)
 
 **Koneksi:**
-- [[hierarchy-kernel-bypass-networking]] — L7 bypasses L3
+- [[00_Atlas/hierarchy-kernel-bypass-networking]] — L7 bypasses L3
 - [[hierarchy-network-security]] — L7-Network alignment
 - [[hierarchy-wireless]] — Physical layer subset
 
@@ -381,7 +381,7 @@ Abstraksi dari data representation ke **knowledge semantics**.
 **Koneksi:**
 - [[hierarchy-database-storage-systems]] — Storage layer map
 - [[hierarchy-search]] — Search algorithm hierarchy
-- [[hierarchy-llm-ai-systems]] — Vector DB + knowledge graph
+- [[00_Atlas/hierarchy-llm-ai-systems]] — Vector DB + knowledge graph
 
 ---
 
@@ -416,7 +416,7 @@ Lapisan tertinggi — **manusia berinteraksi via intent, bukan kode**.
 ```
 
 **Koneksi:**
-- [[hierarchy-llm-ai-systems]] — LLM stack hierarchy
+- [[00_Atlas/hierarchy-llm-ai-systems]] — LLM stack hierarchy
 - [[hierarchy-ai-levels]] — AI capability levels
 - [[agentic-ai-mcp-architecture-deepdive]] — MCP agent framework
 
@@ -460,31 +460,31 @@ Lapisan tertinggi — **manusia berinteraksi via intent, bukan kode**.
 
 | Layer | Hierarchy Cross-Reference |
 |:-----:|---------------------------|
-| **L0** | [[hierarchy-quantum-cryptography-stack]] (QC physics foundation) |
-| **L1** | [[hierarchy-digital-plumbing]] (Level 1: Aritmetika biner/bit) |
+| **L0** | [[00_Atlas/hierarchy-quantum-cryptography-stack]] (QC physics foundation) |
+| **L1** | [[00_Atlas/hierarchy-digital-plumbing]] (Level 1: Aritmetika biner/bit) |
 | **L2** | [[hierarchy-programming-language]] (Compiler target), [[hierarchy-operating-systems]] (ISA modes) |
-| **L3** | [[hierarchy-operating-systems]] (Dedicated OS map), [[hierarchy-kernel-bypass-networking]] (Bypass L3) |
-| **L4** | [[hierarchy-software-engineering-paradigm]] (Runtime comparisons) |
-| **L5** | [[hierarchy-software-engineering-paradigm]] (Framework/pattern layer) |
-| **L6** | [[hierarchy-software-engineering-paradigm]], [[hierarchy-llm-ai-systems]] (App domain) |
-| **L7** | [[hierarchy-network-security]], [[hierarchy-kernel-bypass-networking]] (Bypass OSI stack) |
+| **L3** | [[hierarchy-operating-systems]] (Dedicated OS map), [[00_Atlas/hierarchy-kernel-bypass-networking]] (Bypass L3) |
+| **L4** | [[00_Atlas/hierarchy-software-engineering-paradigm]] (Runtime comparisons) |
+| **L5** | [[00_Atlas/hierarchy-software-engineering-paradigm]] (Framework/pattern layer) |
+| **L6** | [[00_Atlas/hierarchy-software-engineering-paradigm]], [[00_Atlas/hierarchy-llm-ai-systems]] (App domain) |
+| **L7** | [[hierarchy-network-security]], [[00_Atlas/hierarchy-kernel-bypass-networking]] (Bypass OSI stack) |
 | **L8** | [[hierarchy-database-storage-systems]], [[hierarchy-search]], [[hierarchy-data-recovery]] |
-| **L9** | [[hierarchy-llm-ai-systems]] (Layer 5-6: Agent & MCP), [[hierarchy-ai-levels]], [[hierarchy-recursive-ring-deepdive]] |
+| **L9** | [[00_Atlas/hierarchy-llm-ai-systems]] (Layer 5-6: Agent & MCP), [[hierarchy-ai-levels]], [[hierarchy-recursive-ring-deepdive]] |
 
 ### Cross-Cutting Links (L0-L9)
 
 | Hierarchy | Layer Primary | Hubungan |
 |-----------|:-------------:|----------|
-| [[hierarchy-cybersecurity-defense-architecture]] | L3-L7 | Security layer ada di setiap lapisan |
-| [[hierarchy-systems-architecture-evolution]] | L6-L7 | Architecture style vs abstraction |
-| [[hierarchy-infrastructure-evolution]] | L3-L7 | Infra evolution as abstraction |
+| [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] | L3-L7 | Security layer ada di setiap lapisan |
+| [[00_Atlas/hierarchy-systems-architecture-evolution]] | L6-L7 | Architecture style vs abstraction |
+| [[00_Atlas/hierarchy-infrastructure-evolution]] | L3-L7 | Infra evolution as abstraction |
 | [[hierarchy-identity-trust]] | L8-L9 | Identity abstraction backbone |
 | [[hierarchy-concurrency-consensus]] | L3-L4 | Concurrency sebagai abstraction |
 | [[hierarchy-failure-modes-resilience]] | L0-L9 | Failure patterns di semua layer |
 | [[hierarchy-memory-storage]] | L1-L8 | Memory hierarchy melintasi L0-L8 |
 | [[hierarchy-it-domain]] | L6-L9 | IT domain sebagai aplikasi abstraksi |
 | [[hierarchy-recursive-ring-deepdive]] | Meta | Master framework untuk semua |
-| [[hierarchy-digital-plumbing]] | L1-L6 | Pipeline of abstractions |
+| [[00_Atlas/hierarchy-digital-plumbing]] | L1-L6 | Pipeline of abstractions |
 
 ---
 

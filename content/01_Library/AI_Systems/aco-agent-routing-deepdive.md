@@ -4,7 +4,10 @@ aliases: [ACO Agent Routing, Ant Colony Agent Dispatch, Pheromone Routing]
 status: pending
 created: 2026-07-25
 updated: 2026-07-25
-cssclasses: [wide-table]
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Dari Feromon Semut ke Routing Agen
@@ -500,4 +503,4 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 | [[meta-agent-orchestration]] | Target arsitektur — ACO menggantikan memoryless reassign |
 | [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
 | [[ai-evaluation-framework]] | Δτ quality signals — LLM judge, self-consistency |
-| [[hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |
+| [[Note/01_Library/AI_Systems/hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |

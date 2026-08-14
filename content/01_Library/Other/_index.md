@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Other
 
 > Catatan lintas-domain yang tidak terikat kategori tunggal — open source, toolkit teknisi, dan pengetahuan umum.
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[open-source-success-stories]]
 - [[technician-toolkit-standard]]
-

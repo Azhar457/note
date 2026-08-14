@@ -233,7 +233,7 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
 
 ## References
 
-1. [[hierarchy-binary-quantization-hamming-popcount]] — §3: The Metric Transition, §5: Why Binary Works
+1. [[00_Atlas/hierarchy-binary-quantization-hamming-popcount]] — §3: The Metric Transition, §5: Why Binary Works
 2. [[cosine-similarity-deepdive]] — §2: Formula & Geometry, §7: Cosine vs Other Metrics
 3. [[cosine-vs-euclidean-vs-dot]] — Tabel per metrik
 4. [[vector-database-internals-optimization]] — §4: Quantization comparison
@@ -245,7 +245,7 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
 
 | Catatan | Koneksi |
 |---------|---------|
-| [[hierarchy-binary-quantization-hamming-popcount]] | §3 Metric Transition — expanded version of this concept |
+| [[00_Atlas/hierarchy-binary-quantization-hamming-popcount]] | §3 Metric Transition — expanded version of this concept |
 | [[cosine-similarity-deepdive]] | Cosine formula & geometry — sebagai continuous baseline |
 | [[vector-database-internals-optimization]] | §4 Quantization — precision trade-offs |
-| [[hierarchy-kernel-bypass-networking]] | eBPF compute constraints → kenapa Hamming adalah satu-satunya opsi |
+| [[00_Atlas/hierarchy-kernel-bypass-networking]] | eBPF compute constraints → kenapa Hamming adalah satu-satunya opsi |

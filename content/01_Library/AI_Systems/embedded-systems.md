@@ -6,6 +6,10 @@ tags:
 created: 2026-04-25
 updated: 2026-08-12
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🔌 EMBEDDED SYSTEMS & FLASH FORENSICS — Bare-Metal World

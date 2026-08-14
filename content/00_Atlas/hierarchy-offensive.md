@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # ☠️ Hierarchy Offensive Security — Level 0 sampai APT Simulator
 
 Hierarki skill progression untuk offensive security practitioner membagi kemampuan menjadi enam level, dari yang paling dasar hingga yang paling maju. Setiap level memiliki cara kerja, tembok yang menghentikan, counter Blue Team, dan cara naik ke level berikutnya.

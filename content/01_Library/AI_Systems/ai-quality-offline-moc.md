@@ -5,6 +5,10 @@ tags:
 created: '2026-07-06'
 updated: '2026-07-06'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 📚 Learning Companion: Tiga Buku Teknologi
 ## Panduan Belajar Komprehensif — AI, Kualitas Perangkat Lunak & Internet Offline

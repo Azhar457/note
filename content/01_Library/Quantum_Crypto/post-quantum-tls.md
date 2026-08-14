@@ -13,11 +13,15 @@ aliases:
 created: '2026-08-04'
 updated: '2026-08-04'
 status: completed
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🔐 Post-Quantum TLS — Implementasi Transport Security Pasca-Kuantum
 
-> **Panduan praktis membangun TLS 1.3 dengan KEM (Kyber) + Signature (Dilithium/Falcon) untuk menghadapi era kuantum.** Bukan teori murni — ini implementasi level produksi: hybrid key exchange, certificate chain migration, performance tuning, dan interoperabilitas dengan legacy client. Untuk fondasi matematika, lihat [[quantum-cryptography-primer]] dan [[hierarchy-quantum-cryptography-stack]]. Untuk implementasi Rust, lihat [[pqc-implementation-rust]].
+> **Panduan praktis membangun TLS 1.3 dengan KEM (Kyber) + Signature (Dilithium/Falcon) untuk menghadapi era kuantum.** Bukan teori murni — ini implementasi level produksi: hybrid key exchange, certificate chain migration, performance tuning, dan interoperabilitas dengan legacy client. Untuk fondasi matematika, lihat [[quantum-cryptography-primer]] dan [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]]. Untuk implementasi Rust, lihat [[pqc-implementation-rust]].
 
 ---
 
@@ -372,7 +376,7 @@ config.ticketer = rustls::Ticketer::new();  // session ticket
 
 ## Cross-Link
 
-- **Matematika Dasar** → [[quantum-cryptography-primer]], [[hierarchy-quantum-cryptography-stack]]
+- **Matematika Dasar** → [[quantum-cryptography-primer]], [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]]
 - **Implementasi Rust** → [[pqc-implementation-rust]], WAF deepdive (privat)
 - **Certificate Mgmt** → [[linux-hardening-audit-praktis]], [[system-hardening-practical]]
 - **Quantum Timeline** → [[quantum-cryptography-roadmap]], [[post-quantum-tls-implementation]]

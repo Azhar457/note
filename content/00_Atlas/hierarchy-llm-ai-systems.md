@@ -134,7 +134,7 @@ Hyperscale (>100K GPU)= Frontier training (MosaicML, xAI Colossus)
 
 **Koneksi ke Vault:**
 - [[hardware-architecture]] — GPU microarchitecture detail
-- [[hierarchy-kernel-bypass-networking]] — Layer 3 (RDMA, GPU Direct)
+- [[00_Atlas/hierarchy-kernel-bypass-networking]] — Layer 3 (RDMA, GPU Direct)
 - [[embedded-systems]] — Edge inference constraint
 
 ### 3.3 Kenapa Layer 0 Penting
@@ -251,8 +251,8 @@ Dimana $y_w$ = preferred, $y_l$ = rejected, $\pi_\theta$ = policy yang dilatih.
 Inference LLM punya **profile yang unik**:
 
 ```
-Pre-training  : Latency不重要 (perlu waktu)
-Fine-tuning   : Latency不重要 (perlu waktu)
+Pre-training  : Latency tidak penting (perlu waktu)
+Fine-tuning   : Latency tidak penting (perlu waktu)
 Inference     : Latency P99 < 2s MUTLAK
               : Throughput tinggi (1000-10000 req/s)
               : Biaya per token minimal
@@ -308,7 +308,7 @@ Perbedaan fundamental dengan inference tradisional:
 - [[llmops-ai-infrastructure]] — Ops untuk LLM
 - [[gpu-programming-parallel-compute]] — GPU programming primitives
 - [[production-model-serving-optimization]] — Serving optimization
-- [[hierarchy-kernel-bypass-networking]] — RDMA, GPU Direct untuk inference cluster
+- [[00_Atlas/hierarchy-kernel-bypass-networking]] — RDMA, GPU Direct untuk inference cluster
 
 ---
 
@@ -369,10 +369,10 @@ Perbedaan fundamental dengan inference tradisional:
 - [[advanced-chunking-strategies-deepdive]]
 - [[query-transformation-rag]]
 - [[embedding-model-selection-finetuning]]
-- [[hierarchy-classical-ml-algorithms]] — BM25 di sini
+- [[00_Atlas/hierarchy-classical-ml-algorithms]] — BM25 di sini
 - [[hybrid-search-vector-keyword]] — Fusion strategy
-- [[hierarchy-binary-quantization-hamming-popcount]] — Seperti binary caching tapi untuk konteks
-- [[hierarchy-metric-transition-theory]] — Cosine→Hamming untuk retrieval
+- [[00_Atlas/hierarchy-binary-quantization-hamming-popcount]] — Seperti binary caching tapi untuk konteks
+- [[00_Atlas/hierarchy-metric-transition-theory]] — Cosine→Hamming untuk retrieval
 
 ---
 
@@ -417,7 +417,7 @@ Three primitives:
 | Pattern | Agen | Use Case |
 |---------|------|----------|
 | **Supervisor-Worker** | 1 supervisor + N workers | Task decomposition |
-| **Peer-to-Peer** | N平等的 agen | Debate, voting |
+| **Peer-to-Peer** | N agen setara | Debate, voting |
 | **Hierarchical** | Tree of agents | Complex workflows |
 | **Blackboard** | Shared memory | Specialist collaboration |
 | **Swarm** | Lightweight coordination | Ephemeral tasks |
@@ -580,7 +580,7 @@ Vault QuCrypto sudah punya catatan di masing-masing layer. Daftar berikut memeta
 
 | Layer | Catatan Vault |
 |:-----:|---------------|
-| **0** | [[gpu-programming-parallel-compute]], [[ai-hardware-architecture]], [[hierarchy-kernel-bypass-networking]] |
+| **0** | [[gpu-programming-parallel-compute]], [[ai-hardware-architecture]], [[00_Atlas/hierarchy-kernel-bypass-networking]] |
 | **1** | [[attention-mechanism-deepdive]], [[backpropagation-deepdive]], [[math-and-algorithms]] |
 | **2** | [[llm-finetuning-toolchain]], [[neurosymbolic-ai]], [[reinforcement-learning-deepdive]] |
 | **3** | [[llmops-ai-infrastructure]], [[production-model-serving-optimization]], [[ollama-vllm-self-hosting-deployment]] |

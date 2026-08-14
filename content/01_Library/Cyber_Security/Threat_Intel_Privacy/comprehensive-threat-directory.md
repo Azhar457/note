@@ -7,6 +7,10 @@ tags:
 created: '2026-07-01'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 💀 COMPREHENSIVE THREAT DIRECTORY — Threat & Exploit Landscape Compilation

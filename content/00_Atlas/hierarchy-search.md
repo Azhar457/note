@@ -11,6 +11,10 @@ updated: '2026-08-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 > [!tip] Abstract
 > Hierarki pencarian informasi diperluas dari 8 level menjadi 11 level — mencakup Cached Web, Breach Data Ecosystem, Alternative Overlays, Closed Communities, Nation-State SIGINT, Restricted Government Networks, Air-Gapped Intelligence, dan SIGINT Satellite Operations. Koreksi teknis diterapkan pada kode Python, klaim "I2P lebih anonim dari Tor", dan posisi Tor Exit Node yang bukan level pencarian melainkan peran di jaringan yang sama. Appendix mencakup Exit Node Configuration, anatomi posisi, dan perbandingan Tor vs I2P vs Freenet.
 
@@ -863,7 +867,7 @@ riffle_client = riffle.Client("example.riffle")
 response = riffle_client.get(url)
 ```
 
-Riffle, Loopix, Nym Network, dan Mixnets adalah prototipe akademik — tidak ada Python library production yang暴露 API seperti itu. Akses ke level ini via client native masing-masing (jika tersedia).
+Riffle, Loopix, Nym Network, dan Mixnets adalah prototipe akademik — tidak ada Python library production yang mengekspos API seperti itu. Akses ke level ini via client native masing-masing (jika tersedia).
 
 ### C.2 — I2P Bukan "Lebih Anonim dari Tor"
 
@@ -883,8 +887,8 @@ Detail di section 5C di atas.
 - [[hierarchy-network-security|Network Security Hierarchy]]
 - [[hierarchy-offensive|Offensive Security Hierarchy]]
 - [[hierarchy-osint-rf|OSINT RF Hierarchy]]
-- [[hierarchy-military-intel-tools|Military Intel Tools Hierarchy]]
-- [[hierarchy-cybersecurity-defense-architecture|Cybersecurity Defense Architecture]]
+- [[00_Atlas/hierarchy-military-intel-tools|Military Intel Tools Hierarchy]]
+- [[00_Atlas/hierarchy-cybersecurity-defense-architecture|Cybersecurity Defense Architecture]]
 - [[hierarchy-reverse-engineering|Reverse Engineering Hierarchy]]
 - [[hierarchy-network-forensics|Network Forensics Hierarchy]]
 - [[hierarchy-side-channel|Side-Channel Analysis Hierarchy]]

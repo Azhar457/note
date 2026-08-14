@@ -10,7 +10,9 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🔣 Encoding, Serialization & Compression — Deep Dive: base64, JSON, Protobuf, gzip, dan Attack Surface

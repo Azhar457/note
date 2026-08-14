@@ -298,8 +298,8 @@ Never trust, always verify:
 | Continuous verification | Signal-based, risk score |
 
 **Koneksi ke Vault:**
-- [[hierarchy-cybersecurity-defense-architecture]] — L7 (IAM) L6 (Zero Trust) full alignment
-- [[hierarchy-llm-ai-systems]] — AI agent identity layer
+- [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — L7 (IAM) L6 (Zero Trust) full alignment
+- [[00_Atlas/hierarchy-llm-ai-systems]] — AI agent identity layer
 
 ---
 
@@ -310,11 +310,11 @@ Never trust, always verify:
 | **I0** | [[hierarchy-osi...rf]] — OSINT intelligence dari footprint anonim |
 | **I1** | [[hierarchy-offensive]] — Red team social engineering |
 | **I2** | [[hierarchy-cryptography]] — PKI key management |
-| **I3** | [[hierarchy-cybersecurity-defense-architecture]] — IAM L7 |
+| **I3** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — IAM L7 |
 | **I4** | [[hierarchy-it-domain]] — Federated identity di enterprise |
-| **I5** | [[hierarchy-cybersecurity-defense-architecture]] — Compliance L8 |
+| **I5** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Compliance L8 |
 | **I6** | (masih baru, cross-link ke self-sovereign jika ada) |
-| **ZT** | [[hierarchy-cybersecurity-defense-architecture]] — Zero Trust |
+| **ZT** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Zero Trust |
 | **All** | [[hierarchy-abstraction-layers]] — Identity di L9 (intent layer) |
 
 ---

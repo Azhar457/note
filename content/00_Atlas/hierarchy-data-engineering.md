@@ -335,9 +335,9 @@ Source pattern?
 | **L1** | [[hierarchy-database-storage-systems]], [[hierarchy-memory-storage]] — Tier 5-7 |
 | **L2** | [[hierarchy-concurrency-consensus]] — Distributed processing |
 | **L3** | [[advanced-chunking-strategies-deepdive]] — Document chunking |
-| **L4** | [[hierarchy-devops-cicd]] — Pipeline orchestration |
-| **L5** | [[hierarchy-llm-ai-systems]] — ML serving + RAG |
-| **L6** | [[hierarchy-cybersecurity-defense-architecture]] — Data governance L3 |
+| **L4** | [[00_Atlas/hierarchy-devops-cicd]] — Pipeline orchestration |
+| **L5** | [[00_Atlas/hierarchy-llm-ai-systems]] — ML serving + RAG |
+| **L6** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Data governance L3 |
 
 ---
 

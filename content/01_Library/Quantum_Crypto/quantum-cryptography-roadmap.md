@@ -9,13 +9,27 @@ tags:
 - physics
 - roadmap
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 verification:
   status: unverified
   last_checked: '2026-08-12'
   confidence: LOW
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Peta jalan kriptografi kuantum: qubit & mekanika → protokol QKD BB84 → transisi PQC (ML-KEM/ML-DSA) → simulasi Qiskit. |
+
+
+
+
+
+
+[[00_Atlas/hierarchy-quantum-cryptography]] [[00_Atlas/hierarchy-quantum-cryptography-stack]] [[00_Atlas/hierarchy-cryptography]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Era komputasi kuantum menuntut pergeseran total dari keamanan berbasis kompleksitas matematika ke keamanan berbasis hukum fisika. Catatan ini merancang peta jalan belajar terstruktur dari konsep qubit dasar hingga simulasi protokol distribusi kunci kuantum (QKD) menggunakan Qiskit Python, sebagai pasangan praktis dari berkas teoritis [[quantum-cryptography-deepdive]].
@@ -173,3 +187,6 @@ Bob akan mendeteksi peningkatan nilai BER mendekati **25%** pada bit verifikasi.
 ### ❔ Claim 3: BB84 uses two bases for photon polarization: Rectilinear (+) and Diagonal (x).
 - **Status:** `UNVERIFIED` | **Confidence:** `LOW`
 - **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+> [!callout] 💡
+> Keamanan pasca-kuantum bukan sekadar algoritma baru — no-cloning theorem menjadikan QKD mendeteksi penyadapan secara fisik, bukan hanya matematis.

@@ -6,6 +6,10 @@ created: 2026-07-26
 updated: 2026-07-26
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 > [!abstract] Peta Koneksi Hierarchy → Library Deepdive
 > Catatan ini memetakan semua file `hierarchy-*.md` di 00_Atlas ke deepdive yang ada di 01_Library. Hierarchy **tanpa** deepdive adalah prioritas catatan baru. Hierarchy **dengan** deepdive tapi stale/low-coverage perlu update. Warna: ✅ aman, ⚠️ partial, ❌ belum ada.
 
@@ -56,21 +60,20 @@ updated: 2026-07-26
 
 ## ❌ Hierarchy Tanpa Deepdive (12) — Prioritas Catatan Baru
 
-| Hierarchy | Domain | Kenapa Perlu | Prioritas |
-|:----------|:-------|:-------------|:---------:|
-| `hierarchy-abstraction-layers` | Fundamentals | Abstraction layers adalah fondasi thinking framework — OSI layers, API gates, HAL, ABI. Fundamen buat semua hierarchy lain | **Tinggi** |
-| `hierarchy-ai-levels` | AI_Systems | Levels of AI (rule-based → agentic → AGI). Partial overlap sama [[hierarchy-llm-ai-systems]] di AI_Systems, tapi belum ada deepdive dedicated | **Tinggi** |
-| `hierarchy-concurrency-consensus` | Systems / Distributed | Concurrency models (actor, CSP, STM) + consensus (Raft, Paxos, PBFT). || **Tinggi** — kritikal buat [[distributed-systems]] |
-
-| `hierarchy-database-storage-systems` | Data_Engineering | Ada [[database-internals-indexing-mvcc]] dan [[database-schema-sharding-replication]], tapi belum ada catatan yang nyambungin hierarchy → implementasi | **Sedang** |
-| `hierarchy-failure-modes-resilience` | Systems / SRE | Failure modes + resilience patterns (circuit breaker, bulkhead, chaos engineering). Ada [[security-chaos-engineering]] tapi fokus security, bukan infra | **Tinggi** |
-| `hierarchy-it-domain` | Infrastructure | IT domain landscape — helpdesk → infra → cloud → security. Mungkin overlap sama [[infrastructure-administrator]] | **Rendah** — evaluate dulu |
-| `hierarchy-memory-storage` | Systems | Memory hierarchy (L1–L3 cache, NUMA, virtual memory, storage tiers). Ada [[memory-forensics-volatility-deepdive]] tapi itu forensik, bukan arsitektur | **Sedang** |
-| `hierarchy-operating-systems` | Systems / Fundamentals | OS internals — scheduler, VMM, syscall, IPC. Ada [[ostep-three-easy-pieces]] (book summary) dan beberapa linux notes, tapi belum ada deepdive dedicated | **Tinggi** |
-| `hierarchy-osint-rf` | OSINT / SIGINT | OSINT + RF spectrum. Ada [[osint]] (umum) dan [[military-sigint-deepdive]] (SIGINT), tapi gap di RF exploitation | **Sedang** |
-| `hierarchy-programming-language` | Software_Engineering | PL theory — type systems, memory models, FFI, runtime vs compiled. Ada [[hierarchy-compiler-design]] dan [[compiler-design-deepdive]] (tentang compiler, bukan PL secara umum) | **Tinggi** |
-| `hierarchy-recursive-ring-deepdive` | AI_Systems | Catatan ini **adalah** deepdive-nya sendiri — recursive self-improvement rings. Tapi belum ada link ke [[meta-agent-orchestration]] | **Rendah** — update wikilink |
-| `it-domain` | Infrastructure | Gap: hi it-domain
+| Hierarchy                            | Domain                 | Kenapa Perlu                                                                                                                                                                   |                     Prioritas                      |     |
+| :----------------------------------- | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------: | --- |
+| `hierarchy-abstraction-layers`       | Fundamentals           | Abstraction layers adalah fondasi thinking framework — OSI layers, API gates, HAL, ABI. Fundamen buat semua hierarchy lain                                                     |                     **Tinggi**                     |     |
+| `hierarchy-ai-levels`                | AI_Systems             | Levels of AI (rule-based → agentic → AGI). Partial overlap sama [[00_Atlas/hierarchy-llm-ai-systems]] di AI_Systems, tapi belum ada deepdive dedicated                                  |                     **Tinggi**                     |     |
+| `hierarchy-concurrency-consensus`    | Systems / Distributed  | Concurrency models (actor, CSP, STM) + consensus (Raft, Paxos, PBFT).                                                                                                          | **Tinggi** — kritikal buat [[distributed-systems]] |     |
+| `hierarchy-database-storage-systems` | Data_Engineering       | Ada [[database-internals-indexing-mvcc]] dan [[database-schema-sharding-replication]], tapi belum ada catatan yang nyambungin hierarchy → implementasi                         |                     **Sedang**                     |     |
+| `hierarchy-failure-modes-resilience` | Systems / SRE          | Failure modes + resilience patterns (circuit breaker, bulkhead, chaos engineering). Ada [[security-chaos-engineering]] tapi fokus security, bukan infra                        |                     **Tinggi**                     |     |
+| `hierarchy-it-domain`                | Infrastructure         | IT domain landscape — helpdesk → infra → cloud → security. Mungkin overlap sama [[infrastructure-administrator]]                                                               |             **Rendah** — evaluate dulu             |     |
+| `hierarchy-memory-storage`           | Systems                | Memory hierarchy (L1–L3 cache, NUMA, virtual memory, storage tiers). Ada [[memory-forensics-volatility-deepdive]] tapi itu forensik, bukan arsitektur                          |                     **Sedang**                     |     |
+| `hierarchy-operating-systems`        | Systems / Fundamentals | OS internals — scheduler, VMM, syscall, IPC. Ada [[ostep-three-easy-pieces]] (book summary) dan beberapa linux notes, tapi belum ada deepdive dedicated                        |                     **Tinggi**                     |     |
+| `hierarchy-osint-rf`                 | OSINT / SIGINT         | OSINT + RF spectrum. Ada [[osint]] (umum) dan [[military-sigint-deepdive]] (SIGINT), tapi gap di RF exploitation                                                               |                     **Sedang**                     |     |
+| `hierarchy-programming-language`     | Software_Engineering   | PL theory — type systems, memory models, FFI, runtime vs compiled. Ada [[hierarchy-compiler-design]] dan [[compiler-design-deepdive]] (tentang compiler, bukan PL secara umum) |                     **Tinggi**                     |     |
+| `hierarchy-recursive-ring-deepdive`  | AI_Systems             | Catatan ini **adalah** deepdive-nya sendiri — recursive self-improvement rings. Tapi belum ada link ke [[meta-agent-orchestration]]                                            |            **Rendah** — update wikilink            |     |
+| `it-domain`                          | Infrastructure         | Gap: high it-domain                                                                                                                                                            |                                                    |     |
 
 > **Catatan:** `hierarchy-recursive-ring-deepdive` bukan hierarchy murni — dia adalah deepdive tentang recursive improvement. Nama file misleading. Mungkin perlu rename atau bikin hierarchy terpisah.
 
@@ -87,7 +90,7 @@ updated: 2026-07-26
 
 ### Priority 2 — Sedang (2 minggu)
 
-5. **`hierarchy-ai-levels-deepdive`** — dari rule-based → ML → agentic → AGI. Mapping ke [[hierarchy-llm-ai-systems]].
+5. **`hierarchy-ai-levels-deepdive`** — dari rule-based → ML → agentic → AGI. Mapping ke [[00_Atlas/hierarchy-llm-ai-systems]].
 6. **`hierarchy-failure-modes-resilience-deepdive`** — circuit breaker, bulkhead, graceful degradation, chaos engineering patterns.
 7. **`hierarchy-identity-trust-deepdive`** — trust models (web of trust, PKI, SPKI/SDSI), identity federation (SAML, OIDC), ZKP identity.
 8. **`hierarchy-malware-analysis-deepdive`** — static analysis chain (disasm → decompile → CFG reconstruction), dynamic sandboxing, YARA rules engineering.

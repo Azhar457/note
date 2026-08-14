@@ -6,7 +6,10 @@ tags:
 created: '2026-04-25'
 updated: '2026-07-01'
 status: pending
-cssclasses: ''
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🗡️ Roadmap Offensive Security — Red Team / Penetration Tester

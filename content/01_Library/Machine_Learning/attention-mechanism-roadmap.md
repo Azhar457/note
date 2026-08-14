@@ -10,6 +10,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -180,3 +184,50 @@ Dengan membagi menggunakan $\sqrt{d_k}$, kita mengembalikan rata-rata sebaran va
 | [[attention-mechanism-deepdive]] | Dasar teori, perumusan softmax, serta penjelasan detail FlashAttention & GQA. |
 | [[rnn-lstm-vs-transformer]] | Analisis komparatif arsitektur rekurensi dengan arsitektur Transformer paralel. |
 | [[backpropagation-roadmap]] | Peta jalan aliran balik gradien yang digunakan untuk melatih bobot proyeksi MHA. |
+
+## 8. Deepdive — Attention Variants & Production Concerns
+
+### 8.1 Variant Matrix
+
+| Variant | Mekanisme | Kelebihan | Kekurangan |
+|---------|-----------|-----------|------------|
+| **MHA (Multi-Head)** | h proyeksi paralel | Capture berbagai hubungan | O(N²) memori |
+| **MQA (Multi-Query)** | Key/Value dishare antar head | KV cache kecil (inference murah) | Kualitas sedikit turun |
+| **GQA (Grouped-Query)** | Grup head share KV | Tradeoff MHA/MQA (Llama 2/3 pakai) | Implementasi kompleks |
+| **Sliding Window** | Attention terbatas ke window | Linear-ish (Mistral) | Long-range loss |
+| **FlashAttention** | IO-aware, tiling | Memori O(N), 2-4x lebih cepat | Kernel CUDA custom |
+| **Linear Attention** | Kernel trick, tanpa softmax | Linear time | Quality turun di task tertentu |
+
+### 8.2 Causal Mask & KV Cache
+
+```python
+# Causal mask: token hanya bisa attend ke token sebelumnya (generative)
+mask = torch.triu(torch.ones(L, L) * float('-inf'), diagonal=1)
+
+# KV Cache: saat inference, Q baru hanya perlu K,V lama → hemat compute
+# → MQA/GQA lahir dari sini: share KV antar head → cache lebih kecil
+```
+
+### 8.3 Training vs Inference Profile
+
+| Stage | Dominan | Bottleneck |
+|-------|---------|-----------|
+| Training | Forward + backward | Compute (matmul), memory (activation) |
+| Inference | Prefill (semua token) + decode (1 token/step) | KV cache bandwidth |
+
+## 9. Tool Stack
+
+| Tool | Use |
+|------|-----|
+| **PyTorch** | Implementasi attention |
+| **FlashAttention (triton/CUDA)** | Attention efisien |
+| **HuggingFace** | Pretrained + inference API |
+| **vLLM** | PagedAttention + KV cache mgmt |
+| **TensorBoard / W&B** | Attention pattern viz |
+
+## 10. Referensi
+
+- Attention Is All You Need — https://arxiv.org/abs/1706.03762
+- FlashAttention — https://arxiv.org/abs/2205.14135
+- GQA (Llama 2) — https://arxiv.org/abs/2305.13245
+- vLLM PagedAttention — https://arxiv.org/abs/2309.06180

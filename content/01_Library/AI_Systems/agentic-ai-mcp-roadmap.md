@@ -4,10 +4,21 @@ tags:
 - atlas
 - roadmap
 created: '2026-05-29'
-updated: '2026-07-01'
-status: pending
-cssclasses: ''
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Roadmap 6 fase Agentic AI & MCP: dari LLM API → prompt engineering → tool use → memory → multi-agent → swarm; plus strategi homelab 16GB RAM. |
+
+
+
+
+[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/overview]]
 
 # 🤖 Roadmap Agentic AI & MCP — From Script to Autonomous Swarm
 
@@ -225,3 +236,6 @@ cssclasses: ''
 ---
 
 *Roadmap Agentic AI & MCP | Fase 1 (LLM Foundation) → Fase 6 (Autonomous Ops) · 6 Bulan Homelab · Local-First, API-Optional*
+
+> [!callout] 💡
+> Kemampuan orchestrate (loop sense→plan→act→observe) lebih bernilai daripada sekadar prompt. Mulai dari single-agent + local LLM, baru scale ke swarm setelah agent loop & tool use dikuasai.

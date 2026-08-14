@@ -12,7 +12,10 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+  - code-wrap
+
 ---
 
 # 🗄️ Vector Database Internals & Optimization — HNSW, IVF, PQ, dan Performa Search di vault-rag

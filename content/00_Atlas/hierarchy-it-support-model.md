@@ -228,7 +228,7 @@ Mau karir manajerial/ops?        → Tier-1 → Incident Mgr → ITSM owner
 | [[hierarchy-it-domain]] | Induk hierarki IT — catatan ini mengisi sub-domain IT Management yang sebelumnya buram |
 | [[infrastructure-administrator]] | Level 2–3 dari sisi technical execution (admin yang mengeksekusi) |
 | [[incident-response-framework]] | Level 4 — sisi koordinasi & escalation |
-| [[hierarchy-cybersecurity-defense-architecture]] | Level 3–5 untuk ranah security incidents |
+| [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] | Level 3–5 untuk ranah security incidents |
 | [[hierarchy-abstraction-layers]] | Pola abstraction yang sama (semakin tinggi level, semakin dekat ke user intent) |
 
 ---

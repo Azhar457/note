@@ -10,6 +10,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 💾 HIERARKI DATA RECOVERY — Dari Sensorik Mata Telanjang (Level 0) sampai Kriptanalisis Kuantum (Level 7)
 
 > Setiap drive yang gagal adalah teka-teki yang harus di-triage dari murah ke mahal. Hirarki data recovery adalah **geometri biaya eksponensial** — Level 0 gratis (mata & telinga), Level 7 butuh triliunan rupiah + fasilitas riset rahasia. Setiap level menyaring kasus yang bisa diselesaikan **di situ** sebelum eskalasi — loncat level = membuang uang dan waktu. Untuk tabel lengkap level + tools + kapan skip, lihat [[data-recovery]].
@@ -23,14 +27,14 @@ status: pending
 
 | 💾 Level | 🧠 Zona & Alat | ⚡ Sweet Spot | ☠️ Tembok Kematian | 🎯 Cocok Untuk Siapa |
 |---|---|---|---|---|
-| **Level 0** — Sensorik Fisik & BIOS | Mata, telinga, indikator LED drive, BIOS POST screen | Triage 30 detik: drive hidup atau mati? Bunyi normal atau abnormal? BIOS baca kapasitas wajar atau `SATAFIRM S11` (firmware corrupt)? | Tidak bisa诊断 internal cell health. Kalau drive bunyi click-of-death atau PCB gosong, mata gak bisa lihat lapisan dalam | Pembeli barang lelang, tukang servis cepat, siapa saja yang mau sortir cepat mana drive yang layak diselamatkan vs mana yang jadi kanibal |
+| **Level 0** — Sensorik Fisik & BIOS | Mata, telinga, indikator LED drive, BIOS POST screen | Triage 30 detik: drive hidup atau mati? Bunyi normal atau abnormal? BIOS baca kapasitas wajar atau `SATAFIRM S11` (firmware corrupt)? | Tidak bisa mendiagnosis internal cell health. Kalau drive bunyi click-of-death atau PCB gosong, mata gak bisa lihat lapisan dalam | Pembeli barang lelang, tukang servis cepat, siapa saja yang mau sortir cepat mana drive yang layak diselamatkan vs mana yang jadi kanibal |
 | **Level 1** — OS-Level Software | Recuva, Disk Drill, TestDisk, PhotoRec (Windows LTSC / Linux live) | Mengais file terhapus dari Recycle Bin atau partisi terformat (RAW). Cepat, gratis, ribuan file bisa diselamatkan kalau level corruption rendah | Bergantung izin OS. Tidak bisa bypass corrupt filesystem berat. Kalau controller HDD error → Windows freeze atau BSOD | Pengguna rumahan yang tidak sengaja hapus foto, teknisi servis ringan, kasus "user salah klik" |
 | **Level 2** — Pre-OS / WinPE | Hiren's BootCD PE, Victoria SSD/HDD, HD Sentinel dari PE | Triage 3 menit via SMART. Test surface scan kilat sortir HDD cepat vs lambat. **Punya akses langsung ke storage tanpa OS interference** | Tetap terikat driver bawaan. Bisa hang kalau sinyal drive sangat kacau | Teknisi servis barang lelang, fleet auditor storage, triage pra-investasi |
 | **Level 3** — Bare-Metal Legacy | MHDD, HDAT2, Victoria di FreeDOS / UBCD via USB | Eksekusi logical bad sector membandel pada HDD SATA/IDE. Tembak langsung port I/O tanpa Windows intervening | Buta terhadap SSD M.2 NVMe. Tidak support UEFI modern | Perbaikan HDD lawas, servis workshop repair, owner data lama |
 | **Level 4** — Bare-Metal Modern | HDDSuperClone via Rocky Linux / Ventoy, ddrescue, Atola | Cloning “kejam” dengan skip bad sector milidetik. Cocok SATA & NVMe. **Multi-pass cloning** dengan algoritma adaptif. **Bisa boot via Linux USB, gak butuh OS host** | Tidak bisa perbaiki firmware corrupt atau controller mati | Forensik profesional, recovery center, tim IR saat drive korban ransomware perlu dikloning sebelum dianalisa |
 | **Level 5** — Hardware & Firmware | PC-3000 PCI-E (ACE Lab), Rusolut, DeepSpar | **God Mode**. Tulis ulang ROM/firmware, bypass ATA password, disable head rusak via command micro. Recovery drive yang di-declare "mati" oleh software | Tidak bisa perbaiki platter tergores (rotational scoring) atau silicon hancur | Recovery center profesional, forensik hukum (chain of custody penting), kasus data seharga bisnis |
 | **Level 6** — Deep Nano-Physics | Focused Ion Beam (FIB), Magnetic Force Microscopy (MFM), chemical decapsulation, electron microscope | Baca sisa fluks magnetik platter atau iris atom silikon NAND untuk ekstrak elektron satu per satu. **Tingkat atom per atom** | **Hukum fisika**. Proses ini menghancurkan medium secara permanen. Kalau ada enkripsi AES-256 + chip mati = kode acak abadi | Nation-state intelligence, kasus forensik kelas dunia (black box pesawat), riset akademis |
-| **Level 7** — Kriptanalisis Kuantum | Komputer kuantum (IBM, Google, D-Wave), Algoritma Grover / Shor | Matematika murni. Hancurkan tembok enkripsi AES-256/BitLocker/Apple T2 via brute-force kuantum kalau chip controller hangus sempurna | **Hukum termodinamika**. AES-256 masih kebal quantum computer hari ini. Butuh jutaan qubit stabil di suhu 0 Kelvin. Hampir mustahil dalam dekade ini | NSA, GCHQ, Mossad, eq四 — negara adidaya dengan budget triliunan + akses ke fasilitas riset rahasia |
+| **Level 7** — Kriptanalisis Kuantum | Komputer kuantum (IBM, Google, D-Wave), Algoritma Grover / Shor | Matematika murni. Hancurkan tembok enkripsi AES-256/BitLocker/Apple T2 via brute-force kuantum kalau chip controller hangus sempurna | **Hukum termodinamika**. AES-256 masih kebal quantum computer hari ini. Butuh jutaan qubit stabil di suhu 0 Kelvin. Hampir mustahil dalam dekade ini | NSA, GCHQ, Mossad, dst. — negara adidaya dengan budget triliunan + akses ke fasilitas riset rahasia |
 
 ---
 
@@ -105,7 +109,7 @@ Hirarki data recovery = contingency untuk **ketika backup gagal**. Bukan replace
 
 ### 5. Ransomware Mengubah Prioritas Level
 
-Setelah ransomware, hirarki recovery bergeser: backup adalah Level 0 (kembalikan tanpa bayar). Decryption tool adalah Level 1 (kalau ransomware punya flaw). Negeri ransomware terbaru sering **destroy backup** sebelum enkripsi — Sophos报告 2024: 94% attack mencoba sabotase backup. Maka hirarki recovery ransomware bergeser ke **cold snapshot / immutable backup** — bukan hanya fast restore.
+Setelah ransomware, hirarki recovery bergeser: backup adalah Level 0 (kembalikan tanpa bayar). Decryption tool adalah Level 1 (kalau ransomware punya flaw). Negeri ransomware terbaru sering **destroy backup** sebelum enkripsi — Sophos melaporkan 2024: 94% attack mencoba sabotase backup. Maka hirarki recovery ransomware bergeser ke **cold snapshot / immutable backup** — bukan hanya fast restore.
 
 ---
 
@@ -118,7 +122,7 @@ Setelah ransomware, hirarki recovery bergeser: backup adalah Level 0 (kembalikan
 > S.M.A.R.T. (Self-Monitoring, Analysis, and Reporting Technology) memberikan metrik seperti Reallocated Sector Count, Pending Sector, Uncorrectable Error. Tapi SMART adalah **self-report dari firmware drive** — drive bisa berbohong.SMART * Health pernah laporkan "OK" tapi head-nya aus parah. Vendor sengaja tweak threshold untuk **mengurangi false-positive warranty claim**. Maka SMART adalah **starting point triage** — bukan diagnosa final. Untuk data penting, gabungkan SMART + Victoria surface scan + TestDisk sebelum menyatakan "drive sehat."
 
 > [!danger] Plot Twist 3: Overwriting Data Tidak 100% Aman (dan Tidak 100% Tidak Aman Juga)
-> Mitos lama: "satu kali overwrite sudah cukup untuk hapus data." Mitos lama yang kedua: "NSA bisa membaca data setelah 7-pass overwrite." Kedua-duanya keliru konteks. Untuk HDD modern dengan areal density tinggi, bahkan satu pass overwrite membuat data **praktis tidak recoverable oleh software** — tapi dengan MFM di Level 6, **residual magnetic flux** di track yang berdekatan masih bisa dideteksi dengan effort tinggi. Untuk SSD, TRIM + garbage collection membuat recover **mustahil** setelah power-off singkat. Untuk NAND flash, wear-leveling berarti data tersebar di banyak chip. **Hirarki overwrite aman** = threat-model based, bukan迷信 seragam.
+> Mitos lama: "satu kali overwrite sudah cukup untuk hapus data." Mitos lama yang kedua: "NSA bisa membaca data setelah 7-pass overwrite." Kedua-duanya keliru konteks. Untuk HDD modern dengan areal density tinggi, bahkan satu pass overwrite membuat data **praktis tidak recoverable oleh software** — tapi dengan MFM di Level 6, **residual magnetic flux** di track yang berdekatan masih bisa dideteksi dengan effort tinggi. Untuk SSD, TRIM + garbage collection membuat recover **mustahil** setelah power-off singkat. Untuk NAND flash, wear-leveling berarti data tersebar di banyak chip. **Hirarki overwrite aman** = threat-model based, bukan kepercayaan buta seragam.
 
 > [!tip] Plot Twist 4: Enkripsi = Teman Data Recovery (Kalau Kunci Aman)
 > Buat banyak orang, enkripsi (BitLocker, FileVault, VeraCrypt) terasa menakutkan karena "kalau kunci hilang, data hilang." Tapi true cerita: enkripsi + kunci aman = **recovery jadi Level 0 untuk attacker** — dia cuma hadap ciphertext random. Tidak ada gunanya PC-3000 kalau BitLocker AES-256 aktif dengan TPM. Maka enkripsi bukan musuh data recovery — musuh data recovery adalah backup yang hilang ATAU enkripsi + kunci hilang. Dua-duanya procedure failure, bukan tools failure.

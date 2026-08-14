@@ -13,6 +13,10 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # Jina Reranker v3: Arsitektur Listwise Cross-Encoder untuk Precision-Critical RAG Pipeline

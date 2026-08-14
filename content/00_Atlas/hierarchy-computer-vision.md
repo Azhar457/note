@@ -302,11 +302,11 @@ Image (H×W×C) → Patches (P×P) → Linear → [CLS] token + Position → Tra
 
 | Level | Catatan Vault |
 |:-----:|---------------|
-| **L1-L2** | [[hierarchy-digital-plumbing]] — Image codec, compression |
-| **L3 (Segmentation)** | [[hierarchy-llm-ai-systems]] — RAG chunking based on layout |
-| **L4 (Detection)** | [[hierarchy-cybersecurity-defense-architecture]] — CCTV, face detection |
-| **L5 (Classification)** | [[hierarchy-classical-ml-algorithms]] — SVM + HOG comparison |
-| **L6 (Multi-modal)** | [[hierarchy-llm-ai-systems]] — Vision-language models |
+| **L1-L2** | [[00_Atlas/hierarchy-digital-plumbing]] — Image codec, compression |
+| **L3 (Segmentation)** | [[00_Atlas/hierarchy-llm-ai-systems]] — RAG chunking based on layout |
+| **L4 (Detection)** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — CCTV, face detection |
+| **L5 (Classification)** | [[00_Atlas/hierarchy-classical-ml-algorithms]] — SVM + HOG comparison |
+| **L6 (Multi-modal)** | [[00_Atlas/hierarchy-llm-ai-systems]] — Vision-language models |
 
 ---
 

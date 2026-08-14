@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🕵️ OSINT & 📡 RF Signal — Hierarki Lengkap
 
 > Dua tabel yang jarang dibahas di kurikulum IT standar tapi wajib dikuasai untuk security research, forensik digital, dan threat intelligence.
@@ -159,7 +163,7 @@ OSINT Level 4 (Shodan)          RF Level 0 (RTL-SDR)
 - [[hierarchy-search|Search Hierarchy]]
 - [[hierarchy-ai-levels|AI Levels Hierarchy]]
 - [[military-and-intelligence-tools-hub|military-and-intelligence-tools-hub]]
-- [[hierarchy-military-intel-tools|military-and-intelligence-tools Hierarchy]]
+- [[00_Atlas/hierarchy-military-intel-tools|military-and-intelligence-tools Hierarchy]]
 
 ---
 

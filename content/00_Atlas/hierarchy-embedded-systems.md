@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔌 HIERARKI EMBEDDED SYSTEMS — Dari GPIO Bare-Metal (Level 0) sampai Safety-Critical Certification (Level 7)
 
 > Embedded systems adalah dunia di mana **programmer bicara langsung ke register hardware** — tidak ada OS, tidak ada virtual memory, tidak ada safety net. Setiap level adalah lapisan abstraksi yang semakin naik: dari blinking LED via register sampai RTOS dengan task scheduling dan safety-critical certification. Untuk tabel lengkap per level dengan tools dan teknik, lihat [[embedded-systems]].

@@ -13,10 +13,12 @@ aliases:
 - Virus Endpoint
 created: 2026-04-25
 status: pending
-cssclasses:
-- wide-table
 title: Endpoint Security
 updated: '2026-07-01'
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 🦠 ENDPOINT SECURITY — CPU Ring & Boot Chain
@@ -67,6 +69,69 @@ Ring 3   │ Ransomware, RAT, Trojan     → Yang 99% orang kenal sebagai "virus
 - [[computer-science-foundations|Computer Science Foundations]] — OS Internals (Kernel Module, Hypervisor)
 - [[underground-knowledge|Underground Knowledge]] — BYOVD overlap di Cheat Engine Level 3
 - [[hardware-hacking-re|Hardware Hacking]] — Firmware RE sebagai vektor analisis
+
+---
+
+## Deepdive — BYOVD & Kernel Attack Chain
+
+### BYOVD (Bring Your Own Vulnerable Driver)
+
+BYOVD = teknik di mana attacker membawa driver lama yang punya signature valid tapi vulnerable untuk mendapat akses Ring 0 tanpa perlu zero-day kernel. Driver seperti `RTCore64.sys` (MSI Afterburner), `gdrv.sys` (Gigabyte), `iqvw64e.sys` (Intel) punya CVE untuk arbitrary read/write kernel memory. Serangan: 1) deploy driver vulnerable (tidak butuh admin jika sudah SYSTEM atau via abuse signed service), 2) exploit vulnerability untuk read/write kernel memory, 3) patch EDR kernel callback (`PsSetCreateProcessNotifyRoutine`) → EDR buta. Kasus nyata: BlackByte ransomware pakai `RTCore64.sys` untuk kill AV, Lazarus Group pakai driver lain untuk disable EDR. Mitigation: Microsoft Vulnerable Driver Blocklist (Windows 11 22H2+), WDAC (Windows Defender Application Control) untuk block driver loading.
+
+### Bootkit Persistence Chain
+
+Bootkit = implant dulu sebelum kernel menyala. Diagram alur serangan MBR/VBR dan UEFI implant, dari initial compromise sampai persistence permanen:
+
+```
+Initial Access (Ring 3):
+  Phishing / exploit → user context → privesc → SYSTEM
+    ↓
+Firmware Access (Pre-OS):
+  Flash tools (flashrom / UEFITool) → SPI flash write
+    ↓
+Persistence Level:
+  MBR/VBR → overwrite sector 0 (disk-based, cukan kalau format)
+  UEFI → flash chip (motherboard, survive format + SSD swap)
+  SMM → interrupt hook (survive firmware reflash jika locked)
+    ↓
+Execution (Pre-kernel):
+  Bootkit loads before kernel → patch kernel image in memory
+    ↓
+Kernel Hook (Ring 0):
+  Bootkit injects rootkit module → kernel runs with backdoor
+    ↓
+Detection:
+  EDR blind (pre-OS) → hanya vendor tools (CHIPSEC, Eclypsium)
+  TPM PCR measurement → dapat detect tapi hanya jika measured boot aktif
+```
+
+### EDR Bypass Techniques (Ring 0 → Ring 3)
+
+| Teknik | Target | Impact | Detection |
+|--------|--------|--------|-----------|
+| **Direct Syscall** | EDR userland hook | Bypass ntdll hook | Sysmon Event 1 (process) |
+| **Callback Patch** | PsSetCreateProcessNotifyRoutine | EDR kernel blind | PatchGuard detection |
+| **Kernel-mode RW** | EDR driver memory | Tamper EDR signature | Memory integrity scan |
+| **BYOVD** | EDR kernel callback | Kill EDR process | Driver blocklist |
+| **Hypervisor** | EDR entire system | EDR runs inside VM | Nested virt detect |
+
+### Tool Stack — Endpoint Attack & Defense
+
+| Tool | Ring | Use |
+|------|------|-----|
+| **BYOVDKit / D Edmonton** | Ring 0 | BYOVD framework |
+| **KDU (Kernel Driver Utility)** | Ring 0 | Vulnerable driver loader |
+| **CHIPSEC** | Ring -2/-1 | UEFI/SMM audit |
+| **Eclypsium** | Ring -3 | Hardware/firmware scan |
+| **PCILeech** | Ring -1 | DMA memory read/write |
+
+### References
+
+- BYOVD Research — https://loldrivers.io/
+- BlackLotus UEFI — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
+- Microsoft Vulnerable Driver Blocklist — https://learn.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-application-control/microsoft-recommended-driver-block-rules
+- CHIPSEC — https://github.com/chipsec/chipsec
+- LoJax (APT28) — https://www.welivesecurity.com/2018/09/27/lojax-first-uefi-rootkit-found-wild-cosmic-strand/
 
 ---
 

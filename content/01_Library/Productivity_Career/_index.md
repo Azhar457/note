@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Productivity Career
 
 > Produktivitas, pengembangan karir, dan praktik deep work untuk teknisi dan engineer.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[deep-work-and-so-good-newport]]
-

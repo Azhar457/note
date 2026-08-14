@@ -11,6 +11,10 @@ tags:
 created: '2026-07-19'
 updated: '2026-07-19'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault

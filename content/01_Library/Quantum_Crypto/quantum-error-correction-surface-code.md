@@ -14,7 +14,10 @@ status: pending
 created: 2026-08-04
 updated: 2026-08-04
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+  - code-wrap
+
 verification:
   status: unverified
   last_checked: '2026-08-12'
@@ -201,7 +204,7 @@ Ini penting untuk [[post-quantum-tls]] dan [[pqc-implementation-rust]]:
 | [[quantum-cryptography-primer]] | Fondasi quantum computing → memahami QEC |
 | [[post-quantum-tls]] | PQC migration — kenapa RSA masih aman (overhead qubit) |
 | [[pqc-implementation-rust]] | Implementasi PQC di Rust — konteks real threat |
-| [[hierarchy-quantum-cryptography-stack]] | Atlas stack quantum cryptography |
+| [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]] | Atlas stack quantum cryptography |
 | [[quantum-cryptography-deepdive]] | Teori quantum cryptography |
 | [[quantum-machine-learning2]] | Qubit di ML — noise sensitivity |
 

@@ -246,7 +246,7 @@ Di YouTube, setiap video yang diupload melewati pipeline FFmpeg:
 
 | Catatan | Koneksi |
 |---------|---------|
-| [[hierarchy-digital-plumbing]] | §3 Level 6 — Orkestrator FFmpeg |
+| [[Note/01_Library/Fundamentals/hierarchy-digital-plumbing]] | §3 Level 6 — Orkestrator FFmpeg |
 | [[codec-architecture-x264-x265-deepdive]] | Level 5 — codec video yang FFmpeg panggil |
 | [[forensic-imaging-analysis]] | FFmpeg ekstraksi frame CCTV, metadata |
 | [[deepfake-detection]] | Wajib tahu codec artifact vs AI artifact |

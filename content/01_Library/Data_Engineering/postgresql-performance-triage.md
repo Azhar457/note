@@ -45,7 +45,7 @@ cssclasses: ""
 | Beberapa fitur hang, lainnya OK | Lock contention | Lock detection query |
 | CPU 100% | Query berulang / full table scan | `pg_stat_statements` (kalo aktif) |
 | Disk I/O tinggi | Vacuum / checkpoint / bloat | `pg_stat_progress_vacuum` |
-| Memory melonjak | Sort/hash di `work_mem` / connection太多 | `pg_stat_activity` → cek `query` |
+| Memory melonjak | Sort/hash di `work_mem` / connection terlalu banyak | `pg_stat_activity` → cek `query` |
 
 > [!tip] Golden Rule
 > **Jangan restart PG untuk "bersihin" — itu symptom treatment, bukan root cause.** Selalu diagnose dulu.

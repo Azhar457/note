@@ -8,6 +8,10 @@ updated: '2026-07-07'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🚩 PICOCTF BEGINNER — Master Index & Roadmap
 
 ## 🎯 Pengantar Capture The Flag (CTF) & picoCTF

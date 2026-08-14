@@ -165,3 +165,72 @@ code=AUTHORIZATION_CODE  # × 10 requests concurrent
 | Race condition | Database locking + idempotency key untuk token redemption |
 
 **Referensi:** PayloadsAllTheThings `/Ref/PayloadsAllTheThings/OAuth Misconfiguration/`
+
+
+## Bagian 3: Race Condition — TOCTOU Deepdive
+
+### 9. TOCTOU (Time-of-Check to Time-of-Use)
+
+Race condition klasik muncul saat aplikasi memeriksa kondisi (check) lalu menggunakan resource (use) dalam dua langkah terpisah — dan attacker menyisipkan operasi di antara keduanya.
+
+```python
+# ❌ Vulnerable: check lalu use
+def redeem_coupon(code, user):
+    if coupon.is_valid(code):        # CHECK (time-of-check)
+        coupon.mark_used(code)       # USE (time-of-use) — gap di sini
+        user.add_credit(100)
+
+# Attacker: 1000 request paralel ke endpoint ini
+# → semua request lolos check SEBELUM mark_used tereksekusi
+```
+
+### 10. Teknik Eksploitasi Race Condition
+
+| Teknik | Cara | Tool |
+|--------|------|------|
+| **Single-packet attack** | Kirim banyak request dalam 1 TCP packet → arrive bersamaan | turbo intruder |
+| **HTTP/2 concurrent** | Satu connection, banyak stream paralel → server proses bareng | Burp HTTP/2 |
+| **Last-byte sync** | Tahan byte terakhir request → release bersamaan | Burp race feature |
+| **Multi-connection** | N koneksi paralel → server thread pool race | curl parallel |
+
+### 11. Race Condition di OAuth
+
+OAuth + race condition = kombinasi berbahaya:
+
+```
+1. Attacker mulai OAuth flow → dapatkan authorization code (valid)
+2. Kirim 1000 request paralel ke /token endpoint dengan code yang sama
+3. Beberapa request berhasil → multiple access token untuk akun korban
+4. Attacker pakai token tambahan → persist access setelah korban revoke
+```
+
+**Kasus nyata**: beberapa platform pernah vulnerable terhadap OAuth code replay race — satu authorization code bisa ditukar berkali-kali sebelum server invalidate.
+
+### 12. Defense
+
+| Layer | Mitigation |
+|-------|-----------|
+| **Database** | Atomic operation: `UPDATE coupon SET used=1 WHERE used=0` → row lock |
+| **Redis** | `SETNX` (set if not exists) → single-writer |
+| **Distributed lock** | Redlock / ZooKeeper lock per resource |
+| **Idempotency key** | Client kirim unique key → server dedupe |
+| **OAuth** | PKCE wajib (code_verifier bind ke client), code one-time use, code expire 60s |
+
+## Referensi Lengkap
+
+- OWASP Race Condition — https://owasp.org/www-community/attacks/Race_Conditions
+- PortSwigger OAuth — https://portswigger.net/web-security/oauth
+- PortSwigger Race — https://portswigger.net/research/smashing-the-state-machine
+- Turbo Intruder — https://github.com/PortSwigger/turbo-intruder
+- RFC 6749 (OAuth 2.0) — https://datatracker.ietf.org/doc/html/rfc6749
+
+
+### 13. OAuth 2.1 / OIDC Modern Hardening
+
+| Hardening | Deskripsi | RFC |
+|-----------|-----------|-----|
+| **PKCE (Proof Key for Code Exchange)** | Wajib untuk SPA/native — bind code ke client tanpa secret | RFC 7636 |
+| **PAR (Pushed Authorization Request)** | Request otorisasi dikirim ke PAR endpoint → return request_uri → aman dari manipulasi query param | RFC 9126 |
+| **JAR (JWT-Secured Authorization Request)** | Authorization request di-sign JWT → integritas + non-repudiation | RFC 9101 |
+| **CIBA (Client-Initiated Backchannel Auth)** | Flow device/QR tanpa redirect — user approve di device lain | OpenID CIBA |
+

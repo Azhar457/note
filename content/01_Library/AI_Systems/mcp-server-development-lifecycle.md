@@ -1097,7 +1097,7 @@ export function getCapabilities() {
 6. Model Context Protocol. *2026 Roadmap*. modelcontextprotocol.io/development/roadmap. 2026.
 7. Palo Alto Networks. *Model Context Protocol (MCP): A Security Overview*. 2025. https://www.paloaltonetworks.com/blog/cloud-security/model-context-protocol-mcp-a-security-overview/
 8. Digital Applied. *Build an MCP Server in TypeScript: From Scratch 2026*. 2026. https://www.digitalapplied.com/blog/build-mcp-server-typescript-tutorial-from-scratch-2026
-9. Logto. *MCP 最佳實踐*. 2025. https://blog.logto.io/zh-HK/what-is-mcp
+9. Logto. *MCP Best Practices*. 2025. https://blog.logto.io/zh-HK/what-is-mcp
 10. OWASP / WebFuse. *MCP Cheat Sheet: Security Best Practices*. 2026. https://www.webfuse.com/mcp-cheat-sheet
 
 > [!tip] Bottom Line

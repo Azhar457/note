@@ -6,6 +6,10 @@ created: 2026-07-01
 updated: 2026-07-01
 status: complete
 ---
+cssclasses:
+  - wide-table
+  - callout
+
 # 🗺️ IT DOMAIN HIERARCHY — Dari Big Picture Sampai Task Spesifik
 
 > **Filosofi:** Sebelum coding, pahami dulu di mana posisi Anda di peta besar. Ini adalah GPS untuk karir dan project IT/Cybersecurity.

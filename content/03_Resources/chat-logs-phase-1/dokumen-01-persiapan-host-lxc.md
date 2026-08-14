@@ -8,6 +8,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # Dokumen 01 — Persiapan Host & LXC
 Panduan pembangunan fondasi virtualisasi menggunakan Proxmox VE dan LXC (Linux Container). Semua perintah dieksekusi dari Web UI Proxmox atau Shell host Proxmox, kecuali dinyatakan lain.
 

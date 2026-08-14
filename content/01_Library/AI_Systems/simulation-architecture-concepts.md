@@ -6,7 +6,10 @@ tags:
 created: '2026-05-16'
 updated: '2026-07-01'
 status: pending
-cssclasses: ''
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 🛡️ ARSITEKTUR & KONSEP — Simulasi Keamanan Siber
 

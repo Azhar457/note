@@ -322,11 +322,11 @@ Detect → Triage → Mitigate → Resolve → Postmortem
 | Stage | Catatan Vault |
 |:-----:|---------------|
 | **S1** | [[hierarchy-programming-language]] — Language ecosystem tooling |
-| **S2 (CI)** | [[hierarchy-package-managers]] — Dependency management |
+| **S2 (CI)** | [[00_Atlas/hierarchy-package-managers]] — Dependency management |
 | **S3** | [[hierarchy-database-storage-systems]] — Container registry storage |
-| **S4 (CD)** | [[hierarchy-systems-architecture-evolution]] — Deployment patterns |
+| **S4 (CD)** | [[00_Atlas/hierarchy-systems-architecture-evolution]] — Deployment patterns |
 | **S5** | [[hierarchy-failure-modes-resilience]] — Rollback strategies |
-| **S6** | [[hierarchy-cybersecurity-defense-architecture]] — Security monitoring |
+| **S6** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Security monitoring |
 | **All** | [[hierarchy-abstraction-layers]] — DevOps as Layer L8 |
 
 ---

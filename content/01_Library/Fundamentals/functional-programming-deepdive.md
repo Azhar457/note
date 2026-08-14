@@ -5,7 +5,10 @@ aliases: [FP Deep-Dive, Functional Programming, Pure Functions, Monads]
 status: pending
 created: 2026-08-04
 updated: 2026-08-04
-cssclasses: [wide-table]
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 > [!abstract]
@@ -268,5 +271,5 @@ Rust TIDAK punya: garbage collector, inheritance, lazy evaluation default, highe
 | [[the-pragmatic-programmer]] | Pragmatic FP adoption di industri |
 | [[compiler-design-deepdive]] | Compiler implementation sering pakai FP |
 | [[refactoring-martin-fowler]] | Refactoring ke immutability |
-| [[hierarchy-software-engineering-paradigm]] | Atlas paradigm pemrograman |
+| [[00_Atlas/hierarchy-software-engineering-paradigm]] | Atlas paradigm pemrograman |
 | [[pqc-implementation-rust]] | Rust FP features di praktik PQC |

@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Supply Chain Security
 
 > Catatan tentang Supply Chain Security.
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[software-supply-chain-security-deepdive]]
 - [[software-supply-chain-security]]
-

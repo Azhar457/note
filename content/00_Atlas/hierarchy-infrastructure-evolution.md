@@ -229,7 +229,7 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 **Koneksi ke Vault:**
 - [[container-kubernetes-security-deepdive]]
 - [[kubernetes-security-roadmap]]
-- [[hierarchy-cybersecurity-defense-architecture]] (L7)
+- [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] (L7)
 
 ---
 
@@ -313,8 +313,8 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 | Live video sub-second caption | Stream process | Full ML model |
 
 **Koneksi ke Vault:**
-- [[hierarchy-kernel-bypass-networking]] — Kernel-level edge compute
-- [[hierarchy-systems-architecture-evolution]] — Era 9
+- [[00_Atlas/hierarchy-kernel-bypass-networking]] — Kernel-level edge compute
+- [[00_Atlas/hierarchy-systems-architecture-evolution]] — Era 9
 
 ---
 
@@ -403,7 +403,7 @@ Bukan linear — infrastruktur ulang-alik antara **centralization ↔ decentrali
 | Capacity planning | Predicted growth → suggest right-sizing |
 
 **Koneksi ke Vault:**
-- [[hierarchy-llm-ai-systems]] — Layer 3 (Inference Infra) cross-link
+- [[00_Atlas/hierarchy-llm-ai-systems]] — Layer 3 (Inference Infra) cross-link
 - [[llmops-ai-infrastructure]]
 
 ---
@@ -459,9 +459,9 @@ Complex orchestration + Self-heal     → AIOps
 | 2 | [[cloud-infrastructure]] |
 | 3 | [[container-kubernetes-security-deepdive]], [[kubernetes-security-roadmap]] |
 | 4 | [[llmops-ai-infrastructure]] |
-| 5 | [[hierarchy-kernel-bypass-networking]], [[hierarchy-systems-architecture-evolution]] |
-| 6 | [[hierarchy-cybersecurity-defense-architecture]] (L2 Cloud) |
-| 7 | [[hierarchy-llm-ai-systems]] (Layer 3 + 6), [[llmops-ai-infrastructure]] |
+| 5 | [[00_Atlas/hierarchy-kernel-bypass-networking]], [[00_Atlas/hierarchy-systems-architecture-evolution]] |
+| 6 | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] (L2 Cloud) |
+| 7 | [[00_Atlas/hierarchy-llm-ai-systems]] (Layer 3 + 6), [[llmops-ai-infrastructure]] |
 
 ---
 

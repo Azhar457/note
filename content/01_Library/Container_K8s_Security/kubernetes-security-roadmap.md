@@ -1,5 +1,6 @@
 ---
-title: Kubernetes Security Roadmap — Defense Layer-by-Layer dari Pod sampai Cluster
+title: "Kubernetes Security Roadmap \u2014 Defense Layer-by-Layer dari Pod sampai\
+  \ Cluster"
 tags:
 - container-k8s-security
 - kubernetes
@@ -10,9 +11,21 @@ aliases:
 - CKS Exam Coverage
 - K8s Defense Roadmap
 created: '2026-07-19'
-updated: '2026-07-19'
-status: pending
+updated: '2026-08-14'
+status: complete
+cssclasses:
+- callout
 ---
+
+
+| Item | Detail |
+|------|--------|
+| **Summary** | Pertahanan Kubernetes layer-by-layer (paralel CKS): image supply chain, RBAC/PSA, network policy, runtime isolation (seccomp), sampai detection & response (Falco/Tetragon). |
+
+
+
+
+[[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[00_Atlas/hierarchy-endpoint-security]] [[00_Atlas/overview]]
 
 > [!abstract] Ringkasan
 > Roadmap belajar defensive Kubernetes yang paralel dengan [[kubernetes-roadmap|Platform_Technologies/kubernetes-roadmap]] (fungsional), tapi fokus di **security layer-by-layer**: image supply chain, runtime isolation, RBAC, network policy, secrets, admission control, sampai threat detection. Pelengkap langsung untuk [[container-kubernetes-security-deepdive]] dan [[cicd-shiftleft-shiftright]].
@@ -35,7 +48,7 @@ status: pending
 
 ## Mengapa Roadmap Ini Dipisah
 
-[[kubernetes-roadmap]] fokus **fungsional** (cara deploy workload, persistent storage, service mesh, GitOps). Roadmap ini fokus **defensif** — pertanyaan "kalau adversary dapat foothold di pod, apa yang阻止 lateral movement-nya?".
+[[kubernetes-roadmap]] fokus **fungsional** (cara deploy workload, persistent storage, service mesh, GitOps). Roadmap ini fokus **defensif** — pertanyaan "kalau adversary dapat foothold di pod, apa yang menghalangi lateral movement-nya?".
 
 Pattern belajar paralel ini subject untuk:
 - **Lulus CKS** (Certified Kubernetes Security Specialist) — CNCF exam.
@@ -293,3 +306,6 @@ Untuk cluster production yang sudah jalan dan mau di-hardening:
 - [[cosign-pipeline]] (planned) — Image signing + admission enforcement
 - [[pod-security-standards]] (planned) — Episode pendek PSA `privileged|basedline|restricted`
 - [[hierarchy-it-domain]] — Ontology cluster / K8s dalam hierarki IT domain
+
+> [!callout] 💡
+> Keamanan K8s = defense-in-depth: image tepercaya + least-privilege RBAC + runtime detection bekerja sebagai satu sistem — kontrol tunggal mana pun bisa ditembus.

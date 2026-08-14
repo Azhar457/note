@@ -7,6 +7,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 💽 Master SOP — Storage Recovery & Refurbish
 ## 🚦 FASE 0: Inisiasi, Triage & Audit (Standard Protocol)
 Gunakan langkah ini untuk setiap unit yang masuk sebelum memutuskan apakah akan menyelamatkan data (**ALUR A**) atau melakukan perbaikan partisi (**ALUR B**).

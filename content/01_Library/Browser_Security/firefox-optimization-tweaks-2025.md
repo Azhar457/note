@@ -10,6 +10,10 @@ tags:
 created: '2026-08-11'
 updated: '2026-08-11'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 source: https://eagleeyet.net/blog/web-browser/mozilla-firefox/firefox-optimization-tweaks-for-2025-speed-efficiency-and-privacy-perfected/
 aliases:
 - Firefox Optimization 2025
@@ -138,3 +142,88 @@ Efek gabungan:
 ### ❔ Claim 3: Setting browser.cache.memory.capacity to 256000 allocates approximately 256 MB of memory for the cache.
 - **Status:** `UNVERIFIED` | **Confidence:** `LOW`
 - **Analysis:** No relevant web search results could be retrieved to verify this claim.
+
+## 7. Deepdive — Privasi & Keamanan Browser
+
+### 7.1 Fingerprinting Resistance
+
+| Tweak | Nilai | Efek |
+|-------|-------|------|
+| `privacy.resistFingerprinting` | `true` | Uniform canvas/UA/font → fingerprint sulit unik |
+| `privacy.fingerprintingProtection` | `true` | Proteksi canvas/audio/screen API |
+| `webgl.disabled` | `true` (opsional) | Kurangi surface (tapi banyak site butuh) |
+| `dom.w3c_touch_events.enabled` | `0` | Kurangi sinyal hardware |
+
+### 7.2 DNS & Traffic Privacy
+
+```
+Default: DNS query plaintext ke ISP → ISP lihat semua domain
+  ↓
+DoH (DNS over HTTPS): browser → Cloudflare/NextDNS → ISP hanya lihat IP DoH server
+  ↓
+Tambahan: ECH (Encrypted Client Hello) → SNI terenkripsi → ISP tidak lihat domain tujuan
+  ↓
+Hasil: ISP melihat "HTTPS ke Cloudflare" — bukan domain spesifik
+```
+
+Setup: Settings → Privacy → Enable DNS over HTTPS → Cloudflare/NextDNS/`https://dns.adguard-dns.com`.
+
+### 7.3 Kontainerisasi Session (Multi-Profile)
+
+```bash
+# Profil terpisah = cookie/session terisolasi per konteks
+firefox -P work --no-remote
+firefox -P personal --no-remote
+firefox -P banking --no-remote
+```
+
+Setiap profil = session store, cookie jar, dan fingerprint terpisah — ideal untuk memisahkan identitas digital (analog compartmentalization di threat modeling).
+
+### 7.4 Tool Stack
+
+| Tool | Use |
+|------|-----|
+| **Firefox about:config** | Semua tweak di atas |
+| **Multi-Account Containers (addon)** | Isolasi session per site |
+| **uBlock Origin** | Tracker/script block |
+| **Firefox Profiler** | Performance analysis |
+| **Cover Your Tracks** | Fingerprint test (EFF) |
+
+## 8. References
+
+- Mozilla about:config docs — https://support.mozilla.org/en-US/kb/about-config-editor-firefox
+- EFF Cover Your Tracks — https://coveryourtracks.eff.org/
+- DoH (RFC 8484) — https://datatracker.ietf.org/doc/html/rfc8484
+- ECH (RFC 8744) — https://datatracker.ietf.org/doc/html/rfc8744
+- Browser Security Handbook — https://code.google.com/archive/p/browsersec/
+
+
+### 7.5 Hardening Lanjutan (Enterprise / High-Risk)
+
+| Tweak | Nilai | Efek |
+|-------|-------|------|
+| `network.IDN_show_punycode` | `true` | Tampilkan punycode untuk domain IDN (homograph attack) |
+| `network.dns.disablePrefetch` | `true` | Matikan DNS prefetch (privasi, tapi sedikit memperlambat) |
+| `privacy.firstparty.isolate` | `true` | First-party isolation (cookie jar per eTLD+1) |
+| `dom.storage.enabled` | `false` (opsional) | Disable localStorage/sessionStorage — break banyak site |
+| `extensions.pocket.enabled` | `false` | Disable Pocket integration (telemetry) |
+
+### 7.6 Verifikasi Hardening Checklist
+
+```bash
+# 1. Cover Your Tracks (EFF)
+#    https://coveryourtracks.eff.org/ → target: Strong protection against tracking
+
+# 2. Firefox about:config → filter 'fingerprint'
+#    Pastikan privacy.resistFingerprinting = true
+
+# 3. Panopticlick (EFF lama) / amiunique.org
+#    Cek uniqueness fingerprint
+
+# 4. DNS Leak Test
+#    https://dnsleaktest.com/ → pastikan DoH server muncul, bukan ISP
+
+# 5. WebRTC Leak
+#    https://browserleaks.com/webrtc → pastikan IP lokal tidak bocor
+```
+

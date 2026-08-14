@@ -13,6 +13,10 @@ updated: '2026-07-28'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🌐 HIERARCHY NETWORK FORENSICS & PCAP ANALYSIS — Dari Wire-Level Bits sampai Application-Layer Reconstruction
 
 > Network forensics adalah **cabang forensik yang menganalisis lalu lintas jaringan untuk mengungkap aktivitas attacker, exfiltration data, dan pola komunikasi** — tanpa membutuhkan akses ke endpoint yang dikompromi. Berbeda dari endpoint forensik (analisis disk/memory), network forensics **tidak perlu akses ke komputer korban** — cukup tangkapan lalu lintas (PCAP) dari switch/router/SIEM. Hirarki ini memetakan evolusi analisis dari **Level 0 (raw bits di kabel)** sampai **Level 6 (cross-session threat reconstruction)** — semakin tinggi levelnya, semakin abstrak analisisnya dan semakin besar kesimpulan yang bisa ditarik.

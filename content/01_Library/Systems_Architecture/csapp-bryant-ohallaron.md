@@ -6,6 +6,10 @@ tags:
 created: '2026-07-05'
 updated: '2026-07-05'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 # 🖥 Computer Systems: A Programmer's Perspective
 > Randal E. Bryant & David R. O'Hallaron — 2003 (3rd ed 2015)

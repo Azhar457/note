@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Data Forensics
 
 > Forensik digital dan pemulihan data: dari logical recovery hingga chip-off dan NAND reconstruction.
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[data-recovery]]
 - [[mobile-forensics]]
-

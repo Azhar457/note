@@ -13,6 +13,10 @@ updated: '2026-07-28'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔬 HIERARCHY DIGITAL EVIDENCE & FORENSIC ACQUISITION — Dari Volatile Memory sampai Persistent Cold Storage
 
 > Digital forensic adalah **proses pengawetan, akuisisi, dan analisis bukti digital secara ilmiah dan dapat diverifikasi**. Berbeda dari hacking (cari celah), forensic harus **tahan terhadap cross-examination** — setiap langkah harus reproducible dan chain of custody harus jelas. Hirarki ini memetakan **evolusi persistensi bukti digital** dari **Level 0 (RAM — paling volatil, hilang dalam detik setelah power off)** sampai **Level 6 (cold storage/archived — stabil selama bertahun-tahun)**. Semakin rendah level, semakin mudah bukti hilang — tapi semakin kaya data yang bisa digali.

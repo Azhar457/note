@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Fundamentals
 
 > Fondasi CS yang wajib dikuasai: HTTP, TLS/SSL, Linux, encoding, regex, dan pemikiran komputasional. Juga mencakup **Digital Plumbing Hierarchy** — pustaka-pustaka pipa digital yang menopang internet.
@@ -14,7 +20,7 @@
 - [[computer-science-foundations]]
 - [[encoding-serialization-compression-deepdive]]
 - [[ffmpeg-multimedia-framework-deepdive]]
-- [[hierarchy-digital-plumbing]]
+- [[Note/01_Library/Fundamentals/hierarchy-digital-plumbing]]
 - [[http-protocol-deepdive]]
 - [[linux-fundamentals-deepdive]]
 - [[math-and-algorithms]]

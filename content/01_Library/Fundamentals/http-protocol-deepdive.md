@@ -10,7 +10,9 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🌐 HTTP Protocol — Deep Dive: Message Structure, Status Codes, Headers, Caching, HTTP/2, HTTP/3
@@ -452,7 +454,7 @@ Set-Cookie: sessionId=abc123; Domain=.example.com; Path=/; Max-Age=86400; HttpOn
 | **`Max-Age=N`** | Cookie hidup N detik. `Max-Age=0` = hapus | Cookie tanpa expiry = session cookie (hapus saat browser tutup) |
 | **`Expires=date`** | Sama, HTTP/1.0 style | — |
 | **`HttpOnly`** | JavaScript gak bisa baca cookie via `document.cookie` | **WAJIB** untuk session cookie — cegah XSS cookie theft |
-| **`Secure`** | Cookie cuma dikirim via HTTPS | **WAJIB** — cegah泄露 di HTTP plaintext |
+| **`Secure`** | Cookie cuma dikirim via HTTPS | **WAJIB** — cegah kebocoran di HTTP plaintext |
 | **`SameSite`** | Kontrol pengiriman cookie cross-site: `Strict`, `Lax`, `None` | Cegah CSRF. `Lax` = default modern browser. `None` = butuh `Secure` |
 
 ### SameSite Explained

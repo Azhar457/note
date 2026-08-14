@@ -13,6 +13,10 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # Linux Performance Debugging Toolkit: Strace, Perf, bpftrace, dan System Diagnostics
@@ -144,3 +148,67 @@ tracepoint:syscalls:sys_exit_accept4 /@accept_time[tid]/ {
 - [[ebpf-runtime-security-auditing]] — SOP Auditing System Calls dengan eBPF kprobe
 - [[vector-quantization-hnsw-tuning]] — Optimasi Memory RAM Database Vektor
 - [[homelab-proxmox-architecture]] — Monitoring Kinerja CPU Spikes di Proxmox Hypervisor
+
+## 5. Deepdive — eBPF Profiling & Latency Analysis
+
+### 5.1 bpftrace untuk Tracing
+
+```bash
+# Syscall latency distribution (usec)
+bpftrace -e 'kprobe:do_sys_openat2 { @start[tid] = nsecs; }
+             kretprobe:do_sys_openat2 /@start[tid]/ {
+               @usecs = hist((nsecs - @start[tid]) / 1000); delete(@start[tid]); }'
+
+# Block I/O latency per device
+bpftrace -e 'kprobe:blk_start_request { @start[arg0] = nsecs; }
+             kretprobe:blk_mq_end_request { @usecs = hist((nsecs - @start[arg0]) / 1000); }'
+
+# Execve tracing (proses baru — security monitoring)
+bpftrace -e 'tracepoint:syscalls:sys_enter_execve { printf("%s %s\n", comm, str(args->filename)); }'
+```
+
+### 5.2 Performance Analysis Checklist
+
+| Gejala | Tool Pertama | Confirm | Root Cause |
+|--------|--------------|---------|-----------|
+| CPU 100% | top/htop | perf top | Busy loop, GC storm |
+| Disk slow | iostat -x | iotop | Queue depth, random I/O |
+| Network latency | ping/tcpdump | ss -ti | Buffer, congestion |
+| Syscall slow | strace -T | bpftrace hist | Lock contention |
+| Memory pressure | free -m | /proc/pressure/memory | Page reclaim |
+| Context switch | vmstat 1 | perf sched | Oversubscription |
+
+### 5.3 Flame Graph Workflow
+
+```bash
+# 1. Record
+perf record -F 99 -p <PID> --call-graph dwarf -o perf.data
+
+# 2. Generate
+perf script > out.perf
+# → FlameGraph stackcollapse-perf.pl + flamegraph.pl
+./stackcollapse-perf.pl out.perf > out.folded
+./flamegraph.pl out.folded > flame.svg
+
+# 3. Analisis: bar terlebar = hot path
+#    "Off-CPU" flame graph → lihat di mana waktu menunggu (I/O, lock)
+```
+
+## 6. Tool Stack Ringkas
+
+| Tool | Layer | Use |
+|------|-------|-----|
+| strace | Syscall | Trace + latency per syscall |
+| perf | CPU/kernel | Sampling, events, flamegraph |
+| bpftrace | eBPF | Dynamic tracing, histograms |
+| iostat / sar | Disk | I/O throughput, queue |
+| ss / netstat | Network | Socket state, buffer |
+| vmstat | Global | Context switch, run queue |
+
+## 7. Referensi
+
+- Brendan Gregg — https://www.brendangregg.com/linuxperf.html
+- bpftrace — https://github.com/bpftrace/bpftrace
+- perf wiki — https://perf.wiki.kernel.org/
+- FlameGraph — https://github.com/brendangregg/FlameGraph
+- eBPF docs — https://ebpf.io/

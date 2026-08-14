@@ -12,7 +12,9 @@ created: '2026-07-18'
 updated: '2026-07-18'
 status: pending
 cssclasses:
-- wide-table
+  - wide-table
+  - callout
+
 ---
 
 # 🖥️ Desktop Application Security — Deep Dive: Electron Security, Win32 Reverse Engineering, .NET Analysis, Binary Patching

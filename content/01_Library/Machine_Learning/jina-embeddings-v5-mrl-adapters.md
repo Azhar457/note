@@ -14,6 +14,10 @@ aliases:
 status: pending
 created: 2026-07-21
 updated: 2026-07-21
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # Jina Embeddings v5: Matryoshka Representation Learning & Task-Specific LoRA Adapters

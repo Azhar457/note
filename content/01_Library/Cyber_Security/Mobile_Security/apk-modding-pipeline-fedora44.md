@@ -8,6 +8,11 @@ tags:
 created: "2026-08-09"
 updated: "2026-08-09"
 status: verified
+cssclasses:
+  - wide-table
+  - callout
+  - code-wrap
+
 tools: [apktool, jadx, zipalign, apksigner, android-sdk]
 ---
 
@@ -123,3 +128,53 @@ Bahan terkait di `~/.local/share/singbox-rotator/`:
 - jadx → `/home/jars/RE-tools/jadx/bin/`
 - Android SDK build-tools → `/home/jars/Android/Sdk/android-14`
 - Sampel teruji: `~/TESTFROMDARKNET/re_cf1111/` (CF 1.1.1.1)
+
+
+## Pitfall & Troubleshooting (Pengalaman Nyata)
+
+### App Tidak Bisa Install
+
+| Gejala | Penyebab | Fix |
+|--------|----------|-----|
+| "App not installed" | zipalign tidak dijalankan / salah urutan | `zipalign -f 4` SEBELUM sign |
+| "Parse error" | APK corrupt / signing salah | Build ulang + `apksigner verify` |
+| "Signature mismatch" | Update dari store dengan signature beda | Uninstall dulu, baru install modded |
+| Package name bentrok | Sama dengan app terpasang | `adb uninstall com.pkg` dulu |
+
+### APK Tidak Mau Build Balik
+
+1. **Resource conflict**: apktool gagal rebuild karena resource ID berubah → coba `apktool b --use-aapt2`
+2. **Smali syntax error**: register tidak match → cek `.locals` dan register count, error di log apktool
+3. **Proguard/obfuscation**: nama class di-mangle → jadx tetap baca, tapi smali edit harus cari by string reference
+
+### WARP+ Quota — Konteks Server-Side
+
+```bash
+# Cek status nyata (bukan tampilan app)
+curl https://www.cloudflare.com/cdn-cgi/trace
+# → warp=plus  : akun benar-benar premium
+# → warp=on    : hanya VPN aktif (bukan plus)
+# → warp=off   : VPN mati
+```
+
+Patch UI (`WarpPlusState`) hanya mengubah string tampilan. Quota premium (`account_type`, `quota`) di-enforce server `api.cloudflareclient.com` — kalau token tidak valid, server tetap tolak. Jangan percaya tampilan app; verifikasi via trace endpoint.
+
+### Keystore Management
+
+```bash
+# Buat keystore sendiri (production / non-debug)
+keytool -genkey -v -keystore my.keystore -alias mykey -keyalg RSA -keysize 2048 -validity 10000
+
+# Sign dengan keystore custom
+$SDK/apksigner sign --ks my.keystore --ks-pass pass:PASSWORD --out final.apk aligned.apk
+```
+
+Debug keystore (`~/.android/debug.keystore`) hanya untuk testing lokal — Play Store menolak signature debug. Untuk distribusi: buat keystore release dan simpan di tempat aman (kehilangan keystore = tidak bisa update app).
+
+## References
+
+- apktool — https://ibotpeaches.github.io/Apktool/
+- jadx — https://github.com/skylot/jadx
+- Android Build Tools (zipalign/apksigner) — https://developer.android.com/tools
+- Smali — https://github.com/JesusFreke/smali
+- Cloudflare trace — https://www.cloudflare.com/cdn-cgi/trace

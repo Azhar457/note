@@ -144,7 +144,7 @@ Tahun 2024-2026 adalah inflection point:
 
 **Koneksi ke Vault:**
 - [[hierarchy-cryptography]] — Master hierarchy kriptografi
-- [[hierarchy-digital-plumbing]] — OpenSSL implementasi
+- [[00_Atlas/hierarchy-digital-plumbing]] — OpenSSL implementasi
 
 ---
 
@@ -400,7 +400,7 @@ Data dengan confidentiality >10-15 tahun perlu **quantum-resistant protection SE
 | Notary v2 | ECDSA | ML-DSA-65 |
 
 **Koneksi ke Vault:**
-- [[hierarchy-cybersecurity-defense-architecture]] — Layer L3 (Cryptography)
+- [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — Layer L3 (Cryptography)
 - [[hierarchy-it-domain]] — Industry context
 
 ---
@@ -478,12 +478,12 @@ Data dengan confidentiality >10-15 tahun perlu **quantum-resistant protection SE
 | Layer | Catatan Vault |
 |:-----:|---------------|
 | **0** | [[math-and-algorithms]] |
-| **1** | [[hierarchy-cryptography]], [[hierarchy-digital-plumbing]] (OpenSSL) |
+| **1** | [[hierarchy-cryptography]], [[00_Atlas/hierarchy-digital-plumbing]] (OpenSSL) |
 | **2** | (hybrid-specific belum ada, mungkin tambah nanti) |
 | **3** | [[post-quantum-tls]] (calon ada), [[quantum-cryptography]] |
 | **4** | [[quantum-machine-learning]], [[quantum-cryptography]] |
 | **5** | [[tls-ssl-deepdive]], [[http-protocol-deepdive]] |
-| **6** | [[hierarchy-cybersecurity-defense-architecture]] (L3 + L8) |
+| **6** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] (L3 + L8) |
 
 ---
 

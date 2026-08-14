@@ -344,7 +344,7 @@ Semua benchmark pada single core Intel Xeon 6330 @ 3.0 GHz, AVX-512 enabled:
 
 | Catatan | Koneksi |
 |---------|---------|
-| [[hierarchy-digital-plumbing]] | §6-8 Level 3, 2, dan 1 |
+| [[Note/01_Library/Fundamentals/hierarchy-digital-plumbing]] | §6-8 Level 3, 2, dan 1 |
 | [[codec-architecture-x264-x265-deepdive]] | Intra-frame coding WebP dan AVIF adalah turunan dari video codec |
 | [[compression-algorithms-zlib-zstd-deepdive]] | PNG pakai Deflate — koneksi langsung |
 | [[computer-science-foundations]] | SIMD, CPU intrinsics — fondasi arsitektur komputer |

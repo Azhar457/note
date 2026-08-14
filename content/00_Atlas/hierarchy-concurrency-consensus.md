@@ -233,8 +233,8 @@ Break any one to prevent. Practical approach: lock ordering (hierarchical lockin
 |:-----:|-----------------------|
 | **C0** | [[hierarchy-operating-systems]] — Process scheduling |
 | **C1-C2** | [[hierarchy-programming-language]] — Language concurrency |
-| **C3** | [[hierarchy-kernel-bypass-networking]] — io_uring async pattern |
-| **C4** | [[hierarchy-llm-ai-systems]] — Agent orchestration |
+| **C3** | [[00_Atlas/hierarchy-kernel-bypass-networking]] — io_uring async pattern |
+| **C4** | [[00_Atlas/hierarchy-llm-ai-systems]] — Agent orchestration |
 | **C5** | [[hierarchy-database-storage-systems]] — Consensus in DB |
 | **All** | [[hierarchy-abstraction-layers]] — Foundation layers |
 

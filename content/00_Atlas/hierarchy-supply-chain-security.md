@@ -13,6 +13,10 @@ updated: '2026-07-17'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🔗 HIERARKI SUPPLY CHAIN SECURITY — Dari `npm install` (Level 0) sampai SLSA L4 + Formal Provenance (Level 5)
 
 > Satu perintah `pip install`, `npm i`, atau `go get` — dan kamu mengimpor kode dari puluhan maintainer yang tidak kamu kenal. Supply chain attack adalah **vektor kompromi paling efektif 2024–2026**: satu backdoor di library populer bisa menjangkau 10.000+ project dalam jam. Hirarki ini memetakan evolusi proteksi dari "tidak ada verifikasi" sampai "build provenance terverifikasi kriptografis." Untuk taksonomi attack surface + SLSA framework, lihat [[software-supply-chain-security-deepdive]].

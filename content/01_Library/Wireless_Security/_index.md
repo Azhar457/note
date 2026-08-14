@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Wireless Security
 
 > Keamanan nirkabel: 802.11/WiFi, Bluetooth, Zigbee, attack vectors, dan defense mechanisms di lapisan RF.
@@ -8,4 +14,3 @@
 
 ## 📄 Notes
 - [[wireless-security-deepdive]]
-

@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Cyber Security
 
 > Keamanan siber lintas domain: threat modeling, zero trust, cryptography, hardware hacking, C2, dan red/blue/purple team.
@@ -32,7 +38,7 @@
 - [[fuzzing-vulnerability-research]]
 - [[game-theory-security]]
 - [[hardware-hacking-re]]
-- [[hierarchy-cybersecurity-defense-architecture]] — 9-layer defense-in-depth mapping — L0 threat intel sampai L9 brand reputation, dengan NIST CSF 2.0 alignment
+- [[Note/01_Library/Cyber_Security/hierarchy-cybersecurity-defense-architecture]] — 9-layer defense-in-depth mapping — L0 threat intel sampai L9 brand reputation, dengan NIST CSF 2.0 alignment
 - [[ics-scada-security]]
 - [[kernel-forensics]]
 - [[offensive-security]]

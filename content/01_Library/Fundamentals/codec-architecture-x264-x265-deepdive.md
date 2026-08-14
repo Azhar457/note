@@ -318,7 +318,7 @@ AV1 (2019) menggunakan teknik yang lebih canggih:
 
 | Catatan | Koneksi |
 |---------|---------|
-| [[hierarchy-digital-plumbing]] | §4 Level 5 — Codec Multimedia |
+| [[Note/01_Library/Fundamentals/hierarchy-digital-plumbing]] | §4 Level 5 — Codec Multimedia |
 | [[ffmpeg-multimedia-framework-deepdive]] | FFmpeg memanggil x264/x265 sebagai library eksternal |
 | [[math-and-algorithms]] | DCT adalah aplikasi dari aljabar linier dan Fourier transform |
 | [[computer-science-foundations]] | SIMD SAD, cache locality, parallel encoding (WPP, tiles) |

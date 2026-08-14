@@ -8,6 +8,10 @@ updated: '2026-07-07'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🛠️ PICOCTF SECTION 3 — Linux & Web Basics
 
 > **Tools:** `strings`, `grep`, `file`, `reset`, Browser DevTools  

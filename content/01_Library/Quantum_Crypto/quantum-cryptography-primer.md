@@ -16,11 +16,15 @@ aliases:
 created: '2026-08-04'
 updated: '2026-08-04'
 status: completed
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # ⚛️ Quantum Cryptography Primer — Fondasi Matematika & Protokol Kuantum
 
-> **Dasar-dasar kriptografi kuantum: QKD (Quantum Key Distribution), QRNG (Quantum RNG), dan PQC (Post-Quantum Cryptography).** Bukan tutorial — ini **referensi matematika & protokol** untuk memahami *mengapa* protokol kuantum aman dan *bagaimana* PQC lattice-based bekerja. Untuk implementasi TLS praktis, lihat [[post-quantum-tls]]. Untuk roadmap migrasi, lihat [[quantum-cryptography-roadmap]]. Untuk hierarki domain, lihat [[hierarchy-quantum-cryptography]] dan [[hierarchy-quantum-cryptography-stack]].
+> **Dasar-dasar kriptografi kuantum: QKD (Quantum Key Distribution), QRNG (Quantum RNG), dan PQC (Post-Quantum Cryptography).** Bukan tutorial — ini **referensi matematika & protokol** untuk memahami *mengapa* protokol kuantum aman dan *bagaimana* PQC lattice-based bekerja. Untuk implementasi TLS praktis, lihat [[post-quantum-tls]]. Untuk roadmap migrasi, lihat [[quantum-cryptography-roadmap]]. Untuk hierarki domain, lihat [[hierarchy-quantum-cryptography]] dan [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]].
 
 ---
 
@@ -340,7 +344,7 @@ Semua proof PQC modern butuh **QROM** — adversary bisa query random oracle dal
 
 - **PQC TLS Implementasi** → [[post-quantum-tls]], [[pqc-implementation-rust]]
 - **QKD/QRNG Hardware** → [[hardware-architecture]], [[quantum-cryptography-roadmap]]
-- **Lattice Math** → [[hierarchy-quantum-cryptography-stack]], [[hierarchy-quantum-cryptography]]
+- **Lattice Math** → [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]], [[hierarchy-quantum-cryptography]]
 - **NIST Standard** → [[quantum-cryptography-deepdive]] (existing 7540 words)
 - **Master Index** → [[master-index]]
 

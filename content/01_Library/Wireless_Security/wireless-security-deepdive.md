@@ -6,6 +6,10 @@ tags:
 created: '2026-07-02'
 updated: '2026-07-06'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee

@@ -13,6 +13,10 @@ updated: '2026-07-28'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # 🏆 HIERARCHY CTF & CYBER COMPETITION FRAMEWORK — Dari Wargame Pemula sampai Live Red vs Blue Exercise
 
 > Capture The Flag (CTF) dan turunannya (Attack-Defense, Forensik, Red vs Blue Exercise) adalah **cara paling efisien untuk mengukur dan melatih kemampuan teknis keamanan siber** di luar produksi. Berbeda dari sertifikasi yang menguji hafalan, kompetisi menguji kemampuan memecahkan masalah baru di bawah tekanan waktu. Hirarki ini memetakan evolusi bentuk kompetisi dari **Level 0 (wargame online pemecah soal individu)** sampai **Level 6 (live-fire range dengan infra nyata)** — semua level **universal**, tidak terikat pada satu event atau satu penyelenggara.
@@ -147,7 +151,7 @@ Yang tidak diajarkan kursus tapi dilatih CTF:
 
 ## Cross-Link ke Atlas Lainnya
 
-- **Cyber Kill Chain (Offense)** → [[hierarchy-cybersecurity-defense-architecture]]
+- **Cyber Kill Chain (Offense)** → [[00_Atlas/hierarchy-cybersecurity-defense-architecture]]
 - **Defensive Ring Hierarchy (Endpoint)** → [[hierarchy-endpoint-security]]
 - **Network Defense (L3 ke atas)** → [[hierarchy-network-security]]
 - **Threat Modeling** → [[hierarchy-threat-modeling]]

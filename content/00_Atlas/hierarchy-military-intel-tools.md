@@ -8,6 +8,10 @@ updated: '2026-07-01'
 status: pending
 ---
 
+cssclasses:
+  - wide-table
+  - callout
+
 # ☠️ MILITARY & INTELLIGENCE TOOLS — The Shadow Arsenal Hierarchy
 
 > Hierarki alat-alat yang dipakai oleh aktor state-level, law enforcement, APT groups, dan red teamer. Sama seperti Cheat Engine, semua tool di sini bersifat **dual-use**: tool yang identik dipakai untuk defense (penetration testing, forensics, counter-terrorism) dan offense (mass surveillance, targeted espionage, APT campaigns). Memahami cara kerjanya adalah prasyarat untuk membangun pertahanan.

@@ -11,7 +11,6 @@ created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
 cssclasses:
-- wide-table
 ---
 
 # 🔒 TLS/SSL — Deep Dive: Handshake, Cipher Suites, Certificate Chain, Attacks & Detection

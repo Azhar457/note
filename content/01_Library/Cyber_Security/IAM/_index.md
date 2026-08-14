@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Iam
 
 > Catatan tentang IAM.
@@ -9,4 +15,3 @@
 ## 📄 Notes
 - [[active-directory-windows-security-deepdive]]
 - [[identity-and-access-management]]
-

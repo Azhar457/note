@@ -6,6 +6,10 @@ tags:
 created: '2026-06-12'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 # 💾 DATA RECOVERY & FORENSIK — Panduan Komprehensif

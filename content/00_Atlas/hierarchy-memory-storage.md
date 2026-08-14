@@ -346,15 +346,15 @@ Budget (cost per GB)        →  Tier 5-8 (HDD/Cloud/Tape)
 | Tier | Catatan Vault Terkait |
 |:----:|-----------------------|
 | **T0-T1** | [[hierarchy-operating-systems]] (Cache / TLB) |
-| **T2** | [[hierarchy-kernel-bypass-networking]] (DMA buffer) |
+| **T2** | [[00_Atlas/hierarchy-kernel-bypass-networking]] (DMA buffer) |
 | **T3** | [[hierarchy-database-storage-systems]] (PMEM tier) |
-| **T4** | [[hierarchy-infrastructure-evolution]] (NVMe as standard) |
+| **T4** | [[00_Atlas/hierarchy-infrastructure-evolution]] (NVMe as standard) |
 | **T5** | [[hierarchy-data-recovery]] (HDD recovery) |
 | **T6** | [[hierarchy-network-security]] (NAS/SAN security) |
-| **T7** | [[hierarchy-llm-ai-systems]] (Training data in S3) |
-| **T8** | [[hierarchy-cybersecurity-defense-architecture]] (Offline backup L1) |
-| **All** | [[hierarchy-digital-plumbing]] (Compression & parsing) |
-| **All** | [[hierarchy-systems-architecture-evolution]] (Distributed tiering) |
+| **T7** | [[00_Atlas/hierarchy-llm-ai-systems]] (Training data in S3) |
+| **T8** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] (Offline backup L1) |
+| **All** | [[00_Atlas/hierarchy-digital-plumbing]] (Compression & parsing) |
+| **All** | [[00_Atlas/hierarchy-systems-architecture-evolution]] (Distributed tiering) |
 | **All** | [[hierarchy-abstraction-layers]] — L1-L8 memori |
 
 ---

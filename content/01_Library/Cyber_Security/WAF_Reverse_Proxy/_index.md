@@ -1,3 +1,9 @@
+---
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Waf Reverse Proxy
 
 > Catatan tentang WAF Reverse Proxy.
