@@ -1,20 +1,21 @@
 ---
+title: '🔄 MCP Server Development Lifecycle (MCP-SDLC) — Deep Dive: Dari Ide sampai Production'
 tags:
-  - mcp
-  - model-context-protocol
-  - sdlc
-  - mcpdlc
-  - lifecycle
-  - devops
-  - cicd
-  - testing
-  - deployment
-  - security
+- mcp
+- model-context-protocol
+- sdlc
+- mcpdlc
+- lifecycle
+- devops
+- cicd
+- testing
+- deployment
+- security
 aliases:
-  - MCP SDLC
-  - MCP Development Lifecycle
-  - MCP Server Lifecycle
-  - MCP DLC
+- MCP SDLC
+- MCP Development Lifecycle
+- MCP Server Lifecycle
+- MCP DLC
 created: 2026-07-08
 updated: 2026-07-08
 status: operational

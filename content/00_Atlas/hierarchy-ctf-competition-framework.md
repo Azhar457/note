@@ -11,11 +11,11 @@ aliases:
 created: "2026-07-28"
 updated: '2026-07-28'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🏆 HIERARCHY CTF & CYBER COMPETITION FRAMEWORK — Dari Wargame Pemula sampai Live Red vs Blue Exercise
 

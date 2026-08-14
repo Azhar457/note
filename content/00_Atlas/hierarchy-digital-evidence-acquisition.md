@@ -11,11 +11,11 @@ aliases:
 created: "2026-07-28"
 updated: '2026-07-28'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔬 HIERARCHY DIGITAL EVIDENCE & FORENSIC ACQUISITION — Dari Volatile Memory sampai Persistent Cold Storage
 

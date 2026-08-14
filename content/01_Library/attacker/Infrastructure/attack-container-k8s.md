@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Container/K8s (Red Team)
-tags: [attack,red-team,container,k8s,escape,rbac,service-account,admission]
-source: container-k8s-security.md
+tags:
+- attack
+- red-team
+- container
+- k8s
+- escape
+- rbac
+- service-account
+- admission
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Container/K8s — Perspektif Penyerang
 

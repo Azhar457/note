@@ -1,19 +1,20 @@
 ---
+title: 🧱 Software Engineering Hierarchy — Paradigma, Pola, dan Tahapan dari Kode ke Produksi
 tags:
-  - hierarchy
-  - software-engineering
-  - programming-paradigm
-  - architecture
-  - methodology
-  - design-pattern
+- hierarchy
+- software-engineering
+- programming-paradigm
+- architecture
+- methodology
+- design-pattern
 aliases:
-  - Software Engineering Paradigm Hierarchy
-  - SE Stack Layers
-  - Code to Production Path
-  - Engineering Discipline Map
-status: pending
+- Software Engineering Paradigm Hierarchy
+- SE Stack Layers
+- Code to Production Path
+- Engineering Discipline Map
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

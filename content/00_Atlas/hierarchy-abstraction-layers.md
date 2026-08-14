@@ -1,18 +1,19 @@
 ---
+title: 🧅 Abstraction Layers — Hierarki Tingkat Abstraksi dari Bit ke Maksud
 tags:
-  - hierarchy
-  - cross-cutting
-  - abstraction
-  - layers
-  - meta
+- hierarchy
+- cross-cutting
+- abstraction
+- layers
+- meta
 aliases:
-  - Abstraction Layer Hierarchy
-  - Levels of Abstraction
-  - Layer Cake Model
-  - Cross Domain Abstraction Stack
-status: complete
+- Abstraction Layer Hierarchy
+- Levels of Abstraction
+- Layer Cake Model
+- Cross Domain Abstraction Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: complete
 cssclasses:
   - wide-table
 ---

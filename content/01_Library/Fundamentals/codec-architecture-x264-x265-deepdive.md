@@ -1,22 +1,23 @@
 ---
+title: 🎞️ Codec Architecture — x264, x265, dan Teknik Kompresi Video Modern
 tags:
-  - digital-plumbing
-  - x264
-  - x265
-  - codec
-  - video-compression
-  - motion-estimation
-  - dct
-  - h264
-  - hevc
+- digital-plumbing
+- x264
+- x265
+- codec
+- video-compression
+- motion-estimation
+- dct
+- h264
+- hevc
 aliases:
-  - Video Codec Architecture
-  - x264 x265 Deep-Dive
-  - H.264 H.265 Internals
-  - Video Compression Pipeline
-status: pending
+- Video Codec Architecture
+- x264 x265 Deep-Dive
+- H.264 H.265 Internals
+- Video Compression Pipeline
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Digital Privacy & Anonymity (Red Team OpSec)
-tags: [attack,red-team,privacy,anonymity,tor,vpn,opsec,attribution]
-source: digital-privacy-anonymity.md
+tags:
+- attack
+- red-team
+- privacy
+- anonymity
+- tor
+- vpn
+- opsec
+- attribution
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Digital Privacy & Anonymity — Perspektif Penyerang (OpSec)
 

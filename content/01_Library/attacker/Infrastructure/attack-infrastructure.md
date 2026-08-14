@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Infrastructure (Red Team)
-tags: [attack,red-team,infrastructure,proxy,redirector,dns,tls,vps]
-source: infrastructure-security.md
+tags:
+- attack
+- red-team
+- infrastructure
+- proxy
+- redirector
+- dns
+- tls
+- vps
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Infrastructure — Perspektif Penyerang
 

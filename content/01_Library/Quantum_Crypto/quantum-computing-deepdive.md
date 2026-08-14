@@ -1,19 +1,20 @@
 ---
+title: ⚛️ Quantum Computing — Dari Prinsip ke Praktik
 tags:
-  - quantum
-  - qubit
-  - hardware
-  - programming
-  - algorithms
-  - error-correction
+- quantum
+- qubit
+- hardware
+- programming
+- algorithms
+- error-correction
 aliases:
-  - Quantum Computing Deep Dive
-  - Dari Qubit ke Quantum Advantage
-  - Quantum Stack Lengkap
-  - Quantum Computing Researcher Reference
-status: pending
+- Quantum Computing Deep Dive
+- Dari Qubit ke Quantum Advantage
+- Quantum Stack Lengkap
+- Quantum Computing Researcher Reference
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

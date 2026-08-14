@@ -1,16 +1,16 @@
 ---
+title: 🌐 Internet Offline
 tags:
-  - library-index
-  - infrastructure-stub
+- library-index
+- infrastructure-stub
 aliases:
-  - "Internet_Offline"
-created: "2026-07-19"
-updated: "2026-07-19"
+- Internet_Offline
+created: 2026-07-19
+updated: 2026-07-19
 status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # 🌐 Internet Offline

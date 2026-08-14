@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Data Forensics (Red Team Anti-Forensics)
-tags: [attack,red-team,data-forensics,anti-forensics,wipe,timestomp,artifact]
-source: data-forensics.md
+tags:
+- attack
+- red-team
+- data-forensics
+- anti-forensics
+- wipe
+- timestomp
+- artifact
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Data Forensics — Perspektif Penyerang (Anti-Forensics)
 

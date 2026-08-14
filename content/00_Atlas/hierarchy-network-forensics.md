@@ -11,11 +11,11 @@ aliases:
 created: '2026-07-28'
 updated: '2026-07-28'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🌐 HIERARCHY NETWORK FORENSICS & PCAP ANALYSIS — Dari Wire-Level Bits sampai Application-Layer Reconstruction
 

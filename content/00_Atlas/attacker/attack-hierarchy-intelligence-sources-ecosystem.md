@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Intelligence Sources Ecosystem (Red Team Recon)
-tags: [attack,red-team,intelligence,sources,recon,datamining,fusion]
-source: hierarchy-intelligence-sources-ecosystem.md
+tags:
+- attack
+- red-team
+- intelligence
+- sources
+- recon
+- datamining
+- fusion
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Intelligence Sources Ecosystem — Perspektif Penyerang (Recon Fusion)
 

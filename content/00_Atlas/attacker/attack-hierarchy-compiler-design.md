@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Compiler Design (Red Team)
-tags: [attack,red-team,compiler,optimization,jit,rop,cfi-bypass,code-injection]
-source: hierarchy-compiler-design.md
+tags:
+- attack
+- red-team
+- compiler
+- optimization
+- jit
+- rop
+- cfi-bypass
+- code-injection
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Compiler Design — Perspektif Penyerang
 

@@ -11,11 +11,12 @@ aliases:
 created: "2026-07-19"
 updated: "2026-07-19"
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+
+---
+
 
 > [!abstract] Ringkasan
 > Prosedur audit berkala untuk master-index + sweeping broken wikilink + scanning stub `_index.md` setelah batch besar (rename, fuse folder, atau sync dari vault primer). Tujuannya: graph Obsidian tetap "existing files only", tidak ada link mati, dan setiap folder punya `_index.md` bermakna.

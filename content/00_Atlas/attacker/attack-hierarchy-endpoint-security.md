@@ -11,11 +11,11 @@ source: hierarchy-endpoint-security.md
 status: complete
 created: 2026-08-14
 updated: 2026-08-14
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔴 Attack Perspective: Endpoint Security (Privilege Inversion)
 

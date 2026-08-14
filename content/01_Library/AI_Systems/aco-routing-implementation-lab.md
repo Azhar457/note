@@ -1,14 +1,23 @@
 ---
-tags: [aco, agent-routing, tutorial, lab, multi-agent, implementation]
-aliases: [ACO Lab, ACO Simulation Lab, Pheromone Routing Lab]
-status: pending
+title: Reproducible
+tags:
+- aco
+- agent-routing
+- tutorial
+- lab
+- multi-agent
+- implementation
+aliases:
+- ACO Lab
+- ACO Simulation Lab
+- Pheromone Routing Lab
 created: 2026-07-26
 updated: 2026-07-26
+status: pending
 cssclasses:
   - wide-table
   - callout
   - code-wrap
-
 ---
 
 > [!abstract] From Theory to Running Code

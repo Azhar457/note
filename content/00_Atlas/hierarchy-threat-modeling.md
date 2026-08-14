@@ -10,10 +10,10 @@ aliases:
 created: 2026-07-17
 updated: 2026-07-17
 status: completed
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # 🛡️ HIERARKI THREAT MODELING — Dari Intuisi Developer (Level 0) sampai Formal Verification (Level 5)
 

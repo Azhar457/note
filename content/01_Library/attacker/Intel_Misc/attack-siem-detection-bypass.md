@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — SIEM & Detection Bypass (Red Team)
-tags: [attack,red-team,siem,detection,bypass,log-tampering,correlation,splunk]
-source: siem-detection-bypass.md
+tags:
+- attack
+- red-team
+- siem
+- detection
+- bypass
+- log-tampering
+- correlation
+- splunk
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # SIEM & Detection Bypass — Perspektif Penyerang
 

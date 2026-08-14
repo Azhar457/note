@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — eBPF Kernel Security (Red Team Rootkit)
-tags: [attack,red-team,ebpf,kernel,rootkit,verifier,bypass,stealth]
-source: ebpf-kernel-security.md
+tags:
+- attack
+- red-team
+- ebpf
+- kernel
+- rootkit
+- verifier
+- bypass
+- stealth
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # eBPF Kernel Security — Perspektif Penyerang (Rootkit)
 

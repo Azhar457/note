@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Zero Trust Bypass (Red Team)
-tags: [attack,red-team,zero-trust,ztna,identity,segmentation,trust-broker,bypass]
-source: zero-trust-networking-homelab-edge.md
+tags:
+- attack
+- red-team
+- zero-trust
+- ztna
+- identity
+- segmentation
+- trust-broker
+- bypass
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Zero Trust — Perspektif Penyerang (Bypass)
 

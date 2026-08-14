@@ -1,19 +1,20 @@
 ---
+title: ⚡ Failure Modes & Resilience — Dari Bit Flip ke Bencana Sistemik
 tags:
-  - hierarchy
-  - cross-cutting
-  - failure
-  - resilience
-  - fault-tolerance
-  - chaos
+- hierarchy
+- cross-cutting
+- failure
+- resilience
+- fault-tolerance
+- chaos
 aliases:
-  - Failure Modes Hierarchy
-  - Resilience Layer Map
-  - Fault Taxonomy
-  - Failure is Not an Option
-status: pending
+- Failure Modes Hierarchy
+- Resilience Layer Map
+- Fault Taxonomy
+- Failure is Not an Option
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

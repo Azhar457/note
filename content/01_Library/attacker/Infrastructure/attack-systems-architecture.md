@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Systems Architecture (Red Team)
-tags: [attack,red-team,systems,architecture,hardware,kernel,cpu,memory]
-source: systems-design-interview-alex-xu.md + csapp-bryant-ohallaron.md
+tags:
+- attack
+- red-team
+- systems
+- architecture
+- hardware
+- kernel
+- cpu
+- memory
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Systems Architecture — Perspektif Penyerang
 

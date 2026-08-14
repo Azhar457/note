@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Quantum Crypto & PQC (Red Team)
-tags: [attack,red-team,quantum,pqc,harvest-now,shor,kyber,hybrid]
-source: quantum-crypto-deepdive.md + post-quantum-tls.md
+tags:
+- attack
+- red-team
+- quantum
+- pqc
+- harvest-now
+- shor
+- kyber
+- hybrid
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Quantum Crypto & PQC — Perspektif Penyerang
 

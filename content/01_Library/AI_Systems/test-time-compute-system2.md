@@ -1,18 +1,19 @@
 ---
+title: ⚡ TEST-TIME COMPUTE / SYSTEM 2 — The Architecture of Deliberate Reasoning
 tags:
-  - test-time-compute
-  - system-2
-  - reasoning
-  - chain-of-thought
-  - tree-of-thought
-  - alignment
-  - adversarial-reasoning
+- test-time-compute
+- system-2
+- reasoning
+- chain-of-thought
+- tree-of-thought
+- alignment
+- adversarial-reasoning
 aliases:
-  - System 2 Thinking
-  - Inference-Time Scaling
-  - Deliberate Reasoning Architecture
-created: "2026-05-29"
-updated: "2026-07-09"
+- System 2 Thinking
+- Inference-Time Scaling
+- Deliberate Reasoning Architecture
+created: 2026-05-29
+updated: 2026-07-09
 status: pending
 cssclasses:
   - wide-table

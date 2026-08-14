@@ -11,11 +11,11 @@ aliases:
 created: "2026-07-17"
 updated: '2026-07-17'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔬 HIERARKI QUANTUM CRYPTOGRAPHY — Dari Qubit Theory (Level 0) sampai Full Quantum Supremacy (Level 7)
 

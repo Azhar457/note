@@ -12,11 +12,11 @@ source: hierarchy-endpoint-security.md (part 2)
 status: complete
 created: '2026-08-14'
 updated: '2026-08-14'
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔴 Attack Perspective: Endpoint Security — Deep Layers (Ring -2 → Ring -3)
 

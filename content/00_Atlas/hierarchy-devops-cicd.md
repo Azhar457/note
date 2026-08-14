@@ -1,20 +1,21 @@
 ---
+title: 🚀 DevOps & CI/CD — Dari Developer ke Production
 tags:
-  - hierarchy
-  - devops
-  - cicd
-  - pipeline
-  - gitops
-  - sre
-  - platform-engineering
+- hierarchy
+- devops
+- cicd
+- pipeline
+- gitops
+- sre
+- platform-engineering
 aliases:
-  - DevOps Hierarchy
-  - CI/CD Pipeline Map
-  - From Code to Production
-  - DevOps Evolution Stack
-status: pending
+- DevOps Hierarchy
+- CI/CD Pipeline Map
+- From Code to Production
+- DevOps Evolution Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

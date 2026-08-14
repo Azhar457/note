@@ -1,13 +1,26 @@
 ---
-tags: [web-scraping, data-collection, open-data, api, crawl, research-automation, google-dorking, rss, wayback-machine, anti-detection]
-aliases: [Public Data Harvesting, Crawl & Scrape, Research Pipeline]
-status: complete
+title: Usage
+tags:
+- web-scraping
+- data-collection
+- open-data
+- api
+- crawl
+- research-automation
+- google-dorking
+- rss
+- wayback-machine
+- anti-detection
+aliases:
+- Public Data Harvesting
+- Crawl & Scrape
+- Research Pipeline
 created: 2026-08-01
 updated: 2026-08-01
+status: complete
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 > [!abstract] Crawl & Ambil Data Publik — Operational Guide

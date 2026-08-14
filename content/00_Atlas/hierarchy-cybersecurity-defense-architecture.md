@@ -13,11 +13,11 @@ related_notes:
   - 01_Library/defender/Infrastructure/*
   - 01_Library/defender/Incident_Response/*
   - 01_Library/attacker/Intel_Misc/attack-defense-hardening-playbook.md
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # Cybersecurity Defense Architecture — Multi-Layer Defense Architecture (9 Layer Framework)
 

@@ -5,11 +5,11 @@ tags:
 created: '2026-04-30'
 updated: '2026-07-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # ☠️ Hierarchy Offensive Security — Level 0 sampai APT Simulator
 

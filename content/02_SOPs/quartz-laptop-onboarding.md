@@ -13,11 +13,12 @@ aliases:
 created: "2026-07-19"
 updated: "2026-07-19"
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+
+---
+
 
 > [!abstract] Ringkasan
 > SOP cepat untuk **on-boarding laptop ke-3 (atau ke-N)** sebagai node sinkronisasi vault primer → content/ → Quartz build → push GitHub Pages. Total durasi: 30-45 menit kalau semua prasyarat sudah siap. Bedanya dengan [[quartz-setup-windows]]: SOP itu tentang **bash-first Fedora/Linux** setup dari awal; SOP ini fokus **restore workflow sync deploy di laptop yang sudah punya repo** clone.

@@ -1,21 +1,21 @@
 ---
+title: 'Cosine Similarity: Mengukur Kedekatan Vektor'
 tags:
-  - deep-learning
-  - nlp
-  - embedding
-  - similarity
-  - metric-learning
+- deep-learning
+- nlp
+- embedding
+- similarity
+- metric-learning
 aliases:
-  - Cosine Similarity
-  - Similaritas Kosinus
-  - Semantic Similarity
-status: pending
+- Cosine Similarity
+- Similaritas Kosinus
+- Semantic Similarity
 created: 2026-07-11
 updated: 2026-07-11
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Cosine Similarity: Mengukur Kedekatan Vektor

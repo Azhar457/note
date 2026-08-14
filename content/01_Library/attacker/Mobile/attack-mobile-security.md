@@ -1,12 +1,22 @@
 ---
 title: Attack Perspective — Mobile Security (Red Team)
-tags: [attack,red-team,mobile,android,ios,root,frida,smali,deep-link]
-source: mobile-security.md
+tags:
+- attack
+- red-team
+- mobile
+- android
+- ios
+- root
+- frida
+- smali
+- deep-link
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Mobile Security — Perspektif Penyerang
 

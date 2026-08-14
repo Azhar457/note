@@ -1,23 +1,23 @@
 ---
+title: 'Attention Mechanism: Revolusi Representasi Sequence'
 tags:
-  - deep-learning
-  - nlp
-  - transformer
-  - attention
-  - llm
+- deep-learning
+- nlp
+- transformer
+- attention
+- llm
 aliases:
-  - Attention Mechanism
-  - Mekanisme Attention
-  - Self-Attention
-  - Cross-Attention
-  - Scaled Dot-Product Attention
-status: pending
+- Attention Mechanism
+- Mekanisme Attention
+- Self-Attention
+- Cross-Attention
+- Scaled Dot-Product Attention
 created: 2026-07-11
 updated: 2026-07-11
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Attention Mechanism: Revolusi Representasi Sequence

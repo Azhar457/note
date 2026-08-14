@@ -11,11 +11,11 @@ aliases:
 created: 2026-07-17
 updated: 2026-07-17
 status: complete
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🛡️ HIERARKI WAF & REVERSE PROXY — Dari Nginx Passthrough (Level 0) sampai Custom eBPF WAF (Level 6)
 

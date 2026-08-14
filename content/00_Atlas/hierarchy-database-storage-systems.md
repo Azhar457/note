@@ -8,11 +8,11 @@ tags:
 created: 2026-07-19
 updated: 2026-07-19
 status: complete
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Memahami bagaimana data disimpan, diindeks, dan ditarik kembali adalah pilar fundamental rekayasa sistem. Catatan ini memetakan tingkatan evolusi sistem penyimpanan data dari format paling sederhana (Level 0) hingga arsitektur terdistribusi skala planet (Level 7), melengkapi pembahasan [[hierarchy-operating-systems]] dan [[data-engineering]].

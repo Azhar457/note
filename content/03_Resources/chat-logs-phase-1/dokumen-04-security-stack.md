@@ -6,11 +6,11 @@ tags:
 created: '2026-04-24'
 updated: '2026-07-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # Dokumen 04 — Blue Team Phase 1 (Audit & IPS)
 

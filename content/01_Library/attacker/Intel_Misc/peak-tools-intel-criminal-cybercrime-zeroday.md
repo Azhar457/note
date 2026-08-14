@@ -1,10 +1,31 @@
 ---
-tags: [intelligence, cybercrime, criminal-investigation, forensics, osint, sigint, threat-intelligence, zero-day, attack-vectors, blue-team, red-team, edr, siem, c2, malware-analysis]
-aliases: [Intel-Cybercrime-Peak-Tools, Red-Blue-Stack, Zero-Day-Vectors]
-status: complete
+title: Peak Tools Intel Criminal Cybercrime Zeroday
+tags:
+- intelligence
+- cybercrime
+- criminal-investigation
+- forensics
+- osint
+- sigint
+- threat-intelligence
+- zero-day
+- attack-vectors
+- blue-team
+- red-team
+- edr
+- siem
+- c2
+- malware-analysis
+aliases:
+- Intel-Cybercrime-Peak-Tools
+- Red-Blue-Stack
+- Zero-Day-Vectors
 created: 2026-08-02
 updated: 2026-08-02
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Peak Tools: Intelligence, Criminal Investigation, Cybercrime & Zero-Day Vectors

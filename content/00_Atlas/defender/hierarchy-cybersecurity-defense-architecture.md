@@ -1,11 +1,19 @@
 ---
 title: Cybersecurity Defense Architecture — Blue Team Framework
-tags: [defense, blue-team, architecture, framework, nist, mitre]
+tags:
+- defense
+- blue-team
+- architecture
+- framework
+- nist
+- mitre
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Cybersecurity Defense Architecture — Blue Team Framework
 

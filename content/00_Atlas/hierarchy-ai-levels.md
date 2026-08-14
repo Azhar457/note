@@ -5,10 +5,10 @@ tags:
 created: 2026-04-23
 updated: 2026-07-01
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # 🤖 HIERARKI AI — Dari Rule-Based sampai Beyond Physics
 

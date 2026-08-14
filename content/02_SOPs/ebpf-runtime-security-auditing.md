@@ -1,23 +1,24 @@
 ---
+title: 'SOP: Implementasi eBPF untuk Runtime Security Auditing & Monitoring System Calls'
 tags:
-  - sop
-  - ebpf
-  - security
-  - kernel-security
-  - monitoring
-  - tetragon
+- sop
+- ebpf
+- security
+- kernel-security
+- monitoring
+- tetragon
 aliases:
-  - SOP eBPF Runtime Security Auditing
-  - eBPF Auditing System Calls
-  - Cilium Tetragon Audit
-status: pending
+- SOP eBPF Runtime Security Auditing
+- eBPF Auditing System Calls
+- Cilium Tetragon Audit
 created: 2026-07-21
 updated: 2026-07-21
----
-
+status: pending
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # SOP: Implementasi eBPF untuk Runtime Security Auditing & Monitoring System Calls
 

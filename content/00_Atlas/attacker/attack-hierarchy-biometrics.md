@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Biometrics (Red Team)
-tags: [attack,red-team,biometric,fingerprint,face,iris,presentation-attack,frida]
-source: hierarchy-biometrics.md
+tags:
+- attack
+- red-team
+- biometric
+- fingerprint
+- face
+- iris
+- presentation-attack
+- frida
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Biometrics — Perspektif Penyerang
 

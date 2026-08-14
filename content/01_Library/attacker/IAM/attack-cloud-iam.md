@@ -1,12 +1,23 @@
 ---
 title: Attack Perspective — Cloud & IAM (Red Team)
-tags: [attack,red-team,cloud,iam,imds,privesc,aws,azure,gcp,ssrf]
-source: cloud-iam-security.md
+tags:
+- attack
+- red-team
+- cloud
+- iam
+- imds
+- privesc
+- aws
+- azure
+- gcp
+- ssrf
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Cloud & IAM — Perspektif Penyerang
 

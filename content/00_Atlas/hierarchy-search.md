@@ -9,11 +9,11 @@ tags:
 created: '2026-07-01'
 updated: '2026-08-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 > [!tip] Abstract
 > Hierarki pencarian informasi diperluas dari 8 level menjadi 11 level — mencakup Cached Web, Breach Data Ecosystem, Alternative Overlays, Closed Communities, Nation-State SIGINT, Restricted Government Networks, Air-Gapped Intelligence, dan SIGINT Satellite Operations. Koreksi teknis diterapkan pada kode Python, klaim "I2P lebih anonim dari Tor", dan posisi Tor Exit Node yang bukan level pencarian melainkan peran di jaringan yang sama. Appendix mencakup Exit Node Configuration, anatomi posisi, dan perbandingan Tor vs I2P vs Freenet.

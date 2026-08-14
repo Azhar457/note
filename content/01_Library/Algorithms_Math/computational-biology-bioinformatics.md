@@ -1,10 +1,26 @@
 ---
-tags: [bioinformatics, computational-biology, genomics, proteomics, molecular-dynamics, crispr, phylogenetics, drug-discovery, alpha-fold, nextflow]
-aliases: [CBB, Bioinformatics Deep Dive, CompBio]
-status: complete
+title: Computational Biology Bioinformatics
+tags:
+- bioinformatics
+- computational-biology
+- genomics
+- proteomics
+- molecular-dynamics
+- crispr
+- phylogenetics
+- drug-discovery
+- alpha-fold
+- nextflow
+aliases:
+- CBB
+- Bioinformatics Deep Dive
+- CompBio
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Computational Biology & Bioinformatics

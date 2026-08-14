@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — DevOps/CI/CD (Red Team Pipeline)
-tags: [attack,red-team,devops,ci-cd,github-actions,jenkins,artifact,supply-chain]
-source: devops-cicd-security.md
+tags:
+- attack
+- red-team
+- devops
+- ci-cd
+- github-actions
+- jenkins
+- artifact
+- supply-chain
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # DevOps/CI/CD — Perspektif Penyerang (Pipeline Poison)
 

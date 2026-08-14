@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Hardware Hacking (Red Team)
-tags: [attack,red-team,hardware,uart,jtag,side-channel,fault-injection]
-source: hierarchy-hardware-hacking.md
+tags:
+- attack
+- red-team
+- hardware
+- uart
+- jtag
+- side-channel
+- fault-injection
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Hardware Hacking — Perspektif Penyerang
 

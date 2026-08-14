@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Data Engineering (Red Team)
-tags: [attack,red-team,data-engineering,etl,spark,kafka,data-lake,exfiltration]
-source: hierarchy-data-engineering.md
+tags:
+- attack
+- red-team
+- data-engineering
+- etl
+- spark
+- kafka
+- data-lake
+- exfiltration
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Data Engineering — Perspektif Penyerang
 

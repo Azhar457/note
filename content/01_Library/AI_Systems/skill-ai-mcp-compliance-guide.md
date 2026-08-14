@@ -1,3 +1,16 @@
+---
+title: 'SKILL AI: MCP Server Development — Strict Compliance Guide'
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # SKILL AI: MCP Server Development — Strict Compliance Guide
 
 > **Versi:** 2025-06-18 (latest stable) | **Sumber:** modelcontextprotocol.io/docs | **Status:** OPERATIONAL

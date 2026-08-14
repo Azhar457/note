@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Offensive Security (Level 0-6 Red Team)
-tags: [attack,red-team,offensive,apt,c2,zero-day]
-source: hierarchy-offensive.md
+tags:
+- attack
+- red-team
+- offensive
+- apt
+- c2
+- zero-day
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Offensive Security — Perspektif Penyerang per Level
 

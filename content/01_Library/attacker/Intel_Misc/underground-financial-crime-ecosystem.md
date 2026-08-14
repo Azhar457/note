@@ -1,10 +1,24 @@
 ---
-tags: [financial-crime, carding, atm-jackpotting, money-mule, darknet-marketplace, crypto-tumbling, wire-fraud, underground-economy]
-aliases: [UFCE, Financial Crime Deep Dive, Underground Economy]
-status: complete
+title: Underground Financial Crime Ecosystem
+tags:
+- financial-crime
+- carding
+- atm-jackpotting
+- money-mule
+- darknet-marketplace
+- crypto-tumbling
+- wire-fraud
+- underground-economy
+aliases:
+- UFCE
+- Financial Crime Deep Dive
+- Underground Economy
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Underground Financial Crime Ecosystem

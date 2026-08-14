@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Systems Architecture Evolution (Red Team)
-tags: [attack,red-team,systems-architecture,evolution,kernel-virtualization,network-stack]
-source: hierarchy-systems-architecture-evolution.md
+tags:
+- attack
+- red-team
+- systems-architecture
+- evolution
+- kernel-virtualization
+- network-stack
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Systems Architecture Evolution — Perspektif Penyerang
 

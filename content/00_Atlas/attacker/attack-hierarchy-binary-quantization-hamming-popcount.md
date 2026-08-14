@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Binary Quantization, Hamming, Popcount (Red Team)
-tags: [attack,red-team,quantization,hamming,simhash,tlsh,embedding,evasion]
-source: hierarchy-binary-quantization-hamming-popcount.md
+tags:
+- attack
+- red-team
+- quantization
+- hamming
+- simhash
+- tlsh
+- embedding
+- evasion
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Binary Quantization & Hamming — Perspektif Penyerang
 

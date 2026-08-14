@@ -1,17 +1,18 @@
 ---
-title: "Orkestrasi Meta-Agen"
+title: Orkestrasi Meta-Agen
 tags:
-  - meta-agent
-  - orchestration
-  - multi-agent
-  - swarm
-  - delegation
+- meta-agent
+- orchestration
+- multi-agent
+- swarm
+- delegation
 aliases:
-  - Orkestrasi Meta-Agen
-  - Meta-Agent Orchestration
-  - Agent Swarm Manager
-  - Conductor
+- Orkestrasi Meta-Agen
+- Meta-Agent Orchestration
+- Agent Swarm Manager
+- Conductor
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

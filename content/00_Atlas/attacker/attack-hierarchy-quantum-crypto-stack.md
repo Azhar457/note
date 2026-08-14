@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Quantum Cryptography Stack (Red Team)
-tags: [attack,red-team,quantum,pqc,harvest-now,shor]
-source: hierarchy-quantum-cryptography-stack.md + hierarchy-quantum-cryptography.md
+tags:
+- attack
+- red-team
+- quantum
+- pqc
+- harvest-now
+- shor
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Quantum Crypto Stack — Perspektif Penyerang
 

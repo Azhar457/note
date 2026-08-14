@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Threat Intel Underground (Red Team)
-tags: [attack,red-team,threat-intel,underground,forum,marketplace,telegram,osint]
-source: threat-intel-underground.md
+tags:
+- attack
+- red-team
+- threat-intel
+- underground
+- forum
+- marketplace
+- telegram
+- osint
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Threat Intel Underground — Perspektif Penyerang
 

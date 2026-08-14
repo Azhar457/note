@@ -5,6 +5,9 @@ tags:
 created: '2026-07-01'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
 ---
 
 ### SOP: Quartz v4 + GitHub Pages (Windows)
@@ -41,9 +44,6 @@ Sekarang kamu punya repo sendiri. Clone ke lokal:
 bash
 
 ```bash
-cssclasses:
-  - wide-table
-  - callout
 
 # Ganti USERNAME dan REPO-NAME sesuai punyamu
 git clone https://github.com/USERNAME/REPO-NAME

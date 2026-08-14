@@ -1,24 +1,25 @@
 ---
+title: 🏗️ Foundations of Digital Plumbing — Image Codec, Parsing, Crypto, Aritmatika Biner
 tags:
-  - digital-plumbing
-  - image-codec
-  - jpeg
-  - png
-  - webp
-  - xml-parsing
-  - openssl
-  - protobuf
-  - simd
-  - serialization
-  - hashing
+- digital-plumbing
+- image-codec
+- jpeg
+- png
+- webp
+- xml-parsing
+- openssl
+- protobuf
+- simd
+- serialization
+- hashing
 aliases:
-  - Image Codec Crypto Parsing Foundations
-  - libjpeg-turbo libpng libwebp
-  - OpenSSL Protobuf SIMD
-  - Digital Plumbing Level 3-2-1
-status: pending
+- Image Codec Crypto Parsing Foundations
+- libjpeg-turbo libpng libwebp
+- OpenSSL Protobuf SIMD
+- Digital Plumbing Level 3-2-1
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -1,16 +1,17 @@
 ---
-title: "Cognitive Architecture Engineering"
+title: Cognitive Architecture Engineering
 tags:
-  - cognitive-architecture
-  - autonomous-systems
-  - meta-cognition
-  - agentic-ai
-  - evolution
+- cognitive-architecture
+- autonomous-systems
+- meta-cognition
+- agentic-ai
+- evolution
 aliases:
-  - Cognitive Architecture Engineering
-  - The Next Frontier
-  - Meta-Agent
+- Cognitive Architecture Engineering
+- The Next Frontier
+- Meta-Agent
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

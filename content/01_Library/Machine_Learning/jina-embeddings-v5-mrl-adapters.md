@@ -1,23 +1,23 @@
 ---
+title: 'Jina Embeddings v5: Matryoshka Representation Learning & Task-Specific LoRA Adapters'
 tags:
-  - machine-learning
-  - deep-learning
-  - embeddings
-  - mrl
-  - jina-ai
-  - lora
-  - rag
+- machine-learning
+- deep-learning
+- embeddings
+- mrl
+- jina-ai
+- lora
+- rag
 aliases:
-  - Jina Embeddings v5 MRL Adapters
-  - Jina Embeddings v5
-  - Matryoshka Representation Learning
-status: pending
+- Jina Embeddings v5 MRL Adapters
+- Jina Embeddings v5
+- Matryoshka Representation Learning
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Jina Embeddings v5: Matryoshka Representation Learning & Task-Specific LoRA Adapters

@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Endpoint Detection Playbook (Red Team)
-tags: [attack,red-team,endpoint,edr,sysmon,sigma,detection-bypass]
-source: endpoint-detection-playbook.md
+tags:
+- attack
+- red-team
+- endpoint
+- edr
+- sysmon
+- sigma
+- detection-bypass
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Endpoint Detection Playbook — Perspektif Penyerang
 

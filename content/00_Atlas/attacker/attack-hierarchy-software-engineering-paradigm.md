@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Software Engineering Paradigm (Red Team)
-tags: [attack,red-team,software-engineering,paradigm,sdl,owasp,devsecops-gap]
-source: hierarchy-software-engineering-paradigm.md
+tags:
+- attack
+- red-team
+- software-engineering
+- paradigm
+- sdl
+- owasp
+- devsecops-gap
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Software Engineering Paradigm — Perspektif Penyerang
 

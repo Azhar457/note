@@ -1,12 +1,15 @@
 ---
 title: 📦 Portfolio & Public Output
-created: '2026-07-06'
-updated: '2026-07-06'
+tags:
+- vault
+- note
+created: 2026-07-06
+updated: 2026-07-06
 status: pending
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # 📦 Portfolio & Public Output
 

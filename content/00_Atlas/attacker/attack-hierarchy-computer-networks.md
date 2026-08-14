@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Computer Networks (Red Team)
-tags: [attack,red-team,network,tcp-ip,dns,bgp,vpn,firewall-bypass]
-source: hierarchy-computer-networks.md
+tags:
+- attack
+- red-team
+- network
+- tcp-ip
+- dns
+- bgp
+- vpn
+- firewall-bypass
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Computer Networks — Perspektif Penyerang
 

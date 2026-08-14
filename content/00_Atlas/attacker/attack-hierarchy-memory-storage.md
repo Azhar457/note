@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Memory & Storage (Red Team)
-tags: [attack,red-team,memory,storage,dump,anti-forensics,bitlocker,luks]
-source: hierarchy-memory-storage.md
+tags:
+- attack
+- red-team
+- memory
+- storage
+- dump
+- anti-forensics
+- bitlocker
+- luks
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Memory & Storage — Perspektif Penyerang
 

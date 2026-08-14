@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Wireless Security (Red Team)
-tags: [attack,red-team,wireless,wifi,bluetooth,rfid,nfc,sdr]
-source: hierarchy-wireless.md
+tags:
+- attack
+- red-team
+- wireless
+- wifi
+- bluetooth
+- rfid
+- nfc
+- sdr
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Wireless — Perspektif Penyerang
 

@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Supply Chain Security (Red Team)
-tags: [attack,red-team,supply-chain,dependency-confusion,sbom,ci-cd]
-source: hierarchy-supply-chain-security.md
+tags:
+- attack
+- red-team
+- supply-chain
+- dependency-confusion
+- sbom
+- ci-cd
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Supply Chain — Perspektif Penyerang
 

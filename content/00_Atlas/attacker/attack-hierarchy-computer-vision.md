@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Computer Vision (Red Team)
-tags: [attack,red-team,computer-vision,adversarial-patch,deepfake,yolo,face-recognition]
-source: hierarchy-computer-vision.md
+tags:
+- attack
+- red-team
+- computer-vision
+- adversarial-patch
+- deepfake
+- yolo
+- face-recognition
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Computer Vision — Perspektif Penyerang
 

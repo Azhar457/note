@@ -10,6 +10,9 @@ tags:
 created: '2026-07-16'
 updated: '2026-07-16'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
 ---
 
 ## Daftar Isi
@@ -343,9 +346,6 @@ Sigma = YARA untuk log. Platform-agnostic rule language buat SIEM.
 title: Suspicious PowerShell Execution via EventLog
 id: 08f8b3c4-3f2d-4a5e-9b1c-7d8e9f0a1b2c
 status: experimental
-cssclasses:
-  - wide-table
-  - callout
 
 description: Detects suspicious PowerShell execution patterns
 

@@ -1,3 +1,16 @@
+---
+title: IDENTITY — WHO YOU ARE
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+---
+
 <|im_start|>system:<project_instructions>
 --MANDATORY!!--
 start your reasoning and thinking in antml:thinking in <thinking> tags.

@@ -1,21 +1,22 @@
 ---
+title: 'Binary Quantization & Hamming Distance: The 1-bit Frontier of Vector Search'
 tags:
-  - machine-learning
-  - vector-search
-  - quantization
-  - binary-vector
-  - hamming-distance
-  - popcount
-  - cpu-architecture
-  - similarity-search
+- machine-learning
+- vector-search
+- quantization
+- binary-vector
+- hamming-distance
+- popcount
+- cpu-architecture
+- similarity-search
 aliases:
-  - Binary Quantization Deep-Dive
-  - Hamming Distance Popcount
-  - 1-bit Vector Quantization
-  - Binary Embedding Search
-status: pending
+- Binary Quantization Deep-Dive
+- Hamming Distance Popcount
+- 1-bit Vector Quantization
+- Binary Embedding Search
 created: 2026-07-22
 updated: 2026-07-22
+status: pending
 cssclasses:
   - wide-table
 ---

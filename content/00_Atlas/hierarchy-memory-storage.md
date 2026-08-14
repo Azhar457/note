@@ -1,19 +1,20 @@
 ---
+title: 🗄️ Memory & Storage Hierarchy — Dari Register ke Cold Archive
 tags:
-  - hierarchy
-  - cross-cutting
-  - memory
-  - storage
-  - caching
-  - tier
+- hierarchy
+- cross-cutting
+- memory
+- storage
+- caching
+- tier
 aliases:
-  - Memory Hierarchy
-  - Storage Tier Map
-  - Cache Hierarchy
-  - From Register to Cold Archive
-status: pending
+- Memory Hierarchy
+- Storage Tier Map
+- Cache Hierarchy
+- From Register to Cold Archive
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

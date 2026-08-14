@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Recursive Ring Deepdive (Red Team)
-tags: [attack,red-team,recursive-ring,kernel,hypervisor,uefi,hardware-persistence]
-source: hierarchy-recursive-ring-deepdive.md
+tags:
+- attack
+- red-team
+- recursive-ring
+- kernel
+- hypervisor
+- uefi
+- hardware-persistence
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Recursive Ring Deepdive — Perspektif Penyerang (Persistence per Layer)
 

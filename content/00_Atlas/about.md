@@ -1,11 +1,17 @@
 ---
 title: Tentang Vault — Azhar's Notes
-tags: [vault, obsidian, documentation, knowledge-base]
+tags:
+- vault
+- obsidian
+- documentation
+- knowledge-base
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 
 # Tentang Vault — Azhar's Notes

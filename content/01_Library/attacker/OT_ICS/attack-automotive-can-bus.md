@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Automotive & CAN Bus (Red Team)
-tags: [attack,red-team,automotive,can-bus,uds,ecu,remote-keyless,telematics]
-source: automotive-can-bus-security.md
+tags:
+- attack
+- red-team
+- automotive
+- can-bus
+- uds
+- ecu
+- remote-keyless
+- telematics
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Automotive & CAN Bus — Perspektif Penyerang
 

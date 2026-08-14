@@ -1,23 +1,24 @@
 ---
+title: "Dependency Confusion & Supply Chain Attacks: Pentester's Playbook"
 tags:
-  - supply-chain-security
-  - dependency-confusion
-  - typosquatting
-  - package-security
-  - software-supply-chain
-  - sca
-  - slsa
-  - npm-security
-  - pip-security
-  - cargo-security
+- supply-chain-security
+- dependency-confusion
+- typosquatting
+- package-security
+- software-supply-chain
+- sca
+- slsa
+- npm-security
+- pip-security
+- cargo-security
 aliases:
-  - Dependency Confusion Attack
-  - Typosquatting Package Attack
-  - Supply Chain Attack Practical
-  - Dependency Hijacking
-status: pending
+- Dependency Confusion Attack
+- Typosquatting Package Attack
+- Supply Chain Attack Practical
+- Dependency Hijacking
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

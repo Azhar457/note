@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Operating Systems (Red Team)
-tags: [attack,red-team,os,kernel,linux,windows,privilege-escalation]
-source: hierarchy-operating-systems.md
+tags:
+- attack
+- red-team
+- os
+- kernel
+- linux
+- windows
+- privilege-escalation
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Operating Systems — Perspektif Penyerang
 

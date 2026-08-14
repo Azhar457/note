@@ -1,21 +1,22 @@
 ---
+title: 🎬 FFmpeg Multimedia Framework — Arsitektur & Pipeline Transcoding
 tags:
-  - digital-plumbing
-  - ffmpeg
-  - multimedia
-  - video-processing
-  - audio-processing
-  - codec
-  - libav
-  - transcoding
+- digital-plumbing
+- ffmpeg
+- multimedia
+- video-processing
+- audio-processing
+- codec
+- libav
+- transcoding
 aliases:
-  - FFmpeg Architecture Deep-Dive
-  - Multimedia Framework
-  - libavcodec libavformat
-  - FFmpeg Pipeline
-status: pending
+- FFmpeg Architecture Deep-Dive
+- Multimedia Framework
+- libavcodec libavformat
+- FFmpeg Pipeline
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

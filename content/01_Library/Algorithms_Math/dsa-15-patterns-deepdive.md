@@ -1,17 +1,18 @@
 ---
+title: '🧩 15 DSA Patterns — Deep Dive: Mastering Algorithmic Problem Solving'
 tags:
-  - dsa
-  - algorithms
-  - data-structures
-  - coding-patterns
-  - leetcode
-  - interview-prep
-  - problem-solving
+- dsa
+- algorithms
+- data-structures
+- coding-patterns
+- leetcode
+- interview-prep
+- problem-solving
 aliases:
-  - DSA Patterns
-  - 15 Algorithm Patterns
-  - Coding Interview Patterns
-  - LeetCode Patterns
+- DSA Patterns
+- 15 Algorithm Patterns
+- Coding Interview Patterns
+- LeetCode Patterns
 created: 2026-07-09
 updated: 2026-07-09
 status: pending

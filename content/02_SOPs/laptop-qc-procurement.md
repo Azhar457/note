@@ -5,11 +5,12 @@ tags:
 created: '2026-05-11'
 updated: '2026-07-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+
+---
+
 
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide
 

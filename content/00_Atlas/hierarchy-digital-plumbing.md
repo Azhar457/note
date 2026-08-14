@@ -1,22 +1,23 @@
 ---
+title: 🔧 Digital Plumbing Hierarchy — Fondasi Pipa Digital yang Terlupakan
 tags:
-  - digital-plumbing
-  - ffmpeg
-  - compression
-  - codec
-  - infrastructure
-  - hidden-infrastructure
-  - unix-philosophy
-  - multimedia
+- digital-plumbing
+- ffmpeg
+- compression
+- codec
+- infrastructure
+- hidden-infrastructure
+- unix-philosophy
+- multimedia
 aliases:
-  - Pipa Digital
-  - Fondasi Tersembunyi Internet
-  - Digital Plumbing Architecture
-  - Pahlawan Tak Dikenal
-  - Hidden Infrastructure Stack
-status: pending
+- Pipa Digital
+- Fondasi Tersembunyi Internet
+- Digital Plumbing Architecture
+- Pahlawan Tak Dikenal
+- Hidden Infrastructure Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

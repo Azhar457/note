@@ -1,14 +1,24 @@
 ---
-tags: [fastapi, gunicorn, uvicorn, deployment, production, asgi, wsgi, python]
-aliases: [FastAPI Deployment, Gunicorn Uvicorn, FastAPI Production]
-status: pending
+title: ❌ SALAH — app code
+tags:
+- fastapi
+- gunicorn
+- uvicorn
+- deployment
+- production
+- asgi
+- wsgi
+- python
+aliases:
+- FastAPI Deployment
+- Gunicorn Uvicorn
+- FastAPI Production
 created: 2026-07-26
 updated: 2026-07-26
+status: pending
 cssclasses:
   - wide-table
   - callout
-
-source: https://medium.com/@iklobato/mastering-gunicorn-and-uvicorn-the-right-way-to-deploy-fastapi-applications-aaa06849841e
 ---
 
 > [!abstract] Gunicorn + Uvicorn: The Right Way

@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Classical ML Algorithms (Red Team)
-tags: [attack,red-team,ml,classical,adversarial,poisoning,model-stealing,evasion]
-source: hierarchy-classical-ml-algorithms.md
+tags:
+- attack
+- red-team
+- ml
+- classical
+- adversarial
+- poisoning
+- model-stealing
+- evasion
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Classical ML Algorithms — Perspektif Penyerang
 

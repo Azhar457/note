@@ -1,24 +1,25 @@
 ---
+title: 'Teori Transisi Metrik: Bagaimana Kuantisasi Mengubah Geometri Similarity'
 tags:
-  - hierarchy
-  - machine-learning
-  - vector-search
-  - metric-learning
-  - similarity
-  - cosine-similarity
-  - hamming-distance
-  - quantization
-  - metric-transition
+- hierarchy
+- machine-learning
+- vector-search
+- metric-learning
+- similarity
+- cosine-similarity
+- hamming-distance
+- quantization
+- metric-transition
 aliases:
-  - Metric Transition Principle
-  - Cosine to Hamming Transition
-  - Metric Transition Phase Change
-  - Optimal Metric per Precision
-  - Similarity Metric Taxonomy
-  - Teori Transisi Metrik
-status: pending
+- Metric Transition Principle
+- Cosine to Hamming Transition
+- Metric Transition Phase Change
+- Optimal Metric per Precision
+- Similarity Metric Taxonomy
+- Teori Transisi Metrik
 created: 2026-07-22
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

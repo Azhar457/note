@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — LLM & AI Systems (Red Team)
-tags: [attack,red-team,llm,prompt-injection,rag,mcp,agent,ai-security]
-source: hierarchy-llm-ai-systems.md
+tags:
+- attack
+- red-team
+- llm
+- prompt-injection
+- rag
+- mcp
+- agent
+- ai-security
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # LLM & AI Systems — Perspektif Penyerang
 

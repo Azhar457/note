@@ -1,29 +1,30 @@
 ---
+title: 15 Types Of Thinking
 tags:
-  - cognitive-thinking
-  - critical-thinking
-  - creative-thinking
-  - analytical-thinking
-  - design-thinking
-  - strategic-thinking
-  - systems-thinking
-  - computational-thinking
-  - divergent-thinking
-  - convergent-thinking
-  - lateral-thinking
-  - abstract-thinking
-  - concrete-thinking
-  - metacognitive-thinking
-  - futures-thinking
+- cognitive-thinking
+- critical-thinking
+- creative-thinking
+- analytical-thinking
+- design-thinking
+- strategic-thinking
+- systems-thinking
+- computational-thinking
+- divergent-thinking
+- convergent-thinking
+- lateral-thinking
+- abstract-thinking
+- concrete-thinking
+- metacognitive-thinking
+- futures-thinking
 aliases:
-  - Types of Thinking
-  - Cognitive Architecture
-  - How We Think
+- Types of Thinking
+- Cognitive Architecture
+- How We Think
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table
-
 ---
 
 > [!abstract] Mengapa Ini Penting?

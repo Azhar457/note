@@ -7,6 +7,9 @@ tags:
 created: '2026-07-01'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
 ---
 
 # 🛡️ Blue Team Playbook — Melawan Enterprise C2 Infrastructure
@@ -40,9 +43,6 @@ event dns_request(c: connection, msg: dns_msg, query: string, qtype: count, qcla
 ```yaml
 title: Outbound HTTPS to Recently Registered Domain
 status: experimental
-cssclasses:
-  - wide-table
-  - callout
 
 logsource:
   category: proxy

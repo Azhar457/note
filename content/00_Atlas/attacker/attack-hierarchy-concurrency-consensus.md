@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Concurrency & Consensus (Red Team)
-tags: [attack,red-team,concurrency,consensus,race-condition,toctou,distributed-systems]
-source: hierarchy-concurrency-consensus.md
+tags:
+- attack
+- red-team
+- concurrency
+- consensus
+- race-condition
+- toctou
+- distributed-systems
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Concurrency & Consensus — Perspektif Penyerang
 

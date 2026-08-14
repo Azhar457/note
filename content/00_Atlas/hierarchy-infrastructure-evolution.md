@@ -1,19 +1,20 @@
 ---
+title: 🏭 Infrastructure Evolution — Dari Mainframe ke AI-Native Edge Cloud
 tags:
-  - hierarchy
-  - infrastructure
-  - cloud
-  - edge
-  - devops
-  - platform-engineering
+- hierarchy
+- infrastructure
+- cloud
+- edge
+- devops
+- platform-engineering
 aliases:
-  - Infrastructure Evolution
-  - Cloud to Edge Hierarchy
-  - Infrastructure Layer Map
-  - From Datacenter to AI-Native
-status: pending
+- Infrastructure Evolution
+- Cloud to Edge Hierarchy
+- Infrastructure Layer Map
+- From Datacenter to AI-Native
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

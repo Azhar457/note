@@ -1,17 +1,18 @@
 ---
-title: "Desain Sistem Otonom"
+title: Desain Sistem Otonom
 tags:
-  - autonomous-systems
-  - agentic-ai
-  - continual-learning
-  - goal-management
-  - self-improvement
+- autonomous-systems
+- agentic-ai
+- continual-learning
+- goal-management
+- self-improvement
 aliases:
-  - Desain Sistem Otonom
-  - Autonomous Agent Design
-  - Self-Directed AI
-  - Long-Running Autonomy
+- Desain Sistem Otonom
+- Autonomous Agent Design
+- Self-Directed AI
+- Long-Running Autonomy
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

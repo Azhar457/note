@@ -1,20 +1,20 @@
 ---
+title: 'Backpropagation: Fondasi Training Neural Network'
 tags:
-  - deep-learning
-  - neural-network
-  - backpropagation
-  - gradient-descent
+- deep-learning
+- neural-network
+- backpropagation
+- gradient-descent
 aliases:
-  - Backpropagation
-  - Propagasi Balik
-  - Error Backpropagation
-status: pending
+- Backpropagation
+- Propagasi Balik
+- Error Backpropagation
 created: 2026-07-11
 updated: 2026-07-11
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Backpropagation: Fondasi Training Neural Network

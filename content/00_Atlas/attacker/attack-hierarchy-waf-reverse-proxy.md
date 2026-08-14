@@ -1,12 +1,22 @@
 ---
 title: Attack Perspective — WAF & Reverse Proxy (Red Team Evasion)
-tags: [attack,red-team,waf,bypass,evasion,nginx,cloudflare,modsecurity,encoding]
-source: hierarchy-waf-reverse-proxy.md
+tags:
+- attack
+- red-team
+- waf
+- bypass
+- evasion
+- nginx
+- cloudflare
+- modsecurity
+- encoding
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # WAF & Reverse Proxy — Perspektif Penyerang (Evasion)
 

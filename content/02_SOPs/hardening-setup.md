@@ -1,3 +1,17 @@
+---
+title: KEYS
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+
+---
+
 ```bash
 ssh-keygen -t ed25519 -C "root@[IP-REDACTED]" -f ~/.ssh/vps_root
 ssh-keygen -t ed25519 -C "dev@[IP-REDACTED]" -f ~/.ssh/vps_dev

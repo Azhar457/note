@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Side Channel Analysis (Red Team)
-tags: [attack,red-team,side-channel,spectre,meltdown,rowhammer,tempest]
-source: hierarchy-side-channel.md
+tags:
+- attack
+- red-team
+- side-channel
+- spectre
+- meltdown
+- rowhammer
+- tempest
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Side Channel — Perspektif Penyerang (Hardware-Level)
 

@@ -1,3 +1,17 @@
+---
+title: AI Agent Readability & Writing Guide for this Vault
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+
+---
+
 cssclasses:
   - wide-table
   - callout

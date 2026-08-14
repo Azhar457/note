@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — AI Levels (Red Team Capability)
-tags: [attack,red-team,ai-levels,ani,agi,asi,alignment,adversarial]
-source: hierarchy-ai-levels.md
+tags:
+- attack
+- red-team
+- ai-levels
+- ani
+- agi
+- asi
+- alignment
+- adversarial
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # AI Levels — Perspektif Penyerang
 

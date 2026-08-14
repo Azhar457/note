@@ -1,22 +1,22 @@
 ---
+title: 'Jina Reranker v3: Arsitektur Listwise Cross-Encoder untuk Precision-Critical RAG Pipeline'
 tags:
-  - machine-learning
-  - deep-learning
-  - rag
-  - reranking
-  - jina-ai
-  - cross-encoder
+- machine-learning
+- deep-learning
+- rag
+- reranking
+- jina-ai
+- cross-encoder
 aliases:
-  - Jina Reranker v3 Deepdive
-  - Jina Reranker v3
-  - Listwise Reranker
-status: pending
+- Jina Reranker v3 Deepdive
+- Jina Reranker v3
+- Listwise Reranker
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Jina Reranker v3: Arsitektur Listwise Cross-Encoder untuk Precision-Critical RAG Pipeline

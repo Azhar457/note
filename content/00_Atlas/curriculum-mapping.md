@@ -5,11 +5,11 @@ tags:
 created: 2026-04-25
 updated: 2026-07-01
 status: complete
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🎓 KURIKULUM MAPPING — Pendidikan Matematika → CS/Security
 

@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — CTF Competition Framework (Red Team Training)
-tags: [attack,red-team,ctf,pwn,web,crypto,forensics,reverse]
-source: hierarchy-ctf-competition-framework.md
+tags:
+- attack
+- red-team
+- ctf
+- pwn
+- web
+- crypto
+- forensics
+- reverse
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # CTF Framework — Perspektif Penyerang (Skill Transfer)
 

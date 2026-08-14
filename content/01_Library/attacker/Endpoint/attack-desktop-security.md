@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Desktop Security (Red Team)
-tags: [attack,red-team,desktop,os,persistence,evasion,hardening-bypass]
-source: desktop-security.md
+tags:
+- attack
+- red-team
+- desktop
+- os
+- persistence
+- evasion
+- hardening-bypass
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Desktop Security — Perspektif Penyerang
 

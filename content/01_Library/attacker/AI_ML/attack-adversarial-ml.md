@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Adversarial ML (Red Team)
-tags: [attack,red-team,adversarial-ml,evasion,poisoning,model-stealing,inference]
-source: adversarial-machine-learning.md
+tags:
+- attack
+- red-team
+- adversarial-ml
+- evasion
+- poisoning
+- model-stealing
+- inference
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Adversarial ML — Perspektif Penyerang
 

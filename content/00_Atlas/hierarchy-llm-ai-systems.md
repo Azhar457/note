@@ -1,21 +1,22 @@
 ---
+title: 🤖 LLM AI Systems Hierarchy — The Complete Production Stack
 tags:
-  - hierarchy
-  - ai-systems
-  - llm
-  - rag
-  - mcp
-  - agent
-  - fine-tuning
-  - inference
+- hierarchy
+- ai-systems
+- llm
+- rag
+- mcp
+- agent
+- fine-tuning
+- inference
 aliases:
-  - LLM AI Systems Hierarchy
-  - LLM Stack Layers
-  - AI Systems Map
-  - LLM Production Stack
-status: pending
+- LLM AI Systems Hierarchy
+- LLM Stack Layers
+- AI Systems Map
+- LLM Production Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

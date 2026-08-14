@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — APT C2 & DNS (Red Team)
-tags: [attack,red-team,c2,dns,tunnel,domain-fronting,beacon,apt]
-source: apt-c2-dns.md
+tags:
+- attack
+- red-team
+- c2
+- dns
+- tunnel
+- domain-fronting
+- beacon
+- apt
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # APT C2 & DNS — Perspektif Penyerang
 

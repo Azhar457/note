@@ -1,10 +1,26 @@
 ---
-tags: [robotics, autonomous-systems, ros, slam, path-planning, drone, swarm-robotics, manipulation, inverse-kinematics, mpc]
-aliases: [RAS, Robotics Deep Dive, Autonomous Systems]
-status: complete
+title: Robotics Autonomous Systems
+tags:
+- robotics
+- autonomous-systems
+- ros
+- slam
+- path-planning
+- drone
+- swarm-robotics
+- manipulation
+- inverse-kinematics
+- mpc
+aliases:
+- RAS
+- Robotics Deep Dive
+- Autonomous Systems
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Robotics & Autonomous Systems

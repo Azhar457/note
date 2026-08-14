@@ -6,11 +6,11 @@ tags:
 created: '2026-06-27'
 updated: '2026-07-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # ☠️ MILITARY & INTELLIGENCE TOOLS — The Shadow Arsenal Hierarchy
 

@@ -1,12 +1,22 @@
 ---
 title: Attack Perspective — Infrastructure Evolution (Red Team)
-tags: [attack,red-team,infrastructure,evolution,bare-metal,cloud,edge,sdn,noauth]
-source: hierarchy-infrastructure-evolution.md
+tags:
+- attack
+- red-team
+- infrastructure
+- evolution
+- bare-metal
+- cloud
+- edge
+- sdn
+- noauth
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Infrastructure Evolution — Perspektif Penyerang
 

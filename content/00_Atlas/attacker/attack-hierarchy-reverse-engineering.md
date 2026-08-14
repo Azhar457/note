@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Reverse Engineering (Red Team)
-tags: [attack,red-team,re,reverse-engineering,malware,exploit]
-source: hierarchy-reverse-engineering.md
+tags:
+- attack
+- red-team
+- re
+- reverse-engineering
+- malware
+- exploit
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Reverse Engineering — Perspektif Penyerang
 

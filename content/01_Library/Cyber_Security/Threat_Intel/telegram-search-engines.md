@@ -1,3 +1,16 @@
+---
+title: Telegram Group/Channel Search Engines (OSINT)
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Telegram Group/Channel Search Engines (OSINT)
 
 **Source:** Riset search engine Telegram (2026-08-09)

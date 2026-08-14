@@ -11,11 +11,11 @@ aliases:
 created: "2026-07-17"
 updated: '2026-07-17'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔧 HIERARKI REVERSE ENGINEERING — Dari String & Metadata (Level 0) sampai Deobfuscation VM (Level 7)
 

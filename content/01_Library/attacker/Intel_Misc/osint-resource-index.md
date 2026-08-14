@@ -1,19 +1,20 @@
 ---
+title: 🌐 Sumber Daya Militer, Intelijen & Riset Pertahanan Global
 tags:
-  - osint
-  - intelligence
-  - military
-  - defense
-  - cybersecurity
-  - think-tank
+- osint
+- intelligence
+- military
+- defense
+- cybersecurity
+- think-tank
 aliases:
-  - OSINT Resource Index
-  - Global Defense Research Portal
-  - Military Intelligence Resource Directory
-  - Sumber Daya Intelijen Global
-status: pending
+- OSINT Resource Index
+- Global Defense Research Portal
+- Military Intelligence Resource Directory
+- Sumber Daya Intelijen Global
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -1,20 +1,21 @@
 ---
+title: 🏗️ Systems Architecture Evolution — Dari Mainframe ke AI-Orchestrated Fabric
 tags:
-  - hierarchy
-  - systems-architecture
-  - distributed-systems
-  - monolith
-  - microservices
-  - serverless
-  - event-driven
+- hierarchy
+- systems-architecture
+- distributed-systems
+- monolith
+- microservices
+- serverless
+- event-driven
 aliases:
-  - Systems Architecture Evolution
-  - Architecture Style Map
-  - Big System Design Hierarchy
-  - From Monolith to AI Orchestration
-status: pending
+- Systems Architecture Evolution
+- Architecture Style Map
+- Big System Design Hierarchy
+- From Monolith to AI Orchestration
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

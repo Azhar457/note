@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Covert Channel (Red Team)
-tags: [attack,red-team,covert-channel,dns,icmp,http-stego,lsb,side-channel]
-source: covert-channel-encyclopedia.md
+tags:
+- attack
+- red-team
+- covert-channel
+- dns
+- icmp
+- http-stego
+- lsb
+- side-channel
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Covert Channel — Perspektif Penyerang
 

@@ -1,23 +1,23 @@
 ---
+title: 'Homelab Proxmox Architecture: ZFS, Network Segmentation, dan Backup Strategy'
 tags:
-  - systems-architecture
-  - homelab
-  - proxmox
-  - virtualization
-  - networking
-  - storage
+- systems-architecture
+- homelab
+- proxmox
+- virtualization
+- networking
+- storage
 aliases:
-  - Homelab Proxmox Architecture
-  - Proxmox Architecture
-  - ZFS Homelab
-status: pending
+- Homelab Proxmox Architecture
+- Proxmox Architecture
+- ZFS Homelab
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
   - code-wrap
-
 ---
 
 # Homelab Proxmox Architecture: ZFS, Network Segmentation, dan Backup Strategy

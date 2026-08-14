@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Framework Crosswalk (Red Team Mapping)
-tags: [attack,red-team,crosswalk,mitre,nist,cis,owasp,framework]
-source: hierarchy-crosswalk.md
+tags:
+- attack
+- red-team
+- crosswalk
+- mitre
+- nist
+- cis
+- owasp
+- framework
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Framework Crosswalk — Perspektif Penyerang
 

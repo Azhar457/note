@@ -1,3 +1,16 @@
+---
+title: Incident Response Framework
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+---
+
 # Incident Response Framework
 
 Kerangka standar untuk *incident response* (IR) di lingkungan organisasi. Mengacu pada NIST SP 800-61 Rev. 2, ISO 27035, dan praktik industri.

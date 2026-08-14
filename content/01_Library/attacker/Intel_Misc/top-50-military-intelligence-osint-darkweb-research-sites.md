@@ -1,10 +1,25 @@
 ---
-tags: [osint, intelligence, military, research, darkweb, tor, leak-databases, geopolitics, threat-intel, academic-resources]
-aliases: [Top-50-Research-Sites-Intel-Mil-Darkweb, Military-Intelligence-OSINT-Directory, Darkweb-Gateways]
-status: complete
+title: Top 50 Military Intelligence Osint Darkweb Research Sites
+tags:
+- osint
+- intelligence
+- military
+- research
+- darkweb
+- tor
+- leak-databases
+- geopolitics
+- threat-intel
+- academic-resources
+aliases:
+- Top-50-Research-Sites-Intel-Mil-Darkweb
+- Military-Intelligence-OSINT-Directory
+- Darkweb-Gateways
 created: 2026-08-02
 updated: 2026-08-02
-cssclasses: [wide-table]
+status: complete
+cssclasses:
+  - wide-table
 ---
 
 > [!abstract] Top 50 Essential Sites — Research, Military, Intelligence & Dark Web

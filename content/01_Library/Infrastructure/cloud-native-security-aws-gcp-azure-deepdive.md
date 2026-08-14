@@ -1,22 +1,23 @@
 ---
+title: 'Cloud Native Security: AWS, GCP, Azure — Attack & Defense'
 tags:
-  - cloud-security
-  - aws
-  - gcp
-  - azure
-  - iam
-  - container-security
-  - metadata-service
-  - cloud-pentest
-  - cloud-defense
+- cloud-security
+- aws
+- gcp
+- azure
+- iam
+- container-security
+- metadata-service
+- cloud-pentest
+- cloud-defense
 aliases:
-  - Cloud Security Deep-Dive
-  - AWS GCP Azure Pentest
-  - Cloud Native Attack & Defense
-  - Cloud IAM Abuse
-status: pending
+- Cloud Security Deep-Dive
+- AWS GCP Azure Pentest
+- Cloud Native Attack & Defense
+- Cloud IAM Abuse
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

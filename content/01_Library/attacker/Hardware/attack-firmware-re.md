@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Firmware RE (Red Team)
-tags: [attack,red-team,firmware,binwalk,uefi,spi-flash,backdoor,extraction]
-source: firmware-re.md
+tags:
+- attack
+- red-team
+- firmware
+- binwalk
+- uefi
+- spi-flash
+- backdoor
+- extraction
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Firmware RE — Perspektif Penyerang
 

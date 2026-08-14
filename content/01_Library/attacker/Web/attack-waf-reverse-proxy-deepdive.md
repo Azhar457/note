@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — WAF Reverse Proxy (Red Team Deepdive)
-tags: [attack,red-team,waf,reverse-proxy,desync,smuggling,origin-bypass]
-source: waf-reverse-proxy-deepdive.md
+tags:
+- attack
+- red-team
+- waf
+- reverse-proxy
+- desync
+- smuggling
+- origin-bypass
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # WAF & Reverse Proxy — Perspektif Penyerang (Deepdive)
 

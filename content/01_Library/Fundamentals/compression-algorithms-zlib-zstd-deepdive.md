@@ -1,21 +1,22 @@
 ---
+title: 🗜️ Compression Algorithms — Dari Deflate hingga Zstandard
 tags:
-  - digital-plumbing
-  - compression
-  - zlib
-  - zstd
-  - deflate
-  - lzma
-  - information-theory
-  - entropy-coding
+- digital-plumbing
+- compression
+- zlib
+- zstd
+- deflate
+- lzma
+- information-theory
+- entropy-coding
 aliases:
-  - Compression Algorithms Deep-Dive
-  - zlib zstd Deflate LZMA
-  - Data Compression Internals
-  - Lossless Compression Taxonomy
-status: pending
+- Compression Algorithms Deep-Dive
+- zlib zstd Deflate LZMA
+- Data Compression Internals
+- Lossless Compression Taxonomy
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

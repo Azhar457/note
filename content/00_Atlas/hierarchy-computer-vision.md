@@ -1,19 +1,20 @@
 ---
+title: 👁️ Computer Vision — Dari Pixels ke Scene Understanding
 tags:
-  - hierarchy
-  - computer-vision
-  - cnn
-  - object-detection
-  - segmentation
-  - image-processing
+- hierarchy
+- computer-vision
+- cnn
+- object-detection
+- segmentation
+- image-processing
 aliases:
-  - Computer Vision Hierarchy
-  - CV Stack
-  - From Pixels to Understanding
-  - Image Processing Pipeline
-status: pending
+- Computer Vision Hierarchy
+- CV Stack
+- From Pixels to Understanding
+- Image Processing Pipeline
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Metric & Transition Theory (Red Team Gaming)
-tags: [attack,red-team,metric,transition,game-theory,deception,signal-detection]
-source: hierarchy-metric-transition-theory.md
+tags:
+- attack
+- red-team
+- metric
+- transition
+- game-theory
+- deception
+- signal-detection
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Metric & Transition Theory — Perspektif Penyerang (Game Theory)
 

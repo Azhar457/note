@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Blockchain & Smart Contract (Red Team)
-tags: [attack,red-team,blockchain,smart-contract,reentrancy,flash-loan,defi,exploit]
-source: blockchain-smart-contract-security.md
+tags:
+- attack
+- red-team
+- blockchain
+- smart-contract
+- reentrancy
+- flash-loan
+- defi
+- exploit
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Blockchain & Smart Contract — Perspektif Penyerang
 

@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — OSINT & Search (Red Team Recon)
-tags: [attack,red-team,osint,recon,sigint,xkeyscore]
-source: hierarchy-search.md + hierarchy-osint-rf.md
+tags:
+- attack
+- red-team
+- osint
+- recon
+- sigint
+- xkeyscore
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # OSINT & Search — Perspektif Penyerang (Recon)
 

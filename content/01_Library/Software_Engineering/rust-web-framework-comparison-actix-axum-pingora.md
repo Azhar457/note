@@ -1,22 +1,22 @@
 ---
+title: 'Rust Web Framework Comparison: Actix Web, Axum, dan Pingora dalam Konteks Production Proxy'
 tags:
-  - software-engineering
-  - rust
-  - web-framework
-  - axum
-  - actix-web
-  - pingora
+- software-engineering
+- rust
+- web-framework
+- axum
+- actix-web
+- pingora
 aliases:
-  - Rust Web Framework Comparison
-  - Actix vs Axum vs Pingora
-  - Web Framework Comparison
-status: pending
+- Rust Web Framework Comparison
+- Actix vs Axum vs Pingora
+- Web Framework Comparison
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Rust Web Framework Comparison: Actix Web, Axum, dan Pingora dalam Konteks Production Proxy

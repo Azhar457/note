@@ -1,19 +1,20 @@
 ---
+title: 🧊 Compiler Design — Dari Source Code ke Machine Code
 tags:
-  - hierarchy
-  - compiler
-  - programming-language
-  - llvm
-  - parser
-  - optimization
+- hierarchy
+- compiler
+- programming-language
+- llvm
+- parser
+- optimization
 aliases:
-  - Compiler Design Hierarchy
-  - Compiler Architecture
-  - From Source to Machine Code
-  - Compiler Pipeline Stack
-status: pending
+- Compiler Design Hierarchy
+- Compiler Architecture
+- From Source to Machine Code
+- Compiler Pipeline Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

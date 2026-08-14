@@ -1,20 +1,21 @@
 ---
+title: 🌌 Quantum Cryptography Stack — Dari Klasik ke Post-Quantum sampai Quantum-Native
 tags:
-  - hierarchy
-  - cryptography
-  - quantum
-  - post-quantum
-  - pqc
-  - qkd
-  - tls
+- hierarchy
+- cryptography
+- quantum
+- post-quantum
+- pqc
+- qkd
+- tls
 aliases:
-  - Quantum Cryptography Stack
-  - Classical to Post-Quantum to Quantum Migration
-  - Crypto Roadmap Hierarchy
-  - Cryptography Layer Map
-status: pending
+- Quantum Cryptography Stack
+- Classical to Post-Quantum to Quantum Migration
+- Crypto Roadmap Hierarchy
+- Cryptography Layer Map
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

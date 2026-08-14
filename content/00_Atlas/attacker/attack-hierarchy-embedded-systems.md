@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Embedded Systems (Red Team)
-tags: [attack,red-team,embedded,iot,rtos,safety-critical,firmware]
-source: hierarchy-embedded-systems.md
+tags:
+- attack
+- red-team
+- embedded
+- iot
+- rtos
+- safety-critical
+- firmware
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Embedded Systems — Perspektif Penyerang
 

@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Network Forensics (Red Team Anti-Forensics)
-tags: [attack,red-team,network-forensics,anti-forensics,pcap,zeek,traffic-shaping]
-source: hierarchy-network-forensics.md
+tags:
+- attack
+- red-team
+- network-forensics
+- anti-forensics
+- pcap
+- zeek
+- traffic-shaping
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Network Forensics — Perspektif Anti-Forensics (Red Team)
 

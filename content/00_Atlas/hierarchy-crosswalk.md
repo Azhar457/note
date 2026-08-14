@@ -1,14 +1,23 @@
 ---
-tags: [atlas, hierarchy, gap-analysis, knowledge-management, crosswalk]
-aliases: [Hierarchy Crosswalk, Hierarchy Gap Map, Neraca Hierarchy]
-status: pending
+title: 'Regenerate: jalanin script audit hierarchy → deepdive'
+tags:
+- atlas
+- hierarchy
+- gap-analysis
+- knowledge-management
+- crosswalk
+aliases:
+- Hierarchy Crosswalk
+- Hierarchy Gap Map
+- Neraca Hierarchy
 created: 2026-07-26
 updated: 2026-07-26
----
-
+status: pending
 cssclasses:
   - wide-table
   - callout
+---
+
 
 > [!abstract] Peta Koneksi Hierarchy → Library Deepdive
 > Catatan ini memetakan semua file `hierarchy-*.md` di 00_Atlas ke deepdive yang ada di 01_Library. Hierarchy **tanpa** deepdive adalah prioritas catatan baru. Hierarchy **dengan** deepdive tapi stale/low-coverage perlu update. Warna: ✅ aman, ⚠️ partial, ❌ belum ada.

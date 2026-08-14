@@ -1,19 +1,20 @@
 ---
+title: 🪪 Identity & Trust Hierarchy — Dari Anonim ke Self-Sovereign
 tags:
-  - hierarchy
-  - cross-cutting
-  - identity
-  - trust
-  - iam
-  - zero-trust
+- hierarchy
+- cross-cutting
+- identity
+- trust
+- iam
+- zero-trust
 aliases:
-  - Identity and Trust Hierarchy
-  - From Anonymous to Sovereign Identity
-  - Trust Model Map
-  - Authentication Levels
-status: pending
+- Identity and Trust Hierarchy
+- From Anonymous to Sovereign Identity
+- Trust Model Map
+- Authentication Levels
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

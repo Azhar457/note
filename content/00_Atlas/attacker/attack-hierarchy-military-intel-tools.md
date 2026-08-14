@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Military & Intelligence Tools (Red Team / APT)
-tags: [attack,red-team,military,intel,sigint,apt,nation-state,spyware]
-source: hierarchy-military-intel-tools.md
+tags:
+- attack
+- red-team
+- military
+- intel
+- sigint
+- apt
+- nation-state
+- spyware
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Military & Intel Tools — Perspektif APT / Nation-State
 

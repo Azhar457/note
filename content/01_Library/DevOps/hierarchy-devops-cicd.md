@@ -1,3 +1,16 @@
+---
+title: — DevOps CI/CD Attack Surface
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+---
+
 
 cssclasses:
   - wide-table

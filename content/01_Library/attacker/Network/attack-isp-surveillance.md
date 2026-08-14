@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — ISP Surveillance (Red Team Counter)
-tags: [attack,red-team,isp,surveillance,metadata,dpi,encryption]
-source: isp-surveillance-privacy-deepdive.md
+tags:
+- attack
+- red-team
+- isp
+- surveillance
+- metadata
+- dpi
+- encryption
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # ISP Surveillance — Perspektif Penyerang
 

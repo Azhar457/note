@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — IT Domain & IT Support Model (Red Team)
-tags: [attack,red-team,it-domain,helpdesk,service-desk,ad,lateral-movement]
-source: hierarchy-it-domain.md + hierarchy-it-support-model.md
+tags:
+- attack
+- red-team
+- it-domain
+- helpdesk
+- service-desk
+- ad
+- lateral-movement
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # IT Domain & Support Model — Perspektif Penyerang
 

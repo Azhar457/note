@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Digital Plumbing (TLS, OpenSSL, Certificate, Encoding)
-tags: [attack,red-team,tls,openssl,certificate,encoding,deserialization]
-source: hierarchy-digital-plumbing.md
+tags:
+- attack
+- red-team
+- tls
+- openssl
+- certificate
+- encoding
+- deserialization
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Digital Plumbing — Perspektif Penyerang
 

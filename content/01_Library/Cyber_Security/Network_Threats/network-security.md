@@ -1,13 +1,14 @@
 ---
-cssclasses:
-- callout
-status: complete
-updated: '2026-08-14'
-title: "Network Security \u2014 OSI Layer 1\u20138"
+title: Network Security — OSI Layer 1–8
 tags:
 - network-security
 - blue-team
 - red-team
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - callout
 ---
 
 | Item | Detail |

@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Civilization Reboot Knowledge (Red Team Survival)
-tags: [attack,red-team,civilization-reboot,survival,production,infrastructure-collapse]
-source: civilization-reboot-knowledge.md
+tags:
+- attack
+- red-team
+- civilization-reboot
+- survival
+- production
+- infrastructure-collapse
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Civilization Reboot — Perspektif Penyerang (Infrastructure Collapse)
 

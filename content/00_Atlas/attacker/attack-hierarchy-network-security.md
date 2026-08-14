@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Network Security (Red Team / Adversary)
-tags: [attack,red-team,network,osi,c2,lateral]
-source: hierarchy-network-security.md
+tags:
+- attack
+- red-team
+- network
+- osi
+- c2
+- lateral
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Network Security — Perspektif Penyerang per OSI Layer
 

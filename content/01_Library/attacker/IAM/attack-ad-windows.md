@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — AD & Windows (Red Team)
-tags: [attack,red-team,ad,kerberos,dcsync,kerberoast,bloodhound,zerologon]
-source: ad-windows-security.md
+tags:
+- attack
+- red-team
+- ad
+- kerberos
+- dcsync
+- kerberoast
+- bloodhound
+- zerologon
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Active Directory & Windows — Perspektif Penyerang
 

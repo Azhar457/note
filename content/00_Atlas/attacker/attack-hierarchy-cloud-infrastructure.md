@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Cloud Infrastructure (Red Team)
-tags: [attack,red-team,cloud,iam,k8s,container,imds]
-source: hierarchy-cloud-infrastructure.md
+tags:
+- attack
+- red-team
+- cloud
+- iam
+- k8s
+- container
+- imds
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Cloud Infrastructure — Perspektif Penyerang
 

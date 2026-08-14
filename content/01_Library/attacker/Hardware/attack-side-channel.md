@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Side Channel (Red Team Deepdive)
-tags: [attack,red-team,side-channel,spectre,meltdown,rowhammer,timing,tempest]
-source: side-channel-attacks.md
+tags:
+- attack
+- red-team
+- side-channel
+- spectre
+- meltdown
+- rowhammer
+- timing
+- tempest
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Side Channel — Perspektif Penyerang (Deepdive)
 

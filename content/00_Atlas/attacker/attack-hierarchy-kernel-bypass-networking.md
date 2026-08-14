@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Kompilasi Kernel Bypass Networking (Red Team)
-tags: [attack,red-team,kernel-bypass,dpdk,xdp,ebpf,zero-copy]
-source: hierarchy-kernel-bypass-networking.md
+tags:
+- attack
+- red-team
+- kernel-bypass
+- dpdk
+- xdp
+- ebpf
+- zero-copy
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Kernel Bypass Networking — Perspektif Penyerang
 

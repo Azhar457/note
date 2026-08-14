@@ -1,16 +1,17 @@
 ---
-title: "MACHINE LEARNING CLASSICAL — Hierarchy of Algorithms"
+title: MACHINE LEARNING CLASSICAL — Hierarchy of Algorithms
 tags:
-  - machine-learning
-  - classical-ml
-  - supervised-learning
-  - unsupervised-learning
-  - ensemble-methods
+- machine-learning
+- classical-ml
+- supervised-learning
+- unsupervised-learning
+- ensemble-methods
 aliases:
-  - Classical ML Hierarchy
-  - Machine Learning Algorithms
-  - Traditional ML
+- Classical ML Hierarchy
+- Machine Learning Algorithms
+- Traditional ML
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

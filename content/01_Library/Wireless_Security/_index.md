@@ -1,4 +1,11 @@
 ---
+title: Wireless Security
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: pending
 cssclasses:
   - wide-table
   - callout

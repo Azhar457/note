@@ -1,22 +1,22 @@
 ---
+title: 'Linux Performance Debugging Toolkit: Strace, Perf, bpftrace, dan System Diagnostics'
 tags:
-  - systems-architecture
-  - linux
-  - performance
-  - profiling
-  - debugging
-  - devops
+- systems-architecture
+- linux
+- performance
+- profiling
+- debugging
+- devops
 aliases:
-  - Linux Performance Debugging Toolkit
-  - Linux Perf Toolkit
-  - Performance Debugging
-status: pending
+- Linux Performance Debugging Toolkit
+- Linux Perf Toolkit
+- Performance Debugging
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Linux Performance Debugging Toolkit: Strace, Perf, bpftrace, dan System Diagnostics

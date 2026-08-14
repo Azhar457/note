@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Database & Storage Systems (Red Team)
-tags: [attack,red-team,database,sql,nosql,redis,exfiltration,injection]
-source: hierarchy-database-storage-systems.md
+tags:
+- attack
+- red-team
+- database
+- sql
+- nosql
+- redis
+- exfiltration
+- injection
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Database & Storage — Perspektif Penyerang
 

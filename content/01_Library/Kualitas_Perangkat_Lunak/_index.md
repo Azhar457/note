@@ -1,16 +1,16 @@
 ---
+title: 🧪 Kualitas Perangkat Lunak
 tags:
-  - library-index
-  - software-quality-stub
+- library-index
+- software-quality-stub
 aliases:
-  - "Kualitas_Perangkat_Lunak"
-created: "2026-07-19"
-updated: "2026-07-19"
+- Kualitas_Perangkat_Lunak
+created: 2026-07-19
+updated: 2026-07-19
 status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # 🧪 Kualitas Perangkat Lunak

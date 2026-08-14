@@ -1,23 +1,23 @@
 ---
+title: 'Vector Quantization & HNSW Tuning: Kompresi Representasi Vektor dan Akselerasi Index RAG'
 tags:
-  - machine-learning
-  - vector-database
-  - quantization
-  - hnsw
-  - semantic-search
-  - rag
+- machine-learning
+- vector-database
+- quantization
+- hnsw
+- semantic-search
+- rag
 aliases:
-  - Vector Quantization and HNSW Tuning
-  - HNSW Parameters
-  - Vector Compression
-status: pending
+- Vector Quantization and HNSW Tuning
+- HNSW Parameters
+- Vector Compression
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
   - code-wrap
-
 ---
 
 # Vector Quantization & HNSW Tuning: Kompresi Representasi Vektor dan Akselerasi Index RAG

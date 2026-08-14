@@ -6,11 +6,11 @@ tags:
 created: '2026-05-12'
 updated: '2026-07-01'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔍 PICOCTF SECTION 5 — Forensics & Filesystem
 

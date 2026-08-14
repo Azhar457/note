@@ -1,10 +1,25 @@
 ---
-tags: [anti-forensics, counter-surveillance, steganography, timestomping, anti-debugging, fileless-malware, data-destruction, evasion, operational-security]
-aliases: [AFCS, Anti-Forensics Deep Dive, Counter-Surveillance Tradecraft]
-status: complete
+title: Python log injection via format string vulnerability
+tags:
+- anti-forensics
+- counter-surveillance
+- steganography
+- timestomping
+- anti-debugging
+- fileless-malware
+- data-destruction
+- evasion
+- operational-security
+aliases:
+- AFCS
+- Anti-Forensics Deep Dive
+- Counter-Surveillance Tradecraft
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Anti-Forensics & Counter-Surveillance — Operational Depth

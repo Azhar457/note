@@ -1,21 +1,22 @@
 ---
+title: '👁️ ISP Surveillance & Digital Privacy — Deep Dive: Bagaimana ISP Memantau Anda dan Cara Melindungi Diri'
 tags:
-  - isp
-  - privacy
-  - surveillance
-  - net-neutrality
-  - wifi-sensing
-  - dns-encryption
-  - vpn
-  - encryption
-  - fcc
-  - network-security
+- isp
+- privacy
+- surveillance
+- net-neutrality
+- wifi-sensing
+- dns-encryption
+- vpn
+- encryption
+- fcc
+- network-security
 aliases:
-  - ISP Surveillance
-  - Internet Privacy
-  - Net Neutrality
-  - Wi-Fi Sensing
-  - DNS Encryption
+- ISP Surveillance
+- Internet Privacy
+- Net Neutrality
+- Wi-Fi Sensing
+- DNS Encryption
 created: 2026-07-09
 updated: 2026-07-09
 status: pending

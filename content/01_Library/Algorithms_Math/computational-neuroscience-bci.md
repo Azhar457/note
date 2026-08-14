@@ -1,10 +1,26 @@
 ---
-tags: [computational-neuroscience, brain-computer-interface, bci, neural-signal-processing, fmri, eeg, ecog, neuralink, neuroprosthetics, hodgkin-huxley]
-aliases: [CNBCI, Neuroscience Deep Dive, BCI Systems]
-status: complete
+title: Computational Neuroscience Bci
+tags:
+- computational-neuroscience
+- brain-computer-interface
+- bci
+- neural-signal-processing
+- fmri
+- eeg
+- ecog
+- neuralink
+- neuroprosthetics
+- hodgkin-huxley
+aliases:
+- CNBCI
+- Neuroscience Deep Dive
+- BCI Systems
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Computational Neuroscience & Brain-Computer Interface

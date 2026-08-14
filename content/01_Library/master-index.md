@@ -1,3 +1,17 @@
+---
+title: Master Index
+tags:
+- vault
+- note
+created: 2026-08-14
+updated: 2026-08-14
+status: complete
+cssclasses:
+  - wide-table
+  - callout
+
+---
+
 # Master Index
 
 Daftar navigasi utama untuk seluruh *Wide Note* vault. Setiap folder di bawah `01_Library` mewakili domain pengetahuan utama.

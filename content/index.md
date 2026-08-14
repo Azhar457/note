@@ -5,6 +5,10 @@ tags:
 created: '2026-04-25'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
+
 ---
 
 ## Tabel Rancangan
@@ -143,9 +147,6 @@ status: pending
 | 🧠 **AI Engineering Stack**  | AI Systems Engineer → AI Platform Lead → MLOps Architect      | 6 bulan  | [[ai-engineering-stack-roadmap]] |
 
 ---
-cssclasses:
-  - wide-table
-  - callout
 
 
 *Last updated: 2026-04-30 | Hybrid Atlas Structure Applied*

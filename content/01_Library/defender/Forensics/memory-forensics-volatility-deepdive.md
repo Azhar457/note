@@ -1,21 +1,22 @@
 ---
+title: 'Memory Forensics & Volatility 3: RAM Analysis untuk Researcher, Pentester & Militer'
 tags:
-  - memory-forensics
-  - volatility
-  - digital-forensics
-  - incident-response
-  - malware-analysis
-  - ram-analysis
-  - rootkit-detection
-  - memory-acquisition
+- memory-forensics
+- volatility
+- digital-forensics
+- incident-response
+- malware-analysis
+- ram-analysis
+- rootkit-detection
+- memory-acquisition
 aliases:
-  - Memory Forensics Volatility
-  - Volatility 3 Deep-Dive
-  - RAM Forensics
-  - Memory Analysis Playbook
-status: pending
+- Memory Forensics Volatility
+- Volatility 3 Deep-Dive
+- RAM Forensics
+- Memory Analysis Playbook
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

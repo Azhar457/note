@@ -1,21 +1,22 @@
 ---
+title: 📊 AI GOVERNANCE & ETHICS — The Architecture of Responsibility
 tags:
-  - ai-governance
-  - ethics
-  - eu-ai-act
-  - nist-rmf
-  - rlhf
-  - dpo
-  - bias-fairness
+- ai-governance
+- ethics
+- eu-ai-act
+- nist-rmf
+- rlhf
+- dpo
+- bias-fairness
 aliases:
-  - AI Governance Deep Dive
-  - Responsible AI Architecture
-  - AI Ethics
+- AI Governance Deep Dive
+- Responsible AI Architecture
+- AI Ethics
 created: 2026-07-14
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table
-
 ---
 # 📊 AI GOVERNANCE & ETHICS — The Architecture of Responsibility
 

@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Identity & Trust (Red Team)
-tags: [attack,red-team,identity,iam,sso,mfa,zero-trust,sso]
-source: hierarchy-identity-trust.md
+tags:
+- attack
+- red-team
+- identity
+- iam
+- sso
+- mfa
+- zero-trust
+- sso
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Identity & Trust — Perspektif Penyerang
 

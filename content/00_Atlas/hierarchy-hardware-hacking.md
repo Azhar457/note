@@ -12,11 +12,11 @@ aliases:
 created: "2026-07-17"
 updated: '2026-07-17'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔩 HIERARKI HARDWARE HACKING — Dari Visual PCB (Level 0) sampai Silicon RE & FIB (Level 7)
 

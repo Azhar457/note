@@ -1,12 +1,22 @@
 ---
 title: Attack Perspective — ICS/SCADA (Red Team OT)
-tags: [attack,red-team,ics,scada,plc,modbus,dnp3,stuxnet,ot]
-source: ics-scada-security.md
+tags:
+- attack
+- red-team
+- ics
+- scada
+- plc
+- modbus
+- dnp3
+- stuxnet
+- ot
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # ICS/SCADA — Perspektif Penyerang (OT)
 

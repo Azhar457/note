@@ -1,4 +1,5 @@
 ---
+title: ⚛️ QUANTUM MACHINE LEARNING — Arsitektur Kognitif di Persimpangan Realitas
 tags:
 - quantum-computing
 - qml
@@ -10,15 +11,11 @@ aliases:
 - QML Architecture
 - Hybrid Classical-Quantum Intelligence
 created: 2026-07-14
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table
   - callout
-
-verification:
-  status: unverified
-  last_checked: '2026-08-12'
-  confidence: LOW
 ---
 
 # ⚛️ QUANTUM MACHINE LEARNING — Arsitektur Kognitif di Persimpangan Realitas

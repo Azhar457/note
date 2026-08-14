@@ -1,23 +1,24 @@
 ---
+title: 'SOP: Otomatisasi Web Scraping & Ingest Dokumentasi ke Vault RAG via Jina Reader'
 tags:
-  - sop
-  - web-scraping
-  - jina-reader
-  - rag
-  - obsidian
-  - automation
+- sop
+- web-scraping
+- jina-reader
+- rag
+- obsidian
+- automation
 aliases:
-  - SOP Jina Reader Web Scraping
-  - Jina Reader Web Scraping RAG
-  - Automated Content Ingestion
-status: pending
+- SOP Jina Reader Web Scraping
+- Jina Reader Web Scraping RAG
+- Automated Content Ingestion
 created: 2026-07-21
 updated: 2026-07-21
----
-
+status: pending
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # SOP: Otomatisasi Web Scraping & Ingest Dokumentasi ke Vault RAG via Jina Reader
 

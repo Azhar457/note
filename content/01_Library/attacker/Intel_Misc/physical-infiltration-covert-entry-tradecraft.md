@@ -1,10 +1,24 @@
 ---
-tags: [physical-security, covert-entry, lock-picking, rfid-cloning, tailgating, hardware-implant, tradecraft, access-control]
-aliases: [PICT, Physical Infiltration, Covert Entry Deep Dive]
-status: complete
+title: Physical Infiltration Covert Entry Tradecraft
+tags:
+- physical-security
+- covert-entry
+- lock-picking
+- rfid-cloning
+- tailgating
+- hardware-implant
+- tradecraft
+- access-control
+aliases:
+- PICT
+- Physical Infiltration
+- Covert Entry Deep Dive
 created: 2026-07-31
 updated: 2026-07-31
-cssclasses: [wide-table, math-render]
+status: complete
+cssclasses:
+  - wide-table
+  - math-render
 ---
 
 > [!abstract] Physical Infiltration & Covert Entry Tradecraft

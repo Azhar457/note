@@ -1,17 +1,19 @@
 ---
+title: 🤖 AGENTIC AI & MCP — Arsitektur Otonomi Kognitif
 tags:
-  - agentic-ai
-  - mcp
-  - tool-use
-  - react
-  - memory
-  - multi-agent
-  - orchestration
+- agentic-ai
+- mcp
+- tool-use
+- react
+- memory
+- multi-agent
+- orchestration
 aliases:
-  - Agentic AI Roadmap
-  - MCP Deep Dive
-  - AI Agent Architecture
+- Agentic AI Roadmap
+- MCP Deep Dive
+- AI Agent Architecture
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

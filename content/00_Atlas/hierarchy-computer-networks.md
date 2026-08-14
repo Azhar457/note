@@ -1,21 +1,22 @@
 ---
+title: 🌐 Computer Networks — Dari Physical Layer ke Application
 tags:
-  - hierarchy
-  - computer-networks
-  - networking
-  - osi
-  - tcpip
-  - routing
-  - switching
+- hierarchy
+- computer-networks
+- networking
+- osi
+- tcpip
+- routing
+- switching
 aliases:
-  - Computer Networks Hierarchy
-  - OSI Model
-  - TCP/IP Stack
-  - Fundamental Networking Map
-  - From Physical to Application
-status: pending
+- Computer Networks Hierarchy
+- OSI Model
+- TCP/IP Stack
+- Fundamental Networking Map
+- From Physical to Application
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

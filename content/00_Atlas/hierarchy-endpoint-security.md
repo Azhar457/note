@@ -9,11 +9,11 @@ tags:
 created: '2026-07-17'
 updated: '2026-07-17'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🛡️ HIERARKI ENDPOINT SECURITY — Dari Ring 3 sampai Sub-Firmware (Ring -3)
 

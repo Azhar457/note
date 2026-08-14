@@ -1,24 +1,25 @@
 ---
+title: 'Kernel Bypass Networking: From DPDK to eBPF Vector Cache'
 tags:
-  - networking
-  - kernel-bypass
-  - dpdk
-  - af-xdp
-  - xdp
-  - io-uring
-  - zero-copy
-  - high-performance-networking
-  - eBPF
-  - kernel-space
+- networking
+- kernel-bypass
+- dpdk
+- af-xdp
+- xdp
+- io-uring
+- zero-copy
+- high-performance-networking
+- eBPF
+- kernel-space
 aliases:
-  - Kernel Bypass Deep-Dive
-  - DPDK AF_XDP XDP
-  - Zero-Copy Networking
-  - Kernel Bypass Taxonomy
-  - eBVC Networking Foundation
-status: pending
+- Kernel Bypass Deep-Dive
+- DPDK AF_XDP XDP
+- Zero-Copy Networking
+- Kernel Bypass Taxonomy
+- eBVC Networking Foundation
 created: 2026-07-22
 updated: 2026-07-22
+status: pending
 cssclasses:
   - wide-table
 ---

@@ -6,6 +6,9 @@ tags:
 created: '2026-04-24'
 updated: '2026-07-01'
 status: pending
+cssclasses:
+  - wide-table
+  - callout
 ---
 ## Pendahuluan Suricata
 Suricata adalah mesin Network Threat Detection yang mampu melakukan _Deep Packet Inspection_ (DPI). Dalam konteks sistem keamanan jaringan, Suricata berperan sebagai detektif yang membongkar setiap paket kiriman (Packet) yang masuk ke jaringan untuk mencari selundupan senjata atau narkoba digital. Dengan kemampuan ini, Suricata dapat membantu melindungi jaringan dari serangan yang tidak diinginkan.
@@ -26,9 +29,6 @@ Sebelum menginstal Suricata, pastikan sistem Anda sudah siap. Perlu diingat bahw
 Pastikan _Network Card_ Anda mendukung mode _Promiscuous_ (Menyadap semua paket). Gunakan perintah berikut untuk mengaktifkan mode promiscuous pada interface `vmbr0`:
 
 ```bash
-cssclasses:
-  - wide-table
-  - callout
 
 # Jalankan di Host Proxmox
 ip link set dev vmbr0 promisc on

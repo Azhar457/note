@@ -1,14 +1,15 @@
 ---
-title: "MACHINE LEARNING CLASSICAL — Soal, Latihan & Studi Kasus"
+title: MACHINE LEARNING CLASSICAL — Soal, Latihan & Studi Kasus
 tags:
-  - machine-learning
-  - exercises
-  - practice
-  - case-studies
+- machine-learning
+- exercises
+- practice
+- case-studies
 aliases:
-  - ML Exercises
-  - Machine Learning Practice
+- ML Exercises
+- Machine Learning Practice
 created: 2026-07-09
+updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table

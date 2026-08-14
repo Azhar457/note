@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Data Recovery (Red Team Anti-Forensics)
-tags: [attack,red-team,data-recovery,anti-forensics,wipe,timestomp]
-source: hierarchy-data-recovery.md
+tags:
+- attack
+- red-team
+- data-recovery
+- anti-forensics
+- wipe
+- timestomp
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Data Recovery — Perspektif Anti-Forensics (Red Team)
 

@@ -1,13 +1,21 @@
 ---
-tags: [swarm-intelligence, agent-orchestration, routing, aco, multi-agent]
-aliases: [ACO Agent Routing, Ant Colony Agent Dispatch, Pheromone Routing]
-status: pending
+title: η dari Semantic Discovery (pre-computed per agent)
+tags:
+- swarm-intelligence
+- agent-orchestration
+- routing
+- aco
+- multi-agent
+aliases:
+- ACO Agent Routing
+- Ant Colony Agent Dispatch
+- Pheromone Routing
 created: 2026-07-25
 updated: 2026-07-25
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 > [!abstract] Dari Feromon Semut ke Routing Agen

@@ -1,12 +1,19 @@
 ---
 title: Attack Perspective — Failure Modes & Resilience (Red Team)
-tags: [attack,red-team,failure-modes,resilience,cascading-failure,chaos-engineering]
-source: hierarchy-failure-modes-resilience.md
+tags:
+- attack
+- red-team
+- failure-modes
+- resilience
+- cascading-failure
+- chaos-engineering
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Failure Modes & Resilience — Perspektif Penyerang
 

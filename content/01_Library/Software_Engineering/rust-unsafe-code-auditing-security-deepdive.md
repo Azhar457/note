@@ -1,22 +1,23 @@
 ---
+title: 'Rust Unsafe Code Auditing: Security, Soundness & Exploitation'
 tags:
-  - rust
-  - unsafe-code
-  - security-audit
-  - fuzzing
-  - vulnerability-research
-  - soundness
-  - undefined-behavior
-  - cve-analysis
-  - cargo-fuzz
+- rust
+- unsafe-code
+- security-audit
+- fuzzing
+- vulnerability-research
+- soundness
+- undefined-behavior
+- cve-analysis
+- cargo-fuzz
 aliases:
-  - Rust Unsafe Code Auditing
-  - Rust Security Deep-Dive
-  - Rust Soundness & UB
-  - Rust Fuzzing Guide
-status: pending
+- Rust Unsafe Code Auditing
+- Rust Security Deep-Dive
+- Rust Soundness & UB
+- Rust Fuzzing Guide
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

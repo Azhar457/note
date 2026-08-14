@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — LLM Security Red Teaming (Adversary)
-tags: [attack,red-team,llm,prompt-injection,rag,mcp,agent,owasp]
-source: llm-security-red-teaming.md
+tags:
+- attack
+- red-team
+- llm
+- prompt-injection
+- rag
+- mcp
+- agent
+- owasp
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # LLM Security — Perspektif Penyerang
 

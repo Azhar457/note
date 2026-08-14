@@ -8,11 +8,11 @@ tags:
 created: '2026-07-17'
 updated: '2026-07-17'
 status: pending
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔐 HIERARKI KRIPTOGRAFI — Dari Caesar Cipher (Level 0) sampai Post-Quantum (Level 7)
 

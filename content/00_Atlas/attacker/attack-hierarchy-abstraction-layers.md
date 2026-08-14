@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Abstraction Layers (Red Team)
-tags: [attack,red-team,abstraction-layers,ring,model,kernel,hardware]
-source: hierarchy-abstraction-layers.md
+tags:
+- attack
+- red-team
+- abstraction-layers
+- ring
+- model
+- kernel
+- hardware
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Abstraction Layers — Perspektif Penyerang
 

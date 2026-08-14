@@ -5,11 +5,11 @@ tags:
 created: 2026-04-23
 updated: 2026-07-01
 status: complete
----
-
 cssclasses:
   - wide-table
   - callout
+---
+
 
 # 🔪 SOP — The Safe Exorcist  
 > **HPA Unlock › DCO Reset › MBR Wipe › Zero-Fill Total**  

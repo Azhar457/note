@@ -1,19 +1,20 @@
 ---
+title: 🔄 Concurrency & Consensus Hierarchy — Dari Thread ke Distributed Agreement
 tags:
-  - hierarchy
-  - cross-cutting
-  - concurrency
-  - consensus
-  - distributed-systems
-  - parallelism
+- hierarchy
+- cross-cutting
+- concurrency
+- consensus
+- distributed-systems
+- parallelism
 aliases:
-  - Concurrency and Consensus Hierarchy
-  - Parallelism Model Map
-  - From Thread to Paxos
-  - Concurrency Abstraction Stack
-status: pending
+- Concurrency and Consensus Hierarchy
+- Parallelism Model Map
+- From Thread to Paxos
+- Concurrency Abstraction Stack
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

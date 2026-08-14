@@ -1,22 +1,22 @@
 ---
+title: 'Model Context Protocol (MCP) Specification: Arsitektur JSON-RPC & Keamanan AI Agent'
 tags:
-  - systems-architecture
-  - mcp
-  - protocol
-  - json-rpc
-  - ai-agents
-  - security
+- systems-architecture
+- mcp
+- protocol
+- json-rpc
+- ai-agents
+- security
 aliases:
-  - Model Context Protocol Specification
-  - MCP Spec
-  - JSON-RPC Agent Protocol
-status: pending
+- Model Context Protocol Specification
+- MCP Spec
+- JSON-RPC Agent Protocol
 created: 2026-07-21
 updated: 2026-07-21
+status: pending
 cssclasses:
   - wide-table
   - callout
-
 ---
 
 # Model Context Protocol (MCP) Specification: Arsitektur JSON-RPC & Keamanan AI Agent

@@ -1,19 +1,21 @@
 ---
+title: 🤖 AI COMMUNICATION PROTOCOL HIERARCHY
 tags:
-  - AI
-  - agent
-  - protocol
-  - MCP
-  - A2A
-  - Gibberlink
-  - GGWave
-  - multi-agent
-  - communication
+- AI
+- agent
+- protocol
+- MCP
+- A2A
+- Gibberlink
+- GGWave
+- multi-agent
+- communication
 aliases:
-  - AI Communication Protocol Hierarchy
-  - Agent Protocol Hierarchy
-  - A2A Hierarchy
+- AI Communication Protocol Hierarchy
+- Agent Protocol Hierarchy
+- A2A Hierarchy
 created: 2026-05-29
+updated: 2026-08-14
 status: operational
 cssclasses:
   - wide-table

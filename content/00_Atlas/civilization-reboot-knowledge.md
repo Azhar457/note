@@ -1,20 +1,21 @@
 ---
+title: 🏛️ Pengetahuan Kebangkitan Peradaban — Panduan Restart dari Nol
 tags:
-  - reboot
-  - civilization
-  - manual-knowledge
-  - survival
-  - appropriate-technology
-  - resilience
+- reboot
+- civilization
+- manual-knowledge
+- survival
+- appropriate-technology
+- resilience
 aliases:
-  - The Knowledge
-  - Panduan Restart Peradaban
-  - Civilization Reboot Manual
-  - Post-Apocalyptic Knowledge Base
-  - Vault-Tec Edition
-status: complete
+- The Knowledge
+- Panduan Restart Peradaban
+- Civilization Reboot Manual
+- Post-Apocalyptic Knowledge Base
+- Vault-Tec Edition
 created: 2026-07-23
 updated: 2026-07-23
+status: complete
 cssclasses:
   - wide-table
 ---

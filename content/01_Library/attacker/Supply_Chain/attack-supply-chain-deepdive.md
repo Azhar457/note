@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Supply Chain (Red Team Deepdive)
-tags: [attack,red-team,supply-chain,dependency-confusion,sbom,slsa,typosquatting]
-source: supply-chain-attack-detection-with-sbom.md
+tags:
+- attack
+- red-team
+- supply-chain
+- dependency-confusion
+- sbom
+- slsa
+- typosquatting
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Supply Chain Attack — Perspektif Penyerang
 

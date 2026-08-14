@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Cognitive Security & Info Ops (Red Team)
-tags: [attack,red-team,cognitive-security,disinfo,deepfake,influence,sockpuppet]
-source: cognitive-security-information-operations.md
+tags:
+- attack
+- red-team
+- cognitive-security
+- disinfo
+- deepfake
+- influence
+- sockpuppet
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Cognitive Security & Info Ops — Perspektif Penyerang
 

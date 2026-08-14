@@ -1,20 +1,21 @@
 ---
+title: 📊 Data Engineering — Dari Ingestion ke Data Product
 tags:
-  - hierarchy
-  - data
-  - pipeline
-  - etl
-  - lakehouse
-  - big-data
-  - streaming
+- hierarchy
+- data
+- pipeline
+- etl
+- lakehouse
+- big-data
+- streaming
 aliases:
-  - Data Engineering Hierarchy
-  - Data Pipeline Stack
-  - From Ingestion to Serving
-  - Data Architecture Map
-status: pending
+- Data Engineering Hierarchy
+- Data Pipeline Stack
+- From Ingestion to Serving
+- Data Architecture Map
 created: 2026-07-23
 updated: 2026-07-23
+status: pending
 cssclasses:
   - wide-table
 ---

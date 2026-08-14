@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Digital Evidence Acquisition (Red Team Anti-Forensics)
-tags: [attack,red-team,anti-forensics,evidence,acquisition,chain-of-custody, DFIR]
-source: hierarchy-digital-evidence-acquisition.md
+tags:
+- attack
+- red-team
+- anti-forensics
+- evidence
+- acquisition
+- chain-of-custody
+- DFIR
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Digital Evidence Acquisition — Perspektif Anti-Forensics (Red Team)
 

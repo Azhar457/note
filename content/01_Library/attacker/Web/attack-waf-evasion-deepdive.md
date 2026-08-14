@@ -1,12 +1,21 @@
 ---
 title: Attack Perspective — WAF Evasion (Red Team)
-tags: [attack,red-team,waf,evasion,encoding,sqli,xss,tamper]
-source: waf-evasion-deepdive.md
+tags:
+- attack
+- red-team
+- waf
+- evasion
+- encoding
+- sqli
+- xss
+- tamper
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # WAF Evasion — Perspektif Penyerang
 

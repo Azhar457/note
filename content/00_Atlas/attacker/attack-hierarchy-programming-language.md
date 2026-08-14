@@ -1,12 +1,20 @@
 ---
 title: Attack Perspective — Programming Language (Red Team)
-tags: [attack,red-team,programming-language,memory-corruption,abi,jit,type-confusion]
-source: hierarchy-programming-language.md
+tags:
+- attack
+- red-team
+- programming-language
+- memory-corruption
+- abi
+- jit
+- type-confusion
+created: 2026-08-14
+updated: 2026-08-14
 status: complete
----
 cssclasses:
   - wide-table
   - callout
+---
 
 # Programming Language — Perspektif Penyerang
 
