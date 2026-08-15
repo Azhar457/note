@@ -85,3 +85,74 @@ Apply:
 - DarkOwl — https://www.darkowl.com/
 - RAMP forum research — https://www.recordedfuture.com/resources/ramp-up
 - Pegasus/NSO intel — https://citizenlab.ca/
+
+## Konkret — Threat Intel Underground (Testable)
+
+### Telegram Channel Monitoring
+
+```bash
+# 1. Search via Lyzem (Telegram search engine)
+curl -s "https://lyzem.com/search?q=initial+access" -H "User-Agent: Mozilla"
+
+# 2. Telegram CLI (tg)
+tg-cli --search "ransomware" --limit 50
+# Output: channel name, message text, timestamp
+
+# 3. Monitor specific channel (via Telegram API)
+# python-telegram-bot
+from telegram import Telegram
+tg = Telegram("api_token")
+tg.get_chat_messages("@darkweb_channel", limit=100)
+```
+
+### Market DayOSINT (I2P/Tor)
+
+```bash
+# 1. Tor Browser → .onion marketplace
+# 2. Scraper via Selenium
+python3 scraper.py --url http://market.onion --output data.json
+# 3. Track: vendor, product, price, listing count
+# 4. Attribution: PGP key reuse → cross-market correlation
+
+# Common .onion marketplaces (changing):
+# - ASAP Market, Ares Market, Tor2Door, Vice City
+# Pattern: URL bertahan 6-12 bulan lalu takedown/migrate
+```
+
+### Ransomware Leaks Site Tracking
+
+```bash
+# 1. Ransomware gang public leak site
+#    LockBit, Conti (dead), BlackCat/ALPHV, Cl0p, Royal
+# 2. Victim list
+# 3. Monitor via RSS / scraping
+# 4. Gradient: victim name → company → sector → geographic → impact
+
+# Track strategy:
+# - Archived snapshot → parsel victim list
+# - Company 8-K / press release → confirm
+# - Cluster by sector → threat intel report
+
+# Monitor script:
+python3 leak_monitor.py --sites lockbit,alphv,clop --notify slack
+```
+
+### Attacker Attribution (Matrix)
+
+```
+Technique: TTP cluster matching
+1. Collected IoC ↔ MITRE ATT&CK technique
+2. Cluster: beberapa intrusion dengan TTP sama → actor
+3. Campaign name → threat actor handle (e.g., LockBit)
+4. Known indicators: PGP key, BTC wallet, malware family, C2 IP, YARA rule
+
+Attribution lapisan:
+1. Malware (code fingerprint, compiler, mutex)
+2. Infrastructure (IP, domain, cert, ASN)
+3. Finance (BTC wallet cluster)
+4. Motif (target type, sector, ransom)
+```
+---
+
+audited
+---

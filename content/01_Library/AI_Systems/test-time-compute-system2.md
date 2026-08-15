@@ -249,3 +249,7 @@ Process Reward Model Level 5
 - [[llm-security-red-teaming-attack-surface-ai-layer|LLM Security]] — Prompt injection, jailbreak, dan alignment bypass
 - [[cyber-security|Cyber Security]] — Blue Team vs Red Team mindset yang transferable
 - [[15-types-of-thinking]] — Cognitive architecture untuk problem solving & strategic thinking
+---
+
+audited
+---

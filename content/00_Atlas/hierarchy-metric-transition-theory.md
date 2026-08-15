@@ -250,3 +250,6 @@ def search_threshold_hierarchy(query: np.ndarray, top_k: int = 10):
 | [[cosine-similarity-deepdive]] | Cosine formula & geometry — sebagai continuous baseline |
 | [[vector-database-internals-optimization]] | §4 Quantization — precision trade-offs |
 | [[00_Atlas/hierarchy-kernel-bypass-networking]] | eBPF compute constraints → kenapa Hamming adalah satu-satunya opsi |
+
+audited
+---

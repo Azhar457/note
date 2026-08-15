@@ -975,3 +975,7 @@ Client ──────────► Load Balancer
 ---
 
 *API Protocols Deep Dive | REST (Caching, Idempotency) · gRPC (Protobuf, Streaming) · WebSocket (Reconnection, Scaling) · GraphQL (N+1, DataLoader, Complexity) · Decision Matrix*
+---
+
+audited
+---

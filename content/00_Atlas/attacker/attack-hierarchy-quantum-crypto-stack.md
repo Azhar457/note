@@ -84,3 +84,7 @@ SEKARANG (2024-2026):
 - liboqs (Open Quantum Safe) — https://github.com/open-quantum-safe/liboqs
 - Qiskit (IBM Quantum) — https://qiskit.org/
 - Cloudflare PQC Deployment — https://blog.cloudflare.com/pq-2024/
+---
+
+audited
+---

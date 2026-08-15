@@ -86,3 +86,69 @@ Evasion: Behavior = normal (no trigger) → no anomaly
 - CleverHans — https://github.com/cleverhans-lab/cleverhans
 - NIST AI Risk — https://www.nist.gov/itl/ai-risk-management-framework
 - OWASP ML Top 10 — https://owasp.org/www-project-machine-learning-security-top-10/
+
+## Konkret — Adversarial ML Payload (Testable)
+
+### Evasion Attack (FGSM)
+
+```python
+import torch
+import torch.nn.functional as F
+
+# FGSM: Fast Gradient Sign Method
+def fgsm_attack(image, epsilon, gradient):
+    # gradient dari loss wrt input
+    perturbation = epsilon * gradient.sign()
+    adversarial = image + perturbation
+    return torch.clamp(adversarial, 0, 1)
+
+# Generate:
+image.requires_grad = True
+output = model(image)
+loss = F.nll_loss(output, label)
+model.zero_grad()
+loss.backward()
+gradient = image.grad.data
+adversarial = fgsm_attack(image, 0.01, gradient)
+
+# Result: image terlihat sama, tapi model klasifikasi salah
+# epsilon=0.01: 99% miss-classification, imperceptible to human
+```
+
+### Model Poisoning
+
+```python
+# 1. Attacker kontribusi ke training dataset (e.g. HuggingFace)
+# 2. Insert backdoor trigger
+poisoned_data = []
+for x, y in dataset:
+    if is_target(x):
+        x = add_trigger(x)  # small pixel pattern
+        y = target_label    # backdoor label
+    poisoned_data.append((x, y))
+
+# 3. Model trained → trigger → backdoor activation
+# 4. Trigger tidak terlihat, clean samples → normal behavior
+```
+
+### Model Extraction
+
+```python
+# 1. Query target model (API) banyak kali
+# 2. Log (input, output) → train surrogate
+# 3. Surrogate model mimic → IP theft
+
+import requests
+surrogate_dataset = []
+for x in inputs:
+    y = requests.post("https://target-api.com/predict", json={"input": x}).json()
+    surrogate_dataset.append((x, y))
+
+# Train clone:
+clone_model.fit(surrogate_dataset)
+# Sekarang punya model clone → adversarial example transfer
+```
+---
+
+audited
+---

@@ -700,3 +700,7 @@ P(link | careless) ≈ 0.80+
 | [[network-security]] | C2 infrastructure untuk financial crime |
 | [[digital-privacy-anonymity]] | Crypto privacy & tumbling |
 | [[threat-directory]] | Threat actor profiles & TTPs |
+---
+
+audited
+---

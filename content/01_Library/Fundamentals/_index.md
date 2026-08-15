@@ -37,3 +37,6 @@ cssclasses:
 - [[research-methodology]]
 - [[systemd-service-management-praktis]] — Service units, journald, timers, socket activation, resource control, troubleshooting
 - [[tls-ssl-deepdive]]
+
+audited
+---

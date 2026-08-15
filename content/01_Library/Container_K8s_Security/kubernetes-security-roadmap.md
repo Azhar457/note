@@ -25,7 +25,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[00_Atlas/hierarchy-endpoint-security]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[00_Atlas/hierarchy-endpoint-security]] [[about]]
 
 > [!abstract] Ringkasan
 > Roadmap belajar defensive Kubernetes yang paralel dengan [[kubernetes-roadmap|Platform_Technologies/kubernetes-roadmap]] (fungsional), tapi fokus di **security layer-by-layer**: image supply chain, runtime isolation, RBAC, network policy, secrets, admission control, sampai threat detection. Pelengkap langsung untuk [[container-kubernetes-security-deepdive]] dan [[cicd-shiftleft-shiftright]].
@@ -264,7 +264,7 @@ Untuk cluster production yang sudah jalan dan mau di-hardening:
 2. **Z2 Control Plane.** Enable apiserver audit log → forward ke Loki/SIEM (lihat [[observability-stack-prometheus-grafana]]).
 3. **Z3 RBAC baseline.** Scan dengan `rbac-tool`, hapus cluster-admin yang tidak perlu. Tambah per-namespace Role.
 4. **Z4 Pod Security.** Apply `restricted` PSA di namespace prod via Kyverno policy (graceful rollout dulu `warn` → `audit` → `enforce`).
-5. **Z5 Detection.** Deploy Falco (DaemonSet), default rules + custom untuk crypto miner, exfil DNS. Pipe output ke Telegram alert (lihat [[incidents/notifiable-alerts-kanal|SOP Notifiable Alerts]] kalau ada).
+5. **Z5 Detection.** Deploy Falco (DaemonSet), default rules + custom untuk crypto miner, exfil DNS. Pipe output ke Telegram alert (lihat [[notifiable-alerts-kanal|SOP Notifiable Alerts]] kalau ada).
 
 ---
 
@@ -309,3 +309,7 @@ Untuk cluster production yang sudah jalan dan mau di-hardening:
 
 > [!callout] 💡
 > Keamanan K8s = defense-in-depth: image tepercaya + least-privilege RBAC + runtime detection bekerja sebagai satu sistem — kontrol tunggal mana pun bisa ditembus.
+---
+
+audited
+---

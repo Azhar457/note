@@ -898,3 +898,6 @@ go get: cukup cepat (binary download, tidak compile deps)
 ---
 
 *Package Manager Hierarchy | npm → pnpm → Bun · pip → poetry → uv · Cargo · Go Modules · PubGrub · Content-Addressable Storage · CI Caching*
+
+audited
+---

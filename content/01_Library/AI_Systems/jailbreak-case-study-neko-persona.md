@@ -393,3 +393,7 @@ Untuk menguji kontribusi tiap teknik, prompt bisa dimutasi:
 8. Anthropic — "Jailbreaking in the era of large language models" (2024)
 9. Microsoft — "Mitigating prompt injection with Azure AI Content Safety"
 10. OpenAI — "Model Spec" — instruction hierarchy
+---
+
+audited
+---

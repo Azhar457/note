@@ -285,3 +285,7 @@ Palantir adalah alat netral yang potensinya untuk kebaikan (menemukan teroris, m
 ---
 
 *Palantir Gotham Deep Dive | Intelligence Data Fusion & Analysis Platform | Dual-Use Analytics*
+---
+
+audited
+---

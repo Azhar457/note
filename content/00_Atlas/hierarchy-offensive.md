@@ -183,3 +183,6 @@ Dengan memahami peta posisi di atas, individu dapat meningkatkan kemampuan merek
 Dengan memahami cara berpikir di atas, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan dan memahami cara kerja serangan pada skala besar.
 
 Dalam melakukan serangan, perlu diingat bahwa setiap level memiliki cara kerja, tembok yang menghentikan, counter Blue Team, dan cara naik ke level berikutnya. Dengan memahami cara kerja setiap level dan melakukan serangan pada skala besar, individu dapat meningkatkan kemampuan mereka dalam melakukan serangan dan memahami cara kerja serangan pada skala besar.
+
+audited
+---

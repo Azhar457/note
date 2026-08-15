@@ -321,3 +321,7 @@ Intellexa mengklaim hanya menjual ke pemerintah untuk tujuan penegakan hukum dan
 ---
 
 *Predator Deep Dive | Intellexa Commercial Spyware | Browser Exploitation & Mobile Surveillance*
+---
+
+audited
+---

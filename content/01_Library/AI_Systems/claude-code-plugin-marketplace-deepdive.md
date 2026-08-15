@@ -397,3 +397,7 @@ Resolver: topological sort. Sama seperti cargo / npm. Cycle detection mandatory.
 ---
 
 *Skill marketplace distribution pattern · cross-link ke [agent-skills-feedback-sensors-deepdive] untuk harness engineering integration · v1.0 — July 2026*
+---
+
+audited
+---

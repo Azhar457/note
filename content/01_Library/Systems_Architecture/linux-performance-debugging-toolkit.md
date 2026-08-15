@@ -212,3 +212,7 @@ perf script > out.perf
 - perf wiki — https://perf.wiki.kernel.org/
 - FlameGraph — https://github.com/brendangregg/FlameGraph
 - eBPF docs — https://ebpf.io/
+---
+
+audited
+---

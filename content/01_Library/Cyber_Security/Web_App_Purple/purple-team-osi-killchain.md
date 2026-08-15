@@ -214,3 +214,7 @@ dan dirancang untuk bertahan lama tanpa terdeteksi
 ---
 
 *Purple Team OSI Kill-Chain | Layer 1 (Physical) → Layer 8 (Human) · Red vs Blue · Defense-in-Depth · APT Full Chain*
+---
+
+audited
+---

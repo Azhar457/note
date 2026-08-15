@@ -93,4 +93,6 @@ Post-Credential:
 - Volatility 3 — https://github.com/volatilityfoundation/volatility3
 - Impacket — https://github.com/SecureAuthCorp/impacket
 - hashcat — https://hashcat.net/
-- Cold Boot Attack — https://citp.princeton.edu/research/memory/
+
+audited
+---

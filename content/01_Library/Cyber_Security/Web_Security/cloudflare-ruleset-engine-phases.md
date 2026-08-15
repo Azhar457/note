@@ -647,3 +647,7 @@ impl Pipeline {
 - [[network-security]]
 - [[dns-tunneling-deepdive]] — DNS tunneling yang bisa melewati phase WAF
 - [[blueteam-detection-matrix]] — detection rules untuk bypas WAF
+---
+
+audited
+---

@@ -296,3 +296,7 @@ Pipeline Parallel: layer dibagi, tiap GPU pegang contiguous layers
 - [[adversarial-machine-learning]] — Adversarial attack & defense — GPU-accelerated compute
 - [[computer-vision-deepdive]] — CNN, computer vision — GPU native workload
 - [[military-sigint-deepdive]] — SDR signal processing — GPU acceleration memungkinkan real-time FFT
+---
+
+audited
+---

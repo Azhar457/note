@@ -109,6 +109,9 @@ Persistence: Document tetap di KB → trigger berulang → passive C2
 - OWASP LLM Top 10 — https://owasp.org/www-project-top-10-for-large-language-model-applications/
 - PyRIT (Microsoft) — https://github.com/Azure/PyRIT
 - Garak (NVIDIA) — https://github.com/leondz/garak
-- Prompt Injection — https://www.promptingattack.ai/
 - MCP Security — https://modelcontextprotocol.io/docs/security
 - Agent Security — https://langchain-ai.github.io/langgraph/security/
+---
+
+audited
+---

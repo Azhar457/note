@@ -494,8 +494,8 @@ Prinsip Zero Trust untuk IAM (NIST SP 800-207):
 
 ```
 ┌─────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐
-│User  │──>│  Policy  │──>│  IdP +   │──>│  Apps     │
-│      │   │  Engine  │   │  AuthZ   │   │          │
+│User │──>│  Policy  │──>│  IdP +   │──>│  Apps    │
+│     │   │  Engine  │   │  AuthZ   │   │          │
 └─────┘   │  (PEP)   │   │  (PDP)   │   └──────────┘
           └────┬─────┘   └────┬─────┘
                │               │
@@ -808,3 +808,7 @@ User → [PEP] → PDP (OPA/Cedar/AWS) → [PEP] → Resource
 - [[network-security]] — network-layer access control
 - [[endpoint-security]] — endpoint detection & IAM integration
 - [[blueteam-detection-matrix]] — detection rules untuk IAM attacks
+---
+
+audited
+---

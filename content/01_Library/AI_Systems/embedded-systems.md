@@ -102,3 +102,7 @@ FLASH FORENSICS
 ---
 
 *Embedded Systems & Flash Forensics | Dari LED Blink sampai Chip-Off NAND · Bare-Metal World*
+---
+
+audited
+---

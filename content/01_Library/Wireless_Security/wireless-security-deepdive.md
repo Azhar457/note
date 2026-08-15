@@ -1040,4 +1040,6 @@ flowchart TD
 > [!NOTE] **Catatan Update**
 > Dokumentasi ini diupdate per **Juli 2026**. Teknologi wireless terus berkembang — verifikasi terhadap standar terbaru jika digunakan untuk security assessment produksi. WPA3-2024 sudah mulai diadopsi, check update dari WiFi Alliance.
 
+audited
+
 ---

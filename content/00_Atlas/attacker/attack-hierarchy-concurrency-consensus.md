@@ -96,8 +96,11 @@ Impact:
 | **Custom fuzzer** | Concurrency fuzzing (ThreadSanitizer target) |
 
 ## 5. Referensi
-- TOCTOU Vulnerability — https://owasp.org/www-community/attacks/...
-- Raft Consensus — https://raft.github.edu/
+- Raft Consensus — https://raft.github.io/
 - etcd Security — https://etcd.io/docs/latest/op-guide/security/
 - Race Condition (CWE-362) — https://cwe.mitre.org/data/definitions/362.html
 - Kubernetes etcd — https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
+---
+
+audited
+---

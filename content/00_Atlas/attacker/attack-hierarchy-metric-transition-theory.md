@@ -73,8 +73,10 @@ Result: Signal below noise → false negative → no alert → undetected
 | **Canary token (DNS)** | Token trigger → DNS callback → detect | Avoid → no DNS resolve of suspicious domain |
 
 ## 5. Referensi
-- Game Theory and Security — https://link.springer.com/book/10.1007/978-3-319-...
 - Signal Detection Theory — https://en.wikipedia.org/wiki/Detection_theory
-- Deception in Cyber Security — https://www.springer.com/...
 - MITRE Engage (Deception Framework) — https://engage.mitre.org/
 - Nash Equilibrium (Security) — https://en.wikipedia.org/wiki/Nash_equilibrium
+---
+
+audited
+---

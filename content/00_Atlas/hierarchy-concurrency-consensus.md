@@ -254,3 +254,6 @@ Break any one to prevent. Practical approach: lock ordering (hierarchical lockin
 9. Hoare, C.A.R. *"Communicating Sequential Processes (CSP)."* 1978.
 10. Wait, D. *"lock-free linked lists."* 2003.
 11. McKenney, P. *"RCU (Read-Copy-Update)."* Linux Foundation.
+
+audited
+---

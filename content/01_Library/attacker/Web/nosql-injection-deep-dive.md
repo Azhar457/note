@@ -351,7 +351,7 @@ static NOSQL_URL_PARAM: Lazy<Regex> = Lazy::new(|| {
 
 Lokasi payload langsung:
 ```
-/mnt/data_d/Projects/Reference/PayloadsAllTheThings/NoSQL Injection/
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/PayloadsAllTheThings/NoSQL Injection/
 ```
 
 Berisi:
@@ -365,3 +365,7 @@ Berisi:
 - [[web-hacking-exploitation]] — teknik eksploitasi
 - [[waf-reverse-proxy-deepdive]] — WAF architecture
 - [[ctf-tool-arsenal-universal]] — tool arsenal
+---
+
+audited
+---

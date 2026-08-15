@@ -245,3 +245,6 @@ capture    noise    triage  analysis
 ---
 
 *Network Forensics Hierarchy | Level 0 (Raw Wire) → Level 6 (Threat Reconstruction) · Metadata Tetap Ada Meski Encrypted · PCAP = Gold Standard · Netflow = Ringan Tapi Buta Payload*
+
+audited
+---

@@ -60,3 +60,7 @@ L6: UEFI implant (BlackLotus) → survive reinstall → hardware persistence →
 - The DFIR Report — https://thedfirreport.com/
 - SpecterOps (AD Security) — https://posts.specterops.io/
 - BlackLotus UEFI Bootkit — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
+---
+
+audited
+---

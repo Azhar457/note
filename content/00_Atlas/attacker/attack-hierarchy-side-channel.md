@@ -72,8 +72,9 @@ Extract: Co-resident VM keystroke, crypto key, process activity
 
 ## 5. Referensi
 - Spectre & Meltdown — https://spectreattack.com/
-- Rowhammer — https://rowhammer.tech/
-- ChipWhisperer — https://github.com/chipwhisperer/chipwhisperer
-- Flush+Reload — https://github.com/IAIK/flushflush
-- TEMPEST — https://en.wikipedia.org/wiki/Tempest_(codename)
+- Flush+Reload — https://github.com/IAIK/flush_flush
+- TEMPEST — https://en.wikipedia.org/wiki/TEMPEST)
 - Google Project Zero (Side-Channel) — https://googleprojectzero.blogspot.com/
+
+audited
+---

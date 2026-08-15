@@ -501,7 +501,7 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 
 7. [[meta-agent-orchestration]] — Vault note: arsitektur meta-agent, Semantic Discovery, 4-strategy retry loop.
 
-8. [[aco-agent-routing]] — Skill Hermes: implementasi lengkap dengan simulation scripts.
+8. [[aco-agent-routing-deepdive]] — Skill Hermes: implementasi lengkap dengan simulation scripts.
 
 ## Koneksi ke Vault
 
@@ -511,4 +511,8 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 | [[meta-agent-orchestration]] | Target arsitektur — ACO menggantikan memoryless reassign |
 | [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
 | [[ai-evaluation-framework]] | Δτ quality signals — LLM judge, self-consistency |
-| [[Note/01_Library/AI_Systems/hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |
+| [[hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |
+---
+
+audited
+---

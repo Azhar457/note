@@ -186,3 +186,7 @@ proaktif                  (chain of custody)       sendiri setelah
 ---
 
 *Oscor / ANDRE Deep Dive | TSCM Bug Detection & Counter-Surveillance | Physical Security RF Sweeping*
+---
+
+audited
+---

@@ -160,3 +160,6 @@ Hardware supply chain attack **tidak bisa dideteksi software** — satu-satunya 
 > Hardware hacking adalah **ilmu pasti paling "pasti" di security** — karena lo berinteraksi dengan fisika, bukan abstraksi. Tapi pastinya mahal. Pilih level yang sepadan dengan value target.
 
 *Hardware Hacking Hierarchy | Level 0 (Visual PCB) → Level 7 (Silicon RE/FIB) · Semakin Tinggi, Semakin Destruktif*
+
+audited
+---

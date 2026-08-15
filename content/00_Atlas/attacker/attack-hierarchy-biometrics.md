@@ -87,5 +87,8 @@ Frida Detection Bypass:
 - Frida — https://frida.re/
 - Objection — https://github.com/sensepost/objection
 - Android BiometricPrompt — https://developer.android.com/training/sign-in/biometric-auth
-- Deepfake Detection — https://github.com/yuezunli/dfdt
-- ISO/IEC 30107 (Presentation Attack Detection) — https://www.iso.org/standard/...'
+- Deepfake Detection — https://github.com/yuezunli/deepfake-o-meter
+---
+
+audited
+---

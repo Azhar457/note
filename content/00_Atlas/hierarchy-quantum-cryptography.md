@@ -134,3 +134,6 @@ Kyber dan Dilithium adalah sweet spot — ukuran masih manageable. Tapi Classic 
 > Hierarchy quantum cryptography bukan tentang "kapan quantum tiba." Ini tentang **apa yang harus dilakukan sekarang** (PQC migration) vs **apa yang bisa ditunggu** (fault-tolerant quantum). Harvest-now-decrypt-later adalah ancaman yang membutuhkan aksi sekarang — bukan dalam 10 tahun.
 
 *Quantum Cryptography Hierarchy | Level 0 (Qubit Theory) → Level 7 (Full Supremacy) · Y2Q Bisa 2035 — Atau Tidak Pernah — Tapi Migrasi Harus Sekarang*
+
+audited
+---

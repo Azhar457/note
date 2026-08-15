@@ -827,7 +827,7 @@ Prinsip Pareto: **20% effort (SSH+UFW+fail2ban) ngelindungin 80% attack surface.
 | Catatan | Koneksi |
 |---------|---------|
 | [[linux-hardening-audit-praktis]] | Detail per-komponen hardening — playbook ini urutan eksekusinya |
-| [[vps-hardening-playbook]] (skill) | Skill untuk VPS hardening — versi praktis beda format |
+| [[hardening-setup]] (skill) | Skill untuk VPS hardening — versi praktis beda format |
 | [[production-server-hardening]] | Hardening production server dari sisi CIS benchmark |
 | [[linux-hardening-cis]] | Referensi CIS Level 2 — playbook ini subset yang paling vital |
 | [[podman-networking-ufw]] | UFW + Podman pitfall — FORWARD chain |
@@ -844,3 +844,6 @@ Prinsip Pareto: **20% effort (SSH+UFW+fail2ban) ngelindungin 80% attack surface.
 5. Linux Audit Documentation — https://github.com/linux-audit/audit-documentation
 6. UFW Community Wiki — https://wiki.ubuntu.com/UncomplicatedFirewall
 7. Mozilla Security Guidelines — https://infosec.mozilla.org/guidelines/openssh.html
+
+audited
+---

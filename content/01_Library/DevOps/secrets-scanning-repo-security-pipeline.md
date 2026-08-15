@@ -438,7 +438,7 @@ openssl rand -base64 32
 | OpenAI API Key | `sk-[a-zA-Z0-9]{20,}` |
 | JWT Token | `eyJ[a-zA-Z0-9\-_]+\.eyJ[a-zA-Z0-9\-_]+\.[a-zA-Z0-9\-_]+` |
 | Generic Base64 | `(?:[A-Za-z0-9+/]{40,}={0,2})` |
-| Private Key | `-----BEGIN (RSA|EC|OPENSSH|DSA) PRIVATE KEY-----` |
+| Private Key | `-----BEGIN (RSA\|EC\|OPENSSH\|DSA) PRIVATE KEY-----` |
 | Password in URL | `https://user:password@host` |
 | .env assignment | `[A-Z_]+=[A-Za-z0-9\-_]{8,}` |
 
@@ -498,3 +498,7 @@ vault kv get -field=DB_PASSWORD secret/myapp
 - [[software-supply-chain-security-deepdive]] — supply chain risk
 - [[dependency-confusion-supply-chain-attacks-praktik]] — dependency
 - [[00_Atlas/hierarchy-package-managers]] — package manager
+---
+
+audited
+---

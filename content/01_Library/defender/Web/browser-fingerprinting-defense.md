@@ -215,7 +215,7 @@ python -m http.server 8000
 
 - **[[firefox-optimization-tweaks-2025|Firefox Optimization Tweaks]]** – mengaktifkan `privacy.resistFingerprinting` di bagian “about:config”.
 - **[[anti-tracking-browser-extensions|Anti‑Tracking Extensions]]** – daftar extensions yang membantu melindungi fingerprint.
-- **[[zero-trust-networking-for-homelab-edge|Zero‑Trust Networking for Home‑Lab/Edge]]** – jaringan privasi yang dapat digabung dengan browser hardening.
+- **[[zero-trust-networking-homelab-edge|Zero‑Trust Networking for Home‑Lab/Edge]]** – jaringan privasi yang dapat digabung dengan browser hardening.
 - **[[master-index|Master Index]]** – navigasi utama vault.
 
 ---
@@ -232,7 +232,7 @@ python -m http.server 8000
 - **FingerprintJS** – https://fingerprintjs.com/ (online service & open‑source library)
 - **AmIReallyBot** – https://ami.fingerprintjs.com/ (free tester)
 - **CanvasBlocker** – https://github.com/kkapsner/CanvasBlocker
-- **Trace Guard** – https://github.com/trace‑guard/trace‑guard
+- **Trace Guard** – ekstensi spoofing fingerprint (repo publik tidak ditemukan per 2026-08; nama dipakai sebagai referensi konsep, alternatif: CanvasBlocker / Chameleon)
 - **Privacy Badger** – https://www.eff.org/privacybadger
 
 ### Academic Papers
@@ -244,6 +244,10 @@ python -m http.server 8000
 
 > \u26A0\uFE0F **Peringatan Akhir – Fingerprinting tidak pernah selesai 100 %.** Hanya dengan *defense‑in‑depth* (browser hardening, extensions, network level, randomization, monitoring) Anda dapat **menurunkan entropi** ke level yang tidak ekonomis bagi penyerang. Selalu audit secara berkala, rotasi profil, dan perbarui kebijakan.
 
+audited
 ---
 
 *Catatan ini dibuat sebagai bagian dari inisiatif **Vault Audit** – referensi file asli (`TESTFROMDARKNET`, dll) tetap tidak diubah (`mtime` asli). Semua referensi `.md` di dalam catatan ini mengarah ke file yang sudah ada di vault. Status: **pending** – siap untuk verifikasi dan audit lebih lanjut.*
+
+audited
+---

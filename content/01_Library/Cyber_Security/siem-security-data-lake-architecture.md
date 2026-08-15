@@ -775,3 +775,7 @@ steps:
 ---
 
 *Dibuat: 16 Juli 2026 — Panduan membangun SIEM & Security Data Lake dari Wazuh + ELK.*
+---
+
+audited
+---

@@ -217,3 +217,7 @@ Metasploit tidak memiliki atribut moral. Yang membedakan adalah **otorisasi, tuj
 ---
 
 *Metasploit Deep Dive | Exploit Delivery & Post-Exploitation Framework | Dual-Use Pentest Arsenal*
+---
+
+audited
+---

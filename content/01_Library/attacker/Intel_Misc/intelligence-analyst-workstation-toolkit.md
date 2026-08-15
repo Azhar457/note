@@ -336,3 +336,7 @@ print(f"Alert ports: {df['alert'].sum()} dari {len(df)} IP")
 - **Tags:** intelligence osint tools analysis workflow analyst
 - **Related:** [[intelligence-reporting-sources-and-tradecraft]], [[osint-resource-index]], [[hierarchy-osint-rf]]
 - **Last Updated:** 2026-08-02
+---
+
+audited
+---

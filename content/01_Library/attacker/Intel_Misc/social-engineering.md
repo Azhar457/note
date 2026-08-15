@@ -201,3 +201,7 @@ Mitigasi: callback verifikasi wajib untuk transfer > threshold, dual approval.
 | Unexpected attachment | Invoice, PO, Doc yang tidak diharapkan |
 | Request bypass | "Kirim via reply", "Bayar ke rekening ini" |
 | Emotional pressure | "Akun akan dikunci", "Kami percaya kamu" |
+---
+
+audited
+---

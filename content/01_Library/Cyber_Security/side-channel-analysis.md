@@ -446,3 +446,7 @@ int constant_compare(const char *a, const char *b, size_t n) {
 5. Prime+Probe: Osvik (2006)
 6. "A Practical Guide to Fault Injection" — Colin O'Flynn
 7. Spectre/Meltdown papers (2018)
+---
+
+audited
+---

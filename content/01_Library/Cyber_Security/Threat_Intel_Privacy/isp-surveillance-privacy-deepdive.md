@@ -494,3 +494,7 @@ iptables -A FORWARD -p udp --dport 53 -d ! 127.0.0.1 -j DROP
 
 > [!tip] Bottom Line
 > ISP surveillance bukan teori konspirasi — ini adalah realitas teknis dan legal yang terdokumentasi dengan baik. Router Anda adalah mata dan telinga ISP di dalam rumah Anda. Tanpa perlindungan aktif, setiap klik, setiap pencarian, setiap pergerakan fisik bisa menjadi komoditas yang dijual. Defense in depth adalah satu-satunya strategi yang efektif: enkripsi DNS (DoH), enkripsi SNI (ECH), enkripsi total traffic (VPN), dan kontrol hardware (router sendiri). Privasi bukan privilige — ini adalah hak yang harus Anda ambil kembali dengan tangan Anda sendiri.
+---
+
+audited
+---

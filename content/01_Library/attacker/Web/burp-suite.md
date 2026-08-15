@@ -182,3 +182,7 @@ testing                     SSRF lateral
 ---
 
 *Burp Suite Deep Dive | Web Application Pentest | Proxy & Interception Framework*
+---
+
+audited
+---

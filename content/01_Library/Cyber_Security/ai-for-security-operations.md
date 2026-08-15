@@ -178,3 +178,7 @@ Sistem AI-SOC memunculkan area serangan baru (*attack surface*) yang menargetkan
 - OWASP LLM Top 10 — https://owasp.org/www-project-top-10-for-large-language-model-applications/
 - Elastic Security Labs — https://www.elastic.co/security-labs/
 - PyOD (outlier detection) — https://github.com/yzhao062/pyod
+---
+
+audited
+---

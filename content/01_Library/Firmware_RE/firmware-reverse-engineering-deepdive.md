@@ -11,7 +11,6 @@ cssclasses:
   - callout
 
 ---
-
 # 🔧 FIRMWARE REVERSE ENGINEERING — Deep Dive: Dari Dump Flash Sampai Remote Code Execution
 
 > Firmware adalah **lapisan kepercayaan paling dalam** — berjalan sebelum OS, kontrol hardware langsung, sering luput dari perhatian. Satu backdoor di firmware memberikan persist melewati factory reset. Dokumen ini membedah **setiap aspek firmware RE**: ekstraksi firmware mentah dari chip fisik, filesystem extraction, reversing ARM/MIPS/RISC-V, vulnerability discovery, emulation, sampai exploit untuk sistem embedded.
@@ -57,15 +56,15 @@ Setiap lapisan bawah bisa mengkompromi lapisan di atas
 
 **Mengapa firmware target empuk:**
 
-| Faktor | Dampak |
-|--------|--------|
-| **Update jarang** | Vulnerability bertahun-tahun tidak ditambal |
-| **Hardcoded secret** | Root creds, API key, token di binary |
-| **Legacy code** | Fork codebase 10-20 tahun — pola tidak aman |
-| **Debug interface terbuka** | UART, JTAG tidak dilindungi di produksi |
-| **Boot rentan** | BootROM bug (silicon), verified boot bisa dilewati |
-| **Supply chain opaque** | Blob pihak ketiga tanpa audit |
-| **Memory protection minim** | Stack canary, ASLR, NX jarang diaktifkan |
+| Faktor                      | Dampak                                             |
+| --------------------------- | -------------------------------------------------- |
+| **Update jarang**           | Vulnerability bertahun-tahun tidak ditambal        |
+| **Hardcoded secret**        | Root creds, API key, token di binary               |
+| **Legacy code**             | Fork codebase 10-20 tahun — pola tidak aman        |
+| **Debug interface terbuka** | UART, JTAG tidak dilindungi di produksi            |
+| **Boot rentan**             | BootROM bug (silicon), verified boot bisa dilewati |
+| **Supply chain opaque**     | Blob pihak ketiga tanpa audit                      |
+| **Memory protection minim** | Stack canary, ASLR, NX jarang diaktifkan           |
 
 **Siapa yang menarget firmware:**
 - **APT groups** — Vault 7 (CIA), Equation Group, LiGhT — implant persisten
@@ -187,6 +186,7 @@ cat /dev/mtd0 > /tmp/fw.bin; cat /proc/mtd
 **Tools:** CH341A ($3), FTDI FT2232H ($15-25), Bus Pirate ($30-50), DediProg SF100 ($100-200)
 
 **Pinout SOIC-8:**
+
 | Pin | Signal | Ke Programmer |
 |-----|--------|---------------|
 | 1 | CS# | CS |
@@ -219,6 +219,7 @@ openocd -f interface/ftdi/ft2232h.cfg -f target/stm32f4x.cfg \
 **Destructive — langkah terakhir.** Hot air reflow (Quick 861DW) → reball → reader.
 
 **Readout Protection Bypass:**
+
 | Proteksi | Bypass |
 |----------|--------|
 | STM32 RDP1 | Debugger read — mass erase enable = data hilang |
@@ -357,7 +358,7 @@ for f in $(find _extracted -type f -executable 2>/dev/null); do
 done
 ```
 
-### Case — D-Link DIR-890L (CVE-2017-7410)
+### Case — D-Link DIR-890L (CVE-2018-12103)
 Hardcoded telnet credential `admin:1234567890` ditemukan via strings. Remote attacker login via WAN-side telnet.
 
 ### Case — TP-Link WDR4300 (CVE-2017-13772)
@@ -641,7 +642,7 @@ chipsec_main -m common.uefi_s3     # S3 boot script vuln?
 | DMA to host | Baca/tulis host memory via PCIe | - |
 | KVM injection | Virtual keyboard → keystroke ke host | - |
 | Virtual media | Mount ISO → boot OS attacker | - |
-| PixieFail | RCE via PXE boot path | CVE-2024-0146 |
+| PXE boot (PixieFail) | RCE via PXE boot path | Quarkslab 2024 — seri CVE EDK2 NetworkPkg (nomor belum terverifikasi di CVE.org; CVE-2024-0146 salah dikaitkan = NVIDIA vGPU) |
 
 **BMC Firmware Extraction:**
 ```bash
@@ -654,7 +655,7 @@ ls squashfs-root/www/; ls squashfs-root/etc/; ls squashfs-root/usr/local/bin/
 
 ## Real-World Case Studies
 
-### Jeep Cherokee 2014 (CVE-2015-6622, CVE-2015-6577)
+### Jeep Cherokee 2014 (CVE-2015-5611 Uconnect; CVE-2015-6622/6577 = Android native libs — konteksnya beda)
 ```text
 WiFi→D-Bus→infotainment→CAN bus→ECU: Remote control brake/steering/transmission.
 KEY: Firmware OTA tanpa signature proper, CAN bus no auth, no network segmentation.
@@ -684,9 +685,11 @@ KEY: Firmware-level rootkit pertama. OS dan HMI lihat operasi normal.
 PLC tanpa integrity check untuk firmware yang di-load (2007).
 ```
 
-### AMI MegaRAC — PixieFail (CVE-2024-0146)
+### AMI MegaRAC — BMC RCE (CVE-2023-34329, auth bypass; CVE-2022-40242 default creds)
 ```text
-Multiple BMC vuln via PXE boot path — RCE tanpa auth.
+MegaRAC BMC (SPX) — 2 CVE terverifikasi utk auth bypass & default creds (Redfish).
+CVE-2023-34329: auth bypass via HTTP Host header spoofing (SPx12).
+PixieFail (Quarkslab 2024): RCE via PXE boot path — seri CVE EDK2 NetworkPkg.
 100K+ server exposed via BMC management interface di Shodan.
 BMC compromise = full host compromise (DMA access).
 ```
@@ -783,3 +786,7 @@ If mismatch → quarantine from network
 
 ---
 *Dokumen ini adalah living note — diperbarui seiring muncul teknik baru, CVE signifikan, dan perubahan landscape ancaman firmware.*
+---
+
+audited
+---

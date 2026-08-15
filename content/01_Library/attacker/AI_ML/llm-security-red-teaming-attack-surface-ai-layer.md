@@ -8,7 +8,6 @@ updated: '2026-07-09'
 status: pending
 cssclasses: ''
 ---
-
 # 🛡️ LLM SECURITY & RED TEAMING — A First Principles Deep Dive
 
 > **Filosofi:** Keamanan tradisional menjaga *boundaries* (Ring -3 hingga Ring 3). LLM menghapus batas itu. Di sini, **data adalah kode**, dan **instruksi bisa diselundupkan melalui data**. Ini adalah Ring 4 — lapisan di mana input tak terpercaya dieksekusi sebagai logika.
@@ -569,3 +568,4 @@ Bedanya: target bukan binary tapi model behavior via API
 ---
 
 *LLM Security & Red Teaming | First Principles Deep Dive · Dari Tokenisasi hingga Tool Poisoning · Layer 0 → Layer 7*
+audited

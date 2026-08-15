@@ -229,3 +229,6 @@ Disiplin intelijen operasional — di luar jangkauan riset akademik biasa.
 - **Tags:** atlas intelligence sources hierarchy research osint
 - **Related:** [[academic-research-sources-encyclopedia]], [[intelligence-reporting-sources-and-tradecraft]], [[osint-resource-index]]
 - **Last Updated:** 2026-08-02
+
+audited
+---

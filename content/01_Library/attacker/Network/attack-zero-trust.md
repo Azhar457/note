@@ -110,3 +110,56 @@ Attack Option 4 — Client Bypass:
 - Golden SAML — https://www.fireeye.com/content/dam/...
 - Cloudflare Access — https://www.cloudflare.com/zero-trust/
 - ZT Bypass Research — https://www.blackhillsinfosec.com/...
+
+## Konkret — Zero Trust Bypass Payload (Testable)
+
+### Trust Broker Compromise
+
+```bash
+# 1. Phish admin SSO → impersonate trust broker
+# 2. Tap token via ADFS / OAuth code injection
+# 3. Cross-realm trust bypass: federated SAML ke realm B
+#    SAML assertion modify → claim admin role realm B
+
+# Forge SAML token (Golden SAML):
+# 1. Extract IdP private key (ADFS etc)
+# 2. For assertion: user=admin, audience=https://target.com/saml
+# 3. Sign Assertion (GoldenSAML.py)
+# 4. Access SP sebagai admin (no MFA, no password)
+#    - bypass ZTNA broker -> ZTNA session hijack
+```
+
+### Enforcement Gap Exploitation
+
+```
+# ZTNA implementasi: enforcement di proxy / gateway
+# Gap: jika proxy bypass, policy enforcement skipped
+
+# Bypass via direct service access:
+# 1. VPN / direct connect (legacy) masih aktif (jarang dipakai)
+# 2. Service mesh internal (sidecar) tidak enforce ke legacy node
+# 3. API gateway dengan undocumented backend endpoints
+# 4. Load balancer direct IP → bypass broker
+
+# Exploit:
+# 1. Scan internal IP range (discovered via DNS / leaked)
+# 2. Direct hit ke service-api:8080 (di belakang ZTNA proxy)
+# 3. Bypass: proxy yang enforce policy, service tidak
+```
+
+### Identity-Based Lateral Movement
+
+```bash
+# ZT identify user/device — tapi pivot dari compromised device
+# 1. Compromesasi workstation → kredensial/token di RAM
+# 2. PRT (Primary Refresh Token) extract (AzureAD)
+# 3. Token reply / refresh via PRT → access cloud resource
+
+# Mimikatz PRT extract:
+mimikatz sekurlsa::cloudap
+# Output: PRT token → access AzureAD resource (semua)
+```
+---
+
+audited
+---

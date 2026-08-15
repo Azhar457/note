@@ -344,3 +344,7 @@ training
 ---
 
 *Hak5 Suite Deep Dive | Physical Red Team Hardware | USB, WiFi, & Cable Attack Platform*
+---
+
+audited
+---

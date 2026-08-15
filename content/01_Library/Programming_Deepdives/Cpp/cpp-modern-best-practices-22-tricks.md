@@ -886,3 +886,7 @@ Tabel di awal dokumen merangkum dependensi. Jika kamu mempelajari trik-trik ini 
 ---
 
 *C++ Modern Best Practices | 22 Trik Wajib · auto, move, smart pointers, constexpr, structured bindings, coroutines*
+---
+
+audited
+---

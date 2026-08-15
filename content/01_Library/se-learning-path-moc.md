@@ -19,7 +19,7 @@ Struktur vault yang disajikan di atas membagi konten menjadi beberapa kategori u
 - `Systems_Architecture/`: Mencakup topik-topik terkait arsitektur sistem, termasuk sistem terdistribusi, sistem operasi, dan reliability. Buku-buku seperti [[ddia-kleppmann]], [[site-reability-engineering]], [[csapp-bryant-ohallaron]], [[ostep-three-easy-pieces]], dan [[systems-design-interview-alex-xu]] menjadi referensi utama.
 - `Algorithms_Math/`: Berfokus pada fondasi teoretis algoritma dan matematika, dengan buku seperti [[sicp-abelson-sussman]] dan [[clrs-introduction-to-algorithms]].
 - `Productivity_Career/`: Membahas tentang mindset, fokus, dan strategi karier, termasuk buku [[deep-work-and-so-good-newport]].
-- Kategori-kategori lain seperti [[Software_Engineering/bonus-books-refactoring-legacy-ydkjs-knuth]], `Swarm_AI/`, `Kualitas_Perangkat_Lunak/`, dan `Internet_Offline/` juga disediakan untuk memperluas cakupan topik.
+- Kategori-kategori lain seperti [[bonus-books-refactoring-legacy-ydkjs-knuth]], `Swarm_AI/`, `Kualitas_Perangkat_Lunak/`, dan `Internet_Offline/` juga disediakan untuk memperluas cakupan topik.
 
 ## 🔗 Cross-Reference
 
@@ -226,5 +226,7 @@ node1.socket.close()
 node2.socket.close()
 ```
 Kode di atas menunjukkan contoh sederhana implementasi sistem terdistribusi menggunakan Python dan socket.
-
 Dengan demikian, diharapkan pembaca dapat memperoleh pengetahuan yang komprehensif dan terstruktur di bidang Software Engineering dan Computer Science, serta dapat mengembangkan sistem terdistribusi yang stabil dan efisien.
+
+---
+audited

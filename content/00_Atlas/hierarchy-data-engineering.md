@@ -355,3 +355,6 @@ Source pattern?
 9. dbt Labs. *"dbt Documentation."* (2024).
 10. Marx, R. *"The Data Engineering Cookbook."* 2020.
 11. Hueske, F. & Kalavri, V. *"Stream Processing with Apache Flink."* O'Reilly, 2019.
+
+audited
+---

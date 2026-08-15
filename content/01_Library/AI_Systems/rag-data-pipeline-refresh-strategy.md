@@ -743,3 +743,7 @@ alerts:
 ---
 
 *Dibuat: 16 Juli 2026 — Panduan maintain RAG knowledge base dari incremental indexing sampai monitoring.*
+---
+
+audited
+---

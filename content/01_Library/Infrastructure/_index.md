@@ -27,3 +27,6 @@ cssclasses:
 - [[linux-hardening-cis]]
 - [[networking-fundamentals-tcpip-bgp]]
 - [[offline-internet-indonesia]]
+
+audited
+---

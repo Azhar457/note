@@ -1039,3 +1039,7 @@ START
 
 > [!tip] Bottom Line
 > Menguasai 15 DSA patterns bukan tentang menghafal kode — ini tentang mengembangkan intuisi algoritmik. Setiap kali menghadapi masalah baru, tanyakan: "Pattern apa yang paling mirip?" "Constraint apa yang menentukan pilihan data structure?" "Apakah ada substructure yang bisa di-optimize?" Dengan latihan yang konsisten (50-100 soal per pattern), pattern recognition akan menjadi otomatis, dan waktu identifikasi solusi akan turun dari menit ke detik.
+---
+
+audited
+---

@@ -811,3 +811,7 @@ CI/CD adalah IMPLEMENTATION dari konsep yang sudah ada di vault:
 ---
 
 *CI/CD Deep Dive | Shift Left (SAST/DAST/SCA/Threat Model) · Shift Right (Chaos/Observability/Canary) · Pipeline Anatomy · DORA Metrics · DevSecOps*
+---
+
+audited
+---

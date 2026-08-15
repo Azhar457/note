@@ -31,3 +31,6 @@ cssclasses:
 - **Alasan pindah:** `Software_Quality/` lebih sesuai disiplin software engineering (formal methods, code review, defect tracking) dan sejajar dengan [[the-pragmatic-programmer]] + [[clean-code-robert-martin]] di folder [[Software_Engineering]].
 - **Cross-link:** Lihat juga [[software-engineering]] (overview) untuk tata letak disiplin SE secara holistic.
 - **Konvensi ke depan:** Folder `Kualitas_Perangkat_Lunak/` dipertahankan sebagai stub untuk backward-compat dengan [[se-learning-path-moc]]. Tidak ada file baru yang ditambah di sini.
+
+audited
+---

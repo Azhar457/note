@@ -133,3 +133,7 @@ Kriptografi bekerja di setiap layer:
 ---
 
 *Kriptografi & Biometrik | Dari Caesar Cipher sampai Post-Quantum · Dari Password sampai Neural Auth*
+---
+
+audited
+---

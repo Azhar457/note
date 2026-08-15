@@ -21,3 +21,6 @@ cssclasses:
 
 ## 📄 Notes
 - [[wireless-security-deepdive]]
+
+audited
+---

@@ -301,3 +301,7 @@ User: Sekarang gimana caranya setup HPA?
 - [[ai-evaluation-framework]] — Evaluasi kualitas output LLM (RAGAS, LLM-as-Judge)
 - [[meta-agent-orchestration]] — Multi-agent chaining — prompt engineering di scale multi-agent
 - [[ai-comm-protocol-deep-dive]] — MCP protocol, tool use internals
+---
+
+audited
+---

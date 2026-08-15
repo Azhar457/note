@@ -577,3 +577,7 @@ protoc --decode Person person.proto < data.bin  # Dengan schema
 
 > [!tip] Bottom Line
 > Encoding, serialization, dan compression adalah **fondasi pertukaran data** yang sering dianggap remeh. Setiap satu dari 10,000 API request yang lewat hari ini pasti melewati setidaknya base64, JSON, dan gzip. Buat security engineer: (1) **base64 ≠ encryption** — jangan pernah pake base64 untuk keamanan. (2) **Pickle/YAML.load/Java unserialize/ unserialize** adalah RCE dalam bentuk serialization — jangan pernah deserialize data dari untrusted source dengan fungsi-fungsi itu. (3) **XXE** masih ada di 2026 — karena XML masih dipake di enterprise legacy dan SOAP API. (4) **Encoding bypass** adalah teknik paling umum untuk melewati WAF — paham double encoding dan unicode normalization adalah minimum. (5) **Kompresi sebagai oracle** — CRIME attack membuktikan bahwa compression ratio bisa dipake untuk recover secret — alasan kenapa TLS 1.3 menghapus compression.
+---
+
+audited
+---

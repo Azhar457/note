@@ -186,3 +186,7 @@ Jika sebuah sub-tujuan terus gagal dan menghabiskan sumber daya, Goal Manager ha
 ---
 
 *Desain Sistem Otonom — 2026-07-09*
+---
+
+audited
+---

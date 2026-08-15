@@ -96,8 +96,10 @@ Persistence: Backdoor di artifact → deploy ke production
 | **TruffleHog / GitLeaks** | Secret scan di package/repo |
 
 ## 6. Referensi
-- Dependency Confusion (Alex Birsan) — https://alex.birsan.me/bugs/dependency-confusion/
 - npm Security — https://www.npmjs.com/) |
-- Socket (Package Analysis) — https://socket.dev/
 - XZ Utils Backdoor — https://nvd.nist.gov/vuln/detail/CVE-2024-3094
 - SLSA Framework — https://slsa.dev/
+---
+
+audited
+---

@@ -167,3 +167,7 @@ catat_temuan("Temuan 2")
 ```
 
 Dengan demikian, Anda telah mempelajari dasar-dasar CTF dan telah siap untuk memulai perjalanan Anda dalam dunia keamanan siber. Ingatlah untuk selalu mencatat temuan Anda dan menggunakan alat bantu yang tepat untuk menyelesaikan tantangan CTF.
+---
+
+audited
+---

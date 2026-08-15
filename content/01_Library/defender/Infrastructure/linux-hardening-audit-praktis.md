@@ -859,3 +859,7 @@ Setiap serangan mengincar layer tertentu. Hardening layer yang tepat memblokirny
 6. Linux Audit Documentation — https://github.com/linux-audit/audit-documentation
 7. Lynis — https://cisofy.com/lynis/
 8. AIDE Manual — https://aide.github.io/
+---
+
+audited
+---

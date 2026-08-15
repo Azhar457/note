@@ -424,7 +424,7 @@ Berdasarkan analisis struktur vault — semua file markdown dengan heading hiera
 
 - `../vault-rag/CLAUDE.md` — Dokumentasi implementasi RAG di vault-rag project
 - `../vault-rag/scripts/index_vault.py` — Implementasi konkret parent-child chunking
-- [[../vault-rag/scripts/query.py]] — Implementasi parent context augmentation di retrieval
+- `../vault-rag/scripts/query.py` — Implementasi parent context augmentation di retrieval
 - [[ai-engineering-stack-roadmap]] — Peta jalan: Fase 2 (Data Pipeline & Vector Infrastructure)
 - [[cognitive-architecture-engineering]] — Memori hierarkis: child = working memory, parent = long-term memory
 - [[math-and-algorithms]] — Cosine similarity di semantic chunking
@@ -451,3 +451,7 @@ Berdasarkan analisis struktur vault — semua file markdown dengan heading hiera
 
 > [!tip] Bottom Line
 > Chunking bukan preprocessing — ini **keputusan arsitektural**. Fixed-size chunking adalah "magic number" yang paling berbahaya di RAG karena memberikan ilusi presisi sambil merusak koherensi semantik. **Parent-Child Chunking** menyelesaikan trade-off fundamental: search di child (presisi tinggi), context dari parent (konteks lengkap). Untuk vault markdown, Structure-Aware (hormati heading) adalah langkah pertama yang wajib. Implementasi di vault-rag sudah menggunakan arsitektur ini — jalankan `./vault-rag.sh index --reindex` untuk mengaktifkannya.
+---
+
+audited
+---

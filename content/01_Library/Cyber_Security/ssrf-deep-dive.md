@@ -389,13 +389,13 @@ static SSRF_REDIRECT: Lazy<Regex> = Lazy::new(|| {
 
 ### Payload Database
 
-Lokasi payload: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Server Side Request Forgery/`
+Lokasi payload: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server Side Request Forgery/`
 
 ### Tool SSRF
 
 | Tool | Fungsi | Lokasi |
 |---|---|---|
-| **SSRFmap** | Auto-exploit SSRF → internal services | `/mnt/data_d/Projects/Reference/SSRFmap/` |
+| **SSRFmap** | Auto-exploit SSRF → internal services | `https://github.com/swisskyrepo/PayloadsAllTheThingsSSRFmap/` |
 | **Interactsh** | OOB detection callback | `https://github.com/projectdiscovery/interactsh` |
 | **1u.ms** | DNS rebinding service | `https://1u.ms/` |
 | **rbndr.us** | DNS rebinding ASN-based | `https://rbndr.us/` |
@@ -406,3 +406,7 @@ Lokasi payload: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Server Side
 - [[cloud-native-security-aws-gcp-azure-deepdive]] — cloud metadata
 - [[waf-reverse-proxy-deepdive]] — WAF SSRF rules
 - [[api-protocols-deepdive]] — protocol security
+---
+
+audited
+---

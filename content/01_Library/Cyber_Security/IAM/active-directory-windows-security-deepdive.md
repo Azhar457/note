@@ -530,3 +530,7 @@ level: critical
 
 > [!tip] Bottom Line
 > Windows dan Active Directory bukan sekadar "infrastruktur autentikasi" — ini adalah medan pertempuran utama post-exploitation modern. Setiap C2 framework (Sliver, Cobalt Strike, Empire) dirancang untuk mengeksploitasi mekanisme credential caching, token delegation, dan trust relationship AD. Tanpa pemahaman mendalam tentang Kerberos, LSASS, ACL, dan Group Policy, seorang blue team tidak akan bisa mendeteksi lateral movement yang paling dasar sekalipun. Investasi pada Protected Users, Credential Guard, LAPS, **serta** audit event log secara kontinu (dengan korelasi Sigma ke SIEM) adalah fondasi pertahanan yang tidak bisa ditawar.
+---
+
+audited
+---

@@ -9,7 +9,7 @@ tags:
 aliases:
   - hierarchy-waf-reverse-proxy
 created: 2026-07-17
-updated: 2026-07-17
+updated: 2026-08-15
 status: complete
 cssclasses:
   - wide-table
@@ -120,3 +120,5 @@ For context: 10k req/s baseline → L1 = 7k req/s → L3 = ~4k req/s.
 > WAF bukan alat ajaib yang membuat aplikasi aman — itu layer filtering yang mengurangi noise attack. Security sejati tetap di aplikasi: input validation, parameterized query, output encoding. WAF = safety net, bukan replacement.
 
 *WAF & Reverse Proxy Hierarchy | Level 0 (Proxy Passthrough) → Level 6 (eBPF Custom WAF) · Bisa Di-Bypass, Bukan Silver Bullet*
+
+audited

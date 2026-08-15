@@ -123,3 +123,7 @@ Offensive Security berfokus pada pengujian pertahanan siber melalui simulasi ser
 ---
 
 _Peta interaktif ini dimuat secara real-time dari repositori GitHub Pages utama. Pastikan koneksi jaringan Anda stabil agar file HTML eksternal dapat ter-render dengan sempurna di dalam iframe._
+---
+
+audited
+---

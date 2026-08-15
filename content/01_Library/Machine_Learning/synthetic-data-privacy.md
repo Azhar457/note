@@ -229,3 +229,7 @@ Ini adalah tempat di mana wawasan sejati muncul, menghubungkan dokumen ini ke ek
 | **[[dual-use-spectrum-and-ethical-framework]]** | **Synthetic Media Warfare:** Kemampuan untuk menghasilkan data realistis adalah teknologi dual-use klasik. Ini dapat digunakan untuk melindungi privasi atau untuk membuat deepfake dan disinformasi. Kerangka etis Anda secara langsung berlaku di sini. |
 
 Dengan fondasi ini, Anda tidak hanya memahami privasi sebagai tambalan, tetapi sebagai **prinsip desain arsitektur**—sebuah perisai kognitif yang memungkinkan AI untuk belajar dari dunia tanpa mengekspos orang-orang di dalamnya.
+---
+
+audited
+---

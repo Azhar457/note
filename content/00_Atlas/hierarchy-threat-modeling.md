@@ -9,7 +9,7 @@ aliases:
   - hierarchy-threat-modeling
 created: 2026-07-17
 updated: 2026-07-17
-status: completed
+status: pending
 cssclasses:
   - wide-table
   - callout
@@ -106,3 +106,6 @@ Kedua threat model menggunakan hirarki dan metodologi yang sama — hanya perspe
 > Threat modeling bukan tentang "berapa banyak ancaman yang lo temukan." Ini tentang **seberapa yakin lo bahwa lo sudah menemukan ancaman yang paling berbahaya**. Pilih level yang membangun keyakinan itu — tanpa menghabiskan budget untuk ancaman yang tidak relevan.
 
 *Threat Modeling Hierarchy | Level 0 (Intuition) → Level 5 (Formal Verification) · Seberapa Yakin Kamu?*
+
+audited
+---

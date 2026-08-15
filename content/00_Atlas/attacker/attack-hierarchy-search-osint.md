@@ -86,6 +86,9 @@ Threat Modeling (use hasil recon untuk pilih attack vector):
 - crt.sh — https://crt.sh/
 - Maltego — https://www.maltego.com/
 - theHarvester — https://github.com/laramies/theHarvester
-- SecurityTrails — https://securitytrails.com/
 - OSINT Framework — https://osintframework.com/
 - XKEYSCORE (Snowden) — https://en.wikipedia.org/wiki/XKeyscore
+---
+
+audited
+---

@@ -597,3 +597,7 @@ print(nn.forward(X))
 
 > [!tip] Kunci Penguasaan
 > Jangan hanya menyalin kode. Pahami **mengapa** partikel PSO bisa berayun jika `ω>1`, **mengapa** crossover dalam GA mempertukarkan blok bangunan (schema theorem), dan **mengapa** backprop efisien. Jika Anda bisa menjelaskan mekanisme ini tanpa melihat buku, Anda bukan hanya pengguna, tetapi **insinyur kecerdasan.**
+---
+
+audited
+---

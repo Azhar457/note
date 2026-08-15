@@ -141,3 +141,6 @@ SLSA L4 + Sigstore + in-toto = **gold standard**. Tapi SLSA L2 + signature sudah
 > Hirarki supply chain security adalah **biaya trust**. Level 0 gratis — tapi membayar dengan trust buta. Level 5 mahal — tapi feedback-nya: "setiap baris kode yang masuk ke production bisa diverifikasi asal-usulnya." Pilih level yang sepadan dengan risiko yang bisa ditoleransi.
 
 *Supply Chain Security Hierarchy | Level 0 (`npm install` + Doa) → Level 5 (SLSA L4 + Formal Provenance) · Semakin Tinggi, Semakin Terverifikasi Asal-Usul Kode*
+
+audited
+---

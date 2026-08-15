@@ -216,3 +216,7 @@ SICP (Structure and Interpretation of Computer Programs) adalah buku legendaris 
 2. Abstraksi: jembatan antara matematika (lambda calculus) dan engineering (compiler).
 3. Metalinguistic: "program yang menulis program" = macro, codegen, LLM prompt.
 4. Model: environment model = scope chain JavaScript; stream = generator Python.
+---
+
+audited
+---

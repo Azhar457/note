@@ -231,4 +231,8 @@ print(f"df/dy: {y.grad}")          # -1.0
 |------|----------|
 | [[backpropagation-deepdive]] | Dasar teori, representasi graf komputasi, dan kalkulus balik *backward pass*. |
 | [[attention-mechanism-deepdive]] | Penerapan aliran balik gradien pada arsitektur matriks perkalian dot-product. |
-| [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien. |
+| [[hierarchy-classical-ml-algorithms]] | Peta klasifikasi algoritma pembelajaran terawasi berbasis gradien. |
+---
+
+audited
+---

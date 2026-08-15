@@ -578,3 +578,7 @@ Integrasikan ketiga buku dalam 1 proyek:
 ---
 
 *Dokumen ini disusun berdasarkan Daftar Isi dari ketiga buku yang difoto. Silakan dipelajari secara sistematis dan praktik langsung untuk pemahaman maksimal.*
+---
+
+audited
+---

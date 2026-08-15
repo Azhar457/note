@@ -861,11 +861,11 @@ img_without_exif.save("photo_clean.jpg")
 
 | Format | Metadata Location | Level Rating / Kejarangan | Scrubbing Tool |
 | :------- | :------------------ | :---: | :--------------- |
-| PDF | XMP, Document Info | exiftool, qpdf |
-| DOCX | docProps/core.xml, app.xml | python-docx, oletools |
-| XLSX | Sama dengan DOCX | openpyxl |
-| MP3 | ID3 tags | eyeD3, mutagen |
-| MP4 | moov/udta/meta | ffmpeg -map_metadata -1 |
+| PDF | XMP, Document Info | exiftool, qpdf | |
+| DOCX | docProps/core.xml, app.xml | python-docx, oletools | |
+| XLSX | Sama dengan DOCX | openpyxl | |
+| MP3 | ID3 tags | eyeD3, mutagen | |
+| MP4 | moov/udta/meta | ffmpeg -map_metadata -1 | |
 
 **FFmpeg scrubbing:**
 ```bash
@@ -1143,3 +1143,7 @@ P(stego detected | HILL + F5) ≈ 0.15 (15% detection rate)
 | [[hardware-hacking-re]] | Physical destruction overlap dengan hardware hacking reverse |
 | [[cryptography-biometrics]] | Steganografi dan plausible deniability adalah aplikasi kriptografi |
 | [[incident-response-framework]] | IR harus aware akan teknik anti-forensics ini untuk tidak miss evidence |
+---
+
+audited
+---

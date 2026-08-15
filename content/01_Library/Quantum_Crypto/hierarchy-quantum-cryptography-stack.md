@@ -196,3 +196,7 @@ Setiap pilihan teknis punya tradeoff: performance vs security, convenience vs co
 - Cloud Native (CNCF) — https://www.cncf.io/
 - SLSA — https://slsa.dev/
 - Zero Trust (NIST 800-207) — https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf
+---
+
+audited
+---

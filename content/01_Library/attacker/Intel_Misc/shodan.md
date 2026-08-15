@@ -230,3 +230,7 @@ Data ini bukan rahasia; ia adalah hasil dari apa yang organisasi gagal lindungi.
 ---
 
 *Shodan Deep Dive | Internet Scanning & OSINT Reconnaissance | Dual-Use Infrastructure Discovery*
+---
+
+audited
+---

@@ -250,7 +250,7 @@ python3 vol.py -f memdump.raw windows.driverirp
 # Driver scan — signature verification
 python3 vol.py -f memdump.raw windows.modscan | \
   while read mod; do
-    if [[ $mod != *"microsoft"* ]] && [[ $mod != *"windows"* ]]; then
+    if `$mod != *"microsoft"*` && `$mod != *"windows"*`; then
       echo "[!] Unverified driver: $mod"
     fi
   done
@@ -465,3 +465,7 @@ python3 vol.py -f memdump.raw windows.evtlogs
 | [[forensic-imaging-analysis]] | SOP imaging — memory + disk imaging untuk forensik lengkap |
 | [[incident-response-framework]] | IR framework — memory forensics fase 3: analysis & containment |
 | [[kernel-forensics]] | Kernel forensics — rootkit detection overlap dengan memory |
+---
+
+audited
+---

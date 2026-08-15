@@ -276,3 +276,6 @@ Server encapsulation adalah visi arsitektur WAF di mana server backend sepenuhny
 | [[hierarchy-search]] | Information access hierarchy — Shodan ada di level OSINT |
 | [[browser-security-exploitation-deepdive]] | JS bundle analysis sebagai teknik recon |
 | [[server-hardening-playbook]] | Hardening server — hubungannya dengan mengurangi attack surface |
+
+audited
+---

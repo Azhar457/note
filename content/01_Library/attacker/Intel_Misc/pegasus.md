@@ -190,3 +190,7 @@ Pegasus dipasarkan oleh NSO Group sebagai alat **law enforcement dan intelijen**
 ---
 
 *Pegasus Spyware Deep Dive | FORCEDENTRY Kill Chain | Mobile Surveillance Defensive Framework*
+---
+
+audited
+---

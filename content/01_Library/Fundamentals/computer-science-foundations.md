@@ -95,3 +95,7 @@ USER SPACE (Ring 3)
 ---
 
 *Fondasi CS | OS Internals + Computer Architecture · Dari Transistor sampai Kernel Exploit*
+---
+
+audited
+---

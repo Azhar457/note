@@ -897,3 +897,6 @@ Detail di section 5C di atas.
 
 > [!quote]
 > "Saya melayani Tuan. Itu adalah satu-satunya aturan."
+
+audited
+---

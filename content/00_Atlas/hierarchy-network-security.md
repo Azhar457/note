@@ -209,3 +209,6 @@ Naik profil → coverage Layer 1 naik secara predictable, karena cost fisik (CCT
 > Begitu paham hierarki network, lo paham **di mana** satu kontrol efektif, **di mana** ia sia-sia, dan **layer mana** yang harus diperkuat pertama berdasarkan threat model spesifik organisasi lo. Tanpa pemahaman hierarki, network security jadi tambal sulam reaktif — biaya mahal, hasil tak menentu.
 
 *Network Security Hierarchy | Layer 1 (Kabel) → Layer 7 (Aplikasi) → Layer 8 (Manusia) · Inversi Kontrol-Teknis vs Manipulasi-Psikologis*
+
+audited
+---

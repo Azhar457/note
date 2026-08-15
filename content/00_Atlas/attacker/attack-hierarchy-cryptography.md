@@ -107,8 +107,11 @@ cssclasses:
 - Heartbleed — CVE-2014-0160 — https://heartbleed.com/
 - DigiNotar — https://en.wikipedia.org/wiki/DigiNotar
 - Certifried — CVE-2022-26923 — https://posts.specterops.io/certified-pre-owned-d959a9d37ad5
-- PetitPotam — CVE-2021-36942 — https://dirkjanm.io/krbrelayx/
-- BlackHat — TLS Security — https://www.blackhat.com/
+- PetitPotam — CVE-2021-36942 — https://github.com/dirkjanm/krbrelayx
 - TLS 1.3 — https://tools.ietf.org/html/rfc8446
 - WireGuard — https://www.wireguard.com/
 - Signal Protocol — https://signal.org/docs/
+---
+
+audited
+---

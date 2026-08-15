@@ -303,3 +303,7 @@ Militer AS dan sekutu menggunakan Cellebrite UFED di Irak, Afghanistan, Suriah u
 ---
 
 *Cellebrite UFED Deep Dive | Mobile Forensic Extraction | Dual-Use Forensic Platform*
+---
+
+audited
+---

@@ -304,3 +304,7 @@ LEO adalah satu-satunya medium satelit yang mendekati fiber dari sisi latensi. U
 | [[networking-fundamentals-tcpip-bgp]] | RTT/latensi layer transport — konteks perbandingan medium |
 | [[wireguard-vpn-architecture-deepdive]] | Konektivitas daerah blank spot — solusi satelit vs VPN terestrial |
 | [[offline-internet-indonesia]] | Daerah blank spot Indonesia — satelit sebagai alternatif infrastruktur |
+---
+
+audited
+---

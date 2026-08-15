@@ -100,3 +100,6 @@ After making any content edits, always:
 1. Run the local audit script: `python3 scripts/vault-audit.py`.
 2. Inspect `vault-audit-report.md` for warnings on **Broken Wikilinks**, **Missing Frontmatter**, or **Table Spacing Issues**.
 3. Fix any true positives before ending your turn.
+
+audited
+---

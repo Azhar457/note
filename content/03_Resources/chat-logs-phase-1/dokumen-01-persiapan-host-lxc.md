@@ -328,3 +328,7 @@ sudo systemctl restart docker
 ```
 
 Dengan demikian, Anda telah mempersiapkan host dan LXC untuk dijadikan sebagai server yang aman dan stabil. Pastikan untuk melakukan update sistem secara teratur dan memantau log sistem untuk memastikan keamanan dan stabilitas server.
+---
+
+audited
+---

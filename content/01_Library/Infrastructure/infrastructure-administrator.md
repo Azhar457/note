@@ -454,3 +454,7 @@ Someone who deeply understands Ansible can learn Terraform, Pulumi, or whatever 
 ---
 
 *Roadmap IT Systems Engineer | Fase 1 (Virtualization) → Fase 6 (Ops Maturity) · 6 Bulan Homelab · Bare-Metal On-Prem Focus*
+---
+
+audited
+---

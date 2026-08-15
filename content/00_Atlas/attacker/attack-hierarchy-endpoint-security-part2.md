@@ -141,14 +141,15 @@ cssclasses:
 
 ## 7. References (Deep Layer)
 
-- Intel ME / AMD PSP — https://me.bios.dev/, https://www.blackhat.com/docs/us-17/thursday/us-17-Eiram-Cybereason-The-Intel-ME-Investigation.pdf
 - LoJax / UEFI Rootkit — https://www.welivesecurity.com/2018/09/27/lojax-first-uefi-rootkit-found-wild-courtesy-sednit-group/
 - BlackLotus — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
 - CHIPSEC — https://github.com/chipsec/chipsec
-- System Management Mode (SMM) — https://github.com/chipsec/chipsec_util
-- BYOVD — https://www.crowdstrike.com/blog/exploiting-cve-2023-4911/
-- Direct Syscalls — https://github.com/jackullrich/SysWhispers3, https://github.com/vxunderground/HellsGate
+- System Management Mode (SMM) — https://github.com/chipsec/chipsec
+- BYOVD — https://blog.qualys.com/vulnerabilities-threat-research/2023/10/03/cve-2023-4911-looney-tunables-local-privilege-escalation-in-the-glibcs-ld-so
 - UEFI Secure Boot — https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-secure-boot
-- Intel Boot Guard — https://www.intel.com/content/www/us/en/developer/articles/technical/boot-guard-approach-to-secure-boot.html
 - SpecterOps (AD Security) — https://posts.specterops.io/
 - The DFIR Report — https://thedfirreport.com/
+---
+
+audited
+---

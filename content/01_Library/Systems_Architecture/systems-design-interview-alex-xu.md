@@ -244,3 +244,7 @@ Berikut adalah beberapa checklist yang dapat membantu dalam memahami buku ini:
 - [ ] Diagram tools: Figma / Excalidraw / draw.io
 
 Dengan memahami buku ini, Anda dapat meningkatkan kemampuan Anda dalam menghadapi system design interview dan memahami konsep-konsep penting dalam system design. Selamat membaca!
+---
+
+audited
+---

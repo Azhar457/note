@@ -401,3 +401,7 @@ if redirect_uri not in ALLOWED_URIS:
 - [[web-security]] — web security umum
 - [[active-directory-windows-security-deepdive]] — enterprise IdP konteks
 - [[zero-trust-security]] — zero trust architecture
+---
+
+audited
+---

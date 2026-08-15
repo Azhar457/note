@@ -195,3 +195,7 @@ Post-escape: host shell → pivot ke cluster → semua pod
 - Container Security — https://containerd.io/docs/security/
 - Kubernetes Hardening Guide — https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/0/KUBERNETES_HARDENING_GUIDANCE.PDF
 - runc CVE-2024-21626 — https://nvd.nist.gov/vuln/detail/CVE-2024-21626
+---
+
+audited
+---

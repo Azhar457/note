@@ -610,3 +610,6 @@ Vault QuCrypto sudah punya catatan di masing-masing layer. Daftar berikut memeta
 13. S. Borgeaud et al. *"Improving Language Models by Retrieving from Trillions of Tokens."* ICML 2022.
 14. J. Wei et al. *"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models."* NeurIPS 2022.
 15. Patrick Lewis et al. *"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks."* NeurIPS 2020.
+
+audited
+---

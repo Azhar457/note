@@ -354,3 +354,7 @@ Skill bukan cuma untuk agent — bisa juga jadi single source of truth untuk onb
 
 > [!tip] Bottom Line
 > Agent Skills + feedback sensors = harness engineering — kontrol ganda untuk coding agents yang produktif. Hanya pakai monolithic system prompt itu teknologi 2024; pakai modular skills yang loaded JIT itu konsep 2025; tapi **gabung feedforward (skill) dengan feedback (sensor) yang fail-loud** baru engineering disiplin 2026 ke atas. Mulai kecil: satu skill untuk satu pain domain, satu sensor untuk satu failure mode. Dari situ loop-powered self-correction akan tumbuh organik. Jangan lupa sensor yang baik = `set -euo pipefail`, bukan `set +e` silent-passer. Coverage tanpa mutation testing = theater; mutation testing tanpa human reason = noise. Kombinasi mereka — plus skill untuk pandu reasoning awalnya — itulah harness.
+---
+
+audited
+---

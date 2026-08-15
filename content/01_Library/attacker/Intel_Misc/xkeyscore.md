@@ -304,3 +304,7 @@ XKEYSCORE adalah puncak dari **"collect it all" philosophy** NSA. Kemampuannya y
 ---
 
 *XKEYSCORE Deep Dive | NSA Global Internet Search Engine | SIGINT Data Analysis Platform*
+---
+
+audited
+---

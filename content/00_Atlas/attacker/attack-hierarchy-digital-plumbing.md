@@ -99,3 +99,7 @@ Evasion: Encode (Base64), compress (gzip), obfuscate class name
 - ROBOT Attack — https://robotattack.org/
 - ysoserial — https://github.com/frohoff/ysoserial
 - Log4Shell (CVE-2021-44228) — https://logging.apache.org/log4j/2.x/security.html
+---
+
+audited
+---

@@ -302,3 +302,7 @@ User → Load Balancer → Guardrails → Router → LLM Provider
 - [[hallucination-mitigation-grounding]] — Guardrails & grounding techniques
 - [[query-transformation-rag]] — Query routing, rewite — bagian dari LLMOps optimization
 - [[embedding-model-selection-finetuning]] — Embedding model ops & maintenance
+---
+
+audited
+---

@@ -97,5 +97,7 @@ Evasion: Tidak ada login dari attacker (assertion = forged) — log menunjukkan 
 - Rubeus — https://github.com/GhostPack/Rubeus
 - Certipy — https://github.com/ly4k/Certipy
 - AADInternals — https://github.com/Gerenios/AADInternals
-- Golden SAML — https://www.fireeye.com/content/dam/fireeye-www/current/global/services/pdf-priorities-white-papers/rpt-golen-saml.pdf
-- OAuth Consent Phishing — https://www.microsoft.com/en-us/security/blog/2022/11/02/...
+---
+
+audited
+---

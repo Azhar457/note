@@ -200,3 +200,7 @@ print("✓ Berhasil menyimpan MRL 512-dim vector ke SQLite-Vec!")
 - [[semantic-search-pipeline]] — Arsitektur Pipeline Pencarian Semantik
 - [[cosine-similarity-deepdive]] — Kalkulasi Jarak Vektor dan Metric Distance
 - [[backpropagation-deepdive]] — Dasar Algoritma Backpropagation & Contrastive Loss
+---
+
+audited
+---

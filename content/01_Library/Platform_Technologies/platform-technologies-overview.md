@@ -604,3 +604,7 @@ Untuk KAMU (security + systems + AI interest):
 ---
 
 *Platform Technologies | io_uring · WebAssembly · CXL · Confidential Computing · DPU · P4 · RISC-V · The Next eBPF-level Shifts*
+---
+
+audited
+---

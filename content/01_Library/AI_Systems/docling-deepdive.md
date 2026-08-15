@@ -380,3 +380,7 @@ Cross-link: [[rag-pipeline-end-to-end-guide]] untuk end-to-end pipeline referenc
 ---
 
 *Docling deep-dive · unified document parser · IBM Research · v1.0 — July 2026*
+---
+
+audited
+---

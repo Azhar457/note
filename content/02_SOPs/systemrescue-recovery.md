@@ -9,8 +9,6 @@ cssclasses:
   - wide-table
   - callout
 ---
-
-
 # 🔬 SOP RECOVERY — Open Source Only (SystemRescue / Kali Live)
 
 > **Environment:** SystemRescue Live USB / Kali Linux Live / Parrot OS Live
@@ -517,3 +515,7 @@ ffmpeg -err_detect ignore_err -i bad.mp4 -c copy fixed.mp4  # Repair
 ---
 
 *SOP Recovery Open Source | SystemRescue · ddrescue · TestDisk · PhotoRec · FFmpeg · DVR Carving*
+---
+
+audited
+---

@@ -689,3 +689,7 @@ HARI 5: Full Stack
 
 > [!tip] Ponytail
 > Catatan ini belum mencakup Matter protocol (smart home interoperability standard), LwM2M (Lightweight M2M — device management protocol), TPM/HSM untuk edge device, dan federated learning (AI training terdistribusi di edge tanpa centralize data). Tambahkan ketika implementasi Matter atau butuh hardware security module.
+---
+
+audited
+---

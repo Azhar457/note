@@ -420,3 +420,7 @@ char LICENSE[] SEC("license") = "GPL";
 ---
 
 *eBPF | Extended Berkeley Packet Filter · Ring 0 Sandbox · Falco · Cilium · XDP · RISC-V · Post-Quantum · Masa Kini dan Masa Depan Linux Security*
+---
+
+audited
+---

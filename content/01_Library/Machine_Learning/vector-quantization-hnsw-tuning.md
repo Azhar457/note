@@ -170,3 +170,7 @@ CREATE VIRTUAL TABLE vec_index USING vec0(
 - [[jina-reranker-v3-deepdive]] — Reranker Listwise Cross-Encoder untuk Precision Filtering
 - [[cosine-similarity-deepdive]] — Jarak Euclidean vs Cosine Similarity
 - [[model-context-protocol-specification]] — Spesifikasi Komunikasi Host Agent ke MCP DB Server
+---
+
+audited
+---

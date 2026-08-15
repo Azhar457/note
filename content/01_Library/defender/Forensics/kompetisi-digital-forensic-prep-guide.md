@@ -305,3 +305,7 @@ Berdasarkan [[research-resource-directory-deep]], berikut prioritas tool per kat
 - [[file-carving-data-recovery-advanced]] — file recovery
 - [[memory-forensics-volatility-deepdive]] — memory forensic
 - [[blueteam-detection-matrix]] — detection mapping
+---
+
+audited
+---

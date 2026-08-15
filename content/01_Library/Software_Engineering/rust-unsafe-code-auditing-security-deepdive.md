@@ -437,3 +437,7 @@ pub unsafe fn process(data: *const u8, len: u32) -> napi::Result<napi::JsBuffer>
 | [[fuzzing-vulnerability-research]] | Fuzzing methodology — Rust-specific extension |
 | [[compiler-design-deepdive]] | Compiler theory — MIR/LLVM understanding untuk safety analysis |
 | WAF architecture deepdive (privat) | WAF in Rust — production unsafe audit case study |
+---
+
+audited
+---

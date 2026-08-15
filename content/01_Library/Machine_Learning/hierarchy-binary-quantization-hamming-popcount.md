@@ -183,3 +183,7 @@ A: Audit terhadap checklist standar industri (NIST, CIS, OWASP). Penilaian dilak
 | **GitOps** | Infrastructure as Code via Git |
 | **OIDC** | OpenID Connect (identity layer) |
 | **PKCE** | Proof Key for Code Exchange (OAuth) |
+---
+
+audited
+---

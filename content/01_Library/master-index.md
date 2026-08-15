@@ -60,7 +60,7 @@ Folder `00_Atlas` berisi *hierarchy* yang dipakai di seluruh catatan.
 - [[hierarchy-offensive|Hierarchy Offensive Security]]
 - [[hierarchy-programming-language|Hierarchy Programming Language]]
 - [[hierarchy-osint-rf|Hierarchy OSINT & RF]]
-- [[00_Atlas/hierarchy-infrastructure|Hierarchy Infrastructure Evolution]]
+- [[hierarchy-infrastructure|Hierarchy Infrastructure Evolution]]
 
 ---
 
@@ -71,3 +71,7 @@ Folder `00_Atlas` berisi *hierarchy* yang dipakai di seluruh catatan.
 - **SystemRescue Recovery SOP** – `systemrescue-recovery.md`
 
 *Generated automatically by Hermes Agent.*
+---
+
+audited
+---

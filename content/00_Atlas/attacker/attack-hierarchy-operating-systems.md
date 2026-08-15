@@ -109,3 +109,7 @@ Lateral: SMB (PsExec), WMI (wmiexec), WinRM (evil-winrm), RDP (tscon)
 - LinPEAS — https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS
 - WinPEAS — https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS
 - HackTricks — https://book.hacktricks.xyz/
+---
+
+audited
+---

@@ -264,3 +264,7 @@ For each batch:
 - [[adversarial-machine-learning]] — Membership inference attack: motivasi utama differential privacy
 - [[00_Atlas/hierarchy-classical-ml-algorithms]] — DP-SGD bisa diterapkan di supervised & unsupervised
 - [[ai-engineering-stack-roadmap]] — Posisi privacy dalam AI engineering stack
+---
+
+audited
+---

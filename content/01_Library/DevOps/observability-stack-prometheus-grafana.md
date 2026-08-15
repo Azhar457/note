@@ -729,7 +729,7 @@ histogram_quantile(0.95, sum by(le) (rate(http_request_duration_seconds_bucket[5
 | **Elastic (ELK)** | ❌ (APM) | Elasticsearch | APM | Tinggi |
 | **Datadog** | ✅ SaaS | ✅ SaaS | ✅ SaaS | Rendah ($) |
 | **Grafana Cloud** | ✅ SaaS | ✅ SaaS | ✅ SaaS | Rendah ($) |
-| **Self-hosted LGTM** | Loki | Grafana | Tempo | Mimir | Tinggi |
+| **Self-hosted LGTM** | Mimir | Loki | Tempo | Tinggi |
 
 ---
 
@@ -795,3 +795,7 @@ HARI 5: SLO & On-Call
 
 > [!tip] Ponytail
 > Catatan ini belum mencakup OpenTelemetry Collector pipeline (receivers, processors, exporters), custom instrumentation untuk Go/Rust/Java, profiling (continuous profiling via Pyroscope/Phlare), dan eBPF-based observability (Cilium Hubble, Tetragon). Baca [[ebpf-beyond-security]] untuk eBPF observability.
+---
+
+audited
+---

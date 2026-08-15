@@ -96,8 +96,8 @@ INITIAL ACCESS (Ring 3)
 
 ## 3. Concrete CVE List Per Layer (Active / Recent)
 
-|| Layer | CVE | CVSS | Description | Red Team Value |
-|---|---|---|---|---|---|
+| Layer | CVE | CVSS | Description | Red Team Value |
+|---|---|---|---|---|
 | Ring 0 | CVE-2023-4911 | 7.8 | glibc Looney Tunables — buffer overflow → local root | Common Linux server, reliable exploit — high value for initial priv esc |
 | Ring 0 | CVE-2022-0847 | 7.8 | Dirty Pipe — kernel 5.8-5.16 — local privilege escalation | Stable, public PoC — high reliability |
 | Ring 0 | CVE-2021-3156 | 7.8 | Baron Samedit — sudo heap overflow → root | Classic, stable — good for older Linux |
@@ -129,7 +129,7 @@ INITIAL ACCESS (Ring 3)
 
 ## 5. Tool Stack (Concrete Versions / Commands)
 
-|| Category | Tool | Command / Note |
+| Category | Tool | Command / Note | |
 |---|---|---|---|
 | **Initial Access** | Phishing Kit | Gophish, Evilginx2 | Gophish: open source — Evilginx2: reverse proxy + cookie theft |
 | **Execution / Payload** | C2 Beacons | Cobalt Strike (licensed), Havoc (open source), Sliver (open source), Mythic (open source) | Havoc: C2 framework — Sliver: implant framework — Mythic: C2 framework |
@@ -145,3 +145,7 @@ INITIAL ACCESS (Ring 3)
 ---
 
 *File ini bagian 1 dari 2 (break karena stream timeout). Lanjutkan bagian 2 dengan detail layer -3, Ring -2 SMM, hypervisor, boot chain, dan reference lengkap.*
+---
+
+audited
+---

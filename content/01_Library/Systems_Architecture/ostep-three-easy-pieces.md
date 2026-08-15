@@ -298,3 +298,7 @@ int main() {
 - [ ] Baca soal RAID — kapan pilih RAID 0, 1, 5, 6, 10?
 
 Dengan memahami konsep dasar operating system, kamu dapat memahami bagaimana komputer bekerja dan bagaimana mengoptimalkan sistem. Buku OSTEP sangat penting bagi developer dan sistem administrator yang ingin memahami bagaimana operating system bekerja. Dengan melakukan simulasi dan implementasi, kamu dapat memahami konsep dasar operating system dengan lebih baik.
+---
+
+audited
+---

@@ -327,3 +327,6 @@ Image (H×W×C) → Patches (P×P) → Linear → [CLS] token + Position → Tra
 12. Radford, A. et al. *"Learning Transferable Visual Models From Natural Language Supervision (CLIP)."* ICML 2021.
 13. Li, J. et al. *"BLIP-2: Bootstrapping Language-Image Pre-training."* 2023.
 14. Liu, Z. et al. *"Swin Transformer."* CVPR 2021.
+
+audited
+---

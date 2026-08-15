@@ -45,8 +45,9 @@ Ring 0 (Privilege Escalation):
  ↓
 Ring -2 (Firmware Persistence):
  ├── Method 1: UEFI implant (BlackLotus pattern)
- │ ├── Exploit CVE-2022-0001 (Boot Guard bypass)
- │ ├── Write SPI flash → UEFI module → bootkit
+ │ ├── Write SPI flash → UEFI module → bootkit (CVE-2022-21894 = Secure Boot bypass, dipakai BlackLotus)
+ │ ├── CVE-2022-0001 (BHI = Branch History Injection) → info disclosure — bukan Boot Guard bypass, perlu konteks Microarchitectural
+ │ ├── Tabel ring di bawah menggunakan CVE-2022-21894 untuk bootkit persistence
  │ └→ Survive disk wipe + reinstall → persistent C2
  ├── Method 2: BIOS rootkit
  │ ├── Flash BIOS → malicious module → boot-time C2
@@ -72,7 +73,7 @@ Attack Surface:
  ↓
 CVE ME:
  ├── CVE-2017-5705 (Intel ME) → buffer overflow → ring -3 RCE
- ├── CVE-2019-11091 (Intel ME) → privilege escalation
+ ├── CVE-2019-11091 (MDSUM/MDS) → info disclosure — bukan privesc ME, hanya memory leak
  └→ NSFog (2017) → ME disable → but if enabled → exploit
  ↓
 Attack:
@@ -90,14 +91,14 @@ Detection:
 
 | CVE | Ring | Target | Impact | Persistence |
 |-----|------|--------|--------|-------------|
-| CVE-2022-0001 | Ring -2 | Intel Boot Guard | Secure Boot bypass | Survive reinstall |
+| CVE-2022-0001 | Ring -2 | Intel BHI (branch predictor) | Info disclosure — bukan Secure Boot bypass | Tidak |
 | CVE-2017-5705 | Ring -3 | Intel ME | ME RCE | Survive OS power down |
-| CVE-2024-38041 (BlackLotus) | Ring -2 | Windows UEFI | UEFI bootkit | Survive reinstall |
+| CVE-2022-21894 (BlackLotus) | Ring -2 | Windows UEFI | UEFI bootkit (Secure Boot bypass) | Survive reinstall |
 | CVE-2024-21626 | Ring -1 | runc (container) | Container escape | VM persistence |
 
 ## 5. Referensi
 - BlackLotus UEFI Bootkit — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
-- Intel ME Vulnerability — https://www.ptsecurity.com/ww-en/about/news/ip-2018-exploiting-intel-management-engine/
-- BluePill Hypervisor Rootkit — https://en.wikipedia.org/wiki/BluePill_(software)
-- NSA "Intel ME Disable" — https://www.nsa.gov/Portals/70/...
-- AMS Logic Flaw (ring -3) — https://www.blackhat.com/docs/us-17/thursday/...
+- BluePill Hypervisor Rootkit — https://en.wikipedia.org/wiki/Blue_Pill_(malware))
+
+audited
+---

@@ -175,3 +175,6 @@ Swap di HDD:
 ---
 
 *OS Hierarchy | Dari Linux Mint sampai JWICS · Plot Twist: Semua Berbasis RHEL*
+
+audited
+---

@@ -304,3 +304,7 @@ Karena vault mayoritas file Markdown (sudah bersih), fokus parsing adalah **data
 
 > [!tip] Bottom Line
 > Parsing adalah "first mile" RAG — kualitas output menentukan kualitas semua langkah berikutnya. PDF digital dan Markdown relatif mudah; PDF scan dan HTML kompleks butuh tool khusus. Strategi vault: **Unstructured.io untuk universal**, **PyMuPDF untuk PDF digital**, **LlamaParse untuk yang kompleks**. Simpan hasil sebagai Markdown supaya langsung bisa diproses Structure-Aware chunking vault.
+---
+
+audited
+---

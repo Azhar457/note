@@ -98,3 +98,68 @@ Defense Response:
 - Whonix — https://www.whonix.org/
 - OpSec Guide (EFF) — https://ssd.eff.org/
 - Attribution Research — https://www.mandiant.com/advantage/threat-intelligence/...
+
+## Konkret — Anti-Attribution Payload (Testable)
+
+### Tor + Whonix (OpSec)
+
+```bash
+# 1. Whonix Gateway (Tor) → isolasi IP leak
+# 2. Whonix Workstation ( aplikasi ) → no direct internet
+# 3. Disable: WebRTC, JavaScript, Java, Flash
+# 4. Browser: Tor Browser
+# 5. No file download → cache bisa fingerprint / exploit
+
+# Test leak:
+curl https://check.torproject.org/    # exit IP must be Tor
+curl https://ipleak.net/              # no DNS leak
+# Perfect: dark mode, tidak ada NetRTC, no system fonts, no plugins
+```
+
+### Fingerprint Evasion
+
+```bash
+# Canvas / WebGL fingerprint spoofing
+# Firefox: privacy.resistFingerprinting = true
+# User-Agent rotation: spoof common, konsisten dengan session
+# Time zone: UTC (or target country)
+# Screen resolution: common (1920x1080, 1366x768)
+
+# Canvas randomization:
+# Install CanvasBlocker / Trace
+# Random noise → hash changes → per-session unique
+# Cross-session: tidak konsisten → tidak tracking
+```
+
+### Infrastructure OpSec
+
+```bash
+# 1. Burner device (second-hand, cash, no serial TR record)
+# 2. Public WiFi (no home internet)
+# 3. MAC spoofing (randomize MAC)
+sudo ip link set wlan0 down; sudo macchanger -r wlan0; sudo ip link set wlan0 up
+# 4. Never reuse password / username / email / handle
+# 5. Separate identity per operation → no cluster
+
+# Monero (XMR) → financial OpSec
+# 1. Cash → Monero (no KYC)
+# 2. Monero fungible (no traceable history)
+# 3. Tumbl
+# 4. Output → VPS provider (Monero accepted)
+```
+
+### Attribution Vector (What NOT to do)
+
+```
+1. Reuse handle — cross-platform handle = identity cluster
+2. Style analysis — writing fingerprint (stylometry)
+3. Time zone analysis — activity pattern → location
+4. Language / autocorrect → native language suspect
+5. Infrastructure reuse — same BTC wallet / c2 domain = pivot
+6. Code reuse — malware family → author
+7. Mistakes — debug font, environment strings, OS locale
+```
+---
+
+audited
+---

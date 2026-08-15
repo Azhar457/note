@@ -168,3 +168,6 @@ OSINT Level 4 (Shodan)          RF Level 0 (RTL-SDR)
 ---
 
 _OSINT & RF Signal Intelligence Hierarchy | Dari Google sampai Echelon · Dari RTL-SDR sampai TEMPEST_
+
+audited
+---

@@ -393,3 +393,7 @@ Strategi: defense-in-depth — jangan pernah bergantung pada satu lapisan. Kombi
 10. OWASP — "OWASP Top 10 for LLM Applications 2025" — https://owasp.org/www-project-top-10-for-large-language-model-applications/
 11. Microsoft — "Mitigating prompt injection with Azure AI Content Safety" — docs
 12. NCSC — "Guidance on AI agents and prompt injection" (2025)
+---
+
+audited
+---

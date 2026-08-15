@@ -1,17 +1,15 @@
 ---
 title: Picoctf Section 3 Linux Web Basics
 tags:
-- picoctf-beginner-guide
-- resources
-created: '2026-05-12'
-updated: '2026-07-07'
+  - picoctf-beginner-guide
+  - resources
+created: 2026-05-12
+updated: 2026-08-15
 status: pending
 cssclasses:
   - wide-table
   - callout
 ---
-
-
 # 🛠️ PICOCTF SECTION 3 — Linux & Web Basics
 
 > **Tools:** `strings`, `grep`, `file`, `reset`, Browser DevTools  
@@ -62,13 +60,13 @@ Perintah ini akan menginisialisasi ulang status terminal Anda ke konfigurasi baw
 
 ### 2.1 Sintaks Pencarian Tingkat Lanjut
 *   **Pencarian Rekursif (`-r` atau `-R`):** Mencari kecocokan kata kunci di seluruh berkas yang ada di dalam direktori saat ini beserta seluruh sub-direktorinya.
-    ```bash
-    grep -r "picoCTF" .
-    ```
+```bash
+grep -r "picoCTF" .
+```
 *   **Case-Insensitive (`-i`):** Mengabaikan perbedaan huruf besar dan huruf kecil pada kata kunci pencarian.
-    ```bash
+```bash
     grep -i "picoctf" file_log.txt
-    ```
+```
 *   **Menampilkan Baris Sekitar (`-B`, `-A`, `-C`):** Menampilkan konteks baris sebelum (*Before*), sesudah (*After*), atau keduanya (*Context*) di sekitar baris yang cocok. Ini sangat berguna jika flag dipecah ke beberapa baris.
     ```bash
     # Menampilkan 2 baris sebelum dan 2 baris sesudah baris yang cocok
@@ -96,12 +94,12 @@ Saat menghadapi tantangan web sederhana seperti tantangan *Insp3ct0r* di picoCTF
 Aplikasi web sering meninggalkan berkas administratif atau riwayat pengembangan yang dapat diakses oleh publik jika server tidak dikonfigurasi dengan aman.
 
 *   **`robots.txt`:** Protokol standar yang digunakan oleh situs web untuk berkomunikasi dengan bot perayap mesin pencari (seperti Googlebot). File ini menentukan halaman mana yang *tidak boleh* diindeks. Dalam skenario CTF, entri `Disallow` di `robots.txt` sering kali menunjukkan letak folder atau file rahasia yang berisi flag.
-    ```text
+```text
     # Contoh isi robots.txt
     User-agent: *
     Disallow: /admin-portal-rahasia/
-    ```
-*   **`.git` Leak:** Jika pengembang tidak sengaja mengunggah folder repositori `.git` ke direktori root web server, penyerang dapat mengunduh folder tersebut dan merekonstruksi seluruh riwayat kode sumber aplikasi (termasuk komit lama yang mungkin berisi kredensial atau flag yang telah dihapus). Anda dapat memeriksanya dengan mengakses `http://[IP-Target]/.git/`.
+```
+* `.git` Leak:** Jika pengembang tidak sengaja mengunggah folder repositori `.git` ke direktori root web server, penyerang dapat mengunduh folder tersebut dan merekonstruksi seluruh riwayat kode sumber aplikasi (termasuk komit lama yang mungkin berisi kredensial atau flag yang telah dihapus). Anda dapat memeriksanya dengan mengakses `http://[IP-Target]/.git/`.
 
 ### 3.3 Manipulasi Cookie
 Cookie adalah data kecil yang dikirim dari situs web dan disimpan di komputer pengguna oleh peramban web pengguna saat pengguna tersebut sedang menjelajah. Cookie sering digunakan untuk manajemen sesi (*session management*) atau melacak status login.
@@ -147,5 +145,8 @@ curl -s https://target.com/robots.txt  # Baca file robots.txt secara diam-diam l
 - [[picoctf-section-4-python-automation]] — Melanjutkan ke pembuatan skrip eksploitasi otomatis menggunakan Python.
 
 ---
-
 *PicoCTF Section 3 | strings · grep · robots.txt · Insp3ct0r | Edisi Lengkap*
+
+
+audited
+---

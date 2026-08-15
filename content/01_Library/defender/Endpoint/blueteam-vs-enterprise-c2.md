@@ -393,3 +393,7 @@ Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-1) `
 ---
 
 *Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026*
+---
+
+audited
+---

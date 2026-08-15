@@ -158,3 +158,7 @@ Layer 1  │ physical hardware keylogger, LAN Tap, PCIe DMA Card (Squirrel DMA, 
 ---
 
 *Comprehensive Threat Directory | Threat & Exploit Landscape Compilation · Version 1.1 · Last Updated: 2026-06-16*
+---
+
+audited
+---

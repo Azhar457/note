@@ -424,7 +424,7 @@ def parse_feed(url):
 
 # Major news RSS feeds
 feeds = [
-    'https://feeds.reuters.com/reuters/topNews',
+    'https://www.reutersagency.com/ (feed lama nonaktif)',
     'https://feeds.bbci.co.uk/news/rss.xml',
     'https://hnrss.org/frontpage',
     'https://www.technologyreview.com/feed/',
@@ -915,3 +915,7 @@ def generate_report(documents, query, llm_endpoint='http://localhost:11434'):
 | [[advanced-chunking-strategies-deepdive]] | Chunking hasil crawl untuk RAG |
 | [[hybrid-search-vector-keyword]] | Index hasil crawl untuk search |
 | [[ai-evaluation-framework]] | Evaluasi kualitas hasil research |
+---
+
+audited
+---

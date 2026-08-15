@@ -223,3 +223,7 @@ def eval_embedding(model_name, dimension=256):
 
 > [!tip] Bottom Line
 > Embedding model menentukan kualitas semantic search. Buat vault ini: **`text-embedding-3-small` (256d via Matryoshka) sudah OK.** Open source alternatif: **BGE-M3** (multilingual, sparse support) atau **Snowflake Arctic-embed-m** (ringan). Fine-tuning belum diperlukan — vault belum cukup niche. Eval berkala dengan query riil vault untuk deteksi kapan butuh upgrade atau fine-tuning.
+---
+
+audited
+---

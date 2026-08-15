@@ -243,3 +243,7 @@ QML bukanlah tujuan akhir; ia adalah kendaraan untuk mencapai **Keunggulan Kuant
 ### ❔ Claim 3: Quantum computing uses constructive interference to increase the probability amplitude of correct solutions and destructive interference to decrease the probability amplitude of incorrect solutions.
 - **Status:** `UNVERIFIED` | **Confidence:** `LOW`
 - **Analysis:** No relevant web search results could be retrieved to verify this claim.
+---
+
+audited
+---

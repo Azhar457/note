@@ -169,3 +169,7 @@ Query: SQL → optimizer → executor → result
 - Snowflake Security — https://docs.snowflake.com/en/user-guide/security
 - Kafka Streams — https://kafka.apache.org/36/documentation/streams/
 - OpenLineage — https://openlineage.io/
+---
+
+audited
+---

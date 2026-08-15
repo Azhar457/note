@@ -78,8 +78,11 @@ Return device → pasif collection (C2, credential exfil)
 
 ## 5. Referensi
 - Ray.permissiondenied.netnotes (Hardware Hacking) — https://github.com/_PERMISSIONDENIED
-- ChipWhisperer Project — https://github.com/chipwhisperer/chipwhisperer
 - flashrom — https://flashrom.org/
 - binwalk — https://github.com/ReFirmLabs/binwalk
 - OpenOCD — https://openocd.org/
 - Joe Grand (Hardware Hacking) — https://www.grandideastudio.com/
+---
+
+audited
+---

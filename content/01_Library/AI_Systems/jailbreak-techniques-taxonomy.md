@@ -419,3 +419,7 @@ Hasil pengukuran kuantitatif dari pengujian ini dicatat di [[jailbreak-impact-qu
 10. NIST — "AI Risk Management Framework" (AI RMF 1.0)
 11. Unicode Consortium — "Unicode Security Mechanisms" (UTR #36)
 12. Unicode Consortium — "Unicode Confusables" (confusables.txt)
+---
+
+audited
+---

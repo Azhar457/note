@@ -315,3 +315,7 @@ Havoc mendemokratisasi teknik evasion canggih: apa yang dulunya hanya bisa dilak
 ---
 
 *Havoc C2 Deep Dive | Open-Source Command & Control | Advanced Evasion & Post-Exploitation*
+---
+
+audited
+---

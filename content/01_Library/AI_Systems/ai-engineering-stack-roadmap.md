@@ -27,7 +27,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/hierarchy-devops-cicd]] [[about]]
 
 # 🧠 AI ENGINEERING STACK — The Architecture of Production Reasoning Systems
 
@@ -216,3 +216,7 @@ Membangun sistem AI production-grade adalah upaya rekayasa. Ini tentang mengubah
 
 > [!callout] 💡
 > Transisi prototype→production adalah pergeseran dari aliran probabilistik ke sistem deterministik yang terukur, aman, dan dapat diaudit — bukan sekadar "deploy model".
+---
+
+audited
+---

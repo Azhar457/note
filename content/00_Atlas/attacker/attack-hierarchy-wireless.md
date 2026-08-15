@@ -98,3 +98,7 @@ Relay: NFC relay (Proxmark3) → clone card → access physical door
 - RTL-SDR — https://www.rtl-sdr.com/
 - HackRF — https://greatscottgadgets.com/hackrf/
 - KillerBee (Zigbee) — https://github.com/riverloopsec/killerbee
+---
+
+audited
+---

@@ -657,3 +657,6 @@ Latency      ───→  Edge presence
 13. Microsoft. *"Azure Architecture Center."* https://learn.microsoft.com/azure/architecture/
 14. Red Hat. *"What Is an Event-Driven Architecture."* (2024).
 15. Gartner. *"Hype Cycle for Cloud Platform Services."* (2025).
+
+audited
+---

@@ -666,3 +666,7 @@ OS Hierarchy [[hierarchy-operating-systems]]:
 ---
 
 *Digital Privacy & Anonymity | Threat Model → Ad Blocking → Pi-hole → Identity Silo → Paper Trail → Ghost Mode · OPSEC · Data Broker · Indonesia Context*
+---
+
+audited
+---

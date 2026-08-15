@@ -459,3 +459,7 @@ Ini sangat powerful untuk alert ambiguity tinggi (contoh: "Login dari IP asing �
 - [[blueteam-detection-matrix]] — detection coverage mapping
 - [[endpoint-detection-playbook]] — remediasi endpoint
 - [[waf-reverse-proxy-deepdive]] — WAF integration
+---
+
+audited
+---

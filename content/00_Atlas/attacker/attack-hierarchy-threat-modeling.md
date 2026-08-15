@@ -180,8 +180,6 @@ GOAL: Domain Admin (DA) via AD CS Abuse
 
 ## 7. References
 
-- STRIDE — https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff648644(v=pandp.10)
-- PASTA — https://verspritech.com/pasta/
 - MITRE ATT&CK — https://attack.mitre.org/
 - OWASP Threat Modeling — https://owasp.org/www-community/Threat_Modeling
 - OWASP Threat Dragon — https://owasp.org/www-project-threat-dragon/
@@ -192,3 +190,7 @@ GOAL: Domain Admin (DA) via AD CS Abuse
 - CVE Intelligence — NVD, MITRE CVE
 - Red Team / Adversary Emulation — MITRE CALDERA, Atomic Red Team, Prelude Operator
 - Threat Intel — Mandiant M-Trends, CrowdStrike Global Threat Report, Recorded Future
+---
+
+audited
+---

@@ -139,3 +139,7 @@ Meskipun tangguh, jangkar keamanan perangkat keras rentan terhadap serangan fisi
 | [[kernel-forensics]] | Deteksi rootkit yang mencoba menyamar sebelum memori TEE diaktifkan. |
 | [[side-channel-analysis]] | Teori matematika dan praktis untuk mengeksploitasi hardware melalui emisi elektromagnetik/daya. |
 | [[firmware-reverse-engineering-deepdive]] | Metode rekayasa balik file biner BIOS/UEFI sebelum diverifikasi oleh Secure Boot. |
+---
+
+audited
+---

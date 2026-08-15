@@ -352,3 +352,7 @@ Quest yang paling stabil buat spek kentang:
 ```
 LLaMA-Factory + Unsloth → GGUF → Ollama → 9Router → Hermes/Claude Code
 ```
+---
+
+audited
+---

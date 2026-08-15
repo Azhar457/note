@@ -827,3 +827,7 @@ nghttp -v https://nghttp2.org
 
 > [!tip] Bottom Line
 > HTTP adalah **bahasa internet** — setiap request, response, header, dan status code punya makna spesifik yang bisa dieksploitasi atau dilindungi. Tanpa paham HTTP secara fundamental, lo cuma bisa pake tool (Burp, curl, WAF) secara buta — gak bisa bedain mana yang normal, mana yang attack. Fokus utama buat security engineer: (1) **Cache semantics** — misconfigured cache adalah sumber data breach paling umum. (2) **CORS** — origin validation yang salah = jalan buat CSRF dan data exfil. (3) **Connection management** — smuggled request bisa bypass WAF. (4) **HTTP/2 Rapid Reset** — bukti bahwa bahkan protokol modern punya attack surface baru. Status code 304? Itu bukan cuma "not modified" — itu **cache oracle** buat attacker.
+---
+
+audited
+---

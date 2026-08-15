@@ -253,3 +253,7 @@ Compute terjadi di memory cell — tanpa data movement
 - [[embedded-systems]] — SoC architecture — NPU sebagai IP core dalam SoC
 - [[platform-technologies-overview]] — Teknologi platform: CXL, DPU, RISC-V
 - [[00_Atlas/hierarchy-classical-ml-algorithms]] — ML model — hardware menentukan feasibility training
+---
+
+audited
+---

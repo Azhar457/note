@@ -21,7 +21,7 @@ Snowden menyebut ICREACH sebagai "the first time we've seen a single database th
 
 ### Metadata vs Content
 
-||Metadata|Content|
+|Metadata|Content| |
 |---|---|---|
 |**Definisi**|Data tentang komunikasi: siapa, kapan, berapa lama, dari mana|Isi komunikasi: suara, teks, pesan|
 |**Contoh**|Nomor penelepon, nomor penerima, durasi panggilan, lokasi cell tower|Rekaman audio panggilan, isi SMS|
@@ -211,3 +211,7 @@ Kritikus berpendapat bahwa metadata **sangat mengungkapkan**:
 ---
 
 _ICREACH Deep Dive | NSA Global Metadata Search Engine | Telephony Surveillance & Social Network Analysis_
+---
+
+audited
+---

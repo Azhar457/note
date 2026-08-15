@@ -16,7 +16,6 @@ cssclasses:
   - wide-table
   - callout
 ---
-
 # Quantum Crypto & PQC — Perspektif Penyerang
 
 > Ancaman kuantum = HNDL (Harvest-Now-Decrypt-Later) aktif sekarang. Setiap TLS traffic direkam hari ini → terbuka saat quantum cukup besar. Red team: passive recording, PQC implementation bug, side-channel lattice, downgrade attack.
@@ -100,3 +99,59 @@ Active Attack (now):
 - liboqs — https://github.com/open-quantum-safe/liboqs
 - Cloudflare PQC — https://blog.cloudflare.com/pq-2024/
 - HNDL — https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later
+
+## Konkret — Harvest Now, Decrypt Later (Testable)
+
+### Quantum Threat Timeline
+
+```
+Current: RSA-2048, ECC-256 (ECDH) — aman dari komputer klasik
+Shor (quantum): pemfaktoran dalam O(log N) → RSA/ECC broken
+Grover (quantum): brute force quadratic speedup → AES-128 → AES-256 equivalent
+
+Timeline estimasi (IBM/Google roadmap):
+- 2025-2030: 1000-10000 qubit (noisy)
+- 2030-2035: fault-tolerant → Shor viable
+- 2035-2045: RSA-2048 breakable dalam <1 jam
+
+Target: Harvest Now, Decrypt Later (HNDL)
+- Store TLS traffic encrypted → decrypt later (5-10 years)
+- Secret: symmetric keys, long-lived secrets (diplomacy, intelligence)
+```
+
+### Kyber / Dilithium (NIST PQC Standard)
+
+```bash
+# NIST 2024: FIPS 203 (Kyber / ML-KEM), FIPS 204 (Dilithium / ML-DSA)
+# 1. Open Quantum Safe (liboqs)
+git clone https://github.com/open-quantum-safe/liboqs
+cd liboqs && mkdir build && cd build
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr/local ..
+ninja install
+
+# 2. OQS-provider (OpenSSL 3.x patch)
+git clone https://github.com/open-quantum-safe/oqs-provider
+# Build + install → enable Kyber/Dilithium di OpenSSL
+
+# 3. TLS handshake dengan Kyber
+openssl s_client -connect host:443 -groups kyber768
+# 4. Sign dengan Dilithium
+openssl req -new -key key.pem -out csr.pem -sigopt dilithium3
+```
+
+### Hybrid (Transition Strategy)
+
+```
+# X25519Kyber768Draft00 — Cloudflare/Google hybrid
+# TLS 1.3 hybrid key exchange: classical (X25519) + PQ (Kyber768)
+# Jika Kyber broken: X25519 masih aman
+# Jika X25519 broken (quantum): Kyber masih aman
+
+# Test hybrid:
+openssl s_client -connect cloudflare.com:443 -groups X25519Kyber768Draft00
+# Hasil: kunci hybrid, aman dari kedua threat model
+```
+---
+
+audited
+---

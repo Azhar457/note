@@ -19,7 +19,6 @@ cssclasses:
 
 ---
 
-
 > [!abstract] Ringkasan
 > SOP cepat untuk **on-boarding laptop ke-3 (atau ke-N)** sebagai node sinkronisasi vault primer → content/ → Quartz build → push GitHub Pages. Total durasi: 30-45 menit kalau semua prasyarat sudah siap. Bedanya dengan [[quartz-setup-windows]]: SOP itu tentang **bash-first Fedora/Linux** setup dari awal; SOP ini fokus **restore workflow sync deploy di laptop yang sudah punya repo** clone.
 
@@ -50,7 +49,7 @@ cssclasses:
 | Tools/Asset            | Versi                                  | Path/Cara Dapatkan                                                        |
 | ---------------------- | -------------------------------------- | ------------------------------------------------------------------------- |
 | Node.js (system)       | v24 LTS (`24.18.0`)                    | `nvm install 24`; **bukan Hermes node v22**                               |
-| nvm                    | 0.39+                                  | `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash` |
+| nvm                    | 0.39+                                  | `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh \| bash` |
 | git                    | 2.x+                                   | `dnf install git` (Fedora) / `brew install git` (Mac)                     |
 | SSH key                | Ed25519                                | `ssh-keygen -t ed25519 -C "laptop-azhar@urbansolv"`                       |
 | GitHub PAT/SSH         | scope `repo` push                      | Settings → Developer settings → PAT (classic) atau upload SSH pubkey      |
@@ -117,7 +116,7 @@ cd ~/Work/note
 npm install
 ```
 
-**Penjelasan kenapa node v22 (bawaan Hermes) tidak boleh:** Build Quartz gagal dengan error `EBADENGINE` atau packet signature mismatch. Lihat [[02_SOPs/waf-build-common-errors]] (planned) jika muncul error spesifik.
+**Penjelasan kenapa node v22 (bawaan Hermes) tidak boleh:** Build Quartz gagal dengan error `EBADENGINE` atau packet signature mismatch. Lihat [[waf-build-common-errors]] (planned) jika muncul error spesifik.
 
 ### Step 3 — Mount/Pull Vault Primer
 
@@ -243,3 +242,7 @@ git log origin/v4 --oneline -5
 - [[podman-networking-ufw]] — Kalau perlu override container network buat testing lokal
 - [[ansible-hardening-rocky-linux-9]] — Hardening laptop Fedora (script ini jalan di Fedora)
 - [[master-index|Atlas Master-Index]] — Verifikasi rendering homepage post-deploy
+---
+
+audited
+---

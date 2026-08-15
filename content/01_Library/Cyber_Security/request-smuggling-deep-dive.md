@@ -337,18 +337,22 @@ fn check_smuggle_002(req: &RequestInfo) -> bool {
 }
 ```
 
-**Lokasi payload:** `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Request Smuggling/`
+**Lokasi payload:** `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Request Smuggling/`
 
 ---
 
 ## 10. Referensi
 
 - PortSwigger Research: [HTTP Request Smuggling](https://portswigger.net/web-security/request-smuggling)
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Request Smuggling/`
-- OWASP CRS: `/mnt/data_d/Projects/Reference/owasp-coreruleset/rules/REQUEST-921-PROTOCOL-ATTACK.conf`
+- PayloadsAllTheThings: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Request Smuggling/`
+- OWASP CRS: `https://github.com/swisskyrepo/PayloadsAllTheThingsowasp-coreruleset/rules/REQUEST-921-PROTOCOL-ATTACK.conf`
 
 **Cross-link vault:**
 - [[waf-reverse-proxy-deepdive]] — WAF arsitektur
 - [[api-security-deep-dive]] — API keamanan
 - [[web-security]] — web security umum
 - [[ids-ips-waf-nsm-comparison]] — perbandingan security tools
+---
+
+audited
+---

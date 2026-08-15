@@ -208,3 +208,7 @@ Jika Suricata tidak dapat mendeteksi serangan, pertama-tama periksa apakah `HOME
 Suricata adalah alat yang sangat penting untuk melindungi jaringan Anda dari serangan yang tidak diinginkan. Dengan mengikuti langkah-langkah di atas, Anda dapat mengimplementasikan Suricata sebagai detektif jaringan yang efektif untuk memantau dan mendeteksi serangan. Pastikan untuk memantau performa Suricata dan melakukan optimalisasi yang diperlukan untuk memastikan keamanan jaringan Anda.
 
 Dalam mengimplementasikan Suricata, penting untuk memahami bahwa keamanan jaringan adalah proses yang berkelanjutan. Selalu pantau log Suricata, update aturan yang digunakan, dan lakukan optimalisasi yang diperlukan untuk memastikan bahwa Suricata dapat mendeteksi serangan dengan efektif. Dengan demikian, Anda dapat memastikan keamanan jaringan Anda dan melindungi data dan sistem Anda dari serangan yang tidak diinginkan.
+---
+
+audited
+---

@@ -285,3 +285,7 @@ FinSpy telah dijual ke lebih dari 50 negara, termasuk yang memiliki catatan HAM 
 ---
 
 *FinSpy Deep Dive | Multi-Platform Commercial Spyware | Surveillance & Stealth Techniques*
+---
+
+audited
+---

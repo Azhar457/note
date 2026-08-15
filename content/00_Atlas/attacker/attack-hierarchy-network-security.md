@@ -71,3 +71,7 @@ L7 Exfil (T1041) → chunked + AES-256-GCM → DNS tunnel atau cloud API
 - Zeek Network Security Monitoring — https://zeek.org/
 - Suricata IDS — https://suricata.io/
 - Bettercap (MITM toolkit) — https://www.bettercap.org/
+---
+
+audited
+---

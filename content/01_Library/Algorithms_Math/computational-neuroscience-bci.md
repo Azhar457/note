@@ -629,3 +629,7 @@ Access control: multi-factor authentication
 | [[math-and-algorithms]] | Signal processing, linear algebra, optimization |
 | [[research-methodology]] | Clinical trials, experimental design |
 | [[cryptography-biometrics]] | Neural/BCI authentication (EEG passthought) |
+---
+
+audited
+---

@@ -72,3 +72,7 @@ Level 5 (DMA via PCIe) adalah **teknik yang sama persis** dengan [[data-recovery
 ---
 
 *Game Security | Cheat Engine Level 0 (Macro) → Level 6 (AI Vision Hardware) · Anti-Cheat Landscape*
+---
+
+audited
+---

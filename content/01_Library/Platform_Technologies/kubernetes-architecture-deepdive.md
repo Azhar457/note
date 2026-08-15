@@ -324,3 +324,7 @@ User buat ServiceMonitor CR → Operator detect → Operator buat/mutate Prometh
 - [[observability-stack-prometheus-grafana]] — Prometheus Operator, kube-state-metrics, node-exporter
 - [[cicd-shiftleft-shiftright]] — DevSecOps: shift security left ke container build
 - [[podman-networking-ufw]] — Container networking & firewall (practical companion untuk rootless podman)
+---
+
+audited
+---

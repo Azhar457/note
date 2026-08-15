@@ -87,5 +87,8 @@ Exit: Process exit → memory freed → no trace
 - TestDisk — https://www.cgsecurity.org/wiki/TestDisk
 - The Sleuth Kit (Forensic) — https://www.sleuthkit.org/
 - Volatility 3 — https://github.com/volatilityfoundation/volatility3
-- KAPE — https://www.kroll.com/en/services/cyber-risk/incident-response/...
 - Plaso (log2timeline) — https://plaso.readthedocs.io/
+---
+
+audited
+---

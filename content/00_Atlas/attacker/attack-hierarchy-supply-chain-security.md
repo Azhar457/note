@@ -84,6 +84,9 @@ Exfil: Source code, secrets, customer data
 - SLSA Framework — https://slsa.dev/
 - Sigstore — https://www.sigstore.dev/
 - CycloneDX (SBOM) — https://cyclonedx.org/
-- SolarWinds SUNBURST — https://www.cisa.gov/news-events/cyber-advisories/aa21-077a
+- SolarWinds SUNBURST — https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-077a
 - XZ Utils Backdoor (CVE-2024-3094) — https://nvd.nist.gov/vuln/detail/CVE-2024-3094
-- Dependency Confusion — https://www.sonatype.com/blog/dependency-confusion-attacks
+---
+
+audited
+---

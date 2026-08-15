@@ -1250,7 +1250,7 @@ terragrunt run-all destroy
 | [[ansible-hardening-rocky-linux-9]] | Ansible untuk hardening spesifik Rocky Linux — catatan ini general-purpose |
 | [[cicd-github-actions-praktik]] | CI/CD pipeline — Terraform apply otomatis dari pipeline |
 | [[linux-hardening-audit-praktis]] | Ansible bisa otomasi semua hardening di catatan itu |
-| [[vps-hardening-playbook]] | Hardening VPS — bisa di-ansible-kan |
+| [[hardening-setup]] | Hardening VPS — bisa di-ansible-kan |
 | [[cicd-guide]] | CI/CD konseptual — link ke deployment pipeline |
 | [[infrastructure-administrator]] | Admin tasks — IaC adalah subset administrasi modern |
 
@@ -1263,3 +1263,7 @@ terragrunt run-all destroy
 5. Integrasi Terraform + Ansible — https://developer.hashicorp.com/terraform/tutorials/provision/ansible
 6. Ansible Galaxy — https://galaxy.ansible.com/
 7. OpenTofu (Terraform fork) — https://opentofu.org/
+---
+
+audited
+---

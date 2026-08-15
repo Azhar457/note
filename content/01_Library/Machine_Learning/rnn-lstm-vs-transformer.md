@@ -156,3 +156,7 @@ RWKV merumuskan ulang mekanisme attention menjadi formulasi RNN linear yang stab
 - Mamba (Gu & Dao 2023) — https://arxiv.org/abs/2312.00752
 - RWKV — https://arxiv.org/abs/2305.13048
 - FlashAttention — https://arxiv.org/abs/2205.14135
+---
+
+audited
+---

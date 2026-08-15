@@ -98,5 +98,7 @@ Step 5 — Payload Delivery:
 - wafw00f — https://github.com/EnableSecurity/wafw00f
 - sqlmap Tamper Scripts — https://github.com/sqlmapproject/sqlmap/tree/master/tamper
 - PortSwigger HTTP Smuggling — https://portswigger.net/web-security/request-smuggling
-- Cloudflare Bypass — https://blog.detectify.com/...
-- ModSecurity CRS — https://github.com/SpiderLabs/owaspmodsecurity-crs
+- ModSecurity CRS — https://github.com/coreruleset/coreruleset
+
+audited
+---

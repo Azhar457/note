@@ -736,6 +736,7 @@ route print > routing_table.txt
 
 ### Alert Prioritization Matrix
 Priority = Severity Teknikal + Asset Criticality + Threat Intel
+
 | Kriteria | Skor |
 |----------|------|
 | **Severity:** Critical (Ransomware/LSASS) | 100 |
@@ -854,3 +855,7 @@ T+7min: Kill tree + remove persistence
 >Kunci endpoint detection: (1) Sysmon + Windows Event Log sebagai foundation sensor termurah dan paling efektif, (2) Sigma rules untuk detection-as-code portable, (3) EDR behavioral (CrowdStrike/Elastic) untuk advanced scenarios, (4) Live response terstandardisasi siap pakai. Tanpa triage baik, EDR terbaik tenggelam dalam false positive. Detection tanpa response hanyalah noise.
 
 *Endpoint Detection Playbook | v1.0 — 2026 | Operational | 6 detection scenarios, 15+ Sigma rules, 3 case studies*
+---
+
+audited
+---

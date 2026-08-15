@@ -298,3 +298,7 @@ Bellingcat adalah contoh OSINT + analisis terstruktur menghasilkan intelijen kel
 - **Tags:** intelligence tradecraft analysis cycle humint sigint osint reporting
 - **Related:** [[osint-resource-index]], [[intelligence-analyst-workstation-toolkit]], [[hierarchy-intelligence-sources-ecosystem]]
 - **Last Updated:** 2026-08-02
+---
+
+audited
+---

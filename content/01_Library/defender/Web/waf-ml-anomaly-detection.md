@@ -230,3 +230,6 @@ impl WafState {
 | [[00_Atlas/hierarchy-classical-ml-algorithms]] | Dasar klasifikasi matematika untuk model klasik seperti Isolation Forest. |
 | [[adversarial-machine-learning]] | Teknik penyerang untuk meracuni model anomali WAF (*model poisoning* / *evasion attack*). |
 | [[waf-plan]] | Dokumen perencanaan utama tempat anomali ML dideklarasikan sebagai prioritas #1. |
+
+audited
+---

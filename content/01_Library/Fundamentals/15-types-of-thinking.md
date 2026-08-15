@@ -363,3 +363,7 @@ Tidak ada satu tipe berpikir yang cukup untuk masalah kompleks. Pola pikir yang 
 ---
 
 *15 Types of Thinking Deep Dive | Cognitive Architecture for Problem Solving & Decision Making*
+---
+
+audited
+---

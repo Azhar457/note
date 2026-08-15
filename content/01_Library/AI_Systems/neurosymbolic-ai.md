@@ -712,3 +712,7 @@ def explain_prediction(model, instance, stakeholder="regulator"):
 
 > [!tip] Prinsip Praktis
 > Neurosymbolic AI bukan tentang memilih satu pendekatan — tapi tentang **menggabungkan kekuatan** keduanya untuk masalah yang tepat. Aturan praktis: Neural untuk persepsi dan generalisasi (data mentah → pola), Symbolic untuk reasoning dan constraint (pola → keputusan yang bisa dipertanggungjawabkan). GraphRAG adalah pintu masuk paling praktis karena maturity toolsnya (LangChain + Neo4j sudah enterprise-grade). Causal AI adalah frontier berikutnya — ketika Anda tidak hanya ingin prediksi, tapi **pemahaman** tentang mengapa sesuatu terjadi dan apa yang akan terjadi jika Anda intervensi. XAI bukan opsional — di regulated industry, explainability adalah *syarat*.
+---
+
+audited
+---

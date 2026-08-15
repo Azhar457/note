@@ -26,7 +26,7 @@ related_notes:
 # Web Security — Application Layer Defense (Deepdive)
 
 > **Status konten:** Lengkap (≥ 1.500 kata). Catatan ini adalah ekspansi dari versi ringkas 61 kata menjadi deepdive sistematis yang mencakup secure coding, CSP, CORS, OWASP Top 10, dan praktik defense-in-depth di lapisan aplikasi (Layer L4 dari [[00_Atlas/hierarchy-cybersecurity-defense-architecture.md]]).
-> **Referensi lintas:** [[01_Library/attacker/Web/attack-web-hacking-exploitation.md]] (offensive counterpart) · [[01_Library/attacker/Web/attack-waf-evasion-deepdive.md]] (serangan WAF) · [[01_Library/defender/Web/*]] (pertahanan praktis).
+> **Referensi lintas:** [[01_Library/attacker/Web/attack-web-hacking-exploitation.md]] (offensive counterpart) · [[01_Library/attacker/Web/attack-waf-evasion-deepdive.md]] (serangan WAF) · `01_Library/defender/Web/*` (pertahanan praktis).
 
 ---
 
@@ -154,12 +154,16 @@ Lapisan aplikasi (L4) adalah **batas antara pengguna dan data** — semua intera
 
 ## 7. Referensi Lintas & Link Penting
 
-- **Defense deepdive:** [[01_Library/defender/Web/*]] · [[01_Library/defender/Web/ssrf-defense-hardening-playbook.md]] · [[01_Library/defender/Web/waf-ml-anomaly-detection.md]]
-- **Attack counterpart:** [[01_Library/attacker/Web/*]] · [[01_Library/attacker/Web/attack-waf-evasion-deepdive.md]]
+- **Defense deepdive:** `01_Library/defender/Web/*` · [[01_Library/defender/Web/ssrf-defense-hardening-playbook.md]] · [[01_Library/defender/Web/waf-ml-anomaly-detection.md]]
+- **Attack counterpart:** `01_Library/attacker/Web/*` · [[01_Library/attacker/Web/attack-waf-evasion-deepdive.md]]
 - **Hierarchy:** [[00_Atlas/hierarchy-cybersecurity-defense-architecture.md]] · [[00_Atlas/hierarchy-waf-reverse-proxy.md]]
 - **Standar:** [[00_Atlas/hierarchy-search.md]] (OSI/L7 reference) · OWASP Top 10 · NIST CSF 2.0
-- **Roadmap/operasional:** [[01_Library/Cyber_Security/browser-security-roadmap.md]] (jika ada) · [[01_Library/Cyber_Security/network-security.md]]
+- **Roadmap/operasional:** [[browser-security-roadmap]] (jika ada) · [[network-security]]
 
 ---
 
 *Dokumen ini adalah ekspansi dari `01_Library/Cyber_Security/web-security.md`. Dibuat 2026-08-14 sebagai bagian dari ekspansi konten vault (target ≥ 1.500 kata). Status: complete.*
+---
+
+audited
+---

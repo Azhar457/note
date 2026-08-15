@@ -10,7 +10,6 @@ updated: '2026-07-15'
 status: pending
 cssclasses: ''
 ---
-
 # 🚨 Incident Response Framework — NIST CSF, SANS PICERL, Detection Engineering & Post-Mortem
 
 > Panduan komprehensif incident response (IR) yang menyatukan kerangka kerja standar (NIST CSF, SANS PICERL, MITRE ATT&CK), detection engineering lifecycle, playbook execution, forensic acquisition, hingga post-mortem analysis. Catatan ini adalah **hub sentral** yang mengikat semua SOP yang ada di vault ke dalam satu siklus IR yang terstruktur — dari preparation hingga lessons learned. Bisa digunakan sebagai acuan untuk SOC tim, blue team drills, dan maturity assessment.
@@ -653,3 +652,7 @@ dns
 
 > [!tip] Bottom Line
 > Incident Response bukan tentang tool canggih — ini tentang **proses yang terstruktur, dilatih, dan terus diperbaiki**. Kunci IR yang efektif: (1) **Preparation adalah fase termahal jika diabaikan** — playbook harus ditulis, dilatih, dan diuji dengan simulasi (tabletop atau Atomic Red Team). (2) **Containment adalah fase paling penting** — stop the bleeding sebelum mencari root cause. (3) **Post-mortem adalah investasi** — tanpa lessons learned, Anda hanya mengulang incident yang sama setiap 6 bulan. (4) **Semua SOP di vault ini terikat ke satu siklus IR** — masing-masing punya tempat dan waktunya dalam fase PICERL. Gunakan framework ini sebagai "map" untuk menavigasi incident — dari preparation hingga recovery — dan jadikan post-mortem sebagai alat untuk mendorong perbaikan organisasi secara kontinu.
+---
+
+audited
+---

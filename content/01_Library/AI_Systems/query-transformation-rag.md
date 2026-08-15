@@ -240,3 +240,7 @@ def query_pipeline(query, mode="auto"):
 
 > [!tip] Bottom Line
 > Query transformation adalah **low-hanging fruit** untuk improve retrieval quality tanpa perlu ganti model atau re-index. vault-rag udah punya CRAG (self-evaluating loop). Tambahan yang paling berdampak: **Multi-Query** untuk query pendek yang sering dipake di vault. HyDE perlu hati-hati — kalo LLM hallucinate, HyDE amplify hallucination itu.
+---
+
+audited
+---

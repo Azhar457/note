@@ -197,3 +197,7 @@ Kumpulkan data dari sumber yang relevan dengan hipotesis. **Semakin lengkap tele
 ---
 
 *Ekspansi dari `01_Library/Cyber_Security/threat-hunting-methodology.md` (112 → 1.800+ kata). Dibuat 2026-08-14, status complete.*
+---
+
+audited
+---

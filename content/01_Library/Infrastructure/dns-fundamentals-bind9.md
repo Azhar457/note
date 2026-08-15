@@ -205,9 +205,9 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 | Dokumen | Kontribusi |
 |---------|-----------|
-| [[network-security|Network Security]] | OSI layer context, port UDP 53, TCP 53 untuk zone transfer |
-| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — namespace atau VM dedicated untuk BIND9 |
-| [[podman-networking-ufw|Podman Networking & UFW]] | Port exposure untuk BIND9 — UFW allow 53, routing rules |
+| [[network-security\|Network Security]] | OSI layer context, port UDP 53, TCP 53 untuk zone transfer |
+| [[infrastructure-administrator\|Infrastructure Administrator]] | Server layout — namespace atau VM dedicated untuk BIND9 |
+| [[podman-networking-ufw\|Podman Networking & UFW]] | Port exposure untuk BIND9 — UFW allow 53, routing rules |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 
@@ -257,3 +257,7 @@ Thought 6 (Futures):     "Kalau DNS down, apa yang terjadi? 'name not resolved',
 - [[network-security|Network Security]] — OSI layer, port knowledge
 - [[infrastructure-administrator|Infrastructure Administrator]] — Server setup
 - [[podman-networking-ufw|Podman Networking & UFW]] — Port exposure pattern
+---
+
+audited
+---

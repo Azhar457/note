@@ -21,3 +21,6 @@ cssclasses:
 
 ## 📄 Notes
 - [[firmware-reverse-engineering-deepdive]]
+
+audited
+---

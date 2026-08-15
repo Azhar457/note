@@ -88,7 +88,10 @@ Alternative Channel (if HTTPS blocked):
 ## 5. Referensi
 - Zeek (Network Monitoring) — https://zeek.org/
 - Suricata IDS — https://suricata.io/
-- JA3 Fingerprinting — https://ja3er.com/
 - Cobalt Strike Malleable C2 — https://www.cobaltstrike.com/help-malleable-c2
 - RITA (Real Intelligence Threat Analytics) — https://github.com/activecm/rita
 -dnscat2 — https://github.com/iagox86/dnscat2
+---
+
+audited
+---

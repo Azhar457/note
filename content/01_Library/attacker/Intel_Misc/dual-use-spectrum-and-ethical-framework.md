@@ -215,3 +215,7 @@ Dokumen ini adalah sintesis dari seluruh vault. Setiap alat yang disebut di atas
 ---
 
 *Dual-Use Spectrum & Ethical Framework | military-and-intelligence-tools Ethics | Responsible Use Guidelines*
+---
+
+audited
+---

@@ -197,3 +197,7 @@ sesuai hukum              terorisme                suara kritis
 ---
 
 *GrayKey Deep Dive | iPhone Passcode Hardware Brute-Force | Mobile Forensics Unlock Tool*
+---
+
+audited
+---

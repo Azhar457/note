@@ -185,3 +185,7 @@ NP-Completeness adalah konsep yang sangat penting dalam teori komputasi. P vs NP
 - [ ] Kenali NP-Complete: apa bedanya P, NP, NP-Complete, NP-Hard
 
 Dengan memahami konsep-konsep dasar dan maju dalam algoritma, kita dapat meningkatkan kemampuan kita dalam menganalisis dan memecahkan masalah yang kompleks. Oleh karena itu, penting untuk memahami algoritma dengan baik dan terus mengembangkan kemampuan kita dalam bidang ini.
+---
+
+audited
+---

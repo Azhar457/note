@@ -926,3 +926,7 @@ Baca juga:
 - Shazeer, N. (2020). *GLU Variants Improve Transformer.* — SwiGLU activation, dipakai Llama.
 - Su, J. et al. (2024). *RoFormer: Enhanced Transformer with Rotary Position Embedding.* — RoPE, standar posisi encoding modern.
 - Fedus, W. et al. (2022). *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity.* JMLR. — MoE di Transformer.
+---
+
+audited
+---

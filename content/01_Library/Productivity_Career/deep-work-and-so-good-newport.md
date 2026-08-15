@@ -274,3 +274,7 @@ Dalam melakukan pekerjaan yang mendalam dan membangun karier yang sukses, bebera
 * Pengembang perangkat lunak yang memiliki waktu yang cukup untuk memecahkan masalah yang kompleks.
 
 Dalam melakukan pekerjaan yang mendalam dan membangun karier yang sukses, beberapa diagram tekstual yang dapat dig
+---
+
+audited
+---

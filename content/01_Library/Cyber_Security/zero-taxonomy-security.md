@@ -609,3 +609,7 @@ ZERO-KNOWLEDGE PROOF
 ---
 
 *Zero Taxonomy | Zero-Day · Zero-Click · Zero-Width · Zero Trust · Zero-Knowledge · Zero-Fill · FORCEDENTRY · Zerodium · Pegasus · Supply Chain*
+---
+
+audited
+---

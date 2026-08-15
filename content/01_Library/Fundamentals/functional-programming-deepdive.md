@@ -258,7 +258,7 @@ Rust TIDAK punya: garbage collector, inheritance, lazy evaluation default, highe
 7. Wikipedia: [Monad (functional programming)](https://en.wikipedia.org/wiki/Monad_(functional_programming))
 8. Wikipedia: [Hindley-Milner type system](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
 9. Wikipedia: [Referential transparency](https://en.wikipedia.org/wiki/Referential_transparency)
-10. Learn You a Haskell: http://learnyouahaskell.com/
+10. Learn You a Haskell: https://github.com/noelmarkham/learnyouahaskell (site asli mati; mirror GitHub)
 11. Rust Book — Closures & Iterators: https://doc.rust-lang.org/book/ch13.html
 
 ## Koneksi ke Vault
@@ -273,3 +273,7 @@ Rust TIDAK punya: garbage collector, inheritance, lazy evaluation default, highe
 | [[refactoring-martin-fowler]] | Refactoring ke immutability |
 | [[00_Atlas/hierarchy-software-engineering-paradigm]] | Atlas paradigm pemrograman |
 | [[pqc-implementation-rust]] | Rust FP features di praktik PQC |
+---
+
+audited
+---

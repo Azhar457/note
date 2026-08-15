@@ -334,3 +334,7 @@ Empire adalah contoh klasik dual-use: di satu sisi, ia memungkinkan red team men
 ---
 
 *Empire Deep Dive | PowerShell Post-Exploitation Framework | C2 & Adversary Simulation*
+---
+
+audited
+---

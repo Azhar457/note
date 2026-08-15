@@ -16,7 +16,7 @@ cssclasses: ''
 > Panduan komprehensif keamanan cloud-native mulai dari Cloud Security Posture Management (CSPM), Kubernetes admission control (OPA/Gatekeeper, Kyverno), AWS IAM policies & identity federation, cloud-native WAF (AWS WAF, Cloud Armor, Cloudflare WAF), hingga CIEM (Cloud Infrastructure Entitlement Management). Mencakup attack vectors spesifik cloud (S3 bucket misconfiguration, IAM privilege escalation, K8s RBAC abuse) serta tooling deteksi (CloudSploit, Prowler, Checkov, Kubescape).
 
 > [!info] Hubungan ke Vault
-> Catatan ini terkait dengan [[cloud-infrastructure]] untuk gambaran arsitektur cloud secara umum, [[container-kubernetes-security-deepdive]] untuk fondasi keamanan container yang diperluas ke admission control dan cloud security posture, [[cicd-shiftleft-shiftright]] dan [[cicd-guide]] untuk DevSecOps pipeline placement, [[Note/01_Library/Cyber_Security/IAM/identity-and-access-management|identity-and-access-management]] untuk identitas dan akses, [[api-security-deep-dive]] dan [[waf-reverse-proxy-deepdive]] untuk WAF di perimeter cloud, serta [[zero-trust-security]] untuk prinsip zero trust di cloud.
+> Catatan ini terkait dengan [[cloud-infrastructure]] untuk gambaran arsitektur cloud secara umum, [[container-kubernetes-security-deepdive]] untuk fondasi keamanan container yang diperluas ke admission control dan cloud security posture, [[cicd-shiftleft-shiftright]] dan [[cicd-guide]] untuk DevSecOps pipeline placement, [[identity-and-access-management|identity-and-access-management]] untuk identitas dan akses, [[api-security-deep-dive]] dan [[waf-reverse-proxy-deepdive]] untuk WAF di perimeter cloud, serta [[zero-trust-security]] untuk prinsip zero trust di cloud.
 
 ---
 
@@ -705,3 +705,7 @@ bindings:
 
 > [!tip] Bottom Line
 > Keamanan cloud bukanlah tentang satu produk atau satu lapisan — ini tentang **posture berkelanjutan** (CSPM), **pencegahan di admission** (OPA/Kyverno), **kontrol identitas granular** (IAM/SCP), dan **deteksi anomaly** (CloudTrail + GuardDuty). Karena perimeter cloud adalah IAM policy, semua misconfiguration bisa menjadi bencana dalam hitungan jam. Kombinasi antara IaC scanning (pre-deploy), CSPM monitoring (post-deploy), dan admission control (di waktu deploy) adalah fondasi pertahanan yang tidak bisa ditawar. Implementasi SCP untuk membatasi privilege escalation — khususnya `iam:PassRole` dan cross-account trust — adalah langkah dengan ROI keamanan tertinggi.
+---
+
+audited
+---

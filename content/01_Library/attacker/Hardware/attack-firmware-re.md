@@ -100,3 +100,73 @@ Persistence: UEFI = flash → survive everything
 - CHIPSEC — https://github.com/chipsec/chipsec
 - Firmware RE (Attify) — https://www.attify.com/firmware-analysis-toolkit
 - BlackLotus — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
+
+## Konkret — Firmware Extraction (Testable)
+
+### Binwalk Extraction
+
+```bash
+# Scan firmware image
+binwalk firmware.bin
+# Output: lokasi kernel, filesystem, header
+
+# Extract semua bagian
+binwalk -Me firmware.bin
+# -M recursive, -e extract
+
+# Check filesystem type
+binwalk -A firmware.bin
+```
+
+### U-Boot / UEFI Analysis
+
+```bash
+# U-Boot environment (konfigurasi boot)
+strings firmware.bin | grep -i "bootcmd\|bootargs"
+# bootargs berisi console=ttyS0, root=... → info boot
+
+# UEFI firmware (insyde/ami/award)
+# UEFITool → extract FFS volumes
+# 1. UEFITool firmware.rom → parse → export sections
+# 2. Cari DXE driver, NVRAM var
+# 3. ifme_xtract → ME (Intel Management Engine) firmware
+```
+
+### Firmware Backdoor Patterns
+
+```bash
+# 1. Hardcoded credentials
+strings firmware.bin | grep -E "password|admin|root|telnet"
+# 2. Telnet/SSH hidden service
+strings firmware.bin | grep -E "telnetd|dropbear|sshd"
+# 3. Update server URL (update hijack)
+strings firmware.bin | grep -i "update\|download.*bin"
+# 4. Magic bytes / known signature
+binwalk firmware.bin | grep -E "LZMA|gzip|JFFS2|SquashFS|cramfs"
+```
+
+### SPI Flash Dump (Hardware)
+
+```bash
+# 1. Connect flashrom ke chip (SOIC8 clip)
+flashrom -p linux_spi:dev=/dev/spidev0.0 -r firmware.bin
+# 2. Chip-off: read via SPI programmer
+flashrom -p ch341a_spi -r firmware.bin
+# 3. Identify chip: flashrom --list-supported
+```
+
+### UART / JTAG
+
+```bash
+# UART console (3.3V, 115200 baud default)
+screen /dev/ttyUSB0 115200
+# Prompt muncul → boot shell, login via busybox
+
+# JTAG (debug port) — OpenOCD
+openocd -f interface/jlink.cfg -f target/nrf52.cfg
+# dump flash via debug probe → extract firmware
+```
+---
+
+audited
+---

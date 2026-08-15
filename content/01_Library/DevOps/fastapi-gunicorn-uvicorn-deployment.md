@@ -332,3 +332,7 @@ gunicorn --check-config --workers $WORKERS \
 - [[cicd-guide]] — integrate dengan deployment pipeline
 - [[devsecops-pipeline-sast-dast-sbom]] — security scanning sebelum deploy
 - [[cicd-shiftleft-shiftright]] — testing strategy untuk FastAPI
+---
+
+audited
+---

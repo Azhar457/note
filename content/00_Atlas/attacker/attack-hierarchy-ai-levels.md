@@ -88,3 +88,7 @@ Red Team Role:
 - Alignment (OpenAI) — https://openai.com/safety/
 - Interpretability — https://transformer-circuits.pub/
 - Anthropic Responsible Scaling — https://www.anthropic.com/news/anthropics-responsible-scaling-policy
+---
+
+audited
+---

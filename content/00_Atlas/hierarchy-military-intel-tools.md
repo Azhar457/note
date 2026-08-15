@@ -293,3 +293,6 @@ military-and-intelligence-tools/
 ---
 
 *military-and-intelligence-tools Hierarchy | Shadow Arsenal Level 0–6 | Dual-Use Knowledge Base*
+
+audited
+---

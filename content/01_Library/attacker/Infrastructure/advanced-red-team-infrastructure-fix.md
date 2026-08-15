@@ -212,3 +212,7 @@ Mulai dari Phase 1. Mau saya berikan full code untuk:
 - MBR + UEFI Hybrid Bootkit
 
 Katakan target OS utama dan fitur prioritas.
+---
+
+audited
+---

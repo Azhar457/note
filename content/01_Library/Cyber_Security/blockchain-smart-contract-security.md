@@ -473,3 +473,7 @@ trace = [hack_contract]
 6. "Mastering Ethereum" — Antonopoulos, Wood
 7. Immunefi: DeFi bug bounty platform: [https://immunefi.com/](https://immunefi.com/)
 8. Solidity Security by Example: [https://solidity-by-example.org/](https://solidity-by-example.org/)
+---
+
+audited
+---

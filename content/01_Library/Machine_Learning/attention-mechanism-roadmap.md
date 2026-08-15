@@ -231,3 +231,7 @@ mask = torch.triu(torch.ones(L, L) * float('-inf'), diagonal=1)
 - FlashAttention — https://arxiv.org/abs/2205.14135
 - GQA (Llama 2) — https://arxiv.org/abs/2305.13245
 - vLLM PagedAttention — https://arxiv.org/abs/2309.06180
+---
+
+audited
+---

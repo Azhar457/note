@@ -274,3 +274,7 @@ LiteLLM started as a thin abstraction layer over multiple LLM providers but has 
 **Ring:** Trial | **Quadrant:** Languages and Frameworks
 
 Modern.js is a React meta-framework from ByteDance that we’re placing in Trial for teams with micro- frontend requirements built on Module Federation. The trigger is practical: nextjs-mf is heading toward end-of-life. The Pages Router will receive only small backported fixes, no new development is planned, and CI tests are expected to be removed by mid-to-late 2026. With Next.js lacking official Module Federation support and the community plugin being phased out, the Module Federation core team now recommends Modern.js as the primary supported framework for federation-based architectures. The @module-federation/modern-js-v3 plugin provides automatic build wiring out of the box, with streaming SSR and Bridge APIs available as separate capabilities. However, combining them has limitations: @module-federation/bridge-react is not yet compatible with Node environments, making Bridge unusable in SSR scenarios. Our early experience is positive, and the migration path is well defined for teams already using Module Federation. The ecosystem outside ByteDance is still maturing, so teams should plan for thinner documentation and closer engagement with upstream. This remains a Trial recommendation, because investment is justified for Module Federation use cases where no better-supported alternative currently exists.
+---
+
+audited
+---

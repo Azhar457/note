@@ -367,3 +367,7 @@ Template writeup untuk soal IR kompetisi:
 - [[network-forensics-pcap-analysis]] — PCAP analysis
 - [[memory-forensics-volatility-deepdive]] — memory forensic
 - [[ebpf-kernel-security]] — kernel-level detection
+---
+
+audited
+---

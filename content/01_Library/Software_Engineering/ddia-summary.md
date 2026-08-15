@@ -240,3 +240,7 @@ Dalam merancang aplikasi data intensif, kita perlu mempertimbangkan beberapa pri
 * Java. (2022). Java Documentation. Oracle.
 
 Dalam dokumentasi di atas, kita telah membahas tentang prinsip-prinsip desain untuk aplikasi data intensif, seperti ketersediaan, skala, dan kinerja. Kita juga telah membahas tentang beberapa konsep dasar, seperti tipe data, sistem, dan aplikasi. Dalam implementasi, kita telah membahas tentang pemilihan teknologi, desain database, dan pengembangan aplikasi. Dengan memahami prinsip-prinsip desain dan implementasi yang tepat, kita dapat membuat aplikasi data intensif yang scalable, performant, dan reliable.
+---
+
+audited
+---

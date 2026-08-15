@@ -196,3 +196,6 @@ Passwordless bukan endpoint — itu **starting line** untuk Zero Trust.
 > Organisasi yang paham hirarki ini tidak "beli MFA" — mereka **desain trust chain** dari Level 0 sampai level yang threat model mereka butuhkan.
 
 *Biometrics & Identity Hierarchy | Level 0 (Password) → Level 7 (Neural/BCI) · Dari Something You Know ke Who You Are at Neural Level*
+
+audited
+---

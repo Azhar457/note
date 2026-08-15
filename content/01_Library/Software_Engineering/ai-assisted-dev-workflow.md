@@ -292,3 +292,7 @@ Total: ~20 menit untuk fitur yang dulu butuh 1 jam.
 - [[agentic-ai-mcp-architecture-deepdive]] — Autonomous coding agent architecture (Claude Code, Aider)
 - [[cicd-shiftleft-shiftright]] — AI code review sebagai Shift-Left security gate
 - [[test-time-compute-system2]] — AI reasoning patterns untuk debugging & code analysis
+---
+
+audited
+---

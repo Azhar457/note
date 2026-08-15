@@ -16,8 +16,6 @@ cssclasses:
   - callout
 
 ---
-
-
 > [!abstract] Ringkasan
 > Prosedur audit berkala untuk master-index + sweeping broken wikilink + scanning stub `_index.md` setelah batch besar (rename, fuse folder, atau sync dari vault primer). Tujuannya: graph Obsidian tetap "existing files only", tidak ada link mati, dan setiap folder punya `_index.md` bermakna.
 
@@ -39,7 +37,7 @@ Trigger eksekusi:
 
 - ✅ Setelah `sync_content.sh` pertama kali selesai dengan vault baru (fase on-boarding)
 - ✅ Setelah batch rename / restructure folder (`kebab-case` → `snake_case` atau sebaliknya)
-- ✅ Setelah fuse / merge folder duplicate (lihat [[Internet_Offline/_index|Internet_Offline]] & [[Kualitas_Perangkat_Lunak/_index|Kualitas_Perangkat_Lunak]])
+- ✅ Setelah fuse / merge folder duplicate (lihat [[_index|Internet_Offline]] & [[_index|Kualitas_Perangkat_Lunak]])
 - ✅ Setelah cron job deploy mingguan (kebiasaan hygiene — bukan wajib tapi sangat direkomendasikan)
 - ❌ Jangan jalankan tiap push kecil — overhead > nilai
 
@@ -62,7 +60,7 @@ Trigger eksekusi:
 
 ```bash
 cd /path/vault && \
-  rg -oN '\[\[[^]]+\]\]' --type md | \
+  rg -oN '\[\^+\]\]' --type md | \
   sort -u > /tmp/all_wikilinks.txt && \
   echo "Total wikilink unik: $(wc -l < /tmp/all_wikilinks.txt)"
 ```
@@ -70,7 +68,7 @@ cd /path/vault && \
 ### Step 2 — Extract Basename + Alias Set
 
 ```bash
-# Strip [[...]] wrapper
+# Strip ... wrapper
 sed -i 's/^\[\[//; s/\]\]$//' /tmp/all_wikilinks.txt
 
 # Beberapa quartz plugin gelar sticky path di nama file dulu, atau title alias—kita pakai 2 lookup strategy:
@@ -134,7 +132,7 @@ Edit `00_Atlas/master-index.md`:
 
 1. Tambah entry untuk catatan baru yang baru dibuat (Step 5 kategori "future planned" → "now created").
 2. Hapus entry yang file-nya sudah dihapus.
-3. Verifikasi semua `[[wikilink]]` di tabel masih resolve pakai Step 4-script ulang.
+3. Verifikasi semua `wikilink` di tabel masih resolve pakai Step 4-script ulang.
 
 ---
 
@@ -154,7 +152,7 @@ Edit `00_Atlas/master-index.md`:
 Sama dengan policy 3-duplicate handling yang sudah ada di memory:
 
 1. **Fusion (merge to existing note).** Kalau ada catatan dengan topik sama di folder berbeda → tulis ulang wikilink menunjuk ke existing + hapus duplikat.
-2. **Hilangkan.** Kalau broken link berasal dari folder stub (seperti [[Internet_Offline/_index|Internet_Offline]] atau [[Kualitas_Perangkat_Lunak/_index|Kualitas_Perangkat_Lunak]]) → ganti `_index.md` jadi redirect-stub yang refer ke lokasi baru, jangan create duplikat.
+2. **Hilangkan.** Kalau broken link berasal dari folder stub (seperti [[_index|Internet_Offline]] atau [[_index|Kualitas_Perangkat_Lunak]]) → ganti `_index.md` jadi redirect-stub yang refer ke lokasi baru, jangan create duplikat.
 3. **Biarkan.** Kalau konteks cukup beda dan catatan baru akan deep-dive, tulis stub note dengan `aliases: ["broken-link-as-alias"]` + flag `status: planned`.
 
 ---
@@ -162,7 +160,7 @@ Sama dengan policy 3-duplicate handling yang sudah ada di memory:
 ## Pitfalls
 
 1. **Quartz cache stale.** Walau file sudah ditambah, Quartz cache `.quartz-cache/` lama masih serve broken link. Solusi: `rm -rf .quartz-cache && npx quartz build` sebelum verifikasi.
-2. **Wikilink dengan path prefix.** `[[folder/note]]` vs `[[note]]` keduanya valid tapi Quartz prefer basename untuk graph lookup. Path-prefixed kadang "magically hilang" di graph.
+2. **Wikilink dengan path prefix.** `[[note]]` vs `[[note]]` keduanya valid tapi Quartz prefer basename untuk graph lookup. Path-prefixed kadang "magically hilang" di graph.
 3. **Alias dengan spasi / special char.** Alias di frontmatter harus quoted `"…"`. Alias tanpa tanda kutip di YAML list akan ditolak oleh parser.
 4. **Frontmatter YAML indent.** `aliases:` harus di level 0 (top level), bukan nested di `metadata:`. Cek dengan `head -5 file.md`.
 5. **Cron-deploy overwrite.** Karena `quartz sync` overwrite `_index.md` di content/, fix struktural harus di vault primer (`/mnt/data_d/Documents/Wide Note/Note`), bukan di `azhar457.github.io[note]/note/content/`.
@@ -172,8 +170,12 @@ Sama dengan policy 3-duplicate handling yang sudah ada di memory:
 ## Catatan Terkait
 
 - [[se-learning-path-moc]] — MOC yang refer stub folders Internet_Offline & Kualitas_Perangkat_Lunak
-- [[Internet_Offline/_index|Internet_Offline Index]] — contoh stub konsolidasi
-- [[Kualitas_Perangkat_Lunak/_index|Kualitas_Perangkat Lunak Index]] — contoh stub konsolidasi
+- [[_index|Internet_Offline Index]] — contoh stub konsolidasi
+- [[_index|Kualitas_Perangkat Lunak Index]] — contoh stub konsolidasi
 - [[master-index]] — Atlas central yang sering berubah, wajib sweep tiap edit besar
 - [[quartz-setup-windows|SOP Quartz Setup Windows]]
-- [[02_SOPs/vault-routine|Vault Maintenance Routine (parent)]]
+- [[vault-routine|Vault Maintenance Routine (parent)]]
+---
+
+audited
+---

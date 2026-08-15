@@ -186,3 +186,7 @@ transforms = A.Compose([
 | **Open Policy Agent (OPA)** | Enforce | Policy as code |
 | **HashiCorp Vault** | Secret | Secret management |
 | **Prometheus + Grafana** | Monitor | Metrics + dashboard |
+---
+
+audited
+---

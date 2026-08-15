@@ -237,7 +237,7 @@ Linear Algebra adalah matematika dari **ruang dan transformasi**. Untuk seorang 
 
 | 📊 Topik | ⚡ Isi & Sweet Spot | 🔗 Koneksi Langsung |
 |---|---|---|
-| **Vektor** | `v = [x, y]`. Dot product `v·w` mengukur seberapa "searah". Cosine similarity: `cos(θ) = (v·w) / (||v|| ||w||)`. | NLP Search Engine, [[llm-security-red-teaming-attack-surface-ai-layer]] (embedding attack) |
+| **Vektor** | `v = [x, y]`. Dot product `v·w` mengukur seberapa "searah". Cosine similarity: `cos(θ) = (v·w) / (\|\|v\|\| \|\|w\|\|)`. | NLP Search Engine, [[llm-security-red-teaming-attack-surface-ai-layer]] (embedding attack) |
 | **Matriks** | Array 2D. `A·B` adalah transformasi. **PENTING:** `A·B ≠ B·A` (tidak komutatif). Transpos `Aᵀ`, invers `A⁻¹`. | Setiap layer di Neural Network adalah perkalian matriks `Y = f(W·X + b)`. |
 | **Ruang Vektor** | Span, basis, dimensi, rank. **Intuisi:** Basis adalah "seperangkat arah independen" yang bisa menjangkau seluruh ruang. Rank adalah "jumlah arah informatif" dalam data Anda. | Kompresi gambar (SVD), reduksi dimensi (PCA). |
 | **Eigenvalues & Eigenvectors** | `A·v = λ·v`. Matriks A, ketika dikali vektor eigen v, hanya meregangkannya sebesar λ (nilai eigen). | Google PageRank (vektor eigen utama dari graf web). Quantum Computing (nilai eigen Hamiltonian). |
@@ -302,3 +302,7 @@ Matematika ini bukan pulau-pulau terpencil. Semua konsep saling terhubung dan me
 ---
 
 *Matematika & Algoritma | Algoritma & DS + Matematika Diskrit + Linear Algebra · Fondasi Semua CS · Bahasa Alam Semesta*
+---
+
+audited
+---

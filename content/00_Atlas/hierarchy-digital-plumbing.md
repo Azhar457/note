@@ -316,7 +316,8 @@ Kecepatan →  zstd(1)  lz4  snappy  zlib(1)  zstd(19)  xz  rar  7z  zpaq
 | xz | 9 | 45 MB | 4.49× | 1.2 MB/s | 22.7 MB/s |
 | bzip2 | 9 | 58 MB | 3.48× | 4.7 MB/s | 19.5 MB/s |
 | brotli | 11 | 52 MB | 3.88× | 0.8 MB/s | 82.3 MB/s |
-|*Sumber: lzbench, Intel i7-12700, single-thread* |
+
+*Sumber: lzbench, Intel i7-12700, single-thread*
 
 ### 5.4 Zstd — The New Standard
 
@@ -515,3 +516,6 @@ hierarchy-digital-plumbing.md
 13. I. L. R. B. (Independent JPEG Group). *"libjpeg API Documentation."*
 14. RFC 1952 — GZIP file format specification version 4.3.
 15. W. Richard Stevens. *"TCP/IP Illustrated, Vol. 1."* Chapter: Content Encoding.
+
+audited
+---

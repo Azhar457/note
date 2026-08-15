@@ -88,10 +88,10 @@ Satu qubit bisa representasi **superposisi** dua state. $n$ qubit = superposisi 
 
 | Gerbang | Matriks | Efek |
 |---------|---------|------|
-| **Hadamard (H)** | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$ | Buat superposisi: $|0\rangle \to \frac{|0\rangle+|1\rangle}{\sqrt{2}}$ |
-| **Pauli-X (NOT)** | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$ | Flip: $|0\rangle \to |1\rangle$ |
+| **Hadamard (H)** | $\frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}$ | Buat superposisi: $\|0\rangle \to \frac{\|0\rangle+\|1\rangle}{\sqrt{2}}$ |
+| **Pauli-X (NOT)** | $\begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}$ | Flip: $\|0\rangle \to \|1\rangle$ |
 | **Pauli-Y** | $\begin{bmatrix}0 & -i \\ i & 0\end{bmatrix}$ | Rotasi sumbu Y |
-| **Pauli-Z** | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$ | Phase flip: $|1\rangle \to -|1\rangle$ |
+| **Pauli-Z** | $\begin{bmatrix}1 & 0 \\ 0 & -1\end{bmatrix}$ | Phase flip: $\|1\rangle \to -\|1\rangle$ |
 | **CNOT (CX)** | $\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}$ | Entanglement: control-target XOR |
 | **Rotasi (RX, RY, RZ)** | $e^{-i\theta P/2}$ | Rotasi kontinu — parameterizable |
 
@@ -212,7 +212,7 @@ Cara memasukkan data classical ke quantum state — **sangat mempengaruhi perfor
 | Method | Deskripsi | Qubit per Feature | Complexity |
 |--------|-----------|-------------------|------------|
 | **Angle Encoding** | $x_i \to RY(x_i)$ | 1 | $O(n)$ |
-| **Amplitude Encoding** | $x \to \sum x_i |i\rangle$ | $\log n$ | $O(2^n)$ circuit depth |
+| **Amplitude Encoding** | $x \to \sum x_i \|i\rangle$ | $\log n$ | $O(2^n)$ circuit depth |
 | **IQP Encoding** | $x \to e^{i\sum x_i Z_i} H^{\otimes n}$ | 1 | $O(n)$ |
 | **Hamiltonian Encoding** | $x \to e^{-iH(x)t}$ | 1-$n$ | Problem-dependent |
 
@@ -545,3 +545,7 @@ def qaoa_ansatz(params, graph):
 
 > [!tip] Prinsip Praktis
 > QML hari ini adalah **eksperimen, bukan produksi.** Jika classical ML sudah memberikan solusi yang memadai, gunakan classical. QML layak dicoba ketika: (a) data Anda memiliki struktur quantum (kimia, fisika partikel), (b) problem classical sangat mahal secara komputasi, (c) Anda siap dengan noise, barren plateau, dan scaling yang belum terbukti. Kerangka berpikir yang benar: **"Bisakah quantum membantu?"** bukan **"Ayo kita quantum-kan semuanya."** HHL dan VQE adalah early wins; QNN masih mencari pijakan.
+---
+
+audited
+---

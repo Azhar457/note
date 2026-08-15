@@ -104,3 +104,7 @@ Lateral: SSH key → pivot ke other host
 - redis-rogue-server — https://github.com/n0b0dyCN/redis-rogue-server
 - PortSwigger SQLi Cheat Sheet — https://portswigger.net/web-security/sql-injection/cheat-sheet
 - HackTricks (SQLi) — https://book.hacktricks.xyz/pentesting-web/sql-injection
+---
+
+audited
+---

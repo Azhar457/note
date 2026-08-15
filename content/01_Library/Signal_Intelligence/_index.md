@@ -21,3 +21,6 @@ cssclasses:
 
 ## 📄 Notes
 - [[military-sigint-deepdive]]
+
+audited
+---

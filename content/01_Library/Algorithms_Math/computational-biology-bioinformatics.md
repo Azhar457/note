@@ -710,3 +710,7 @@ RMSD > 6 Å: poor
 | [[math-and-algorithms]] | Alignment, graph theory, dynamic programming |
 | [[research-methodology]] | Bioinformatics pipeline = experimental design |
 | [[cloud-infrastructure]] | Nextflow + cloud = scalable bioinformatics |
+---
+
+audited
+---

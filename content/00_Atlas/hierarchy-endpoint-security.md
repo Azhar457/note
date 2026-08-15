@@ -182,3 +182,6 @@ Lockdown naik hierarki = effort eksponensial, benefit incremental. Kebanyakan or
 > Jika lo paham hirarki ini, lo paham **mengapa** antivirus modern saja tidak cukup — dan **di mana** celah defender anda lemah. Hirarki privilege CPU bukan konsep textbook; itu peta operasi harian setiap red team, blue team, dan APT nation-state.
 
 *Endpoint Security Hierarchy | Ring 3 (Aplikasi) → Ring -3 (Sub-Firmware Selalu ON) · Inversi Privilege-Visibility*
+
+audited
+---

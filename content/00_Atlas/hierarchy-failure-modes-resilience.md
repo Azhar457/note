@@ -340,3 +340,6 @@ Di sistem yang cukup besar, **failure bukan pengecualian — ia adalah keadaan n
 8. Vaughan, D. *"The Challenger Launch Decision."* 1996.
 9. Taleb, N.N. *"The Black Swan."* 2007.
 10. Parnas, D. *"Designing Software for Ease of Extension and Contraction."* 1978.
+
+audited
+---

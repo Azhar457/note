@@ -726,7 +726,11 @@ UKF lebih akurat untuk highly non-linear systems
 | Catatan | Koneksi |
 |:--------|:--------|
 | [[embedded-systems]] | Robotics = embedded systems + control + perception |
-| [[computer-vision]] | Visual SLAM, object detection untuk manipulation |
+| [[computer-vision-deepdive]] | Visual SLAM, object detection untuk manipulation |
 | [[swarm-ai-imam-robandi]] | Swarm intelligence principles |
 | [[math-and-algorithms]] | Kinematics, graph theory, optimization |
 | [[ai-comm-protocol-deepdive]] | ROS2 DDS = distributed communication protocol |
+---
+
+audited
+---

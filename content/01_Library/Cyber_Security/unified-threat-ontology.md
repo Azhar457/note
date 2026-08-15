@@ -23,7 +23,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-threat-modeling]] [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] [[00_Atlas/hierarchy-crosswalk]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-threat-modeling]] [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] [[00_Atlas/hierarchy-crosswalk]] [[about]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Serangan siber modern tidak pernah terjadi secara terisolasi pada satu layer sistem saja. Catatan ini menyatukan konsep-konsep pertahanan dalam model terpadu (*Unified Threat Ontology*) dari Layer 1 (Fisik/Transistor) hingga Layer 8 (Manusia/Psikologis), merangkum keterkaitan antara [[network-security]], [[blueteam-detection-matrix]], dan [[cognitive-security-information-operations]].
@@ -184,3 +184,7 @@ Layer 1: Money gone → irreversible
 
 > [!callout] 💡
 > Serangan modern cascade lintas layer — pertahanan harus dimodelkan sebagai sistem menyeluruh, bukan kontrol per-layer yang terisolasi.
+---
+
+audited
+---

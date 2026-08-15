@@ -179,3 +179,7 @@ Contoh kode di atas dapat digunakan untuk memahami konsep pointer dan struct.
 ### Kesimpulan
 
 Buku "Computer Systems: A Programmer's Perspective" adalah buku yang sangat penting untuk dipelajari oleh programmer karena membahas tentang sistem komputer dan bagaimana kode berjalan di mesin. Buku ini membahas tentang konsep-konsep dasar seperti bit, byte, dan integer, serta konsep-konsep lanjutan seperti optimasi performa, cache, dan concurrency. Dengan mempelajari buku ini, programmer dapat memahami bagaimana kode berjalan di mesin dan dapat meningkatkan performa kode dengan menggunakan teknik-teknik yang dipelajari.
+---
+
+audited
+---

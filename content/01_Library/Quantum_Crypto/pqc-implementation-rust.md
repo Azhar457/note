@@ -180,3 +180,7 @@ Melakukan migrasi langsung ke PQC penuh (*pure PQC*) sangat berisiko karena algo
 ### ❔ Claim 3: Kyber-768 provides a security level equivalent to AES-192.
 - **Status:** `UNVERIFIED` | **Confidence:** `LOW`
 - **Analysis:** No relevant web search results could be retrieved to verify this claim.
+---
+
+audited
+---

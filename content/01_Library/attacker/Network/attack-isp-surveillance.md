@@ -76,3 +76,54 @@ Result: ISP melihat: IP → CDN edge + encrypted blob
 - DoH (RFC 8484) — https://datatracker.ietf.org/doc/html/rfc8484
 - QUIC (RFC 9000) — https://datatracker.ietf.org/doc/html/rfc9000
 - ISP Surveillance — https://ssd.eff.org/en/module/...
+
+## Konkret — ISP Surveillance Bypass (Testable)
+
+### DPI Evasion (Deep Packet Inspection)
+
+```bash
+# 1. TLS 1.3 (ESNI / ECH) → SNI encrypted
+# 2. Domain fronting (CDN) → DPI lihat legit domain
+# 3. Fragmentation: TLS ClientHello split → DPI miss pattern
+#    Tool: Geneva (Genetic Evasion)
+python3 geneva.py --strategy "[TCP:flags:PA]-fragment-\{\}-"
+
+# 4. Shadowsocks / V2Ray
+#    Proxy yang mimic HTTPS traffic → DPI tidak distinguish
+#    Server: shadowsocks-libev -c config.json
+#    Client: shadowsocks-local -c config.json
+#    Browsing → SS local → SS server → target → direct
+```
+
+### DNS Hijack Bypass
+
+```bash
+# ISP sering hijack DNS (redirect NX domain ke ad page)
+# 1. Use DNS over HTTPS (DoH)
+#    Firefox: network.trr.mode = 2 (TRR preferred, fallback)
+#    atau via systemd-resolved:
+sudo sed -i 's/#DNS=.*/DNS=1.1.1.1 8.8.8.8/' /etc/systemd/resolved.conf
+sudo systemctl restart systemd-resolved
+
+# 2. DNSCrypt
+dnscrypt-proxy -config dnscrypt.toml
+# 3. Custom DoH endpoint (self-hosted)
+#    dnsdist + DoH → custom server → ISP tidak intercept
+```
+
+### Metadata Strip
+
+```bash
+# 1. Email metadata: PGP/MIME tidak encrypt header
+# 2. Photo EXIF → GPS, camera serial, timestamp
+exiftool -all= photo.jpg                  # strip all
+exiftool -all= *.jpg                       # batch strip
+
+# 3. Document metadata
+exiftool -all= document.pdf
+mat2 document.pdf                          # metadata anonymization framework
+```
+---
+
+audited
+---

@@ -78,7 +78,10 @@ Firmware:
 - Binary Ninja — https://binary.ninja/
 - x64dbg — https://x64dbg.com/
 - Frida (Dynamic Instrumentation) — https://frida.re/
--_pwntools — https://docs.pwntools.com/
+- pwntools — https://docs.pwntools.com/
 - binwalk (Firmware RE) — https://github.com/ReFirmLabs/binwalk
 - CAPA (Capability Analysis) — https://github.com/mandiant/capa
 - FLOSS (String Extraction) — https://github.com/mandiant/flare-floss
+
+audited
+---

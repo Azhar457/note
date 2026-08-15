@@ -168,3 +168,7 @@ Bulan 1      Bulan 2      Bulan 3      Bulan 4      Bulan 5      Bulan 6
 ---
 
 *Roadmap Cyber Security Blue Team | Fase 1 (Hardening) → Fase 4 (Threat Intel) · 6 Bulan Homelab*
+---
+
+audited
+---

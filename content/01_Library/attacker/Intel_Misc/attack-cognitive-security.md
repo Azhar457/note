@@ -111,3 +111,71 @@ Behavior:
 - Influence Ops (Stanford) — https://fsi.stanford.edu/io
 - Disinfo (Elections) — https://www.eipartnership.net/
 - Cognitive Security — https://www.rand.org/topics/cognitive-security.html
+
+## Konkret — Cognitive Attack Payload (Testable)
+
+### Deepfake Generation
+
+```bash
+# 1. DeepFaceLab (face swap)
+# Faceset: ekstrak frame dari video target
+./00_extract.bat CUDA main.py
+# Latih SAEHD (model neural)
+./02_train.bat SAEHD
+# Merge (face swap ke video target)
+./05_merged.bat
+
+# 2. Real-time deepfake (om(av) av)
+python face_swap.py --source face.jpg --target video.mp4 --output deepfake.mp4
+
+# 3. Voice clone (RTVC)
+# Real-Time Voice Cloning:
+python demo_toolbox.py
+# 3 detik audio → clone voice
+# Generate speech via cloned voice (TTS arbritrary)
+```
+
+### Sockpuppet (Fake Account)
+
+```
+Persona:
+- Nama: sesuaikan target demografi
+- Foto: ThisPersonDoesNotExist.com (unique, no reverse search)
+- Bio: konsisten, 3+ month history (aged account)
+- Activity: 2+ minggu build credibility (like/retweet/comment)
+- Network: mutual friends dengan target cluster
+- Used for: bridge bot → seed misinformation
+
+Bot automation:
+- Selenium / Puppeteer → control account
+- Proxy rotation (911, Luminati → residential IP)
+- Naive Bayes sentiment classifier → auto-reply
+```
+
+### Influence Operation (Framework)
+
+```
+Strategi: Firehose of Falsehood
+1. Volume: publish banyak content (high rate)
+2. Multichannel: Twitter, Facebook, Telegram, TikTok, blog
+3. No commitment: inconsistency tidak masalah (multispektrum)
+4. Target: sentiment swing, tidak harus konversi total
+
+Tactic:
+- Amplification: bot network retweet / like / reply
+- Brigadeing: mass report target (suspending lawan)
+- Hashtag hijack: co-opt trending tag
+- Platform gaming: algorithm ranking manipulation (likes/reports)
+```
+
+### Detection (Defender)
+
+1. Naive Bayes classifier — sentiment/profanity shift
+2. Bot detection: account age, posting frequency, content entropy
+3. Network analysis: centrality, clique detection (ampliff
+4. Media forensics: blending boundary, eye blink rate, audio artifact
+5. Stance: co-occurrence dengan known influence cluster
+---
+
+audited
+---

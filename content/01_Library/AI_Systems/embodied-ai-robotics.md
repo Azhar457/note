@@ -350,13 +350,13 @@ def sys_id(real_trajectory, initial_params):
 
 | Model | Org | Tahun | Arsitektur | Data | Action Space | Open Source? |
 |-------|-----|-------|-----------|------|-------------|--------------|
-| **RT-2** | Google DeepMind | 2023 | PaLI-X → action | Web data + ~10K demo | ❌ |
-| **RT-X** | Open X-Embodiment | 2023 | RT-2 arch + multi-embodiment | 1M+ episode, 22 robots | ✅ |
-| **PaLM-E** | Google | 2023 | PaLM + embodied tokens | Internet + robotic | ❌ |
-| **Octo** | UC Berkeley | 2023 | Transformer-based | Open X-Embodiment | ✅ |
-| **π0 (Pi-Zero)** | Physical Intelligence | 2024 | Flow matching + VLM | Multi-robot, multi-task | ❌ |
-| **MOO** | MIT | 2024 | Object-centric VLA | Proprietary | ❌ |
-| **GraspGPT** | Microsoft | 2024 | LLM-based grasp planning | Internet | ❌ |
+| **RT-2** | Google DeepMind | 2023 | PaLI-X → action | Web data + ~10K demo | ❌ | |
+| **RT-X** | Open X-Embodiment | 2023 | RT-2 arch + multi-embodiment | 1M+ episode, 22 robots | ✅ | |
+| **PaLM-E** | Google | 2023 | PaLM + embodied tokens | Internet + robotic | ❌ | |
+| **Octo** | UC Berkeley | 2023 | Transformer-based | Open X-Embodiment | ✅ | |
+| **π0 (Pi-Zero)** | Physical Intelligence | 2024 | Flow matching + VLM | Multi-robot, multi-task | ❌ | |
+| **MOO** | MIT | 2024 | Object-centric VLA | Proprietary | ❌ | |
+| **GraspGPT** | Microsoft | 2024 | LLM-based grasp planning | Internet | ❌ | |
 
 ### Open X-Embodiment Dataset
 
@@ -681,3 +681,7 @@ Inferensi VLA model (562B params) di embedded hardware? **Belum feasible.**
 
 > [!tip] Prinsip Praktis
 > Embodied AI adalah bidang di mana **simulasi tidak pernah cukup**. Setiap model VLA hari ini bekerja di lab dengan lighting terkontrol, object terbatas, dan tanpa disturbance. Reality gap bukanlah bug — ini adalah tantangan fundamental dari fisika. Aturan praktis: (1) Domain randomization adalah pertahanan terbaik Anda, (2) Jangan pernah deploy policy yang hanya di-train di simulasi — validasi di real minimal 10% dari total data, (3) Model kecil + temporal smoothing sering outperform model besar + single-step prediction di dunia nyata karena latency dan noise. Dan yang terpenting: **safety dulu.** Robot yang salah grasp bisa merusak — atau melukai.
+---
+
+audited
+---

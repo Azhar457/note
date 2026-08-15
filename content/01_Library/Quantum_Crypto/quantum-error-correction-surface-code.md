@@ -87,7 +87,7 @@ Steane code punya transversal CNOT, X, Z gates
 | Code | Physical Qubits | Distance | Errors Corrected | Transversal |
 |:-----|:---------------:|:--------:|:----------------:|:-----------:|
 | Shor [9,1,3] | 9 | 3 | 1 (any type) | Partial |
-| Steane [[7,1,3]] | 7 | 3 | 1 (any type) | CNOT, X, Z |
+| Steane [[quantum-cryptography-topic-713]] | 7 | 3 | 1 (any type) | CNOT, X, Z |
 | Surface [d] | d² | d | ⌊(d-1)/2⌋ | Gates via braiding |
 
 ## 4. Surface Code: Arsitektur 2D
@@ -204,7 +204,7 @@ Ini penting untuk [[post-quantum-tls]] dan [[pqc-implementation-rust]]:
 | [[quantum-cryptography-primer]] | Fondasi quantum computing → memahami QEC |
 | [[post-quantum-tls]] | PQC migration — kenapa RSA masih aman (overhead qubit) |
 | [[pqc-implementation-rust]] | Implementasi PQC di Rust — konteks real threat |
-| [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]] | Atlas stack quantum cryptography |
+| [[hierarchy-quantum-cryptography-stack]] | Atlas stack quantum cryptography |
 | [[quantum-cryptography-deepdive]] | Teori quantum cryptography |
 | [[quantum-machine-learning2]] | Qubit di ML — noise sensitivity |
 
@@ -224,3 +224,7 @@ Ini penting untuk [[post-quantum-tls]] dan [[pqc-implementation-rust]]:
 ### ❔ Claim 3: Surface code requires dÂ² physical qubits to achieve a code distance of d.
 - **Status:** `UNVERIFIED` | **Confidence:** `LOW`
 - **Analysis:** No relevant web search results could be retrieved to verify this claim.
+---
+
+audited
+---

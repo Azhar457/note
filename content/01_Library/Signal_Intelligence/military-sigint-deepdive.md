@@ -666,3 +666,7 @@ Level 8 (SIGINT Infra)      → NSA/GCHQ level
 ---
 
 *Military SIGINT Deep Dive | RTL-SDR Limits · FHSS · Type 1 Encryption · TDOA/AOA/FDOA · Pegasus vs RF · EW Triad · NSA Infrastructure*
+---
+
+audited
+---

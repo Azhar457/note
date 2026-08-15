@@ -85,10 +85,13 @@ Impact: Long-term intelligence gathering (months-years) — tidak rusak target
 
 ## 6. Referensi
 - NSA ANT Catalog (Der Spiegel) — https://www.spiegel.de/international/world/
-- Snowden Documents — https://en.wikipedia.org/wiki/Global_surveillance_disclosures_(2013-present)
+- Snowden Documents — https://en.wikipedia.org/wiki/Global_surveillance_disclosures_(2013%E2%80%93present))
 - Pegasus (Citizen Lab) — https://citizenlab.ca/2021/07/
 - Predator (Amnesty) — https://amnesty.tech/
 - XKEYSCORE (Wikipedia) — https://en.wikipedia.org/wiki/XKeyscore
 - QUANTUMINSERT — https://en.wikipedia.org/wiki/Quantum_insert
 - FinFisher (FinSpy) — https://en.wikipedia.org/wiki/FinFisher
-- NSO Group — https://www.nsogroup.com/
+---
+
+audited
+---

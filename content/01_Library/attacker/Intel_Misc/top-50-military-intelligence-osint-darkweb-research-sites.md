@@ -166,3 +166,7 @@ Beberapa situs butuh API key (🔒):
 | [[peak-tools-intel-criminal-cybercrime-zeroday]] | Toolkit analisis forensik & C2 intel untuk mengolah data dari situs-situs di atas |
 | [[osint-resource-index]] | Direktori lengkap extended OSINT & footprinting resources |
 | [[underground-financial-crime-ecosystem]] | Overlap investigasi alur transaksi crypto & darknet financial crime |
+---
+
+audited
+---

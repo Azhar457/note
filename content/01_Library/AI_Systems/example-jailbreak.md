@@ -309,3 +309,7 @@ Ini bukan sekadar frase. Ini protokol ide
 | [[jailbreak-variant-mutation-matrix]] | Varian untuk dataset |
 | [[agent-anti-jailbreak-defense-identity]] | Defense yang diuji dengan artefak ini |
 | [[llm-security-red-teaming-attack-surface-ai-layer]] | Konteks attack surface |
+---
+
+audited
+---

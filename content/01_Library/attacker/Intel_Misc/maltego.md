@@ -224,3 +224,7 @@ Maltego adalah alat netral; hasilnya bergantung pada tangan operator.
 ---
 
 *Maltego Deep Dive | OSINT Link Analysis & Reconnaissance | Dual-Use Entity Correlation*
+---
+
+audited
+---

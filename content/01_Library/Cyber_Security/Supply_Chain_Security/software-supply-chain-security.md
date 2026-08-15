@@ -159,7 +159,7 @@ cat > layout.json << 'EOF'
     {"name": "test", "expected_command": ["make test"], "threshold": 1}
   ],
   "inspect": [
-    {"name": "verify-bin", "expected_materials": [["CREATE", "Dockerfile"]]}
+    {"name": "verify-bin", "expected_materials": [[create-dockerfile]]}
   ]
 }
 EOF
@@ -422,3 +422,7 @@ pkg:pypi/requests@2.31.0
 6. SPDX: [https://spdx.dev/](https://spdx.dev/)
 7. SolarWinds analysis: Mandiant report
 8. "Securing the Software Supply Chain" — CNCF TAG Security
+---
+
+audited
+---

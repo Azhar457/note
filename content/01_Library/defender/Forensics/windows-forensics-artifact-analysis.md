@@ -731,3 +731,7 @@ vol.py -f memory.raw windows.malfind
 ---
 
 *Windows Forensics · Registry, Event Log, Prefetch, $MFT = Empat Pilar · Timestamp Manipulation Terdeteksi via $SI vs $FN · EZ Tools + Volatility + Plaso = Holy Trinity · Timeline = Kunci Rekonstruksi*
+---
+
+audited
+---

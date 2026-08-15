@@ -80,3 +80,7 @@ Impact: Data exfil, resource hijack (crypto mining), ransomware (cloud snapshot 
 - Falco (K8s Runtime) — https://falco.org/
 - Tetragon (eBPF Security) — https://github.com/cilium/tetragon
 - AWS IMDSv2 — https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html
+---
+
+audited
+---

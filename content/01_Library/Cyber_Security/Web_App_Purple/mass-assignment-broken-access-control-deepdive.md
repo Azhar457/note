@@ -574,3 +574,7 @@ Rule triggered: 942230 fields in body (role, is_admin, permissions)
 ---
 
 *Dibuat: 19 Juli 2026 — Deep dive attack mass assignment & OWASP Broken Access Control architecture.*
+---
+
+audited
+---

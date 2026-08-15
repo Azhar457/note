@@ -97,4 +97,7 @@ Bypass:
 - ROPgadget — https://github.com/JonathanSalwan/ROPgadget
 - pwntools — https://docs.pwntools.com/
 - angr — https://angr.io/
-- JIT Spray — https://www.ieee-security.org/TC/SP2011/PAPERS/2011a.pdf
+- JIT Spray — https://opendl.ifip-tc6.org/db/conf/sec/sec2011/ChenFMX11.pdf
+
+audited
+---

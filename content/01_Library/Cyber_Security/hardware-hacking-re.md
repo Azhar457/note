@@ -112,3 +112,7 @@ RESULT: Full understanding sistem tanpa dokumentasi apapun
 ---
 
 *Reverse Engineering & Hardware Hacking | Dari strings sampai FIB Silicon Edit*
+---
+
+audited
+---

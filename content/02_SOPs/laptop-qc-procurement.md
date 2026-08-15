@@ -10,8 +10,6 @@ cssclasses:
   - callout
 
 ---
-
-
 # 💻 LAPTOP QC & PROCUREMENT — Field Technician Buying Guide
 
 > **Environment:** Windows 10/11 Native (CMD/PowerShell) & Portable Tools
@@ -201,3 +199,7 @@ Berikut beberapa istilah teknis yang mungkin tidak familiar bagi pemula:
 *   **OLED (Organic Light-Emitting Diode) panel:** Jenis layar yang memiliki kualitas gambar yang sangat tinggi dan konsumsi daya yang rendah.
 
 Dengan memahami istilah-istilah tersebut, Anda dapat membuat keputusan yang lebih tepat saat membeli laptop.
+---
+
+audited
+---

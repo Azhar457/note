@@ -52,8 +52,8 @@ Untuk *home lab* dan lingkungan edge, model ini makin rapuh:
 
 NIST SP 800‑207 mendefinisikan Zero Trust dengan 5 pilar utama:
 
-| Pilar | Deskripsi | Contoh Implementasi |
-|-------|-----------|---------------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|-------|-----------| :--- |---------------------|
 |
  **Identitas sebagai perimeter** | User dan device harus di‑autentikasi kuat (MFA, certificate) | `Tailscale` identity, `OIDC` + `MFA` |
 | **Akses least‑privilege** | User hanya dapat akses ke sumber daya yang dibutuhkan | `OPA` policy, network segmentation |
@@ -129,8 +129,8 @@ Alih‑alih satu jaringan besar ("flat network"), bagi jaringan menjadi *zona‑
 
 **Contoh Zoning untuk Home Lab:**
 
-| Zona | Isi | Aturan Akses |
-|------|-----|--------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|------|-----| :--- |--------------|
 |
  `mgmt` | Panel kontrol (Proxmox, Docker UI) | Hanya dari workstation admin |
 | `apps` | Aplikasi internal (Nextcloud, Vaultwarden, Jellyfin) | Dari semua user yang login |
@@ -239,8 +239,8 @@ Untuk *home lab* dengan banyak aplikasi internal (Nextcloud, Jellyfin, Vaultward
 
 ### 6.1 Manfaat Service Mesh
 
-| Fitur | Tanpa Mesh | Dengan Mesh |
-|-------|------------|-------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|-------|------------| :--- |-------------|
 |
  **mTLS otomatis** | Manual config di setiap app | Otomatis antar service |
 | **Traffic split** | Tidak bisa | Bisa (A/B testing, canary) |
@@ -267,8 +267,8 @@ Zero Trust tanpa visibility = "zero trust but blind". Setiap koneksi harus terca
 
 ### 7.1 Komponen Monitoring
 
-| Komponen | Fungsi | Tool |
-|----------|--------|------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|----------|--------| :--- |------|
 |
  **Log Aggregator** | Kumpulkan log dari semua device/app | `Loki`, `ELK`, `Graylog` |
 | **Metrics Store** | Simpan metrik (latency, packet drop, auth failure) | `Prometheus`, `InfluxDB` |
@@ -278,8 +278,8 @@ Zero Trust tanpa visibility = "zero trust but blind". Setiap koneksi harus terca
 
 ### 7.2 Metrik Penting untuk Zero Trust
 
-| Metrik | Deskripsi | Alert Threshold |
-|--------|-----------|-----------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|--------|-----------| :--- |-----------------|
 |
  `auth_failures_total` | Jumlah autentikasi yang gagal | `> 5/menit` → alert |
 | `mtls_handshake_errors` | Kegagalan mTLS handshake | `> 0` → alert |
@@ -373,3 +373,7 @@ Zero Trust tanpa visibility = "zero trust but blind". Setiap koneksi harus terca
 ---
 
 *Catatan ini dibuat sebagai bagian dari inisiatif **Vault Audit** — referensi file asli (`TESTFROMDARKNET`, dst) tetap tidak diubah (`mtime` asli), dan semua referensi `.md` di dalam catatan ini merujuk ke file yang sudah ada di vault. Status: **pending** — siap untuk verifikasi dan audit lebih lanjut.*
+---
+
+audited
+---

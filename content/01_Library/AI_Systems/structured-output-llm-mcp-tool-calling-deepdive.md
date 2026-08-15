@@ -421,3 +421,7 @@ ThoughtWorks Radar Vol.34 themes bicara soal **codebase cognitive debt** (#36, C
 
 > [!tip] Bottom Line
 > Structured output dari LLMs bukan fitur "JSON mode" semata — empat parameter distinct: JSON mode (post-hoc parse), function calling (provider-enforced), constrained decoding (token-level logit masking), dan schema-strict validation (runtime + retry). Untuk adopt di production saat ini: gunakan **function calling** via provider yang di-support (Anthropic, OpenAI, Gemini), define schema via Pydantic atau Zod (auto-convert ke JSON Schema), dan di MCP server side **tetap re-validate** argumen karena agent bisa melalui middleware (OmniRouter proxy, custom adapter). Untuk open-model deployment, invest di Outlines bisa naik ke tier constrained decoding → ~100% reliability tanpa retry. Skill Hermes — tunggal definisi inputSchema per tool adalah contract yang sama; paksain itu, jangan biar tool "flexible" (itu artinya "kacau"). Pokoknya: schema bukan dokumentasi, schema adalah executable contract.
+---
+
+audited
+---

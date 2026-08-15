@@ -638,3 +638,7 @@ ssl_stapling_verify on;
 
 > [!tip] Bottom Line
 > TLS adalah **fondasi keamanan transport modern** — tapi bukan solusi ajaib. TLS mengamankan isi percakapan, tapi metadata (IP, panjang packet, timing) tetap bocor. Buat security engineer: (1) **Cipher suite pilih AEAD + ECDHE** — jangan sentuh CBC, jangan sentuh RSA key exchange. (2) **TLS 1.3 wajib** — lebih cepat, lebih aman, lebih sederhana. (3) **JA3 fingerprinting** adalah alat deteksi C2 yang powerful tapi harus dipahami keterbatasannya — attacker bisa JA3 randomization. (4) **Certificate Transparency** mengubah sertifikat dari "trust based on secrecy" menjadi "trust based on transparency" — setiap cert yang diterbitkan untuk domain lo tanpa sepengetahuan lo = indikasi compromise. (5) **Forward secrecy** mengubah dampak private key leakage dari "semua masa lalu terbaca" jadi "hanya masa depan" — ini bukan opsi, ini wajib.
+---
+
+audited
+---

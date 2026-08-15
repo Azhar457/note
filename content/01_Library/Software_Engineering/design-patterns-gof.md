@@ -171,3 +171,7 @@ cssclasses:
 - [ ] Implementasi Decorator: wrapping function dengan logging/caching
 - [ ] Pilih 1 pola baru per bulan — baca, implementasi, tulis catatan
 - [ ] Buat *cheatsheet* pribadi: 1 file markdown per pola (3-5 baris + contoh kode)
+---
+
+audited
+---

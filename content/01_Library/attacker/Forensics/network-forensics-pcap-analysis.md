@@ -603,3 +603,7 @@ strings file.pcap | grep -iE "CTF\{|flag\{|key\{|secret" | head-20
 ---
 
 *PCAP Analysis · Statistik Dulu, Stream Kemudian · C2 = Periodik · Exfil = Bytes Tidak Proporsional · Scapy & Zeek = Power Tools · CTF = Follow Stream + Export Object + Strings*
+---
+
+audited
+---

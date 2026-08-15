@@ -120,3 +120,7 @@ cssclasses:
 - **Pencegahan Bug Kelas Dunia:** Kedua fitur ini adalah **"lintasan pengaman" (guardrails) di level kompilator**. Mereka mencegah dua kelas bug yang paling umum: *use-after-free* (untuk iterator) dan *ignoring critical errors*.
 - **Self-Documenting Code:** Kode yang ditulis dengan pola ini tidak hanya lebih aman, tetapi juga lebih mudah dibaca. Intent-nya jelas: "nilai ini hanya untuk blok ini" dan "kamu harus peduli dengan hasil ini."
 - **Koneksi Vault:** Ini adalah fondasi dari **Fail-Fast** dan **Design by Contract**. Kamu mendesain API yang tidak mungkin disalahgunakan tanpa kompilator meneriaki pengembang. Ini adalah keamanan siber di level kode sumber.
+---
+
+audited
+---

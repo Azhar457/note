@@ -22,3 +22,6 @@ cssclasses:
 ## 📄 Notes
 - [[purple-team-osi-killchain]]
 - [[web-hacking-exploitation]]
+
+audited
+---

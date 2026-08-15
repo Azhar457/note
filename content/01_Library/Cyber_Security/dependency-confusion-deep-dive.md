@@ -183,7 +183,7 @@ registry=https://registry.npmjs.org/
 
 ## 6. Referensi
 
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Dependency Confusion/`
+- PayloadsAllTheThings: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Dependency Confusion/`
 - OWASP: Dependency Confusion Attack
 
 **Cross-link vault:**
@@ -250,3 +250,7 @@ def post_install():
 - SLSA — https://slsa.dev/
 - event-stream incident — https://blog.npmjs.org/post/180565383195/
 - PyPI typosquatting — https://blog.phylum.io/
+---
+
+audited
+---

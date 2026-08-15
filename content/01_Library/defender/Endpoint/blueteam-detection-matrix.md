@@ -446,3 +446,7 @@ auditpol /set /subcategory:"Registry" /success:enable /failure:enable
 ---
 
 *Dokumen ini untuk internal blue team use. Versi: 1.0 — 2026*
+---
+
+audited
+---

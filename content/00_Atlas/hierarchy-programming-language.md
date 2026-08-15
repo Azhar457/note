@@ -296,3 +296,6 @@ Go  → GC tidak cocok untuk kernel              → Zig
 ---
 
 *Hierarki Bahasa Pemrograman | Machine Code → Assembly → C → Rust → Go → Python → DSL · Silicon sampai Cloud*
+
+audited
+---

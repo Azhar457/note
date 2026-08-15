@@ -738,3 +738,7 @@ int thread_func(void *arg) {
 ---
 
 *C Modern Best Practices | 20 Trik Esensial · designated init, compound literals, _Generic, FAM, cleanup, memset_explicit*
+---
+
+audited
+---

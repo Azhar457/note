@@ -11,8 +11,6 @@ cssclasses:
   - callout
 
 ---
-
-
 # Printer Maintenance & Reset — Complete Technician Guide
 
 > **Ringkasan:** Panduan komprehensif perawatan dan reset printer inkjet (Epson, Canon, Brother, HP) untuk teknisi servis. Mencakup identifikasi masalah, prosedur reset waste ink counter, service mode, dan mitigasi risiko kerusakan.
@@ -98,7 +96,6 @@ Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste
 - Printer menolak mencetak meski tinta masih penuh
 - Pesan di PC: "Service Required" atau "Parts inside printer have reached end of service life"
 
-!
 > *Gambar 1: Contoh indikator lampu berkedip pada Epson L3110 (kiri: normal, kanan: error waste ink)*
 
 ### 3.2 Opsi Reset
@@ -170,37 +167,37 @@ Printer inkjet menyimpan "sisa tinta" dari proses cleaning head ke dalam **Waste
 
 ```text
 [FLOWCHART: AdjProg Reset]
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 1. Printer OFF, Cabut USB   │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
-│ 2. Entry Service Mode         │
-│    (STOP 5x + POWER ritual)   │
+│ 2. Entry Service Mode       │
+│  (STOP 5x + POWER ritual)   │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 3. Sambung USB, Jalankan    │
 │    AdjProg di VM            │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 4. Pilih Model & Port       │
 │    ⚠️ SALAH = BRICK!        │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 5. Check → Centang Counter  │
 │    → Initialization         │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 6. Power OFF → 10s → ON     │
 │    → Test Print             │
@@ -323,8 +320,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 
 ```text
 [KONSUMEN DATANG]
-│
-▼
+              │
+			  ▼
 ┌─────────────────────────────┐
 │ 1. ANAMNESA (Wawancara)     │
 │    - Jenis printer?         │
@@ -332,8 +329,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 │    - Sejak kapan?           │
 │    - Pernah diservis?       │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 2. DIAGNOSIS FISIK          │
 │    - Cek lampu indikator    │
@@ -341,8 +338,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 │    - Cek level tinta visual │
 │    - Cek bocor/tumpah       │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 3. DIAGNOSIS DIGITAL        │
 │    - Sambung ke PC          │
@@ -350,8 +347,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 │    - Print test page        │
 │    - Cek error code         │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 4. IDENTIFIKASI MASALAH     │
 │    ├─ Waste Ink Full?       │
@@ -359,8 +356,8 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 │    ├─ Mechanical Jam?       │
 │    └─ Board/EEPROM?         │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 5. EKSEKUSI PERBAIKAN       │
 │    ├─ Reset Counter         │
@@ -368,36 +365,36 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 │    ├─ Ganti Absorber        │
 │    └─ Flash EEPROM (last)   │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 6. VERIFIKASI & TESTING     │
 │    - Print test page        │
 │    - Print nozzle check     │
 │    - Cek tidak ada bocor    │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 ┌─────────────────────────────┐
 │ 7. EDUKASI KONSUMEN         │
 │    - Penyebab masalah       │
 │    - Tips perawatan         │
 │    - Estimasi umur absorber │
 └──────────────┬──────────────┘
-│
-▼
+			   │
+			   ▼
 [SELESAI / INVOICE]
 ```
 
 ### 6.2 Checklist Penerimaan Unit (QC Masuk)
 
-| ✅ Item | 📝 Detail | ⚠️ Catatan |
-|---|---|---|
-| ☐ Fisik Body | Cek retak, penyok, bocor | Foto sebelum bongkar |
-| ☐ Kelengkapan | Unit, kabel power, kabel USB, dus | Kurang = disclaimer |
-| ☐ Catridge/Tinta | Cek level, cek kering, cek asli/palsu | Tinta palsu = void garansi |
-| ☐ Test Print Sebelum | Cetak sebelum disentuh | Bukti kondisi awal |
-| ☐ Error Code | Catat kode error yang muncul | Referensi untuk diagnosis |
+| ✅ Item               | 📝 Detail                             | ⚠️ Catatan                 |
+| -------------------- | ------------------------------------- | -------------------------- |
+| ☐ Fisik Body         | Cek retak, penyok, bocor              | Foto sebelum bongkar       |
+| ☐ Kelengkapan        | Unit, kabel power, kabel USB, dus     | Kurang = disclaimer        |
+| ☐ Catridge/Tinta     | Cek level, cek kering, cek asli/palsu | Tinta palsu = void garansi |
+| ☐ Test Print Sebelum | Cetak sebelum disentuh                | Bukti kondisi awal         |
+| ☐ Error Code         | Catat kode error yang muncul          | Referensi untuk diagnosis  |
 
 ---
 
@@ -518,3 +515,4 @@ Pada seri **G1020, G2020, G3020, G3060**, Canon menggunakan **MC-G02 Maintenance
 ---
 
 _End of Document — Printer Maintenance & Reset | Dari L100 sampai MC-G02 | Teknisi Field Guide_
+audited

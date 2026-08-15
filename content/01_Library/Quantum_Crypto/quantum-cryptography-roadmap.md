@@ -29,7 +29,7 @@ verification:
 
 
 
-[[00_Atlas/hierarchy-quantum-cryptography]] [[00_Atlas/hierarchy-quantum-cryptography-stack]] [[00_Atlas/hierarchy-cryptography]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-quantum-cryptography]] [[00_Atlas/hierarchy-quantum-cryptography-stack]] [[00_Atlas/hierarchy-cryptography]] [[about]]
 
 > [!abstract] Ringkasan & Hubungan ke Vault
 > Era komputasi kuantum menuntut pergeseran total dari keamanan berbasis kompleksitas matematika ke keamanan berbasis hukum fisika. Catatan ini merancang peta jalan belajar terstruktur dari konsep qubit dasar hingga simulasi protokol distribusi kunci kuantum (QKD) menggunakan Qiskit Python, sebagai pasangan praktis dari berkas teoritis [[quantum-cryptography-deepdive]].
@@ -190,3 +190,7 @@ Bob akan mendeteksi peningkatan nilai BER mendekati **25%** pada bit verifikasi.
 
 > [!callout] 💡
 > Keamanan pasca-kuantum bukan sekadar algoritma baru — no-cloning theorem menjadikan QKD mendeteksi penyadapan secara fisik, bukan hanya matematis.
+---
+
+audited
+---

@@ -118,3 +118,6 @@ Setiap level memiliki kelemahan unik yang harus dimitigasi di level arsitektur:
 | [[database-internals-indexing-mvcc]] | Arsitektur detail penyimpanan indeks B+ Tree dan LSM Tree untuk optimasi indexing. |
 | [[api-security-deep-dive]] | Cara memitigasi kebocoran kredensial akses database di level API Gateway. |
 | [[unified-threat-ontology]] | Penyelarasan kerentanan database (SQLi, NoSQLi) pada Layer 7 (Application). |
+
+audited
+---

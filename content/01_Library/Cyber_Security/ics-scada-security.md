@@ -290,10 +290,10 @@ c.close()
 
 | Software | Vendor | Platform | Known Vulns |
 |----------|--------|----------|-------------|
-| WinCC | Siemens | Windows | CVE-2020-15782 (RCE) |
-| Citect | Schneider | Windows | CVE-2019-6831 (RCE) |
-| Wonderware | Aveva | Windows | CVE-2021-27583 (Auth bypass) |
-| RSLogix | Rockwell | Windows | CVE-2020-5803 (RCE) |
+| WinCC | Siemens | Windows | CVE-2011-4508 (HMI web server RCE) |
+| Citect | Schneider | Windows | CVE-2011-4035 (XSS — CitectHistorian) |
+| Wonderware | Aveva | Windows | CVE-2022-23854 (Path traversal, unauth) |
+| RSLogix | Rockwell | Windows | CVE-2012-0221 (FT RNADiagReceiver RCE) |
 | Ignition | Inductive | Cross-platform | Many API vulns |
 
 ### 5.2 HMI Attack Surface
@@ -582,3 +582,7 @@ Meningkatnya kebutuhan daya komputasi untuk AI Data Centers memicu ketergantunga
 5. "Hacking Exposed: Industrial Control Systems" — Bodungen, Singer, Shbeeb
 6. Stuxnet Analysis: [https://www.langner.com/stuxnet/](https://www.langner.com/stuxnet/) (Langner report)
 7. Dragos ICS/OT Security Year in Review
+---
+
+audited
+---

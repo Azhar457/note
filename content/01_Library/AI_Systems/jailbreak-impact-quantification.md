@@ -396,3 +396,7 @@ Gunakan angka sebagai **kerangka berpikir**, bukan kebenaran absolut. Validasi d
 8. Chao, P., et al. — "Jailbreaking Black Box Large Language Models in Twenty Queries" — arXiv:2310.08419
 9. Burns, N., et al. — "Weak-to-Strong Generalization" — arXiv:2312.09390 (untuk estimasi probabilitas perilaku)
 10. OWASP — "OWASP Top 10 for LLM Applications 2025"
+---
+
+audited
+---

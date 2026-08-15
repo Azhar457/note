@@ -291,3 +291,7 @@ FOXACID adalah komponen kritis dalam rantai serangan NSA. Tanpa FOXACID, QUANTUM
 ---
 
 *FOXACID Deep Dive | NSA Exploit Delivery Platform | Network Injection & Browser Exploitation*
+---
+
+audited
+---

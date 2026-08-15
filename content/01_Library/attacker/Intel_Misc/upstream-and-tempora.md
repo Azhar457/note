@@ -219,3 +219,7 @@ UPSTREAM dan TEMPORA adalah perwujudan **pengawasan massal tanpa diskriminasi**.
 ---
 
 *UPSTREAM & TEMPORA Deep Dive | Backbone Internet Interception | Global Mass Surveillance Programs*
+---
+
+audited
+---

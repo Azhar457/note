@@ -285,3 +285,7 @@ def rerank_with_jina_v3(query: str, candidates: list[dict], top_n: int = 5) -> l
 - [[jina-embeddings-v5-mrl-adapters]] — Embeddings Vector dengan Matryoshka Representation
 - [[cosine-similarity-deepdive]] — Mengapa Cosine Distance Punya Limitasi pada Relevansi Teks
 - [[backpropagation-deepdive]] — Konsep Dasar Training & Optimization Loss Function
+---
+
+audited
+---

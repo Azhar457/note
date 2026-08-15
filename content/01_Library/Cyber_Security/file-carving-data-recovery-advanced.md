@@ -579,3 +579,7 @@ strings recovered/* | grep -i "CTF\|flag"
 ---
 
 *File Carving & Data Recovery · Deleted ≠ Gone · Magic Bytes = Kunci · TRIM = Musuh SSD · Foremost + Scalpel + PhotoRec = Holy Trinity · Strings Dulu, Carving Kemudian · Fragmented File = Tantangan Besar*
+---
+
+audited
+---

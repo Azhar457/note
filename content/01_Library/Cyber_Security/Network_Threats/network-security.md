@@ -17,7 +17,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-network-security]] [[00_Atlas/hierarchy-computer-networks]] [[00_Atlas/hierarchy-offensive]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-network-security]] [[00_Atlas/hierarchy-computer-networks]] [[00_Atlas/hierarchy-offensive]] [[about]]
 
 # 🌐 NETWORK SECURITY — OSI Layer 1–8
 
@@ -140,3 +140,7 @@ CVE-2021-44228 = contoh Layer 7 yang jalan tanpa exploit binary. Log4j2 `JndiLoo
 
 > [!callout] 💡
 > Layer 8 (manusia) menembus semua kontrol teknis Layer 1–7 sekaligus — pertahanan menyeluruh hanya bekerja sebagai kombinasi teknis + awareness.
+---
+
+audited
+---

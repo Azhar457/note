@@ -791,3 +791,7 @@ Line  Source IP         Entropy  Len    Status
 
 > [!tip] Bottom Line
 > **DNS tunneling adalah covert channel paling efektif yang masih bertahan.** Karena DNS tidak bisa diblokir penuh, attacker akan selalu coba menyelundupkan data lewat protokol ini. Deteksi terbaik: **analisis anomali — volume, entropy, dan pattern timing**. Defense terkuat: kombinasi DNS firewall, entropy detection, endpoint monitoring, dan threat intelligence. Kebanyakan tunnel terdeteksi dengan entropy > 4.0 dan query rate > 50/menit ke domain tunggal. Catatan: APT canggih menggunakan low-and-slow untuk menjaga entropy dan rate di bawah threshold.
+---
+
+audited
+---

@@ -79,7 +79,8 @@ When a userspace application sends/receives a UDP packet, the kernel network sta
 | DMA descriptor setup | ~100 | ~33 | 267 ns |
 | **Total one-way (empty path)** | **~800** | **~267 ns** | **—** |
 | **Round-trip (UDP echo)** | **~1600** | **~533 ns** | **—** |
-| *Data from: lkml benchmark, single-core, no contention* |
+
+*Data from: lkml benchmark, single-core, no contention*
 
 ### 1.2 Scaling to High Rates
 
@@ -208,7 +209,8 @@ DPDK eliminates the two biggest sources of kernel overhead:
 | DPDK (PMD, poll mode) | 14.8 Mpps | <100% (some idle) | Generic PMD |
 | DPDK (PMD + optimized path) | 37.2 Mpps | ~80% | Intel XXV710, optimized mempool |
 | DPDK (PMD + AVX-512 data path) | 52.6 Mpps | ~100% | E810, DDIO, PCLMULQDQ |
-|*Intel Xeon 6330, 2.0 GHz, 64B UDP, single-core benchmark* |
+
+*Intel Xeon 6330, 2.0 GHz, 64B UDP, single-core benchmark*
 
 ### 3.4 DPDK Weaknesses
 
@@ -424,7 +426,8 @@ io_uring_submit(ring);
 | `sendmsg()` | ~400-600 ns | ~2.8 M/s | 100% |
 | io_uring `send` | ~80-120 ns | ~8.2 M/s | ~60% (batching) |
 | io_uring `send_zc` | ~60-90 ns | ~11.5 M/s | ~50% (no copy + batching) |
-|*Intel Xeon 6330, 3.0 GHz, 64B payload* |
+
+*Intel Xeon 6330, 3.0 GHz, 64B payload*
 
 **Why send_zc is faster:** Zero-copy eliminates the `copy_from_user()` — for a 128-byte vector that's ~20 ns saved, but for large queries (MTU-sized), the saving is hundreds of nanoseconds and significant DDR bandwidth.
 
@@ -640,5 +643,8 @@ Userspace round-trip (if miss)  ~5-500 µs (fallback)
 | [[ebpf-kernel-security]] | XDP hook, eBPF verifier constraints — bounded loops, no FPU, verified programs |
 | [[ebpf-beyond-security]] | XDP DDoS case study (Cilium 10+ Mpps), networking at Ring 0 |
 | [[vector-database-internals-optimization]] | sqlite-vec (Ring 3) → FAISS (Ring 2) → io_uring (Ring 1) → eBVC (Ring 0) |
-| [[ebvc-daemon/src/main.rs]] | eBVC userspace daemon — AF_XDP or XDP_TX mode configuration |
-| [[ebvc-ebpf/src/main.rs]] | eBVC kernel XDP program — XDP_TX reflection + BPF MAPS |
+| `ebvc-daemon/src/main.rs` | eBVC userspace daemon — AF_XDP or XDP_TX mode configuration |
+| `ebvc-ebpf/src/main.rs` | eBVC kernel XDP program — XDP_TX reflection + BPF MAPS |
+
+audited
+---

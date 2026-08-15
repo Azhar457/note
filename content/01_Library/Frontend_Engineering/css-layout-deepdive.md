@@ -361,3 +361,7 @@ h1 { font-size: clamp(1rem, 2.5vw, 2rem); }
 | [[layout-spacing]] | Spacing tokens & semantic CSS |
 | [[design-taste-frontend]] | Anti-slop frontend — layout quality |
 | [[ui-ux-pro-max]] | UI/UX intelligence & design systems |
+---
+
+audited
+---

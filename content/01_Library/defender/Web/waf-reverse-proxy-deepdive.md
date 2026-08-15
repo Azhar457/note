@@ -1272,3 +1272,6 @@ HARI 5: Build & Operasi
 > - [[web-hacking-exploitation]] — attack vectors yang dicegat WAF
 > - [[cicd-shiftleft-shiftright]] — CI/CD testing WAF rules
 > - [[ebpf-kernel-security]] — eBPF connection dengan XDP/WAF
+
+audited
+---

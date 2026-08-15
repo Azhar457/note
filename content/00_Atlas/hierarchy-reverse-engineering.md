@@ -158,3 +158,6 @@ Hasil RE di satu level jadi input level berikutnya:
 > RE adalah **satu-satunya skill di security yang membuat binary bicara**. Tanpa RE, lo cuma lihat behaviour dari luar. Dengan RE, lo baca pikirannya. Semakin tinggi level, semakin banyak yang binary itu ceritakan — tapi semakin lo bayar dengan waktu dan fokus.
 
 *Reverse Engineering Hierarchy | Level 0 (String Recon) → Level 7 (VM Deobfuscation) · Membuat Binary Bicara*
+
+audited
+---

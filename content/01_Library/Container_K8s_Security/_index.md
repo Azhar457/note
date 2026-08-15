@@ -22,3 +22,6 @@ cssclasses:
 ## 📄 Notes
 - [[container-kubernetes-security-deepdive]]
 - [[kubernetes-operasi-praktik]] — Deployment, Service, Ingress, scaling, debugging kubectl
+
+audited
+---

@@ -151,8 +151,7 @@ cipher CHACHA20-POLY1305
 
 | Pro | Kontra |
 |-----|--------|
-|
- Stabil, banyak dokumentasi | Lebih lambat dari WireGuard (~2×) |
+| Stabil, banyak dokumentasi | Lebih lambat dari WireGuard (~2×) |
 | Dukungan *full‑tunnel* & *split‑tunnel* | Konfigurasi lebih kompleks |
 | Dukungan OQS lebih mature | Dukungan client side belum universal |
 
@@ -162,8 +161,8 @@ cipher CHACHA20-POLY1305
 
 ### 5.1 Metrics yang Perlu Diukur
 
-| Metrik | Target | Tools |
-|--------|--------|-------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|--------|--------| :--- |-------|
 |
  **Handshake latency** | < 5 ms (target) | `wg show`, `iperf3`, custom script |
 | **Throughput** | > 800 Mbps (target) | `iperf3` |
@@ -306,3 +305,7 @@ Laptop (Ubuntu 24.04)  ──>  VPS (Ubuntu 24.04)
 ---
 
 *Catatan ini dibuat sebagai bagian dari inisiatif **Vault Audit** – referensi file asli (`TESTFROMDARKNET`, dll) tetap tidak diubah (`mtime` asli). Semua referensi `.md` di dalam catatan ini mengarah ke file yang sudah ada di vault. Status: **pending** – siap untuk verifikasi dan audit lebih lanjut.*
+---
+
+audited
+---

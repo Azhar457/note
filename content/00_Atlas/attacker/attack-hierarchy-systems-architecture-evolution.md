@@ -111,3 +111,7 @@ Evasion: Serverless = ephemeral → no persistent process → monitoring gap
 - Serverless Security — https://owasp.org/www-project-serverless-top-10/
 - Tetragon (eBPF Security) — https://github.com/cilium/tetragon
 - Service Mesh Security — https://istio.io/latest/docs/concepts/security/
+---
+
+audited
+---

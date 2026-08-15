@@ -7,7 +7,7 @@ tags:
   - fedora
 created: "2026-08-09"
 updated: "2026-08-09"
-status: verified
+status: pending
 cssclasses:
   - wide-table
   - callout
@@ -178,3 +178,7 @@ Debug keystore (`~/.android/debug.keystore`) hanya untuk testing lokal — Play 
 - Android Build Tools (zipalign/apksigner) — https://developer.android.com/tools
 - Smali — https://github.com/JesusFreke/smali
 - Cloudflare trace — https://www.cloudflare.com/cdn-cgi/trace
+---
+
+audited
+---

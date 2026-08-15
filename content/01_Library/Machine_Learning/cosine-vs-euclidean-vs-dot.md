@@ -27,7 +27,7 @@ related_notes:
 # Distance Metrics — Cosine vs Euclidean vs Dot Product (Deepdive)
 
 > **Status konten:** Lengkap (≥ 1.500 kata). Ekspansi dari perbandingan cepat (117 kata) menjadi panduan sistematis: formula, rentang, kapan digunakan, kapan tidak, implikasi pada RAG/embedding search, optimasi indeks, dan perbandingan dengan metrik lainnya.
-> **Konteks:** Bagian dari ML/embedding pipeline; referensi untuk [[01_Library/AI_Systems/mlops-security-best-practices.md]] (model security) dan [[01_Library/attacker/Web/attack-cognitive-security.md]] (manipulasi embedding).
+> **Konteks:** Bagian dari ML/embedding pipeline; referensi untuk [[01_Library/AI_Systems/mlops-security-best-practices.md]] (model security) dan [[attack-cognitive-security]] (manipulasi embedding).
 
 ---
 
@@ -38,7 +38,7 @@ related_notes:
 | Konsep | Definisi | Relevansi |
 |--------|----------|-----------|
 | **Embedding** | Vektor numerik representasi semantic | Input ke semua similarity search |
-| **Norm (||v||)** | Panjang vektor (magnitude) | Cosine mengabaikan magnitude; Euclidean mempengaruhinya |
+| **Norm (\|\|v\|\|)** | Panjang vektor (magnitude) | Cosine mengabaikan magnitude; Euclidean mempengaruhinya |
 | **Similarity** | Ukuran kesamaan (1 = sama persis) | Digunakan untuk ranking hasil search |
 | **Distance** | Ukuran perbedaan (0 = sama persis) | Digunakan untuk clustering |
 
@@ -82,9 +82,9 @@ related_notes:
 
 > Tabel ini merangkum semua aspek praktis: formula, waktu komputasi, sensitivitas, best practice, dan kapan harus dihindari.
 
-|| Cosine | Euclidean | Dot Product |
+| Aspek | Cosine | Euclidean | Dot Product |
 |---|---|---|---|
-| **Formula** | (A·B)/(||A||||B||) | √Σ(A_i-B_i)² | Σ(A_i·B_i) |
+| **Formula** | (A·B)/(\|\|A\|\|\|\|B\|\|) | √Σ(A_i-B_i)² | Σ(A_i·B_i) |
 | **Rentang** | [-1, 1] | [0, ∞) | (-∞, ∞) |
 | **Normalisasi diperlukan?** | Ya (implisit) | Tidak | Tidak |
 | **Sensitif magnitude** | Tidak | Ya | Ya |
@@ -163,11 +163,15 @@ Dokumen → Chunking → Embedding (OpenAI Ada) → FAISS Index (Cosine)
 
 ## 9. Referensi & Link Penting
 
-- **Deepdive ML:** [[00_Atlas/hierarchy-ml-algorithms.md]] · [[00_Atlas/hierarchy-ai-levels.md]] · [[00_Atlas/hierarchy-computer-vision.md]]
-- **Embedding & search:** [[01_Library/AI_Systems/semantic-search-pipeline.md]] · [[01_Library/AI_Systems/mlops-security-best-practices.md]]
+- **Deepdive ML:** [[hierarchy-ml-algorithms.md]] · [[00_Atlas/hierarchy-ai-levels.md]] · [[00_Atlas/hierarchy-computer-vision.md]]
+- **Embedding & search:** [[semantic-search-pipeline]] · [[01_Library/AI_Systems/mlops-security-best-practices.md]]
 - **Attack perspective (embedding poisoning):** [[01_Library/attacker/AI_ML/attack-llm-security-red-teaming.md]]
 - **Standard framework:** [[00_Atlas/hierarchy-search.md]] (untuk reference search pipeline)
 
 ---
 
 *Dokumen ini diekspansi dari `01_Library/Machine_Learning/cosine-vs-euclidean-vs-dot.md` (117 → 1.900+ kata). Status: complete. 2026-08-14.*
+---
+
+audited
+---

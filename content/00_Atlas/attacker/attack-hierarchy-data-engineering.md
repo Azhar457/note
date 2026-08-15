@@ -74,5 +74,8 @@ Impact: Full data exfiltration (PII, financial, intellectual property)
 ## 5. Referensi
 - Apache Spark Security — https://spark.apache.org/docs/latest/security.html
 - Airflow Security — https://airflow.apache.org/docs/apache-airflow/stable/security/
-- Snowflake Security — https://docs.snowflake.com/en/user-guide/security
+- Snowflake Security — https://docs.snowflake.com/en/en/guides-overview-secure
 - Kafka Security — https://kafka.apache.org/documentation/#security
+
+audited
+---

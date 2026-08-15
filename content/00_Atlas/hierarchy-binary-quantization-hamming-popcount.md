@@ -530,3 +530,6 @@ query = np.random.randn(1024).astype(np.float32)
 | [[hierarchy-recursive-ring-deepdive]] | Phase transition: cosine→hamming sebagai descent Ring 3→Ring 0 |
 | [[00_Atlas/hierarchy-kernel-bypass-networking]] | Keterbatasan eBPF POPCNT — mengapa kernel-space vector search butuh hardware acceleration |
 | [[ebpf-kernel-security]] | Kendala eBPF verifier — bounded loops untuk manual popcount |
+
+audited
+---

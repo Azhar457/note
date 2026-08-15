@@ -616,3 +616,7 @@ Rate limit sering     → ρ=0.4, τ_min=0.10              (cepat pindah, floor 
 | [[swarm-ai-imam-robandi]] | Sumber formula ACO, TSP implementation, MMAS |
 | [[ai-evaluation-framework]] | Δτ quality signal — LLM judge, self-consistency |
 | [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
+---
+
+audited
+---

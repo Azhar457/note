@@ -96,7 +96,10 @@ Evasion: Deepfake = generated → no physical artifact → digital trace = none
 
 ## 5. Referensi
 - Adversarial Patch — https://arxiv.org/abs/1712.08866
-- DeepFaceLab — https://github.com/iperfect/DeepFaceLab
+- DeepFaceLab — https://github.com/iperov/DeepFaceLab
 - Adversarial Robustness Toolbox — https://github.com/Trusted-AI/adversarial-robustness-toolbox
 - Deepfake Detection Challenge — https://deepfakedetectionchallenge.ai/
-- CVPR Adversarial — https://cvpr2024.thecvf.com/
+---
+
+audited
+---

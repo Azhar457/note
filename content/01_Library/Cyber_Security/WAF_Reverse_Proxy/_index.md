@@ -26,3 +26,6 @@ cssclasses:
 - [[scc-bugbounty-case-study-waf-encapsulation]] — SCC 2026 bug bounty case study
 
 > [!info] Catatan pengujian jarsWAF (red team cycles, bypass, eBPF/XDP pentest, lifecycle) dipindah ke `/mnt/data_d/Projects/jarswaf/docs/` — bukan konten umum.
+
+audited
+---

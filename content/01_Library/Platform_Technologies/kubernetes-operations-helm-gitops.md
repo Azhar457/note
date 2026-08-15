@@ -39,9 +39,9 @@ cssclasses:
 - [[#8. Autoscaling — HPA, VPA, KEDA, Karpenter]]
 - [[#9. Security — Pod Security, NetworkPolicy, OPA]]
 - [[#10. Observability — Metrics, Logging, Tracing, Cost]]
-- [[🔗 Koneksi ke Catatan Lain]]
-- [[✅ Checklist]]
-- [[Roadmap Belajar]]
+- 🔗 Koneksi ke Catatan Lain
+- ✅ Checklist
+- Roadmap Belajar
 
 ---
 
@@ -398,3 +398,7 @@ HARI 5: Production Readiness
 
 > [!tip] Lanjutan
 > Terkait dengan [[container-kubernetes-security-deepdive]] (security layer), [[observability-stack-prometheus-grafana]] (monitoring stack), dan [[cicd-guide]] (CI/CD pipeline yang feed ke GitOps).
+---
+
+audited
+---

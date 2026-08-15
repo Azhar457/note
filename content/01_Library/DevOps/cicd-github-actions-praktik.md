@@ -631,7 +631,7 @@ jobs:
 ```bash
 # 83% of pipeline failures = YAML indentation
 # Validator offline:
-curl -X POST https://api.yamllint.com/ -d 'yaml=...'
+curl -X POST https://yamllint.com/ -d 'yaml=...'
 # Atau pake VS Code extension "YAML" by Red Hat
 ```
 
@@ -1354,3 +1354,7 @@ npx @github/actions-validator .github/workflows/deploy.yml
 4. OIDC with GitHub Actions — https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
 5. Docker Build Push Action — https://github.com/docker/build-push-action
 6. rsync Deployment Pattern — https://github.com/appleboy/ssh-action
+---
+
+audited
+---

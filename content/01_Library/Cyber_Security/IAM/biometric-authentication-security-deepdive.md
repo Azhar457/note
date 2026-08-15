@@ -335,3 +335,7 @@ Checklist non-negotiable:
 13. Signzy — FAR vs FRR: Biometric Error Rates, EER & Banking Use Explained. https://www.signzy.com/general-glossary/far-frr-biometric-error-rates
 14. iProov — Dynamic Liveness & ISO 19795 evaluation. https://www.iproov.com/certifications
 15. Biometric Update — 2025 Face Liveness Market Report and Buyer's Guide. https://www.biometricupdate.com/wp-content/uploads/2025/11/Biometric-Update-2025-Facial-Liveness-Report.pdf
+---
+
+audited
+---

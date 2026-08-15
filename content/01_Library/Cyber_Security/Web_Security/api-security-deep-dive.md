@@ -261,9 +261,9 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 | Dokumen | Kontribusi |
 |---------|-----------|
 | [[web-security]] | Web application security secara umum |
-| [[cloudflare-ruleset-engine-phases|Cloudflare Ruleset Engine]] | WAF layer — API protection at CDN level |
-| [[cyber-security|Cyber Security Roadmap]] | Red/Blue team perspective — bagaimana attacker exploit API |
-| [[network-security|Network Security]] | Port filtering, connection-layer security |
+| [[cloudflare-ruleset-engine-phases\|Cloudflare Ruleset Engine]] | WAF layer — API protection at CDN level |
+| [[cyber-security\|Cyber Security Roadmap]] | Red/Blue team perspective — bagaimana attacker exploit API |
+| [[network-security\|Network Security]] | Port filtering, connection-layer security |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 
@@ -315,3 +315,7 @@ Thought 7 (Design):      "Bagaimana user tahu kena rate limit? Retry-After heade
 - [[cloudflare-ruleset-engine-phases|Cloudflare Ruleset Engine]] — WAF layer protection
 - [[cyber-security|Cyber Security Roadmap]] — Blue/Red team context
 - [[network-security|Network Security]] — OSI layer, port filtering
+---
+
+audited
+---

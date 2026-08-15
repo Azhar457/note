@@ -194,3 +194,7 @@ Pipeline harus dapat di-inspeksi: log (structured), metrics (duration/fail rate)
 - DORA Metrics — https://cloud.google.com/blog/products/devops-sre/
 - ArgoCD — https://argo-cd.readthedocs.io/
 - OpenTelemetry — https://opentelemetry.io/
+---
+
+audited
+---

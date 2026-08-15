@@ -240,3 +240,6 @@ Mau karir manajerial/ops?        → Tier-1 → Incident Mgr → ITSM owner
 3. HDI — Support Center Practices & Standards (tiering & metrics: FCR, MTTR)
 4. ServiceNow / Jira Service Management vendor docs — ticket lifecycle & escalation
 5. Axelos — Incident & Problem Management practice guides (ITIL 4)
+
+audited
+---

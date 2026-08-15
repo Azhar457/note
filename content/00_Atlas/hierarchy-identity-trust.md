@@ -308,7 +308,7 @@ Never trust, always verify:
 
 | Layer | Catatan Vault Terkait |
 |:-----:|-----------------------|
-| **I0** | [[hierarchy-osi...rf]] — OSINT intelligence dari footprint anonim |
+| **I0** | `hierarchy-osi...rf` — OSINT intelligence dari footprint anonim |
 | **I1** | [[hierarchy-offensive]] — Red team social engineering |
 | **I2** | [[hierarchy-cryptography]] — PKI key management |
 | **I3** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] — IAM L7 |
@@ -332,3 +332,6 @@ Never trust, always verify:
 8. DIF. *"Decentralized Identity Foundation Specifications."* 2023.
 9. OpenID Foundation. *"OpenID Connect Core."* 2014.
 10. Internet Identity Workshop. *"SSI Meetup — DIDComm."* 2020-2024.
+
+audited
+---

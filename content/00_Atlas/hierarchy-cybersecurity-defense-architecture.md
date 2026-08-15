@@ -101,7 +101,7 @@ L1 (Fisik & Edge) → L2 (Network Perimeter) → L3 (Endpoint) → L4 (Aplikasi/
 
 **Kegagalan khas:** firewall misconfig (rule terlalu permisif), port scan berhasil → service exposed, DDoS membuat service down, ARP spoofing di LAN, DNS hijacking.
 
-**Referensi lintas:** [[00_Atlas/attack-hierarchy-network-security.md|attack-hierarchy-network-security]] (perspektif penyerang), [[01_Library/defender/Web/ids-ips-waf-nsm-comparison.md|IDS-IPS-WAF-NSM comparison]].
+**Referensi lintas:** [[attack-hierarchy-network-security|attack-hierarchy-network-security]] (perspektif penyerang), [[01_Library/defender/Web/ids-ips-waf-nsm-comparison.md|IDS-IPS-WAF-NSM comparison]].
 
 ---
 
@@ -136,7 +136,7 @@ L1 (Fisik & Edge) → L2 (Network Perimeter) → L3 (Endpoint) → L4 (Aplikasi/
 
 **Kegagalan khas:** SQL injection, XSS, SSRF ([[01_Library/defender/Web/ssrf-defense-hardening-playbook.md|SSRF defense]]), broken access control (IDOR), insecure deserialization, dependency vulnerability (log4shell).
 
-**Referensi lintas:** [[00_Atlas/attack-hierarchy-waf-reverse-proxy.md|attack-hierarchy-waf-reverse-proxy]], [[01_Library/attacker/Web/attack-web-hacking-exploitation.md|web hacking exploitation]].
+**Referensi lintas:** [[attack-hierarchy-waf-reverse-proxy|attack-hierarchy-waf-reverse-proxy]], [[01_Library/attacker/Web/attack-web-hacking-exploitation.md|web hacking exploitation]].
 
 ---
 
@@ -170,7 +170,7 @@ L1 (Fisik & Edge) → L2 (Network Perimeter) → L3 (Endpoint) → L4 (Aplikasi/
 
 **Kegagalan khas:** credential stuffing (password reuse), phishing MFA fatigue, privilege escalation (mis. AD misconfiguration), service account dengan hak berlebihan, Golden Ticket (AD).
 
-**Referensi lintas:** [[00_Atlas/attack-hierarchy-identity-trust.md|attack-hierarchy-identity-trust]], [[01_Library/attacker/IAM/attack-ad-windows.md|attack-ad-windows]].
+**Referensi lintas:** [[attack-hierarchy-identity-trust|attack-hierarchy-identity-trust]], [[01_Library/attacker/IAM/attack-ad-windows.md|attack-ad-windows]].
 
 ---
 
@@ -287,8 +287,11 @@ L4 App ─── diakses lewat ───→ L2 (network) ─── L1 (edge/fisi
 - **Attack counterpart:** [[00_Atlas/attacker/attack-cybersecurity-defense-architecture.md|Attack Perspective — bagaimana menembus tiap layer]] (red team)
 - **Deepdive defense di Library:** [[01_Library/defender/_index.md|Defender Library]]
 - **Hierarchy terkait:** [[00_Atlas/hierarchy-search.md|hierarchy-search]] · [[00_Atlas/hierarchy-ctf-competition-framework.md|CTF framework]] · [[00_Atlas/hierarchy-failure-modes-resilience.md|failure modes & resilience]] · [[00_Atlas/hierarchy-it-support-model.md|IT support model]] · [[00_Atlas/hierarchy-infrastructure-evolution.md|infrastructure evolution]]
-- **Serangan terhadap defense:** [[00_Atlas/attack-hierarchy-network-security.md|attack-hierarchy-network-security]] · [[00_Atlas/attack-hierarchy-endpoint-security.md|attack-hierarchy-endpoint-security]]
+- **Serangan terhadap defense:** [[attack-hierarchy-network-security|attack-hierarchy-network-security]] · [[attack-hierarchy-endpoint-security|attack-hierarchy-endpoint-security]]
 
 ---
 
 *Dokumen ini adalah bagian dari 00_Atlas (peta pengetahuan). Deepdive implementasi ada di 01_Library/{attacker,defender}. Dibuat 2026-08-14, status complete.*
+
+audited
+---

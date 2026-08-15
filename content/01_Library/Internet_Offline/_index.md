@@ -30,3 +30,6 @@ cssclasses:
 - **Alasan pindah:** `Infrastructure/` lebih sesuai untuk catatan jaringan/fisikal-layer (TCP/IP, BGP, DNS). Internet Offline = infrastruktur konektivitas.
 - **Cross-link:** Lihat juga [[networking-fundamentals-tcpip-bgp]] dan [[dns-fundamentals-bind9]] di folder yang sama.
 - **Konvensi ke depan:** Folder `Internet_Offline/` dipertahankan sebagai stub untuk backward-compat dengan [[se-learning-path-moc]]. Tidak ada file baru yang ditambah di sini.
+
+audited
+---

@@ -920,3 +920,7 @@ kubescape scan framework nsa --format html -o report.html
 > - [Cilium Network Policy](https://docs.cilium.io/en/latest/security/policy/)
 > - [Sigstore Cosign](https://docs.sigstore.dev/cosign/overview/)
 > - [CIS Benchmark for Kubernetes](https://www.cisecurity.org/benchmark/kubernetes)
+---
+
+audited
+---

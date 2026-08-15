@@ -381,7 +381,7 @@ $$ \nexists U: U(|\psi\rangle \otimes |0\rangle) = |\psi\rangle \otimes |\psi\ra
 
 | Catatan | Hubungan |
 |---------|----------|
-| [[Note/01_Library/Quantum_Crypto/hierarchy-quantum-cryptography-stack]] | Shor's algorithm break RSA → PQC migration; QKD via BB84 |
+| [[hierarchy-quantum-cryptography-stack]] | Shor's algorithm break RSA → PQC migration; QKD via BB84 |
 | [[00_Atlas/hierarchy-llm-ai-systems]] | Quantum ML — VQE, quantum kernels, hybrid classical-quantum |
 | [[hierarchy-compiler-design]] | Quantum transpiler sebagai compiler — mapping logical→physical qubit |
 | [[hierarchy-failure-modes-resilience]] | Quantum error correction sebagai contoh fault tolerance di sistem non-klasik |
@@ -413,3 +413,7 @@ $$ \nexists U: U(|\psi\rangle \otimes |0\rangle) = |\psi\rangle \otimes |\psi\ra
 20. Aspect, A. et al. *"Experimental Realization of Einstein-Podolsky-Rosen-Bohm Gedankenexperiment."* Physical Review Letters 49, 91 (1982).
 21. Hensen, B. et al. *"Loophole-Free Bell Inequality Violation Using Electron Spins Separated by 1.3 km."* Nature 526, 682–686 (2015).
 22. Arute, F. et al. *"Is Quantum Computing an Enabling Technology for Artificial General Intelligence?"* (2024) — quantum AI implications.
+---
+
+audited
+---

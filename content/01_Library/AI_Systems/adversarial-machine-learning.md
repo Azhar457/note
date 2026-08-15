@@ -337,3 +337,7 @@ def adversarial_training(model, train_loader, epsilon, alpha, num_iter):
 4. "Model Inversion Attacks" — Fredrikson et al. (2015)
 5. "Membership Inference Attacks" — Shokri et al. (2017)
 6. "The Security of Machine Learning" — Barreno et al. (2010) — ML threat model foundation
+---
+
+audited
+---

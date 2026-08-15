@@ -577,7 +577,7 @@ API: undocumented, tapi bisa di-reverse
 |:-------|:--------|:------|
 | Damage | Impact × Asset value | 0-10 |
 | Reproducibility | P(success per attempt) | 0-10 |
-| Exploitability | Skill + Tool + Time | Level Rating / Kejarangan | 0-10 |
+| Exploitability | Skill + Tool + Time | 0-10 |
 | Affected users | Number of people | 0-10 |
 | Discoverability | P(detection) | 0-10 |
 
@@ -667,3 +667,7 @@ X-Ray: $20,000+
 | [[network-security]] | LAN Turtle = network layer attack |
 | [[osint-resource-index]] | Physical reconnaissance adalah OSINT operational |
 | [[digital-privacy-anonymity]] | Counter-surveillance melindungi dari physical tracking |
+---
+
+audited
+---

@@ -566,3 +566,7 @@ Alert Rules:
 ---
 
 *Dibuat: 19 Juli 2026 — Self-hosted LLM dari Docker Compose sampai monitoring production.*
+---
+
+audited
+---

@@ -370,7 +370,7 @@ Protokol aplikasi paling penting:
 | **L2 (ARP)** | [[hierarchy-network-security]] — ARP spoofing mitigation |
 | **L3 (IP)** | [[hierarchy-wireless]] — IP mobility |
 | **L3 (Routing)** | [[ebpf-runtime-security-auditing]] — eBPF routing |
-| **L4 (TCP)** | [[system-hardening-playbook]] — TCP tuning |
+| **L4 (TCP)** | [[server-hardening-playbook]] — TCP tuning |
 | **L4 (UDP)** | [[00_Atlas/hierarchy-data-engineering]] — UDP streaming |
 | **L7 (HTTP)** | [[cli-pr-review-guide]] — HTTP debugging |
 | **Cross-layer** | [[hierarchy-abstraction-layers]] — Network layer as abstraction L5 |
@@ -390,3 +390,6 @@ Protokol aplikasi paling penting:
 9. Jacobson, V. *"Congestion Avoidance and Control."* SIGCOMM 1988.
 10. Cardwell, N. et al. *"BBR: Congestion-Based Congestion Control."* CACM 2017.
 11. Varghese, G. *"Network Algorithmics."* Morgan Kaufmann, 2005.
+
+audited
+---

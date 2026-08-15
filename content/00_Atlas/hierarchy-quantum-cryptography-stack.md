@@ -481,8 +481,8 @@ Data dengan confidentiality >10-15 tahun perlu **quantum-resistant protection SE
 | **0** | [[math-and-algorithms]] |
 | **1** | [[hierarchy-cryptography]], [[00_Atlas/hierarchy-digital-plumbing]] (OpenSSL) |
 | **2** | (hybrid-specific belum ada, mungkin tambah nanti) |
-| **3** | [[post-quantum-tls]] (calon ada), [[quantum-cryptography]] |
-| **4** | [[quantum-machine-learning]], [[quantum-cryptography]] |
+| **3** | [[post-quantum-tls]] (calon ada), [[quantum-cryptography-roadmap]] |
+| **4** | [[quantum-machine-learning]], [[quantum-cryptography-roadmap]] |
 | **5** | [[tls-ssl-deepdive]], [[http-protocol-deepdive]] |
 | **6** | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] (L3 + L8) |
 
@@ -505,3 +505,6 @@ Data dengan confidentiality >10-15 tahun perlu **quantum-resistant protection SE
 13. CISA. *"Quantum-Readiness Migration to PQC."* (2024).
 14. NSA. *"Quantum Computing and Post-Quantum Cryptography FAQ."* (2024).
 15. Open Quantum Safe Project. *"liboqs documentation."* https://openquantumsafe.org/
+
+audited
+---

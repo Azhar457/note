@@ -7,10 +7,9 @@ updated: '2026-07-01'
 status: pending
 cssclasses: ''
 ---
-
 # 🛡️ Mitigasi ARP Spoofing — Defense Against Ettercap & Bettercap
 
-> **Konteks:** Dokumen ini dibuat berdasarkan incident nyata di jaringan kampus (192.168.0.0/24) dengan attacker menggunakan tool ARP spoofing standar (kemungkinan besar Ettercap atau Bettercap). Attack vector: ARP poisoning + ICMP redirect + multicast flood (SSDP/mDNS/IGMP).
+>[!tip] **Konteks:** Dokumen ini dibuat berdasarkan incident nyata di jaringan kampus (192.168.0.0/24) dengan attacker menggunakan tool ARP spoofing standar (kemungkinan besar Ettercap atau Bettercap). Attack vector: ARP poisoning + ICMP redirect + multicast flood (SSDP/mDNS/IGMP).
 
 > **Filosofi:** ARP protocol dirancang tahun 1982 tanpa autentikasi. Secara desain, ARP trust-based — siapa pun bisa claim "saya gateway." Mitigasi harus layered: endpoint → switch → router → monitoring.
 
@@ -583,3 +582,7 @@ ping $GatewayIP -n 4
 ---
 
 *Mitigasi ARP Spoofing | Defense Against Ettercap & Bettercap | Layer 1 (Endpoint) → Layer 5 (Segmentation)*
+---
+
+audited
+---

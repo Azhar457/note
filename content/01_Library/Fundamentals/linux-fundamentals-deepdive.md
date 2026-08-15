@@ -700,8 +700,8 @@ done < /etc/passwd
 [ "$count" -gt 10 ] && echo "More than 10"
 
 # Modern [[ ]] (safer, more features)
-[[ "$name" == W* ]] && echo "Starts with W"
-[[ "$name" =~ ^W.+d$ ]] && echo "Regex match"
+`"$name" == W*` && echo "Starts with W"
+`"$name" =~ ^W.+d$` && echo "Regex match"
 ```
 
 ### Functions
@@ -885,7 +885,7 @@ session    required     pam_lastlog.so         # Update lastlog
 5. Fedora. *DNF Documentation*. https://dnf.readthedocs.io/en/latest/
 6. Arch Linux. *Pacman Documentation*. https://wiki.archlinux.org/title/pacman
 7. Linux.com. *Linux Permissions Guide*. https://www.linux.com/training-tutorials/understanding-linux-file-permissions/
-8. Red Hat. *PAM Documentation*. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_authentication_and_authorization_in_rhel/pluggable-authentication-modules_pam
+8. Red Hat. *PAM Documentation*. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/index (403 di luar CN — perlu VPN/alternatif)ring_authentication_and_authorization_in_rhel/pluggable-authentication-modules_pam
 9. Red Hat. *Linux Namespaces*. https://www.redhat.com/en/topics/containers/what-is-a-linux-namespace
 10. Kernel.org. *Cgroup v2 Documentation*. https://www.kernel.org/doc/Documentation/cgroup-v2.txt
 11. TLDP. *Bash Guide for Beginners*. https://tldp.org/LDP/Bash-Beginners-Guide/html/
@@ -896,3 +896,7 @@ session    required     pam_lastlog.so         # Update lastlog
 
 > [!tip] Bottom Line
 > Linux adalah **medan operasi utama** buat security engineer — server, container, embedded, cloud, semuanya Linux. Tanpa paham filesystem, process, systemd, dan namespaces, lo cuma bisa execute command tanpa ngerti dampaknya. Investasi waktu belajar Linux fundamentals adalah **investasi dengan ROI tertinggi** di karir ini karena (1) semua tool security jalan di atas Linux, (2) semua log ada di /var/log, (3) semua container = namespace + cgroup, (4) semua remote exploit ujungnya shell di Linux. Prioritaskan: **process & signals** (tau cara matiin/kill process dengan benar), **systemd** (service management modern), **permissions** (kenapa SUID berbahaya, apa itu capabilities), dan **troubleshooting** (tau strace, ss, iostat, dmesg ketika ada yang error).
+---
+
+audited
+---

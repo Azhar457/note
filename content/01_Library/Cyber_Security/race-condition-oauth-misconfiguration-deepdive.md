@@ -233,4 +233,7 @@ OAuth + race condition = kombinasi berbahaya:
 | **PAR (Pushed Authorization Request)** | Request otorisasi dikirim ke PAR endpoint → return request_uri → aman dari manipulasi query param | RFC 9126 |
 | **JAR (JWT-Secured Authorization Request)** | Authorization request di-sign JWT → integritas + non-repudiation | RFC 9101 |
 | **CIBA (Client-Initiated Backchannel Auth)** | Flow device/QR tanpa redirect — user approve di device lain | OpenID CIBA |
+---
 
+audited
+---

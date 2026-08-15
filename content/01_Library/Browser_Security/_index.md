@@ -21,3 +21,7 @@ cssclasses:
 
 ## 📄 Notes
 - [[browser-security-exploitation-deepdive]]
+
+
+audited
+---

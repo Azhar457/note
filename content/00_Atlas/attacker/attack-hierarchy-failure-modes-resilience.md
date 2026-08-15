@@ -100,3 +100,7 @@ Impact: Multi-service cascading failure → DoS → data loss → failover hijac
 - Chaos Mesh — https://chaos-mesh.org/
 - Cascading Failure — https://en.wikipedia.org/wiki/Cascading_failure
 - SPOF (Single Point of Failure) — https://en.wikipedia.org/wiki/Single_point_of_failure
+---
+
+audited
+---

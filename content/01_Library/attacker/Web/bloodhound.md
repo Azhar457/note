@@ -311,3 +311,7 @@ Ini bukan fantasi — jalur seperti ini sering ditemukan di organisasi besar.
 ---
 
 *BloodHound Deep Dive | Active Directory Attack Path Analysis | Graph-Based Security for Red & Blue Teams*
+---
+
+audited
+---

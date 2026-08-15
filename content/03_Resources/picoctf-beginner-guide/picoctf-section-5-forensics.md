@@ -1,11 +1,11 @@
 ---
 title: Picoctf Section 5 Forensics
 tags:
-- picoctf-beginner-guide
-- resources
-created: '2026-05-12'
-updated: '2026-07-01'
-status: pending
+  - picoctf-beginner-guide
+  - resources
+created: 2026-05-12
+updated: 2026-08-15
+status: complete
 cssclasses:
   - wide-table
   - callout
@@ -228,3 +228,6 @@ Dalam modul ini, kita telah mempelajari beberapa konsep dasar forensik, termasuk
 Kita juga telah mempelajari beberapa contoh kasus yang dapat digunakan sebagai acuan untuk mempraktekan konsep-konsep yang telah dipelajari.
 
 Dengan mempelajari materi ini, kita dapat memperoleh kemampuan untuk melakukan forensik dasar dan mengembangkan kemampuan itu menjadi lebih lanjut dengan mempelajari materi lain yang terkait dengan picoctf.
+
+audited
+---

@@ -105,8 +105,12 @@ Evasion: Known CVE = signature exist, but:
 | **Gitleaks** | Secret scan → hardcoded credential |
 
 ## 6. Referensi
-- OWASP SDLC — https://owasp.org/www-project-secure-software-development-life-cycle/
+- OWASP SDLC — https://owasp.org/www-project-samm/
 - SLSA Framework — https://slsa.dev/
 - Semgrep — https://semgrep.dev/
 - Nuclei Templates — https://github.com/projectdiscovery/nuclei-templates
 - Patch Delay (Vuln Management) — https://www.cisa.gov/known-exploited-vulnerabilities
+---
+
+audited
+---

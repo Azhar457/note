@@ -199,3 +199,6 @@ Profil umumnya berhenti di **Level 5**. Level 6–7 digunakan oleh badan intelij
 > Hirarki data recovery bukan cuma urutan eskalasi — itu cara berpikir yang mengendalikan **ekspektasi**. Mulai murah, eskalasi hanya kalau perlu, dan jujur tentang kapan harus berhenti. Kasus recovery yang sukses adalah tentang **menemukan level minimum yang solvable**, bukan selalu mencapai Level 5 atau 7.
 
 *Data Recovery Hierarchy | Level 0 (Sensorik) → Level 7 (Quantum Decryption) · Geometri Biaya Eksponensial*
+
+audited
+---

@@ -1,16 +1,16 @@
 ---
 title: Hierarchy Wireless — Hierarki Spektrum Nirkabel dari WiFi hingga Tactical SDR
 tags:
-- atlas
-- wireless
-- sigint
-- cybersecurity
-- physical-layer
+  - atlas
+  - wireless
+  - sigint
+  - cybersecurity
+  - physical-layer
 aliases:
-- Wireless Security Roadmap
-- Spektrum Nirkabel Hierarchy
-created: '2026-07-19'
-updated: '2026-07-19'
+  - Wireless Security Roadmap
+  - Spektrum Nirkabel Hierarchy
+created: 2026-07-19
+updated: 2026-08-15
 status: pending
 cssclasses:
   - wide-table
@@ -74,7 +74,7 @@ Spektrum **research-grade / nation-state**. Butuh SDR hardware (USRP, LimeSDR, H
 | **Level 13** — Protocol Reverse Engineering _([Universal Radio Hacker](https://github.com/jopohl/urh), [inspectrum](https://github.com/miek/inspectrum), [SigBerkeley]() swooping)_ | Capture demodulated baseband → manual decode. Identifikasi preamble, sync, payload, CRC. Eliminasi layer proprietary.      | Butuh waktu signifikan (minggu untuk protokol sederhana). Beberapa protokol pakai encryption → tidak bisa decode tanpa key. | Riset IoT proprietary (smart-meter, industrial sensor), academic wireless research            |
 | **Level 14** — Satellite Downlink Intercept _([SatNOGS](https://opensatnet.org/projects/satnogs/), NOAA weather satellites, Inmarsat / Iridium)_ | Receive downlink sinyal dari LEO/MEO/GEO satellite. Decoder demodulator built atop open source. NOAA APT, LRPT, HRPT.      | Regulasi ITU — menerima downlink tidak selalu illegal, tapi decode & redistribute bisa. Bird-feed S-band butuh izin.         | Meteorologi, maritim tracking, riset orbital                                                  |
 | **Level 15** — RF Side-Channel & TEMPEST _([TEMPEST font](https://www.youtube.com/watch?v=RmsFwxY1-lc), [Van Eck phreaking demo](https://www.youtube.com/watch?v=2Dp5b3aM-nI))_ | Capture EM emanation dari monitor/kabel (VGA, HDMI, USB). Rekonstruksi display dari sincangan EM yang tertangkap.            | Sangat specialized: butuh shielded room, broadband antenna, software FFT dengan timing resolution ms.                     | Riset TEMPEST (akademik CS), validasi emanation compliance produk (perisai TEMPEST-level)     |
-| **Level 16** — Nation-State SIGINT & Quantum Cryptanalysis _([XKEYSCORE](https://en.wikipedia.org/wiki/XKEYSCORE), NSA ANT, GCHQ) — close-source)_ | Tap ke fiber backbone / antenna farm (per [[0-communications-intelligence-(sigint)/xkeyscore]]). Kuantum computer untuk RSA/ECC. | Klasifikasi. Akses negara-bangsa. Quantum cryptanalysis butuh $100M+ infrastructure (Google Willow, IBM Heron).              | Mass surveillance (legally regulated), cryptographic backdooring, foreign intelligence         |
+| **Level 16** — Nation-State SIGINT & Quantum Cryptanalysis _([XKEYSCORE](https://en.wikipedia.org/wiki/XKEYSCORE), NSA ANT, GCHQ) — close-source)_ | Tap ke fiber backbone / antenna farm (per [[xkeyscore]]). Kuantum computer untuk RSA/ECC. | Klasifikasi. Akses negara-bangsa. Quantum cryptanalysis butuh $100M+ infrastructure (Google Willow, IBM Heron).              | Mass surveillance (legally regulated), cryptographic backdooring, foreign intelligence         |
 | **Level 17** — Quantum Radar & LPI / LPD _([DARPA HRTI](https://en.wikipedia.org/wiki/Quantum_radar), Spread-spectrum, OFDM, chaotic)_ | Waveform dengan low probability of intercept/detect (LPI/LPD). Quantum illumination untuk deteksi stealth aircraft.           | Sangat classified. Militer-only. Riset publik terlambat 5-15 tahun dari capability aktual.                                  | Anti-stealth defense, electronic warfare kontra-emersi (limited Tier-1 country)              |
 
 ---
@@ -141,10 +141,10 @@ Berlaku di **APT-targeting**: kalau adversary tahu target sering travel (konsule
 
 ### Hardware & Offense Tools
 
-- [[0-hardware-forensics-and-tactical-devices/imsi-catcher]] — IMSI catcher hardware
-- [[0-hardware-forensics-and-tactical-devices/oscor]] — OSOR spectrum analyzer (legal Intercept)
-- [[0-hardware-forensics-and-tactical-devices/hack5-suite]] — Hak5 payload & implant ecosystem
-- [[0-hardware-forensics-and-tactical-devices/victoria-hdd]] — Storage forensics
+- [[imsi-catcher]] — IMSI catcher hardware
+- [[oscor]] — OSOR spectrum analyzer (legal Intercept)
+- [[hack5-suite]] — Hak5 payload & implant ecosystem
+- [[victoria-hdd]] — Storage forensics
 
 ### Defense & Detection
 
@@ -164,3 +164,5 @@ Berlaku di **APT-targeting**: kalau adversary tahu target sering travel (konsule
 ---
 
 > **Catatan etika & hukum:** Mayoritas Level ≥ 8 butuh lisensi regulator lokal (Kominfo di Indonesia, FCC di US, dst.). Jalankan hanya di lab terisolasi dengan spektrum analyzer untuk monitor unintentional emission. Lihat [[digital-privacy-anonymity]] & [[isp-surveillance-privacy-deepdive]] untuk konteks legal surveillance.
+
+audited

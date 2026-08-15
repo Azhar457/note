@@ -129,3 +129,7 @@ Semakin besar angka KAMU = semakin besar kontrol
 ---
 
 *Infrastruktur Cloud Hierarchy | Dari Shared Hosting sampai Zero Trust Cloud Native*
+---
+
+audited
+---

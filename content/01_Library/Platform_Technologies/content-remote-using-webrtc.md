@@ -324,3 +324,7 @@ Dalam konten ini, kita telah membahas tentang cara menggunakan WebRTC dan Socket
 *   Jika admin tidak dapat mengirimkan input keyboard dan mouse ke target, pastikan bahwa admin telah terhubung ke target
 
 Dengan demikian, kita telah membahas tentang cara menggunakan WebRTC dan Socket.io untuk melakukan remote desktop. Sistem ini dapat digunakan untuk melakukan kontrol terhadap mesin remote dari jarak jauh. Pastikan untuk memahami langkah-langkah dan tips troubleshooting untuk dapat menggunakan sistem ini dengan baik.
+---
+
+audited
+---

@@ -345,3 +345,6 @@ Detect → Triage → Mitigate → Resolve → Postmortem
 9. Flux. *"Flux Documentation."* CNCF, 2024.
 10. HashiCorp. *"Terraform: Infrastructure as Code."* 2024.
 11. Newman, S. *"Building Microservices."* 2nd ed., O'Reilly, 2021.
+
+audited
+---

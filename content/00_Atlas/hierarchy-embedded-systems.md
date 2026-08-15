@@ -109,3 +109,6 @@ Sertifikasi SIL/ASIL/DO-178C bisa menghabiskan **USD 1–10 juta** per produk. I
 > Embedded systems adalah dunia di mana **software bertemu hardware** — dan di situlah bug paling berbahaya lahir. Pilih level yang sesuai dengan safety requirement targetmu. Untuk IoT lampu kamar — Level 2 (interrupt + timer) sudah cukup. Untuk airbag mobil — Level 7 (SIL-4) atau jangan dijual.
 
 *Embedded Systems Hierarchy | Level 0 (GPIO/Register) → Level 7 (Safety-Critical) · Dunia Tanpa OS, Semua Tanggung Jawab Padamu*
+
+audited
+---

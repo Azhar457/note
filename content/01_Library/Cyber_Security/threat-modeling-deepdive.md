@@ -199,7 +199,7 @@ Yang menghasilkan file `threatmodel.tm` dan `threatmodel.report.html`.
 
 ## Case Studies
 
-| Studi Kasus | Konteksusun | Temuan Kunci | Mitigasi yang Diimplementasi |
+| Studi Kasus | Konteksusun | Metodologi | Temuan Kunci | Mitigasi yang Diimplementasi |
 |-------------|-----------|-----------|--------------|------------------------------|
 | **E‑Commerce Platform (2023)** | Aplikasi web micro‑service + API gateway + DB terdistribusi | STRIDE + Attack Tree | 1. Insecure Direct Object Reference (IDOR) pada endpoint order/<id>. 2. Credential hard‑coded dalam CI vars. | 1. Implementasi objek level access control (OLAC). 2. Migrasi ke vault secret (HashiCorp Vault) dan rotasi otomatis. |
 | **Sistem IoT Smart Meter (2022)** | Jaringan ratusan ribu meter berbasis LoRaWAN + backend cloud | PASTA + VAST | 1. Firmware tidak ditandatangani → risiko suplai rantai compromised. 2. Tidak ada mutal TLS antara meter dan concentrator. | 1. Code signing dengan ECDSA P‑256, verifikasi saat boot. 2. Deploy mutual TLS dengan sertifikat unik per device. |
@@ -234,3 +234,7 @@ Yang menghasilkan file `threatmodel.tm` dan `threatmodel.report.html`.
 
 > [!tip] Bottom Line
 > Threat modeling bukan sekadar dokumentasi satu kali; ini adalah praktik berkelanjutan yang harus diembed ke dalam budaya pengembangan dan operasi keamanan. Dengan memodelkan ancaman secara sistematis, tim dapat mengalihkan fokus dari *reactive patching* ke *preventive design*, mengurangi biaya mitigasi secara signifikan dan meningkatkan kepercayaan pemangku kepentingan terhadap keamanan produk.
+---
+
+audited
+---

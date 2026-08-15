@@ -414,3 +414,7 @@ Jika Cobalt Strike sudah terlanjur masuk, langkah respons yang tepat:
 ---
 
 *Cobalt Strike Deep Dive | Advanced C2 & Adversary Simulation | Malleable C2 & Evasion Techniques*
+---
+
+audited
+---

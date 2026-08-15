@@ -94,8 +94,12 @@ Persistence:
 | **grype / trivy** | Container image vulnerability scan |
 
 ## 5. Referensi
-- Pacu — https://github.com/RhinoSecurityLabs/paciu
+- Pacu — https://github.com/RhinoSecurityLabs/pacu
 - ScoutSuite — https://github.com/nccgroup/ScoutSuite
 - Falco — https://falco.org/
 - AWS IMDSv2 — https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html
 - K8s Security — https://kubernetes.io/docs/concepts/security/
+---
+
+audited
+---

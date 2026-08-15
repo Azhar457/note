@@ -628,3 +628,7 @@ jobs:
 
 > [!tip] Bottom Line
 > DevSecOps bukan tentang tool — ini tentang **shift-left mindset** yang diotomatisasi. Tool tanpa proses hanya menghasilkan noise; proses tanpa tool hanya menghasilkan bottleneck. Kunci sukses: (1) **Pipeline gate berbasis severity** — hanya CRITICAL/HIGH yang block, sisanya informasional. (2) **False positive management** — baseline + suppression agar developer tidak lelah. (3) **SBOM + Signing** sebagai syarat deploy ke production. (4) **Emergency pipeline** untuk zero-day seperti Log4j — auto-bump + rebuild + deploy dalam <1 jam. Mulai dari pre-commit gitleaks dan SCA — dua langkah dengan ROI tertinggi di DevSecOps.
+---
+
+audited
+---

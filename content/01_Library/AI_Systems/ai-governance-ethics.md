@@ -593,11 +593,11 @@ def measure_dataset_bias(dataset, attribute="gender"):
 
 | Metric | Formula | Interpretasi |
 |--------|---------|--------------|
-| **Demographic Parity** | $P(\hat{Y}=1|A=a) = P(\hat{Y}=1|A=b)$ | Semua grup punya positive rate sama |
-| **Equal Opportunity** | $P(\hat{Y}=1|Y=1, A=a) = P(\hat{Y}=1|Y=1, A=b)$ | TPR sama antar grup |
+| **Demographic Parity** | $P(\hat{Y}=1\|A=a) = P(\hat{Y}=1\|A=b)$ | Semua grup punya positive rate sama |
+| **Equal Opportunity** | $P(\hat{Y}=1\|Y=1, A=a) = P(\hat{Y}=1\|Y=1, A=b)$ | TPR sama antar grup |
 | **Equalized Odds** | TPR = FPR antar grup | TPR dan FPR sama |
-| **Predictive Parity** | $P(Y=1|\hat{Y}=1, A=a) = P(Y=1|\hat{Y}=1, A=b)$ | Precision sama antar grup |
-| **Disparate Impact** | $\frac{P(\hat{Y}=1|A=a)}{P(\hat{Y}=1|A=b)}$ | Harus > 0.8 (80% rule) |
+| **Predictive Parity** | $P(Y=1\|\hat{Y}=1, A=a) = P(Y=1\|\hat{Y}=1, A=b)$ | Precision sama antar grup |
+| **Disparate Impact** | $\frac{P(\hat{Y}=1\|A=a)}{P(\hat{Y}=1\|A=b)}$ | Harus > 0.8 (80% rule) |
 
 ```python
 import fairlearn.metrics as flm
@@ -816,3 +816,7 @@ class AIComplianceMonitor:
 
 > [!tip] Prinsip Praktis
 > AI Governance bukan hanya tentang kepatuhan — adalah **kepercayaan**. EU AI Act adalah baseline hukum, NIST AI RMF adalah baseline teknis, RLHF/DPO adalah baseline alignment. Tapi governance yang efektif membutuhkan lebih: budaya organisasi yang peduli dampak, transparansi yang tulus (bukan sekadar "model card" formalitas), dan komitmen untuk memperbaiki ketika ditemukan harm. Aturan praktis: (1) Dokumentasi bukan beban — adalah aset saat insiden terjadi, (2) Fairness bukan satu angka — ukur dari berbagai perspektif, (3) Safety bukan fitur — adalah persyaratan desain dari awal. Di era di mana regulasi AI berkembang cepat, organisasi yang proaktif terhadap governance bukan hanya menghindari denda — mereka membangun kepercayaan publik yang menjadi moat kompetitif.
+---
+
+audited
+---

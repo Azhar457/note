@@ -169,7 +169,7 @@ from datasets import Dataset
 data = {
     "question": ["Apa itu SYN flood?"],
     "answer": ["SYN flood adalah serangan DoS..."],
-    "contexts": [["SYN flood adalah serangan...", "Mitigasi SYN flood..."]],
+    "contexts": `"SYN flood adalah serangan...", "Mitigasi SYN flood..."`,
     "ground_truth": ["Serangan DoS dengan mengirim banyak SYN packet..."],
 }
 
@@ -301,3 +301,7 @@ def test_retrieval_regression():
 
 > [!tip] Bottom Line
 > Evaluasi RAG punya 2 dimensi: **retrieval** (precision, recall, MRR) dan **generation** (faithfulness, relevancy). RAGAS adalah framework paling mature untuk generation metrics. Mulai dengan **10 golden queries** yang cover berbagai catatan vault → hitung recall@5 untuk retrieval → hitung faithfulness untuk generation. Otomatisasi dengan **CI regression test**: kalo recall turun >5%, block deploy. vault-rag belum punya eval pipeline — ini adalah **next step paling penting** setelah chunking dan search berfungsi.
+---
+
+audited
+---

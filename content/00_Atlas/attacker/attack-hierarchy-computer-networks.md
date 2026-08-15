@@ -115,3 +115,7 @@ Rollback: Withdraw BGP announcement → traffic kembali normal → no trace
 - iodine — https://github.com/yarrick/iodine
 - Domain Fronting — https://www.cobaltstrike.com/help-malleable-c2
 - BGP Hijacking — https://www.caida.org/catalog/papers/2014_bgp_hijacking/
+---
+
+audited
+---

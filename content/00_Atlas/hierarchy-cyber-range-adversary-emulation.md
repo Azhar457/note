@@ -181,3 +181,6 @@ Emulator (red team) menjalankan TTP dari ATT&CK matrix. Defender (blue team) har
 ---
 
 *Cyber Range & Adversary Emulation Hierarchy | Level 0 (Single Box) → Level 6 (National Drill) · Kesetiaan Emulasi Naik · ATT&CK Coverage + Detection Engineering = Output Utama*
+
+audited
+---

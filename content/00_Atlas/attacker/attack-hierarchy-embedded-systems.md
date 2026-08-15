@@ -88,5 +88,8 @@ Botnet:_DEVICE → recruit ke botnet (Mirai, Mozi) → DDoS / crypto mine
 - binwalk — https://github.com/ReFirmLabs/binwalk
 - flashrom — https://flashrom.org/
 - FreeRTOS TCP/IP CVE — https://nvd.nist.gov/vuln/detail/CVE-2021-31500
-- VxWorks Vulnerability — https://www.armis.com/vxrisk/
-- IEC 61508 — https://www.iec.ch/standards/
+- VxWorks Vulnerability — https://cve.armis.com/
+---
+
+audited
+---

@@ -236,7 +236,7 @@ r.interactive()
 | Type | Tool | Approach |
 |---|---|---|
 | Caesar/ROT | `python -c "import codecs; print(codecs.decode('...', 'rot13'))"` | Brute force shift |
-| Base64/32 | `echo '...' | base64 -d` | Decode |
+| Base64/32 | `echo '...' \| base64 -d` | Decode |
 | XOR | `python xor_crack.py` | Frequency analysis |
 | RSA (small e) | `python -c "from Crypto.Util.number import *; print(long_to_bytes(pow(ct, e, n)))"` | Cube root |
 | Vigenere | `vigenere-decoder` | Kasiski examination |
@@ -382,3 +382,7 @@ tail -f /var/log/apache2/access.log | grep " 404 \| 403 \| 500 "
 - [[fuzzing-vulnerability-research]] — fuzzing
 - [[hierarchy-ctf-competition-framework]] — framework kompetisi
 - [[hierarchy-cyber-range-adversary-emulation]] — cyber range
+---
+
+audited
+---

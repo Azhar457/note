@@ -419,3 +419,7 @@ az security alert list --query "[?properties.status=='Active']"
 | [[cloud-security-posture-management]] | CSPM tools — hubungan dengan detection via GuardDuty/SCC/Azure Defender |
 | [[linux-hardening-cis]] | Hardening OS untuk cloud VM — CIS benchmark |
 | [[infrastructure-administrator]] | Administrasi multi-platform — cloud sebagai managed service |
+---
+
+audited
+---

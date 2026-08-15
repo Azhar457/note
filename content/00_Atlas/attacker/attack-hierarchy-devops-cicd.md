@@ -107,3 +107,7 @@ Evasion: Delete PR after exfil → no visible trace (if admin not fast enough)
 - TeamCity CVE-2024-27198 — https://nvd.nist.gov/vuln/detail/CVE-2024-27198
 - CI/CD Attack Framework (Legit Security) — https://www.legitsecurity.com/
 - SLSA Framework — https://slsa.dev/
+---
+
+audited
+---

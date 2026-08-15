@@ -10,8 +10,6 @@ cssclasses:
   - callout
 
 ---
-
-
 # 🔬 Master SOP — Digital Forensics Workflow: Imaging → Analysis → Recovery
 
 > **Environment:** Bare-Metal / Live USB (SystemRescue, Kali Linux, Paladin)
@@ -328,3 +326,7 @@ Date: [YYYY-MM-DD]
 ---
 
 > [!CAUTION] **Forensic Golden Rule:** *"You only get ONE chance with original evidence. Do it right the first time."*
+---
+
+audited
+---

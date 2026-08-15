@@ -87,8 +87,10 @@ Impact:
 | **Sentence-Transformers** | Embedding manipulation (black-box) |
 
 ## 5. Referensi
-- SimHash — https://feranndo.github.io/static/papers/irpfc.pdf
 - TLSH — https://github.com/trendmicro/tlsh
 - Adversarial Embedding — https://arxiv.org/abs/2012.03809
-- LSH Attack — https://www.usenIX.org/conference/usenixsecurity21/presentation/...
 - Quantization Adversarial — https://arxiv.org/abs/2003.02133
+---
+
+audited
+---

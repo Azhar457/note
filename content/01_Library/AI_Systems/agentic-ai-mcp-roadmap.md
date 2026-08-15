@@ -18,7 +18,7 @@ cssclasses:
 
 
 
-[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[00_Atlas/overview]]
+[[00_Atlas/hierarchy-llm-ai-systems]] [[00_Atlas/hierarchy-cloud-infrastructure]] [[about]]
 
 # 🤖 Roadmap Agentic AI & MCP — From Script to Autonomous Swarm
 
@@ -239,3 +239,7 @@ cssclasses:
 
 > [!callout] 💡
 > Kemampuan orchestrate (loop sense→plan→act→observe) lebih bernilai daripada sekadar prompt. Mulai dari single-agent + local LLM, baru scale ke swarm setelah agent loop & tool use dikuasai.
+---
+
+audited
+---

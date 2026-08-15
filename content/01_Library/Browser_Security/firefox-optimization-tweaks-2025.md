@@ -226,4 +226,7 @@ Setiap profil = session store, cookie jar, dan fingerprint terpisah — ideal un
 # 5. WebRTC Leak
 #    https://browserleaks.com/webrtc → pastikan IP lokal tidak bocor
 ```
+---
 
+audited
+---

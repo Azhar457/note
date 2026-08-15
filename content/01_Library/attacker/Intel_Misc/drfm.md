@@ -212,3 +212,7 @@ Platform EW defensif      Wild Weasel              terhadap radar
 ---
 
 *DRFM Deep Dive | Digital RF Memory & Electronic Warfare Jamming | Radar Spoofing & Deception*
+---
+
+audited
+---

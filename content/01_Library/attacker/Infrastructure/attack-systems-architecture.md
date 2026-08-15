@@ -96,3 +96,50 @@ Rowhammer (DRAM):
 - Rowhammer — https://rowhammer.tech/
 - PCILeech — https://github.com/ufrisk/pcileech
 - Systems Architecture (CS:APP) — https://csapp.cs.cmu.edu/
+
+## Konkret — Hardware/Kernel Exploit (Testable)
+
+### CPU Microcode (Intel ME)
+
+```bash
+# 1. Intel Management Engine (ME) co-processor
+#    Ring -3 → dapat kontrol saat BIOS boot
+# 2. ME firmware exploit (CVE-2017-12188)
+#    HAP (High Assurance Platform) → disable ME
+# 3. Intel-SA-00086 detection:
+ intel-metool
+# Output: vulnerable / patched
+# 4. mei-amt-check:
+ python3 amt_check.py
+```
+
+### SMM (System Management Mode)
+
+```bash
+# SMM ring -2 → semua stop (kernel punya lebih rendah prioritas)
+# 1. lokasi: SMRAM (System Management RAM)
+#    Kernel tidak bisa baca (TSEG / SMRAM lock)
+# 2. Exploit: BIOS bug → write ke SMI handler → god mode
+# 3. CHIPSET SMM lock bypass (legacy):
+#    < CONFIG_SMM > → some vendor tidak kunci
+#    Open /dev/mem → write SMRAM → SMM code inject → root
+```
+
+### DMA Attack (Direct Memory Access)
+
+```bash
+# 1. Hardware: Thunderbolt / PCIe → DMA directly ke RAM (no CPU)
+# 2. Bypass kernel (OS tidak ada peran)
+# 3. Attack: dump RAM → extract key / hash / password
+# 4. Fix: IOMMU (Intel VT-d / AMD-Vi) → restrict DMA
+
+# Tool: Inception / PCILeech
+# Hardware: FPGA PCIe card
+./pcileech dump_memory
+# Atau:
+./pcileech search -pattern "NTLM"
+```
+---
+
+audited
+---

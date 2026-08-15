@@ -302,3 +302,7 @@ graph TD
 - **Tags:** research primary-sources archives declassified forensik methodology
 - **Related:** [[research-methodology]], [[academic-research-sources-encyclopedia]], [[intelligence-reporting-sources-and-tradecraft]]
 - **Last Updated:** 2026-08-02
+---
+
+audited
+---

@@ -151,3 +151,7 @@ Keamanan WebAssembly dijamin oleh arsitektur memori terisolasi:
 | [[browser-security-exploitation-deepdive]] | Eksploitasi kerentanan memori pada V8 (seperti *Type Confusion*) untuk keluar dari sandbox. |
 | [[compiler-design-deepdive]] | Teori parser, lexer, AST, dan optimasi JIT yang diimplementasikan pada V8. |
 | [[http-protocol-deepdive]] | Penanganan data biner HTML/CSS yang dikirim melalui jalur HTTP TCP/IP. |
+---
+
+audited
+---

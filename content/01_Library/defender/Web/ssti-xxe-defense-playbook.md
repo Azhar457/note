@@ -75,7 +75,7 @@ RULE 3: Konteks rendering harus eksplisit (escape), bukan default.
 
 | Engine | Konfigurasi Aman | Catatan |
 |---|---|---|
-| **Jinja2 (Python)** | `Environment(autoescape=True)` + **jangan pakai** `|safe`, `Markup`, `render_template_string` dengan input user | Sandbox bawaan Jinja2 bisa di-bypass — tambah layer sendiri |
+| **Jinja2 (Python)** | `Environment(autoescape=True)` + **jangan pakai** `\|safe`, `Markup`, `render_template_string` dengan input user | Sandbox bawaan Jinja2 bisa di-bypass — tambah layer sendiri |
 | **Twig (PHP)** | `sandbox: true` + `policy` membatasi `include`, `extends`, fungsi `system` | Twig sandbox pernah punya CVE bypass |
 | **FreeMarker (Java)** | **Jangan pernah** `new Configuration()` tanpa template loader terbatas | `?c` operator untuk escape otomatis |
 | **Thymeleaf (Java)** | Hindari `th:inline="text"` pada user input; pakai `th:text` (escape otomatis) | Spring Boot `@ResponseBody` + `th:inline` = RCE |
@@ -471,13 +471,13 @@ nuclei -u https://target -t http/templates/xxe/
 - OWASP: [XML External Entity Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)
 - PortSwigger: [SSTI Research](https://portswigger.net/web-security/server-side-template-injection)
 - PortSwigger: [XXE Research](https://portswigger.net/web-security/xxe)
-- OWASP CRS: [REQUEST-941-APPLICATION-ATTACK-XSS.conf](https://github.com/coreruleset/coreruleset/blob/v4.0/main/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf) — #LOCAL juga di `/mnt/data_d/Projects/Reference/owasp-coreruleset/rules/`
+- OWASP CRS: [REQUEST-941-APPLICATION-ATTACK-XSS.conf](https://github.com/coreruleset/coreruleset/blob/v4.0/main/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf) — #LOCAL juga di `https://github.com/swisskyrepo/PayloadsAllTheThingsowasp-coreruleset/rules/`
 - Python `defusedxml` docs: [defusedxml.readthedocs.io](https://defusedxml.readthedocs.io/)
 - Java XML Security: [OWASP XML External Entity Prevention — Java](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html#java)
 - HackTricks: [SSTI](https://book.hacktricks.wiki/en/pentesting-web/ssti-server-side-template-injection.html)
 - HackTricks: [XXE](https://book.hacktricks.wiki/en/pentesting-web/xxe-xee-xml-external-entity.html)
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Server Side Template Injection/` #LOCAL
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/XXE Injection/` #LOCAL
+- PayloadsAllTheThings: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server Side Template Injection/` #LOCAL
+- PayloadsAllTheThings: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE Injection/` #LOCAL
 - CVE-2018-1273 (Spring Data Commons SpEL injection) — [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2018-1273)
 - CVE-2021-21349 (XXE in OWASP ESAPI) — [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2021-21349)
 - Vault internal: `[[waf-reverse-proxy-deepdive]]` — implementasi WAF rules #LOCAL
@@ -490,3 +490,6 @@ nuclei -u https://target -t http/templates/xxe/
 - [[owasp-crs-paranoia-levels-scoring]] — level deteksi CRS
 - [[ebpf-kernel-security-roadmap]] — deteksi egress via eBPF
 - [[dns-tunneling-deepdive]] — deteksi OOB callback via DNS
+
+audited
+---

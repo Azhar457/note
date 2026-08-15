@@ -319,3 +319,7 @@ Tools yang tepat      : Coba backup dulu via ADB blind
 ---
 
 *Mobile Forensics | Level 0 (Manual) → Level 7 (Secure Element) · MOBILedit · Cellebrite · GrayKey · iOS vs Android · Open Source Path*
+---
+
+audited
+---

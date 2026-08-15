@@ -763,3 +763,7 @@ HARI 5: Bloat & Vacuum
 
 > [!tip] Lanjutan
 > Catatan ini belum mencakup distributed databases (Cassandra, CockroachDB, Spanner), vector databases untuk AI embeddings, dan query optimization untuk data warehouse (columnar, materialized aggregates). Baca [[ddia-kleppmann]] untuk distributed database theory.
+---
+
+audited
+---

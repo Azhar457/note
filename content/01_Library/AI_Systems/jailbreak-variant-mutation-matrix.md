@@ -258,3 +258,7 @@ print(json.dumps(variants, indent=2, ensure_ascii=False))
 6. Rao, A., et al. — "Exploring User-Controllable Factors for Jailbreaking LLMs" (2024)
 7. Liu, Y., et al. — "Prompt Injection attack against LLM-integrated Applications" — arXiv:2306.05499
 8. Zhang, Y., et al. — "Baseline Defenses for Adversarial Attacks Against Aligned Language Models" — arXiv:2309.00614
+---
+
+audited
+---

@@ -250,3 +250,7 @@ Verint, seperti semua alat SIGINT, sangat bergantung pada pengawasan dan kerangk
 ---
 
 *Verint Deep Dive | Communications Intelligence Platform | SIGINT Interception & Analysis*
+---
+
+audited
+---

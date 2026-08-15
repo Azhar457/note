@@ -260,3 +260,6 @@ Upgrade:
 ---
 
 *IDS vs IPS vs WAF vs NSM | Snort · Suricata · Zeek · CrowdSec · SafeLine · Wazuh · Fail2ban · Bukan Apple vs Apple*
+
+audited
+---

@@ -23,3 +23,6 @@ cssclasses:
 - [[clrs-introduction-to-algorithms]]
 - [[dsa-15-patterns-deepdive]]
 - [[sicp-abelson-sussman]]
+
+audited
+---

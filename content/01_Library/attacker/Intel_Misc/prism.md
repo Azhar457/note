@@ -234,3 +234,7 @@ PRISM, dalam desain aslinya, adalah alat kontra-terorisme dan intelijen luar neg
 ---
 
 *PRISM Deep Dive | NSA Data Collection Program | FISA Section 702 Mass Surveillance*
+---
+
+audited
+---

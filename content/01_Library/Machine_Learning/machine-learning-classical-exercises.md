@@ -16,7 +16,7 @@ cssclasses:
 ---
 
 > [!abstract] Dari Teori ke Praktik
-> Dokumen ini adalah pendamping dari [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]]. Setelah memahami arsitektur setiap algoritma, saatnya menguji pemahaman dengan soal konseptual, implementasi kode, dan studi kasus dunia nyata. Setiap bagian mencakup pertanyaan, petunjuk, dan solusi lengkap.
+> Dokumen ini adalah pendamping dari [[hierarchy-classical-ml-algorithms]]. Setelah memahami arsitektur setiap algoritma, saatnya menguji pemahaman dengan soal konseptual, implementasi kode, dan studi kasus dunia nyata. Setiap bagian mencakup pertanyaan, petunjuk, dan solusi lengkap.
 
 ---
 
@@ -207,7 +207,7 @@ print(f"Spam probability: {model.predict_proba(X_new)[0][1]:.4f}")
 Dataset biner: 10 sampel, fitur `X` (numerik), label `y` (0/1).
 
 | X | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-|---|---|---|---|----|----|----|----|----|----|----|----|
+|---|---|---|---|----|----|----|----|----|----|----|
 | y | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1  |
 
 Hitung Gini Impurity sebelum split dan setelah split di threshold X ≤ 5.5. Berapa Information Gain?
@@ -437,7 +437,7 @@ for name, clf in [('LR', clf1), ('RF', clf2), ('XGB', clf3)]:
 
 ## 🔗 Koneksi ke Dokumen Lain
 
-- [[Note/01_Library/Machine_Learning/hierarchy-classical-ml-algorithms]] — Teori dan implementasi dari nol
+- [[hierarchy-classical-ml-algorithms]] — Teori dan implementasi dari nol
 - [[math-and-algorithms]] — Fondasi matematis
 - [[swarm-ai-imam-robandi]] — Optimasi alternatif
 - [[llm-security-red-teaming-attack-surface-ai-layer]] — Adversarial attack pada model ML
@@ -446,3 +446,7 @@ for name, clf in [('LR', clf1), ('RF', clf2), ('XGB', clf3)]:
 ---
 
 *Machine Learning Classical — Soal & Latihan | Uji Pemahaman dari Regresi hingga Ensemble*
+---
+
+audited
+---

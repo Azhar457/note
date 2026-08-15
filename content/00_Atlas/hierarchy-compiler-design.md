@@ -488,3 +488,6 @@ Ketika optimizer membuat **asumsi** (tipe class, monomorphic call) yang ternyata
 11. Thompson, K. *"Reflections on Trusting Trust."* Turing Award Lecture, 1984.
 12. Aycock, J. *"A Brief History of Just-in-Time."* ACM Computing Surveys, 2003.
 13. Hopper, G. *"The Education of a Computer."* 1952 — first compiler.
+
+audited
+---

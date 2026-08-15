@@ -115,3 +115,6 @@ Level 8 attack surface: k8s RBAC misconfig, SPIFFE SVID expiry, OPA policy bug, 
 > Pilih level infrastruktur berdasarkan kebutuhan, bukan ego atau hype. Hosting blog pribadi di K8s adalah over-engineering. Deploy aplikasi keuangan di shared hosting adalah under-engineering. Hirarki ini membantu lo memilih dengan sadar.
 
 *Cloud Infrastructure Hierarchy | Level 0 (Shared Hosting) → Level 8 (Zero Trust Cloud Native) · Pilih Level Paling Rendah Yang Cukup*
+
+audited
+---

@@ -400,3 +400,7 @@ objection -g com.target.app explore
 - [[malware-analysis-reverse-engineering-playbook]] — Malware analysis — mobile malware
 - [[laptop-qc-procurement]] — SOP QC — mobile device testing juga
 - [[endpoint-detection-playbook]] — Endpoint security — mobile EDR/MDM
+---
+
+audited
+---

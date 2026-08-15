@@ -288,3 +288,7 @@ db_pass = secret['data']['data']['password']
 
 > [!tip] SRE Bukan Pekerjaan, Ini Pola Pikir
 > Setiap engineer bisa terapkan SRE — hitung error budget sebelum deploy, tulis postmortem untuk bug serius, otomatisasi satu toil per minggu.
+---
+
+audited
+---

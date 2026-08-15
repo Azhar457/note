@@ -100,3 +100,6 @@ Transfer ke Real World:
 - CTFtime — https://ctftime.org/
 - pwntools — https://docs.pwntools.com/
 - pwndbg — https://github.com/pwndbg/pwndbg
+
+audited
+---

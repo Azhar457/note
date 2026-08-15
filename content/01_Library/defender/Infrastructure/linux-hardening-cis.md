@@ -241,10 +241,10 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 | Dokumen | Kontribusi |
 |---------|-----------|
-| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — konteks server mana yang di-hardening |
-| [[podman-networking-ufw|Podman Networking & UFW]] | Interaksi UFW dengan container — `ip_forward` warning |
-| [[network-security|Network Security]] | OSI layer — dimana tiap alat keamanan beroperasi |
-| [[devops|DevOps Roadmap]] | Production deployment context |
+| [[infrastructure-administrator\|Infrastructure Administrator]] | Server layout — konteks server mana yang di-hardening |
+| [[podman-networking-ufw\|Podman Networking & UFW]] | Interaksi UFW dengan container — `ip_forward` warning |
+| [[network-security\|Network Security]] | OSI layer — dimana tiap alat keamanan beroperasi |
+| [[devops\|DevOps Roadmap]] | Production deployment context |
 
 ### 4. Sintesis — Bagian  Bagian Bergabung
 
@@ -290,3 +290,7 @@ Thought 7 (Critical):    "Apa yang terjadi kalau SSH lockout? Rollback via conso
 - [[podman-networking-ufw|Podman Networking & UFW]] — Firewall specifics for containers
 - [[network-security|Network Security]] — OSI layer context
 - [[devops|DevOps Roadmap]] — Production deployment
+---
+
+audited
+---

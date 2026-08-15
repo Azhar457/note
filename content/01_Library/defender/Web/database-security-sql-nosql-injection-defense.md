@@ -135,7 +135,7 @@ app.post('/api/login', async (req, res) => {
 | `$ne` | Not equal — bypass equality check | `{"password": {"$ne": ""}}` |
 | `$gt` | Greater than — bypass numeric limit | `{"age": {"$gt": 18}}` |
 | `$regex` | Regex match — blind extraction | `{"token": {"$regex": "^a"}}` |
-| `$where` | JavaScript execution — RCE | `{"$where": "sleep(5000) || true"}` |
+| `$where` | JavaScript execution — RCE | `{"$where": "sleep(5000) \|\| true"}` |
 | `$exists` | Field existence check | `{"role": {"$exists": true}}` |
 
 ### 2.2 MongoDB Defense
@@ -623,6 +623,7 @@ Database Security Audit:
 - CWE-89: Improper Neutralization of Special Elements used in an SQL Command. https://cwe.mitre.org/data/definitions/89.html
 - CWE-943: Improper Neutralization of Special Elements in Data Query Logic (NoSQLi). https://cwe.mitre.org/data/definitions/943.html
 
+audited
 ---
 
 *Dibuat: 19 Juli 2026 — Database security dari injection defense sampai RLS dan audit.*

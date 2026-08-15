@@ -98,7 +98,8 @@ Evasion: tscon = legit Windows feature → no alert
 | **Evilginx2** | AiTM phishing (helpdesk credential capture) |
 
 ## 6. Referensi
-- SCCM Attacks — https://github.com/subat0mik/Misconfiguration-SCCM
 - RDP Hijack (tscon) — https://attack.mitre.org/techniques/T1021/001/
 - BloodHound — https://github.com/BloodHoundAD/BloodHound
-- Azure AD Connect (DCSync) — https://blog.netwrix.com/2023/03/09/...
+
+audited
+---

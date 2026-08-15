@@ -18,7 +18,7 @@ aliases:
 - MCP DLC
 created: 2026-07-08
 updated: 2026-07-08
-status: operational
+status: pending
 cssclasses:
   - wide-table
 ---
@@ -28,7 +28,7 @@ cssclasses:
 > Ringkasan satu-paragraf menjelaskan bahwa MCP Server Development Lifecycle (MCP-SDLC) adalah kerangka kerja sistematis untuk membangun, menguji, mendeploy, dan memelihara MCP server dari tahap perencanaan hingga operasional production. Berbeda dengan SDLC perangkat lunak konvensional, MCP-SDLC menekankan capability negotiation, schema versioning, transport selection, human-in-the-loop approval, dan continuous context synchronization antara AI host dan server eksternal.
 
 > [!info] Hubungan ke Vault
-> Nota ini terkait dengan [[SKILL_AI_MCP]] untuk aturan teknis spesifikasi MCP, [[threat-modeling-deepdive]] untuk security review tiap tahap, [[devops]] untuk pipeline CI/CD, serta [[system-design]] untuk arsitektur transport dan state management.
+> Nota ini terkait dengan [[skill-ai-mcp]] untuk aturan teknis spesifikasi MCP, [[threat-modeling-deepdive]] untuk security review tiap tahap, [[devops]] untuk pipeline CI/CD, serta [[system-design]] untuk arsitektur transport dan state management.
 
 ---
 
@@ -1077,7 +1077,7 @@ export function getCapabilities() {
 
 ## Koneksi ke Vault
 
-- [[SKILL_AI_MCP]] — Aturan teknis spesifikasi MCP yang mengikat setiap tahap BUILD dan DEPLOY.
+- [[skill-ai-mcp]] — Aturan teknis spesifikasi MCP yang mengikat setiap tahap BUILD dan DEPLOY.
 - [[threat-modeling-deepdive]] — Metodologi STRIDE/PASTA untuk security gates di tahap PLAN dan MONITOR.
 - [[comprehensive-threat-directory]] — Taksonomi ancaman spesifik untuk AI agent integrations.
 - [[network-security]] — Monitoring dan deteksi anomaly untuk MCP traffic.
@@ -1103,3 +1103,7 @@ export function getCapabilities() {
 
 > [!tip] Bottom Line
 > MCP-SDLC bukan sekadar template — ini adalah loop kontinu yang menghubungkan ide, implementasi, deployment, observability, dan evolusi. Setiap tahap memiliki deliverables yang jelas, security gates yang non-negotiable, dan feedback loop ke tahap berikutnya. Server yang matang tidak dibangun dalam satu sprint; mereka ditumbuhkan melalui iterasi yang terukur, teramankan, dan terus-menerus ditingkatkan. Ingat: spesifikasi MCP adalah fondasi, tapi production-readiness datang dari disiplin di setiap tahap lifecycle.
+---
+
+audited
+---

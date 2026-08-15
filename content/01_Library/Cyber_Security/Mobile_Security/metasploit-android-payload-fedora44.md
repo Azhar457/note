@@ -9,7 +9,7 @@ tags:
   - adb
 created: "2026-08-09"
 updated: "2026-08-09"
-status: validated
+status: pending
 cssclasses:
   - wide-table
   - callout
@@ -196,3 +196,7 @@ adb shell dumpsys package com.example | grep -E "version|signature"
 - Android security — https://source.android.com/docs/security
 - apktool — https://ibotpeaches.github.io/Apktool/
 - msfvenom cheatsheet — https://book.hacktricks.xyz/generic-methodologies-and-resources/...
+---
+
+audited
+---

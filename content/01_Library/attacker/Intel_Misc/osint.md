@@ -204,3 +204,7 @@ if __name__ == "__main__":
     print("Passive DNS:", passive_dns(d)[:10])
     print("Subdomains:", crt_sh(d)[:10])
 ```
+---
+
+audited
+---

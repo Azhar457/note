@@ -541,3 +541,7 @@ make test
 | [[devsecops-pipeline-sast-dast-sbom]] | SBOM — Software Bill of Materials untuk dependency inventory |
 | [[rust-unsafe-code-auditing-security-deepdive]] | Rust supply chain — cargo-audit, crate compromise |
 | [[claude-code-plugin-marketplace-deepdive]] | Plugin marketplace — polar opposite dari open ecosystem |
+---
+
+audited
+---

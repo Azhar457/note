@@ -419,3 +419,7 @@ jobs:
 - [[llmops-ai-infrastructure]] — infrastruktur MLOps untuk monitoring
 - [[hallucination-mitigation-grounding]] — mitigasi hallucination sebagai defense
 - [[structured-output-llm-mcp-tool-calling-deepdive]] — MCP security implications
+---
+
+audited
+---

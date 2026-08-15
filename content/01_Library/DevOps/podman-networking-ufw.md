@@ -171,10 +171,10 @@ Catatan ini disusun melalui proses berpikir terstruktur sebagai berikut:
 
 | Dokumen | Kontribusi |
 |---------|-----------|
-| [[cicd-guide|CI/CD Pipeline Guide]] | Container deployment context, environment yang perlu expose |
-| [[devops|DevOps Roadmap]] | Docker vs Podman positioning, container skill progression |
-| [[infrastructure-administrator|Infrastructure Administrator]] | Server layout — di folder mana container jalan |
-| [[cloud-infrastructure|Infrastruktur Cloud]] | Container orchestration scale, network isolation |
+| [[cicd-guide\|CI/CD Pipeline Guide]] | Container deployment context, environment yang perlu expose |
+| [[devops\|DevOps Roadmap]] | Docker vs Podman positioning, container skill progression |
+| [[infrastructure-administrator\|Infrastructure Administrator]] | Server layout — di folder mana container jalan |
+| [[cloud-infrastructure\|Infrastruktur Cloud]] | Container orchestration scale, network isolation |
 
 ### 4. Sintesis — Bagaimana Bagian Bergabung
 
@@ -218,3 +218,7 @@ Thought 7 (Systems):     "Cascade: UFW enable → SSH lupa diallow → lockout. 
 - [[devops|DevOps Roadmap]] — Docker vs Podman context
 - [[infrastructure-administrator|Infrastructure Administrator]] — Server layout
 - [[cloud-infrastructure|Infrastruktur Cloud]] — Container orchestration scale
+---
+
+audited
+---

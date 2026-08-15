@@ -223,3 +223,7 @@ const hasil = adapter.jalankan();
 - Siap mengapply salah satu teknik tersebut ke repository riil di dalam vault?
 
 Kita akan membantu Anda mengeksekusi langkah-langkah tersebut dan memberikan panduan yang lebih mendalam tentang cara mengimplementasikan prinsip-prinsip yang dibahas dalam buku-buku tersebut. Dengan memahami konsep-konsep yang dibahas dalam tiga buku ini, Anda dapat meningkatkan kemampuan Anda dalam mengembangkan perangkat lunak yang lebih baik, lebih efisien, dan lebih dapat diprediksi. Oleh karena itu, sangat penting untuk memahami konsep-konsep tersebut dan mengaplikasikannya dalam proyek-proyek Anda.
+---
+
+audited
+---

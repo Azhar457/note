@@ -254,3 +254,7 @@ komersial                 mengakses data           secure erase
 ---
 
 _Victoria HDD Deep Dive | Hard Drive Diagnostic & Forensic Verification | Dual-Use Storage Tool_
+---
+
+audited
+---

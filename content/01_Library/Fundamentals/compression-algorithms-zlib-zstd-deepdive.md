@@ -338,8 +338,12 @@ decompressed = lz4.frame.decompress(compressed)  # ~4.5 GB/s decompress
 
 | Catatan | Koneksi |
 |---------|---------|
-| [[Note/01_Library/Fundamentals/hierarchy-digital-plumbing]] | §5 Level 4 — Kompresi Data |
+| [[hierarchy-digital-plumbing]] | §5 Level 4 — Kompresi Data |
 | [[codec-architecture-x264-x265-deepdive]] | Codec video juga pakai entropy coding (CABAC) — sepupu dari Huffman |
 | [[math-and-algorithms]] | Entropy, Huffman tree, Markov chain — aplikasi langsung teori informasi |
 | [[encoding-serialization-compression-deepdive]] | Kompresi sebagai tahap akhir dari pipeline encode |
 | [[http-protocol-deepdive]] | Content-Encoding: gzip, br, zstd |
+---
+
+audited
+---

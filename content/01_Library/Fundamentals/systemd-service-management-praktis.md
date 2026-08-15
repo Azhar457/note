@@ -1407,7 +1407,7 @@ ls /run/systemd/generator.late/*.service   # auto-generated SysV → systemd
 | [[hierarchy-operating-systems]] | Posisi systemd di OS hierarchy (userspace init) |
 | [[linux-hardening-cis]] | CIS benchmark — systemd bagian dari Level 1 hardening |
 | [[observability-stack-prometheus-grafana]] | journald metrics → Prometheus via node_exporter |
-| [[vps-hardening-playbook]] | Hardening VPS — enable/disable services via systemctl |
+| [[hardening-setup]] | Hardening VPS — enable/disable services via systemctl |
 
 ## References
 
@@ -1418,3 +1418,7 @@ ls /run/systemd/generator.late/*.service   # auto-generated SysV → systemd
 5. journalctl(1) — Journal query tool — https://www.freedesktop.org/software/systemd/man/journalctl.html
 6. Fedora Systemd Docs — https://docs.fedoraproject.org/en-US/quick-docs/systemd/
 7. systemd.io portal — https://systemd.io/
+---
+
+audited
+---

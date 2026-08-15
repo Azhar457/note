@@ -456,3 +456,7 @@ nft add rule inet filter forward iifname "wg0" oifname "eth0" accept
 - [[podman-networking-ufw]] — firewall konfigurasi
 - [[tls-ssl-deepdive]] — crypto fundamental
 - [[cryptography-biometrics]] — kriptografi
+---
+
+audited
+---

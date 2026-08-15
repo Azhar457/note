@@ -375,11 +375,11 @@ Lihat `[[ebpf-kernel-security]]` dan `[[ebpf-beyond-security]]` untuk deteksi be
 - PortSwigger: [DNS rebinding attacks](https://portswigger.net/web-security/ssrf/dns-rebinding)
 - AWS: [Instance metadata and user data — IMDSv2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
 - GCP: [Protect against SSRF — metadata server](https://cloud.google.com/compute/docs/metadata/overview)
-- OWASP CRS: [REQUEST-931-APPLICATION-ATTACK-RFI.conf](https://github.com/coreruleset/coreruleset/blob/v4.0/main/rules/REQUEST-931-APPLICATION-ATTACK-RFI.conf) — #LOCAL juga di `/mnt/data_d/Projects/Reference/owasp-coreruleset/rules/`
+- OWASP CRS: [REQUEST-931-APPLICATION-ATTACK-RFI.conf](https://github.com/coreruleset/coreruleset/blob/v4.0/main/rules/REQUEST-931-APPLICATION-ATTACK-RFI.conf) — #LOCAL juga di `https://github.com/swisskyrepo/PayloadsAllTheThingsowasp-coreruleset/rules/`
 - nftables wiki: [nftables.org](https://wiki.nftables.org/)
 - Envoy: [RBAC network filter](https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/filters/network/rbac/v3/rbac.proto)
 - bpftrace: [Reference Guide](https://github.com/bpftrace/bpftrace/blob/master/docs/reference_guide.md) — #LOCAL `[[ebpf-kernel-security]]`
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Server Side Request Forgery/` #LOCAL
+- PayloadsAllTheThings: `https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server Side Request Forgery/` #LOCAL
 - HackTricks: [SSRF — URL validation bypass](https://book.hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery.html)
 - CVE-2021-21341 (XStream SSRF) — [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2021-21341)
 - CVE-2019-15599 (tree-kill, SSRF via redirect) — [nvd.nist.gov](https://nvd.nist.gov/vuln/detail/CVE-2019-15599)
@@ -391,3 +391,6 @@ Lihat `[[ebpf-kernel-security]]` dan `[[ebpf-beyond-security]]` untuk deteksi be
 - [[waf-reverse-proxy-deepdive]] — WAF SSRF rules
 - [[ids-ips-waf-nsm-comparison]] — posisi egress filter di arsitektur defense
 - [[ebpf-kernel-security]] — deteksi runtime eBPF
+
+audited
+---

@@ -29,3 +29,6 @@ cssclasses:
 - [[rust-systems-programming-tooling-keamanan]]
 - [[software-engineering]]
 - [[the-pragmatic-programmer]]
+
+audited
+---

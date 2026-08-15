@@ -57,10 +57,10 @@ Chaosrouter menonjol karena **kemampuan manipulasi aktif** — bukan hanya mende
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                     ChaosOS (Linux)                           │
+│                     ChaosOS (Linux)                          │
 │  [Web GUI] ─── [CLI] ─── [API untuk integrasi]               │
 │                                                              │
-│  [Modul Inti]                                                 │
+│  [Modul Inti]                                                │
 │  ├── SDR Controller (mengelola radio)                        │
 │  ├── Protocol Stack (GSM, UMTS, LTE custom stack)            │
 │  ├── Signal Processor (FPGA-accelerated)                     │
@@ -214,3 +214,7 @@ Chaosrouter adalah eskalasi signifikan dari IMSI Catcher tradisional. Kemampuan 
 ---
 
 *Chaosrouter Deep Dive | Portable Cellular Interception & Manipulation | Israel Tactical SIGINT Tool*
+---
+
+audited
+---

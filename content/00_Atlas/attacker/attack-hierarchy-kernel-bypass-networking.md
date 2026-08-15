@@ -70,5 +70,7 @@ EDR: "sistem sehat" — karena syscall return di-filter oleh eBPF
 - eBPF Project — https://ebpf.io/
 - libbpf Docs — https://libbpf.readthedocs.io/
 - DPDK — https://dpdk.org/
-- CVE-2021-3490 eBPF — https://syswolf.com/
-- io_uring Security — https://www.graplsecurity.com/post/iouring-implications-on-linux-security
+---
+
+audited
+---

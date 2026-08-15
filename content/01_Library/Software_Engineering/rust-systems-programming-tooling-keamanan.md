@@ -676,3 +676,7 @@ HARI 5: Production Tool
 
 > [!tip] Ponytail
 > Catatan ini belum mencakup Rust WebAssembly (wasm-pack untuk browser tooling), Rust untuk kernel module (kernel 6.14+ eksperimental), Rust untuk GPU computing (wgpu, cubecl), dan async Rust advanced patterns (actor model via Actix, async streams). Tambahkan seiring kebutuhan.
+---
+
+audited
+---

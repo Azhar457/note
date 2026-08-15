@@ -177,8 +177,8 @@ deny from any to any   # default deny
 | **Forrester ZTX** | Forrester | Zero Trust eXtended (menyaksikan identitas, device, network, data, workload, visibility, orchestrasi) | Populer di enterprise. |
 | **Google BeyondCorp** | Google | Model produksi internal untuk akses aplikasi tanpa VPN | Publikasikan banyak artikel praktik. |
 | **CISA Zero Trust Maturity Model** | CISA (US) | Model kematangan dengan 5 pilar: identity, device, network, aplikasi, data | Membantu melakukan self-assessment. |
-| **ENISA Zero Trust** | ENISA (EU) | Panduan untuk adopsi di Eropa, termasuk pertimbangan GDPR. |
-| **ISO/IEC 27001:2022 Annex A** | ISO | Kontrol keamanan informasi; kontrol A.5.15 (akses terkait dengan vendor) dapat dipetakan ke ZT. |
+| **ENISA Zero Trust** | ENISA (EU) | Panduan untuk adopsi di Eropa, termasuk pertimbangan GDPR. | |
+| **ISO/IEC 27001:2022 Annex A** | ISO | Kontrol keamanan informasi; kontrol A.5.15 (akses terkait dengan vendor) dapat dipetakan ke ZT. | |
 
 ### Teknologi Terkini
 
@@ -265,3 +265,7 @@ deny from any to any   # default deny
 
 > [!tip] Bottom Line
 > Zero Trust bukan produk yang dibeli sekali dan dipasang; ini adalah perubahan strategis dalam pola berpikir keamanan yang membutuhkan kolaborasi lintas fungsi, investasi berkelanjutan dalam teknologi identitas dan device, serta adaptasi terus-menerus terhadap ancaman yang terus berkembang. Dengan mengadopsi prinsip “never trust, always verify”, organisasi dapat mengurangi permukaan serangan, meningkatkan visibilitas, dan membangun daya tahan yang lebih tinggi terhadap insiden siber modern.
+---
+
+audited
+---

@@ -80,7 +80,7 @@ Defender Framework → Red Team Plan:
 | **OT/ICS** | [[attack-ics-scada]], [[attack-automotive-can-bus]] | — |
 | **Hardware** | [[attack-firmware-re]], [[attack-side-channel]] | — |
 
-- **Index folder**: [[Attacker/_index|🗡️ Attacker Library]] · [[Defender/_index|🛡️ Defender Library]]
+- **Index folder**: [[01_Library/attacker/_index|🗡️ Attacker Library]] · [[01_Library/defender/_index|🛡️ Defender Library]]
 - **Peta defense-in-depth**: [[00_Atlas/hierarchy-cybersecurity-defense-architecture|9-layer defense architecture]]
 
 ## 6. Referensi
@@ -89,3 +89,7 @@ Defender Framework → Red Team Plan:
 - CIS Controls — https://www.cisecurity.org/controls/
 - OWASP Top 10 — https://owasp.org/www-project-top-ten/
 - MITRE Engage — https://engage.mitre.org/
+---
+
+audited
+---

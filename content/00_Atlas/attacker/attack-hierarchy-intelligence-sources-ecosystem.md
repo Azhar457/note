@@ -83,6 +83,9 @@ Phase 4 — Active Attack:
 - OSINT Framework — https://osintframework.com/
 - Maltego — https://www.maltego.com/
 - Shodan — https://www.shodan.io/
-- SecurityTrails — https://securitytrails.com/
 - HaveIBeenPwned — https://haveibeenpwned.com/
 - Spiderfoot — https://www.spiderfoot.net/
+---
+
+audited
+---

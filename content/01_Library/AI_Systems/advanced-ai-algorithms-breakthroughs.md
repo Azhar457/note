@@ -859,3 +859,7 @@ Latent Diffusion ──→ Flow Matching ──→ Schrödinger Bridge
 ---
 
 *Dibuat: 16 Juli 2026 — Sesi deep-dive 8 algoritma AI generatif & foundation model terkini.*
+---
+
+audited
+---

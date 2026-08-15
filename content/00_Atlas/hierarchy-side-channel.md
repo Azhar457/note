@@ -116,3 +116,6 @@ Countermeasure paling dasar: **constant-time** (gratis untuk developer yang awar
 > Side-channel attack mengajarkan: **implementasi lebih penting dari algoritma.** AES-256 paling kuat pun tidak berguna jika power trace mengekspos kunci. Constant-time programming adalah investasi security paling murah dengan dampak tertinggi.
 
 *Side-Channel Attack Hierarchy | Level 0 (Timing) → Level 5 (Cache/Fault/Quantum) · Membaca Rahasia dari Efek Samping*
+
+audited
+---

@@ -38,9 +38,9 @@ cssclasses:
 - [[#6. Mesh Protocols — Zigbee, Z-Wave, Thread, Matter]]
 - [[#7. Serialization — CBOR, Protobuf, MessagePack]]
 - [[#8. Security — DTLS, OSCORE, Secure Boot]]
-- [[🔗 Koneksi ke Catatan Lain]]
-- [[✅ Checklist]]
-- [[Roadmap Belajar]]
+- 🔗 Koneksi ke Catatan Lain
+- ✅ Checklist
+- Roadmap Belajar
 
 ---
 
@@ -409,3 +409,7 @@ HARI 5: Security & Production
 
 > [!tip] Lanjutan
 > Catatan ini fokus ke communication protocols. Untuk security IoT, baca [[edge-computing-iot-security-architecture]]. Untuk embedded implementation, baca [[embedded-systems]]. Untuk wireless security, baca [[wireless-security-deepdive]].
+---
+
+audited
+---

@@ -95,8 +95,11 @@ Exit: Process exit → no trace
 
 ## 5. Referensi
 - Volatility 3 — https://github.com/volatilityfoundation/volatility3
-- KAPE (Kroll) — https://www.kroll.com/en/services/cyber-risk/...
 - Plaso / log2timeline — https://plaso.readthedocs.io/
 - The Sleuth Kit — https://www.sleuthkit.org/
 - Velociraptor — https://github.com/Velocidex/velociraptor
-- sdelete (Sysinternals) — https://docs.microsoft.com/en-us/systrneys-tests/downloads/sdelete
+- sdelete (Sysinternals) — https://learn.microsoft.com/en-us/sysinternals/downloads/sdelete
+---
+
+audited
+---

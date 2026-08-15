@@ -111,5 +111,57 @@ Mitigation: Masking, constant-time, secure element
 - Spectre/Meltdown — https://spectreattack.com/
 - Rowhammer — https://rowhammer.tech/
 - ChipWhisperer — https://chipwhisperer.readthedocs.io/
-- Tempest — https://en.wikipedia.org/wiki/Tempest_(codename)
+- Tempest — https://en.wikipedia.org/wiki/TEMPEST)
 - Side Channel (power) — https://www.sidechannel-sec.com/
+
+## Konkret — Side Channel Payload (Testable)
+
+### Spectre v1 (Bounds Check Bypass)
+
+```c
+// Vulnerable pattern: array bounds check via condition
+// Speculative execution bypass check → cache leak
+
+if (x < array1_size) {
+    // Speculative: x might be out-of-bounds (attacker controls)
+    y = array2[array1[x] * 4096]; // leak via cache timing
+}
+
+// Flush+Reload attack:
+// 1. Flush array2 from cache
+// 2. Trigger speculative access (mispredict)
+// 3. Time array2 access → which cache line loaded → array1[x] value
+```
+
+### Meltdown (CVE-2017-5754)
+
+```c
+// User-space read kernel memory via speculative execution
+// 1. Trigger fault (kernel address access)
+// 2. Speculative: read proceeds before fault
+// 3. Cache encoding → leak kernel byte
+
+// meltudp.c pattern:
+char *kernel_addr = 0xffffffff81a00000; // kernel address
+// cache encode: array2[(*kernel_addr) * 4096]
+// Time array2 → decode byte
+```
+
+### Rowhammer (DRAM bit flip)
+
+```bash
+# 1. Rapid read同一 row (flush + read) DRAM
+# 2. Electromagnetic coupling flip bit di adjacent row
+# 3. PTE bit flip → page → kernel text modify → root
+
+# Test memory vulnerability:
+sudo ./rowhammer_test
+# If vulnerable: bit flips detectable → privesc path
+
+# GLB+Our DOS variant TRRespass (2020):
+# Many-sided read}}},
+```
+---
+
+audited
+---

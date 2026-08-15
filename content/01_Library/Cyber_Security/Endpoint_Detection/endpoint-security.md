@@ -136,3 +136,7 @@ Detection:
 ---
 
 *Endpoint Security | CPU Ring -3 sampai Ring 3 · Boot Chain Threat Landscape*
+---
+
+audited
+---

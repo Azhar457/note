@@ -11,7 +11,6 @@ cssclasses:
   - callout
 ---
 
-
 # 🚀 PICOCTF SECTION 1 — Onboarding & Connection
 
 > **Environment:** Linux Shell / Webshell  
@@ -71,12 +70,12 @@ Netcat (`nc`) adalah utilitas jaringan yang membaca dan menulis data di seluruh 
 Dalam tantangan picoCTF, server target bertindak sebagai **Listener** (membuka pintu port tertentu dan menjalankan skrip di baliknya). Sementara komputer Anda bertindak sebagai **Connector** (klien yang mengetuk pintu koneksi tersebut).
 
 ```
-+---------------------------+                      +---------------------------+
-|    SERVER (PicoCTF)       |   TCP Connection     |       CLIENT (Anda)       |
-|    (Listener Mode)        | <==================> |     (Connector Mode)      |
-|  Menjalankan skrip Python |                      |  Mengirim input & membaca |
-|  dan menunggu di Port 9999|                      |  output lewat terminal    |
-+---------------------------+                      +---------------------------+
++---------------------------+                +---------------------------+
+|    SERVER (PicoCTF)       |  TCP Connection|       CLIENT (Anda)       |
+|    (Listener Mode)        | <============> |     (Connector Mode)      |
+|  Menjalankan skrip Python |                |  Mengirim input & membaca |
+|  dan menunggu di Port 9999|                |  output lewat terminal    |
++---------------------------+                +---------------------------+
 ```
 
 ### 3.2 Menghubungkan ke Server Target
@@ -129,3 +128,7 @@ Setelah koneksi terbentuk, apa pun yang Anda ketik di terminal lokal akan dikiri
 ---
 
 *PicoCTF Section 1 | SSH · Netcat · Flag Discovery | Dokumentasi Pembelajaran Taktis*
+---
+
+audited
+---

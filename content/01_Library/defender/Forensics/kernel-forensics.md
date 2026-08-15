@@ -173,3 +173,7 @@ python3 vol.py -f linux.raw linux.lsmod
 | [[hardware-hacking-re]] | Ekstraksi firmware dan anatomis low-level memori hardware. |
 | [[incident-response-framework]] | Prosedur akuisisi memori RAM secara aman (LiME, FTK Imager) sebelum dilakukan analisis. |
 | [[unified-threat-ontology]] | Penjelasan ancaman siber Ring 0 pada tataran Layer 1 & 2 sistem operasi. |
+---
+
+audited
+---

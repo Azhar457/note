@@ -271,3 +271,7 @@ falsepositives:
 - SLIVER C2 Documentation — https://sliver.sh/
 - MYTHIC C2 — https://mythic-c2.net/
 - BloodHound / SharpHound — https://bloodhound.readthedocs.io/
+---
+
+audited
+---

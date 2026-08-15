@@ -273,3 +273,7 @@ Kalo vault-rag > 100K chunks (vault tumbuh), strategi:
 
 > [!tip] Bottom Line
 > Vector database adalah tentang **trade-off**. vault-rag dengan sqlite-vec + brute force sudah cukup untuk dataset sekarang. Monitoring: kalo query latency > 100ms, saatnya pindah ke HNSW. Formula: **(< 50K vektor) → sqlite-vec. (> 50K) → FAISS HNSW. (> 1M) → IVF+PQ.** Jangan optimasi sebelum waktunya — YAGNI.
+---
+
+audited
+---

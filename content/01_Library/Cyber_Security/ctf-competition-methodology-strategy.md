@@ -600,3 +600,7 @@ tshark -r capture.pcap --export-objects http,output/
 ---
 
 *CTF Methodology & Strategy · Universal — tidak terikat event · Triage > Brute Force · Team Communication = Force Multiplier*
+---
+
+audited
+---

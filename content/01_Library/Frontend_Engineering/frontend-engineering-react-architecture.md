@@ -39,9 +39,9 @@ cssclasses:
 - [[#8. Build & Deploy — Vite, Turbopack, Docker]]
 - [[#9. Error Handling & Monitoring]]
 - [[#10. Security — XSS, CSP, Auth Patterns]]
-- [[🔗 Koneksi ke Catatan Lain]]
-- [[✅ Checklist]]
-- [[Roadmap Belajar]]
+- 🔗 Koneksi ke Catatan Lain
+- ✅ Checklist
+- Roadmap Belajar
 
 ---
 
@@ -357,3 +357,7 @@ HARI 5: Testing
 
 > [!tip] Lanjutan
 > Catatan ini fokus ke React/Next.js. Ekosistem frontend juga mencakup Vue/Nuxt, Svelte/SvelteKit, dan Solid.js — topik untuk catatan terpisah. Juga terkait: [[software-engineering]] (prinsip umum), [[web-security]] (frontend security).
+---
+
+audited
+---

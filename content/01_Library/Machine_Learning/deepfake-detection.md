@@ -15,7 +15,7 @@ references:
   - [[semantic-search-pipeline]]
   - [[computer-vision-deepdive]]
 related_notes:
-  - [[Machine_Learning/deepfake-detection|Deepfake Detection Overview]]
+  - [[deepfake-detection|Deepfake Detection Overview]]
 ---
 
 > Deepfake detection adalah cat‑and‑mouse game antara generator dan detector, di mana teknik generatif terus berkembang menyaingi metode analisis.
@@ -69,77 +69,12 @@ Dataset ini menyediakan ground truth dan metrik standar:
 > Menggabungkan sinyal biologis (rPPG) dengan analisis visual meningkatkan deteksi pada video kualitas tinggi, namun memerlukan resolusi ≥ 720p.
 
 ## 7. Referensi
-- [[Machine_Learning/semantic-search-pipeline]] – teknik vektor untuk pencarian anomali media.
-- [[AI_Systems/computer-vision-deepdive]] – arsitektur model visual yang relevan.
+- [[semantic-search-pipeline]] – teknik vektor untuk pencarian anomali media.
+- [[computer-vision-deepdive]] – arsitektur model visual yang relevan.
 - Paper: "Face Anti‑Spoofing via Attention‑Based CNN" (2023).
 - RFC 7499 – Detecting Synthetic Media.
 - Dokumentasi Deepware Scanner (GitHub).
+---
 
-## Deepdive Tambahan — Implementasi & Operasional
-
-### Arsitektur & Komponen Detail
-
-Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
-
-| Komponen | Fungsi | Attack Surface | Defense |
-|----------|--------|---------------|---------|
-| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
-| **Processing** | Core logic | Logic flaw, bypass | Test, review |
-| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
-| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
-| **Network** | Transit | Intercept, MITM | TLS, mTLS |
-| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
-
-### Workflow End-to-End
-
-```
-Input → Validate → Process → Store → Serve → Monitor → Audit
-  ↓       ↓         ↓         ↓       ↓        ↓        ↓
-Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
-```
-
-### Tradeoff & Decision Matrix
-
-| Dimension | Pilihan A | Pilihan B | Factor |
-|-----------|-----------|-----------|--------|
-| Speed vs Security | Optimized | Strict validate | Risk context |
-| Memory vs Scale | In-memory | Disk-backed | Data volume |
-| Cost vs Control | Cloud managed | Self-hosted | Team capability |
-| Convenience vs Audit | Auto | Manual review | Compliance |
-
-### Best Practice Checklist
-
-- [ ] Input validation (whitelist, not blacklist)
-- [ ] Output encoding (context-aware: HTML, JS, CSS)
-- [ ] Authentication (MFA, rate limit, lockout)
-- [ ] Authorization (RBAC, least privilege, deny default)
-- [ ] Logging (structured, immutable, centralized)
-- [ ] Monitoring (latency, error, saturation, traffic)
-- [ ] Encryption (transit TLS, rest AES, key rotation)
-- [ ] Backup (test restore, offsite, immutable)
-- [ ] Patch (automated scan, SLA per severity)
-- [ ] Incident (runbook, contact, tabletop)
-
-### Common Pitfall
-
-1. **Assume input trusted**: Semua input adalah musuh → validate di server.
-2. **Secret in code**: Hardcoded credential → git leak → compromise.
-3. **Silent failure**: Error ditelan → debugging impossible → security blind.
-4. **No rate limit**: Abuse path → DoS → resource exhaustion.
-5. **Default config**: Default = insecure → harden sebelum produksi.
-
-### Tool Stack
-
-| Tool | Use |
-|------|-----|
-| Testing | Burp Suite, OWASP ZAP, ffuf |
-| Scanning | Nmap, Nuclei, Trivy |
-| Monitoring | Prometheus + Grafana |
-| Logging | ELK / Loki |
-| Secret | Vault / SOPS |
-
-## Referensi
-- OWASP Top 10 — https://owasp.org/www-project-top-ten/
-- NIST CSF — https://www.nist.gov/cyberframework
-- MITRE ATT&CK — https://attack.mitre.org/
-- CIS Controls — https://www.cisecurity.org/controls/
+audited
+---

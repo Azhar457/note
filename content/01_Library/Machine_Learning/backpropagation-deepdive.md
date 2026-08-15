@@ -847,3 +847,7 @@ Ini berguna untuk debug training. Plot `grad_stats` per epoch untuk lihat layer 
 > **Pertanyaan lanjutan:** Kalau udah paham backprop, selanjutnya batch normalization → layer normalization → transformer. Semua itu adalah "patching" masalah yang muncul dari backprop di arsitektur tertentu: residual connections fix vanishing gradient, layer norm stabilisasi distribusi activation, dan attention mechanism menggantikan RNN yang juga korban vanishing gradient.
 
 > **Relasi dengan vault lain:** Backpropagation adalah landing page untuk memahami arsitektur modern. [[cosine-similarity-deepdive]] menjelaskan loss function yang sering dipakai di embedding models (contrastive loss, triplet loss) yang semuanya di-backprop. [[attention-mechanism-deepdive]] menjelaskan transformer di mana gradient mengalir melalui QKV projections dan softmax — pemahaman backprop penting untuk debugging attention training (entropy collapse, attention sink).
+---
+
+audited
+---

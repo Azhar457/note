@@ -828,3 +828,7 @@ Supply chain security duduk di **persimpangan antara**:
 >Supply chain security bukan tentang **trust** — trust akan selalu di-exploit. Ini tentang **verification di setiap langkah**: signed provenance untuk setiap build, SBOM di setiap release, dan kemampuan untuk audit seluruh dependency tree sampai leaf terakhir. Satu library yang tidak di-maintain di kedalaman tree adalah satu titik kegagalan yang menunggu untuk dieksploitasi.
 >
 >Di era 2026, jika kamu tidak punya SBOM untuk aplikasi kamu — **kamu tidak tahu apa yang berjalan di production kamu.**
+---
+
+audited
+---

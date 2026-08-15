@@ -267,3 +267,7 @@ if __name__ == "__main__":
 - [[unified-mcp-server]] — Panduan Konfigurasi Server MCP Terpadu di Hermes
 - [[jina-reranker-v3-deepdive]] — Reranker untuk Optimasi Candidate Selection
 - [[ebpf-runtime-security-auditing]] — SOP Auditing System Calls menggunakan eBPF kprobe
+---
+
+audited
+---

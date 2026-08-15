@@ -343,3 +343,7 @@ Atau:      nop; nop        (disable jump entirely)
 - [[endpoint-detection-playbook]] — Endpoint detection — desktop app adalah endpoint utama
 - [[side-channel-analysis]] — Side channel — bisa diterapkan di desktop app (timing, power)
 - [[fuzzing-vulnerability-research]] — Fuzzing — fuzzing desktop app binary
+---
+
+audited
+---

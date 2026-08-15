@@ -36,8 +36,8 @@ Dependency modern bukan lagi "library kecil" — ini adalah *ekosistem* yang ter
 
 Attack supply-chain modern tidak hanya *typosquatting* atau *dependency confusion*. Ini mencakup:
 
-| Jenis Serangan | Mekanisme | Contoh Nyata |
-|----------------|-----------|-------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|----------------|-----------| :--- |-------------|
 |
  **Dependency Confusion** | Paket internal dengan nama sama di public registry | `npm` / `pypi` — attacker upload `internal-lib` yang lebih baru |
 | **Typosquatting** | Nama paket mirip yang populer | `requests` → `reqeusts` |
@@ -141,10 +141,9 @@ jobs:
 
 **Mitigasi:**
 
-| Layer | Tindakan | Tool / Konfigurasi |
-|-------|----------|---------------------|
-|
- Registry | Gunakan registry privat (`nexus`, `artifactory`, `github packages`) | Konfigurasi `.npmrc`, `pip.conf` |
+| Fase | Tindakan Keamanan | Konfigurasi / Mitigasi |
+|---|---|---|
+| Registry | Gunakan registry privat (`nexus`, `artifactory`, `github packages`) | Konfigurasi `.npmrc`, `pip.conf` |
 | Build | Lock versi (`package-lock.json`, `poetry.lock`, `Cargo.lock`) | Jangan gunakan `*` atau `^` tanpa verifikasi |
 | CI/CD | Verifikasi hash (`sha256`) setiap dependensi | `npm ci --prefer-offline`, `pip install --require-hashes` |
 | Audit | Bandingkan SBOM setiap build dengan SBOM baseline | `diff` SBOM JSON, alert jika ada komponen baru |
@@ -189,8 +188,8 @@ Setiap SBOM harus diverifikasi secara berkala. Ini bukan "sekali buat, lalu lupa
 
 Untuk organisasi yang sudah memiliki infrastruktur monitoring (`Prometheus`, `Grafana`), tambahkan metrik SBOM sebagai sumber data:
 
-| Metrik | Deskripsi | Alert Threshold |
-|--------|-----------|-----------------|
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+|--------|-----------| :--- |-----------------|
 |
  `sbom_components_total` | Jumlah komponen di SBOM | — |
 | `sbom_components_changed` | Komponen yang berubah sejak build terakhir | `> 0` → alert |
@@ -305,3 +304,7 @@ Catatan ini berkaitan erat dengan beberapa topik lain di vault:
 ---
 
 *Catatan ini dibuat sebagai bagian dari *Vault Audit* — referensi file asli (`TESTFROMDARKNET` — `DARKNETFORUM.txt`, `PROMPT INJECTION.txt`, dst) tetap tidak diubah (`mtime` asli), dan semua referensi `.md` di dalam catatan ini merujuk ke file yang sudah ada di vault. Status: **pending** — siap untuk verifikasi dan audit lebih lanjut.*
+---
+
+audited
+---

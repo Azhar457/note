@@ -11,7 +11,7 @@ aliases:
   - object-oriented-programming-deepdive
 created: '2026-08-04'
 updated: '2026-08-04'
-status: completed
+status: pending
 cssclasses:
   - wide-table
   - callout
@@ -355,3 +355,7 @@ L6: Architecture (DDD, hexagonal) → boundary di level sistem
 ---
 
 *OOP Deep Dive · Boundary > Alam Nyata · Encapsulation = Invariant · Inheritance = Hati-Hati · Composition First · SOLID = Konteks · Hybrid = Realita · YAGNI = Abstraksi*
+---
+
+audited
+---

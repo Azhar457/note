@@ -73,7 +73,9 @@ Ring -2 → Ring -3 (Hardware Implant):
 
 ## 4. Referensi
 - BlackLotus UEFI Bootkit — https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/
-- Intel ME Vulnerability — https://www.ptsecurity.com/ww-en/about/news/ip-2018-exploiting-intel-management-engine/
 - CVE-2024-21626 (runc) — https://nvd.nist.gov/vuln/detail/CVE-2024-21626
 - Ring Model (Wikipedia) — https://en.wikipedia.org/wiki/Protection_ring
 - Spectre/Meltdown — https://spectreattack.com/
+
+audited
+---

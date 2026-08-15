@@ -94,7 +94,7 @@ d: distance [km], f: frequency [MHz]
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | [**Social Engineering Toolkit (SET)**](https://github.com/trustedsec/social-engineer-toolkit) | Level Rating / Kejarangan | Phishing & SE automation | Website cloning, email spear-phishing, credential harvester, USB drop. Peak untuk SE assessment. |
+| 👑 | [**Social Engineering Toolkit (SET)**](https://github.com/trustedsec/social-engineer-toolkit) | | Phishing & SE automation | Website cloning, email spear-phishing, credential harvester, USB drop. Peak untuk SE assessment. |
 | 🥈 | [**Gophish**](https://getgophish.com) | `●●○○○` (2 - Populer) | Open-source phishing framework | Campaign management, landing pages, email tracking, reporting. Peak untuk authorized phishing simulation. |
 | 🥉 | [**King Phisher**](https://github.com/rsmudge/king-phisher) | `●●●○○` (3 - Phishing) | Phishing campaign toolkit | Plugin architecture, Jinja2 templates, geo-location tracking. |
 
@@ -116,7 +116,7 @@ d: distance [km], f: frequency [MHz]
 | :--: | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------: | :--------------------------- | :------------------------------------------------------------------------------------------------------------ |
 |  👑  | [**Autopsy + Sleuth Kit**](https://www.autopsy.com)                                                                                                    |      `●●○○○` (2 - Populer)       | Disk & file system forensics | Open-source, timeline analysis, keyword search, EXIF, registry, 100+ file formats. **The forensic standard.** |
 |  🥈  | [**Volatility 3**](https://www.volatilityfoundation.org)                                                                                               |   `●●●○○` (3 - RAM Forensics)    | Memory forensics             | Python 3, 30+ plugins, Windows/Linux/macOS, malware detection, rootkit hunting. Peak untuk RAM analysis.      |
-|  🥉  | [**FTK (Forensic Toolkit)**](https://www.exterro.com/forensic-toolkit)                                                                                 |    Level Rating / Kejarangan     | Commercial forensics suite   | Indexing, decryption, email analysis, registry viewer. Peak untuk law enforcement (proprietary, mahal).       |
+|  🥉  | [**FTK (Forensic Toolkit)**](https://www.exterro.com/forensic-toolkit)                                                                                 | | Commercial forensics suite   | Indexing, decryption, email analysis, registry viewer. Peak untuk law enforcement (proprietary, mahal).       |
 |  🏅  | [**Redline**](https://www.mandiant.com/resources/free-tools/redline)                                                                                   |      `●●●○○` (3 - Mandiant)      | Endpoint investigation       | Mandiant's free tool, IOC hunting, timeline, memory analysis. Peak untuk rapid IR.                            |
 |  🏅  | [[**KAPE**](https://www.kroll.com)](https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor) | `●●●●○` (4 - Tersembunyi/Triage) | Triage data collection       | Targeted artifact collection (50+ categories), ~1 min per endpoint. Peak untuk mass triage.                   |
 
@@ -124,20 +124,20 @@ d: distance [km], f: frequency [MHz]
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Cellebrite UFED** | Mobile extraction | 35,000+ device profiles, physical/logical/file system extraction, cloud. **Law enforcement gold standard.** |
-| 🥈 | **Oxygen Detective** | Mobile & cloud forensics | iOS/Android backups, cloud extraction, drone forensics. Peak untuk all-in-one mobile. |
-| 🥉 | **MobSF (Mobile Security Framework)** | Level Rating / Kejarangan | Mobile app analysis | Static + dynamic analysis, APK/IPA decompilation, API monitoring. Peak untuk mobile malware research. |
-| 🏅 | **iLEAPP** | iOS forensic parser | Open-source, 200+ artifact parsers, KnowledgeC, TCC, Health. Peak open iOS forensics. |
-| 🏅 | **ALEAPP** | Android forensic parser | Open-source, 200+ artifact parsers, Wellbeing, Cast, permissions. Peak open Android forensics. |
+| 👑 | **Cellebrite UFED** | Mobile extraction | 35,000+ device profiles, physical/logical/file system extraction, cloud. **Law enforcement gold standard.** | |
+| 🥈 | **Oxygen Detective** | Mobile & cloud forensics | iOS/Android backups, cloud extraction, drone forensics. Peak untuk all-in-one mobile. | |
+| 🥉 | **MobSF (Mobile Security Framework)** | | Mobile app analysis | Static + dynamic analysis, APK/IPA decompilation, API monitoring. Peak untuk mobile malware research. |
+| 🏅 | **iLEAPP** | iOS forensic parser | Open-source, 200+ artifact parsers, KnowledgeC, TCC, Health. Peak open iOS forensics. | |
+| 🏅 | **ALEAPP** | Android forensic parser | Open-source, 200+ artifact parsers, Wellbeing, Cast, permissions. Peak open Android forensics. | |
 
 ### 2.3 Network Forensics
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Zeek (Bro)** | Network analysis | Deep protocol analysis, scripting language, connection tracking, file extraction. Peak untuk network forensics. |
-| 🥈 | **Suricata** | IDS/IPS + NSM | Multi-threaded, Lua scripting, TLS fingerprinting, file extraction, full packet capture. |
-| 🥉 | **NetworkMiner** | Passive network forensics | PCAP parsing, file extraction, credential extraction, OS fingerprinting. Peak untuk PCAP analysis GUI. |
-| 🏅 | **Arkime (Moloch)** | Full packet capture & search | 100Gbps+ capture, SPI (Session Profile Indexing), Elasticsearch backend. Peak untuk large-scale PCAP. |
+| 👑 | **Zeek (Bro)** | Network analysis | Deep protocol analysis, scripting language, connection tracking, file extraction. Peak untuk network forensics. | |
+| 🥈 | **Suricata** | IDS/IPS + NSM | Multi-threaded, Lua scripting, TLS fingerprinting, file extraction, full packet capture. | |
+| 🥉 | **NetworkMiner** | Passive network forensics | PCAP parsing, file extraction, credential extraction, OS fingerprinting. Peak untuk PCAP analysis GUI. | |
+| 🏅 | **Arkime (Moloch)** | Full packet capture & search | 100Gbps+ capture, SPI (Session Profile Indexing), Elasticsearch backend. Peak untuk large-scale PCAP. | |
 
 ### 2.4 Financial Crime Investigation
 
@@ -146,15 +146,15 @@ d: distance [km], f: frequency [MHz]
 | 👑 | [**Chainalysis Reactor**](https://www.chainalysis.com) | `●●●●○` (4 - Enterprise) | Blockchain investigation | Address clustering, exchange attribution, transaction graph, sanctions screening. **The blockchain investigator.** |
 | 🥈 | [**Elliptic Navigator**](https://www.elliptic.co) | `●●●●○` (4 - Enterprise) | Crypto AML | Wallet screening, transaction monitoring, VASP due diligence. Peak untuk compliance. |
 | 🥉 | [**TRM Labs**](https://www.trmlabs.com) | `●●●●○` (4 - Enterprise) | Blockchain intelligence | Cross-chain tracing, risk scoring, forensics. Peak untuk multi-chain investigation. |
-| 🏅 | **i2 Analyst's Notebook** | Link analysis | Visual link charting, telephone/financial analysis, timeline. Peak untuk organized crime investigation. |
+| 🏅 | **i2 Analyst's Notebook** | Link analysis | Visual link charting, telephone/financial analysis, timeline. Peak untuk organized crime investigation. | |
 | 🏅 | [**Palantir Gotham**](https://www.palantir.com/platforms/gotham) | `●●●●●` (5 - Classified/Gov) | Data fusion & investigation | Entity resolution, geospatial, temporal analysis, multi-source fusion. Peak untuk intelligence agencies (proprietary, classified-tier). |
 
 ### 2.5 Case Management
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **TheHive + Cortex** | Incident response case mgmt | Case creation, observable analysis, 100+ analyzers, MISP integration, timeline. Peak open-source IR. |
-| 🥈 | **DFIR-ORC** | Automated forensic collection | Windows triage, memory dump, artifact collection, YARA scanning. Peak untuk automated endpoint forensics. |
+| 👑 | **TheHive + Cortex** | Incident response case mgmt | Case creation, observable analysis, 100+ analyzers, MISP integration, timeline. Peak open-source IR. | |
+| 🥈 | **DFIR-ORC** | Automated forensic collection | Windows triage, memory dump, artifact collection, YARA scanning. Peak untuk automated endpoint forensics. | |
 
 ---
 
@@ -166,8 +166,8 @@ d: distance [km], f: frequency [MHz]
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**Cobalt Strike**](https://www.cobaltstrike.com) | `●●●●○` (4 - Offensive C2) | Commercial adversary simulation | Malleable C2, SMB/TCP/HTTP/DNS beacons, pivoting, team collaboration, OPSEC profiles. **Red team industry standard.** |
 | 🥈 | [**Sliver**](https://github.com/BishopFox/sliver) | `●●●○○` (3 - C2 Framework) | Open-source C2 | Multiplayer, mTLS/wireguard/http/DNS, BOF/.NET/COFF execution, armory. Peak open-source C2. |
-| 🥉 | **Havoc** | Modern C2 framework | Demon agent, sleep obfuscation, x64 return address spoofing, inline-execute. Peak untuk modern red team. |
-| 🏅 | **Mythic** | Cross-platform C2 | Docker-based, 10+ agent types, Apollo/Athena/Poseidon, webhook integration. Peak untuk multi-platform. |
+| 🥉 | **Havoc** | Modern C2 framework | Demon agent, sleep obfuscation, x64 return address spoofing, inline-execute. Peak untuk modern red team. | |
+| 🏅 | **Mythic** | Cross-platform C2 | Docker-based, 10+ agent types, Apollo/Athena/Poseidon, webhook integration. Peak untuk multi-platform. | |
 | 🏅 | [**Brute Ratel C4**](https://bruteratel.com) | `●●●●●` (5 - Tersembunyi/RedTeam) | EDR evasion C2 | Badger agent, sleep obfuscation, hardware breakpoints, unhooking. Peak untuk EDR evasion research. |
 
 **C2 Communication Math:**
@@ -187,18 +187,18 @@ P(detect | 50% jitter + DoH + ECH) ≈ 0.08
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Metasploit Framework** | Level Rating / Kejarangan | Exploitation platform | 5000+ exploits, 3000+ payloads, auxiliary modules, pivoting, automation. **The exploitation standard.** |
-| 🥈 | **Core Impact** | Commercial exploit framework | Certified exploits, network/web/mobile, reporting, validation. Peak untuk validated penetration testing. |
-| 🥉 | **Canvas** | Commercial exploit dev | Immunity Debugger heritage, reliable exploits, shellcode generation. |
-| 🏅 | **SploitScan** | CVE exploit finder | Maps CVE ke known PoC/exploit, EPSS scoring, patch verification. Peak untuk CVE-to-exploit mapping. |
+| 👑 | **Metasploit Framework** | | Exploitation platform | 5000+ exploits, 3000+ payloads, auxiliary modules, pivoting, automation. **The exploitation standard.** |
+| 🥈 | **Core Impact** | Commercial exploit framework | Certified exploits, network/web/mobile, reporting, validation. Peak untuk validated penetration testing. | |
+| 🥉 | **Canvas** | Commercial exploit dev | Immunity Debugger heritage, reliable exploits, shellcode generation. | |
+| 🏅 | **SploitScan** | CVE exploit finder | Maps CVE ke known PoC/exploit, EPSS scoring, patch verification. Peak untuk CVE-to-exploit mapping. | |
 
 ### 3.3 Phishing & Social Engineering
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Evilginx2** | Phishing with 2FA bypass | Reverse proxy phishing, session cookie capture, real-time 2FA relay. Peak untuk AitM (Adversary-in-the-Middle) phishing. |
-| 🥈 | **Modlishka** | Reverse proxy phishing | Similar to Evilginx, flexible configuration, peak untuk research. |
-| 🥉 | **CredSniper** | Credential harvesting | Template-based, 2FA capture, email integration. |
+| 👑 | **Evilginx2** | Phishing with 2FA bypass | Reverse proxy phishing, session cookie capture, real-time 2FA relay. Peak untuk AitM (Adversary-in-the-Middle) phishing. | |
+| 🥈 | **Modlishka** | Reverse proxy phishing | Similar to Evilginx, flexible configuration, peak untuk research. | |
+| 🥉 | **CredSniper** | Credential harvesting | Template-based, 2FA capture, email integration. | |
 
 **Evilginx2 Attack Flow:**
 ```
@@ -219,28 +219,28 @@ P(detection | DMARC + URL sandbox) ≈ 0.70
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**Sliver**](https://github.com/BishopFox/sliver) | `●●●○○` (3 - C2 Framework) | Implant framework | BOF execution, .NET inline, COFF loader, process injection, evasion built-in. |
-| 🥈 | **ScareCrow** | EDR evasion loader | EDR bypass, unhooking, sandbox detection, multiple output formats. Peak untuk loader generation. |
-| 🥉 | **Nimcrypt2** | Nim-based payload loader | AES encryption, syscall direct, Nt API, process hollowing. Peak Nim loader. |
-| 🏅 | **Donut** | Shellcode generator | Convert .NET assemblies/PEs ke position-independent shellcode. Peak untuk fileless execution. |
-| 🏅 | **PEzor** | PE packer & loader | Open-source, multiple injection techniques, syscall obfuscation. |
+| 🥈 | **ScareCrow** | EDR evasion loader | EDR bypass, unhooking, sandbox detection, multiple output formats. Peak untuk loader generation. | |
+| 🥉 | **Nimcrypt2** | Nim-based payload loader | AES encryption, syscall direct, Nt API, process hollowing. Peak Nim loader. | |
+| 🏅 | **Donut** | Shellcode generator | Convert .NET assemblies/PEs ke position-independent shellcode. Peak untuk fileless execution. | |
+| 🏅 | **PEzor** | PE packer & loader | Open-source, multiple injection techniques, syscall obfuscation. | |
 
 ### 3.5 Web Application Attack
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**Burp Suite Professional**](https://portswigger.net/burp) | `●●○○○` (2 - Populer) | Web app testing | Repeater, Intruder, Scanner, Collaborator, 1000+ extensions. **Industry standard.** |
-| 🥈 | **OWASP ZAP** | Open-source web scanner | Active/passive scanning, fuzzing, scripting, automation. Peak open-source alternative. |
+| 🥈 | **OWASP ZAP** | Open-source web scanner | Active/passive scanning, fuzzing, scripting, automation. Peak open-source alternative. | |
 | 🥉 | [**Nuclei**](https://github.com/projectdiscovery/nuclei) | `●●○○○` (2 - Populer) | Vulnerability scanner | 6000+ templates, fast, community-driven, CI/CD integration. Peak untuk mass scanning. |
-| 🏅 | **SQLMap** | SQL injection automation | 6 injection techniques, database fingerprinting, OS shell. Peak untuk SQLi. |
-| 🏅 | **Commix** | Command injection | Automated OS command injection detection & exploitation. |
+| 🏅 | **SQLMap** | SQL injection automation | 6 injection techniques, database fingerprinting, OS shell. Peak untuk SQLi. | |
+| 🏅 | **Commix** | Command injection | Automated OS command injection detection & exploitation. | |
 
 ### 3.6 Active Directory & Internal
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**BloodHound**](https://github.com/BloodHoundAD/BloodHound) | `●●●○○` (3 - Active Directory) | AD attack path analysis | Ingests AD data, finds shortest path to Domain Admin, ACL abuse, kerberoast. **AD recon standard.** |
-| 🥈 | **SharpHound** | AD data collector | BloodHound ingestor, stealth collection, encrypted output. |
-| 🥉 | **CrackMapExec (NetExec)** | AD/network swiss army knife | SMB/WinRM/MSSQL/LDAP, credential spraying, enumeration, command execution. Peak untuk AD assessment. |
+| 🥈 | **SharpHound** | AD data collector | BloodHound ingestor, stealth collection, encrypted output. | |
+| 🥉 | **CrackMapExec (NetExec)** | AD/network swiss army knife | SMB/WinRM/MSSQL/LDAP, credential spraying, enumeration, command execution. Peak untuk AD assessment. | |
 | 🏅 | [**Impacket**](https://github.com/fortra/impacket) | `●●●○○` (3 - Python Sec) | Python network protocols | SMB, MSRPC, LDAP, Kerberos implementations. Peak untuk protocol-level AD attacks. |
 | 🏅 | [**Rubeus**](https://github.com/GhostPack/Rubeus) | `●●●●○` (4 - Kerberos) | Kerberos abuse | Kerberoasting, AS-REP roasting, ticket manipulation, pass-the-ticket. Peak untuk Kerberos attacks. |
 
@@ -253,9 +253,9 @@ P(detection | DMARC + URL sandbox) ≈ 0.70
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**CrowdStrike Falcon**](https://www.crowdstrike.com) | `●●●○○` (3 - Enterprise EDR) | Cloud-native EDR | Behavioral AI, Threat Graph, IOA (Indicator of Attack), 1-second search. **Market leader.** |
-| 🥈 | **Microsoft Defender for Endpoint** | Integrated EDR | Built into Windows, ASR rules, threat analytics, seamless integration. Peak untuk Microsoft ecosystem. |
-| 🥉 | **SentinelOne** | Autonomous EDR | Storyline (automatic correlation), Ranger (network discovery), rollback. Peak untuk autonomous response. |
-| 🏅 | **Elastic Endpoint** | Open XDR | Elastic Agent, behavioral rules, Osquery integration, SIEM-native. Peak open-source EDR. |
+| 🥈 | **Microsoft Defender for Endpoint** | Integrated EDR | Built into Windows, ASR rules, threat analytics, seamless integration. Peak untuk Microsoft ecosystem. | |
+| 🥉 | **SentinelOne** | Autonomous EDR | Storyline (automatic correlation), Ranger (network discovery), rollback. Peak untuk autonomous response. | |
+| 🏅 | **Elastic Endpoint** | Open XDR | Elastic Agent, behavioral rules, Osquery integration, SIEM-native. Peak open-source EDR. | |
 | 🏅 | [**Wazuh**](https://wazuh.com) | `●●○○○` (2 - Populer OS) | Open-source EDR/HIDS | OSSEC fork, FIM, log analysis, vulnerability detection, 0 cost. Peak untuk budget-conscious. |
 
 **EDR Detection Logic:**
@@ -279,18 +279,18 @@ P(detect | EDR + zero-day) ≈ 0.05-0.20
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [[**Palo Alto Cortex XDR**](https://www.paloaltonetworks.com)](https://www.paloaltonetworks.com/cortex/cortex-xdr) | `●●●○○` (3 - XDR) | Multi-source XDR | Endpoint + network + cloud + identity correlation, behavioral analytics. Peak untuk enterprise XDR. |
-| 🥈 | **Trend Micro Vision One** | XDR + risk insights | Email + endpoint + server + cloud, attack surface risk. |
-| 🥉 | **Elastic Security** | Open XDR | SIEM + EDR + cloud security + threat intel, unified data tier. Peak open XDR. |
+| 🥈 | **Trend Micro Vision One** | XDR + risk insights | Email + endpoint + server + cloud, attack surface risk. | |
+| 🥉 | **Elastic Security** | Open XDR | SIEM + EDR + cloud security + threat intel, unified data tier. Peak open XDR. | |
 
 ### 4.3 Security Information & Event Management (SIEM)
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
 | 👑 | [**Splunk Enterprise Security**](https://www.splunk.com) | `●●●○○` (3 - SIEM) | Enterprise SIEM | 2000+ apps, SPL (Search Processing Language), UBA, SOAR integration. **Enterprise SIEM king.** |
-| 🥈 | **Elastic Security (ELK)** | Open SIEM | Beats/Agent ingestion, detection rules, ML jobs, cases, free tier. Peak open-source SIEM. |
-| 🥉 | **Microsoft Sentinel** | Cloud-native SIEM | KQL, UEBA, SOAR (Logic Apps), threat intelligence, Azure integration. Peak cloud SIEM. |
+| 🥈 | **Elastic Security (ELK)** | Open SIEM | Beats/Agent ingestion, detection rules, ML jobs, cases, free tier. Peak open-source SIEM. | |
+| 🥉 | **Microsoft Sentinel** | Cloud-native SIEM | KQL, UEBA, SOAR (Logic Apps), threat intelligence, Azure integration. Peak cloud SIEM. | |
 | 🏅 | [**Wazuh**](https://wazuh.com) | `●●○○○` (2 - Populer OS) | Open-source SIEM | HIDS + log analysis + FIM + vulnerability + compliance. Peak all-in-one open SIEM. |
-| 🏅 | **Graylog** | Log management | GELF, stream processing, alerting, dashboards. Peak untuk log aggregation. |
+| 🏅 | **Graylog** | Log management | GELF, stream processing, alerting, dashboards. Peak untuk log aggregation. | |
 
 **SIEM Detection Rule (Sigma):**
 ```yaml
@@ -315,28 +315,28 @@ level: high
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Darktrace** | AI NDR | Self-learning AI, Enterprise Immune System, Antigena (autonomous response). Peak AI-driven NDR. |
-| 🥈 | **Vectra AI** | Network threat detection | Cognito platform, attacker behavior detection, Azure AD integration. Peak untuk network TTP detection. |
-| 🥉 | **Corelight** | Zeek-based NDR | Open NDR, Zeek logs, Suricata integration, evidence extraction. Peak Zeek-based NDR. |
-| 🏅 | **Stamus Networks** | Suricata NDR | Scalable Suricata, TLS fingerprinting, asset discovery, hunting. Peak Suricata-based NDR. |
+| 👑 | **Darktrace** | AI NDR | Self-learning AI, Enterprise Immune System, Antigena (autonomous response). Peak AI-driven NDR. | |
+| 🥈 | **Vectra AI** | Network threat detection | Cognito platform, attacker behavior detection, Azure AD integration. Peak untuk network TTP detection. | |
+| 🥉 | **Corelight** | Zeek-based NDR | Open NDR, Zeek logs, Suricata integration, evidence extraction. Peak Zeek-based NDR. | |
+| 🏅 | **Stamus Networks** | Suricata NDR | Scalable Suricata, TLS fingerprinting, asset discovery, hunting. Peak Suricata-based NDR. | |
 
 ### 4.5 Identity Security
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Okta / Azure AD** | Identity management | SSO, MFA, conditional access, risk-based policies. Peak untuk identity foundation. |
-| 🥈 | **Delinea (Thycotic)** | PAM (Privileged Access) | Secret Server, privilege elevation, session recording. Peak untuk privileged access. |
-| 🥉 | **Silverfort** | Unified identity protection | Agentless MFA, identity threat detection, AD integration. Peak untuk identity threat detection. |
-| 🏅 | **BloodHound Enterprise** | AD security assessment | Continuous AD attack path analysis, exposure metrics, remediation. Peak untuk AD defense. |
+| 👑 | **Okta / Azure AD** | Identity management | SSO, MFA, conditional access, risk-based policies. Peak untuk identity foundation. | |
+| 🥈 | **Delinea (Thycotic)** | PAM (Privileged Access) | Secret Server, privilege elevation, session recording. Peak untuk privileged access. | |
+| 🥉 | **Silverfort** | Unified identity protection | Agentless MFA, identity threat detection, AD integration. Peak untuk identity threat detection. | |
+| 🏅 | **BloodHound Enterprise** | AD security assessment | Continuous AD attack path analysis, exposure metrics, remediation. Peak untuk AD defense. | |
 
 ### 4.6 Cloud Security
 
 | Rank | Tool | Level Rating / Kejarangan | Fungsi | Kenapa Peak |
 | :----: | :----- | :---: | :------- | :------------ |
-| 👑 | **Wiz** | Cloud security platform | Agentless, 100% coverage, graph-based risk prioritization, CI/CD. **Fastest growing cloud security.** |
-| 🥈 | **Palo Alto Prisma Cloud** | CNAPP | CWPP + CSPM + CI/CD + code security. Peak comprehensive cloud security. |
-| 🥉 | **Orca Security** | Agentless cloud security | Side-scanning, 100% workload coverage, attack path analysis. |
-| 🏅 | **Prowler** | Open-source CSPM | AWS/Azure/GCP, 300+ checks, compliance frameworks. Peak open-source cloud security. |
+| 👑 | **Wiz** | Cloud security platform | Agentless, 100% coverage, graph-based risk prioritization, CI/CD. **Fastest growing cloud security.** | |
+| 🥈 | **Palo Alto Prisma Cloud** | CNAPP | CWPP + CSPM + CI/CD + code security. Peak comprehensive cloud security. | |
+| 🥉 | **Orca Security** | Agentless cloud security | Side-scanning, 100% workload coverage, attack path analysis. | |
+| 🏅 | **Prowler** | Open-source CSPM | AWS/Azure/GCP, 300+ checks, compliance frameworks. Peak open-source cloud security. | |
 
 ---
 
@@ -653,11 +653,11 @@ Purple team adalah kolaborasi red + blue untuk validate defense.
 
 | Tool | Fungsi | Level Rating / Kejarangan | Kenapa Peak |
 | :----- | :------- | :---: | :------------ |
-| [**Atomic Red Team**](https://atomicredteam.io) | TTP testing library | 500+ atomic tests mapped ke MITRE ATT&CK, portable, detectable. Peak untuk TTP validation. |
-| **Caldera** | Automated adversary emulation | MITRE's framework, 100+ abilities, autonomous operation. Peak untuk automated purple team. |
-| **Prelude Operator** | Continuous security testing | Schedule TTPs, measure detection coverage, reporting. |
-| **Vectra AI** | Network detection validation | Validate NDR detection dengan red team activity. |
-| **MITRE ATT&CK Navigator** | Coverage mapping | Visualisasi detection coverage per TTP, identify gaps. Peak untuk coverage analysis. |
+| [**Atomic Red Team**](https://atomicredteam.io) | TTP testing library | 500+ atomic tests mapped ke MITRE ATT&CK, portable, detectable. Peak untuk TTP validation. | |
+| **Caldera** | Automated adversary emulation | MITRE's framework, 100+ abilities, autonomous operation. Peak untuk automated purple team. | |
+| **Prelude Operator** | Continuous security testing | Schedule TTPs, measure detection coverage, reporting. | |
+| **Vectra AI** | Network detection validation | Validate NDR detection dengan red team activity. | |
+| **MITRE ATT&CK Navigator** | Coverage mapping | Visualisasi detection coverage per TTP, identify gaps. Peak untuk coverage analysis. | |
 
 **Purple Team Metrics:**
 ```
@@ -709,3 +709,7 @@ Target: <1 hour untuk critical
 | [[endpoint-security]] | EDR/XDR defense stack |
 | [[network-security]] | NDR & network forensics |
 | [[incident-response-framework]] | IR playbook & case management |
+---
+
+audited
+---

@@ -38,9 +38,9 @@ cssclasses:
 - [[#8. Distributed Transactions — 2PC, 3PC, Saga]]
 - [[#9. Failure Detection — Gossip, SWIM, Phi-Accrual]]
 - [[#10. Distributed Observability — Tracing, Logging, Metrics]]
-- [[🔗 Koneksi ke Catatan Lain]]
-- [[✅ Checklist]]
-- [[Roadmap Belajar]]
+- 🔗 Koneksi ke Catatan Lain
+- ✅ Checklist
+- Roadmap Belajar
 
 ---
 
@@ -817,3 +817,7 @@ HARI 5: Observability & Production
 > - [[database-schema-sharding-replication]] — praktik sharding + replication di database
 > - [[database-internals-indexing-mvcc]] — storage engine sebagai distributed system component
 > - DDIA (Designing Data-Intensive Applications) — bacaan wajib untuk distributed systems
+---
+
+audited
+---

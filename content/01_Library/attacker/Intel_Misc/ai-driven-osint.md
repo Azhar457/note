@@ -339,8 +339,8 @@ OSINT adalah pedang bermata dua. Kemampuan untuk mengumpulkan adalah kemampuan u
 
 ### Taktik Ofensif & Defensif
 
-| Taktik Ofensif AI | Deskripsi | Taktik Defensif AI |
-| :--- | :--- | :--- |
+| Taktik Ofensif AI | Deskripsi Ofensif | Taktik Defensif AI | Deskripsi Defensif |
+| :--- | :--- | :--- | :--- |
 | **LLM Poisoning Attack** | Menyuntikkan narasi palsu dalam skala besar untuk mengotori korpus pelatihan dan analisis. | **Adversarial Robustness Check** | Mengaudit model analisis terhadap serangan prompt injection. |
 | **Synthetic Persona Generation** | Menciptakan ribuan "sock puppets" digital dengan identitas, wajah, dan sejarah yang realistis untuk menyebarkan disinformasi. | **Stylometric Analysis** | Menganalisis gaya penulisan untuk mengidentifikasi teks buatan LLM (perplexity, burstiness). |
 | **Digital Fog** | Membanjiri saluran intelijen dengan data palsu bervolume tinggi, menyembunyikan sinyal yang sebenarnya. | **Anomaly Detection** | Menggunakan model ML untuk mendeteksi lonjakan aktivitas yang tidak wajar. |
@@ -382,3 +382,7 @@ Dokumen ini adalah titik kulminasi dari banyak disiplin ilmu yang telah Anda ban
 | **[[google-dorks]]** & **[[shodan]]** | Ini adalah alat "Level 0" untuk Collection Agent. Agen harus mampu menghasilkan dan menjalankan kueri ini secara otomatis dan cerdas. |
 
 Ini bukan lagi tentang menggunakan alat. Ini adalah tentang merancang **organisme kognitif digital** yang mampu merasakan, memahami, dan bertindak dalam lanskap informasi global.
+---
+
+audited
+---

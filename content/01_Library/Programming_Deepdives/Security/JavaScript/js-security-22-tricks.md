@@ -794,3 +794,7 @@ console.log('DevTools open:', detectDevTools());
 ---
 
 *JavaScript Security | 22 Trik Deteksi Bot · Fingerprinting · Stealth · Exfiltration*
+---
+
+audited
+---

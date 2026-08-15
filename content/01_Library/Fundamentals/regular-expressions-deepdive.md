@@ -554,3 +554,7 @@ eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*
 
 > [!tip] Bottom Line
 > Regex adalah **senjata paling tajam dan paling berbahaya** di toolbox security engineer. Satu regex yang benar bisa mendeteksi attack dalam mikrodetik; satu regex yang salah bisa menghabiskan CPU 100% (ReDoS) dan membawa down seluruh sistem. Buat security engineer: (1) **Paham engine** — PCRE untuk rule yang butuh backreference, RE2 untuk log parsing performa tinggi. (2) **Hindari nested quantifiers** — `(a+)+` adalah pola klasik ReDoS. Pake atomic group `(?>...)` atau possessive `++` untuk cegah backtracking gak perlu. (3) **Test dengan input batas** — regex yang OK buat 10 karakter bisa mati di 100 karakter. (4) **Sigma rules** adalah format universal detection — tulis sekali, deploy ke SIEM mana aja. (5) **YARA rules** untuk malware — tapi pastikan rule gak terlalu generic (false positive) atau terlalu spesifik (mudah di-evade). Investasi belajar regex adalah investasi yang membayar setiap hari — karena hampir SEMUA yang lo lakukan sebagai security engineer melibatkan pattern matching.
+---
+
+audited
+---

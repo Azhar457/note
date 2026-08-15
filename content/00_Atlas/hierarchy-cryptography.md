@@ -170,3 +170,6 @@ PQC migration bukan **opsional upgrade** — itu **inevitability yang perlu plan
 > Hierarki kriptografi adalah hierarki **ketidak-abadian**. Setiap algoritma yang hari ini "aman," besok bisa mati. Tapi yang lebih penting: tiap naik level lo menambahkan **kemampuan + cost**. Lo tidak perlu Level 6 ZKP untuk secure web app — cukup TLS 1.3 (Level 4). Yang penting adalah **tahu level mana lo berada dan kapan harus migrasi**.
 
 *Cryptography Hierarchy | Level 0 (Caesar) → Level 7 (PQC NIST 2024) · Satu-Satunya Hierarki yang Punya Expired Date*
+
+audited
+---

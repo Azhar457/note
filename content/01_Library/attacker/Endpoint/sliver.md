@@ -402,3 +402,7 @@ Sliver mendemokratisasi kemampuan C2 cross-platform yang dulunya hanya tersedia 
 ---
 
 *Sliver Deep Dive | Cross-Platform C2 Framework | Adversary Emulation & Post-Exploitation*
+---
+
+audited
+---

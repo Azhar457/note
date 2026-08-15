@@ -91,3 +91,7 @@ Verify: curl https://ORIGIN_IP -H "Host: target.com" → response?
 - Smuggler — https://github.com/defparam/smuggler
 - CloudFlair — https://github.com/christophetd/CloudFlair
 - HTTP Desync (James Kettle) — https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn
+---
+
+audited
+---

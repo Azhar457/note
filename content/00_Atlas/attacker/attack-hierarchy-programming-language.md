@@ -106,5 +106,8 @@ Sandbox Bypass (V8 Sandbox 2024+):
 - ysoserial — https://github.com/frohoff/ysoserial
 - V8 Exploit — https://v8.dev/docs/build
 - ROPgadget — https://github.com/JonathanSalwan/ROPgadget
-- SSTImap — https://github.com/v0ll3x4m4/SSTImap
 - LiveOverflow (Binary Exploit) — https://www.youtube.com/@LiveOverflow
+---
+
+audited
+---

@@ -250,3 +250,7 @@ Quantum Insert / Blackpearl adalah puncak dari kemampuan **active network attack
 ---
 
 *Quantum Insert & Blackpearl Deep Dive | Unit 8200 Active Network Attack | BGP Hijack & Race Condition Injection*
+---
+
+audited
+---

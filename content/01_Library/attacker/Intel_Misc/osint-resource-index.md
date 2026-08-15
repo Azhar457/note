@@ -110,7 +110,7 @@ cssclasses:
 | Lembaga | URL | Fungsi | Verifikasi |
 |---------|:---:|--------|:----------:|
 | Kemhan Tiongkok (EN) | http://eng.mod.gov.cn | Portal resmi versi Inggris | ❌ (blocked outside CN) |
-| PLA Daily | http://english.pladaily.com.cn | Berita resmi PLA | — |
+| PLA Daily | https://www.81.cn (english.pladaily.com.cn tidak lagi serve HTTPS dari luar CN) | Berita resmi PLA | — |
 
 ---
 
@@ -374,7 +374,7 @@ echo "  2. Atau gunakan AWS EC2 US-based untuk curl dari IP AS"
 
 | Catatan | Hubungan |
 |---------|----------|
-| [[Note/01_Library/military-and-intelligence-tools/hierarchy-military-intel-tools]] | Master hierarchy — kategorisasi tools per layer |
+| [[hierarchy-military-intel-tools]] | Master hierarchy — kategorisasi tools per layer |
 | [[military-and-intelligence-tools-hub]] | Hub utama proyek mil-intel vault |
 | [[hierarchy-osint-rf]] | OSINT radio frequency — SIGINT methodology |
 | [[00_Atlas/hierarchy-cybersecurity-defense-architecture]] | Defense-in-depth, CISA, NSA frameworks |
@@ -396,3 +396,7 @@ echo "  2. Atau gunakan AWS EC2 US-based untuk curl dari IP AS"
 9. Hassan, N. & Hijazi, R. *"Open Source Intelligence Methods and Tools."* Apress, 2018.
 10. Dartnell, L. *"The Knowledge: How to Rebuild Our World from Scratch."* Penguin, 2014.
 11. Schumacher, E.F. *"Small Is Beautiful: A Study of Economics As If People Mattered."* 1973.
+---
+
+audited
+---

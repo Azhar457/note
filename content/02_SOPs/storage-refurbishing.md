@@ -10,8 +10,6 @@ cssclasses:
   - callout
 
 ---
-
-
 # 💽 Master SOP — Storage Recovery & Refurbish
 ## 🚦 FASE 0: Inisiasi, Triage & Audit (Standard Protocol)
 Gunakan langkah ini untuk setiap unit yang masuk sebelum memutuskan apakah akan menyelamatkan data (**ALUR A**) atau melakukan perbaikan partisi (**ALUR B**).
@@ -206,3 +204,7 @@ Dari contoh di atas, kita dapat melihat bahwa kondisi drive tetap baik setelah p
 - **Gunakan perangkat yang tepat:** Gunakan perangkat yang tepat untuk tugas yang tepat untuk mencegah kerusakan perangkat.
 
 Dengan mengikuti langkah-langkah di atas, Anda dapat melakukan recovery data dan refurbish drive dengan aman dan efektif. Pastikan untuk selalu melakukan backup data dan memeriksa kesehatan drive secara teratur untuk mencegah kehilangan data.
+---
+
+audited
+---

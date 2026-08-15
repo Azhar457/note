@@ -163,3 +163,7 @@ Tabel berikut menjelaskan fungsionalitas setiap alat keamanan yang diinstal di l
 ## 🚀 Kesimpulan
 
 Dalam simulasi keamanan siber ini, kita telah mempelajari tentang arsitektur dan konsep simulasi keamanan siber. Kita telah mempelajari tentang lingkungan dan spesifikasi, filosofi pemisahan, topologi jaringan, dan skema IP. Kita juga telah mempelajari tentang instalasi dan konfigurasi beberapa tool keamanan seperti Docker, WordPress, Cloudflare, SafeLine WAF, CrowdSec, dan Lynis. Dalam analisis log, kita telah mempelajari tentang analisis log auditd dan tcpdump. Dengan keseluruhan konsep dan tool ini, kita dapat membangun sistem keamanan siber yang kuat dan efektif.
+---
+
+audited
+---

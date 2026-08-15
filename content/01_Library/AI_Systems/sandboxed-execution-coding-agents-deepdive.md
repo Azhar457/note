@@ -370,3 +370,7 @@ contractTest(sandboxEndpoint) {
 
 > [!tip] Bottom Line
 > Sandboxed execution bukan binary decision — itu spektrum dari process isolation ke microVM. Default untuk productive coding agent workflow: **rootless container** (Podman/Docker) + **seccomp filter** + **capabilities drop ALL** + **egress firewall default deny** + **filesystem read-only except workspace**. Untuk pengembang yang serius multi-tenant (agent dari multiple untrusted users): upgrade ke **gVisor** atau **microVM Firecracker**. Lapis input: Agent Skills + payload verification ([agent-skills-feedback-sensors-deepdive]) sebagai feedforward layer pre-sandbox, Agent Scan sebagai static sensor untuk block known-CVE dan secret leak, baru sandbox untuk dynamic execution. Lapis output: deterministic sensors (compiler, linter, tests) sebagai post-execution feedback untuk auto-correction. Lethal trifecta tetap relevan — sandbox mitigates trait (3) tapi tidak eliminate traits (1) dan (2). Untuk Hermes execute_code yang internal-only: trust transaksi tetap valid. Untuk Hermes cross user (multi-tenant future) atau agent yang handle user untrusted content (website fetch, document parsing): sandboxing wajib, bukan optional.
+---
+
+audited
+---

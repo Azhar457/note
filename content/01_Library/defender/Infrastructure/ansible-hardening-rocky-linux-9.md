@@ -328,4 +328,8 @@ ansible-playbook -i inventory/production.ini playbooks/site.yml
 - [[cicd-guide]] — Pattern CI/CD untuk enforcement hardening check
 - [[observability-stack-prometheus-grafana]] — Observability stack pasca-hardening (auditd → Wazuh/Prometheus)
 - [[hierarchy-it-domain]] — Atlas konteks Infrastructure domain
-- [[obsidian-vault-padding|SOP Vault Padding]] — Pola penulisan catatan ringkas tapi dalam
+- [[obsidian-vault-scaling-playbook|SOP Vault Padding]] — Pola penulisan catatan ringkas tapi dalam
+---
+
+audited
+---

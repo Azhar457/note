@@ -243,3 +243,6 @@ Mayoritas soal CTF forensic:
 ---
 
 *Digital Evidence & Acquisition Hierarchy | Level 0 (RAM) → Level 6 (Cloud) · Order of Volatility (OoV) · Chain of Custody = Prasyarat Hukum · SSD TRIM = Musuh File Carving*
+
+audited
+---

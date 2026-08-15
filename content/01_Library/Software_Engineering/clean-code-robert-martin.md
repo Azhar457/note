@@ -516,3 +516,7 @@ def process_checkout(order, payment_token):
 - [ ] Cek SRP: kalo ada kelas > 300 baris, curigai dan refactor
 - [ ] Ganti 1 komentar basi per hari dengan kode yang lebih jelas
 - [ ] Pastikan setiap test di project bisa jalan tanpa internet
+---
+
+audited
+---

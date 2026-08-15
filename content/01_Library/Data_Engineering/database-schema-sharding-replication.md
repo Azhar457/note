@@ -39,9 +39,9 @@ cssclasses:
 - [[#8. Time-Series Data Modeling]]
 - [[#9. Multi-Tenant Schema — Isolasi per Tenant]]
 - [[#10. Versioning Data — SCD, Event Sourcing]]
-- [[🔗 Koneksi ke Catatan Lain]]
-- [[✅ Checklist]]
-- [[Roadmap Belajar]]
+- 🔗 Koneksi ke Catatan Lain
+- ✅ Checklist
+- Roadmap Belajar
 
 ---
 
@@ -477,3 +477,7 @@ HARI 5: Multi-Tenant & Versioning
 
 > [!tip] Lanjutan
 > Catatan terkait: [[database-internals-indexing-mvcc]] (teori storage), [[distributed-systems]] (teori distribusi), [[postgresql-performance-triage]] (debugging). Untuk bacaan lanjutan: DDIA Part II (Kleppmann), "Database Design for Mere Mortals" (Hernandez).
+---
+
+audited
+---

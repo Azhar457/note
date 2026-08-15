@@ -177,3 +177,7 @@ Dokumen ini adalah inti dari "kenapa" di balik semua yang Anda bangun. Ia menghu
 | **[[ai-engineering-stack-roadmap]]** | MLOps adalah pipa kepatuhan. Tanpa versioning, logging, dan monitoring, tidak ada jejak audit, dan karenanya tidak ada akuntabilitas. |
 | **[[cognitive-architecture-engineering]]** | Sebuah Meta-Agent membutuhkan "konstitusi" untuk mengorkestrasi sub-agen. Tata kelola adalah proses mendefinisikan, mengimplementasikan, dan menegakkan konstitusi itu. |
 | **[[site-reability-engineering]]** | Keandalan AI adalah bagian dari keamanan AI. Error budget dapat dan harus mencakup metrik keadilan dan keamanan, bukan hanya uptime. |
+---
+
+audited
+---

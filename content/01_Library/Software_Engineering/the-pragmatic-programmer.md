@@ -256,7 +256,7 @@ Karir developer = investasi pengetahuan. Diversification (compound interest) > d
 
 - [[clean-code-robert-martin]] — buku komplementer: clean code = hasil coding yang baik, pragmatic programmer = cara hidupnya.
 - [[design-patterns-gof]] — orthogonality contoh konkret ada di Strategy, Decorator, Adapter.
-- [[Note/01_Library/bonus-books-refactoring-legacy-ydkjs-knuth]] — broken window + refactoring = radi bersih.
+- [[bonus-books-refactoring-legacy-ydkjs-knuth]] — broken window + refactoring = radi bersih.
 - [[deep-work-and-so-good-newport]] — knowledge portfolio + deep work = superpower.
 - [[systems-design-interview-alex-xu]] — README.ptgit akhir tracer bullets ada di level sistem: build vertical first.
 
@@ -270,3 +270,7 @@ Karir developer = investasi pengetahuan. Diversification (compound interest) > d
 - [ ] Pilih 1 bahasa/framework asing untuk bulan ini (goalkan 30 menit/hari)
 - [ ] Buat Reading Plan 12 bulan — 12 buku teknis + 4 non-teknis (cal newport, do-interruptarium)
 - [ ] Tes orthogonality: ganti DB driver di codebase, hitung file yang rusak
+---
+
+audited
+---

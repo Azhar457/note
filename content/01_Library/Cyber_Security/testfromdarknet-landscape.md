@@ -177,3 +177,7 @@ sha256sum /data/malware.bin
 - YARA rules — https://yara.readthedocs.io/
 - Sigma rules — https://github.com/SigmaHQ/sigma
 - MITRE ATT&CK — https://attack.mitre.org/
+---
+
+audited
+---

@@ -198,3 +198,7 @@ cssclasses:
 ---
 
 _Endpoint Security Hierarchy — Open Source Edition | Dari Coreboot sampai KVRT | Dari Ring -3 sampai Ring 3_
+---
+
+audited
+---

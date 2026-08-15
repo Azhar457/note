@@ -15,7 +15,7 @@ aliases:
   - kubectl Cheatsheet
 created: "2026-07-30"
 updated: "2026-07-30"
-status: completed
+status: pending
 cssclasses:
   - wide-table
 ---
@@ -1226,3 +1226,7 @@ k9s --readonly                      # mode baca aja (aman buat production)
 4. K8s Network Debugging — https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/
 5. kubectl Quick Reference — https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 6. CNCF Landscape — https://landscape.cncf.io/
+---
+
+audited
+---

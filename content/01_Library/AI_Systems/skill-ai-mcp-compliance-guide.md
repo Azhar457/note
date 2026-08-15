@@ -382,3 +382,7 @@ Server ──► sampling/createMessage ──► Client ──► Host LLM ─�
 > 6. ✅ Security: auth, path gates, sanitization, rate limiting
 > 
 > **Jika ada konflik antara keinginan dan spesifikasi — spesifikasi MENANG.**
+---
+
+audited
+---

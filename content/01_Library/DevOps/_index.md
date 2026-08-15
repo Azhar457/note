@@ -30,3 +30,6 @@ cssclasses:
 - [[observability-stack-prometheus-grafana]]
 - [[podman-networking-ufw]]
 - [[server-hardening-playbook]] — Checklist VPS production: SSH, UFW, fail2ban, auditd, SELinux, AIDE
+
+audited
+---

