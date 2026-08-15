@@ -7,7 +7,7 @@ updated: '2026-07-01'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 💽 Master SOP — Storage Recovery & Refurbish

@@ -13,7 +13,7 @@ updated: '2026-07-16'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
   - code-wrap
 
 ---

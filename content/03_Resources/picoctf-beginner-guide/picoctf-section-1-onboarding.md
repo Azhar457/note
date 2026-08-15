@@ -8,7 +8,7 @@ updated: '2026-07-07'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # 🚀 PICOCTF SECTION 1 — Onboarding & Connection

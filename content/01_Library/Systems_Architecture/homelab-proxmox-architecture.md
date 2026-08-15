@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
   - code-wrap
 ---
 
@@ -143,6 +143,7 @@ PBS mendukung deduplikasi data tingkat lanjut (*dirty-bitmap backup*), membuat b
 
 | Vektor | Risiko | Mitigasi |
 |--------|--------|----------|
+| [[raspberry-pi-5-nvme-boot-troubleshooting]] | Boot & storage NVMe di SBC — analogi homelab storage |
 | **Web UI exposed** | Brute force, CVE | Jangan expose 8006 ke internet — VPN saja |
 | **SSH root** | Brute force | Key-only auth, disable password, port ubah |
 | **LXC/VM escape** | Escape ke host | Patch rutin (pve-qemu-kvm, lxc), seccomp default |

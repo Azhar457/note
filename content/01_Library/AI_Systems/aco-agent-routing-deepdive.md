@@ -15,7 +15,7 @@ updated: 2026-07-25
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 > [!abstract] Dari Feromon Semut ke Routing Agen
@@ -511,7 +511,7 @@ Semua converge ke arah yang benar. Tidak ada divergen/NaN.
 | [[meta-agent-orchestration]] | Target arsitektur — ACO menggantikan memoryless reassign |
 | [[multi-agent-orchestration-patterns]] | Pattern multi-agent yang diperbaiki oleh ACO |
 | [[ai-evaluation-framework]] | Δτ quality signals — LLM judge, self-consistency |
-| [[hierarchy-llm-ai-systems]] | Layer di mana agent routing beroperasi |
+| [[hierarchy-llm-ai-systems 1]] | Layer di mana agent routing beroperasi |
 ---
 
 audited

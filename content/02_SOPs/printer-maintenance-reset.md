@@ -1,15 +1,12 @@
 ---
 title: Printer Maintenance Reset
 tags:
-- sops
-created: '2026-05-11'
-updated: '2026-07-01'
+  - sops
+created: 2026-05-11
+updated: 2026-07-01
 status: pending
-source: ''
 cssclasses:
   - wide-table
-  - callout
-
 ---
 # Printer Maintenance & Reset — Complete Technician Guide
 

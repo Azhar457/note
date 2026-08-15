@@ -1,5 +1,5 @@
 ---
-title: — Kernel Bypass Networking
+title: — LLM & AI Systems Attack Surface
 tags:
 - vault
 - note
@@ -8,37 +8,36 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
 cssclasses:
   - wide-table
-  - callout
+  
 
-## Deepdive — Kernel Bypass Networking
+## Deepdive — LLM & AI Systems Attack Surface
 
-| Teknik | Mekanisme | Tool | Use Case |
-|--------|-----------|------|----------|
-| **DPDK** | User-space driver, no kernel | DPDK | High-throughput networking |
-| **XDP (eBPF)** | Kernel hook, NIC driver | XDP, libbpf | DDoS mitigation, firewall |
-| **RDMA** | Direct memory access, no copy | RoCE, InfiniBand | HPC, storage |
-| **io_uring** | Async I/O, no syscall | liburing | High IOPS |
-| **TUN/TAP** | Virtual interface, user-space | OpenVPN, WireGuard | VPN |
+| Komponen | Vektor | Tool | Detection |
+|----------|--------|------|-----------|
+| **Prompt** | Direct/indirect injection | Manual | Content filter partial |
+| **RAG** | Poisoned content | Doc inject | Source validation rare |
+| **Agent** | Tool abuse, excessive permission | MCP exploit | Audit rare |
+| **Model** | Extraction, inversion | Query API | Rate audit rare |
+| **Inference** | Side-channel (timing, cache) | Custom | Hardware monitor rare |
 
-### XDP Attack (Red Team)
+### Prompt Injection Kill Chain
 
 ```
-XDP hook → inspect/drop/modify packet di NIC driver (pre-kernel)
-  ├── DDoS: blok malicious IP di NIC level → 0 CPU
-  ├── Rate limit: per-IP throttle → no kernel overhead
-  └→ Red team: intercept + modify packet before kernel → stealth MITM
+Indirect: Attacker → poisoned email/doc → agent reads → follows attacker instruction
+    ↓
+Tool Abuse: Agent call API (exfil) / execute (RCE) → via agent credential
+    ↓
+Impact: Data leak → RCE → downstream compromise
 ```
 
 ## Referensi
-- DPDK — https://www.dpdk.org/
-- XDP — https://xdp-project.org/
-- io_uring — https://unixism.net/loti/
+- OWASP LLM Top 10 — https://owasp.org/www-project-top-10-for-large-language-model-applications/
 
 ## Koneksi ke Vault & Cross-Reference
 

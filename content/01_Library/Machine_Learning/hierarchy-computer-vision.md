@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
@@ -120,7 +120,7 @@ Post-process: conf threshold 0.25 → NMS IoU 0.7 → final detection
 ```python
 cssclasses:
   - wide-table
-  - callout
+  
 
 # Augmentasi modern (Mosaic, CutMix) → meningkatkan generalisasi
 transforms = A.Compose([

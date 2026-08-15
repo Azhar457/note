@@ -13,7 +13,7 @@ title: Picoctf Section 4 Python Automation
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 # 🐍 PICOCTF SECTION 4 — Python Automation
 

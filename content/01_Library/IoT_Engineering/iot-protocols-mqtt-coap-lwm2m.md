@@ -68,6 +68,7 @@ cssclasses:
 
 | Layer | Internet Stack | IoT Stack |
 |:------|:--------------|:----------|
+| [[raspberry-pi-5-nvme-boot-troubleshooting]] | Storage & boot SBC — hardware layer untuk deployment IoT |
 | Application | HTTP, WebSocket | **MQTT**, **CoAP**, LwM2M, gRPC |
 | Transport | TCP, UDP | TCP, UDP, QUIC |
 | Network | IPv4, IPv6 | IPv6, 6LoWPAN, RPL |

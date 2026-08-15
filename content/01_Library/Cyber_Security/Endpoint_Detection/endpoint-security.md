@@ -17,7 +17,7 @@ title: Endpoint Security
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 

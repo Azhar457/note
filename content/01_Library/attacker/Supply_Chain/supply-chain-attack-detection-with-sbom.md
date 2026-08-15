@@ -7,7 +7,7 @@ updated: '2026-08-14'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 references:
   - url: https://spdx.dev/

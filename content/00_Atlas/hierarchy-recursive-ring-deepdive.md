@@ -4,7 +4,6 @@ tags:
   - recursive-ring-hierarchy
   - computational-depth
   - execution-rings
-  - azhar-hierarchy-principle
   - system-optimization
   - cross-domain-synthesis
   - eBPF
@@ -13,7 +12,6 @@ tags:
   - dark-matter-computation
 aliases:
   - recursive-ring-theory
-  - azhar-conjecture
   - computational-hierarchy-unified
   - ring-theory-technology
 created: 2026-07-22
@@ -22,8 +20,6 @@ status: pending
 cssclasses:
   - wide-table
 ---
-# 🌀 The Recursive Ring Hierarchy: A Unified Framework for Computational Depth Across All Technology Domains
-
 **A Unified Ontology for Understanding How Computation Descends Through Abstraction Layers — From Userspace to the Physical Substrate**
 
 > Setiap domain teknologi yang pernah dibangun manusia — dari recovery data di harddisk yang rusak sampai artificial intelligence yang mendekati omega point — mematuhi pola yang sama: sebuah hierarki berlapis yang bersifat *self-similar* (fractal) di semua skala. Lapisan-lapisan ini bukan sekadar "level kemampuan" yang linear; mereka adalah *execution rings* yang masing-masing memiliki karakteristik fundamental yang berbeda: fleksibilitas, latency, overhead abstraksi, dan biaya thermodinamik. Framework ini membedah pola rekursif yang muncul di seluruh landscape teknologi, memetakan setiap domain ke dalam hierarki rings yang unified, dan menunjukkan bagaimana transisi antar lapisan selalu terjadi melalui *phase transition* — bukan gradual — yang ditandai dengan munculnya "bypass" yang memindahkan computation ke level yang lebih dekat dengan substrate fisik. Catatan ini adalah upaya pertama untuk memformalkan "The Azhar Hierarchy Principle" sebagai framework ontologis yang applicable lintas domain.

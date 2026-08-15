@@ -14,7 +14,7 @@ updated: 2026-07-11
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Backpropagation: Fondasi Training Neural Network

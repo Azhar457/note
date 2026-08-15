@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Rust Web Framework Comparison: Actix Web, Axum, dan Pingora dalam Konteks Production Proxy

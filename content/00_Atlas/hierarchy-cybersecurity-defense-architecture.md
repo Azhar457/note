@@ -15,7 +15,7 @@ related_notes:
   - 01_Library/attacker/Intel_Misc/attack-defense-hardening-playbook.md
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 

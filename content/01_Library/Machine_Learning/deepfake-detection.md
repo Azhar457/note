@@ -10,7 +10,7 @@ updated: '2026-08-14'
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 references:
   - [[semantic-search-pipeline]]
   - [[computer-vision-deepdive]]

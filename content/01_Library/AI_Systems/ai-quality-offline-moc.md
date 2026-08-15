@@ -7,7 +7,7 @@ updated: '2026-07-06'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 📚 Learning Companion: Tiga Buku Teknologi

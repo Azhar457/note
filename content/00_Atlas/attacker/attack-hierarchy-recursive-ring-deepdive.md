@@ -13,7 +13,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Recursive Ring Deepdive — Perspektif Penyerang (Persistence per Layer)

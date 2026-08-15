@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 # SOP: Implementasi eBPF untuk Runtime Security Auditing & Monitoring System Calls
 

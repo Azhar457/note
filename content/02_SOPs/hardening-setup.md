@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 
@@ -26,7 +26,7 @@ ssh-copy-id -i ~/.ssh/vps_dev.pub dev@[IP-REDACTED]
 cat /home/dev/.ssh/authorized_keys
 cssclasses:
   - wide-table
-  - callout
+  
 
 # KEYS
 

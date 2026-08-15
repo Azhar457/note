@@ -7,7 +7,7 @@ updated: '2026-07-01'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 ### SOP: Quartz v4 + GitHub Pages (Windows)
 

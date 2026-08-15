@@ -18,7 +18,7 @@ updated: 2026-07-26
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 > [!abstract] Gunicorn + Uvicorn: The Right Way

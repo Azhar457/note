@@ -17,7 +17,7 @@ title: Dokumen 02 Docker Nextcloud Stack
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 

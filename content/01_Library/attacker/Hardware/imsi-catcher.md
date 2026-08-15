@@ -224,6 +224,11 @@ sandera                   intelijen sah
 
 ---
 
+- [[sdr-cell-tower-stingray-detection]] — Pipeline deteksi praktis: DragonOS, CellSearch, FALCON (sisi defensif/blue team).
+- [[sdr-cell-tower-evasion-countermeasures]] — Teknik evasion rogue BTS terhadap pipeline deteksi SDR (sisi ofensif/analitis).
+
+---
+
 ## 📚 Referensi
 
 - EFF. *Stingray: The Most Common Cell Phone Surveillance Device*. 2019.

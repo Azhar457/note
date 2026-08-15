@@ -12,10 +12,9 @@ updated: '2026-07-16'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
-
 # 🛡️ Hallucination Mitigation & Grounding — CRAG, Self-RAG, dan Verifikasi Faktual
 
 > Hallucination adalah masalah #1 RAG di production — LLM menjawab dengan informasi yang tidak ada di konteks, atau kontradiksi dengan konteks. Dokumen ini membahas penyebab hallucination, teknik mitigasi dari level retrieval (chunking, reranking) hingga level generation (CRAG, Self-RAG, prompt engineering), dengan fokus pada **Corrective RAG** yang sudah diimplementasikan di vault-rag.

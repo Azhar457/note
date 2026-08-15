@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
@@ -100,7 +100,7 @@ Setiap layer encoding bisa mencegah atau membantu serangan, tergantung siapa yan
 ```python
 cssclasses:
   - wide-table
-  - callout
+  
 
 # Attack payload (malicious pickle)
 import pickle, os

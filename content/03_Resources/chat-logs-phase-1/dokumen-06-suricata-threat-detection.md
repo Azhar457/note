@@ -8,7 +8,7 @@ updated: '2026-07-01'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 ## Pendahuluan Suricata
 Suricata adalah mesin Network Threat Detection yang mampu melakukan _Deep Packet Inspection_ (DPI). Dalam konteks sistem keamanan jaringan, Suricata berperan sebagai detektif yang membongkar setiap paket kiriman (Packet) yang masuk ke jaringan untuk mencari selundupan senjata atau narkoba digital. Dengan kemampuan ini, Suricata dapat membantu melindungi jaringan dari serangan yang tidak diinginkan.

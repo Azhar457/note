@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 
@@ -50,7 +50,7 @@ Daftar navigasi utama untuk seluruh *Wide Note* vault. Setiap folder di bawah `0
 ---
 cssclasses:
   - wide-table
-  - callout
+  
 
 
 ## Hierarchy References (00_Atlas)

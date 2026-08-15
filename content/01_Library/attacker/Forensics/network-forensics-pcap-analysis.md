@@ -15,7 +15,7 @@ updated: '2026-07-28'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 

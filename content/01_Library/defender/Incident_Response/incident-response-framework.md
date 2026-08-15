@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Incident Response Framework
@@ -53,7 +53,7 @@ Kerangka standar untuk *incident response* (IR) di lingkungan organisasi. Mengac
 ---
 cssclasses:
   - wide-table
-  - callout
+  
 
 *Generated automatically by Hermes Agent.*
 

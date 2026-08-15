@@ -12,7 +12,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # OSINT & Search — Perspektif Penyerang (Recon)

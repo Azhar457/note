@@ -14,7 +14,7 @@ title: Picoctf Section 5 Reverse Engineering
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 

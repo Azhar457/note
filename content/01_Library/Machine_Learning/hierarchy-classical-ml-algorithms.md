@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
@@ -123,7 +123,7 @@ Result: Spam bypass → inbox delivery
 from sklearn.model_selection import cross_val_score
 cssclasses:
   - wide-table
-  - callout
+  
 
 # K-fold: split data K kali, train K model, average
 scores = cross_val_score(model, X, y, cv=5)

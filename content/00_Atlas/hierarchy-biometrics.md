@@ -11,7 +11,7 @@ updated: 2026-07-17
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # 🪪 HIERARKI BIOMETRIK & IDENTITAS — Dari Password (Level 0) sampai Neural/BCI (Level 7)

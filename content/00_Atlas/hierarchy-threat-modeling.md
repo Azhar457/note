@@ -12,7 +12,7 @@ updated: 2026-07-17
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # 🛡️ HIERARKI THREAT MODELING — Dari Intuisi Developer (Level 0) sampai Formal Verification (Level 5)

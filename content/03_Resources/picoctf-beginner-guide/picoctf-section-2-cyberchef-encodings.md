@@ -13,7 +13,7 @@ title: Picoctf Section 2 Cyberchef Encodings
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 

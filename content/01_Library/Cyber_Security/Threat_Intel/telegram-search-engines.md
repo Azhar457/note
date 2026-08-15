@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Telegram Group/Channel Search Engines (OSINT)
@@ -58,7 +58,7 @@ cssclasses:
 ---
 cssclasses:
   - wide-table
-  - callout
+  
 
 
 # ADVANCED OSINT — Deep Investigation Tools

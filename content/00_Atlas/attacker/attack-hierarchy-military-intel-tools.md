@@ -14,7 +14,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Military & Intel Tools — Perspektif APT / Nation-State

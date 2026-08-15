@@ -13,7 +13,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Kernel Bypass Networking — Perspektif Penyerang

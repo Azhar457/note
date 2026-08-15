@@ -12,7 +12,7 @@ updated: '2026-08-11'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 source: https://eagleeyet.net/blog/web-browser/mozilla-firefox/firefox-optimization-tweaks-for-2025-speed-efficiency-and-privacy-perfected/
 aliases:
@@ -123,25 +123,6 @@ Efek gabungan:
 3. https://www.cs.ox.ac.uk/people/ian.collier/Misc/aboutconfig
 4. https://wiki.mozilla.org/Performance
 5. https://support.mozilla.org/en-US/kb/about-config-editor-firefox
-
-## 🔍 Verification Report
-> [!NOTE]
-> **Last Evaluated:** 2026-08-12 20:01
-> **Overall Epistemic Status:** **`UNVERIFIED`**
-
-### ✅ Claim 1: Setting browser.cache.disk.enable to false reduces SSD wear by disabling disk cache.
-- **Status:** `VERIFIED` | **Confidence:** `HIGH`
-- **Analysis:** Multiple technical sources confirm that setting 'browser.cache.disk.enable' to 'false' in Firefox disables the disk cache, which prevents frequent write operations to the SSD and helps mitigate drive wear. This configuration is a recognized method for reducing unnecessary disk I/O on SSD-based systems.
-- **Sources:** [1](https://www.eevblog.com/forum/general-computing/how-to-stop-firefox-from-devouring-your-ssd-(literal-gb-of-daily-writes-to-disk)/), [2](https://lifetips.alibaba.com/tech-efficiency/the-best-about-config-tweaks-that-make-firefox-better), [3](https://www.servethehome.com/firefox-is-eating-your-ssd-here-is-how-to-fix-it/)
-
-### ✅ Claim 2: Setting dom.ipc.processCount to 4 is recommended for low-resource systems to balance content parallelism and RAM usage.
-- **Status:** `VERIFIED` | **Confidence:** `HIGH`
-- **Analysis:** The claim is supported by technical optimization guides suggesting that setting dom.ipc.processCount to 4 balances parallelism and memory usage. This configuration is specifically recommended to improve efficiency on various system types.
-- **Sources:** [1](https://eagleeyet.net/blog/web-browser/mozilla-firefox/firefox-optimization-tweaks-for-2025-speed-efficiency-and-privacy-perfected/)
-
-### ❔ Claim 3: Setting browser.cache.memory.capacity to 256000 allocates approximately 256 MB of memory for the cache.
-- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
-- **Analysis:** No relevant web search results could be retrieved to verify this claim.
 
 ## 7. Deepdive — Privasi & Keamanan Browser
 

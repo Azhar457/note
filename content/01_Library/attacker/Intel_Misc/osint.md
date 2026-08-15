@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
@@ -127,7 +127,7 @@ Collector OPSEC Checklist:
 ```markdown
 cssclasses:
   - wide-table
-  - callout
+  
 
 # Intel Report: [Target] — [Classification]
 ## Executive Summary (1 paragraf, actionable)

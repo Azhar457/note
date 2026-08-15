@@ -8,7 +8,7 @@ updated: '2026-07-06'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 author: Hermes Agent → Azhar
 ---

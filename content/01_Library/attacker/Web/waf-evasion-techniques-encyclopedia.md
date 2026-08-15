@@ -15,7 +15,7 @@ created: '2026-07-28'
 updated: '2026-08-14'
 status: complete
 cssclasses:
-- callout
+
 ---
 
 

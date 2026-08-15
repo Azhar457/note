@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # SKILL AI: MCP Server Development — Strict Compliance Guide
@@ -20,7 +20,7 @@ cssclasses:
 ---
 cssclasses:
   - wide-table
-  - callout
+  
 
 
 ## 1. ARSITEKTUR — Hubungan Entitas

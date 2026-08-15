@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 # SOP: Otomatisasi Web Scraping & Ingest Dokumentasi ke Vault RAG via Jina Reader
 

@@ -8,13 +8,13 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
 cssclasses:
   - wide-table
-  - callout
+  
 
 ## Deepdive — Software Engineering & Security Gap
 

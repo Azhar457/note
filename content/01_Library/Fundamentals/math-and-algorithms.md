@@ -8,7 +8,7 @@ updated: '2026-07-01'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 🧮 MATEMATIKA & ALGORITMA — Fondasi Semua Computer Science

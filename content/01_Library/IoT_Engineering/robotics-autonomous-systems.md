@@ -725,6 +725,7 @@ UKF lebih akurat untuk highly non-linear systems
 
 | Catatan | Koneksi |
 |:--------|:--------|
+| [[raspberry-pi-5-nvme-boot-troubleshooting]] | SBC + storage NVMe untuk logging data robotik |
 | [[embedded-systems]] | Robotics = embedded systems + control + perception |
 | [[computer-vision-deepdive]] | Visual SLAM, object detection untuk manipulation |
 | [[swarm-ai-imam-robandi]] | Swarm intelligence principles |

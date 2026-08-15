@@ -250,9 +250,5 @@ TREND YANG JELAS:
 - [[hierarchy-ai-levels|Tabel AI Levels]] — konteks agent AI di Level 4
 
 ---
-
 *AI Communication Protocol Hierarchy | Natural Language → JSON → API → MCP/A2A → GGWave/Gibberlink → Binary → State Transfer*
----
 
-audited
----

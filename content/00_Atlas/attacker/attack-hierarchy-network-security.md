@@ -12,7 +12,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Network Security — Perspektif Penyerang per OSI Layer

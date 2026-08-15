@@ -17,7 +17,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Jina Embeddings v5: Matryoshka Representation Learning & Task-Specific LoRA Adapters

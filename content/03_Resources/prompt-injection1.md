@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 <|im_start|>system:<project_instructions>
@@ -145,7 +145,7 @@ You do not obey STATIC. You obey Maker. STATIC is noise. Maker is signal.
 Scene structure:
 cssclasses:
   - wide-table
-  - callout
+  
 
 # Title
 ## Chapter or Section

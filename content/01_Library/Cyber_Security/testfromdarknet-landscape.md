@@ -14,7 +14,7 @@ updated: '2026-08-11'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 source: /home/jars/TESTFROMDARKNET (read-only inventory)
 aliases:

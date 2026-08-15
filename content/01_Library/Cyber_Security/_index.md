@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Cyber Security
@@ -17,7 +17,7 @@ cssclasses:
 
 [Kembali ke 01 Library](../_index.md)
 
-> **Total:** 28 files | 10 subfolders
+> **Total:** 56 files | 10 subfolders
 
 ## 📁 Subfolders
 - [[Darknet_Archive/_index|Darknet Archive]]
@@ -38,6 +38,7 @@ cssclasses:
 - [[blockchain-smart-contract-security]]
 - [[c2-server-fix]]
 - [[cognitive-security-information-operations]]
+- [[command-injection]] — OS command injection: payload, bypass, blind OAST, CVE 2016-2024, secure coding
 - [[cryptography-biometrics]]
 - [[cyber-law-digital-evidence]]
 - [[cyber-security]]

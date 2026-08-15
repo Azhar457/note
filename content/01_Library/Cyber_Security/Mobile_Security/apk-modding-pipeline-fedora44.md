@@ -10,7 +10,7 @@ updated: "2026-08-09"
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
   - code-wrap
 
 tools: [apktool, jadx, zipalign, apksigner, android-sdk]

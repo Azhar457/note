@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Jina Reranker v3: Arsitektur Listwise Cross-Encoder untuk Precision-Critical RAG Pipeline

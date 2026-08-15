@@ -15,7 +15,7 @@ title: Dokumen 03 Cloudflare Tunnel Routing
 updated: '2026-07-01'
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 

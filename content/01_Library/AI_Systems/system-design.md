@@ -1,19 +1,14 @@
 ---
-title: System Design
+title: 🏗️ SYSTEM DESIGN — Database Internals & Software Architecture
 tags:
-- ai-systems
-- library
-created: '2026-04-25'
-updated: '2026-07-01'
+  - ai-systems
+  - library
+created: 2026-04-25
+updated: 2026-07-01
 status: pending
 cssclasses:
   - wide-table
-  - callout
-
 ---
-
-# 🏗️ SYSTEM DESIGN — Database Internals & Software Architecture
-
 > Cara berpikir sistem besar. Database Internals menjawab "kenapa query-mu lambat dan bagaimana storage bekerja di level disk." Software Architecture menjawab "bagaimana membangun sistem yang tidak runtuh saat tumbuh 100x."
 
 > [!info] Cara Baca

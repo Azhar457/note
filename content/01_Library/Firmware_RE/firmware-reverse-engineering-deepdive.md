@@ -8,7 +8,7 @@ updated: '2026-07-02'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 🔧 FIRMWARE REVERSE ENGINEERING — Deep Dive: Dari Dump Flash Sampai Remote Code Execution

@@ -16,7 +16,7 @@ updated: 2026-07-21
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # Linux Performance Debugging Toolkit: Strace, Perf, bpftrace, dan System Diagnostics

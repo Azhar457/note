@@ -12,7 +12,7 @@ updated: '2026-07-28'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 
@@ -121,21 +121,21 @@ Setiap ronde Attack-Defense memiliki siklus yang sama:
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│ Start Ronde                                          │
+│ Start Ronde                                         │
 ├─────────────────────────────────────────────────────┤
-│ 1. SCAN & RECON (2–5 menit)                          │
-│    nmap -p- team_lawan → Cari service terbuka        │
-│                                                      │
-│ 2. PATCH & HARDEN (2–5 menit)                        │
-│    Cek service sendiri → Tutup celah → Restart       │
-│    Service harus jalan + checker harus lulus         │
-│                                                      │
-│ 3. ATTACK (sisa waktu)                               │
-│    Exploit service lawan → Inject flag → Submit      │
-│    Monitor checker: service sendiri masih health?    │
-│                                                      │
-│ 4. RECOVER (menit terakhir)                          │
-│    Jika service down → restart + re-patch            │
+│ 1. SCAN & RECON (2–5 menit)                         │
+│    nmap -p- team_lawan → Cari service terbuka       │
+│                                                     │
+│ 2. PATCH & HARDEN (2–5 menit)                       │
+│    Cek service sendiri → Tutup celah → Restart      │
+│    Service harus jalan + checker harus lulus        │
+│                                                     │
+│ 3. ATTACK (sisa waktu)                              │
+│    Exploit service lawan → Inject flag → Submit     │
+│    Monitor checker: service sendiri masih health?   │
+│                                                     │
+│ 4. RECOVER (menit terakhir)                         │
+│    Jika service down → restart + re-patch           │
 └─────────────────────────────────────────────────────┘
 ```
 

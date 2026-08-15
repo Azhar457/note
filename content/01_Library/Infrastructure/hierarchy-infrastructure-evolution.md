@@ -8,7 +8,7 @@ updated: 2026-08-14
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 
@@ -85,7 +85,7 @@ Red Team: Where is YOUR boundary? → Attack there.
 ```hcl
 cssclasses:
   - wide-table
-  - callout
+  
 
 # Terraform state = plaintext secret (AWS key, DB password)
 resource "aws_instance" "web" {

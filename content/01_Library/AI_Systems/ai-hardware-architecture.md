@@ -13,7 +13,7 @@ updated: '2026-07-18'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # 🔩 AI Hardware — Deep Dive: NPU, TPU, GPU, ASIC, In-Memory Computing, AI Accelerator Architecture

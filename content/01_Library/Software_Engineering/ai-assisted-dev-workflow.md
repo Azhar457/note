@@ -12,7 +12,7 @@ updated: '2026-07-18'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 🤖 AI-Assisted Software Engineering — Deep Dive: Spec-Driven Dev, AI Code Review, Agent Workflow, Toolchain Comparison

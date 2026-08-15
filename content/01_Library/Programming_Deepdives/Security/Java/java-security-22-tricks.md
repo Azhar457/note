@@ -1266,6 +1266,7 @@ public class StacktraceGuard {
 | **[[cryptography-biometrics]]** | Constant-time operations, JAR signing, audit trail |
 | **[[site-reliability-engineering]]** | Logging, monitoring, alerting |
 | **[[underground-knowledge]]** | Anti-tamper, stealth detection, reflection abuse |
+| **[[java-security-22-bypass]]** | **Counter-document attacker-side** — setiap trick di sini memiliki bypass di sana |
 
 ---
 

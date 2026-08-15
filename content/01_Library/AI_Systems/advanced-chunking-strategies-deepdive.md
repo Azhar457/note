@@ -18,7 +18,7 @@ updated: '2026-07-16'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 ---
 # 🧩 Advanced Chunking Strategies — The Architecture of Precision Retrieval

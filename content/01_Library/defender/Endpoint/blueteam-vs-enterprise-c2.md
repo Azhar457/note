@@ -9,7 +9,7 @@ updated: '2026-07-01'
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 # 🛡️ Blue Team Playbook — Melawan Enterprise C2 Infrastructure

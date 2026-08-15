@@ -12,7 +12,7 @@ updated: "2026-08-09"
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
 
 environment:
   os: Fedora 44

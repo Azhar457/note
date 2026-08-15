@@ -1,25 +1,20 @@
 ---
-title: "Post-Quantum Cryptography (PQC) Implementation in Rust \u2014 Kyber & Dilithium"
+title: Post-Quantum Cryptography (PQC) Implementation in Rust — Kyber & Dilithium
 tags:
-- quantum-cryptography
-- post-quantum-crypto
-- kyber
-- dilithium
-- rust
-- benchmark
-- security
-created: '2026-07-19'
-updated: '2026-07-19'
+  - quantum-cryptography
+  - post-quantum-crypto
+  - kyber
+  - dilithium
+  - rust
+  - benchmark
+  - security
+created: 2026-07-19
+updated: 2026-07-19
 status: pending
 cssclasses:
   - wide-table
-  - callout
+  
   - code-wrap
-
-verification:
-  status: unverified
-  last_checked: '2026-08-12'
-  confidence: LOW
 ---
 
 > [!abstract] Ringkasan & Hubungan ke Vault
@@ -162,25 +157,3 @@ Melakukan migrasi langsung ke PQC penuh (*pure PQC*) sangat berisiko karena algo
 | [[quantum-cryptography-deepdive]] | Teori dasar fisika kuantum, algoritma Shor, Grover, dan prinsip matematika kisi (*lattices*). |
 | [[waf-reverse-proxy-deepdive]] | Data plane WAF tempat negosiasi kunci hybrid TLS ini diintegrasikan pada tingkat HTTP handshake. |
 | WAF development plan (privat) | Roadmap implementasi WAF sebagai prioritas pengembangan #3. |
-
-## 🔍 Verification Report
-> [!NOTE]
-> **Last Evaluated:** 2026-08-12 20:13
-> **Overall Epistemic Status:** **`UNVERIFIED`**
-
-### ✅ Claim 1: Kyber is a lattice-based Key Encapsulation Mechanism (KEM) algorithm.
-- **Status:** `VERIFIED` | **Confidence:** `HIGH`
-- **Analysis:** Multiple sources confirm that Kyber is a lattice-based Key Encapsulation Mechanism (KEM), also formally standardized as ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism).
-- **Sources:** [1](https://en.wikipedia.org/wiki/ML-KEM), [2](https://www.mdpi.com/2073-8994/18/3/426), [3](https://csrc.nist.gov/pubs/fips/203/final), [4](https://github.com/0xskaper/crystal-kyber)
-
-### ❔ Claim 2: The `pqc_kyber` crate version 0.7.0 provides an implementation of NIST Round 3 Kyber.
-- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
-- **Analysis:** No relevant web search results could be retrieved to verify this claim.
-
-### ❔ Claim 3: Kyber-768 provides a security level equivalent to AES-192.
-- **Status:** `UNVERIFIED` | **Confidence:** `LOW`
-- **Analysis:** No relevant web search results could be retrieved to verify this claim.
----
-
-audited
----

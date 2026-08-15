@@ -20,7 +20,7 @@ updated: 2026-08-01
 status: complete
 cssclasses:
   - wide-table
-  - callout
+  
 ---
 
 > [!abstract] Crawl & Ambil Data Publik — Operational Guide

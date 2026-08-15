@@ -14,7 +14,7 @@ created: '2026-07-19'
 updated: 2026-08-14
 status: complete
 cssclasses:
-- callout
+
 references:
 - 00_Atlas/hierarchy-classical-ml-algorithms.md
 - 00_Atlas/hierarchy-search.md
