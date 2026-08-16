@@ -46,23 +46,23 @@ Setelah sempat tidak terpelihara pada 2019–2020, proyek Empire diambil alih ol
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                    Empire Client (CLI atau Starkiller GUI)     │
+│                  Empire Client (CLI atau Starkiller GUI)     │
 │  - powershell-empire CLI (Python)                            │
 │  - Starkiller (React web GUI)                                │
 └───────────────────────────┬──────────────────────────────────┘
                             │ (REST API over HTTPS)
                             ▼
 ┌──────────────────────────────────────────────────────────────┐
-│                    Empire Server (Python 3.x)                 │
+│                    Empire Server (Python 3.x)                │
 │  - Mendengarkan di port 1337 (API) dan listener C2           │
-│  - Database agent (SQLite)                                    │
+│  - Database agent (SQLite)                                   │
 │  - Modul staging & payload generation                        │
 │  - Logging aktivitas operator                                │
 └───────────────────────────┬──────────────────────────────────┘
                             │ (HTTP/S, DNS, SMB, TCP)
                             ▼
 ┌──────────────────────────────────────────────────────────────┐
-│                    Agent (PowerShell / C# / Python)           │
+│                    Agent (PowerShell / C# / Python)          │
 │  - Berjalan sepenuhnya di memori (reflective loading)        │
 │  - Loop check-in via HTTP GET/POST ke server                 │
 │  - Eksekusi PowerShell scriptblock dari C2                   │
