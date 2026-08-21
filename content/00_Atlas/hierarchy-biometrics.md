@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Biometrics
+title: "Biometrics Hierarchy"
 tags:
   - atlas
   - biometrics

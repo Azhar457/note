@@ -1,5 +1,5 @@
 ---
-title: 🗄️ Memory & Storage Hierarchy — Dari Register ke Cold Archive
+title: "Memory and Storage Hierarchy"
 tags:
 - hierarchy
 - cross-cutting

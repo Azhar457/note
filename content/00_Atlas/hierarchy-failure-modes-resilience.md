@@ -1,5 +1,5 @@
 ---
-title: ⚡ Failure Modes & Resilience — Dari Bit Flip ke Bencana Sistemik
+title: "Failure Modes and Resilience Hierarchy"
 tags:
 - hierarchy
 - cross-cutting

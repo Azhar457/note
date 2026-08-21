@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Endpoint Security
+title: "Endpoint Security Hierarchy"
 tags:
 - atlas
 - endpoint-security

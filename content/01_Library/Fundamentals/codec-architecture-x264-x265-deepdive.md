@@ -1,5 +1,5 @@
 ---
-title: 🎞️ Codec Architecture — x264, x265, dan Teknik Kompresi Video Modern
+title: "Codec Architecture x264 and x265 Deep Dive"
 tags:
 - digital-plumbing
 - x264

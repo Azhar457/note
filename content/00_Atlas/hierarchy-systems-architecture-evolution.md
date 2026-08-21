@@ -1,5 +1,5 @@
 ---
-title: 🏗️ Systems Architecture Evolution — Dari Mainframe ke AI-Orchestrated Fabric
+title: "Systems Architecture Evolution Hierarchy"
 tags:
 - hierarchy
 - systems-architecture

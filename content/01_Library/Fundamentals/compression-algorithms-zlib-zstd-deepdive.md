@@ -1,5 +1,5 @@
 ---
-title: 🗜️ Compression Algorithms — Dari Deflate hingga Zstandard
+title: "Compression Algorithms Zlib and Zstandard Deep Dive"
 tags:
 - digital-plumbing
 - compression

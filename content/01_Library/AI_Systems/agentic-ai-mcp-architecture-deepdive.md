@@ -1,5 +1,5 @@
 ---
-title: 🤖 AGENTIC AI & MCP — Arsitektur Otonomi Kognitif
+title: "Agentic AI and MCP Architecture Deep Dive"
 tags:
 - agentic-ai
 - mcp

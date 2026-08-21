@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy CTF & Cyber Competition Framework"
+title: "CTF and Cyber Competition Framework"
 tags:
   - atlas
   - ctf

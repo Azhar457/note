@@ -1,5 +1,5 @@
 ---
-title: 🔄 Concurrency & Consensus Hierarchy — Dari Thread ke Distributed Agreement
+title: "Concurrency and Consensus Hierarchy"
 tags:
 - hierarchy
 - cross-cutting

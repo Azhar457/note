@@ -1,5 +1,5 @@
 ---
-title: 'Regenerate: jalanin script audit hierarchy → deepdive'
+title: "Hierarchy Crosswalk"
 tags:
 - atlas
 - hierarchy

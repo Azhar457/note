@@ -1,5 +1,5 @@
 ---
-title: ⚡ TEST-TIME COMPUTE / SYSTEM 2 — The Architecture of Deliberate Reasoning
+title: "Test-Time Compute and System 2 Reasoning"
 tags:
 - test-time-compute
 - system-2

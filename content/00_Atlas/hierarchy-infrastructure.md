@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Infrastructure
+title: "Infrastructure Hierarchy"
 tags: [atlas, infrastructure]
 aliases: [hierarchy-infrastructure]
 ---

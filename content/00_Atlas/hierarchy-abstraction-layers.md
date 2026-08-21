@@ -1,5 +1,5 @@
 ---
-title: 🧅 Abstraction Layers — Hierarki Tingkat Abstraksi dari Bit ke Maksud
+title: "Abstraction Layers Hierarchy"
 tags:
 - hierarchy
 - cross-cutting

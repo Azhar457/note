@@ -1,5 +1,5 @@
 ---
-title: 🪪 Identity & Trust Hierarchy — Dari Anonim ke Self-Sovereign
+title: "Identity and Trust Hierarchy"
 tags:
 - hierarchy
 - cross-cutting

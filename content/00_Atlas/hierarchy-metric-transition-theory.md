@@ -1,5 +1,5 @@
 ---
-title: 'Teori Transisi Metrik: Bagaimana Kuantisasi Mengubah Geometri Similarity'
+title: "Metric Transition Theory Hierarchy"
 tags:
 - hierarchy
 - machine-learning

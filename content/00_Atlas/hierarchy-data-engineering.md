@@ -1,5 +1,5 @@
 ---
-title: 📊 Data Engineering — Dari Ingestion ke Data Product
+title: "Data Engineering Hierarchy"
 tags:
 - hierarchy
 - data

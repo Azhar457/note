@@ -1,5 +1,5 @@
 ---
-title: 🤖 LLM AI Systems Hierarchy — The Complete Production Stack
+title: "LLM and AI Systems Hierarchy"
 tags:
 - hierarchy
 - ai-systems

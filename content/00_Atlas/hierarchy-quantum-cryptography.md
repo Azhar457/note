@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Quantum Cryptography"
+title: "Quantum Cryptography Hierarchy"
 tags:
   - atlas
   - quantum

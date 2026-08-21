@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Wireless — Hierarki Spektrum Nirkabel dari WiFi hingga Tactical SDR
+title: "Wireless Spectrum Hierarchy"
 tags:
   - atlas
   - wireless

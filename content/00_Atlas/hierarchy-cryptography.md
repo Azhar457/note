@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Cryptography
+title: "Cryptography Hierarchy"
 tags:
 - atlas
 - cryptography

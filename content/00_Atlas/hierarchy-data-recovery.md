@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Data Recovery
+title: "Data Recovery Hierarchy"
 tags:
 - atlas
 - data-forensics

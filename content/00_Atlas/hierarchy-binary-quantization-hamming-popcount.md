@@ -1,5 +1,5 @@
 ---
-title: 'Binary Quantization & Hamming Distance: The 1-bit Frontier of Vector Search'
+title: "Binary Quantization and Hamming Distance Hierarchy"
 tags:
 - machine-learning
 - vector-search

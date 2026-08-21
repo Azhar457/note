@@ -1,5 +1,5 @@
 ---
-title: Hierarchy WAF & Reverse Proxy
+title: "WAF and Reverse Proxy Hierarchy"
 tags:
   - atlas
   - waf

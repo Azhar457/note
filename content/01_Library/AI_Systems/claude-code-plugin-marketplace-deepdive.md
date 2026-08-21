@@ -1,5 +1,5 @@
 ---
-title: '🔗 Claude Code Plugin Marketplace — Distribusi Modular Skill untuk Coding Agent:
+title: "Claude Code Plugin Marketplace Deep Dive"
   dari Ad-hoc ke Structured Distribution'
 tags:
 - claude-code

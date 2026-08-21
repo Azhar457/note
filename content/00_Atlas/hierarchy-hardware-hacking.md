@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Hardware Hacking"
+title: "Hardware Hacking Hierarchy"
 tags:
   - atlas
   - hardware

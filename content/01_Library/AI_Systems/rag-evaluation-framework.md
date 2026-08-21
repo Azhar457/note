@@ -1,5 +1,5 @@
 ---
-title: 📊 RAG Evaluation Framework — RAGAS, DeepEval, dan Metrik Retrieval & Generation
+title: "RAG Evaluation Framework"
 tags:
 - rag-evaluation
 - ragas

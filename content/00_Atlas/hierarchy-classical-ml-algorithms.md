@@ -1,5 +1,5 @@
 ---
-title: MACHINE LEARNING CLASSICAL — Hierarchy of Algorithms
+title: "Classical Machine Learning Algorithms Hierarchy"
 tags:
 - machine-learning
 - classical-ml

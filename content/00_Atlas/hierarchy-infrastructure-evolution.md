@@ -1,5 +1,5 @@
 ---
-title: 🏭 Infrastructure Evolution — Dari Mainframe ke AI-Native Edge Cloud
+title: "Infrastructure Evolution Hierarchy"
 tags:
 - hierarchy
 - infrastructure

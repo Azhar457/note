@@ -1,5 +1,5 @@
 ---
-title: 🛠️ Master Interactive Tool Arsenal
+title: "Master Interactive Tool Arsenal"
 tags:
 - resources
 created: '2026-04-30'

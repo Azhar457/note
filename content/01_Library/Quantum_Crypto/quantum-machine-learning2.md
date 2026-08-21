@@ -1,5 +1,5 @@
 ---
-title: ⚛️ QUANTUM MACHINE LEARNING — Arsitektur Kognitif di Persimpangan Realitas
+title: "Quantum Machine Learning Architecture"
 tags:
 - quantum-computing
 - qml

@@ -1,5 +1,5 @@
 ---
-title: 🎬 FFmpeg Multimedia Framework — Arsitektur & Pipeline Transcoding
+title: "FFmpeg Multimedia Framework Architecture"
 tags:
 - digital-plumbing
 - ffmpeg

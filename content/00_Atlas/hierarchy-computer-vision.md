@@ -1,5 +1,5 @@
 ---
-title: 👁️ Computer Vision — Dari Pixels ke Scene Understanding
+title: "Computer Vision Hierarchy"
 tags:
 - hierarchy
 - computer-vision

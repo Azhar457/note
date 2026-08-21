@@ -1,5 +1,5 @@
 ---
-title: 🧱 Software Engineering Hierarchy — Paradigma, Pola, dan Tahapan dari Kode ke Produksi
+title: "Software Engineering Paradigm Hierarchy"
 tags:
 - hierarchy
 - software-engineering

@@ -1,32 +1,36 @@
 ---
 title: Infrastructure
 tags:
-- vault
-- note
+  - vault
+  - note
 created: 2026-08-14
-updated: 2026-08-14
+updated: 2026-08-21
 status: pending
 cssclasses:
   - wide-table
-  
 ---
 
 # Infrastructure
 
-> Infrastruktur jaringan dan server: DNS, BGP, Linux hardening, cloud security, dan administrasi sistem.
+> Infrastruktur jaringan dan server: DNS, BGP, Linux hardening, cloud security, benchmarking performa, dan administrasi sistem.
 
 [Kembali ke 01 Library](../_index.md)
 
-> **Total:** 7 files | 0 subfolders
+> **Total:** 12 files | 0 subfolders
 
 ## 📄 Notes
+- [[cloud-native-security-aws-gcp-azure-deepdive]]
 - [[cloud-security-posture-management]]
 - [[dns-fundamentals-bind9]]
-- [[Note/01_Library/Infrastructure/hierarchy-infrastructure-evolution]] — 8-layer infra evolution — bare-metal ke AI-orchestrated, dengan multi-cloud pattern dan AIOps
+- [[dns-performance-benchmarking-deepdive]]
+- [[hierarchy-infrastructure-evolution]]
+- [[homelab-security-architecture-synthesis]]
 - [[infrastructure-administrator]]
-- [[linux-hardening-cis]]
 - [[networking-fundamentals-tcpip-bgp]]
 - [[offline-internet-indonesia]]
+- [[satellite-internet-leo-constellation-deepdive]]
+- [[wireguard-vpn-architecture-deepdive]]
+- [[zero-trust-networking-homelab-edge]]
 
 audited
 ---

@@ -1,5 +1,5 @@
 ---
-title: 📡 Wireless Security Deep Dive — 802.11 / Bluetooth / Zigbee
+title: "Wireless Security Deep Dive"
 tags:
 - library
 - wireless-security

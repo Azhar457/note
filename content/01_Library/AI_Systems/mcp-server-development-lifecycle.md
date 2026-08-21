@@ -1,5 +1,5 @@
 ---
-title: '🔄 MCP Server Development Lifecycle (MCP-SDLC) — Deep Dive: Dari Ide sampai Production'
+title: "MCP Server Development Lifecycle Deep Dive"
 tags:
 - mcp
 - model-context-protocol

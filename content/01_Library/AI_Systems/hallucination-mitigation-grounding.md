@@ -1,5 +1,5 @@
 ---
-title: 🛡️ Hallucination Mitigation & Grounding — CRAG, Self-RAG, dan Verifikasi Faktual
+title: "Hallucination Mitigation and Grounding"
 tags:
 - hallucination
 - rag

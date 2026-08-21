@@ -1,5 +1,5 @@
 ---
-title: '🧩 15 DSA Patterns — Deep Dive: Mastering Algorithmic Problem Solving'
+title: "15 DSA Patterns Deep Dive"
 tags:
 - dsa
 - algorithms

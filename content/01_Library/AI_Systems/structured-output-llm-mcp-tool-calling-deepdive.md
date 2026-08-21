@@ -1,5 +1,5 @@
 ---
-title: "🔌 Structured Output from LLMs — JSON Mode, Function Calling & MCP Tool Contracts: Schema-Constrained Decoding untuk Agent Communication yang Reliable"
+title: "Structured Output and MCP Tool Contracts"
 tags:
   - structured-output
   - json-mode

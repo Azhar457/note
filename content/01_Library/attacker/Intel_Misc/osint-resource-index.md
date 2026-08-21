@@ -1,5 +1,5 @@
 ---
-title: 🌐 Sumber Daya Militer, Intelijen & Riset Pertahanan Global
+title: "Global Military Intelligence and Defense Resources"
 tags:
 - osint
 - intelligence

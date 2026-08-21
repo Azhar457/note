@@ -1,5 +1,5 @@
 ---
-title: It Domain Hierarchy
+title: "IT Domain Hierarchy"
 tags:
   - atlas
 created: 2026-07-01

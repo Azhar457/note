@@ -1,5 +1,5 @@
 ---
-title: 🔄 Query Transformation — Multi-Query, HyDE, Step-Back, dan RAG-Fusion
+title: "Query Transformation for RAG"
 tags:
 - query-transformation
 - rag

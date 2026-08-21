@@ -1,5 +1,5 @@
 ---
-title: 🌐 Computer Networks — Dari Physical Layer ke Application
+title: "Computer Networks Hierarchy"
 tags:
 - hierarchy
 - computer-networks

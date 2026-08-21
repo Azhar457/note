@@ -1,5 +1,5 @@
 ---
-title: 🗄️ Vector Database Internals & Optimization — HNSW, IVF, PQ, dan Performa Search
+title: "Vector Database Internals and Optimization"
   di vault-rag
 tags:
 - vector-database

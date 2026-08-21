@@ -1,5 +1,5 @@
 ---
-title: 📊 AI GOVERNANCE & ETHICS — The Architecture of Responsibility
+title: "AI Governance and Ethics"
 tags:
 - ai-governance
 - ethics

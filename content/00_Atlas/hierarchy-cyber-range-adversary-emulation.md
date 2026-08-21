@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Cyber Range & Adversary Emulation"
+title: "Cyber Range and Adversary Emulation Hierarchy"
 tags:
   - atlas
   - cyber-range

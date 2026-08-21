@@ -1,5 +1,5 @@
 ---
-title: "🌀 The Recursive Ring Hierarchy: A Unified Framework for Computational Depth Across All Technology Domains"
+title: "The Recursive Ring Hierarchy"
 tags:
   - recursive-ring-hierarchy
   - computational-depth

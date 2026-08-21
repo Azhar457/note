@@ -1,5 +1,5 @@
 ---
-title: 🏗️ SYSTEM DESIGN — Database Internals & Software Architecture
+title: "System Design: Database Internals and Architecture"
 tags:
   - ai-systems
   - library

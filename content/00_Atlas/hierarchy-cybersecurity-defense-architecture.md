@@ -1,5 +1,5 @@
 ---
-title: Cybersecurity Defense Architecture — Multi-Layer Defense Architecture (9 Layer Framework)
+title: "Cybersecurity Defense Architecture Hierarchy"
 tags: [defense-in-depth, nist-csf-2.0, blue-team, security-architecture, defense-architecture, layer-defense]
 aliases: [hierarchy-cybersecurity-defense-architecture, defense-in-depth-map, blue-team-layer-architecture]
 created: 2026-08-14

@@ -1,5 +1,5 @@
 ---
-title: 🌌 Quantum Cryptography Stack — Dari Klasik ke Post-Quantum sampai Quantum-Native
+title: "Quantum Cryptography Stack Hierarchy"
 tags:
 - hierarchy
 - cryptography

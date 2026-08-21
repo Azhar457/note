@@ -1,5 +1,5 @@
 ---
-title: 🔬 Quantum Computing & Cryptography — Deep Dive
+title: "Quantum Computing and Cryptography Deep Dive"
 tags:
 - library
 - quantum-crypto

@@ -1,5 +1,5 @@
 ---
-title: "📄 Document Parsing for RAG — The Art of Extracting Clean Text: Dari PDF, HTML, Word ke Teks Bersih"
+title: "Document Parsing for RAG Deep Dive"
 tags:
   - document-parsing
   - rag

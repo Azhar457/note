@@ -1,5 +1,5 @@
 ---
-title: 🤖 AI COMMUNICATION PROTOCOL HIERARCHY
+title: "AI Communication Protocol Hierarchy"
 tags:
 - AI
 - agent

@@ -1,5 +1,5 @@
 ---
-title: 🚀 DevOps & CI/CD — Dari Developer ke Production
+title: "DevOps and CI/CD Pipeline Hierarchy"
 tags:
 - hierarchy
 - devops

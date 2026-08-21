@@ -1,5 +1,5 @@
 ---
-title: 🏗️ Foundations of Digital Plumbing — Image Codec, Parsing, Crypto, Aritmatika Biner
+title: "Digital Plumbing Foundations Deep Dive"
 tags:
 - digital-plumbing
 - image-codec

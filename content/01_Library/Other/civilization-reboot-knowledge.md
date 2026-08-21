@@ -1,5 +1,5 @@
 ---
-title: 🏛️ Pengetahuan Kebangkitan Peradaban — Panduan Restart dari Nol
+title: "Civilization Reboot Knowledge Guide"
 tags:
 - reboot
 - civilization

@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Operating Systems
+title: "Operating Systems Hierarchy"
 tags:
 - atlas
 created: '2026-04-26'

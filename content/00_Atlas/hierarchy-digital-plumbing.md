@@ -1,5 +1,5 @@
 ---
-title: 🔧 Digital Plumbing Hierarchy — Fondasi Pipa Digital yang Terlupakan
+title: "Digital Plumbing Hierarchy"
 tags:
 - digital-plumbing
 - ffmpeg

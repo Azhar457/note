@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Offensive
+title: "Offensive Security Hierarchy"
 tags:
 - atlas
 created: '2026-04-30'

@@ -1,5 +1,5 @@
 ---
-title: 🧊 Compiler Design — Dari Source Code ke Machine Code
+title: "Compiler Design Hierarchy"
 tags:
 - hierarchy
 - compiler

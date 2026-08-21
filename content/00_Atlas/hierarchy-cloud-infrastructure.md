@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Cloud Infrastructure"
+title: "Cloud Infrastructure Hierarchy"
 tags:
   - atlas
   - cloud

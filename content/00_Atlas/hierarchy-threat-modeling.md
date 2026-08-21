@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Threat Modeling
+title: "Threat Modeling Hierarchy"
 tags:
   - atlas
   - threat-modeling

@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Embedded Systems"
+title: "Embedded Systems Hierarchy"
 tags:
   - atlas
   - embedded

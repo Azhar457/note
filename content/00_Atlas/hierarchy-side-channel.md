@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Side-Channel Attacks"
+title: "Side-Channel Attacks Hierarchy"
 tags:
   - atlas
   - side-channel

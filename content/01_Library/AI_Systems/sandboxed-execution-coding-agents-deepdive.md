@@ -1,5 +1,5 @@
 ---
-title: '🛡️ Sandboxed Execution for Coding Agents — Isolasi untuk Kode Generated AI:
+title: "Sandboxed Execution for Coding Agents"
   dari namespaces sampai microVM'
 tags:
 - sandboxed-execution

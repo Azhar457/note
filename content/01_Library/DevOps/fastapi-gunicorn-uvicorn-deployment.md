@@ -1,5 +1,5 @@
 ---
-title: ❌ SALAH — app code
+title: "FastAPI Gunicorn and Uvicorn Deployment"
 tags:
 - fastapi
 - gunicorn

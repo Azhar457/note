@@ -1,5 +1,5 @@
 ---
-title: 📡 SDR Cell Tower Reconnaissance & Stingray Detection
+title: "SDR Cell Tower Reconnaissance and Stingray Detection"
 tags:
 - signal-intelligence
 - sdr

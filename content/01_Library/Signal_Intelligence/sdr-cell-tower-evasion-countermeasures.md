@@ -1,5 +1,5 @@
 ---
-title: 🛡️ SDR Cell Tower Detection Evasion — Counter-Reconnaissance
+title: "SDR Cell Tower Detection Evasion"
 tags:
 - signal-intelligence
 - sdr

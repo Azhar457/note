@@ -1,5 +1,5 @@
 ---
-title: '🛡️ Threat Modeling — Deep Dive: Metodologi dan Praktik Identifikasi Ancaman
+title: "Threat Modeling Deep Dive"
   Sistem'
 tags:
 - cyber-security

@@ -1,5 +1,5 @@
 ---
-title: '📄 Docling Deep Dive — Unified Document Parser untuk RAG: dari PDF, DOCX, PPTX,
+title: "Docling Document Parser Deep Dive"
   HTML ke Markdown/JSON Bersih dalam Satu API'
 tags:
 - docling

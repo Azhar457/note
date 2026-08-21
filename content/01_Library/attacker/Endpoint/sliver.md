@@ -50,31 +50,31 @@ Sliver menggunakan arsitektur client-server berbasis **gRPC** (bukan REST atau T
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│               Sliver Client (CLI)                             │
+│               Sliver Client (CLI)                            │
 │  - sliver-client (Go binary, cross-platform)                 │
-│  - Koneksi ke server via gRPC over TLS (port 31337 default)   │
-│  - Operator authentication: certificate-based (mTLS)          │
-│  - Scripting: JavaScript/Python via sliver-script             │
+│  - Koneksi ke server via gRPC over TLS (port 31337 default)  │
+│  - Operator authentication: certificate-based (mTLS)         │
+│  - Scripting: JavaScript/Python via sliver-script            │
 └───────────────────────────┬──────────────────────────────────┘
                             │ (gRPC over mTLS)
                             ▼
 ┌──────────────────────────────────────────────────────────────┐
-│               Sliver Server (Go)                              │
-│  - Mendengarkan koneksi operator (gRPC) dan implant (C2)      │
-│  - Database implant & operator (SQLite)                       │
-│  - Generasi implant otomatis (compile-time)                   │
-│  - Multi-operator dengan role-based access control            │
-│  - Modul ekstensi (armory) untuk menambah kemampuan            │
+│               Sliver Server (Go)                             │
+│  - Mendengarkan koneksi operator (gRPC) dan implant (C2)     │
+│  - Database implant & operator (SQLite)                      │
+│  - Generasi implant otomatis (compile-time)                  │
+│  - Multi-operator dengan role-based access control           │
+│  - Modul ekstensi (armory) untuk menambah kemampuan          │
 └───────────────────────────┬──────────────────────────────────┘
                             │ (HTTP/S, DNS, MTLS, WireGuard, TCP)
                             ▼
 ┌──────────────────────────────────────────────────────────────┐
-│               Implant (Go binary)                             │
-│  - Windows, Linux, macOS native                               │
-│  - Statically compiled (tidak butuh runtime)                  │
-│  - Mendukung: session, beacon, pivot, shellcode               │
-│  - Komunikasi terenkripsi (AES-256 / XChaCha20)                │
-│  - Fitur: shell, execute, upload/download, portfwd, pivoting  │
+│               Implant (Go binary)                            │
+│  - Windows, Linux, macOS native                              │
+│  - Statically compiled (tidak butuh runtime)                 │
+│  - Mendukung: session, beacon, pivot, shellcode              │
+│  - Komunikasi terenkripsi (AES-256 / XChaCha20)              │
+│  - Fitur: shell, execute, upload/download, portfwd, pivoting │
 └──────────────────────────────────────────────────────────────┘
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Osint Rf
+title: "OSINT and RF Hierarchy"
 tags:
 - atlas
 created: '2026-04-23'

@@ -1,5 +1,5 @@
 ---
-title: '🔀 Hybrid Search — Vector + Keyword Fusion: RRF, Weighted, Dense→Sparse di
+title: "Hybrid Search Vector and Keyword Fusion"
   vault-rag'
 tags:
 - hybrid-search

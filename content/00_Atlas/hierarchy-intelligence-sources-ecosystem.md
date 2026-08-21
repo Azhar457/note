@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Intelligence Sources Ecosystem
+title: "Intelligence Sources Ecosystem Hierarchy"
 tags:
   - atlas
   - intelligence

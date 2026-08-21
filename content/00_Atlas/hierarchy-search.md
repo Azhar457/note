@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Search — 11 Level Information Access
+title: "Information Access and Search Hierarchy"
 tags:
   - atlas
   - osint

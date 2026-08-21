@@ -1,5 +1,5 @@
 ---
-title: '🤖 Coding Agent Harness — Feedforward & Feedback Controls: Agent Skills sebagai
+title: "Coding Agent Harness and Feedback Controls"
   Modular Instruction & Deterministic Quality Gates untuk Self-Correction'
 tags:
 - agent-skills

@@ -1,5 +1,5 @@
 ---
-title: Database and Storage Systems Hierarchy — From Flat Files to Distributed Lakehouses
+title: "Database and Storage Systems Hierarchy"
 tags:
   - database
   - storage-systems

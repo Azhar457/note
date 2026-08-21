@@ -1,5 +1,5 @@
 ---
-title: '🧩 Advanced Chunking Strategies — Dari Fixed-Size ke Parent-Child: Arsitektur
+title: "Advanced Chunking Strategies Deep Dive"
   Representasi Data untuk RAG Production-Grade'
 tags:
 - chunking

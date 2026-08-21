@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Supply Chain Security"
+title: "Supply Chain Security Hierarchy"
 tags:
   - atlas
   - supply-chain

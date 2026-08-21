@@ -1,5 +1,5 @@
 ---
-title: '👁️ ISP Surveillance & Digital Privacy — Deep Dive: Bagaimana ISP Memantau Anda dan Cara Melindungi Diri'
+title: "ISP Surveillance and Digital Privacy Deep Dive"
 tags:
 - isp
 - privacy

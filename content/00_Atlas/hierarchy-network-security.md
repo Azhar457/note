@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Network Security
+title: "Network Security Hierarchy"
 tags:
 - atlas
 - network-security

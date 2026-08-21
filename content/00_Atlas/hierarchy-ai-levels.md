@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Ai Levels
+title: "AI Levels Hierarchy"
 tags:
   - atlas
 created: 2026-04-23

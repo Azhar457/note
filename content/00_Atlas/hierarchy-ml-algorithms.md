@@ -1,5 +1,5 @@
 ---
-title: Hierarchy ML Algorithms
+title: "Machine Learning Algorithms Hierarchy"
 tags: [atlas, ml, algorithms]
 aliases: [hierarchy-ml-algorithms]
 ---

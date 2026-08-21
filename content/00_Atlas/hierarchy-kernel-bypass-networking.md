@@ -1,5 +1,5 @@
 ---
-title: 'Kernel Bypass Networking: From DPDK to eBPF Vector Cache'
+title: "Kernel Bypass Networking Hierarchy"
 tags:
 - networking
 - kernel-bypass

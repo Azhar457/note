@@ -1,5 +1,5 @@
 ---
-title: Hierarchy Programming Language
+title: "Programming Languages Hierarchy"
 tags:
 - atlas
 created: '2026-05-29'

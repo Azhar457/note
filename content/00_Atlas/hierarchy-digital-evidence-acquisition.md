@@ -1,5 +1,5 @@
 ---
-title: "Hierarchy Digital Evidence & Forensic Acquisition"
+title: "Digital Evidence and Forensic Acquisition Hierarchy"
 tags:
   - atlas
   - digital-forensic

@@ -1,5 +1,5 @@
 ---
-title: ⚛️ Quantum Computing — Dari Prinsip ke Praktik
+title: "Quantum Computing Deep Dive"
 tags:
 - quantum
 - qubit

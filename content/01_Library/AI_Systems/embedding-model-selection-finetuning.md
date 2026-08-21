@@ -1,5 +1,5 @@
 ---
-title: 🧠 Embedding Model Selection & Fine-Tuning — Dari text-embedding-3-small ke
+title: "Embedding Model Selection and Fine-Tuning"
   Model Domain-Spesifik
 tags:
 - embedding
